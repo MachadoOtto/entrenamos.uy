@@ -31,32 +31,13 @@ public class Usuario {
         this.setFecha(fecha);
     }
     
-    public String getNickname() {
-    	return nickname;
+    public Usuario(DtUsuario datos) {
+    	this.setNickname(datos.getNickname());
+    	this.setNombre(datos.getNombre());
+        this.setApellido(datos.getApellido());
+        this.setCorreo(datos.getCorreo());
+        this.setFecha(datos.getFecha());
     }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-    
-    public DtFecha getFecha() {
-    	return fechaNacimiento;
-    }
-
-    /* Sirve para mostrar textualmente la información del usuario, por ejemplo en un ComboBox
-     
-    public String toString() {
-        return getCedulaIdentidad() + " (" + getNombre() + " " + getApellido() + ")";
-    }
-    */
     
     private void setNickname(String nick) {
     	this.nickname = nick;
@@ -78,8 +59,24 @@ public class Usuario {
     	this.fechaNacimiento = fecha;
     }
     
-    public DtUsuario getDtExt() {
-    	
+    public String getNickname() {
+    	return nickname;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+    
+    public DtFecha getFecha() {
+    	return fechaNacimiento;
     }
 
     public void editarDatos(DtUsuario datos) {

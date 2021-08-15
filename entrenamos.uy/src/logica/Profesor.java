@@ -1,5 +1,10 @@
 package logica;
 
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+
 /* Taller de Programacion - INCO/FING/UDELAR
  * Integrantes:
  *      Alexis Baladon (5.574.612-4) - alexis.baladon@fing.edu.uy
@@ -10,13 +15,20 @@ package logica;
  */
 
 public class Profesor extends Usuario {
+	
 	private String descripcion, biografia, website;
+	
+	private Institucion instituto;
+	
+	private Map<String, Clase> misClases;
 	
 	public Profesor() {
 		super();
 		this.setDescripcion(new String());
 		this.setBiografia(new String());
 		this.setWebsite(new String());
+		instituto = null;
+		misClases = new HashMap<>();
 	}
 	
 	public Profesor(String nick, String nombre, String apellido, String mail, DtFecha fecha, String descripcion, 
@@ -25,6 +37,17 @@ public class Profesor extends Usuario {
 		this.setDescripcion(descripcion);
 		this.setBiografia(biografia);
 		this.setWebsite(website);
+		instituto = null;
+		misClases = new HashMap<>();
+	}
+	
+	public Profesor(DtProfesor datos) {
+		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getCorreo(), datos.getFecha());
+		this.setDescripcion(datos.getDescripcion());
+		this.setBiografia(datos.setBiografia());
+		this.setWebsite(datos.getWebsite());
+		instituto = null;
+		misClases = new HashMap<>();
 	}
 	
 	private void setDescripcion(String desc) {
@@ -39,6 +62,20 @@ public class Profesor extends Usuario {
 		this.website = web;
 	}
 	
+	public void setInstitucion(Institucion insti) {
+		this.instituto = insti;
+	}
+	
+	// Devuelve true si la Clase 'cl' se añade con exito al conjunto de Clases asociadas al Profesor.
+	public boolean addClase(Clase cl) {
+		if (misClases.containsKey(cl.getNombre())) {
+			return false;
+		} else {
+			misClases.put(cl.getNombre(), cl);
+			return true;
+		}
+	}
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -50,4 +87,25 @@ public class Profesor extends Usuario {
 	public String getWebsite() {
 		return website;
 	}
+	
+	public Institucion getInstitucion() {
+		return instituto;
+	}
+	
+	public Map<String, Clase> getClasesDictadas() {
+		return misClases;
+	}
+	
+	public DtProfesor getDt() {
+		DtProfesor datos = new DtProfesor(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), 
+				this.getFecha(), this.getDescripcion(), this.getBiografia(), this.getWebsite());
+		return datos;
+	}
+	
+    public DtProfesorExt getDtExt() {
+    	DtProfesor datos = this.getDt();
+    	Set<String> clasesDictadas = misClases.keySet();
+    	Set<String> actDeportivas = instituto.getMiTrabajo(this);
+    	DtProfesorExt datosExt = new DtProfesorExt(datos, clasesDictadas, actDeportivas);
+    }
 }
