@@ -29,7 +29,7 @@ public class HandlerUsuario {
 		correos = new HashSet<>();
 	}
 	
-	public HandlerUsuario getInstance() {
+	public static HandlerUsuario getInstance() {
 		if (instancia == null) {
 			instancia = new HandlerUsuario(); 
 		}
@@ -39,7 +39,7 @@ public class HandlerUsuario {
 	/* Retorna true si la accion de añadir el Usuario se realiza de forma exitosa, false en otro caso (ya existe un usuario
 		con ese nickname o correo.*/
 	public boolean addUser(Usuario user) {
-		if (usuarios.containsKey(user.getNickname()) || correos.contains(user.getCorreo())) {
+		if (existeNick(user.getNickname()) || existeCorreo(user.getCorreo())) {
 			return false;
 		} else {
 			usuarios.put(user.getNickname(), user);
@@ -50,6 +50,14 @@ public class HandlerUsuario {
 	
 	public Usuario findUsuario(String userNick) {
 		return usuarios.get(userNick);
+	}
+	
+	public boolean existeNick(String userNick) {
+		return usuarios.containsKey(userNick);
+	}
+	
+	public boolean existeCorreo(String userCorreo) {
+		return correos.contains(userCorreo);
 	}
 	
 	public Set<String> getNicknameUsuarios() {
