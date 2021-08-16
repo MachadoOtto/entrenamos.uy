@@ -2,7 +2,6 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Cuponera {
 	private String nombre;
 	private String descripcion;
@@ -19,14 +18,14 @@ public class Cuponera {
 		this.descuento = descuento;
 		this.fechaInicio = new DtFecha(fechaInicio);
 		this.fechaFin = new DtFecha(fechaFin);
+		this.cp = new ArrayList<>();
+		this.rc = new ArrayList<>();
 	}
 	
 	public String getNombre() {
-		String d = nombre;
 		return d;
 	}
 	public String getDescripcion() {
-		String d = descripcion;
 		return d;
 	}
 	public DtFecha getFechaInicio() {
@@ -49,7 +48,29 @@ public class Cuponera {
 		return nomnom;
 	}
 	public void addActDep(ActividadDeportiva act, int num) {
-		//...
+		claCup = new ClasesCuponera(num,this,act);
+		cp.add(claCup);
 	}
-	
+	public int cantidadClases(ActividadDeportiva actDep) {
+		for(ClasesCuponera cc: cp) {
+			if(cc.getNombreActDep() == actDep.getNombre())
+				return cc.getCantidadClases();
+		}
+	}
+	public boolean tieneActividadDeportiva(ActividadDeportiva n) {
+		for(ClasesCuponera cc: cp) {
+			if(cc.getNombreActDep() == actDep.getNombre())
+				return true;
+		}
+		return false;
+	}
+	public DtCuponera getDt() {
+		List<String> actividadesNombre = new ArrayList<>();
+		List<Integer> actividadesCantidad = new ArrayList<>();
+		for(ClasesCuponera cc: cp) {
+			actividadesNombre.add(cc.getNombreActDep());
+			actividadesCantidad.add(cc.getCantidadClases());
+		}
+		return DtCuponera(nombre,descripcion,this.getFechaInicio(),this.getFechaFin(),descuento,actividadesNombre,actividadesCantidad);		
+	}
 }
