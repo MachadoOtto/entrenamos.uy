@@ -107,5 +107,13 @@ public class Profesor extends Usuario {
     	Set<String> clasesDictadas = misClases.keySet();
     	Set<String> actDeportivas = instituto.getMiTrabajo(this);
     	DtProfesorExt datosExt = new DtProfesorExt(datos, clasesDictadas, actDeportivas);
+    	return datosExt;
+    }
+    
+    public void editarDatos(DtProfesor datos) {
+    	super.editarDatos(datos);
+    	this.setDescripcion(datos.getDescripcion());
+    	this.setBiografia(datos.getBiografia());
+    	this.setWebsite(datos.getWebsite());
     }
 }
