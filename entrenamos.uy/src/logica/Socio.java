@@ -1,11 +1,3 @@
-package logica;
-
-import java.util.List;
-import java.util.Set;
-import java.util.LinkedList;
-import java.util.HashSet;
-import java.util.Iterator;
-
 /* Taller de Programacion - INCO/FING/UDELAR
  * Integrantes:
  *      Alexis Baladon (5.574.612-4) - alexis.baladon@fing.edu.uy
@@ -15,9 +7,16 @@ import java.util.Iterator;
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
  */
 
+package logica;
+
+import java.util.List;
+import java.util.Set;
+import java.util.LinkedList;
+import java.util.HashSet;
+import java.util.Iterator;
+
 public class Socio extends Usuario {
-	
-	private List<ReciboCuponera> reciboCuponeras;
+private List<ReciboCuponera> reciboCuponeras;
 	
 	private List<ReciboClase> reciboClases;
 	
@@ -37,6 +36,10 @@ public class Socio extends Usuario {
 		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getCorreo(), datos.getFecha());
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
+	}
+	
+	public boolean esSocio() {
+		return true;
 	}
 	
 	public void addReciboCuponera(ReciboCuponera rCup) {
