@@ -1,6 +1,7 @@
 package Logica;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Cuponera {
@@ -11,7 +12,7 @@ public class Cuponera {
 	String descripcion;
 	DtFecha fechaInicio;
 	DtFecha fechaFin;
-	int descuento;
+	float descuento;
 	
 	List<ClasesCuponera> clasesCuponeras;
 	List<ReciboCuponera> reciboCuponeras;
@@ -19,7 +20,7 @@ public class Cuponera {
 	//Operaciones esenciales
 	
 	public Cuponera(String nombre, String descripcion, DtFecha fechaInicio, 
-			DtFecha fechaFin, int descuento)
+			DtFecha fechaFin, float descuento)
 	{
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -73,34 +74,43 @@ public class Cuponera {
 	public Set<String> getNombresActDep()
 	{
 		Set<String> res = new HashSet<>();
+		Iterator<ClasesCuponera> it = clasesCuponeras.iterator();
+		while(it.hasNext())
+		{
+			it = it.next();
+			ClasesCuponera cc = it.getClass();
+			res.add(cc.getNombreActDep());
+		}
 		return res;
 	}
 	
 	//TERMINAR
-	public int addActDep(ActividadDeportiva ad, int num)
+	public void addActDep(ActividadDeportiva ad, int cantidadClases)
 	{
-		int res = 0;
-		return res;
+		ClasesCuponera cp = new ClasesCuponera(ad,cantidadClases);
+		clasesCuponeras.add(cp);
 	}
 	
 	//TERMINAR
 	public int cantidadClases(String nombreActividadDeportiva)
 	{
 		int res = 0;
-		return res;
-	}
-	
-	//TERMINAR
-	public boolean tieneActividadDeportiva(String nombre)
-	{
-		int res = 0;
+		Iterator<ClasesCuponera> it = clasesCuponeras.iterator();
+		while(it.hasNext())
+		{
+			it = it.next();
+			ClasesCuponera cc = it.getClass();
+			res += cc.tieneActDep(nombreActividadDeportiva);
+		}
 		return res;
 	}
 	
 	//TERMINAR
 	public DtCuponera getDt()
 	{
-		DtCuponera res = new DtCuponera();
+		//Falta un atributo raro...
+		DtCuponera res = new DtCuponera(nombre, descripcion, fechaInicio, 
+				fechaFin, descuento);
 		return res;
 	}
 }
