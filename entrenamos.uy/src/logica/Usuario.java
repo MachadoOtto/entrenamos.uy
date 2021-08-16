@@ -80,6 +80,8 @@ public class Usuario {
     }
 
     public void editarDatos(DtUsuario datos) {
-    	
+    	this.setNombre(datos.getNombre());
+    	this.setApellido(datos.getApellido());
+    	this.setFecha(datos.getFecha());
     }
 }
