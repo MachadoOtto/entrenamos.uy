@@ -1,5 +1,3 @@
-package logica;
-
 /* Taller de Programacion - INCO/FING/UDELAR
  * Integrantes:
  *      Alexis Baladon (5.574.612-4) - alexis.baladon@fing.edu.uy
@@ -9,7 +7,9 @@ package logica;
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
  */
 
-public class Usuario {
+package logica;
+
+public abstract class Usuario {
 
     private String nickname, nombre, apellido, correo;
     
@@ -78,6 +78,8 @@ public class Usuario {
     public DtFecha getFecha() {
     	return fechaNacimiento;
     }
+    
+    public abstract boolean esSocio();
 
     public void editarDatos(DtUsuario datos) {
     	this.setNombre(datos.getNombre());

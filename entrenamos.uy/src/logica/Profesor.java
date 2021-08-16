@@ -1,10 +1,3 @@
-package logica;
-
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.HashMap;
-
 /* Taller de Programacion - INCO/FING/UDELAR
  * Integrantes:
  *      Alexis Baladon (5.574.612-4) - alexis.baladon@fing.edu.uy
@@ -13,6 +6,13 @@ import java.util.HashMap;
  *      Juan Jose Mangado (5.535.227-0) - juan.mangado@fing.edu.uy
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
  */
+
+package logica;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Profesor extends Usuario {
 	
@@ -48,6 +48,10 @@ public class Profesor extends Usuario {
 		this.setWebsite(datos.getWebsite());
 		instituto = null;
 		misClases = new HashMap<>();
+	}
+	
+	public boolean esSocio() {
+		return false;
 	}
 	
 	private void setDescripcion(String desc) {
