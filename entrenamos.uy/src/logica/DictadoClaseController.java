@@ -38,5 +38,9 @@ public class DictadoClaseController implements IDictadoClaseController {
 	}
 
 	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
-		
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		Institucion i = hi.findInstitucion(ins);
+		ActividadDeportiva actDept = i.getActDep(actDep);
+		Clase clase = actDep.findClase(datos.nombre);
+		clase.modificarDatosClase(datos);
 	}
