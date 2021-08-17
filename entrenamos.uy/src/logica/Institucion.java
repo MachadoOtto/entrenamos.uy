@@ -117,6 +117,21 @@ public class Institucion {
     }
 
     public Set<String> getMiTrabajo(Profesor profe) {
-
+        Set<String> nombreActsDepsProfe = new HashSet<>();
+        Collection<ActividadDeportiva> actDepCollection = actsDeps.values();
+		Iterator<ActividadDeportiva> itActsDeps = actDepCollection.iterator();
+        while (itActsDeps.hasNext()) {
+            ActividadDeportiva actDepAux = itActsDeps.next();
+			Set<DtClase> dtClasesActDep = actDepAux.getDatosClases();
+            Collection<DtClase> dtClaseCollection = dtClasesActDep.values();
+            Iterator<DtClase> itDtClase = dtClaseCollection.iterator();
+            while (itDtClase.hasNext()) {
+                DtClase dtClaseAux = itDtClase.next();
+                if (dtClaseAux.nombreProfesor == profe.getNombre()) {
+                    nombreActDepsProfe.add(actDepAux.getNombre());
+                }
+            }
+        }
+        return nombreActDepsProfe;
     }
 }
