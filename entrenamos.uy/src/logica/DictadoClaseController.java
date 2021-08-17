@@ -33,8 +33,8 @@ public class DictadoClaseController implements IDictadoClaseController {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion i = hi.findInstitucion(ins);
 		HandlerUsuario hu = HandlerUsuario.getInstance();
-		Profesor profe = hu.findUsuario(datos.nombreProfesor);
-		return addClase(actDep,datos,pp);
+		Profesor profe = hu.findUsuario(datos.nicknameProfesor);
+		return addClase(actDep,datos,profe);
 	}
 
 	public void modificarDatosClase(String ins, String actDep,DtClase datos) {

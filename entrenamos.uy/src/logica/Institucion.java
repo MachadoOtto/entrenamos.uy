@@ -60,9 +60,10 @@ public class Institucion {
     public void setActsDeps(Map<String, ActividadDeportiva> actsDeps) {
         this.actsDeps = actsDeps;
     }
-    //Esto no creo que vaya en Institucion...
-    public ActividadDeportiva nuevaActDep(DtActividadDeportiva datosAD) {
-        return ActividadDeportiva(datosAD);        
+    
+    public void nuevaActDep(DtActividadDeportiva datosAD) {
+        ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
+        actsDeps.add(datosAD.nombre,actDep);
     }
 
     public void addActividadDeportiva(DtActividadDeportiva datosAD) {
