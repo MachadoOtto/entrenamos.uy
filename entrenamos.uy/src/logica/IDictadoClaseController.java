@@ -11,13 +11,11 @@ package logica;
 
 import java.util.Set;
 
-public interface IUsuarioController {
+public interface IDictadoClaseController {
 	
-	public Set<String> obtenerUsuarios();
+	public Set<String> obtenerInstituciones();
 	
-	public int ingresarDatosUsuario(DtUsuario datoUser);
-	
-	public DtUsuario seleccionarUsuario(String userNick);
-	
-	public void editarDatosBasicos(String userNick, DtUsuario datoUser);
+	public int ingresarDatosClase(String ins,String actDep,DtClase datos);
+		
+	public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }
