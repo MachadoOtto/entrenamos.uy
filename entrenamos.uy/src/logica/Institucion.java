@@ -7,7 +7,7 @@
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
  */
 
- package logica
+package logica
 
 import java.util.Set;
 import java.util.Map;
