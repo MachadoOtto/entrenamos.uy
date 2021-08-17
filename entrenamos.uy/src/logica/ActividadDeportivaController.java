@@ -4,7 +4,6 @@ import java.util.Set;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClaseExt;
 import datatypes.TReg;
-import datatypes.tReg;
 
 public class ActividadDeportivaController implements IActividadDeportivaController {
 
@@ -32,41 +31,31 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD){
 		  
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion inst = hi.find(nombreInsti);
-		if (inst.existeActDep(datosAD)) {
-			ActividadDeportiva act = new ActividadDeportiva(datosAD);
-            inst.add(act);
+		Institucion inst = hi.findInstitucion(nombreInsti);
+		if (!inst.existeActDep(datosAD.nombre)) {
+			nuevaActDep(datosAD);
 		}
-		return inst.existeActDep(datosAD);
+		return inst.existeActDep(datosAD.nombre);
 	}
 	
 	public Set<String> seleccionarInstitucion(String ins){
 		
 		  HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		  Institucion inst = hi.find(ins);
-		  
-		  /* AIUDAAAAAAAAAAAAAAAAAAAAAAA  
-		  Set<String> res;         
-		  acts =  actividades del inst*/
-		  
-		  while (acts.hasNext()) {
-			  res.add(acts.getNombre);
-		  }
+		  Institucion inst = hi.findInstitucion(ins);
+		  Set<String> res = inst.obtenerActDep();
 		  return res;
 	}
 	
-	public /*DtActividadDeportiva*/ Set<Set<String>> seleccionarActividadDeportiva(String ins, String nActDep){
+	public Set<Set<String>> seleccionarActividadDeportiva(String ins, String nActDep, DtActividadDeportiva actDep){
 		
+
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion inst = hi.find(ins);
+		Institucion inst = hi.findInstitucion(ins);
 		ActividadDeportiva act = ins.getActDep(nActDep);
-		Set<String> nombreClass = act.getNombreClases();
-		Set<String> nombreCup = act.getNombreCuponeras(); //Agregar esta función
-		Set<Set<String>> res;
-		res.add(nombreClass);
-		res.add(nombreCup);
+		DtActividadDeportiva actDep(act.nombre, act.descripcion, act.duracionMinutos, act.cost, act.fechaRegistro);
+		return inst.seleccionarActividadDeportiva(nActDep);
+
 		return res;
-		
 	}
 	
 	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins){
@@ -74,7 +63,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion inst = hi.find(ins);
 		HandlerCuponera hc = HandlerCuponera.getInstance();
-		Cuponera cup = hc.find(nombreCup);
+		Cuponera cup = hc.getCup(nombreCup);
 		
 		return cup.getNombresActDep();
 		}
@@ -82,7 +71,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) {
 		
 		 HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		 Institucion ins = hi.find(inst);
+		 Institucion ins = hi.findInstitucion(inst);
 		 ActividadDeportiva act = inst.getActDep(actDep);
 		 Clase clas = act.findClase(clase);
 		 return clas.getDt();
@@ -101,7 +90,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	HandlerInstitucion hi = HandlerInstitucion.getInstance();
 	Clase c = hi.findClase(actDep,clase);
 	Socio usu = hu.findUsuario(socio);
-	int res = 0;
+	int res = 1;
 	if (c != null) {
 		res = usu.inscribirSocio(actDep, c, tipoRegistro);
 	}
