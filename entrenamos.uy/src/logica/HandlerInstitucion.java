@@ -47,13 +47,13 @@ public class HandlerInstituciones {
 		}
 		return nombreInstituciones;
 	}
-
+	//Hay que ver que hacer con esta operacion
 	public void addClase(String ins,String actDep,DtClase datos) {
 
 	}
 
 	public Clase findClase(String ins,String actDep,String clase) {
-		insti = instituciones.get(ins);
+		Institucion insti = instituciones.get(ins);
 		return insti.findClase(actDep,clase)
 	}
 
