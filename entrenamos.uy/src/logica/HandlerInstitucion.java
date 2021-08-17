@@ -45,7 +45,7 @@ public class HandlerInstituciones {
 			Institucion insAux = itIns.next();
 			nombreInstituciones.add(insAux.getNombre());
 		}
-		return nombreInstituciones;
+		return nombreInstituciones; 
 	}
 
 	public Clase findClase(String ins,String actDep,String clase) {
