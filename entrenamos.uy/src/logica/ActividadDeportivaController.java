@@ -52,7 +52,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion inst = hi.findInstitucion(ins);
 		ActividadDeportiva act = ins.getActDep(nActDep);
-		DtActividadDeportiva actDep(act.nombre, act.descripcion, act.duracionMinutos, act.cost, act.fechaRegistro);
+		DtActividadDeportiva actDep(act.getNombre, act.getDescripcion, act.getDuracion, act.getCosto, act.getFecha);
 		return inst.seleccionarActividadDeportiva(nActDep);
 
 		return res;
