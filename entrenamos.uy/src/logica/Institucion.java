@@ -68,7 +68,7 @@ public class Institucion {
 
     public void addActividadDeportiva(DtActividadDeportiva datosAD) {
         ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
-        if (!existeActDep(datosAD.getNombre()) {
+        if (!existeActDep(datosAD.getNombre())) {
 			actsDeps.put(datosAD.getNombre(), actDep);
 		}
     }
@@ -78,7 +78,7 @@ public class Institucion {
     }
 
     public Set<String> obtenerActDep() {
-        Set<String actsDeps> nombreActsDeps = new HashSet<>();
+        Set<String> nombreActsDeps = new HashSet<>();
 		Collection<ActividadDeportiva> actDepCollection = actsDeps.values();
 		Iterator<ActividadDeportiva> itActsDeps = actDepCollection.iterator();
 		while (itActsDeps.hasNext()) {
@@ -129,10 +129,10 @@ public class Institucion {
             while (itDtClase.hasNext()) {
                 DtClase dtClaseAux = itDtClase.next();
                 if (dtClaseAux.nombreProfesor == profe.getNombre()) {
-                    nombreActDepsProfe.add(actDepAux.getNombre());
+                    nombreActsDepsProfe.add(actDepAux.getNombre());
                 }
             }
         }
-        return nombreActDepsProfe;
+        return nombreActsDepsProfe;
     }
 }

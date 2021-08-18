@@ -50,15 +50,16 @@ public class HandlerInstitucion {
 
 	public Clase findClase(String ins,String actDep,String clase) {
 		Institucion insti = instituciones.get(ins);
-		return insti.findClase(actDep,clase)
+		return insti.findClase(actDep,clase);
 	}
 
 	public void addInstitucion(Institucion ins) {
-		if (!existeInstitucion(ins.getNombre()) {
+		if (!existeInstitucion(ins.getNombre())) {
 			instituciones.put(ins.getNombre(), ins);
 		}
 	}
 
-	public bool existeInstitucion(String nombre) {
+	public boolean existeInstitucion(String nombre) {
 		return instituciones.containsKey(nombre);
 	}
+}	
