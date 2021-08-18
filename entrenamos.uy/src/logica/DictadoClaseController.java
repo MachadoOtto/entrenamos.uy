@@ -44,3 +44,4 @@ public class DictadoClaseController implements IDictadoClaseController {
 		Clase clase = actDep.findClase(datos.nombre);
 		clase.modificarDatosClase(datos);
 	}
+}
