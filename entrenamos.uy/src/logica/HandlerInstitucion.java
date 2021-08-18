@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class HandlerInstituciones {
+public class HandlerInstitucion {
 	
 	private static HandlerInstitucion instance = null;
 	
