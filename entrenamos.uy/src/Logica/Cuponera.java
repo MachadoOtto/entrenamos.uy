@@ -2,6 +2,8 @@ package Logica;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Cuponera {
@@ -70,7 +72,6 @@ public class Cuponera {
 	
 	//Operaciones Casos de Uso
 	
-	//TERMINAR
 	public Set<String> getNombresActDep()
 	{
 		Set<String> res = new HashSet<>();
@@ -84,14 +85,13 @@ public class Cuponera {
 		return res;
 	}
 	
-	//TERMINAR
+	//Constructor?
 	public void addActDep(ActividadDeportiva ad, int cantidadClases)
 	{
-		ClasesCuponera cp = new ClasesCuponera(ad,cantidadClases);
+		ClasesCuponera cp = new ClasesCuponera(cantidadClases,this,ad);
 		clasesCuponeras.add(cp);
 	}
 	
-	//TERMINAR
 	public int cantidadClases(String nombreActividadDeportiva)
 	{
 		int res = 0;
@@ -105,12 +105,21 @@ public class Cuponera {
 		return res;
 	}
 	
-	//TERMINAR
 	public DtCuponera getDt()
 	{
-		//Falta un atributo raro...
+		List<DtClasesCuponera> datasCC = new LinkedList<>;
+		Iterator<ClasesCuponera> it = clasesCuponeras.iterator();
+		while(it.hasNext())
+		{
+			ClasesCuponera cc = it.next();
+			String nombreActDep = cc.getNombreActDep();
+			int cantClases = cc.getCantidadClases();
+			DtClasesCuponera dataCC =
+					new DtClasesCuponera(nombreActDep,cantClases);
+			datasCC.add(dataCC);
+		}
 		DtCuponera res = new DtCuponera(nombre, descripcion, fechaInicio, 
-				fechaFin, descuento);
+				fechaFin, descuento, datasCC);
 		return res;
 	}
 }
