@@ -10,6 +10,7 @@
 package logica;
 
 import java.util.Set;
+import datatypes.DtClase;
 
 public interface IDictadoClaseController {
 	
@@ -17,5 +18,5 @@ public interface IDictadoClaseController {
 	
 	public int ingresarDatosClase(String ins,String actDep,DtClase datos);
 		
-	public void modificarDatosClase(String ins,String actDep,DtClase datos);
+	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }

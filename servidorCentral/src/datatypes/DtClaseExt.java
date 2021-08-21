@@ -1,17 +1,17 @@
 package datatypes;
-import java.util.Set;
+import java.util.List;
 
 
 public class DtClaseExt extends DtClase {
 	
-	private Set<String> alumnos;
+	private List<String> alumnos;
 	
-	public DtClaseExt(String nom, String nomP, int min, int max, String url, DtFecha fechC, DtFecha fechR, Set<String> als) {
+	public DtClaseExt(String nom, String nomP, int min, int max, String url, DtFecha fechC, DtFecha fechR, List<String> als) {
 		super(nom, nomP, min, max, url, fechC, fechR);
 		this.alumnos = als;
 	}
 
-	public Set<String> getAlumnos() {
+	public List<String> getAlumnos() {
 		return this.alumnos;
 	}
 }

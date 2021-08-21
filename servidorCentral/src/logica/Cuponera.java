@@ -2,11 +2,13 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import datatypes.DtFecha;
+import datatypes.DtActividadDeportiva;
+import datatypes.DtCuponera;
+
 public class Cuponera {
-	private String nombre;
-	private String descripcion;
-	private DtFecha fechaInicio;
-	private DtFecha fechaFin;
+	private String nombre,descripcion;
+	private DtFecha fechaInicio,fechaFin;
 	private float descuento;
 	
 	private List<ClasesCuponera> cp;
@@ -23,19 +25,23 @@ public class Cuponera {
 	}
 	
 	public String getNombre() {
-		return d;
+		return nombre;
 	}
+	
 	public String getDescripcion() {
-		return d;
+		return descripcion;
 	}
+	
 	public DtFecha getFechaInicio() {
 		DtFecha d = new DtFecha(fechaInicio);
 		return d;
 	}
+	
 	public DtFecha getFechaFin() {
 		DtFecha d = new DtFecha(fechaFin);
 		return d;
 	}
+	
 	public float getDescuento() {
 		return descuento;
 	}
@@ -47,30 +53,38 @@ public class Cuponera {
 		}
 		return nomnom;
 	}
+	
 	public void addActDep(ActividadDeportiva act, int num) {
-		claCup = new ClasesCuponera(num,this,act);
+		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
 	}
+	
 	public int cantidadClases(ActividadDeportiva actDep) {
 		for(ClasesCuponera cc: cp) {
 			if(cc.getNombreActDep() == actDep.getNombre())
 				return cc.getCantidadClases();
 		}
+		return 0;
 	}
 	public boolean tieneActividadDeportiva(ActividadDeportiva n) {
 		for(ClasesCuponera cc: cp) {
-			if(cc.getNombreActDep() == actDep.getNombre())
+			if(cc.getNombreActDep() == n.getNombre())
 				return true;
 		}
 		return false;
 	}
 	public DtCuponera getDt() {
-		List<String> actividadesNombre = new ArrayList<>();
-		List<Integer> actividadesCantidad = new ArrayList<>();
+		List<DtActividadDeportiva> actsdt = new ArrayList<>();
+		List<Integer> actscan = new ArrayList<>();
 		for(ClasesCuponera cc: cp) {
-			actividadesNombre.add(cc.getNombreActDep());
-			actividadesCantidad.add(cc.getCantidadClases());
+			actsdt.add(cc.getAd().getDt());
+			actscan.add(cc.getCantidadClases());
 		}
-		return DtCuponera(nombre,descripcion,this.getFechaInicio(),this.getFechaFin(),descuento,actividadesNombre,actividadesCantidad);		
+		DtCuponera x = new DtCuponera(nombre, descripcion, descuento, fechaInicio, fechaFin, actsdt, actscan);
+		return x;
+	}
+
+	public List<ReciboCuponera> getRc() {
+		return rc;
 	}
 }

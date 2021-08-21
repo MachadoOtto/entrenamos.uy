@@ -7,7 +7,10 @@
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
  */
 
-package logica
+package logica;
+import datatypes.DtActividadDeportiva;
+import datatypes.DtClase;
+import datatypes.DtClaseExt;
 
 import java.util.Set;
 import java.util.Map;
@@ -22,10 +25,11 @@ public class Institucion {
     private String descripcion;
     private Map<String, ActividadDeportiva> actsDeps;
 
-    Institucion(DtInstitucion dataIns) {
-        this.nombre = dataIns.nombre;
-        this.URL = dataIns.URL;
-        this.descripcion = dataIns.descripcion;
+    // Guille: Te inventaste un datatype: Institucion(DtInstitucion dataIns) {
+    public Institucion(String n, String u, String d) {
+        this.nombre = n;
+        this.URL = u;
+        this.descripcion = d;
         this.actsDeps = new HashMap<>();
     }
 
@@ -63,17 +67,17 @@ public class Institucion {
     
     public void nuevaActDep(DtActividadDeportiva datosAD) {
         ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
-        actsDeps.add(datosAD.nombre,actDep);
+        actsDeps.put(datosAD.getNombre(),actDep);
     }
 
     public void addActividadDeportiva(DtActividadDeportiva datosAD) {
         ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
-        if (!existeActDep(datosAD.getNombre())) {
+        if (!actsDeps.containsKey(datosAD.getNombre())) {
 			actsDeps.put(datosAD.getNombre(), actDep);
 		}
     }
 
-    public bool existeActDep(String nombreActDep) {
+    public Boolean existeActDep(String nombreActDep) {
         return actsDeps.containsKey(nombreActDep);
     }
 
@@ -100,7 +104,7 @@ public class Institucion {
 
     public Set<DtClase> obtenerDtClases(String actDep) {
         ActividadDeportiva actDept = actsDeps.get(actDep);
-        return actDept.getDtClases();
+        return actDept.getDatosClases();
     }
 
     public ActividadDeportiva getActDep(String nombreActDep) {
@@ -108,8 +112,8 @@ public class Institucion {
     }
 
     public void addClase(String actDep,DtClase datosClase,Profesor pp){
-        ActividadDeportiva actDept = actsDeps.get(actDep);
-        int cod = actDept.addClase(datosClase,pp);
+        //ActividadDeportiva actDept = actsDeps.get(actDep);
+        //int cod = actDept.addClase(datosClase,pp);
     }
 
     public Clase findClase(String actDep, String clase) {
@@ -122,16 +126,16 @@ public class Institucion {
         Collection<ActividadDeportiva> actDepCollection = actsDeps.values();
 		Iterator<ActividadDeportiva> itActsDeps = actDepCollection.iterator();
         while (itActsDeps.hasNext()) {
-            ActividadDeportiva actDepAux = itActsDeps.next();
-			Set<DtClase> dtClasesActDep = actDepAux.getDatosClases();
-            Collection<DtClase> dtClaseCollection = dtClasesActDep.values();
-            Iterator<DtClase> itDtClase = dtClaseCollection.iterator();
-            while (itDtClase.hasNext()) {
-                DtClase dtClaseAux = itDtClase.next();
-                if (dtClaseAux.nombreProfesor == profe.getNombre()) {
-                    nombreActsDepsProfe.add(actDepAux.getNombre());
-                }
-            }
+            //ActividadDeportiva actDepAux = itActsDeps.next();
+			//Set<DtClase> dtClasesActDep = actDepAux.getDatosClases();
+            //Guille: wtf es esto Collection<DtClase> dtClaseCollection = dtClasesActDep.values();
+            //Iterator<DtClase> itDtClase = dtClaseCollection.iterator();
+            //while (itDtClase.hasNext()) {
+            //    DtClase dtClaseAux = itDtClase.next();
+            //    if (dtClaseAux.getNombreProfesor() == profe.getNombre()) {
+            //        nombreActsDepsProfe.add(actDepAux.getNombre());
+            //    }
+           // }
         }
         return nombreActsDepsProfe;
     }

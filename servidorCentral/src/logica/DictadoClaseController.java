@@ -10,7 +10,7 @@
 package logica;
 
 import java.util.Set;
-
+import datatypes.DtClase;
 public class DictadoClaseController implements IDictadoClaseController {
 	
 	private static DictadoClaseController instance = null;
@@ -32,16 +32,18 @@ public class DictadoClaseController implements IDictadoClaseController {
 	public int ingresarDatosClase(String ins,String actDep,DtClase datos) {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion i = hi.findInstitucion(ins);
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		Profesor profe = hu.findUsuario(datos.nicknameProfesor);
-		return addClase(actDep,datos,profe);
+		ActividadDeportiva a = i.getActDep(actDep);
+		Clase cc = i.findClase(actDep, datos.getNombre());
+		Profesor profe = cc.getProfesor();
+		return a.addClase(datos,profe);
 	}
 
-	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion i = hi.findInstitucion(ins);
-		ActividadDeportiva actDept = i.getActDep(actDep);
-		Clase clase = actDep.findClase(datos.nombre);
-		clase.modificarDatosClase(datos);
-	}
+// Guille: Esta funcion creo que no va.
+//	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
+//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+//		Institucion i = hi.findInstitucion(ins);
+//		ActividadDeportiva actDept = i.getActDep(actDep);
+//		Clase clase = actDept.findClase(datos.getNombre());
+//		clase.modificarDatosClase(datos);
+//	}
 }

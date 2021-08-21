@@ -1,6 +1,13 @@
 package logica;
+
+import datatypes.DtClaseExt;
+import datatypes.DtClase;
+
+import datatypes.DtFecha;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Clase {
 	private String nombre;
@@ -15,12 +22,12 @@ public class Clase {
 	
 	Clase(DtClase d, Profesor p, ActividadDeportiva a){
 		this.a = a;
-		this.nombre = d.nombre;
-		this.fechaClase = d.fechaClase;
-		this.minSocios = d.minSocios;
-		this.maxSocios = d.maxSocios;
-		this.URL = d.URL;
-		this.fechaRegistro = d.fechaRegistro;
+		this.nombre = d.getNombre();
+		this.fechaClase = d.getFechaClase();
+		this.minSocios = d.getMinSocios();
+		this.maxSocios = d.getMaxSocios();
+		this.URL = d.getURL();
+		this.fechaRegistro = d.getFechaRegistro();
 		this.p = p;
 	}
 	public String getNombre() {
@@ -37,6 +44,9 @@ public class Clase {
 	public int getMaxSocios() {
 		return maxSocios;
 	}
+	public Profesor getProfesor() {
+		return p;
+	}
 	public String getURL() {
 		return URL;
 	}
@@ -45,11 +55,12 @@ public class Clase {
 		return ret;
 	}
 	public DtClaseExt getDt() {
-		List<String> ListNombres = new ArrayList<>()
+		List<String> ListNombres = new ArrayList<>();
 		for(ReciboClase x: ListReciboClase) {
 			ListNombres.add(x.getNombreSocio());
 		}
-		return DtClaseExt(nombre,p.getNombre(),this.getFechaClase(),minSocios,maxSocios,URL,this.getFechaRegistro(),ListNombres);
+		DtClaseExt x = new DtClaseExt(nombre,p.getNombre(),minSocios,maxSocios,URL,this.getFechaClase(),this.getFechaRegistro(),ListNombres);
+		return x;
 	}
 	public boolean hayLugar() {
 		return ListReciboClase.size() < maxSocios;

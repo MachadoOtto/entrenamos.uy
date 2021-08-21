@@ -21,7 +21,7 @@ public class LaFabrica {
 	}
 	
     public IDictadoClaseController obtenerIDictadoClaseController(){
-    	IDictadoClaseController idic = DictadoClaseControlle.getInstance();
+    	IDictadoClaseController idic = DictadoClaseController.getInstance();
     	return idic;
      }
     

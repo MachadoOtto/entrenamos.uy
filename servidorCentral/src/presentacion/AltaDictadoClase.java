@@ -130,18 +130,18 @@ public class AltaDictadoClase extends JInternalFrame {
 
 /*      // En este caso utilizaremos el GridBagLayout que permite armar una grilla
         // en donde las filas y columnas no son uniformes.
-        // Conviene trabajar este componente desde la vista de dise√±o gr√°fico y s√≥lo
+        // Conviene trabajar este componente desde la vista de diseÒo gr·fico y sÛlo
         // manipular los valores para ajustar alguna cosa.
 
         // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
-        // el nombre del usuario. El texto est√° alineado horizontalmente a la derecha para
+        // el nombre del usuario. El texto est· alineado horizontalmente a la derecha para
         // que quede casi pegado al campo de texto.
 
         // Una campo de texto (JTextField) para ingresar el nombre del usuario. 
         // Por defecto es posible ingresar cualquier string.
 
         // Una etiqueta (JLabel) indicandp que en el siguiente campo debe ingresarse 
-        // el apellido del usuario. El texto est√° alineado horizontalmente a la derecha para
+        // el apellido del usuario. El texto est· alineado horizontalmente a la derecha para
         // que quede casi pegado al campo de texto.
         lblIngreseApellido = new JLabel("Apellido:");
         lblIngreseApellido.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -165,7 +165,7 @@ public class AltaDictadoClase extends JInternalFrame {
         textFieldApellido.setColumns(10);
 
         // Una etiqueta (JLabel) indicando que en el siguiente campo debe ingresarse 
-        // la c√©dula del usuario. El texto est√° alineado horizontalmente a la derecha para
+        // la cÈdula del usuario. El texto est· alineado horizontalmente a la derecha para
         // que quede casi pegado al campo de texto.
         lblIngreseCi = new JLabel("C.I.:");
         lblIngreseCi.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -176,11 +176,11 @@ public class AltaDictadoClase extends JInternalFrame {
         gbc_lblIngreseCi.gridy = 2;
         getContentPane().add(lblIngreseCi, gbc_lblIngreseCi);
 
-        // Una campo de texto (JTextField) para ingresar la c√©dula del usuario. 
+        // Una campo de texto (JTextField) para ingresar la cÈdula del usuario. 
         // Por defecto es posible ingresar cualquier string.
         // Al campo se le incluye un Tooltip que, al pasar el mouse por encima, despliega un mensaje.
         textFieldCI = new JTextField();
-        textFieldCI.setToolTipText("Ingrese un n√∫mero sin puntos ni guiones");
+        textFieldCI.setToolTipText("Ingrese un n˙mero sin puntos ni guiones");
         textFieldCI.setColumns(10);
         GridBagConstraints gbc_textFieldCI = new GridBagConstraints();
         gbc_textFieldCI.gridwidth = 2;
@@ -190,9 +190,9 @@ public class AltaDictadoClase extends JInternalFrame {
         gbc_textFieldCI.gridy = 2;
         getContentPane().add(textFieldCI, gbc_textFieldCI);
 
-        // Un bot√≥n (JButton) con un evento asociado que permite registrar el usuario.
-        // Dado que el c√≥digo de registro tiene cierta complejidad, conviene delegarlo
-        // a otro m√©todo en lugar de incluirlo directamente de el m√©todo actionPerformed 
+        // Un botÛn (JButton) con un evento asociado que permite registrar el usuario.
+        // Dado que el cÛdigo de registro tiene cierta complejidad, conviene delegarlo
+        // a otro mÈtodo en lugar de incluirlo directamente de el mÈtodo actionPerformed 
         btnAceptar = new JButton("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -207,8 +207,8 @@ public class AltaDictadoClase extends JInternalFrame {
         gbc_btnAceptar.gridy = 3;
         getContentPane().add(btnAceptar, gbc_btnAceptar);
 
-        // Un bot√≥n (JButton) con un evento asociado que permite cerrar el formulario (solo ocultarlo).
-        // Dado que antes de cerrar se limpia el formulario, se invoca un m√©todo reutilizable para ello. 
+        // Un botÛn (JButton) con un evento asociado que permite cerrar el formulario (solo ocultarlo).
+        // Dado que antes de cerrar se limpia el formulario, se invoca un mÈtodo reutilizable para ello. 
         btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -223,11 +223,11 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(btnCancelar, gbc_btnCancelar);
     }
 
-    // Este m√©todo es invocado al querer registrar un usuario, funcionalidad
-    // provista por la operaci√≥n del sistem registrarUsuario().
-    // Previamente se hace una verificaci√≥n de los campos, particularmente que no sean vac√≠os
-    // y que la c√©dula sea un n√∫mero. 
-    // Tanto en caso de que haya un error (de verificaci√≥n o de registro) o no, se despliega
+    // Este mÈtodo es invocado al querer registrar un usuario, funcionalidad
+    // provista por la operaciÛn del sistem registrarUsuario().
+    // Previamente se hace una verificaciÛn de los campos, particularmente que no sean vacÌos
+    // y que la cÈdula sea un n˙mero. 
+    // Tanto en caso de que haya un error (de verificaciÛn o de registro) o no, se despliega
     // un mensaje utilizando un panel de mensaje (JOptionPane).
     protected void cmdRegistroUsuarioActionPerformed(ActionEvent arg0) {
         // TODO Auto-generated method stub
@@ -241,8 +241,8 @@ public class AltaDictadoClase extends JInternalFrame {
             try {
                 controlUsr.registrarUsuario(nombreU, apellidoU, ciU);
 
-                // Muestro √©xito de la operaci√≥n
-                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con √©xito", "Registrar Usuario",
+                // Muestro Èxito de la operaciÛn
+                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con Èxito", "Registrar Usuario",
                         JOptionPane.INFORMATION_MESSAGE);
 
             } catch (UsuarioRepetidoException e) {
@@ -256,18 +256,18 @@ public class AltaDictadoClase extends JInternalFrame {
         }
     }
 
-    // Permite validar la informaci√≥n introducida en los campos e indicar
-    // a trav√©s de un mensaje de error (JOptionPane) cuando algo sucede.
-    // Este tipo de chequeos se puede realizar de otras formas y con otras librer√≠as de Java, 
-    // por ejemplo impidiendo que se escriban caracteres no num√©ricos al momento de escribir en
-    // en el campo de la c√©dula, o mostrando un mensaje de error apenas el foco pasa a otro campo.
+    // Permite validar la informaciÛn introducida en los campos e indicar
+    // a travÈs de un mensaje de error (JOptionPane) cuando algo sucede.
+    // Este tipo de chequeos se puede realizar de otras formas y con otras librerÌas de Java, 
+    // por ejemplo impidiendo que se escriban caracteres no numÈricos al momento de escribir en
+    // en el campo de la cÈdula, o mostrando un mensaje de error apenas el foco pasa a otro campo.
     private boolean checkFormulario() {
         String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
         String ciU = this.textFieldCI.getText();
 
         if (nombreU.isEmpty() || apellidoU.isEmpty() || ciU.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vac√≠os", "Registrar Usuario",
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacÌos", "Registrar Usuario",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -285,7 +285,7 @@ public class AltaDictadoClase extends JInternalFrame {
 
     // Permite borrar el contenido de un formulario antes de cerrarlo.
     // Recordar que las ventanas no se destruyen, sino que simplemente 
-    // se ocultan, por lo que conviene borrar la informaci√≥n para que 
+    // se ocultan, por lo que conviene borrar la informaciÛn para que 
     // no aparezca al mostrarlas nuevamente.
     private void limpiarFormulario() {
         textFieldNombre.setText("");

@@ -20,7 +20,7 @@ public class DtProfesor extends DtUsuario{
 		return this.descripcion;
 	}
 	
-	public String getBiorafia() {
+	public String getBiografia() {
 		return this.biografia;
 	}
 	

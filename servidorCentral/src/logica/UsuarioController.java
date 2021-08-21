@@ -10,6 +10,11 @@
 package logica;
 
 import java.util.Set;
+import datatypes.DtUsuario;
+import datatypes.DtProfesor;
+import datatypes.DtSocio;
+import datatypes.DtProfesorExt;
+import datatypes.DtSocioExt;
 
 public class UsuarioController implements IUsuarioController {
 	
@@ -36,7 +41,7 @@ public class UsuarioController implements IUsuarioController {
 	// Retorna 0 si se logro ingresar/crear el Usuario de forma exitosa, retorna 1 en otro caso.
 	public int ingresarDatosUsuario(DtUsuario datoUser) {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
-		if (hu.existeNick(datoUser.getNickname()) || hu.existeCorreo(datoUser.getCorreo())) {
+		if (hu.existeNick(datoUser.getNickname()) || hu.existeCorreo(datoUser.getEmail())) {
 			return 1;
 		} else {
 			if (datoUser instanceof DtSocio) {
@@ -46,7 +51,7 @@ public class UsuarioController implements IUsuarioController {
 				Profesor newProfesor = new Profesor(((DtProfesor)datoUser));
 				hu.addUser(newProfesor);
 				HandlerInstitucion hi = HandlerInstitucion.getInstance();
-				Institucion instituto = hi.findInstitucion(((DtProfesor)datoUser).getInstitucion());
+				Institucion instituto = hi.findInstitucion(((DtProfesor)datoUser).getNombreInstitucion());
 				newProfesor.setInstitucion(instituto);
 			}
 			return 0;

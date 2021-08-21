@@ -19,4 +19,7 @@ public class ClasesCuponera {
 	public String getNombreActDep() {
 		return ad.getNombre();
 	}
+	public ActividadDeportiva getAd() {
+		return ad;
+	}
 }

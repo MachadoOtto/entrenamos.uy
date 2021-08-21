@@ -12,7 +12,8 @@ public interface IActividadDeportivaController {
 	
 	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD);
 	
-	public /*DtActividadDeportiva,*/ Set<Set<String>> seleccionarActividadDeportiva(String ins, String nActDep);
+	//public /*DtActividadDeportiva,*/ Set<Set<String>> seleccionarActividadDeportiva(String ins, String nActDep);
+	public Set<Set<String>> seleccionarActividadDeportiva(String ins, String nActDep, DtActividadDeportiva actDep);
 	
 	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins);
 	

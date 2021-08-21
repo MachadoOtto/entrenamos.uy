@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.Set;
+import datatypes.DtFecha;
 
 public interface IDeportivaController {
 	public int ingresarCuponera(String nombre, String descripcion,

@@ -1,6 +1,9 @@
 package logica;
-import java.util.ArrayList;
-import java.util.List;
+
+
+import datatypes.DtFecha;
+import datatypes.TReg;
+
 
 public class ReciboClase {
 	private DtFecha fechaInscripcion;
@@ -9,35 +12,36 @@ public class ReciboClase {
 	private Clase aClase;
 	private Socio aSocio;
 	
-	ReciboClase(DtReciboClase d,Clase c,Socio s){
-		aClase = c;
+	//
+//	ReciboClase(DtReciboClase d,Clase c,Socio s){
+//		aClase = c;
+//		aSocio = s;
+//		this.fechaInscripcion = d.fechaInscripcion;
+//		this.tipo = d.tipo;
+//		this.costo = d.costo;
+//	}
+	
+	ReciboClase(DtFecha f,TReg t, float cc, Clase c, Socio s){
 		aSocio = s;
-		this.fechaInscripcion = d.fechaInscripcion;
-		this.tipo = d.tipo;
-		this.costo = d.costo;
-	}
-	ReciboClase(DtFecha f,TReg t, float c, Clase c, Socio s){
-		aSocio = s;
 		aClase = c;
-		clasesList = new ArrayList<Clases>;
 		fechaInscripcion = f;
 		tipo = t;
-		costo = c;
+		costo = cc;
 	}
 	public DtFecha getFechaInscripcion() {
 		DtFecha ret = new DtFecha(fechaInscripcion);
 		return ret;
 	}
 	public float getCosto() {
-		return costo
+		return costo;
 	}
 	public boolean esTipoCuponera() {
-		return tipo==CUPONERA;
+		return tipo.equals(TReg.cuponera);
 	}
 	public String getNombreClase() {
-		return aClase.getNombre()
+		return aClase.getNombre();
 	}
-	public int tieneActividadDeportiva(ActividadDeportiva actdep) {
+	public int tieneActividadDeportiva(ActividadDeportiva actDep) {
 		return aClase.tieneActividadDeportiva(actDep);
 	}
 	public String getNombreSocio() {

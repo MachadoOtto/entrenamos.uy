@@ -1,18 +1,18 @@
 package datatypes;
 
-import java.util.Set;
+import java.util.List;
 
 public class DtCuponera {
 
 	private String nombre;
 	private String descripcion;
-	private int descuento;
+	private float descuento;
 	private DtFecha fechaInicio;
 	private DtFecha fechaFin;
-	private Set<DtActividadDeportiva> acts;
-	private Set<int> clases;
+	private List<DtActividadDeportiva> acts;
+	private List<Integer> clases;
 	
-	public DtCuponera(String nom, String descr, int desc, DtFecha fi, DtFecha ff, Set<DtActividadDeportiva> acs, Set<int> c ) {
+	public DtCuponera(String nom, String descr, float desc, DtFecha fi, DtFecha ff, List<DtActividadDeportiva> acs, List<Integer> c ){
 		this.nombre = nom;
 		this.descripcion = descr;
 		this.descuento = desc;
@@ -30,7 +30,7 @@ public class DtCuponera {
 		return this.descripcion;
 	}
 	
-	public int getDescuento() {
+	public float getDescuento() {
 		return this.descuento;
 	}
 	
@@ -42,11 +42,11 @@ public class DtCuponera {
 		return this.fechaFin;
 	}
 	
-	public Set<DtActividadDeportiva> getActividades() {
+	public List<DtActividadDeportiva> getActividades() {
 		return this.acts;
 	}
 	
-	public Set<int> getClases() {
+	public List<Integer> getClases() {
 		return this.clases;
 	}
 

@@ -15,17 +15,22 @@ import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import datatypes.DtFecha;
+import datatypes.DtSocio;
+import datatypes.DtSocioExt;
+import datatypes.TReg;
+
 public class Socio extends Usuario {
 private List<ReciboCuponera> reciboCuponeras;
 	
 	private List<ReciboClase> reciboClases;
 	
-	public Socio() {
-		super();
-		reciboCuponeras = new LinkedList<>();
-		reciboClases = new LinkedList<>();
-	}
-	
+//	public Socio() {
+//		super();
+//		reciboCuponeras = new LinkedList<>();
+//		reciboClases = new LinkedList<>();
+//	}
+//	
 	public Socio(String nickname, String nombre, String apellido, String correo, DtFecha fecha) {
 		super(nickname, nombre, apellido, correo, fecha);
 		reciboCuponeras = new LinkedList<>();
@@ -33,7 +38,7 @@ private List<ReciboCuponera> reciboCuponeras;
 	}
 	
 	public Socio(DtSocio datos) {
-		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getCorreo(), datos.getFecha());
+		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getFechaNacimiento());
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
 	}
@@ -51,19 +56,18 @@ private List<ReciboCuponera> reciboCuponeras;
 	}
 	
 	public DtSocio getDt() {
-		DtSocio datos = new DtSocio(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), 
-				this.getFecha());
+		DtSocio datos = new DtSocio(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha());
 		return datos;
 	}
 	
     public DtSocioExt getDtExt() {
-    	DtProfesor datos = this.getDt();
+    	//DtSocio datos = this.getDt();
     	Set<String> clasesInscripto = new HashSet<>();
     	Iterator<ReciboClase> itRClases = reciboClases.iterator();
 		while (itRClases.hasNext()) {
 			clasesInscripto.add(itRClases.next().getNombreClase());
 		}
-    	DtSocioExt datosExt = new DtSocioExt(datos, clasesInscripto);
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha(), clasesInscripto);
     	return datosExt;
     }
 	
@@ -74,35 +78,67 @@ private List<ReciboCuponera> reciboCuponeras;
 	public List<ReciboClase> getReciboClase() {
 		return reciboClases;
 	}
-	
-	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg.General) {
-		ReciboClase nuevoRecibo = new ReciboClase(TReg.General, actDep.getCosto());
-		nuevoRecibo.setClase(cl);
-		reciboClases.add(nuevoRecibo);
-		return 1;
-	}
-	
-	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg.Cuponera) {
-		int numClasesCuponera = 0;
-		Iterator<ReciboCuponera> itRCuponeras = reciboCuponeras.iterator();
-		while (itRCuponeras.hasNext()) {
-			numClasesCuponera += itRCuponeras.next().cantidadClases(actDep);
-		}
-		int numInscripto = 0;
-		Iterator<ReciboClase> itRClases = reciboClases.iterator();
-		while (itRClases.hasNext()) {
-			ReciboClase rCl = itRClases.next();
-			if (rCl.esTipoCuponera()) {
-				numInscripto += rCl.tieneActividadDeportiva(actDep);
-			}
-		}
-		if (numClasesCuponera > numInscripto) {
-			ReciboClase nuevoRecibo = new ReciboClase(TReg.Cuponera, actDep.getCosto());
-			nuevoRecibo.setClase(cl);
+		
+//	YOUR BRAIN ON UML
+	//public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg.General) {
+//		ReciboClase nuevoRecibo = new ReciboClase(TReg.General, actDep.getCosto());
+//		nuevoRecibo.setClase(cl);
+//		reciboClases.add(nuevoRecibo);
+//		return 1;
+//	}
+//	
+//	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg.Cuponera) {
+//		int numClasesCuponera = 0;
+//		Iterator<ReciboCuponera> itRCuponeras = reciboCuponeras.iterator();
+//		while (itRCuponeras.hasNext()) {
+//			numClasesCuponera += itRCuponeras.next().cantidadClases(actDep);
+//		}
+//		int numInscripto = 0;
+//		Iterator<ReciboClase> itRClases = reciboClases.iterator();
+//		while (itRClases.hasNext()) {
+//			ReciboClase rCl = itRClases.next();
+//			if (rCl.esTipoCuponera()) {
+//				numInscripto += rCl.tieneActividadDeportiva(actDep);
+//			}
+//		}
+//		if (numClasesCuponera > numInscripto) {
+//			ReciboClase nuevoRecibo = new ReciboClase(TReg.Cuponera, actDep.getCosto());
+//			nuevoRecibo.setClase(cl);
+//			reciboClases.add(nuevoRecibo);
+//			return 0;
+//		} else {
+//			return 1;
+//		}
+//	}
+//	
+	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t) {
+		DtFecha d = new DtFecha();
+		if(t.equals(TReg.general)){
+			ReciboClase nuevoRecibo = new ReciboClase(d,TReg.general,actDep.getCosto(),cl,this);
 			reciboClases.add(nuevoRecibo);
-			return 0;
-		} else {
-			return 1;
+			return 1;		
+		}
+		else {
+			int numClasesCuponera = 0;
+			Iterator<ReciboCuponera> itRCuponeras = reciboCuponeras.iterator();
+			while (itRCuponeras.hasNext()) {
+				numClasesCuponera += itRCuponeras.next().cantidadClases(actDep);
+			}
+			int numInscripto = 0;
+			Iterator<ReciboClase> itRClases = reciboClases.iterator();
+			while (itRClases.hasNext()) {
+				ReciboClase rCl = itRClases.next();
+				if (rCl.esTipoCuponera()) {
+					numInscripto += rCl.tieneActividadDeportiva(actDep);
+				}
+			}
+			if (numClasesCuponera > numInscripto) {
+				ReciboClase nuevoRecibo = new ReciboClase(d,TReg.cuponera,actDep.getCosto(),cl,this);
+				reciboClases.add(nuevoRecibo);
+				return 0;
+			} else {
+				return 1;
+			}	
 		}
 	}
 }

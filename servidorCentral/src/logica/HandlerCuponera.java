@@ -1,10 +1,11 @@
 package logica;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import datatypes.DtFecha;
+import datatypes.DtCuponera;
 
 public class HandlerCuponera {
 	
@@ -52,8 +53,7 @@ public class HandlerCuponera {
 		}
 		else
 		{
-			Cuponera nuevaCuponera = new Cuponera( nombreCuponera, descripcion, 
-					ini, fin, descuento, fechaAlta );
+			Cuponera nuevaCuponera = new Cuponera(nombreCuponera, descripcion, descuento, ini, fin);
 			cuponeras.put( nombreCuponera, nuevaCuponera );
 		}
 		return res;

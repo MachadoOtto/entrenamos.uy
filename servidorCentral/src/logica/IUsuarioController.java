@@ -10,6 +10,7 @@
 package logica;
 
 import java.util.Set;
+import datatypes.DtUsuario;
 
 public interface IUsuarioController {
 	

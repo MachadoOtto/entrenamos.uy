@@ -1,4 +1,5 @@
 package logica;
+import datatypes.DtFecha;
 
 public class ReciboCuponera {
 	private DtFecha fechaCompra;
@@ -12,10 +13,14 @@ public class ReciboCuponera {
 	}
 	
 	public DtFecha getFechaCompra() {
-		DtFecha r = new DtFEcha(fechaCompra);
+		DtFecha r = new DtFecha(fechaCompra);
 		return r;
 	}
 	public int cantidadClases(ActividadDeportiva act) {
-		c.cantidadClases(act);
+		return c.cantidadClases(act);
+	}
+
+	public Socio getSocio() {
+		return s;
 	}
 }

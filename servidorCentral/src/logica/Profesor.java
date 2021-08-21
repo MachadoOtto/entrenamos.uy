@@ -8,9 +8,10 @@
  */
 
 package logica;
-
+import datatypes.DtProfesor;
+import datatypes.DtFecha;
+import datatypes.DtProfesorExt;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -21,18 +22,17 @@ public class Profesor extends Usuario {
 	private Institucion instituto;
 	
 	private Map<String, Clase> misClases;
+	//Guille (...)
+//	public Profesor() {
+//		super();
+//		this.setDescripcion(new String());
+//		this.setBiografia(new String());
+//		this.setWebsite(new String());
+//		instituto = null;
+//		misClases = new HashMap<>();
+//	}
 	
-	public Profesor() {
-		super();
-		this.setDescripcion(new String());
-		this.setBiografia(new String());
-		this.setWebsite(new String());
-		instituto = null;
-		misClases = new HashMap<>();
-	}
-	
-	public Profesor(String nick, String nombre, String apellido, String mail, DtFecha fecha, String descripcion, 
-				String biografia, String website) {
+	public Profesor(String nick, String nombre, String apellido, String mail, DtFecha fecha, String descripcion, String biografia, String website) {
 		super(nick, nombre, apellido, mail, fecha);
 		this.setDescripcion(descripcion);
 		this.setBiografia(biografia);
@@ -42,10 +42,10 @@ public class Profesor extends Usuario {
 	}
 	
 	public Profesor(DtProfesor datos) {
-		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getCorreo(), datos.getFecha());
+		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getFechaNacimiento());
 		this.setDescripcion(datos.getDescripcion());
-		this.setBiografia(datos.setBiografia());
-		this.setWebsite(datos.getWebsite());
+		this.setBiografia(datos.getBiografia());
+		this.setWebsite(datos.getLink());
 		instituto = null;
 		misClases = new HashMap<>();
 	}
@@ -101,16 +101,17 @@ public class Profesor extends Usuario {
 	}
 	
 	public DtProfesor getDt() {
-		DtProfesor datos = new DtProfesor(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), 
-				this.getFecha(), this.getDescripcion(), this.getBiografia(), this.getWebsite());
+		// Guille Bruh: DtProfesor datos = new DtProfesor(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha(), this.getDescripcion(), this.getBiografia(), this.getWebsite());
+		DtProfesor datos = new DtProfesor(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website);
 		return datos;
 	}
 	
     public DtProfesorExt getDtExt() {
-    	DtProfesor datos = this.getDt();
+    	//DtProfesor datos = this.getDt();
     	Set<String> clasesDictadas = misClases.keySet();
     	Set<String> actDeportivas = instituto.getMiTrabajo(this);
-    	DtProfesorExt datosExt = new DtProfesorExt(datos, clasesDictadas, actDeportivas);
+    	// Ya quisieras DtProfesorExt datosExt = new DtProfesorExt(datos, clasesDictadas, actDeportivas);
+    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website,clasesDictadas, actDeportivas);
     	return datosExt;
     }
     
@@ -118,6 +119,6 @@ public class Profesor extends Usuario {
     	super.editarDatos(datos);
     	this.setDescripcion(datos.getDescripcion());
     	this.setBiografia(datos.getBiografia());
-    	this.setWebsite(datos.getWebsite());
+    	this.setWebsite(datos.getLink());
     }
 }

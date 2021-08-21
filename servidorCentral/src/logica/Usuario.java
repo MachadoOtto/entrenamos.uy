@@ -9,19 +9,23 @@
 
 package logica;
 
+import datatypes.DtFecha;
+import datatypes.DtUsuario;
+
 public abstract class Usuario {
 
-    private String nickname, nombre, apellido, correo;
+    protected String nickname, nombre, apellido, correo;
     
-    private DtFecha fechaNacimiento;
+    protected DtFecha fechaNacimiento;
 
-    public Usuario() {
-        this.setNickname(new String());
-    	this.setNombre(new String());
-        this.setApellido(new String());
-        this.setCorreo(new String());
-        this.setFecha(new DtFecha());
-    }
+    //guille : WHAT?
+//    public Usuario() {
+//        this.setNickname(new String());
+//    	this.setNombre(new String());
+//        this.setApellido(new String());
+//        this.setCorreo(new String());
+//        this.setFecha(new DtFecha());
+//    }
 
     public Usuario(String nick, String nombre, String apellido, String correo, DtFecha fecha) {
         this.setNickname(nick);
@@ -35,8 +39,8 @@ public abstract class Usuario {
     	this.setNickname(datos.getNickname());
     	this.setNombre(datos.getNombre());
         this.setApellido(datos.getApellido());
-        this.setCorreo(datos.getCorreo());
-        this.setFecha(datos.getFecha());
+        this.setCorreo(datos.getEmail());
+        this.setFecha(datos.getFechaNacimiento());
     }
     
     private void setNickname(String nick) {
@@ -84,6 +88,6 @@ public abstract class Usuario {
     public void editarDatos(DtUsuario datos) {
     	this.setNombre(datos.getNombre());
     	this.setApellido(datos.getApellido());
-    	this.setFecha(datos.getFecha());
+    	this.setFecha(datos.getFechaNacimiento());
     }
 }

@@ -1,6 +1,7 @@
 /.metadata/
 .project
 .settings
+.classpath
 /bin/
 /servidorCentral/bin/
 /servidorCentral/.project

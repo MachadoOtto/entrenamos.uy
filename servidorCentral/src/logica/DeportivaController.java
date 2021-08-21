@@ -1,7 +1,7 @@
 package logica;
 
-import java.util.HashSet;
 import java.util.Set;
+import datatypes.DtFecha;
 
 public class DeportivaController implements IDeportivaController {
 	
@@ -16,7 +16,7 @@ public class DeportivaController implements IDeportivaController {
 		
 	}
 	
-	public DeportivaController getInstance()
+	public static DeportivaController getInstance()
 	{
 		if ( instance == null )
 		{
@@ -47,7 +47,7 @@ public class DeportivaController implements IDeportivaController {
 	public void agregarActividadCuponera(String nombreCuponera, 
 			String institucion, String actividadDeportiva, int cantidadClases)
 	{
-		HandlerInstitucion hi = HandlerInstituciones.getInstance();
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion i = hi.findInstitucion(institucion);
 		HandlerCuponera hc = HandlerCuponera.getInstance();
 		Cuponera c = hc.getCup(nombreCuponera);

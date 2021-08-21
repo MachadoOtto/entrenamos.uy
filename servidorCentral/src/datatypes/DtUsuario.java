@@ -21,7 +21,7 @@ public class DtUsuario {
 		return this.nickname;
 	}
 	
-	public String getApellida() {
+	public String getApellido() {
 		return this.apellido;
 	}
 	
