@@ -1,7 +1,4 @@
 package datatypes;
 
-public enum TReg {
-
-	cuponera,general
-	}
+public enum TReg {cuponera,general}
 
