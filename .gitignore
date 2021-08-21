@@ -2,3 +2,7 @@
 .project
 .settings
 /bin/
+/servidorCentral/bin/
+/servidorCentral/.project
+/servidorCentral/.classpath
+/servidorCentral/.settings
