@@ -113,6 +113,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		});
 		comboBoxTipoDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"-", "Socio", "Profesor"}));
 		GridBagConstraints gbc_comboBoxTipoDeUsuario = new GridBagConstraints();
+		gbc_comboBoxTipoDeUsuario.anchor = GridBagConstraints.SOUTH;
 		gbc_comboBoxTipoDeUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxTipoDeUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxTipoDeUsuario.gridx = 6;
@@ -121,6 +122,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		JLabel labelNickname = new JLabel("Nickname");
 		GridBagConstraints gbc_labelNickname = new GridBagConstraints();
+		gbc_labelNickname.gridwidth = 2;
 		gbc_labelNickname.anchor = GridBagConstraints.SOUTH;
 		gbc_labelNickname.fill = GridBagConstraints.HORIZONTAL;
 		gbc_labelNickname.insets = new Insets(0, 0, 5, 5);
@@ -140,6 +142,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		JLabel labelNombre = new JLabel("Nombre");
 		GridBagConstraints gbc_labelNombre = new GridBagConstraints();
+		gbc_labelNombre.gridwidth = 2;
 		gbc_labelNombre.anchor = GridBagConstraints.SOUTH;
 		gbc_labelNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_labelNombre.insets = new Insets(0, 0, 5, 5);
@@ -177,8 +180,8 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		JLabel labelEmail = new JLabel("Correo electronico");
 		GridBagConstraints gbc_labelEmail = new GridBagConstraints();
-		gbc_labelEmail.anchor = GridBagConstraints.SOUTH;
-		gbc_labelEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_labelEmail.gridwidth = 2;
+		gbc_labelEmail.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_labelEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_labelEmail.gridx = 1;
 		gbc_labelEmail.gridy = 5;
@@ -196,7 +199,8 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		JLabel labelFechaNacimiento = new JLabel("Fecha de nacimiento");
 		GridBagConstraints gbc_labelFechaNacimiento = new GridBagConstraints();
-		gbc_labelFechaNacimiento.anchor = GridBagConstraints.SOUTH;
+		gbc_labelFechaNacimiento.gridwidth = 2;
+		gbc_labelFechaNacimiento.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_labelFechaNacimiento.insets = new Insets(0, 0, 5, 5);
 		gbc_labelFechaNacimiento.gridx = 1;
 		gbc_labelFechaNacimiento.gridy = 7;
@@ -250,6 +254,8 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		labelInstitucion = new JLabel("Nombre de Institucion");
 		GridBagConstraints gbc_labelInstitucion = new GridBagConstraints();
+		gbc_labelInstitucion.anchor = GridBagConstraints.WEST;
+		gbc_labelInstitucion.gridwidth = 2;
 		gbc_labelInstitucion.insets = new Insets(0, 0, 5, 5);
 		gbc_labelInstitucion.gridx = 1;
 		gbc_labelInstitucion.gridy = 9;
@@ -276,6 +282,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		labelDescripcion = new JLabel("Descripcion");
 		GridBagConstraints gbc_labelDescripcion = new GridBagConstraints();
+		gbc_labelDescripcion.gridwidth = 2;
 		gbc_labelDescripcion.anchor = GridBagConstraints.WEST;
 		gbc_labelDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_labelDescripcion.gridx = 1;
@@ -306,6 +313,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		labelBiografia = new JLabel("Biografia (opcional)");
 		GridBagConstraints gbc_labelBiografia = new GridBagConstraints();
+		gbc_labelBiografia.gridwidth = 2;
 		gbc_labelBiografia.anchor = GridBagConstraints.WEST;
 		gbc_labelBiografia.insets = new Insets(0, 0, 5, 5);
 		gbc_labelBiografia.gridx = 1;
@@ -336,6 +344,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		
 		labelWebsite = new JLabel("Website (opcional)");
 		GridBagConstraints gbc_labelWebsite = new GridBagConstraints();
+		gbc_labelWebsite.gridwidth = 2;
 		gbc_labelWebsite.anchor = GridBagConstraints.WEST;
 		gbc_labelWebsite.insets = new Insets(0, 0, 5, 5);
 		gbc_labelWebsite.gridx = 1;
@@ -447,7 +456,7 @@ public class AltaDeUsuario extends JInternalFrame {
         		String mensajeResultado = "";
         		if(variableControl == 0)
         		{
-        			mensajeResultado = "El usuario ha sido registrado con exito";
+        			mensajeResultado = "El usuario " + nicknameU + " ha sido registrado con exito";
         			break;
         		}
         		else if(variableControl == 1)
