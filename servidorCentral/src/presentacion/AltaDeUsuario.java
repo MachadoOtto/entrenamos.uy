@@ -28,7 +28,7 @@ import java.awt.event.ItemEvent;
 
 public class AltaDeUsuario extends JInternalFrame {
 
-	Set<String> institutos;
+	Set<String> instituciones;
 	private IUsuarioController controlUsr;
 	private JTextField textFieldNickname;
 	private JTextField textFieldNombre;
@@ -44,15 +44,16 @@ public class AltaDeUsuario extends JInternalFrame {
 	private JLabel labelWebsite;
 	private JLabel labelBiografia;
 	private JLabel labelDescripcion;
-	private JLabel labelInstituto;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_3;
-	private JComboBox comboBoxInstituto;
+	private JLabel labelInstitucion;
+	private JLabel labelAclaracionProfesor1;
+	private JLabel labelAclaracionProfesor2;
+	private JLabel labelAclaracionProfesor3;
+	private JLabel labelAclaracionProfesor4;
+	private JComboBox comboBoxInstitucion;
 	private JScrollPane scrollPane;
 	private JTextArea textAreaDescripcion;
 	private JScrollPane scrollPane_1;
+	private JLabel labelAclaracionFecha;
 	
 	public AltaDeUsuario(IUsuarioController controlUsr) {
 		setResizable(false);
@@ -99,7 +100,15 @@ public class AltaDeUsuario extends JInternalFrame {
 				textAreaBiografia.setEnabled(esProfesor);
 				textAreaDescripcion.setEnabled(esProfesor);
 				textFieldWebsite.setEnabled(esProfesor);
-				comboBoxInstituto.setEnabled(esProfesor);
+				comboBoxInstitucion.setEnabled(esProfesor);
+				
+				//Carga instituciones al comboBox en caso de no haber sido cargadas antes
+				if(instituciones.isEmpty()) {
+					instituciones = controlUsr.obtenerInstituciones();
+					for(String ins:instituciones) {
+						comboBoxInstitucion.addItem(ins);
+					}
+				}
 			}
 		});
 		comboBoxTipoDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"-", "Socio", "Profesor"}));
@@ -193,6 +202,13 @@ public class AltaDeUsuario extends JInternalFrame {
 		gbc_labelFechaNacimiento.gridy = 7;
 		getContentPane().add(labelFechaNacimiento, gbc_labelFechaNacimiento);
 		
+		labelAclaracionFecha = new JLabel("(dd/mm/aaaa)");
+		GridBagConstraints gbc_labelAclaracionFecha = new GridBagConstraints();
+		gbc_labelAclaracionFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionFecha.gridx = 6;
+		gbc_labelAclaracionFecha.gridy = 7;
+		getContentPane().add(labelAclaracionFecha, gbc_labelAclaracionFecha);
+		
 		textFieldDia = new JTextField();
 		GridBagConstraints gbc_textFieldDia = new GridBagConstraints();
 		gbc_textFieldDia.gridwidth = 2;
@@ -232,36 +248,31 @@ public class AltaDeUsuario extends JInternalFrame {
 		getContentPane().add(textFieldAnio, gbc_textFieldAnio);
 		textFieldAnio.setColumns(10);
 		
-		labelInstituto = new JLabel("Nombre de Instituto");
-		GridBagConstraints gbc_labelInstituto = new GridBagConstraints();
-		gbc_labelInstituto.insets = new Insets(0, 0, 5, 5);
-		gbc_labelInstituto.gridx = 1;
-		gbc_labelInstituto.gridy = 9;
-		getContentPane().add(labelInstituto, gbc_labelInstituto);
+		labelInstitucion = new JLabel("Nombre de Institucion");
+		GridBagConstraints gbc_labelInstitucion = new GridBagConstraints();
+		gbc_labelInstitucion.insets = new Insets(0, 0, 5, 5);
+		gbc_labelInstitucion.gridx = 1;
+		gbc_labelInstitucion.gridy = 9;
+		getContentPane().add(labelInstitucion, gbc_labelInstitucion);
 		
-		lblNewLabel = new JLabel("(Solo profesor)");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 6;
-		gbc_lblNewLabel.gridy = 9;
-		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		labelAclaracionProfesor1 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor1 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor1.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor1.gridx = 6;
+		gbc_labelAclaracionProfesor1.gridy = 9;
+		getContentPane().add(labelAclaracionProfesor1, gbc_labelAclaracionProfesor1);
 		
-		comboBoxInstituto = new JComboBox();
-		comboBoxInstituto.setModel(new DefaultComboBoxModel(new String[] {"-"}));
-		comboBoxInstituto.setEnabled(false);
+		comboBoxInstitucion = new JComboBox();
+		comboBoxInstitucion.setModel(new DefaultComboBoxModel(new String[] {"-"}));
+		comboBoxInstitucion.setEnabled(false);
 		
-		//Carga instituciones al comboBox
-		Set<String> instituciones = this.controlUsr.obtenerInstituciones(); //Devuelve un set de instituciones
-		for(String ins:instituciones) {
-			comboBoxInstituto.addItem(ins);
-		}
-		GridBagConstraints gbc_comboBoxInstituto = new GridBagConstraints();
-		gbc_comboBoxInstituto.gridwidth = 6;
-		gbc_comboBoxInstituto.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxInstituto.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxInstituto.gridx = 1;
-		gbc_comboBoxInstituto.gridy = 10;
-		getContentPane().add(comboBoxInstituto, gbc_comboBoxInstituto);
+		GridBagConstraints gbc_comboBoxInstitucion = new GridBagConstraints();
+		gbc_comboBoxInstitucion.gridwidth = 6;
+		gbc_comboBoxInstitucion.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxInstitucion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxInstitucion.gridx = 1;
+		gbc_comboBoxInstitucion.gridy = 10;
+		getContentPane().add(comboBoxInstitucion, gbc_comboBoxInstitucion);
 		
 		labelDescripcion = new JLabel("Descripcion");
 		GridBagConstraints gbc_labelDescripcion = new GridBagConstraints();
@@ -271,12 +282,12 @@ public class AltaDeUsuario extends JInternalFrame {
 		gbc_labelDescripcion.gridy = 11;
 		getContentPane().add(labelDescripcion, gbc_labelDescripcion);
 		
-		lblNewLabel_1 = new JLabel("(Solo profesor)");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 6;
-		gbc_lblNewLabel_1.gridy = 11;
-		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
+		labelAclaracionProfesor2 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor2 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor2.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor2.gridx = 6;
+		gbc_labelAclaracionProfesor2.gridy = 11;
+		getContentPane().add(labelAclaracionProfesor2, gbc_labelAclaracionProfesor2);
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -301,12 +312,12 @@ public class AltaDeUsuario extends JInternalFrame {
 		gbc_labelBiografia.gridy = 13;
 		getContentPane().add(labelBiografia, gbc_labelBiografia);
 		
-		lblNewLabel_2 = new JLabel("(Solo profesor)");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 6;
-		gbc_lblNewLabel_2.gridy = 13;
-		getContentPane().add(lblNewLabel_2, gbc_lblNewLabel_2);
+		labelAclaracionProfesor3 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor3 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor3.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor3.gridx = 6;
+		gbc_labelAclaracionProfesor3.gridy = 13;
+		getContentPane().add(labelAclaracionProfesor3, gbc_labelAclaracionProfesor3);
 		
 		scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -331,12 +342,12 @@ public class AltaDeUsuario extends JInternalFrame {
 		gbc_labelWebsite.gridy = 15;
 		getContentPane().add(labelWebsite, gbc_labelWebsite);
 		
-		lblNewLabel_3 = new JLabel("(Solo profesor)");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.gridx = 6;
-		gbc_lblNewLabel_3.gridy = 15;
-		getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
+		labelAclaracionProfesor4 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor4 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor4.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor4.gridx = 6;
+		gbc_labelAclaracionProfesor4.gridy = 15;
+		getContentPane().add(labelAclaracionProfesor4, gbc_labelAclaracionProfesor4);
 		
 		textFieldWebsite = new JTextField();
 		textFieldWebsite.setEnabled(false);
@@ -384,6 +395,7 @@ public class AltaDeUsuario extends JInternalFrame {
     	textFieldDia.setText("");
     	textFieldAnio.setText("");
     	comboBoxMes.setSelectedIndex(0);
+    	instituciones.clear();
     }
 	
 	/*
@@ -414,7 +426,7 @@ public class AltaDeUsuario extends JInternalFrame {
                 diaU = Integer.parseInt(textFieldDia.getText());
                 mesU = this.comboBoxMes.getSelectedIndex();
                 anioU = Integer.parseInt(textFieldAnio.getText());
-                institutoU = this.comboBoxInstituto.getSelectedItem().toString();
+                institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
                 descripcionU = this.textAreaDescripcion.getSelectedText();
                 biografiaU = this.textAreaBiografia.getSelectedText();
                 websiteU = this.textFieldWebsite.getSelectedText();
@@ -460,7 +472,7 @@ public class AltaDeUsuario extends JInternalFrame {
         String diaU = textFieldDia.getText();
         int mesU = this.comboBoxMes.getSelectedIndex();
         String anioU = textFieldAnio.getText();
-        String institutoU = this.comboBoxInstituto.getSelectedItem().toString();
+        String institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
         String websiteU = this.textFieldWebsite.getSelectedText();
 
         //Celdas vacias
