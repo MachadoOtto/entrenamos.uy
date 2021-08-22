@@ -1,170 +1,191 @@
+/* Taller de Programacion - INCO/FING/UDELAR
+ * Integrantes:
+ *      Alexis Baladon (5.574.612-4) - alexis.baladon@fing.edu.uy
+ *      Guillermo Toyos (5.139.879-9) - guillermo.toyos@fing.edu.uy
+ *      Jorge Machado (4.876.616-9) - jorge.machado.ottonelli@fing.edu.uy
+ *      Juan Jose Mangado (5.535.227-0) - juan.mangado@fing.edu.uy
+ *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
+ */
+
 package presentacion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import logica.LaFabrica;
+import logica.IUsuarioController;
+import logica.IActividadDeportivaController;
+import logica.IDictadoClaseController;
+import logica.IDeportivaController;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenuItem;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Color;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import javax.swing.SwingConstants;
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
 import javax.swing.JDesktopPane;
-import java.awt.CardLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
-public class Menu extends JFrame {
-
-	private JPanel contentPane;
-	public static JDesktopPane desktopPane;
-	private JMenu mnNewMenu_1;
-	private JMenu mnNewMenu_2;
-	private JMenu mnNewMenu_3;
-	private JMenu mnNewMenu_4;
-	private JMenu mnNewMenu_5;
-
-	AltaInstitucionDeportiva IFAltaInstitucionDeportiva;
+public class Menu {
 	
+	private JFrame menuPrincipal;
+	private JDesktopPane escritorio;
+	private IUsuarioController IUC;
+	private IActividadDeportivaController IADC;
+	private IDeportivaController IDC;
+	private IDictadoClaseController IDCC;
+	
+	// Declaracion de los JInternalFrames:
+	private AltaDictadoClase altaClase;
+
+	/**
+	 * Launch the application.
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
-					frame.setVisible(true);
+					Menu window = new Menu();
+					window.menuPrincipal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+
+	/**
+	 * Create the frame.
+	 */
 	public Menu() {
-		render();
+		iniciar();
 		
-        IFAltaInstitucionDeportiva = new AltaInstitucionDeportiva();
-        IFAltaInstitucionDeportiva.setVisible(false);
+		LaFabrica fabrica = LaFabrica.getInstance();
+		IUC = fabrica.obtenerIUsuarioController();
+		IADC = fabrica.obtenerIActDeportivaController();
+		IDC = fabrica.obtenerIDeportivaController();
+		IDCC = fabrica.obtenerIDictadoClaseController();	
 		
-        
-        this.getContentPane().add(IFAltaInstitucionDeportiva);
+		/* A partir de aca, agregamos nuestros JInternalFrames (con visibilidad = false). */
+		
+		// AltaDictadoClase:
+		altaClase = new AltaDictadoClase(IDCC);
+		altaClase.setVisible(false);
+		escritorio.add(altaClase);
 	}
 	
-	private void render() {
-		setTitle("ENTRENAMOS.UY");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(180, 100, 1000, 800);
+	private void iniciar() {
+        // Se crea el Frame con las dimensiones indicadas:
+		menuPrincipal = new JFrame();
+		menuPrincipal.setTitle("ENTRENAMOS.UY");
+		menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menuPrincipal.setBounds(180, 100, 1000, 800);
+		menuPrincipal.setResizable(true);
 		
+		escritorio = new JDesktopPane();
+		menuPrincipal.getContentPane().add(escritorio);
+		
+		// Crear la Barra del Menu:
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		menuPrincipal.setJMenuBar(menuBar);
 		
 		JMenu menuInicio = new JMenu("Inicio\r\n");
 		menuBar.add(menuInicio);
 		
-		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Ir a Inicio");
-		menuInicio.add(mntmNewMenuItem_11);
+		JMenuItem itemIrInicio = new JMenuItem("Ir a Inicio");
+		menuInicio.add(itemIrInicio);
 
-		JMenuItem mntmNewMenuItem_salir = new JMenuItem("Salir");
-		menuInicio.add(mntmNewMenuItem_salir);
+		JMenuItem itemSalir = new JMenuItem("Salir");
+		menuInicio.add(itemSalir);
 		
-		JMenu mnNewMenu = new JMenu("Registros");
-		menuBar.add(mnNewMenu);
+		JMenu menuRegistro = new JMenu("Registros");
+		menuBar.add(menuRegistro);
 		
-		mnNewMenu_1 = new JMenu("Usuario");
-		mnNewMenu.add(mnNewMenu_1);
+		JMenu subMenuUsuario = new JMenu("Usuario");
+		menuRegistro.add(subMenuUsuario);
 		
-		JMenuItem registrarUsuario = new JMenuItem("Registrar Usuario");
-		mnNewMenu_1.add(registrarUsuario);
-		registrarUsuario.setIcon(null);
+		JMenuItem itemRegistrarUsuario = new JMenuItem("Registrar Usuario");
+		subMenuUsuario.add(itemRegistrarUsuario);
 		
-		mnNewMenu_3 = new JMenu("Institucion");
-		mnNewMenu.add(mnNewMenu_3);
+		JMenu subMenuInstitucion = new JMenu("Institucion");
+		menuRegistro.add(subMenuInstitucion);
 		
-		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Alta Institucion Deportiva");
-		mnNewMenu_3.add(mntmNewMenuItem_10);
-		mntmNewMenuItem_10.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                IFAltaInstitucionDeportiva.setVisible(true);
-            }
-        });
+		JMenuItem itemAltaInstitucion = new JMenuItem("Alta Institucion Deportiva");
+		subMenuInstitucion.add(itemAltaInstitucion);
 		
+		JMenu subMenuActDep = new JMenu("Actividad Deportiva");
+		menuRegistro.add(subMenuActDep);
 		
-		mnNewMenu_2 = new JMenu("Actividad Deportiva");
-		mnNewMenu.add(mnNewMenu_2);
+		JMenuItem itemAltaActividad = new JMenuItem("Alta Actividad Deportiva");
+		subMenuActDep.add(itemAltaActividad);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Alta Actividad Deportiva");
-		mnNewMenu_2.add(mntmNewMenuItem_2);
+		JMenu subMenuDictado = new JMenu("Dictado Clase");
+		menuRegistro.add(subMenuDictado);
 		
-		mnNewMenu_4 = new JMenu("Dictado Clase");
-		mnNewMenu.add(mnNewMenu_4);
+		JMenuItem itemAltaDictado = new JMenuItem("Alta Dictado Clase");
+		itemAltaDictado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (altaClase.isVisible()) {
+					// altaClase.traerAlFrente() no se si existe xd pero estaria bueno que lo haga
+				} else {
+					// altaClase.limpiar() //no IMplementado aun.
+					altaClase.setVisible(true);
+				}
+			}
+		});
+		subMenuDictado.add(itemAltaDictado);
 		
-		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Alta Dictado Clase");
-		mnNewMenu_4.add(mntmNewMenuItem_4);
+		JMenuItem itemRegistroAClase = new JMenuItem("Registro a Dictado Clase");
+		subMenuDictado.add(itemRegistroAClase);
 		
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Registro a Dictado Clase");
-		mnNewMenu_4.add(mntmNewMenuItem_6);
+		JMenu subMenuCuponera = new JMenu("Cuponera");
+		menuRegistro.add(subMenuCuponera);
 		
-		mnNewMenu_5 = new JMenu("Cuponera");
-		mnNewMenu.add(mnNewMenu_5);
+		JMenuItem itemCrearCuponera = new JMenuItem("Crear Cuponera");
+		subMenuCuponera.add(itemCrearCuponera);
 		
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Crear Cuponera");
-		mnNewMenu_5.add(mntmNewMenuItem_7);
+		JMenuItem itemAgregarActividad = new JMenuItem("Agregar Actividad Deportiva");
+		subMenuCuponera.add(itemAgregarActividad);
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Agregar Actividad Deportiva");
-		mnNewMenu_5.add(mntmNewMenuItem_8);
-		
-		JMenu menuRegistros = new JMenu("Consultas");
-		menuBar.add(menuRegistros);
-		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Consulta Usuario");
-		menuRegistros.add(mntmNewMenuItem);
-		
-		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Consulta Actividad Deportiva");
-		menuRegistros.add(mntmNewMenuItem_3);
-		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Consulta Dictado Clase");
-		menuRegistros.add(mntmNewMenuItem_5);
-		
-		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Consulta de Cuponeras");
-		menuRegistros.add(mntmNewMenuItem_9);
-		
-		JMenu menuConsultas = new JMenu("Modificaciones");
+		JMenu menuConsultas = new JMenu("Consultas");
 		menuBar.add(menuConsultas);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Modificar Datos Usuario");
-		menuConsultas.add(mntmNewMenuItem_1);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(102, 153, 255));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		JMenuItem itemConsultaUsuario = new JMenuItem("Consulta Usuario");
+		menuConsultas.add(itemConsultaUsuario);
 		
-		JDesktopPane desktopPane_1 = new JDesktopPane();
-		desktopPane_1.setBorder(null);
-		desktopPane_1.setBackground(new Color(102, 153, 255));
-		contentPane.add(desktopPane_1, BorderLayout.CENTER);
-		GridBagLayout gbl_desktopPane_1 = new GridBagLayout();
-		gbl_desktopPane_1.columnWidths = new int[]{248, 451, 0};
-		gbl_desktopPane_1.rowHeights = new int[]{271, 93, 0};
-		gbl_desktopPane_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_desktopPane_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		desktopPane_1.setLayout(gbl_desktopPane_1);
+		JMenuItem itemConsultaActividad = new JMenuItem("Consulta Actividad Deportiva");
+		menuConsultas.add(itemConsultaActividad);
 		
-		JLabel lblNewLabel = new JLabel("ENTRENAMOS.UY");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Lucida Sans", Font.BOLD, 50));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 1;
-		desktopPane_1.add(lblNewLabel, gbc_lblNewLabel);
-	}
+		JMenuItem itemConsultaClase = new JMenuItem("Consulta Dictado Clase");
+		menuConsultas.add(itemConsultaClase);
+		
+		JMenuItem itemConsultaCuponera = new JMenuItem("Consulta de Cuponeras");
+		menuConsultas.add(itemConsultaCuponera);
+		
+		JMenu menuModificaciones = new JMenu("Modificaciones");
+		menuBar.add(menuModificaciones);
+		
+		JMenuItem itemModUsuario = new JMenuItem("Modificar Datos Usuario");
+		menuModificaciones.add(itemModUsuario);
+	}	
 }
+
+/*  ESTO ERA DE MATHI PARA DARLE COLOR CREO, POR AHORA LO SACAMOS
+JDesktopPane desktopPane_1 = new JDesktopPane();
+desktopPane_1.setBorder(null);
+desktopPane_1.setBackground(new Color(102, 153, 255));
+contentPane.add(desktopPane_1, BorderLayout.CENTER);
+GridBagLayout gbl_desktopPane_1 = new GridBagLayout();
+gbl_desktopPane_1.columnWidths = new int[]{248, 451, 0};
+gbl_desktopPane_1.rowHeights = new int[]{271, 93, 0};
+gbl_desktopPane_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+gbl_desktopPane_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+desktopPane_1.setLayout(gbl_desktopPane_1);
+
+JLabel lblNewLabel = new JLabel("ENTRENAMOS.UY");
+lblNewLabel.setForeground(new Color(255, 255, 255));
+lblNewLabel.setFont(new Font("Lucida Sans", Font.BOLD, 50));
+GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
+gbc_lblNewLabel.gridx = 1;
+gbc_lblNewLabel.gridy = 1;
+desktopPane_1.add(lblNewLabel, gbc_lblNewLabel); */
