@@ -63,6 +63,9 @@ public class Menu extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Ir a Inicio");
 		menuInicio.add(mntmNewMenuItem_11);
+
+		JMenuItem mntmNewMenuItem_salir = new JMenuItem("Salir");
+		menuInicio.add(mntmNewMenuItem_salir);
 		
 		JMenu mnNewMenu = new JMenu("Registros");
 		menuBar.add(mnNewMenu);
