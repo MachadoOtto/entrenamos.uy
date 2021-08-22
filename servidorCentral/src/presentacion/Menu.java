@@ -1,3 +1,5 @@
+package presentacion;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -31,9 +33,9 @@ public class Menu extends JFrame {
 	private JMenu mnNewMenu_3;
 	private JMenu mnNewMenu_4;
 	private JMenu mnNewMenu_5;
-	/**
-	 * Launch the application.
-	 */
+
+	AltaInstitucionDeportiva IFAltaInstitucionDeportiva;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -46,11 +48,17 @@ public class Menu extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Menu() {
+		render();
+		
+        IFAltaInstitucionDeportiva = new AltaInstitucionDeportiva();
+        IFAltaInstitucionDeportiva.setVisible(false);
+		
+        
+        this.getContentPane().add(IFAltaInstitucionDeportiva);
+	}
+	
+	private void render() {
 		setTitle("ENTRENAMOS.UY");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(180, 100, 1000, 800);
@@ -82,6 +90,12 @@ public class Menu extends JFrame {
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Alta Institucion Deportiva");
 		mnNewMenu_3.add(mntmNewMenuItem_10);
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                IFAltaInstitucionDeportiva.setVisible(true);
+            }
+        });
+		
 		
 		mnNewMenu_2 = new JMenu("Actividad Deportiva");
 		mnNewMenu.add(mnNewMenu_2);

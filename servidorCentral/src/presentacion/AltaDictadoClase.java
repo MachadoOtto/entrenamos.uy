@@ -6,6 +6,7 @@
  *      Juan Jose Mangado (5.535.227-0) - juan.mangado@fing.edu.uy
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
  */
+package presentacion;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -46,8 +47,8 @@ public class AltaDictadoClase extends JInternalFrame {
 	private JTextField url;
 	
 	// JComboBox:
-	private JComboBox<Institucion> boxInstitucion;
-	private JComboBox<ActividadDeportiva> boxActividad;
+	//private JComboBox<Institucion> boxInstitucion;
+	//private JComboBox<ActividadDeportiva> boxActividad;
 	// Seleccion de Fecha de Inicio:
 	private JComboBox boxIDia; // Depende de mes (y anio si se quiere trabajar con bisiestos);
 	private JComboBox boxIMes;
