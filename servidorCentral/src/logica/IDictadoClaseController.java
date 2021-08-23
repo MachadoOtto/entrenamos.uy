@@ -16,7 +16,9 @@ public interface IDictadoClaseController {
 	
 	public Set<String> obtenerInstituciones();
 	
-	public int ingresarDatosClase(String ins,String actDep,DtClase datos);
+	public Set<String> obtenerActividades(String ins);
+	
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos);
 		
 	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }

@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -23,13 +24,18 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import logica.IDictadoClaseController;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+import java.util.Set;
+
+import logica.IDictadoClaseController;
+import datatypes.DtFecha;
+import datatypes.DtClase;
+
+@SuppressWarnings("serial")
 public class AltaDictadoClase extends JInternalFrame {
 	
 	/* Controlador de Dictado de Clase para las acciones del JInternalFrame */
@@ -312,19 +318,20 @@ public class AltaDictadoClase extends JInternalFrame {
         boxInstitucion = new JComboBox<>();
         boxInstitucion.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (boxInstitucion.getSelectedIndex() != 0) {
-        			DefaultComboBoxModel<String> modelActividad;
-        			//try {
-                    	modelActividad = new DefaultComboBoxModel<>();
-                    	modelActividad.addElement("-");
-                    	// Agregar aqui el for que inserta en el model anterior los nombres de actividades deportivas
-                    	// al combobox de actividades (luego hacer lo mismo para profesores)
-                    	// esto implica crear operaciones en el controlador de dictado clase.
-                    	boxInstitucion.setModel(modelActividad);
-                    //} catch (UsuarioNoExisteException e) {
-                    	// No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
-                    //}
+        		int selectIndex = boxInstitucion.getSelectedIndex();
+    			boxActividad.removeAllItems();
+    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+    			modelActividad.addElement("-");
+        		if (selectIndex != 0) {
+        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
+                    for(String x: actividades) {
+                    	modelActividad.addElement(x);
+                    }
+                    boxActividad.setEnabled(true);
+        		} else {
+        			boxActividad.setEnabled(false);
         		}
+            	boxInstitucion.setModel(modelActividad);
         	}
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
@@ -359,7 +366,7 @@ public class AltaDictadoClase extends JInternalFrame {
         btnAceptar = new JButton("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                // cmdRegistroUsuarioActionPerformed(arg0);
+            	darAltaDeClase(arg0);
             }
         });
         GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
@@ -386,6 +393,80 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(btnCancelar, gbc_btnCancelar);
         
 	}
+	
+	// Metodo de invocacion del Alta de Dictado de Clase
+    protected void darAltaDeClase(ActionEvent arg0) {
+        if (checkDatos()) {
+        	// Obtengo datos de los controles Swing:
+        	String nombre = nombreClase.getText();
+            int socioMin = Integer.parseInt(sociosMin.getText());
+            int socioMax = Integer.parseInt(sociosMax.getText());
+            int dia = Integer.parseInt(boxIDia.getItemAt(boxIDia.getSelectedIndex()));
+            int mes = Integer.parseInt(boxIMes.getItemAt(boxIMes.getSelectedIndex()));
+            int anio = Integer.parseInt(inicioAnio.getText());
+            int hora = Integer.parseInt(boxIHora.getItemAt(boxIHora.getSelectedIndex()));
+            int minuto = Integer.parseInt(boxIMinuto.getItemAt(boxIMinuto.getSelectedIndex()));
+            String urlWeb = url.getText();
+            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
+            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
+            String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex());
+            //try {
+            	DtFecha fecha = new DtFecha(anio, mes, dia, hora, minuto, 0);
+            	DtClase datos = new DtClase(nombre, nombreProfesor, socioMin, socioMax, urlWeb, fecha, fecha);//Aca en realidad es fecha sistema
+                controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos);
+                // Muestro éxito de la operación
+                JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 
+                		"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
+
+            //} catch (UsuarioRepetidoException e) {
+                // Muestro error de registro
+             //   JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
+            //}
+            // Limpio el internal frame antes de cerrar la ventana
+            limpiarFormulario();
+            setVisible(false);
+        }
+    }
+	
+	
+	// Realiza el checkeo de la entrada de datos.
+    private boolean checkDatos() {
+        String campoNombre = nombreClase.getText();
+        String campoMin = sociosMin.getText();
+        String campoMax = sociosMax.getText();
+        String campoAnio = inicioAnio.getText();
+        String campoWeb = url.getText();
+        int indexDia = boxIDia.getSelectedIndex();
+        int indexMes = boxIMes.getSelectedIndex();
+        int indexHora = boxIHora.getSelectedIndex();
+        int indexMinuto = boxIMinuto.getSelectedIndex();
+        int indexInstitucion = boxInstitucion.getSelectedIndex();
+        int indexActividad = boxActividad.getSelectedIndex();
+        int indexProfesor = boxProfesor.getSelectedIndex();
+        if (campoNombre.isEmpty() || campoMin.isEmpty() || campoMax.isEmpty() || campoAnio.isEmpty() || campoWeb.isEmpty() ||
+        		indexDia < 1 || indexMes < 1 || indexHora < 1 || indexMinuto < 1 || indexInstitucion < 1 || 
+        		indexActividad < 1 || indexProfesor < 1) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Alta Dictado de Clase",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        try {
+            Integer.parseInt(campoMin);
+            Integer.parseInt(campoMax);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Los campos de Cantidad Socios debe ser un numero", "Alta Dictado de Clase",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        try {
+            Integer.parseInt(campoAnio);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El año ingresado debe ser un numero", "Alta Dictado de Clase",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 	
 	// Cargar Datos al JComboBox
     // Se invoca el método antes de hacer visible el JInternalFrame
@@ -421,63 +502,3 @@ public class AltaDictadoClase extends JInternalFrame {
         boxProfesor.setEnabled(false);
     } 
 }
-
-/*	// Este método es invocado al querer registrar un usuario, funcionalidad
-    // provista por la operación del sistem registrarUsuario().
-    // Previamente se hace una verificación de los campos, particularmente que no sean vacíos
-    // y que la cédula sea un número. 
-    // Tanto en caso de que haya un error (de verificación o de registro) o no, se despliega
-    // un mensaje utilizando un panel de mensaje (JOptionPane).
-    protected void cmdRegistroUsuarioActionPerformed(ActionEvent arg0) {
-        // TODO Auto-generated method stub
-
-        // Obtengo datos de los controles Swing
-        String nombreU = this.textFieldNombre.getText();
-        String apellidoU = this.textFieldApellido.getText();
-        String ciU = this.textFieldCI.getText();
-
-        if (checkFormulario()) {
-            try {
-                controlUsr.registrarUsuario(nombreU, apellidoU, ciU);
-
-                // Muestro éxito de la operación
-                JOptionPane.showMessageDialog(this, "El Usuario se ha creado con éxito", "Registrar Usuario",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (UsuarioRepetidoException e) {
-                // Muestro error de registro
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-            }
-
-            // Limpio el internal frame antes de cerrar la ventana
-            limpiarFormulario();
-            setVisible(false);
-        }
-    }
-
-    // Permite validar la información introducida en los campos e indicar
-    // a través de un mensaje de error (JOptionPane) cuando algo sucede.
-    // Este tipo de chequeos se puede realizar de otras formas y con otras librerías de Java, 
-    // por ejemplo impidiendo que se escriban caracteres no numéricos al momento de escribir en
-    // en el campo de la cédula, o mostrando un mensaje de error apenas el foco pasa a otro campo.
-    private boolean checkFormulario() {
-        String nombreU = this.textFieldNombre.getText();
-        String apellidoU = this.textFieldApellido.getText();
-        String ciU = this.textFieldCI.getText();
-
-        if (nombreU.isEmpty() || apellidoU.isEmpty() || ciU.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registrar Usuario",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        try {
-            Integer.parseInt(ciU);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La CI debe ser un numero", "Registrar Usuario",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true;
-    } */

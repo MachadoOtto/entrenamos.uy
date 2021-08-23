@@ -11,6 +11,7 @@ package logica;
 
 import java.util.Set;
 import datatypes.DtClase;
+
 public class DictadoClaseController implements IDictadoClaseController {
 	
 	private static DictadoClaseController instance = null;
@@ -27,6 +28,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 	public Set<String> obtenerInstituciones() {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		return hi.obtenerInstituciones();
+	}
+	
+	public Set<String> obtenerActividades(String ins) {
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		Institucion instituto = hi.findInstitucion(ins);
+		return instituto.obtenerActDep();
 	}
 
 	public int ingresarDatosClase(String ins,String actDep,DtClase datos) {

@@ -82,14 +82,7 @@ public class Institucion {
     }
 
     public Set<String> obtenerActDep() {
-        Set<String> nombreActsDeps = new HashSet<>();
-		Collection<ActividadDeportiva> actDepCollection = actsDeps.values();
-		Iterator<ActividadDeportiva> itActsDeps = actDepCollection.iterator();
-		while (itActsDeps.hasNext()) {
-			ActividadDeportiva actDepAux = itActsDeps.next();
-			nombreActsDeps.add(actDepAux.getNombre());
-		}
-		return nombreActsDeps;
+		return actsDeps.keySet();
     }
 
     public Set<String> obtenerNombreClasesActDep(String actDep) {
