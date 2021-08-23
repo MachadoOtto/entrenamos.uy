@@ -1,3 +1,4 @@
+
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -51,7 +52,7 @@ public class AltaDeUsuario extends JInternalFrame {
 	private JLabel labelAclaracionProfesor2;
 	private JLabel labelAclaracionProfesor3;
 	private JLabel labelAclaracionProfesor4;
-	private JComboBox comboBoxInstitucion;
+	private JComboBox<String> comboBoxInstitucion;
 	private JScrollPane scrollPane;
 	private JTextArea textAreaDescripcion;
 	private JScrollPane scrollPane_1;
@@ -72,7 +73,7 @@ public class AltaDeUsuario extends JInternalFrame {
 		 */
 		int columns = 8;
 		int rows = 9;
-		int iframeWidth = 480;
+		int iframeWidth = 450;
 		int iframeHeight = 625;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
@@ -244,7 +245,6 @@ public class AltaDeUsuario extends JInternalFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tomarDatos();
-				limpiarFormulario();
 				setVisible(false);
 			}
 		});
@@ -275,8 +275,8 @@ public class AltaDeUsuario extends JInternalFrame {
 		gbc_labelAclaracionProfesor1.gridy = 9;
 		getContentPane().add(labelAclaracionProfesor1, gbc_labelAclaracionProfesor1);
 		
-		comboBoxInstitucion = new JComboBox();
-		comboBoxInstitucion.setModel(new DefaultComboBoxModel(new String[] {"-"}));
+		comboBoxInstitucion = new JComboBox<String>();
+		comboBoxInstitucion.setModel(new DefaultComboBoxModel<String>(new String[] {"-"}));
 		comboBoxInstitucion.setEnabled(false);
 		
 		GridBagConstraints gbc_comboBoxInstitucion = new GridBagConstraints();
@@ -411,6 +411,9 @@ public class AltaDeUsuario extends JInternalFrame {
     	textFieldDia.setText("");
     	textFieldAnio.setText("");
     	comboBoxMes.setSelectedIndex(0);
+    	textAreaDescripcion.setText("");
+    	textAreaBiografia.setText("");
+    	textFieldWebsite.setText("");
     	instituciones.clear();
     }
 	
@@ -419,6 +422,7 @@ public class AltaDeUsuario extends JInternalFrame {
 	 */
 	private void tomarDatos() {
 		
+		String tipoU;
 		String nicknameU;
 		String nombreU;
         String apellidoU;
@@ -433,8 +437,10 @@ public class AltaDeUsuario extends JInternalFrame {
         
         if (checkFormulario())
         {
+        	limpiarFormulario();
         	while(this.isVisible()) 
         	{
+        		tipoU = this.comboBoxTipoDeUsuario.getSelectedItem().toString();
         		nicknameU = this.textFieldNickname.getText();
         		nombreU = this.textFieldNombre.getText();
                 apellidoU = this.textFieldApellido.getText();
@@ -443,15 +449,15 @@ public class AltaDeUsuario extends JInternalFrame {
                 mesU = this.comboBoxMes.getSelectedIndex();
                 anioU = Integer.parseInt(textFieldAnio.getText());
                 institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
-                descripcionU = this.textAreaDescripcion.getSelectedText();
-                biografiaU = this.textAreaBiografia.getSelectedText();
-                websiteU = this.textFieldWebsite.getSelectedText();
+                descripcionU = this.textAreaDescripcion.getText();
+                biografiaU = this.textAreaBiografia.getText();
+                websiteU = this.textFieldWebsite.getText();
                 
         		/*
         		 * Crea el tipo de dato segun el tipo de usuario seleccionado
         		 */
         		DtUsuario datosUser;
-        		if(this.comboBoxTipoDeUsuario.getSelectedItem().toString() == "Profesor") {
+        		if(tipoU == "Profesor") {
         			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0),institutoU, descripcionU,biografiaU,websiteU);
         		}
         		else //Se asume que si no es profesor es socio
@@ -480,7 +486,7 @@ public class AltaDeUsuario extends JInternalFrame {
 	 * Valida los datos ingresados por el usuario
 	 */
 	private boolean checkFormulario() {
-		int tipoDeUsuarioU = this.comboBoxTipoDeUsuario.getSelectedIndex();
+		String tipoU  = this.comboBoxTipoDeUsuario.getSelectedItem().toString();
 		String nicknameU = this.textFieldNickname.getText();
 		String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
@@ -489,10 +495,10 @@ public class AltaDeUsuario extends JInternalFrame {
         int mesU = this.comboBoxMes.getSelectedIndex();
         String anioU = textFieldAnio.getText();
         String institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
-        String websiteU = this.textFieldWebsite.getSelectedText();
+        String descripcionU = this.textAreaDescripcion.getText();
 
         //Celdas vacias
-        if (tipoDeUsuarioU == 0 || nicknameU.isEmpty() || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU.isEmpty() || mesU == 0 || anioU.isEmpty() || institutoU == "-" || websiteU.isEmpty()) {
+        if (tipoU == "-" || nicknameU.isEmpty() || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU.isEmpty() || mesU == 0 || anioU.isEmpty() || ((tipoU == "Profesor") && (institutoU == "-" || descripcionU.isEmpty()))) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
