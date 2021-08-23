@@ -65,7 +65,7 @@ public class HandlerInstitucion {
 	public void addInstitucion(Institucion ins) {
 		if (!existeInstitucion(ins.getNombre())) {
 			instituciones.put(ins.getNombre(), ins);
-			log.info("New Institucion "+ins.getNombre()+"| Total= "+instituciones.size());
+			log.info("Institucion "+ins.getNombre()+"registered, total: "+instituciones.size());
 		}
 	}
 

@@ -15,7 +15,6 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
-import logica.HandlerInstitucion;
 
 public class UsuarioController implements IUsuarioController {
 	

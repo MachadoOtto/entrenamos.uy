@@ -160,4 +160,9 @@ public class ConsultaDictadoClase extends JInternalFrame {
         gbc_btnCancelar.gridy = 7;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
 	}
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
 }

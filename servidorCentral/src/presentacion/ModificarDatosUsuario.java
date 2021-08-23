@@ -1,3 +1,6 @@
+
+package presentacion;
+
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -17,10 +20,9 @@ import javax.swing.DefaultComboBoxModel;
 
 import logica.IUsuarioController; 
 import datatypes.DtUsuario;
-import datatypes.DtSocioExt;
+import datatypes.DtSocio;
 import datatypes.DtFecha;
-import datatypes.DtProfesorExt;
-
+import datatypes.DtProfesor;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ItemListener;
@@ -31,21 +33,20 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.JTextPane;
 import javax.swing.JFrame;
-import javax.swing.JTree;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 
-public class ConsultaDeUsuario extends JInternalFrame {
+public class ModificarDatosUsuario extends JInternalFrame {
 
 	//Datos del caso de uso
 	DtUsuario datosUsuarioActual;
 	Set<String> usuarios;
+	Set<String> instituciones;
 	
 	private IUsuarioController controlUsr;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldEmail;
 	private JTextField textFieldDia;
+	private JComboBox comboBoxMes;
 	private JTextField textFieldAnio;
 	private JComboBox comboBoxUsuario;
 	private JLabel labelUsuario;
@@ -55,35 +56,24 @@ public class ConsultaDeUsuario extends JInternalFrame {
 	private JLabel labelBiografia;
 	private JLabel labelDescripcion;
 	private JLabel labelInstitucion;
+	private JLabel labelAclaracionProfesor1;
+	private JLabel labelAclaracionProfesor2;
+	private JLabel labelAclaracionProfesor3;
+	private JLabel labelAclaracionProfesor4;
+	private JComboBox comboBoxInstitucion;
 	private JScrollPane scrollPane;
 	private JTextArea textAreaDescripcion;
 	private JScrollPane scrollPane_1;
 	private JLabel labelAclaracionFecha;
 	private JTextPane textPaneTipoDeUsuario;
 	private JLabel lblNewLabel;
-	private JLabel lblActividadesDeportivas;
-	private JLabel labelWebsite_2;
-	private JTextField textFieldMes;
-	private JTextField textFieldInstitucion;
-	private JScrollPane scrollPane_2;
-	private JScrollPane scrollPane_3;
-	private JTextArea textAreaActividades;
-	private JTextArea textAreaClases;
 	
-	public ConsultaDeUsuario(IUsuarioController controlUsr) {
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameClosed(InternalFrameEvent e) {
-				setVisible(false);
-				limpiarFormulario();
-			}
-		});
-		setClosable(true);
-		setMaximizable(true);
-		setIconifiable(true);
+	public ModificarDatosUsuario(IUsuarioController controlUsr) {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setResizable(false);
+		
 		this.usuarios = new HashSet<>();
+		this.instituciones = new HashSet<>();
 		this.datosUsuarioActual = null;
 		this.controlUsr = controlUsr;
 		
@@ -93,17 +83,17 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		int columns = 8;
 		int rows = 9;
 		int iframeWidth = 480;
-		int iframeHeight = 575;
+		int iframeHeight = 600;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
 		setBounds(100, 25, iframeWidth, iframeHeight); // w,h
 		
-		setTitle("Consulta de usuario");
+		setTitle("Modificar datos de usuario");
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {60, 60, 60, 60, 60, 60, 60, 60};
-		gridBagLayout.rowHeights = new int[]{25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 50, 25, 25, 25, 75, 25, 25};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
+		gridBagLayout.rowHeights = new int[]{25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 75, 25, 75, 25, 25, 25, 25};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		getContentPane().setLayout(gridBagLayout);
 		
@@ -138,37 +128,40 @@ public class ConsultaDeUsuario extends JInternalFrame {
 					textFieldEmail.setText(datosUsuarioActual.getEmail());
 					DtFecha fechaNacimiento = datosUsuarioActual.getFechaNacimiento();
 					textFieldDia.setText(String.valueOf(fechaNacimiento.getDia()));
-					textFieldMes.setText(String.valueOf(fechaNacimiento.getMes()));
+					comboBoxMes.setSelectedIndex(fechaNacimiento.getMes());
 					textFieldAnio.setText(String.valueOf(fechaNacimiento.getAnio()));
 					
 					//El usuario es profesor
-					if(datosUsuarioActual instanceof DtProfesorExt) {
+					if(datosUsuarioActual instanceof DtProfesor) {
 						tipoUsuario = "Profesor";
-						DtProfesorExt datosProfesorActual = (DtProfesorExt)datosUsuarioActual;
-						textFieldInstitucion.setText(datosProfesorActual.getNombreInstitucion());
+						DtProfesor datosProfesorActual = (DtProfesor)datosUsuarioActual;
+						String nombreInstitucion = datosProfesorActual.getNombreInstitucion();
+						
+						/*
+						 * Carga instituciones al comboBox en caso de no haber sido cargadas antes.
+						 * Ademas encuentra el index perteneciente a la institucion del profesor
+						 */
+						int indexInstitucion = 0;
+						if(instituciones.isEmpty()) {
+							instituciones = controlUsr.obtenerInstituciones();
+							boolean institucionProfesor = false;
+							for(String ins:instituciones) {
+								comboBoxInstitucion.addItem(ins);
+								if(ins == nombreInstitucion) {
+									institucionProfesor = true;
+								}
+								if(!institucionProfesor) {
+									indexInstitucion++;
+								}
+							}
+						}
+						comboBoxInstitucion.setSelectedIndex(indexInstitucion);
 						textAreaDescripcion.setText(datosProfesorActual.getDescripcion());
 						textAreaBiografia.setText(datosProfesorActual.getBiografia());
 						textFieldWebsite.setText(datosProfesorActual.getLink());
-						Set<String> clasesDictadas = datosProfesorActual.getClasesDictadas();
-						String textoClases = "";
-						for(String cd:clasesDictadas) {
-							textoClases += cd + "\n";
-						}
-						textAreaClases.setText(textoClases);
-						Set<String> actividadesDictadas = datosProfesorActual.getActividadesDepAsociadas();
-						String textoActividades = "";
-						for(String ad:actividadesDictadas) {
-							textoActividades += ad + "\n";
-						}
-						textAreaActividades.setText(textoClases);
 					}
 					else {
-						DtSocioExt datosSocioActual = (DtSocioExt)datosUsuarioActual;
-						Set<String> clasesSocio = datosSocioActual.getClases();
-						String textoClases = "";
-						for(String cd:clasesSocio) {
-							textoClases += cd + "\n";
-						}
+						//Los socios no tienen nada especial
 						tipoUsuario = "Socio";
 					}
 				}
@@ -180,13 +173,13 @@ public class ConsultaDeUsuario extends JInternalFrame {
 				textFieldNombre.setEnabled(esUsuario);
 				textFieldApellido.setEnabled(esUsuario);
 				textFieldDia.setEnabled(esUsuario);
-				textFieldMes.setEnabled(esUsuario);
+				comboBoxMes.setEnabled(esUsuario);
 				textFieldAnio.setEnabled(esUsuario);
 				boolean esProfesor = tipoUsuario == "Profesor";
 				textAreaBiografia.setEnabled(esProfesor);
 				textAreaDescripcion.setEnabled(esProfesor);
 				textFieldWebsite.setEnabled(esProfesor);
-				textFieldInstitucion.setEnabled(esProfesor);
+				comboBoxInstitucion.setEnabled(esProfesor);
 			}
 		});
 		
@@ -238,8 +231,7 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		
 		JLabel labelApellido = new JLabel("Apellido");
 		GridBagConstraints gbc_labelApellido = new GridBagConstraints();
-		gbc_labelApellido.gridwidth = 2;
-		gbc_labelApellido.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_labelApellido.anchor = GridBagConstraints.SOUTH;
 		gbc_labelApellido.insets = new Insets(0, 0, 5, 5);
 		gbc_labelApellido.gridx = 4;
 		gbc_labelApellido.gridy = 2;
@@ -299,10 +291,8 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		
 		labelAclaracionFecha = new JLabel("(dd/mm/aaaa)");
 		GridBagConstraints gbc_labelAclaracionFecha = new GridBagConstraints();
-		gbc_labelAclaracionFecha.anchor = GridBagConstraints.EAST;
-		gbc_labelAclaracionFecha.gridwidth = 2;
 		gbc_labelAclaracionFecha.insets = new Insets(0, 0, 5, 5);
-		gbc_labelAclaracionFecha.gridx = 5;
+		gbc_labelAclaracionFecha.gridx = 6;
 		gbc_labelAclaracionFecha.gridy = 6;
 		getContentPane().add(labelAclaracionFecha, gbc_labelAclaracionFecha);
 		
@@ -317,16 +307,16 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		getContentPane().add(textFieldDia, gbc_textFieldDia);
 		textFieldDia.setColumns(10);
 		
-		textFieldMes = new JTextField();
-		textFieldMes.setEnabled(false);
-		textFieldMes.setColumns(10);
-		GridBagConstraints gbc_textFieldMes = new GridBagConstraints();
-		gbc_textFieldMes.gridwidth = 2;
-		gbc_textFieldMes.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldMes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldMes.gridx = 3;
-		gbc_textFieldMes.gridy = 7;
-		getContentPane().add(textFieldMes, gbc_textFieldMes);
+		comboBoxMes = new JComboBox();
+		comboBoxMes.setEnabled(false);
+		comboBoxMes.setModel(new DefaultComboBoxModel(new String[] {"-","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}));
+		GridBagConstraints gbc_comboBoxMes = new GridBagConstraints();
+		gbc_comboBoxMes.gridwidth = 2;
+		gbc_comboBoxMes.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxMes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxMes.gridx = 3;
+		gbc_comboBoxMes.gridy = 7;
+		getContentPane().add(comboBoxMes, gbc_comboBoxMes);
 		
 		textFieldAnio = new JTextField();
 		textFieldAnio.setEnabled(false);
@@ -347,16 +337,24 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		gbc_labelInstitucion.gridy = 8;
 		getContentPane().add(labelInstitucion, gbc_labelInstitucion);
 		
-		textFieldInstitucion = new JTextField();
-		textFieldInstitucion.setEnabled(false);
-		textFieldInstitucion.setColumns(10);
-		GridBagConstraints gbc_textFieldInstitucion = new GridBagConstraints();
-		gbc_textFieldInstitucion.gridwidth = 6;
-		gbc_textFieldInstitucion.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldInstitucion.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldInstitucion.gridx = 1;
-		gbc_textFieldInstitucion.gridy = 9;
-		getContentPane().add(textFieldInstitucion, gbc_textFieldInstitucion);
+		labelAclaracionProfesor1 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor1 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor1.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor1.gridx = 6;
+		gbc_labelAclaracionProfesor1.gridy = 8;
+		getContentPane().add(labelAclaracionProfesor1, gbc_labelAclaracionProfesor1);
+		
+		comboBoxInstitucion = new JComboBox();
+		comboBoxInstitucion.setModel(new DefaultComboBoxModel(new String[] {"-"}));
+		comboBoxInstitucion.setEnabled(false);
+		
+		GridBagConstraints gbc_comboBoxInstitucion = new GridBagConstraints();
+		gbc_comboBoxInstitucion.gridwidth = 6;
+		gbc_comboBoxInstitucion.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxInstitucion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxInstitucion.gridx = 1;
+		gbc_comboBoxInstitucion.gridy = 9;
+		getContentPane().add(comboBoxInstitucion, gbc_comboBoxInstitucion);
 		
 		labelDescripcion = new JLabel("Descripcion");
 		GridBagConstraints gbc_labelDescripcion = new GridBagConstraints();
@@ -367,18 +365,16 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		gbc_labelDescripcion.gridy = 10;
 		getContentPane().add(labelDescripcion, gbc_labelDescripcion);
 		
-		labelBiografia = new JLabel("Biografia");
-		GridBagConstraints gbc_labelBiografia = new GridBagConstraints();
-		gbc_labelBiografia.gridwidth = 2;
-		gbc_labelBiografia.anchor = GridBagConstraints.WEST;
-		gbc_labelBiografia.insets = new Insets(0, 0, 5, 5);
-		gbc_labelBiografia.gridx = 4;
-		gbc_labelBiografia.gridy = 10;
-		getContentPane().add(labelBiografia, gbc_labelBiografia);
+		labelAclaracionProfesor2 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor2 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor2.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor2.gridx = 6;
+		gbc_labelAclaracionProfesor2.gridy = 10;
+		getContentPane().add(labelAclaracionProfesor2, gbc_labelAclaracionProfesor2);
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.gridwidth = 6;
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
@@ -391,13 +387,29 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		textAreaDescripcion.setLineWrap(true);
 		textAreaDescripcion.setWrapStyleWord(true);
 		
+		labelBiografia = new JLabel("Biografia (opcional)");
+		GridBagConstraints gbc_labelBiografia = new GridBagConstraints();
+		gbc_labelBiografia.gridwidth = 2;
+		gbc_labelBiografia.anchor = GridBagConstraints.WEST;
+		gbc_labelBiografia.insets = new Insets(0, 0, 5, 5);
+		gbc_labelBiografia.gridx = 1;
+		gbc_labelBiografia.gridy = 12;
+		getContentPane().add(labelBiografia, gbc_labelBiografia);
+		
+		labelAclaracionProfesor3 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor3 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor3.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor3.gridx = 6;
+		gbc_labelAclaracionProfesor3.gridy = 12;
+		getContentPane().add(labelAclaracionProfesor3, gbc_labelAclaracionProfesor3);
+		
 		scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.gridwidth = 3;
+		gbc_scrollPane_1.gridwidth = 6;
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 4;
-		gbc_scrollPane_1.gridy = 11;
+		gbc_scrollPane_1.gridx = 1;
+		gbc_scrollPane_1.gridy = 13;
 		getContentPane().add(scrollPane_1, gbc_scrollPane_1);
 		
 		textAreaBiografia = new JTextArea();
@@ -406,14 +418,21 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		textAreaBiografia.setLineWrap(true);
 		textAreaBiografia.setWrapStyleWord(true);
 		
-		labelWebsite = new JLabel("Website");
+		labelWebsite = new JLabel("Website (opcional)");
 		GridBagConstraints gbc_labelWebsite = new GridBagConstraints();
 		gbc_labelWebsite.gridwidth = 2;
 		gbc_labelWebsite.anchor = GridBagConstraints.WEST;
 		gbc_labelWebsite.insets = new Insets(0, 0, 5, 5);
 		gbc_labelWebsite.gridx = 1;
-		gbc_labelWebsite.gridy = 12;
+		gbc_labelWebsite.gridy = 14;
 		getContentPane().add(labelWebsite, gbc_labelWebsite);
+		
+		labelAclaracionProfesor4 = new JLabel("(Solo profesor)");
+		GridBagConstraints gbc_labelAclaracionProfesor4 = new GridBagConstraints();
+		gbc_labelAclaracionProfesor4.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionProfesor4.gridx = 6;
+		gbc_labelAclaracionProfesor4.gridy = 14;
+		getContentPane().add(labelAclaracionProfesor4, gbc_labelAclaracionProfesor4);
 		
 		textFieldWebsite = new JTextField();
 		textFieldWebsite.setEnabled(false);
@@ -422,58 +441,39 @@ public class ConsultaDeUsuario extends JInternalFrame {
 		gbc_textFieldWebsite.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldWebsite.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldWebsite.gridx = 1;
-		gbc_textFieldWebsite.gridy = 13;
+		gbc_textFieldWebsite.gridy = 15;
 		getContentPane().add(textFieldWebsite, gbc_textFieldWebsite);
 		textFieldWebsite.setColumns(10);
 		
-		lblActividadesDeportivas = new JLabel("Actividades deportivas");
-		GridBagConstraints gbc_lblActividadesDeportivas = new GridBagConstraints();
-		gbc_lblActividadesDeportivas.gridwidth = 2;
-		gbc_lblActividadesDeportivas.insets = new Insets(0, 0, 5, 5);
-		gbc_lblActividadesDeportivas.gridx = 1;
-		gbc_lblActividadesDeportivas.gridy = 14;
-		getContentPane().add(lblActividadesDeportivas, gbc_lblActividadesDeportivas);
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tomarDatos();
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
+		gbc_btnAceptar.anchor = GridBagConstraints.NORTH;
+		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAceptar.gridx = 5;
+		gbc_btnAceptar.gridy = 17;
+		getContentPane().add(btnAceptar, gbc_btnAceptar);
 		
-		labelWebsite_2 = new JLabel("Clases deportivas");
-		GridBagConstraints gbc_labelWebsite_2 = new GridBagConstraints();
-		gbc_labelWebsite_2.anchor = GridBagConstraints.WEST;
-		gbc_labelWebsite_2.gridwidth = 2;
-		gbc_labelWebsite_2.insets = new Insets(0, 0, 5, 5);
-		gbc_labelWebsite_2.gridx = 4;
-		gbc_labelWebsite_2.gridy = 14;
-		getContentPane().add(labelWebsite_2, gbc_labelWebsite_2);
-		
-		scrollPane_2 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
-		gbc_scrollPane_2.gridwidth = 3;
-		gbc_scrollPane_2.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_2.gridx = 1;
-		gbc_scrollPane_2.gridy = 15;
-		getContentPane().add(scrollPane_2, gbc_scrollPane_2);
-		
-		textAreaActividades = new JTextArea();
-		textAreaActividades.setEditable(false);
-		textAreaActividades.setWrapStyleWord(true);
-		textAreaActividades.setLineWrap(true);
-		textAreaActividades.setEnabled(false);
-		scrollPane_2.setViewportView(textAreaActividades);
-		
-		scrollPane_3 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_3 = new GridBagConstraints();
-		gbc_scrollPane_3.gridwidth = 3;
-		gbc_scrollPane_3.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane_3.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_3.gridx = 4;
-		gbc_scrollPane_3.gridy = 15;
-		getContentPane().add(scrollPane_3, gbc_scrollPane_3);
-		
-		textAreaClases = new JTextArea();
-		textAreaClases.setEditable(false);
-		textAreaClases.setWrapStyleWord(true);
-		textAreaClases.setLineWrap(true);
-		textAreaClases.setEnabled(false);
-		scrollPane_3.setViewportView(textAreaClases);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limpiarFormulario();
+				setVisible(false);
+			}
+		});
+		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
+		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancelar.gridx = 6;
+		gbc_btnCancelar.gridy = 17;
+		getContentPane().add(btnCancelar, gbc_btnCancelar);
 		
 
 	}
@@ -488,16 +488,120 @@ public class ConsultaDeUsuario extends JInternalFrame {
         textFieldApellido.setText("");
         textFieldEmail.setText("");
     	textFieldDia.setText("");
-    	textFieldMes.setText("");
+    	comboBoxMes.setSelectedIndex(0);
     	textFieldAnio.setText("");
-    	textFieldInstitucion.setText("");
-    	textFieldWebsite.setText("");
-    	textAreaDescripcion.setText("");
-    	textAreaBiografia.setText("");
-    	textAreaActividades.setText("");
-    	textAreaClases.setText("");
+    	instituciones.clear();
     	usuarios.clear();
     	datosUsuarioActual = null;
     }
+	
+	/*
+	 * En caso de ser los datos validos, esta funcion se encarga de ejecutar el caso de uso correspondiente
+	 */
+	private void tomarDatos() {
+		
+		String nicknameU;
+		String nombreU;
+        String apellidoU;
+        String emailU;
+        int diaU;
+        int mesU;
+        int anioU;
+        String institucionU;
+        String descripcionU;
+        String biografiaU;
+        String websiteU;
+        
+        if (checkFormulario())
+        {
+        	while(this.isVisible()) 
+        	{
+        		nicknameU = this.comboBoxUsuario.getSelectedItem().toString();
+        		nombreU = this.textFieldNombre.getText();
+                apellidoU = this.textFieldApellido.getText();
+                emailU = this.textFieldEmail.getText();
+                diaU = Integer.parseInt(textFieldDia.getText());
+                mesU = this.comboBoxMes.getSelectedIndex();
+                anioU = Integer.parseInt(textFieldAnio.getText());
+                institucionU = this.comboBoxInstitucion.getSelectedItem().toString();
+                descripcionU = this.textAreaDescripcion.getSelectedText();
+                biografiaU = this.textAreaBiografia.getSelectedText();
+                websiteU = this.textFieldWebsite.getSelectedText();
+                
+        		/*
+        		 * Crea el tipo de dato segun el tipo de usuario seleccionado
+        		 */
+        		DtUsuario datosUser;
+        		if(this.textPaneTipoDeUsuario.getText() == "Profesor") {
+        			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0),institucionU, descripcionU,biografiaU,websiteU);
+        		}
+        		else //Se asume que si no es profesor es socio
+        		{
+        			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0));
+        		}
+        		
+        		/*
+        		 * Fin de caso de uso y MessageDialog final
+        		 */
+        		this.controlUsr.editarDatosBasicos(nicknameU, datosUser);
+        		JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido modificado con exito", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        	}
+        }
+        
+	}
+	
+	/*
+	 * Valida los datos ingresados por el usuario
+	 */
+	private boolean checkFormulario() {
+		int nicknameU = this.comboBoxUsuario.getSelectedIndex();
+		String nombreU = this.textFieldNombre.getText();
+        String apellidoU = this.textFieldApellido.getText();
+        String emailU = this.textFieldEmail.getText();
+        String diaU = textFieldDia.getText();
+        int mesU = this.comboBoxMes.getSelectedIndex();
+        String anioU = textFieldAnio.getText();
+        String institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
+        String websiteU = this.textFieldWebsite.getSelectedText();
+
+        //Celdas vacias
+        if (nicknameU == 0 || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU.isEmpty() || mesU == 0 || anioU.isEmpty() || institutoU == "-" || websiteU.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+      //Numeros no son numeros
+        try {
+            int numDiaUInteger = Integer.parseInt(diaU);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El dia ingresado debe ser un numero", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        try {
+            int numAnioU = Integer.parseInt(anioU);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El anio ingresado debe ser un numero", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        //Fechas inexistentes
+        int numAnioU = Integer.parseInt(anioU);
+        if (numAnioU < 1900 || numAnioU > 2021) {
+        	JOptionPane.showMessageDialog(this, "El anio ingresado debe ser valido", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        int numDiaU = Integer.parseInt(diaU);
+        if (numDiaU < 1 || numDiaU > 31) {
+        	JOptionPane.showMessageDialog(this, "El dia ingresado debe ser valido", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
