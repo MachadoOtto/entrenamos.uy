@@ -582,9 +582,4 @@ public class AltaDictadoClase extends JInternalFrame {
         boxProfesor.setEnabled(false);
     }
 
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
