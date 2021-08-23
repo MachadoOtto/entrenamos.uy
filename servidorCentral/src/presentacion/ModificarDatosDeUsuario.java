@@ -23,11 +23,13 @@ import datatypes.DtProfesor;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ItemListener;
+import java.util.HashSet;
 import java.util.Set;
 import java.awt.event.ItemEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.JTextPane;
+import javax.swing.JFrame;
 
 public class ModificarDatosDeUsuario extends JInternalFrame {
 
@@ -64,8 +66,12 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 	private JLabel lblNewLabel;
 	
 	public ModificarDatosDeUsuario(IUsuarioController controlUsr) {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setResizable(false);
 		
+		this.usuarios = new HashSet<>();
+		this.instituciones = new HashSet<>();
+		this.datosUsuarioActual = null;
 		this.controlUsr = controlUsr;
 		
 		/* 
@@ -79,7 +85,7 @@ public class ModificarDatosDeUsuario extends JInternalFrame {
 		int gridHeight = iframeHeight/rows;
 		setBounds(100, 25, iframeWidth, iframeHeight); // w,h
 		
-		setTitle("Alta de usuario");
+		setTitle("Modificar datos de usuario");
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {60, 60, 60, 60, 60, 60, 60, 60};
