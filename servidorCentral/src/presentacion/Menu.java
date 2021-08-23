@@ -45,7 +45,6 @@ public class Menu {
 	private ConsultaDictadoClase consultaClass;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
-	private ConsultaDictadoClase consultaCla;
 	private ModificarDatosUsuario modificarUsu;
 	
 	//Run program!
@@ -108,11 +107,6 @@ public class Menu {
 		consultaCup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		consultaCup.setVisible(false);
 		escritorio.add(consultaCup);
-		
-		//ConsultaDictadoClase
-		consultaCla = new ConsultaDictadoClase(IDCC);
-		consultaCla.setVisible(false);
-		escritorio.add(consultaCla);
 		
 		//ConsultaUsuario
 		consultaUsu = new ConsultaUsuario(IUC);
@@ -300,24 +294,14 @@ public class Menu {
 //		});
 		
 		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
+		menuConsultas.add(itemConsultaClase);
 		itemConsultaClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (consultaClass.isVisible())
+				if (consultaClass.isVisible()) 
 					consultaClass.toFront();
 				else {
 					consultaClass.clear();
 					consultaClass.setVisible(true);
-				}
-			}
-		});
-		menuConsultas.add(itemConsultaClase);
-		itemConsultaClase.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (consultaCla.isVisible()) 
-					consultaCla.toFront();
-				else {
-					consultaCla.clear();
-					consultaCla.setVisible(true);
 				}
 			}
 		});
