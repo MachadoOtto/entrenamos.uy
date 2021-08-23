@@ -3,13 +3,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import datatypes.DtFecha;
-import datatypes.DtActividadDeportiva;
+import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 
 public class Cuponera {
 	private String nombre,descripcion;
 	private DtFecha fechaInicio,fechaFin;
-	private float descuento;
+	private float descuento,costo;
 	
 	private List<ClasesCuponera> cp;
 	private List<ReciboCuponera> rc;
@@ -22,6 +22,7 @@ public class Cuponera {
 		this.fechaFin = new DtFecha(fechaFin);
 		this.cp = new ArrayList<>();
 		this.rc = new ArrayList<>();
+		costo = 0;
 	}
 	
 	public String getNombre() {
@@ -45,7 +46,9 @@ public class Cuponera {
 	public float getDescuento() {
 		return descuento;
 	}
-	
+	public float getCosto() {
+		return costo;
+	}
 	public List<String> getNombresActDep(){
 		List<String> nomnom = new ArrayList<>();
 		for(ClasesCuponera cc: cp) {
@@ -57,6 +60,7 @@ public class Cuponera {
 	public void addActDep(ActividadDeportiva act, int num) {
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
+		costo = costo + act.getCosto();
 	}
 	
 	public int cantidadClases(ActividadDeportiva actDep) {
@@ -74,13 +78,12 @@ public class Cuponera {
 		return false;
 	}
 	public DtCuponera getDt() {
-		List<DtActividadDeportiva> actsdt = new ArrayList<>();
-		List<Integer> actscan = new ArrayList<>();
+		List<DtClasesCuponera> r = new ArrayList<>();
 		for(ClasesCuponera cc: cp) {
-			actsdt.add(cc.getAd().getDt());
-			actscan.add(cc.getCantidadClases());
+			DtClasesCuponera rr = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
+			r.add(rr);
 		}
-		DtCuponera x = new DtCuponera(nombre, descripcion, descuento, fechaInicio, fechaFin, actsdt, actscan);
+		DtCuponera x = new DtCuponera(nombre, descripcion, descuento, costo, fechaInicio, fechaFin, r);
 		return x;
 	}
 

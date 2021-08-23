@@ -9,21 +9,30 @@
 
 package logica;
 
-import java.util.Set;
-import java.util.Map;
-import java.util.HashSet;
-import java.util.HashMap;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HandlerInstitucion {
 	
 	private static HandlerInstitucion instance = null;
-	
+	private Logger log;
 	private Map<String, Institucion> instituciones;
 	
 	private HandlerInstitucion() {
 		instituciones = new HashMap<>();
+		
+		log = Logger.getLogger(HandlerInstitucion.class.getName());
+		log.setLevel(Level.INFO);
+		Handler handler = new ConsoleHandler();
+		log.addHandler(handler);
 	}
 	
 	public static HandlerInstitucion getInstance() {
@@ -56,6 +65,7 @@ public class HandlerInstitucion {
 	public void addInstitucion(Institucion ins) {
 		if (!existeInstitucion(ins.getNombre())) {
 			instituciones.put(ins.getNombre(), ins);
+			log.info("New Institucion "+ins.getNombre()+"| Total= "+instituciones.size());
 		}
 	}
 

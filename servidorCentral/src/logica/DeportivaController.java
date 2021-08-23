@@ -1,32 +1,21 @@
 package logica;
 
 import java.util.Set;
+
+import datatypes.DtCuponera;
 import datatypes.DtFecha;
 
 public class DeportivaController implements IDeportivaController {
-	
-	//Atributos
-	
+
 	private static DeportivaController instance = null;
+
+	private DeportivaController() {}
 	
-	//Operaciones esenciales
-	
-	private DeportivaController() 
-	{
-		
-	}
-	
-	public static DeportivaController getInstance()
-	{
+	public static DeportivaController getInstance(){
 		if ( instance == null )
-		{
 			instance = new DeportivaController();
-		}
 		return instance;
 	}
-	
-	
-	//Operaciones Casos de Uso
 	
 	public int ingresarCuponera(String nombre, String descripcion,
 			DtFecha inicio, DtFecha fin, int descuento, DtFecha alta)
@@ -37,8 +26,7 @@ public class DeportivaController implements IDeportivaController {
 		return res;
 	}
 	
-	public Set<String> getNombreCuponeras()
-	{
+	public Set<String> getNombreCuponeras(){
 		HandlerCuponera hu = HandlerCuponera.getInstance();
 		Set<String> res = hu.getNombreCuponeras();
 		return res;
@@ -55,19 +43,19 @@ public class DeportivaController implements IDeportivaController {
 		c.addActDep(ad,cantidadClases);
 	}
 		
-	public boolean altaInstitucion(String nombre, String descripcion, 
-			String URL)
-	{
-		boolean res = false;
+	public int altaInstitucion(String nombre, String descripcion, String URL) {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		res = hi.existeInstitucion(nombre);
-		if( res == true )
-		{
+		if(!hi.existeInstitucion(nombre)){
 			Institucion i = new Institucion(nombre,descripcion,URL);
 			hi.addInstitucion(i);
+			return 0;
 		}
-		return res;
+		return 1;
 	}
-		
+	public DtCuponera seleccionarCuponera(String n) {
+		HandlerCuponera hu = HandlerCuponera.getInstance();
+		Cuponera c = hu.getCup(n);
+		return c.getDt();
+	}
 	
 }
