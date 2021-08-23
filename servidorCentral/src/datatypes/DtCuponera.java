@@ -4,22 +4,19 @@ import java.util.List;
 
 public class DtCuponera {
 
-	private String nombre;
-	private String descripcion;
-	private float descuento;
-	private DtFecha fechaInicio;
-	private DtFecha fechaFin;
-	private List<DtActividadDeportiva> acts;
-	private List<Integer> clases;
+	private String nombre,descripcion;
+	private float descuento,costo;
+	private DtFecha fechaInicio,fechaFin;
+	private List<DtClasesCuponera> contenido;
 	
-	public DtCuponera(String nom, String descr, float desc, DtFecha fi, DtFecha ff, List<DtActividadDeportiva> acs, List<Integer> c ){
+	public DtCuponera(String nom, String descr, float desc, float cc, DtFecha fi, DtFecha ff, List<DtClasesCuponera> v){
 		this.nombre = nom;
 		this.descripcion = descr;
 		this.descuento = desc;
 		this.fechaInicio = fi;
 		this.fechaFin = ff;
-		this.acts = acs;
-		this.clases = c;	
+		this.costo = cc;
+		this.contenido = v;
 	}
 	
 	public String getNombre() {
@@ -42,12 +39,12 @@ public class DtCuponera {
 		return this.fechaFin;
 	}
 	
-	public List<DtActividadDeportiva> getActividades() {
-		return this.acts;
+	public List<DtClasesCuponera> getContenido() {
+		return this.contenido;
 	}
 	
-	public List<Integer> getClases() {
-		return this.clases;
+	public float getCosto() {
+		return costo;
 	}
 
 }

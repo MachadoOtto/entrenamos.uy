@@ -5,6 +5,8 @@
  *      Jorge Machado (4.876.616-9) - jorge.machado.ottonelli@fing.edu.uy
  *      Juan Jose Mangado (5.535.227-0) - juan.mangado@fing.edu.uy
  *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
+ *      
+ *      "Nihil novum sub sole"
  */
 
 package presentacion;
@@ -17,6 +19,7 @@ import logica.IDeportivaController;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -36,10 +39,10 @@ public class Menu {
 	
 	// Declaracion de los JInternalFrames:
 	private AltaDictadoClase altaClase;
-
-	/**
-	 * Launch the application.
-	 */
+	private AltaInstitucionDeportiva altaIns;
+	private ConsultaCuponeras consultaCup;
+	
+	//Run program!
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -53,9 +56,7 @@ public class Menu {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	//Create main frame.
 	public Menu() {
 		iniciar();
 		
@@ -65,19 +66,34 @@ public class Menu {
 		IDC = fabrica.obtenerIDeportivaController();
 		IDCC = fabrica.obtenerIDictadoClaseController();	
 		
-		/* A partir de aca, agregamos nuestros JInternalFrames (con visibilidad = false). */
+		//Preinicializacion de JInternalFrames con visibilidad=false
 		
 		// AltaDictadoClase:
 		altaClase = new AltaDictadoClase(IDCC);
+		altaClase.setLocation(10, 11);
 		altaClase.setVisible(false);
 		escritorio.add(altaClase);
+		
+		//AltaInstitucionDeporitva:
+		altaIns = new AltaInstitucionDeportiva(IDC);
+		altaIns.setBounds(212, 37, 354, 344);
+		altaIns.setVisible(false);
+		escritorio.add(altaIns);
+		
+		//ConsultaCuponeras:
+		consultaCup = new ConsultaCuponeras(IDC);
+		consultaCup.setBounds(200, 100, 400, 200);
+		consultaCup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		consultaCup.setVisible(false);
+		escritorio.add(consultaCup);
+		
 	}
 	
 	private void iniciar() {
         // Se crea el Frame con las dimensiones indicadas:
 		menuPrincipal = new JFrame();
 		menuPrincipal.setTitle("ENTRENAMOS.UY");
-		menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuPrincipal.setBounds(180, 100, 1000, 800);
 		menuPrincipal.setResizable(true);
 		
@@ -96,7 +112,11 @@ public class Menu {
 
 		JMenuItem itemSalir = new JMenuItem("Salir");
 		menuInicio.add(itemSalir);
-		
+		itemSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menuPrincipal.dispose();
+			}
+		});
 		JMenu menuRegistro = new JMenu("Registros");
 		menuBar.add(menuRegistro);
 		
@@ -111,6 +131,16 @@ public class Menu {
 		
 		JMenuItem itemAltaInstitucion = new JMenuItem("Alta Institucion Deportiva");
 		subMenuInstitucion.add(itemAltaInstitucion);
+		itemAltaInstitucion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (altaIns.isVisible()) 
+					altaIns.toFront();
+				else {
+					altaIns.clear();
+					altaIns.setVisible(true);
+				}
+			}
+		});
 		
 		JMenu subMenuActDep = new JMenu("Actividad Deportiva");
 		menuRegistro.add(subMenuActDep);
@@ -124,9 +154,9 @@ public class Menu {
 		JMenuItem itemAltaDictado = new JMenuItem("Alta Dictado Clase");
 		itemAltaDictado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (altaClase.isVisible()) {
-					// altaClase.traerAlFrente() no se si existe xd pero estaria bueno que lo haga
-				} else {
+				if (altaClase.isVisible())
+					altaClase.toFront();
+				else {
 					altaClase.cargarInstitucion();
 					altaClase.setVisible(true);
 				}
@@ -160,6 +190,16 @@ public class Menu {
 		
 		JMenuItem itemConsultaCuponera = new JMenuItem("Consulta de Cuponeras");
 		menuConsultas.add(itemConsultaCuponera);
+		itemConsultaCuponera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (consultaCup.isVisible())
+					consultaCup.toFront();
+				else {
+					// altaClase.limpiar() //no IMplementado aun.
+					consultaCup.setVisible(true);
+				}
+			}
+		});
 		
 		JMenu menuModificaciones = new JMenu("Modificaciones");
 		menuBar.add(menuModificaciones);
@@ -169,7 +209,7 @@ public class Menu {
 	}	
 }
 
-/*  ESTO ERA DE MATHI PARA DARLE COLOR CREO, POR AHORA LO SACAMOS
+/*  ESTO ERA DE MATHI PARA DARLE COLOR CREO, POR AHORA LO SACAMOS. Guille: Apruebo. La GUI debe ser funcional y los mas aburrida posible.
 JDesktopPane desktopPane_1 = new JDesktopPane();
 desktopPane_1.setBorder(null);
 desktopPane_1.setBackground(new Color(102, 153, 255));
