@@ -23,8 +23,10 @@ import datatypes.DtProfesor;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ItemListener;
+import java.util.HashSet;
 import java.util.Set;
 import java.awt.event.ItemEvent;
+import javax.swing.JFrame;
 
 public class AltaDeUsuario extends JInternalFrame {
 
@@ -56,8 +58,13 @@ public class AltaDeUsuario extends JInternalFrame {
 	private JLabel labelAclaracionFecha;
 	
 	public AltaDeUsuario(IUsuarioController controlUsr) {
-		setResizable(false);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setResizable(true);
+		setMaximizable(true);
+		setClosable(true);
+		setIconifiable(true);
 		
+		this.instituciones = new HashSet<>();
 		this.controlUsr = controlUsr;
 		
 		/* 
