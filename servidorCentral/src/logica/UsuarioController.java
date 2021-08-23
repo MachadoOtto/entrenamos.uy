@@ -15,6 +15,7 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
+import logica.HandlerInstitucion;
 
 public class UsuarioController implements IUsuarioController {
 	
@@ -32,6 +33,11 @@ public class UsuarioController implements IUsuarioController {
 	public Set<String> obtenerUsuarios() {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		return hu.getNicknameUsuarios();		
+	}
+
+	public Set<String> obtenerInstituciones() {
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		return hi.obtenerInstituciones();
 	}
 	
 	/* ATENCION: Para el que venga a editar esto luego, tengan cuidado al editar lugares donde se usa el 'instanceof' o de la
