@@ -10,6 +10,10 @@
 package logica;
 
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.HashMap;
@@ -19,7 +23,7 @@ import java.util.Iterator;
 public class HandlerUsuario {
 	
 	private static HandlerUsuario instancia = null;
-	
+	private Logger log;
 	private Map<String, Usuario> usuarios;
 	
 	private Set<String> correos;
@@ -27,6 +31,10 @@ public class HandlerUsuario {
 	private HandlerUsuario() {
 		usuarios = new HashMap<>();
 		correos = new HashSet<>();
+		log = Logger.getLogger(HandlerInstitucion.class.getName());
+		log.setLevel(Level.INFO);
+		Handler handler = new ConsoleHandler();
+		log.addHandler(handler);
 	}
 	
 	public static HandlerUsuario getInstance() {
@@ -44,6 +52,7 @@ public class HandlerUsuario {
 		} else {
 			usuarios.put(user.getNickname(), user);
 			correos.add(user.getCorreo());
+			log.info("Usuario "+user.getNombre()+"registered, total: "+usuarios.size());
 			return true;
 		}
 	}

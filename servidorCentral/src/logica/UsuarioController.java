@@ -33,6 +33,11 @@ public class UsuarioController implements IUsuarioController {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		return hu.getNicknameUsuarios();		
 	}
+
+	public Set<String> obtenerInstituciones() {
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		return hi.obtenerInstituciones();
+	}
 	
 	/* ATENCION: Para el que venga a editar esto luego, tengan cuidado al editar lugares donde se usa el 'instanceof' o de la
 	 * 	forma '((Subclase)Clase)'. Esto lo hago para que al crear el objeto nuevo y luego retornarlo en la forma de la clase 
