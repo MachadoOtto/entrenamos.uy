@@ -41,6 +41,8 @@ public class Menu {
 	private AltaUsuario altaUsuario;
 	private AltaDictadoClase altaClase;
 	private AltaInstitucionDeportiva altaIns;
+	private RegistroUsuarioClase regUsuClass;
+	private ConsultaDictadoClase consultaClass;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ConsultaDictadoClase consultaCla;
@@ -84,13 +86,23 @@ public class Menu {
 		altaClase.setVisible(false);
 		escritorio.add(altaClase);
 		
-		//AltaInstitucionDeporitva:
+		// AltaInstitucionDeporitva:
 		altaIns = new AltaInstitucionDeportiva(IDC);
 		altaIns.setBounds(212, 37, 354, 344);
 		altaIns.setVisible(false);
 		escritorio.add(altaIns);
 		
-		//ConsultaCuponeras:
+		// RegistroUsuarioClase:
+		regUsuClass = new RegistroUsuarioClase(IDCC);
+		regUsuClass.setVisible(false);
+		escritorio.add(regUsuClass);
+		
+		// ConsultaDictadoClase:
+		consultaClass = new ConsultaDictadoClase(IDCC);
+		consultaClass.setVisible(false);
+		escritorio.add(consultaClass);
+		
+		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
 		consultaCup.setBounds(200, 100, 400, 200);
 		consultaCup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -201,6 +213,7 @@ public class Menu {
 				if (altaClase.isVisible())
 					altaClase.toFront();
 				else {
+					altaClase.clear();
 					altaClase.cargarInstitucion();
 					altaClase.setVisible(true);
 				}
@@ -209,6 +222,16 @@ public class Menu {
 		subMenuDictado.add(itemAltaDictado);
 		
 		JMenuItem itemRegistroAClase = new JMenuItem("Registro a Dictado Clase");
+		itemRegistroAClase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (regUsuClass.isVisible())
+					regUsuClass.toFront();
+				else {
+					//regUsuClass.cargarInstitucion(); Similar pero no es este, todavia no lo implemente
+					regUsuClass.setVisible(true);
+				}
+			}
+		});
 		subMenuDictado.add(itemRegistroAClase);
 		itemRegistroAClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -276,7 +299,17 @@ public class Menu {
 //			}
 //		});
 		
-		JMenuItem itemConsultaClase = new JMenuItem("Consulta Dictado Clase");
+		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
+		itemConsultaClase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (consultaClass.isVisible())
+					consultaClass.toFront();
+				else {
+					consultaClass.clear();
+					consultaClass.setVisible(true);
+				}
+			}
+		});
 		menuConsultas.add(itemConsultaClase);
 		itemConsultaClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

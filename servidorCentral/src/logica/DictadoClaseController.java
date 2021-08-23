@@ -9,8 +9,10 @@
 
 package logica;
 
+import java.util.HashSet;
 import java.util.Set;
 import datatypes.DtClase;
+import datatypes.DtClaseExt;
 
 public class DictadoClaseController implements IDictadoClaseController {
 	
@@ -35,7 +37,33 @@ public class DictadoClaseController implements IDictadoClaseController {
 		Institucion instituto = hi.findInstitucion(ins);
 		return instituto.obtenerActDep();
 	}
-
+	
+	public Set<String> obtenerProfesores(String ins) {
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		Institucion instituto = hi.findInstitucion(ins);
+		Set<Profesor> profes = instituto.getProfesores();
+		Set<String> nickP = new HashSet<>();
+		for (Profesor x: profes) {
+			nickP.add(x.getNickname());
+		}
+		return nickP;
+	}
+	
+	public Set<String> obtenerClases(String ins, String actDep) {
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		Institucion instituto = hi.findInstitucion(ins);
+		ActividadDeportiva actividad = instituto.findActividad(actDep);
+		return actividad.getNombreClases();
+	}
+	
+	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) {
+		 HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		 Institucion ins = hi.findInstitucion(inst);
+		 ActividadDeportiva act = ins.getActDep(actDep);
+		 Clase clas = act.findClase(clase);
+		 return clas.getDt();
+	}
+	
 	public int ingresarDatosClase(String ins,String actDep,DtClase datos) {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion i = hi.findInstitucion(ins);

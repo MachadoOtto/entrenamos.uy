@@ -8,6 +8,7 @@
  */
 
 package logica;
+
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
@@ -24,6 +25,7 @@ public class Institucion {
     private String URL;
     private String descripcion;
     private Map<String, ActividadDeportiva> actsDeps;
+    private Set<Profesor> profesores;
 
     // Guille: Te inventaste un datatype: Institucion(DtInstitucion dataIns) {
     public Institucion(String n, String u, String d) {
@@ -48,6 +50,14 @@ public class Institucion {
     public Map<String, ActividadDeportiva> getActsDeps() {
         return this.actsDeps;
     }
+    
+    public Set<Profesor> getProfesores() {
+    	return profesores;
+    }
+    
+    public ActividadDeportiva findActividad(String actDepNombre) {
+    	return actsDeps.get(actDepNombre);
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -63,6 +73,10 @@ public class Institucion {
 
     public void setActsDeps(Map<String, ActividadDeportiva> actsDeps) {
         this.actsDeps = actsDeps;
+    }
+    
+    public void addProfesor(Profesor profe) {
+    	profesores.add(profe);
     }
     
     public void nuevaActDep(DtActividadDeportiva datosAD) {

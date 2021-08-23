@@ -53,10 +53,20 @@ public class DtFecha {
 	public int getSegundos() {
 		return this.segundos;
 	}
+	
 	public String toFechaHora() {
-		return ""+dia+"/"+mes+"/"+anio+" "+horas+":"+minutos+":"+segundos;
+		String res = new String();
+	    res += dia + "/" + mes + "/" + anio + " - ";
+	    if (horas < 10)
+	        res += "0";
+	    res += horas + ":";
+	    if (minutos < 10)
+	        res += "0";
+	    res +=  minutos;
+	    return res;
 	}
+	
 	public String toFecha() {
-		return ""+dia+"/"+mes+"/"+anio;
+		return dia + "/" + mes + "/" + anio;
 	}
 }
