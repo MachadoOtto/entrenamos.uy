@@ -157,7 +157,7 @@ public class Menu {
 				if (altaClase.isVisible())
 					altaClase.toFront();
 				else {
-					// altaClase.limpiar() //no IMplementado aun.
+					altaClase.cargarInstitucion();
 					altaClase.setVisible(true);
 				}
 			}
