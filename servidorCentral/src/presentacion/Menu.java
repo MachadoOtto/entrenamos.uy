@@ -19,6 +19,7 @@ import logica.IDeportivaController;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -92,7 +93,7 @@ public class Menu {
         // Se crea el Frame con las dimensiones indicadas:
 		menuPrincipal = new JFrame();
 		menuPrincipal.setTitle("ENTRENAMOS.UY");
-		menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuPrincipal.setBounds(180, 100, 1000, 800);
 		menuPrincipal.setResizable(true);
 		
@@ -111,7 +112,11 @@ public class Menu {
 
 		JMenuItem itemSalir = new JMenuItem("Salir");
 		menuInicio.add(itemSalir);
-		
+		itemSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				menuPrincipal.dispose();
+			}
+		});
 		JMenu menuRegistro = new JMenu("Registros");
 		menuBar.add(menuRegistro);
 		
