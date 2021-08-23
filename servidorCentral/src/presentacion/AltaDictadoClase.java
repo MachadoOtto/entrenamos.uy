@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.DefaultComboBoxModel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,6 +25,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import logica.IDictadoClaseController;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class AltaDictadoClase extends JInternalFrame {
 	
@@ -40,15 +45,12 @@ public class AltaDictadoClase extends JInternalFrame {
 	private JLabel lblSeleccionActividad;
 	private JLabel lblSeleccionProfesor;
 	private JLabel lblIngreseUrl;
-	private JLabel lblIngreseFechaR;
-	private JLabel lblIngreseHoraR;
 	
 	// JTextField:
 	private JTextField nombreClase; // Es unico.
 	private JTextField sociosMin;
 	private JTextField sociosMax;
 	private JTextField inicioAnio;
-	private JTextField registroAnio;
 	private JTextField url;
 	
 	// JComboBox:
@@ -56,15 +58,10 @@ public class AltaDictadoClase extends JInternalFrame {
 	private JComboBox<String> boxActividad;
 	private JComboBox<String> boxProfesor;
 	// Seleccion de Fecha de Inicio:
-	private JComboBox<Integer> boxIDia; // Depende de mes;
-	private JComboBox<Integer> boxIMes;
-	private JComboBox<Integer> boxIHora;
-	private JComboBox<Integer> boxIMinuto;
-	// Seleccion de Fecha de Registro (de alta):
-	private JComboBox<Integer> boxRDia; // Depende de mes;
-	private JComboBox<Integer> boxRMes;
-	private JComboBox<Integer> boxRHora;
-	private JComboBox<Integer> boxRMinuto;
+	private JComboBox<String> boxIDia; // Depende de mes;
+	private JComboBox<String> boxIMes;
+	private JComboBox<String> boxIHora;
+	private JComboBox<String> boxIMinuto;
 	
 	// JButton:
 	private JButton btnAceptar;
@@ -82,16 +79,14 @@ public class AltaDictadoClase extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Dictado de Clase");
-		setBounds(10, 40, 500, 540);
+		setBounds(10, 40, 500, 460);
 		
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 60, 60, 30, 60, 60, 15, 15, 0 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30,
-	    		0, 0 };
+	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 0 };
 	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
-	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-	    		0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 	    getContentPane().setLayout(gridBagLayout);
         
         // JLabels:
@@ -175,26 +170,6 @@ public class AltaDictadoClase extends JInternalFrame {
         gbc_lblIngreseUrl.gridy = 10;
         getContentPane().add(lblIngreseUrl, gbc_lblIngreseUrl);
         
-        lblIngreseFechaR = new JLabel("Fecha de Registro de Clase:");
-        lblIngreseFechaR.setHorizontalAlignment(SwingConstants.LEFT);
-        GridBagConstraints gbc_lblIngreseFechaR = new GridBagConstraints();
-        gbc_lblIngreseFechaR.gridwidth = 4;
-        gbc_lblIngreseFechaR.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseFechaR.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseFechaR.gridx = 1;
-        gbc_lblIngreseFechaR.gridy = 12;
-        getContentPane().add(lblIngreseFechaR, gbc_lblIngreseFechaR);
-        
-        lblIngreseHoraR = new JLabel("Hora de Registro:");
-        lblIngreseHoraR.setHorizontalAlignment(SwingConstants.LEFT);
-        GridBagConstraints gbc_lblIngreseHoraR = new GridBagConstraints();
-        gbc_lblIngreseHoraR.gridwidth = 2;
-        gbc_lblIngreseHoraR.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseHoraR.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseHoraR.gridx = 6;
-        gbc_lblIngreseHoraR.gridy = 12;
-        getContentPane().add(lblIngreseHoraR, gbc_lblIngreseHoraR);
-        
         // JTextField:
         nombreClase = new JTextField();
         lblIngreseNombre.setLabelFor(nombreClase);
@@ -208,6 +183,13 @@ public class AltaDictadoClase extends JInternalFrame {
         nombreClase.setColumns(10);
         
         sociosMin = new JTextField();
+        sociosMin.setText("Minimo");
+        sociosMin.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent e) {
+        		sociosMin.setText("");
+        	}
+        });
         GridBagConstraints gbc_sociosMin = new GridBagConstraints();
         gbc_sociosMin.gridwidth = 1;
         gbc_sociosMin.fill = GridBagConstraints.BOTH;
@@ -217,6 +199,13 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(sociosMin, gbc_sociosMin);
         
         sociosMax = new JTextField();
+        sociosMax.setText("Maximo");
+        sociosMax.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent e) {
+        		sociosMax.setText("");
+        	}
+        });
         GridBagConstraints gbc_sociosMax = new GridBagConstraints();
         gbc_sociosMax.gridwidth = 1;
         gbc_sociosMax.fill = GridBagConstraints.BOTH;
@@ -226,6 +215,13 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(sociosMax, gbc_sociosMax);
         
         inicioAnio = new JTextField();
+        inicioAnio.setText("yyyy");
+        inicioAnio.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent e) {
+        		inicioAnio.setText("");
+        	}
+        });
         GridBagConstraints gbc_inicioAnio = new GridBagConstraints();
         gbc_inicioAnio.gridwidth = 1;
         gbc_inicioAnio.fill = GridBagConstraints.BOTH;
@@ -245,17 +241,17 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(url, gbc_textFieldUrl);
         url.setColumns(10);
         
-        registroAnio = new JTextField();
-        GridBagConstraints gbc_registroAnio = new GridBagConstraints();
-        gbc_registroAnio.gridwidth = 1;
-        gbc_registroAnio.fill = GridBagConstraints.BOTH;
-        gbc_registroAnio.insets = new Insets(0, 0, 5, 5);
-        gbc_registroAnio.gridx = 4;
-        gbc_registroAnio.gridy = 13;
-        getContentPane().add(registroAnio, gbc_registroAnio);
+        // Arrays auxiliares para Fecha y Hora:
+        String[] meses = new String[] { "-", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+        		"Setiembre", "Octubre", "Noviembre", "Diciembre" };
         
         // JComboBox:
-        boxIDia = new JComboBox<>();
+        DefaultComboBoxModel<String> comboModelDia = new DefaultComboBoxModel<>();
+        comboModelDia.addElement("-");
+        for(int i = 1; i < 32; i++) {
+        	comboModelDia.addElement( String.valueOf(i) );
+        }
+        boxIDia = new JComboBox<>(comboModelDia);        
         GridBagConstraints gbc_boxIDia = new GridBagConstraints();
         gbc_boxIDia.insets = new Insets(0, 0, 5, 5);
         gbc_boxIDia.fill = GridBagConstraints.HORIZONTAL;
@@ -263,7 +259,18 @@ public class AltaDictadoClase extends JInternalFrame {
         gbc_boxIDia.gridy = 3;
         getContentPane().add(boxIDia, gbc_boxIDia);
         
-        boxIMes = new JComboBox<>();
+        DefaultComboBoxModel<String> comboModelMes = new DefaultComboBoxModel<>(meses);
+        boxIMes = new JComboBox<>(comboModelMes);
+        boxIMes.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		if (boxIMes.getSelectedIndex() % 2 == 0) {
+        			boxIDia.removeItem("31");
+        		} else {
+        			if (comboModelDia.getIndexOf("31") == -1)
+        				comboModelDia.addElement("31");
+        		}
+        	}
+        });
         GridBagConstraints gbc_boxIMes = new GridBagConstraints();
         gbc_boxIMes.gridwidth = 2;
         gbc_boxIMes.insets = new Insets(0, 0, 5, 5);
@@ -273,6 +280,13 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(boxIMes, gbc_boxIMes);
         
         boxIHora = new JComboBox<>();
+        boxIHora.addItem("-");
+        for(int i = 0; i < 24; i++) {
+        	if (i < 10)
+        		boxIHora.addItem( "0" + String.valueOf(i));
+        	else
+        		boxIHora.addItem( String.valueOf(i) );
+        }
         GridBagConstraints gbc_boxIHora = new GridBagConstraints();
         gbc_boxIHora.insets = new Insets(0, 0, 5, 5);
         gbc_boxIHora.fill = GridBagConstraints.HORIZONTAL;
@@ -281,6 +295,13 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(boxIHora, gbc_boxIHora);
         
         boxIMinuto = new JComboBox<>();
+        boxIMinuto.addItem("-");
+        for(int i = 0; i < 60; i++) {
+        	if (i < 10)
+        		boxIMinuto.addItem( "0" + String.valueOf(i));
+        	else
+        		boxIMinuto.addItem( String.valueOf(i) );
+        }
         GridBagConstraints gbc_boxIMinuto = new GridBagConstraints();
         gbc_boxIMinuto.insets = new Insets(0, 0, 5, 5);
         gbc_boxIMinuto.fill = GridBagConstraints.HORIZONTAL;
@@ -289,6 +310,23 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(boxIMinuto, gbc_boxIMinuto);
         
         boxInstitucion = new JComboBox<>();
+        boxInstitucion.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		if (boxInstitucion.getSelectedIndex() != 0) {
+        			DefaultComboBoxModel<String> modelActividad;
+        			//try {
+                    	modelActividad = new DefaultComboBoxModel<>();
+                    	modelActividad.addElement("-");
+                    	// Agregar aqui el for que inserta en el model anterior los nombres de actividades deportivas
+                    	// al combobox de actividades (luego hacer lo mismo para profesores)
+                    	// esto implica crear operaciones en el controlador de dictado clase.
+                    	boxInstitucion.setModel(modelActividad);
+                    //} catch (UsuarioNoExisteException e) {
+                    	// No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
+                    //}
+        		}
+        	}
+        });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
         gbc_boxInstitucion.gridwidth = 4;
         gbc_boxInstitucion.insets = new Insets(0, 0, 5, 5);
@@ -308,6 +346,7 @@ public class AltaDictadoClase extends JInternalFrame {
         getContentPane().add(boxActividad, gbc_boxActividad);
         
         boxProfesor = new JComboBox<>();
+        boxProfesor.setEnabled(false);
         GridBagConstraints gbc_boxProfesor = new GridBagConstraints();
         gbc_boxProfesor.gridwidth = 4;
         gbc_boxProfesor.insets = new Insets(0, 0, 5, 5);
@@ -315,40 +354,6 @@ public class AltaDictadoClase extends JInternalFrame {
         gbc_boxProfesor.gridx = 1;
         gbc_boxProfesor.gridy = 9;
         getContentPane().add(boxProfesor, gbc_boxProfesor);
-        boxProfesor.setEnabled(false);
-        
-        boxRDia = new JComboBox<>();
-        GridBagConstraints gbc_boxRDia = new GridBagConstraints();
-        gbc_boxRDia.insets = new Insets(0, 0, 5, 5);
-        gbc_boxRDia.fill = GridBagConstraints.HORIZONTAL;
-        gbc_boxRDia.gridx = 1;
-        gbc_boxRDia.gridy = 13;
-        getContentPane().add(boxRDia, gbc_boxRDia);
-        
-        boxRMes = new JComboBox<>();
-        GridBagConstraints gbc_boxRMes = new GridBagConstraints();
-        gbc_boxRMes.gridwidth = 2;
-        gbc_boxRMes.insets = new Insets(0, 0, 5, 5);
-        gbc_boxRMes.fill = GridBagConstraints.HORIZONTAL;
-        gbc_boxRMes.gridx = 2;
-        gbc_boxRMes.gridy = 13;
-        getContentPane().add(boxRMes, gbc_boxRMes);
-                
-        boxRHora = new JComboBox<>();
-        GridBagConstraints gbc_boxRHora = new GridBagConstraints();
-        gbc_boxRHora.insets = new Insets(0, 0, 5, 5);
-        gbc_boxRHora.fill = GridBagConstraints.HORIZONTAL;
-        gbc_boxRHora.gridx = 6;
-        gbc_boxRHora.gridy = 13;
-        getContentPane().add(boxRHora, gbc_boxRHora);
-        
-        boxRMinuto = new JComboBox<>();
-        GridBagConstraints gbc_boxRMinuto = new GridBagConstraints();
-        gbc_boxRMinuto.insets = new Insets(0, 0, 5, 5);
-        gbc_boxRMinuto.fill = GridBagConstraints.HORIZONTAL;
-        gbc_boxRMinuto.gridx = 7;
-        gbc_boxRMinuto.gridy = 13;
-        getContentPane().add(boxRMinuto, gbc_boxRMinuto);  
         
         // JButton:
         btnAceptar = new JButton("Aceptar");
@@ -360,27 +365,61 @@ public class AltaDictadoClase extends JInternalFrame {
         GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
         gbc_btnAceptar.gridwidth = 2;
         gbc_btnAceptar.fill = GridBagConstraints.BOTH;
-        gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+        gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
         gbc_btnAceptar.gridx = 5;
-        gbc_btnAceptar.gridy = 15;
+        gbc_btnAceptar.gridy = 13;
         getContentPane().add(btnAceptar, gbc_btnAceptar);
         
         btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // limpiarFormulario();
-                // setVisible(false);
+                limpiarFormulario();
+                setVisible(false);
             }
         });    
         GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
         gbc_btnCancelar.gridwidth = 2;
-        gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
+        gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
         gbc_btnCancelar.fill = GridBagConstraints.BOTH;
         gbc_btnCancelar.gridx = 7;
-        gbc_btnCancelar.gridy = 15;
+        gbc_btnCancelar.gridy = 13;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
         
 	}
+	
+	// Cargar Datos al JComboBox
+    // Se invoca el método antes de hacer visible el JInternalFrame
+    public void cargarInstitucion() {
+        DefaultComboBoxModel<String> model;
+        //try {
+            model = new DefaultComboBoxModel<>();
+            model.addElement("-");
+            for(String x: controlClase.obtenerInstituciones()) {
+                model.addElement(x);
+            }
+            boxInstitucion.setModel(model);
+        //} catch (UsuarioNoExisteException e) {
+            // No se imprime mensaje de error sino que simplemente no se muestra ningún elemento
+        //}
+    }
+	
+	// Limpia el JInternalFrame
+	private void limpiarFormulario() {
+		nombreClase.setText("");
+		sociosMin.setText("Minimo");
+		sociosMax.setText("Maximo");
+		inicioAnio.setText("yyyy");
+        url.setText("");
+        boxIDia.setSelectedIndex(0);
+        boxIMes.setSelectedIndex(0);
+        boxIHora.setSelectedIndex(0);
+        boxIMinuto.setSelectedIndex(0);
+        boxInstitucion.removeAllItems();
+        boxActividad.removeAllItems();
+        boxActividad.setEnabled(false);
+        boxProfesor.removeAllItems();
+        boxProfesor.setEnabled(false);
+    } 
 }
 
 /*	// Este método es invocado al querer registrar un usuario, funcionalidad
@@ -441,14 +480,4 @@ public class AltaDictadoClase extends JInternalFrame {
         }
 
         return true;
-    }
-
-    // Permite borrar el contenido de un formulario antes de cerrarlo.
-    // Recordar que las ventanas no se destruyen, sino que simplemente 
-    // se ocultan, por lo que conviene borrar la información para que 
-    // no aparezca al mostrarlas nuevamente.
-    private void limpiarFormulario() {
-        textFieldNombre.setText("");
-        textFieldApellido.setText("");
-        textFieldCI.setText("");
     } */

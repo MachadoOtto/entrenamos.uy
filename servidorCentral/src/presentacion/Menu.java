@@ -127,7 +127,7 @@ public class Menu {
 				if (altaClase.isVisible()) {
 					// altaClase.traerAlFrente() no se si existe xd pero estaria bueno que lo haga
 				} else {
-					// altaClase.limpiar() //no IMplementado aun.
+					altaClase.cargarInstitucion();
 					altaClase.setVisible(true);
 				}
 			}
