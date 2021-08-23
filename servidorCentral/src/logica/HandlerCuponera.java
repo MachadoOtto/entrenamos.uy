@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -65,19 +66,9 @@ public class HandlerCuponera {
 		return res;
 	}
 	
-	public Set<String> getNombreCuponeras()
-	{
-		Set<String> res = cuponeras.keySet();
-		/*Set<String> res = new HashSet<>();
-		Iterator<Map.Entry<String,Cuponera>> it = 
-				cuponeras.entrySet().iterator();
-		while(it.hasNext())
-		{
-			Map.Entry<String,Cuponera> par = it.next();
-			Cuponera cup = par.getValue();
-			res.add(cup.getNombre());
-		}*/
-		return res;
+	public Set<String> getNombreCuponeras() {
+		Set<String> r = new HashSet<String>(cuponeras.keySet());
+		return r;
 	}
 	
 	public DtCuponera getDtCuponera(String nombreCuponera)
