@@ -13,29 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.Set;
 
 import logica.IDictadoClaseController;
 
-import datatypes.DtClaseExt;
-
 @SuppressWarnings("serial")
-public class ConsultaDictadoClase extends JInternalFrame {
+public class RegistroUsuarioClase extends JInternalFrame {
 	
 	/* Controlador de Dictado de Clase para las acciones del JInternalFrame */
 	private IDictadoClaseController controlClase;
@@ -45,25 +35,24 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	private JLabel lblSeleccionInstitucion;
 	private JLabel lblSeleccionActividad;
 	private JLabel lblSeleccionClase;
+	private JLabel lblSeleccionSocio;
+	private JLabel lblSeleccionTipo;
 	
-	// JScrollPane:
-    private JScrollPane scrollPane;
-	
-	// JTextArea:
-    private JTextArea textArea;
+	// JTextField:
 	
 	// JComboBox:
 	private JComboBox<String> boxInstitucion;
 	private JComboBox<String> boxActividad;
 	private JComboBox<String> boxClase;
-	
+	private JComboBox<String> boxSocio;
+	private JComboBox<String> boxTipo;
 	
 	// JButton:
 	private JButton btnAceptar;
     private JButton btnCancelar;
     
     /* Crear frame */
-	public ConsultaDictadoClase(IDictadoClaseController idcc) {
+	public RegistroUsuarioClase(IDictadoClaseController idcc) {
 		// Inicializa controlador Dictado de Clase:
 		controlClase = idcc;
 		
@@ -73,15 +62,15 @@ public class ConsultaDictadoClase extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Consulta de Dictado de Clase");
-		setBounds(10, 40, 410, 430);
+		setTitle("Registro a Dictado de Clase");
+		setBounds(10, 40, 410, 400);
 		
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 30, 30, 10 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 0, 0, 0 };
+	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 0 };
 	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	    getContentPane().setLayout(gridBagLayout);
         
         // JLabels:
@@ -115,42 +104,30 @@ public class ConsultaDictadoClase extends JInternalFrame {
         gbc_lblSeleccionClase.gridy = 4;
         getContentPane().add(lblSeleccionClase, gbc_lblSeleccionClase);
         
-        // JScrollPane:
-        scrollPane = new JScrollPane();
-        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-        gbc_scrollPane.gridheight = 4;
-        gbc_scrollPane.gridwidth = 3;
-        gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-        gbc_scrollPane.fill = GridBagConstraints.BOTH;
-        gbc_scrollPane.gridx = 1;
-        gbc_scrollPane.gridy = 7;
-        getContentPane().add(scrollPane, gbc_scrollPane);
+        lblSeleccionSocio = new JLabel("Seleccione Socio:");
+        lblSeleccionSocio.setHorizontalAlignment(SwingConstants.LEFT);
+        GridBagConstraints gbc_lblSeleccionSocio = new GridBagConstraints();
+        gbc_lblSeleccionSocio.gridwidth = 2;
+        gbc_lblSeleccionSocio.fill = GridBagConstraints.BOTH;
+        gbc_lblSeleccionSocio.insets = new Insets(0, 0, 5, 5);
+        gbc_lblSeleccionSocio.gridx = 1;
+        gbc_lblSeleccionSocio.gridy = 6;
+        getContentPane().add(lblSeleccionSocio, gbc_lblSeleccionSocio);
         
-        // JTextArea:
-        textArea = new JTextArea();
-        textArea.setText("Aqui se mostrara la informacion de la Clase seleccionada.");
-        scrollPane.setViewportView(textArea);
+        lblSeleccionTipo = new JLabel("Seleccione el Tipo de Registro:");
+        lblSeleccionTipo.setHorizontalAlignment(SwingConstants.LEFT);
+        GridBagConstraints gbc_lblSeleccionTipo = new GridBagConstraints();
+        gbc_lblSeleccionTipo.gridwidth = 2;
+        gbc_lblSeleccionTipo.fill = GridBagConstraints.BOTH;
+        gbc_lblSeleccionTipo.insets = new Insets(0, 0, 5, 5);
+        gbc_lblSeleccionTipo.gridx = 1;
+        gbc_lblSeleccionTipo.gridy = 8;
+        getContentPane().add(lblSeleccionTipo, gbc_lblSeleccionTipo);
+        
+        // JTextField:
         
         // JComboBox:
         boxInstitucion = new JComboBox<>();
-        boxInstitucion.addItemListener(new ItemListener() {
-        	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxInstitucion.getSelectedIndex();
-    			boxActividad.removeAllItems();
-    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-    			modelActividad.addElement("-");
-    			if (selectIndex > 0) {
-        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
-                    for (String x: actividades) {
-                    	modelActividad.addElement(x);
-                    }
-                    boxActividad.setEnabled(true);
-        		} else {
-        			boxActividad.setEnabled(false);
-        		}
-            	boxActividad.setModel(modelActividad);
-        	}
-        });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
         gbc_boxInstitucion.gridwidth = 3;
         gbc_boxInstitucion.insets = new Insets(0, 0, 5, 5);
@@ -161,25 +138,6 @@ public class ConsultaDictadoClase extends JInternalFrame {
         
         boxActividad = new JComboBox<>();
         boxActividad.setEnabled(false);
-        boxActividad.addItemListener(new ItemListener() {
-        	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxActividad.getSelectedIndex();
-    			boxClase.removeAllItems();
-    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
-    			modelClase.addElement("-");
-    			if (selectIndex > 0) {
-        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
-        					boxActividad.getItemAt(selectIndex));
-                    for (String x: clases) {
-                    	modelClase.addElement(x);
-                    }
-                    boxClase.setEnabled(true);
-        		} else {
-        			boxClase.setEnabled(false);
-        		}
-    			boxClase.setModel(modelClase);
-        	}
-        });
         GridBagConstraints gbc_boxActividad = new GridBagConstraints();
         gbc_boxActividad.gridwidth = 3;
         gbc_boxActividad.insets = new Insets(0, 0, 5, 5);
@@ -198,85 +156,53 @@ public class ConsultaDictadoClase extends JInternalFrame {
         getContentPane().add(boxClase, gbc_boxClase);
         boxClase.setEnabled(false);
         
+        boxSocio = new JComboBox<>();
+        GridBagConstraints gbc_boxSocio = new GridBagConstraints();
+        gbc_boxSocio.gridwidth = 3;
+        gbc_boxSocio.insets = new Insets(0, 0, 5, 5);
+        gbc_boxSocio.fill = GridBagConstraints.HORIZONTAL;
+        gbc_boxSocio.gridx = 1;
+        gbc_boxSocio.gridy = 7;
+        getContentPane().add(boxSocio, gbc_boxSocio);
+        boxSocio.setEnabled(false);
+        
+        boxTipo = new JComboBox<>();
+        boxTipo.addItem("-");
+        boxTipo.addItem("General");
+        boxTipo.addItem("Cuponera");
+        GridBagConstraints gbc_boxTipo = new GridBagConstraints();
+        gbc_boxTipo.insets = new Insets(0, 0, 5, 5);
+        gbc_boxTipo.fill = GridBagConstraints.HORIZONTAL;
+        gbc_boxTipo.gridx = 1;
+        gbc_boxTipo.gridy = 9;
+        getContentPane().add(boxTipo, gbc_boxTipo);
+        
         // JButton:
-        btnAceptar = new JButton("Consultar");
+        btnAceptar = new JButton("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                consultarClase(arg0);
+                // cmdRegistroUsuarioActionPerformed(arg0);
             }
         });
         GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
         gbc_btnAceptar.fill = GridBagConstraints.BOTH;
         gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
         gbc_btnAceptar.gridx = 2;
-        gbc_btnAceptar.gridy = 12;
+        gbc_btnAceptar.gridy = 11;
         getContentPane().add(btnAceptar, gbc_btnAceptar);
         
         btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                clear();
-                setVisible(false);
+                // limpiarFormulario();
+                // setVisible(false);
             }
         });    
         GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
         gbc_btnCancelar.gridwidth = 2;
         gbc_btnCancelar.fill = GridBagConstraints.BOTH;
         gbc_btnCancelar.gridx = 3;
-        gbc_btnCancelar.gridy = 12;
+        gbc_btnCancelar.gridy = 11;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
 	}
-	
-	// Metodo de invocacion de la Consulta de Clase
-    protected void consultarClase(ActionEvent arg0) {
-        if (checkDatos()) {
-        	// Obtengo datos de los controles Swing:
-            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
-            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
-            String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
-            //try {
-            	DtClaseExt datosClase = controlClase.seleccionarClase(nombreInstitucion, nombreActividad, nombreClase);
-                textArea.setText(datosClase.toString());
-            //} catch (UsuarioRepetidoException e) {
-                // Muestro error de registro
-             //   JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-            //}
-        }
-    }
-	
-	
-	// Realiza el checkeo de la entrada de datos.
-    private boolean checkDatos() {
-        int indexInstitucion = boxInstitucion.getSelectedIndex();
-        int indexActividad = boxActividad.getSelectedIndex();
-        int indexClase = boxClase.getSelectedIndex();
-        if (indexInstitucion < 1 || indexActividad < 1 || indexClase < 1) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Consulta de Dictado de Clase",
-                    JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-	
-	// Cargar Datos al JComboBox
-    // Se invoca el método antes de hacer visible el JInternalFrame
-    public void cargarInstitucion() {
-        DefaultComboBoxModel<String> model;
-        model = new DefaultComboBoxModel<>();
-        model.addElement("-");
-        for(String x: controlClase.obtenerInstituciones()) {
-            model.addElement(x);
-        }
-        boxInstitucion.setModel(model);
-    }
-    
-    // Limpia el JInternalFrame
- 	public void clear() {
- 		textArea.setText("Aqui se mostrara la informacion de la Clase seleccionada.");
-        boxInstitucion.removeAllItems();
-        boxActividad.removeAllItems();
-        boxActividad.setEnabled(false);
-        boxClase.removeAllItems();
-        boxClase.setEnabled(false);
-    }
 }

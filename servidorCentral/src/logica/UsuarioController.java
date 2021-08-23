@@ -53,6 +53,7 @@ public class UsuarioController implements IUsuarioController {
 				HandlerInstitucion hi = HandlerInstitucion.getInstance();
 				Institucion instituto = hi.findInstitucion(((DtProfesor)datoUser).getNombreInstitucion());
 				newProfesor.setInstitucion(instituto);
+				instituto.addProfesor(newProfesor);
 			}
 			return 0;
 		}

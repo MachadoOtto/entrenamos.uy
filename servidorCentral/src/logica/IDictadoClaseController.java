@@ -11,12 +11,19 @@ package logica;
 
 import java.util.Set;
 import datatypes.DtClase;
+import datatypes.DtClaseExt;
 
 public interface IDictadoClaseController {
 	
 	public Set<String> obtenerInstituciones();
 	
 	public Set<String> obtenerActividades(String ins);
+	
+	public Set<String> obtenerProfesores(String ins);
+	
+	public Set<String> obtenerClases(String ins, String actDep);
+	
+	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase);
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos);
 		

@@ -17,6 +17,7 @@ public interface IActividadDeportivaController {
 	
 	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins);
 	
+	// Migue: Esta funcion va a cambiar de controller, me lo llevo a DictadoClaseController, si no la usan en otro lado favor borrar
 	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase);
 	
 	public Set<String> obtenerSocios();

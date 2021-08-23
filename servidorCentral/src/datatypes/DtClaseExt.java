@@ -14,4 +14,25 @@ public class DtClaseExt extends DtClase {
 	public List<String> getAlumnos() {
 		return this.alumnos;
 	}
+	
+	public String toString() {
+		String res = new String();
+		res += "Nombre de Clase: " + this.getNombre() + "\n";
+		res += "Fecha de Inicio: " + this.getFechaClase().toFechaHora() + "\n";
+		res += "Profesor que la Dicta: " + this.getNombreProfesor() + "\n";
+		res += "Cantidad de Cupos: \n";
+		res += "    Minimos: " + this.getMinSocios() + " socios.\n";
+		res += "    Maximos: " + this.getMaxSocios() + " socios.\n";
+		res += "Direccion Web: " + this.getURL() + "\n";
+		res += "Fecha de Registro: " + this.getFechaRegistro().toFecha() + "\n";
+		if (alumnos.isEmpty()) {
+			res += "Esta clase no presenta alumnos ingresados.";
+		} else {
+			res += "Listado de Alumnos: \n";
+			for (String x: alumnos) {
+				res += "    " + x + "\n";
+			}
+		}
+		return res;
+	}
 }
