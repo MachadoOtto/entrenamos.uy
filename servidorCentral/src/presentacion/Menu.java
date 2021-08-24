@@ -44,6 +44,7 @@ public class Menu {
 	private CrearCuponera altaCup;
 	private RegistroUsuarioClase regUsuClass;
 	private ConsultaDictadoClase consultaClass;
+	private ConsultaActividadDeportiva consActDep;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
@@ -106,6 +107,11 @@ public class Menu {
 		consultaClass = new ConsultaDictadoClase(IDCC);
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
+
+		// ConsultaActividadDeportiva
+		consActDep = new ConsultaActividadDeportiva(IADC);
+		consActDep.setVisible(false);
+		escritorio.add(consActDep);
 		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
@@ -291,16 +297,17 @@ public class Menu {
 		});
 		JMenuItem itemConsultaActividad = new JMenuItem("Consulta Actividad Deportiva");
 		menuConsultas.add(itemConsultaActividad);
-//		itemConsultaActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (consultaAct.isVisible()) 
-//					consultaAct.toFront();
-//				else {
-//					consultaAct.clear();
-//					consultaAct.setVisible(true);
-//				}
-//			}
-//		});
+		itemConsultaActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (consActDep.isVisible()) 
+					consActDep.toFront();
+				else {
+					consActDep.clear();
+					consActDep.cargarInstituciones();
+					consActDep.setVisible(true);
+				}
+			}
+		});
 		
 		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
 		menuConsultas.add(itemConsultaClase);
