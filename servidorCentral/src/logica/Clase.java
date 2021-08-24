@@ -65,10 +65,7 @@ public class Clase {
 	public boolean hayLugar() {
 		return ListReciboClase.size() < maxSocios;
 	}
-	public int tieneActividadDeportiva(ActividadDeportiva actDep) {
-		if(actDep==a)
-			return 1;
-		else
-			return 0;
+	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
+		return actDep == a;
 	}
 }

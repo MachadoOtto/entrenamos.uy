@@ -53,7 +53,6 @@ public class ActividadDeportiva {
 	//}
 
 	public int addClase(DtClase cl, Profesor p) {
-
 		int res = 1;
 		if (!clases.containsKey(cl.getNombre())) {
 			//Lo dejo comentado para que reflexiones: Clase nueva.Clase(cl, p /*,this??????*/);
@@ -62,7 +61,6 @@ public class ActividadDeportiva {
 			res = 0;	
 		}
 		return res;
-			
 	}
 	
 	public DtActividadDeportiva getDt(){

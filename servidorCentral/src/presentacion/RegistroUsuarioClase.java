@@ -13,7 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
 import java.awt.GridBagConstraints;
@@ -21,8 +23,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Set;
 
 import logica.IDictadoClaseController;
+
+import datatypes.TReg;
 
 @SuppressWarnings("serial")
 public class RegistroUsuarioClase extends JInternalFrame {
@@ -37,8 +44,6 @@ public class RegistroUsuarioClase extends JInternalFrame {
 	private JLabel lblSeleccionClase;
 	private JLabel lblSeleccionSocio;
 	private JLabel lblSeleccionTipo;
-	
-	// JTextField:
 	
 	// JComboBox:
 	private JComboBox<String> boxInstitucion;
@@ -62,13 +67,13 @@ public class RegistroUsuarioClase extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setTitle("Registro a Dictado de Clase");
+		setTitle("Registro de Usuario a Dictado de Clase");
 		setBounds(10, 40, 410, 400);
 		
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 30, 30, 10 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 0 };
+	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
 	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	    getContentPane().setLayout(gridBagLayout);
@@ -124,10 +129,26 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_lblSeleccionTipo.gridy = 8;
         getContentPane().add(lblSeleccionTipo, gbc_lblSeleccionTipo);
         
-        // JTextField:
-        
         // JComboBox:
         boxInstitucion = new JComboBox<>();
+        boxInstitucion.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		int selectIndex = boxInstitucion.getSelectedIndex();
+    			boxActividad.removeAllItems();
+    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+    			modelActividad.addElement("-");
+    			if (selectIndex > 0) {
+        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
+                    for (String x: actividades) {
+                    	modelActividad.addElement(x);
+                    }
+                    boxActividad.setEnabled(true);
+        		} else {
+        			boxActividad.setEnabled(false);
+        		}
+            	boxActividad.setModel(modelActividad);
+        	}
+        });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
         gbc_boxInstitucion.gridwidth = 3;
         gbc_boxInstitucion.insets = new Insets(0, 0, 5, 5);
@@ -138,6 +159,25 @@ public class RegistroUsuarioClase extends JInternalFrame {
         
         boxActividad = new JComboBox<>();
         boxActividad.setEnabled(false);
+        boxActividad.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		int selectIndex = boxActividad.getSelectedIndex();
+    			boxClase.removeAllItems();
+    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
+    			modelClase.addElement("-");
+    			if (selectIndex > 0) {
+        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
+        					boxActividad.getItemAt(selectIndex));
+                    for (String x: clases) {
+                    	modelClase.addElement(x);
+                    }
+                    boxClase.setEnabled(true);
+        		} else {
+        			boxClase.setEnabled(false);
+        		}
+    			boxClase.setModel(modelClase);
+        	}
+        });
         GridBagConstraints gbc_boxActividad = new GridBagConstraints();
         gbc_boxActividad.gridwidth = 3;
         gbc_boxActividad.insets = new Insets(0, 0, 5, 5);
@@ -164,7 +204,6 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_boxSocio.gridx = 1;
         gbc_boxSocio.gridy = 7;
         getContentPane().add(boxSocio, gbc_boxSocio);
-        boxSocio.setEnabled(false);
         
         boxTipo = new JComboBox<>();
         boxTipo.addItem("-");
@@ -181,7 +220,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
         btnAceptar = new JButton("Aceptar");
         btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                // cmdRegistroUsuarioActionPerformed(arg0);
+            	inscribirSocioClase(arg0);
             }
         });
         GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
@@ -194,8 +233,8 @@ public class RegistroUsuarioClase extends JInternalFrame {
         btnCancelar = new JButton("Cancelar");
         btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // limpiarFormulario();
-                // setVisible(false);
+                clear();
+                setVisible(false);
             }
         });    
         GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
@@ -204,5 +243,77 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_btnCancelar.gridx = 3;
         gbc_btnCancelar.gridy = 11;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
+	}
+	
+	// Metodo de invocacion de la Consulta de Clase
+    protected void inscribirSocioClase(ActionEvent arg0) {
+        if (checkDatos()) {
+        	// Obtengo datos de los controles Swing:
+            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
+            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
+            String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
+            String nombreSocio = boxSocio.getItemAt(boxSocio.getSelectedIndex());
+            int tipo = boxTipo.getSelectedIndex();
+            TReg x = TReg.general;
+            if (boxTipo.getItemAt(tipo) == "Cuponera")
+            	x = TReg.cuponera;
+            if (controlClase.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, nombreSocio, x) == 0) {
+            	// Muestro éxito de la operación
+                JOptionPane.showMessageDialog(this, "La inscripcion al Dictado de la Clase fue un exito", 
+                		"Registro de Usuario a Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
+                clear();
+                setVisible(false);
+            } else {
+            	JOptionPane.showMessageDialog(this, "El Socio seleccionado no puede inscribirse a la Clase seleccionada.", 
+            			"Registro de Usuario a Dictado de Clase", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+	
+	// Realiza el checkeo de la entrada de datos.
+    private boolean checkDatos() {
+        int indexInstitucion = boxInstitucion.getSelectedIndex();
+        int indexActividad = boxActividad.getSelectedIndex();
+        int indexClase = boxClase.getSelectedIndex();
+        int indexSocio = boxSocio.getSelectedIndex();
+        int indexTipo = boxTipo.getSelectedIndex();
+        if (indexInstitucion < 1 || indexActividad < 1 || indexClase < 1 || indexSocio < 1 || indexTipo < 1) {
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registro de Usuario a Dictado de Clase",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+	
+	// Cargar Datos al JComboBox
+    // Se invoca el método antes de hacer visible el JInternalFrame
+    public void cargarDatos() {
+    	// Cargar Usuarios:
+    	DefaultComboBoxModel<String> modelUsuario;
+    	modelUsuario = new DefaultComboBoxModel<>();
+    	modelUsuario.addElement("-");
+        for(String x: controlClase.obtenerUsuarios()) {
+        	modelUsuario.addElement(x);
+        }
+        boxSocio.setModel(modelUsuario);
+    	// Cargar Instituciones:
+        DefaultComboBoxModel<String> modelInstitucion;
+        modelInstitucion = new DefaultComboBoxModel<>();
+        modelInstitucion.addElement("-");
+        for(String x: controlClase.obtenerInstituciones()) {
+        	modelInstitucion.addElement(x);
+        }
+        boxInstitucion.setModel(modelInstitucion);
+    }
+	
+	// Limpia el JInternalFrame
+	public void clear() {
+	    boxInstitucion.removeAllItems();
+	    boxActividad.removeAllItems();
+	    boxActividad.setEnabled(false);
+	    boxClase.removeAllItems();
+	    boxClase.setEnabled(false);
+	    boxSocio.removeAllItems();
+	    boxTipo.setSelectedIndex(0);
 	}
 }

@@ -79,7 +79,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 30, 30, 10 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 0, 0, 0 };
+	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
 	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	    getContentPane().setLayout(gridBagLayout);
@@ -128,6 +128,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         
         // JTextArea:
         textArea = new JTextArea();
+        textArea.setEditable(false);
         textArea.setText("Aqui se mostrara la informacion de la Clase seleccionada.");
         scrollPane.setViewportView(textArea);
         
@@ -234,13 +235,8 @@ public class ConsultaDictadoClase extends JInternalFrame {
             String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
             String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
             String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
-            //try {
-            	DtClaseExt datosClase = controlClase.seleccionarClase(nombreInstitucion, nombreActividad, nombreClase);
-                textArea.setText(datosClase.toString());
-            //} catch (UsuarioRepetidoException e) {
-                // Muestro error de registro
-             //   JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-            //}
+            DtClaseExt datosClase = controlClase.seleccionarClase(nombreInstitucion, nombreActividad, nombreClase);
+            textArea.setText(datosClase.toString());
         }
     }
 	

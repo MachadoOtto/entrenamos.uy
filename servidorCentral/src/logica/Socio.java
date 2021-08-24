@@ -21,8 +21,7 @@ import datatypes.DtSocioExt;
 import datatypes.TReg;
 
 public class Socio extends Usuario {
-private List<ReciboCuponera> reciboCuponeras;
-	
+	private List<ReciboCuponera> reciboCuponeras;
 	private List<ReciboClase> reciboClases;
 	
 //	public Socio() {
@@ -113,32 +112,28 @@ private List<ReciboCuponera> reciboCuponeras;
 //	
 	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t) {
 		DtFecha d = new DtFecha();
-		if(t.equals(TReg.general)){
-			ReciboClase nuevoRecibo = new ReciboClase(d,TReg.general,actDep.getCosto(),cl,this);
+		if(t.equals(TReg.general)) {
+			ReciboClase nuevoRecibo = new ReciboClase(d, TReg.general, actDep.getCosto(), cl, this, null);
 			reciboClases.add(nuevoRecibo);
-			return 1;		
-		}
-		else {
-			int numClasesCuponera = 0;
-			Iterator<ReciboCuponera> itRCuponeras = reciboCuponeras.iterator();
-			while (itRCuponeras.hasNext()) {
-				numClasesCuponera += itRCuponeras.next().cantidadClases(actDep);
-			}
-			int numInscripto = 0;
-			Iterator<ReciboClase> itRClases = reciboClases.iterator();
-			while (itRClases.hasNext()) {
-				ReciboClase rCl = itRClases.next();
-				if (rCl.esTipoCuponera()) {
-					numInscripto += rCl.tieneActividadDeportiva(actDep);
+			return 0;		
+		} else {
+			for (ReciboCuponera y: reciboCuponeras) {
+				Cuponera cupActual = y.getCuponera();
+				if (cupActual.tieneActividadDeportiva(actDep)) {
+					int cantidadClases = 0;
+					for (ReciboClase x: reciboClases) {
+						if ((x.getCuponera() == cupActual) && (x.tieneActividadDeportiva(actDep))) {
+							cantidadClases++;
+						}
+					}
+					if (cantidadClases < cupActual.cantidadClases(actDep)) {
+						ReciboClase nuevoRecibo = new ReciboClase(d,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
+						reciboClases.add(nuevoRecibo);
+						return 0;
+					}
 				}
 			}
-			if (numClasesCuponera > numInscripto) {
-				ReciboClase nuevoRecibo = new ReciboClase(d,TReg.cuponera,actDep.getCosto(),cl,this);
-				reciboClases.add(nuevoRecibo);
-				return 0;
-			} else {
-				return 1;
-			}	
+			return 1;
 		}
 	}
 }
