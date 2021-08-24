@@ -38,11 +38,13 @@ public class Menu {
 	
 	// Declaracion de los JInternalFrames:
 	private AltaUsuario altaUsuario;
+	private AltaActividadDeportiva altaActDep;
 	private AltaDictadoClase altaClase;
 	private AltaInstitucionDeportiva altaIns;
 	private CrearCuponera altaCup;
 	private RegistroUsuarioClase regUsuClass;
 	private ConsultaDictadoClase consultaClass;
+	private ConsultaActividadDeportiva consActDep;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
@@ -79,6 +81,11 @@ public class Menu {
 		altaUsuario.setVisible(false);
 		escritorio.add(altaUsuario);	
 		
+		//AltaActividadDeportiva
+		altaActDep = new AltaActividadDeportiva(IADC);
+		altaActDep.setVisible(false);
+		escritorio.add(altaActDep);
+
 		// AltaDictadoClase:
 		altaClase = new AltaDictadoClase(IDCC);
 		altaClase.setLocation(10, 11);
@@ -100,6 +107,11 @@ public class Menu {
 		consultaClass = new ConsultaDictadoClase(IDCC);
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
+
+		// ConsultaActividadDeportiva
+		consActDep = new ConsultaActividadDeportiva(IADC);
+		consActDep.setVisible(false);
+		escritorio.add(consActDep);
 		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
@@ -196,16 +208,17 @@ public class Menu {
 		
 		JMenuItem itemAltaActividad = new JMenuItem("Alta Actividad Deportiva");
 		subMenuActDep.add(itemAltaActividad);
-//		itemAltaActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (altaAct.isVisible()) 
-//					altaAct.toFront();
-//				else {
-//					altaAct.clear();
-//					altaAct.setVisible(true);
-//				}
-//			}
-//		});		
+		itemAltaActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (altaActDep.isVisible()) 
+					altaActDep.toFront();
+				else {
+					altaActDep.clear();
+					altaActDep.cargarInstituciones();
+					altaActDep.setVisible(true);
+				}
+			}
+		});		
 		
 		JMenu subMenuDictado = new JMenu("Dictado Clase");
 		menuRegistro.add(subMenuDictado);
@@ -284,16 +297,17 @@ public class Menu {
 		});
 		JMenuItem itemConsultaActividad = new JMenuItem("Consulta Actividad Deportiva");
 		menuConsultas.add(itemConsultaActividad);
-//		itemConsultaActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (consultaAct.isVisible()) 
-//					consultaAct.toFront();
-//				else {
-//					consultaAct.clear();
-//					consultaAct.setVisible(true);
-//				}
-//			}
-//		});
+		itemConsultaActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (consActDep.isVisible()) 
+					consActDep.toFront();
+				else {
+					consActDep.clear();
+					consActDep.cargarInstituciones();
+					consActDep.setVisible(true);
+				}
+			}
+		});
 		
 		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
 		menuConsultas.add(itemConsultaClase);
