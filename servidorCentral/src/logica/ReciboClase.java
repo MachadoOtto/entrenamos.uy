@@ -1,9 +1,7 @@
 package logica;
 
-
 import datatypes.DtFecha;
 import datatypes.TReg;
-
 
 public class ReciboClase {
 	private DtFecha fechaInscripcion;
@@ -11,6 +9,7 @@ public class ReciboClase {
 	private float costo;
 	private Clase aClase;
 	private Socio aSocio;
+	private Cuponera cup;
 	
 	//
 //	ReciboClase(DtReciboClase d,Clase c,Socio s){
@@ -21,30 +20,41 @@ public class ReciboClase {
 //		this.costo = d.costo;
 //	}
 	
-	ReciboClase(DtFecha f,TReg t, float cc, Clase c, Socio s){
+	ReciboClase(DtFecha f,TReg t, float cc, Clase c, Socio s, Cuponera cupon){
 		aSocio = s;
 		aClase = c;
 		fechaInscripcion = f;
 		tipo = t;
 		costo = cc;
+		cup = cupon;
 	}
+	
 	public DtFecha getFechaInscripcion() {
 		DtFecha ret = new DtFecha(fechaInscripcion);
 		return ret;
 	}
+	
 	public float getCosto() {
 		return costo;
 	}
+	
 	public boolean esTipoCuponera() {
 		return tipo.equals(TReg.cuponera);
 	}
+	
 	public String getNombreClase() {
 		return aClase.getNombre();
 	}
-	public int tieneActividadDeportiva(ActividadDeportiva actDep) {
+	
+	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
 		return aClase.tieneActividadDeportiva(actDep);
 	}
+	
 	public String getNombreSocio() {
 		return aSocio.getNombre();
+	}
+	
+	public Cuponera getCuponera() {
+		return cup;
 	}
 }

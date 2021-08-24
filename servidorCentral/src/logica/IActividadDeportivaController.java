@@ -22,5 +22,6 @@ public interface IActividadDeportivaController {
 	
 	public Set<String> obtenerSocios();
 	
+	// Migue: Esta funcion va a cambiar de controller, me lo llevo a DictadoClaseController, si no la usan en otro lado favor borrar
 	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro);
 }
