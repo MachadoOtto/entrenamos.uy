@@ -10,10 +10,14 @@
 package logica;
 
 import java.util.Set;
+
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
+import datatypes.TReg;
 
 public interface IDictadoClaseController {
+	
+	public Set<String> obtenerUsuarios();
 	
 	public Set<String> obtenerInstituciones();
 	
@@ -26,6 +30,8 @@ public interface IDictadoClaseController {
 	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase);
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos);
-		
+	
+	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro);
+	
 	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }

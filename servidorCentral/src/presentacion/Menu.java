@@ -19,7 +19,6 @@ import logica.IDeportivaController;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
@@ -211,7 +210,7 @@ public class Menu {
 		JMenu subMenuDictado = new JMenu("Dictado Clase");
 		menuRegistro.add(subMenuDictado);
 		
-		JMenuItem itemAltaDictado = new JMenuItem("Alta Dictado Clase");
+		JMenuItem itemAltaDictado = new JMenuItem("Alta de Dictado de Clase");
 		itemAltaDictado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (altaClase.isVisible())
@@ -225,28 +224,19 @@ public class Menu {
 		});
 		subMenuDictado.add(itemAltaDictado);
 		
-		JMenuItem itemRegistroAClase = new JMenuItem("Registro a Dictado Clase");
+		JMenuItem itemRegistroAClase = new JMenuItem("Registro de Usuario a Dictado de Clase");
 		itemRegistroAClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (regUsuClass.isVisible())
 					regUsuClass.toFront();
 				else {
-					//regUsuClass.cargarInstitucion(); Similar pero no es este, todavia no lo implemente
+					regUsuClass.clear();
+					regUsuClass.cargarDatos();
 					regUsuClass.setVisible(true);
 				}
 			}
 		});
 		subMenuDictado.add(itemRegistroAClase);
-		itemRegistroAClase.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (altaClase.isVisible()) 
-					altaClase.toFront();
-				else {
-					altaClase.clear();
-					altaClase.setVisible(true);
-				}
-			}
-		});
 		
 		JMenu subMenuCuponera = new JMenu("Cuponera");
 		menuRegistro.add(subMenuCuponera);
@@ -313,6 +303,7 @@ public class Menu {
 					consultaClass.toFront();
 				else {
 					consultaClass.clear();
+					consultaClass.cargarInstitucion();
 					consultaClass.setVisible(true);
 				}
 			}

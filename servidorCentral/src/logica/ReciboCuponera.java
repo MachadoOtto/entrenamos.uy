@@ -23,4 +23,8 @@ public class ReciboCuponera {
 	public Socio getSocio() {
 		return s;
 	}
+	
+	public Cuponera getCuponera() {
+		return c;
+	}
 }

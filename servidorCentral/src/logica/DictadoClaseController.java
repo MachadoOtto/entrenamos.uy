@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
+import datatypes.TReg;
 
 public class DictadoClaseController implements IDictadoClaseController {
 	
@@ -25,6 +26,11 @@ public class DictadoClaseController implements IDictadoClaseController {
 			instance = new DictadoClaseController();
 		}
 		return instance;
+	}
+	
+	public Set<String> obtenerUsuarios() {
+		HandlerUsuario hu = HandlerUsuario.getInstance();
+		return hu.getNicknameUsuarios();		
 	}
 	
 	public Set<String> obtenerInstituciones() {
@@ -64,13 +70,23 @@ public class DictadoClaseController implements IDictadoClaseController {
 		 return clas.getDt();
 	}
 	
-	public int ingresarDatosClase(String ins,String actDep,DtClase datos) {
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos) {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion i = hi.findInstitucion(ins);
 		ActividadDeportiva a = i.getActDep(actDep);
 		Clase cc = i.findClase(actDep, datos.getNombre());
 		Profesor profe = cc.getProfesor();
 		return a.addClase(datos,profe);
+	}
+	
+	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro) {
+		HandlerUsuario hu = HandlerUsuario.getInstance();
+		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+		Clase c = hi.findClase(ins,actDep,clase);
+		Institucion i = hi.findInstitucion(ins);
+		ActividadDeportiva ad = i.getActDep(actDep);
+		Usuario usu = hu.findUsuario(socio);
+		return ((Socio)usu).inscribirSocio(ad, c, tipoRegistro);
 	}
 
 // Guille: Esta funcion creo que no va.

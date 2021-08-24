@@ -95,7 +95,7 @@ public class AltaDictadoClase extends JInternalFrame {
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 60, 60, 30, 60, 60, 15, 15, 0 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 0 };
+	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
 	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
 	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 	    getContentPane().setLayout(gridBagLayout);
@@ -487,22 +487,19 @@ public class AltaDictadoClase extends JInternalFrame {
             String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
             String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
             String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex());
-            //try {
-            	DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
-            	DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
-            	DtClase datos = new DtClase(nombre, nombreProfesor, socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
-                controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos);
-                // Muestro éxito de la operación
+            DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
+            DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
+            DtClase datos = new DtClase(nombre, nombreProfesor, socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
+            if (controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
+            	// Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 
                 		"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
-
-            //} catch (UsuarioRepetidoException e) {
-                // Muestro error de registro
-             //   JOptionPane.showMessageDialog(this, e.getMessage(), "Registrar Usuario", JOptionPane.ERROR_MESSAGE);
-            //}
-            // Limpio el internal frame antes de cerrar la ventana
-            clear();
-            setVisible(false);
+                clear();
+                setVisible(false);
+            } else {
+            	JOptionPane.showMessageDialog(this, "Ya existe una Clase con ese nombre", "Alta Dictado de Clase",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 	
