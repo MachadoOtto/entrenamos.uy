@@ -38,6 +38,7 @@ public class Menu {
 	
 	// Declaracion de los JInternalFrames:
 	private AltaUsuario altaUsuario;
+	private AltaActividadDeportiva altaActDep;
 	private AltaDictadoClase altaClase;
 	private AltaInstitucionDeportiva altaIns;
 	private CrearCuponera altaCup;
@@ -79,6 +80,11 @@ public class Menu {
 		altaUsuario.setVisible(false);
 		escritorio.add(altaUsuario);	
 		
+		//AltaActividadDeportiva
+		altaActDep = new AltaActividadDeportiva(IADC);
+		altaActDep.setVisible(false);
+		escritorio.add(altaActDep);
+
 		// AltaDictadoClase:
 		altaClase = new AltaDictadoClase(IDCC);
 		altaClase.setLocation(10, 11);
@@ -196,16 +202,17 @@ public class Menu {
 		
 		JMenuItem itemAltaActividad = new JMenuItem("Alta Actividad Deportiva");
 		subMenuActDep.add(itemAltaActividad);
-//		itemAltaActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (altaAct.isVisible()) 
-//					altaAct.toFront();
-//				else {
-//					altaAct.clear();
-//					altaAct.setVisible(true);
-//				}
-//			}
-//		});		
+		itemAltaActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (altaActDep.isVisible()) 
+					altaActDep.toFront();
+				else {
+					altaActDep.clear();
+					altaActDep.cargarInstituciones();
+					altaActDep.setVisible(true);
+				}
+			}
+		});		
 		
 		JMenu subMenuDictado = new JMenu("Dictado Clase");
 		menuRegistro.add(subMenuDictado);
