@@ -41,12 +41,13 @@ public class Menu {
 	private AltaUsuario altaUsuario;
 	private AltaDictadoClase altaClase;
 	private AltaInstitucionDeportiva altaIns;
+	private CrearCuponera altaCup;
 	private RegistroUsuarioClase regUsuClass;
 	private ConsultaDictadoClase consultaClass;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
-	
+	private AgregarActividadDeportivaCuponera aggCup;
 	//Run program!
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -117,6 +118,15 @@ public class Menu {
 		modificarUsu = new ModificarDatosUsuario(IUC);
 		modificarUsu.setVisible(false);
 		escritorio.add(modificarUsu);
+		
+		altaCup = new CrearCuponera();
+		altaCup.setVisible(false);
+		escritorio.add(altaCup);
+		
+		aggCup = new AgregarActividadDeportivaCuponera();
+		aggCup.setVisible(false);
+		escritorio.add(aggCup);
+		
 	}
 	
 	private void iniciar() {
@@ -153,7 +163,7 @@ public class Menu {
 		JMenu subMenuUsuario = new JMenu("Usuario");
 		menuRegistro.add(subMenuUsuario);
 		
-		JMenuItem itemRegistrarUsuario = new JMenuItem("Registrar Usuario");
+		JMenuItem itemRegistrarUsuario = new JMenuItem("Alta Usuario");
 		subMenuUsuario.add(itemRegistrarUsuario);
 		itemRegistrarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -243,28 +253,30 @@ public class Menu {
 
 		JMenuItem itemCrearCuponera = new JMenuItem("Crear Cuponera");
 		subMenuCuponera.add(itemCrearCuponera);
-//		itemCrearCuponera.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (altaCup.isVisible()) 
-//					altaCup.toFront();
-//				else {
-//					altaCup.clear();
-//					altaCup.setVisible(true);
-//				}
-//			}
-//		});
+		itemCrearCuponera.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (altaCup.isVisible()) 
+					altaCup.toFront();
+				else {
+					altaCup.clear();
+					altaCup.setVisible(true);
+				}
+			}
+		});
+		
 		JMenuItem itemAgregarActividad = new JMenuItem("Agregar Actividad Deportiva");
 		subMenuCuponera.add(itemAgregarActividad);
-//		itemAgregarActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (altaAct.isVisible()) 
-//					altaAct.toFront();
-//				else {
-//					altaAct.clear();
-//					altaAct.setVisible(true);
-//				}
-//			}
-//		});
+		itemAgregarActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (aggCup.isVisible()) 
+					aggCup.toFront();
+				else {
+					aggCup.clear();
+					aggCup.setVisible(true);
+				}
+			}
+		});
+		
 		JMenu menuConsultas = new JMenu("Consultas");
 		menuBar.add(menuConsultas);
 		
