@@ -174,7 +174,7 @@ public class AgregarActividadDeportivaACuponera extends JInternalFrame {
     	String deltains = this.deltaI.getSelectedItem().toString();
     	int cant = Integer.valueOf(this.comboBoxCant.getSelectedItem().toString());
     	
-    	if((cant == 0 || cuponera.isEmpty() || institucion.isEmpty() ||deltains.isEmpty()) {
+    	if((cant == 0 || cuponera.isEmpty() || institucion.isEmpty() ||deltains.isEmpty())) {
     		JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
     	}
