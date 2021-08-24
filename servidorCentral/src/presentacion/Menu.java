@@ -44,7 +44,7 @@ public class Menu {
 	private CrearCuponera altaCup;
 	private RegistroUsuarioClase regUsuClass;
 	private ConsultaDictadoClase consultaClass;
-	private ConsultaActividadDeportiva consActDep;
+	//private ConsultaActividadDeportiva consActDep;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
@@ -83,6 +83,8 @@ public class Menu {
 		
 		//AltaActividadDeportiva
 		altaActDep = new AltaActividadDeportiva(IADC);
+		altaActDep.setLocation(20, 20);
+		altaActDep.setSize(450, 500);
 		altaActDep.setVisible(false);
 		escritorio.add(altaActDep);
 
@@ -109,9 +111,9 @@ public class Menu {
 		escritorio.add(consultaClass);
 
 		// ConsultaActividadDeportiva
-		consActDep = new ConsultaActividadDeportiva(IADC);
-		consActDep.setVisible(false);
-		escritorio.add(consActDep);
+//		consActDep = new ConsultaActividadDeportiva(IADC);
+//		consActDep.setVisible(false);
+//		escritorio.add(consActDep);
 		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
@@ -214,7 +216,7 @@ public class Menu {
 					altaActDep.toFront();
 				else {
 					altaActDep.clear();
-					altaActDep.cargarInstituciones();
+					//altaActDep.cargarInstituciones(); NO!
 					altaActDep.setVisible(true);
 				}
 			}
@@ -244,7 +246,7 @@ public class Menu {
 					regUsuClass.toFront();
 				else {
 					regUsuClass.clear();
-					regUsuClass.cargarDatos();
+					//regUsuClass.cargarDatos(); No!
 					regUsuClass.setVisible(true);
 				}
 			}
@@ -297,18 +299,18 @@ public class Menu {
 		});
 		JMenuItem itemConsultaActividad = new JMenuItem("Consulta Actividad Deportiva");
 		menuConsultas.add(itemConsultaActividad);
-		itemConsultaActividad.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (consActDep.isVisible()) 
-					consActDep.toFront();
-				else {
-					consActDep.clear();
-					consActDep.cargarInstituciones();
-					consActDep.setVisible(true);
-				}
-			}
-		});
-		
+//		itemConsultaActividad.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if (consActDep.isVisible()) 
+//					consActDep.toFront();
+//				else {
+//					consActDep.clear();
+//					consActDep.cargarInstituciones();
+//					consActDep.setVisible(true);
+//				}
+//			}
+//		});
+//		
 		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
 		menuConsultas.add(itemConsultaClase);
 		itemConsultaClase.addActionListener(new ActionListener() {

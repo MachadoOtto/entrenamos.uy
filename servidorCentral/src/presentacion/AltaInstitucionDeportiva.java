@@ -93,6 +93,8 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 		getContentPane().add(lblDescripcion, gbc_lblDescripcion);
 		
 		inputDescripcion = new JTextArea();
+		inputDescripcion.setLineWrap(true);
+		inputDescripcion.setWrapStyleWord(true);
 		inputDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_inputDescripcion = new GridBagConstraints();
 		gbc_inputDescripcion.gridwidth = 3;

@@ -29,6 +29,7 @@ import java.awt.Color;
 import javax.swing.border.TitledBorder;
 import java.awt.SystemColor;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.MouseListener;
@@ -42,6 +43,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 public class AltaActividadDeportiva extends JInternalFrame{
 	
@@ -50,14 +53,11 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	
 	private JPanel panelInstitucion;
 	private JLabel lblInstitucion;
-	private JComboBox comboBoxInstitucion;
-	private JPanel panelCabecera;
-	private JLabel lblCabecera;
+	private JComboBox<String> comboBoxInstitucion;
 	private JPanel panelDatosActDep;
 	private JLabel lblNombre;
 	private JTextField textFieldNombre;
 	private JLabel lblDescripcion;
-	private JTextField textFieldDescripcion;
 	private JLabel lblDuracion;
 	private JPanel panelDuracionCosto;
 	private JTextField textFieldDuracion;
@@ -69,12 +69,14 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JPanel panelFecha;
 	private JComboBox comboBoxDia;
 	private JComboBox comboBoxMes;
-	private JComboBox comboBoxanio;
-	private JPanel panelAcepCancel;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+	private JPanel panel;
+	private JTextArea textFieldDescripcion;
+	private JTextField altaAnio;
 	
 	public AltaActividadDeportiva(IActividadDeportivaController IADC) {
+		setResizable(true);
 		this.IADC = IADC;
 		//Configuracion del internal frame
 		setTitle("Alta Actividad Deportiva");
@@ -82,59 +84,13 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 478, 551);
+		//setBounds(100, 100, 562, 551);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 433, 0, 0};
 		gridBagLayout.rowHeights = new int[]{19, 33, 48, 310, 14, 69, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
-		
-		panelCabecera = new JPanel();
-		GridBagConstraints gbc_panelCabecera = new GridBagConstraints();
-		gbc_panelCabecera.anchor = GridBagConstraints.NORTH;
-		gbc_panelCabecera.insets = new Insets(0, 0, 5, 5);
-		gbc_panelCabecera.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panelCabecera.gridx = 1;
-		gbc_panelCabecera.gridy = 1;
-		getContentPane().add(panelCabecera, gbc_panelCabecera);
-		GridBagLayout gbl_panelCabecera = new GridBagLayout();
-		gbl_panelCabecera.columnWidths = new int[]{165, 14, 0};
-		gbl_panelCabecera.rowHeights = new int[]{19, 0};
-		gbl_panelCabecera.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelCabecera.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panelCabecera.setLayout(gbl_panelCabecera);
-		
-		lblCabecera = new JLabel("Ingrese los siguientes datos:");
-		lblCabecera.setHorizontalAlignment(SwingConstants.CENTER);
-		GridBagConstraints gbc_lblCabecera = new GridBagConstraints();
-		gbc_lblCabecera.insets = new Insets(0, 0, 0, 5);
-		gbc_lblCabecera.anchor = GridBagConstraints.NORTH;
-		gbc_lblCabecera.gridx = 0;
-		gbc_lblCabecera.gridy = 0;
-		panelCabecera.add(lblCabecera, gbc_lblCabecera);
-		
-		panelInstitucion = new JPanel();
-		GridBagConstraints gbc_panelInstitucion = new GridBagConstraints();
-		gbc_panelInstitucion.insets = new Insets(0, 0, 5, 5);
-		gbc_panelInstitucion.fill = GridBagConstraints.BOTH;
-		gbc_panelInstitucion.gridx = 1;
-		gbc_panelInstitucion.gridy = 2;
-		getContentPane().add(panelInstitucion, gbc_panelInstitucion);
-		GridBagLayout gbl_panelInstitucion = new GridBagLayout();
-		gbl_panelInstitucion.columnWidths = new int[]{80, 322, 0};
-		gbl_panelInstitucion.rowHeights = new int[]{37, 0};
-		gbl_panelInstitucion.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelInstitucion.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panelInstitucion.setLayout(gbl_panelInstitucion);
-		
-		lblInstitucion = new JLabel("Institucion:");
-		lblInstitucion.setHorizontalAlignment(SwingConstants.LEFT);
-		GridBagConstraints gbc_lblInstitucion = new GridBagConstraints();
-		gbc_lblInstitucion.insets = new Insets(0, 0, 0, 5);
-		gbc_lblInstitucion.gridx = 0;
-		gbc_lblInstitucion.gridy = 0;
-		panelInstitucion.add(lblInstitucion, gbc_lblInstitucion);
 		
 		DefaultComboBoxModel<String> comboModelInstitucion = new DefaultComboBoxModel<>();
 		comboModelInstitucion.addElement("---Seleccione una institucion---");
@@ -146,27 +102,78 @@ public class AltaActividadDeportiva extends JInternalFrame{
 			comboModelInstitucion.addElement(strAux);
 		}
 		
+		panelInstitucion = new JPanel();
+		GridBagConstraints gbc_panelInstitucion = new GridBagConstraints();
+		gbc_panelInstitucion.insets = new Insets(0, 0, 5, 5);
+		gbc_panelInstitucion.fill = GridBagConstraints.BOTH;
+		gbc_panelInstitucion.gridx = 1;
+		gbc_panelInstitucion.gridy = 1;
+		getContentPane().add(panelInstitucion, gbc_panelInstitucion);
+		GridBagLayout gbl_panelInstitucion = new GridBagLayout();
+		gbl_panelInstitucion.columnWidths = new int[]{80, 322, 0};
+		gbl_panelInstitucion.rowHeights = new int[]{37, 0};
+		gbl_panelInstitucion.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panelInstitucion.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panelInstitucion.setLayout(gbl_panelInstitucion);
+		
+		lblInstitucion = new JLabel("Institucion:");
+		lblInstitucion.setHorizontalAlignment(SwingConstants.LEFT);
+		GridBagConstraints gbc_lblInstitucion = new GridBagConstraints();
+		gbc_lblInstitucion.insets = new Insets(0, 0, 0, 5);
+		gbc_lblInstitucion.gridx = 0;
+		gbc_lblInstitucion.gridy = 0;
+		panelInstitucion.add(lblInstitucion, gbc_lblInstitucion);
+		
 		comboBoxInstitucion = new JComboBox<>(comboModelInstitucion);
+		comboBoxInstitucion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				String t = (String) comboBoxInstitucion.getSelectedItem();
+				comboBoxInstitucion.removeAllItems();
+				for(String x: IADC.obtenerInstituciones()) {
+					comboBoxInstitucion.addItem(x);
+				}
+				comboBoxInstitucion.setSelectedItem(t);
+			}
+		});
 		GridBagConstraints gbc_comboBoxInstitucion = new GridBagConstraints();
 		gbc_comboBoxInstitucion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxInstitucion.gridx = 1;
 		gbc_comboBoxInstitucion.gridy = 0;
 		panelInstitucion.add(comboBoxInstitucion, gbc_comboBoxInstitucion);
 		
+		DefaultComboBoxModel<String> comboModelDia = new DefaultComboBoxModel<>();
+		comboModelDia.addElement("-");
+		for (int i = 1; i <= 31; i++) {
+			comboModelDia.addElement(String.valueOf(i));
+		}
+		
+		String[] meses = new String[] {"-", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+        		"Setiembre", "Octubre", "Noviembre", "Diciembre"};
+		
+		DefaultComboBoxModel<String> comboModelMes = new DefaultComboBoxModel<>(meses);
+		
+		DefaultComboBoxModel<String> comboModelAnio = new DefaultComboBoxModel<>();
+		comboModelAnio.addElement("-");
+		for (int j = 2025; j >= 2018; j--) {
+			comboModelAnio.addElement(String.valueOf(j));
+		}
+		
 		panelDatosActDep = new JPanel();
 		panelDatosActDep.setToolTipText("");
-		panelDatosActDep.setBorder(new TitledBorder(null, "Ingresar datos actividad deportiva: ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelDatosActDep.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Datos actividad deportiva: ", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagConstraints gbc_panelDatosActDep = new GridBagConstraints();
+		gbc_panelDatosActDep.gridheight = 2;
 		gbc_panelDatosActDep.insets = new Insets(0, 0, 5, 5);
 		gbc_panelDatosActDep.fill = GridBagConstraints.BOTH;
 		gbc_panelDatosActDep.gridx = 1;
-		gbc_panelDatosActDep.gridy = 3;
+		gbc_panelDatosActDep.gridy = 2;
 		getContentPane().add(panelDatosActDep, gbc_panelDatosActDep);
 		GridBagLayout gbl_panelDatosActDep = new GridBagLayout();
 		gbl_panelDatosActDep.columnWidths = new int[]{19, 75, 289, 0};
 		gbl_panelDatosActDep.rowHeights = new int[]{37, 167, 37, 36, 0};
-		gbl_panelDatosActDep.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelDatosActDep.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelDatosActDep.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panelDatosActDep.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelDatosActDep.setLayout(gbl_panelDatosActDep);
 		
 		lblNombre = new JLabel("Nombre:");
@@ -195,14 +202,18 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_lblDescripcion.gridy = 1;
 		panelDatosActDep.add(lblDescripcion, gbc_lblDescripcion);
 		
-		textFieldDescripcion = new JTextField();
+		textFieldDescripcion = new JTextArea();
+		textFieldDescripcion.setWrapStyleWord(true);
+		textFieldDescripcion.setLineWrap(true);
 		GridBagConstraints gbc_textFieldDescripcion = new GridBagConstraints();
 		gbc_textFieldDescripcion.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldDescripcion.fill = GridBagConstraints.BOTH;
 		gbc_textFieldDescripcion.gridx = 2;
 		gbc_textFieldDescripcion.gridy = 1;
+		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+		textFieldDescripcion.setBorder(BorderFactory.createCompoundBorder(border, 
+			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		panelDatosActDep.add(textFieldDescripcion, gbc_textFieldDescripcion);
-		textFieldDescripcion.setColumns(10);
 		
 		lblDuracion = new JLabel("Duracion:");
 		GridBagConstraints gbc_lblDuracion = new GridBagConstraints();
@@ -285,17 +296,11 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_panelFecha.gridy = 3;
 		panelDatosActDep.add(panelFecha, gbc_panelFecha);
 		GridBagLayout gbl_panelFecha = new GridBagLayout();
-		gbl_panelFecha.columnWidths = new int[]{51, 133, 77, 0};
+		gbl_panelFecha.columnWidths = new int[]{51, 133, 77, 0, 0};
 		gbl_panelFecha.rowHeights = new int[]{36, 0};
-		gbl_panelFecha.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelFecha.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panelFecha.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelFecha.setLayout(gbl_panelFecha);
-		
-		DefaultComboBoxModel<String> comboModelDia = new DefaultComboBoxModel<>();
-		comboModelDia.addElement("-");
-		for (int i = 1; i <= 31; i++) {
-			comboModelDia.addElement(String.valueOf(i));
-		}
 		
 		comboBoxDia = new JComboBox<>(comboModelDia);
 		GridBagConstraints gbc_comboBoxDia = new GridBagConstraints();
@@ -304,11 +309,6 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_comboBoxDia.gridx = 0;
 		gbc_comboBoxDia.gridy = 0;
 		panelFecha.add(comboBoxDia, gbc_comboBoxDia);
-		
-		String[] meses = new String[] {"-", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
-        		"Setiembre", "Octubre", "Noviembre", "Diciembre"};
-		
-		DefaultComboBoxModel<String> comboModelMes = new DefaultComboBoxModel<>(meses);
 		
 		comboBoxMes = new JComboBox<>(comboModelMes);
 		comboBoxMes.addItemListener(new ItemListener() {
@@ -328,39 +328,38 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_comboBoxMes.gridy = 0;
 		panelFecha.add(comboBoxMes, gbc_comboBoxMes);
 		
-		DefaultComboBoxModel<String> comboModelAnio = new DefaultComboBoxModel<>();
-		comboModelAnio.addElement("-");
-		for (int j = 2025; j >= 2018; j--) {
-			comboModelAnio.addElement(String.valueOf(j));
-		}
-		comboBoxanio = new JComboBox<>(comboModelAnio);
-		GridBagConstraints gbc_comboBoxanio = new GridBagConstraints();
-		gbc_comboBoxanio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxanio.gridx = 2;
-		gbc_comboBoxanio.gridy = 0;
-		panelFecha.add(comboBoxanio, gbc_comboBoxanio);
+		altaAnio = new JTextField();
+		altaAnio.setText("yyyy");
+		GridBagConstraints gbc_altaAnio = new GridBagConstraints();
+		gbc_altaAnio.insets = new Insets(0, 0, 0, 5);
+		gbc_altaAnio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_altaAnio.gridx = 2;
+		gbc_altaAnio.gridy = 0;
+		panelFecha.add(altaAnio, gbc_altaAnio);
 		
-		panelAcepCancel = new JPanel();
-		GridBagConstraints gbc_panelAcepCancel = new GridBagConstraints();
-		gbc_panelAcepCancel.insets = new Insets(0, 0, 0, 5);
-		gbc_panelAcepCancel.fill = GridBagConstraints.BOTH;
-		gbc_panelAcepCancel.gridx = 1;
-		gbc_panelAcepCancel.gridy = 5;
-		getContentPane().add(panelAcepCancel, gbc_panelAcepCancel);
-		GridBagLayout gbl_panelAcepCancel = new GridBagLayout();
-		gbl_panelAcepCancel.columnWidths = new int[]{69, 138, 0, 142, 25, 0};
-		gbl_panelAcepCancel.rowHeights = new int[]{49, 0};
-		gbl_panelAcepCancel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelAcepCancel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panelAcepCancel.setLayout(gbl_panelAcepCancel);
+		panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.anchor = GridBagConstraints.NORTHEAST;
+		gbc_panel.gridheight = 2;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 4;
+		getContentPane().add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
 		btnAceptar = new JButton("Aceptar");
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
-		gbc_btnAceptar.fill = GridBagConstraints.BOTH;
-		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAceptar.gridx = 1;
+		gbc_btnAceptar.anchor = GridBagConstraints.EAST;
+		gbc_btnAceptar.gridwidth = 2;
+		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAceptar.gridx = 9;
 		gbc_btnAceptar.gridy = 0;
-		panelAcepCancel.add(btnAceptar, gbc_btnAceptar); 
+		panel.add(btnAceptar, gbc_btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	if (checkFormulario()) {
@@ -369,19 +368,20 @@ public class AltaActividadDeportiva extends JInternalFrame{
             }
         });
 		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("Limpiar");
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCancelar.fill = GridBagConstraints.BOTH;
-		gbc_btnCancelar.gridx = 3;
+		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
+		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancelar.gridx = 11;
 		gbc_btnCancelar.gridy = 0;
-		panelAcepCancel.add(btnCancelar, gbc_btnCancelar);
+		panel.add(btnCancelar, gbc_btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 clear();
                 setVisible(false);
             }
         }); 
+
 	}
 	
 	private boolean checkFormulario() {
@@ -390,12 +390,13 @@ public class AltaActividadDeportiva extends JInternalFrame{
         String descripcion = textFieldDescripcion.getText();
         int duracion = Integer.parseInt(textFieldDuracion.getText());
     	float costo = Float.parseFloat(textFieldCosto.getText());
-    	int anio = Integer.parseInt(comboBoxanio.getName());
+    	int anio = Integer.parseInt(altaAnio.getText());
     	int mes = comboBoxMes.getSelectedIndex();
     	int dia = comboBoxDia.getSelectedIndex();
-
+    	
+    	
         if (nombreInsti.equals("---Seleccione una institucion---") || nombre.isEmpty() || descripcion.isEmpty()
-        		|| textFieldDuracion.getText().isEmpty() || textFieldCosto.getText().isEmpty() || comboBoxanio.getName().equals("-")
+        		|| textFieldDuracion.getText().isEmpty() || textFieldCosto.getText().isEmpty() || altaAnio.getText().matches("-?\\d+")
         		    || comboBoxMes.getName().equals("-") || comboBoxDia.getName().equals("-")) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -419,7 +420,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
     	String descripcion = textFieldDescripcion.getText();
     	int duracion = Integer.parseInt(textFieldDuracion.getText());
     	float costo = Float.parseFloat(textFieldCosto.getText());
-    	int anio = comboBoxanio.getSelectedIndex();
+    	int anio = Integer.valueOf(altaAnio.getText());
     	int mes = comboBoxMes.getSelectedIndex();
     	int dia = comboBoxDia.getSelectedIndex();
     	//boolean nombreRepetido = false;
@@ -458,6 +459,6 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		textFieldCosto.setText("");
 		comboBoxDia.setSelectedIndex(0);
 		comboBoxMes.setSelectedIndex(0);
-		comboBoxanio.setSelectedIndex(0);
+		altaAnio.setText("yyyy");
 	}
 }
