@@ -33,6 +33,7 @@ public class Institucion {
         this.URL = u;
         this.descripcion = d;
         this.actsDeps = new HashMap<>();
+        this.profesores = new HashSet<>();
     }
 
     public String getNombre() {
