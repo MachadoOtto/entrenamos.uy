@@ -125,6 +125,12 @@ public class AltaUsuario extends JInternalFrame {
 				textAreaDescripcion.setEnabled(esProfesor);
 				textFieldWebsite.setEnabled(esProfesor);
 				comboBoxInstitucion.setEnabled(esProfesor);
+				if(esProfesor) {
+					textAreaBiografia.setText("");
+					textAreaDescripcion.setText("");
+					textFieldWebsite.setText("");
+					comboBoxInstitucion.setSelectedIndex(0);
+				}
 	
 			}
 		});
