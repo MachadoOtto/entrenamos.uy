@@ -49,7 +49,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JTextField textFieldEmail;
 	private JTextField textFieldDia;
 	private JTextField textFieldAnio;
-	private JComboBox comboBoxUsuario;
+	private JComboBox<String> comboBoxUsuario;
 	private JLabel labelUsuario;
 	private JTextArea textAreaBiografia;
 	private JTextField textFieldWebsite;
@@ -77,7 +77,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			@Override
 			public void internalFrameClosed(InternalFrameEvent e) {
 				setVisible(false);
-				limpiarFormulario();
+				clear();
 			}
 		});
 		setClosable(true);
@@ -103,25 +103,36 @@ public class ConsultaUsuario extends JInternalFrame {
 		setTitle("Consulta de usuario");
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {60, 60, 60, 60, 60, 60, 60, 60};
+		gridBagLayout.columnWidths = new int[] {30, 60, 60, 60, 60, 60, 60, 30};
 		gridBagLayout.rowHeights = new int[]{25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 50, 25, 25, 25, 75, 25, 25};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		getContentPane().setLayout(gridBagLayout);
 		
-		comboBoxUsuario = new JComboBox();
+		
+		comboBoxUsuario = new JComboBox<>();
+		comboBoxUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		comboBoxUsuario.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			}
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 			}
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-				if(usuarios.isEmpty()) {
-					usuarios = controlUsr.obtenerUsuarios();
-					for(String us:usuarios) {
-						comboBoxUsuario.addItem(us);
-					}
+				DefaultComboBoxModel<String> modeloUsuarios = new DefaultComboBoxModel<>();
+				comboBoxUsuario.removeAllItems();
+				modeloUsuarios.addElement("-");
+				
+				
+				usuarios = controlUsr.obtenerUsuarios();
+				for(String us:usuarios) {
+					modeloUsuarios.addElement(us);
 				}
+				comboBoxUsuario.setModel(modeloUsuarios);
+				
 			}
 		});
 		comboBoxUsuario.addItemListener(new ItemListener() {
@@ -131,10 +142,12 @@ public class ConsultaUsuario extends JInternalFrame {
 				 * Habilita determinados campos segun el tipo de usuario.
 				 * Ademas rellena cada campo con sus datos actuales
 				 * Si no se seleccionan usuarios se limpian los campos
-				 */
+				 */	
+				
 				String tipoUsuario = "-";
-				if(comboBoxUsuario.getSelectedIndex() != 0) {
-					datosUsuarioActual = controlUsr.seleccionarUsuario(comboBoxUsuario.getSelectedItem().toString());
+				if(comboBoxUsuario.getSelectedIndex() > 0) {
+					String nickUsuario = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
+					datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
 					textFieldNombre.setText(datosUsuarioActual.getNombre());
 					textFieldApellido.setText(datosUsuarioActual.getApellido());
 					textFieldEmail.setText(datosUsuarioActual.getEmail());
@@ -162,7 +175,7 @@ public class ConsultaUsuario extends JInternalFrame {
 						for(String ad:actividadesDictadas) {
 							textoActividades += ad + "\n";
 						}
-						textAreaActividades.setText(textoClases);
+						textAreaActividades.setText(textoActividades);
 					}
 					else {
 						DtSocioExt datosSocioActual = (DtSocioExt)datosUsuarioActual;
@@ -172,23 +185,23 @@ public class ConsultaUsuario extends JInternalFrame {
 							textoClases += cd + "\n";
 						}
 						tipoUsuario = "Socio";
+						textAreaClases.setText(textoClases);
+						
+						/*
+						 * Borro campos no relevantes para socio
+						 */
+						
+						textFieldInstitucion.setText("");
+						textAreaDescripcion.setText("");
+						textAreaBiografia.setText("");
+						textFieldWebsite.setText("");
+						textAreaActividades.setText("");
 					}
+					textPaneTipoDeUsuario.setText(tipoUsuario);
 				}
 				else {
-					limpiarFormulario();
+					//clear();
 				}
-				textPaneTipoDeUsuario.setText(tipoUsuario);
-				boolean esUsuario = tipoUsuario != "-";
-				textFieldNombre.setEnabled(esUsuario);
-				textFieldApellido.setEnabled(esUsuario);
-				textFieldDia.setEnabled(esUsuario);
-				textFieldMes.setEnabled(esUsuario);
-				textFieldAnio.setEnabled(esUsuario);
-				boolean esProfesor = tipoUsuario == "Profesor";
-				textAreaBiografia.setEnabled(esProfesor);
-				textAreaDescripcion.setEnabled(esProfesor);
-				textFieldWebsite.setEnabled(esProfesor);
-				textFieldInstitucion.setEnabled(esProfesor);
 			}
 		});
 		
@@ -483,8 +496,9 @@ public class ConsultaUsuario extends JInternalFrame {
 	/*
 	 * Se encarga de limpiar datos ingresados por el usuario
 	 */
-	private void limpiarFormulario() {
-		comboBoxUsuario.setSelectedIndex(0);
+
+	public void clear() {
+		// TODO Auto-generated method stub
         textPaneTipoDeUsuario.setText("");
         textFieldNombre.setText("");
         textFieldApellido.setText("");
@@ -498,13 +512,8 @@ public class ConsultaUsuario extends JInternalFrame {
     	textAreaBiografia.setText("");
     	textAreaActividades.setText("");
     	textAreaClases.setText("");
-    	usuarios.clear();
     	datosUsuarioActual = null;
-    }
-
-	public void clear() {
-		// TODO Auto-generated method stub
-		
+    	comboBoxUsuario.setSelectedIndex(0);
 	}
 
 }
