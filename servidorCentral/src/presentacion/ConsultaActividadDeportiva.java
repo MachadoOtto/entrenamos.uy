@@ -70,13 +70,13 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JTextField textFieldCuponeras;
 	
 	public ConsultaActividadDeportiva(IActividadDeportivaController IADC) {
-		setResizable(true);
 		
 		this.IADC = IADC;
 		
 		//Configuracion del frame
 		setTitle("Consulta Actividad Deportiva");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setResizable(true);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
