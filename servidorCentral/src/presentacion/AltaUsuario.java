@@ -33,6 +33,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 public class AltaUsuario extends JInternalFrame {
 
@@ -84,7 +86,7 @@ public class AltaUsuario extends JInternalFrame {
 		int iframeHeight = 625;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
-		setBounds(100, 25, 463, 609); // w,h
+		setBounds(100, 25, iframeWidth, iframeHeight); // w,h
 		
 		setTitle("Alta de usuario");
 		
@@ -241,7 +243,9 @@ public class AltaUsuario extends JInternalFrame {
 		gbc_labelAclaracionFecha.gridx = 5;
 		gbc_labelAclaracionFecha.gridy = 8;
 		getContentPane().add(labelAclaracionFecha, gbc_labelAclaracionFecha);
-		boxIDia = new JComboBox<>(comboModelDia);        
+		
+		boxIDia = new JComboBox<>( comboModelDia );
+		
 		GridBagConstraints gbc_boxIDia = new GridBagConstraints();
 		gbc_boxIDia.insets = new Insets(0, 0, 5, 5);
 		gbc_boxIDia.fill = GridBagConstraints.HORIZONTAL;
@@ -300,13 +304,22 @@ public class AltaUsuario extends JInternalFrame {
 		getContentPane().add(labelAclaracionProfesor1, gbc_labelAclaracionProfesor1);
 		
 		comboBoxInstitucion = new JComboBox<String>();
-		comboBoxInstitucion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
+		comboBoxInstitucion.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				comboBoxInstitucion.removeAllItems();
 				comboBoxInstitucion.addItem("-");
 				for(String ins:controlUsr.obtenerInstituciones())
 					comboBoxInstitucion.addItem(ins);
+			}
+		});
+		comboBoxInstitucion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
 			}
 		});
 		comboBoxInstitucion.setModel(new DefaultComboBoxModel<String>(new String[] {"-"}));
@@ -455,7 +468,7 @@ public class AltaUsuario extends JInternalFrame {
     	textAreaDescripcion.setText("");
     	textAreaBiografia.setText("");
     	textFieldWebsite.setText("");
-    	instituciones.clear();
+    	comboBoxInstitucion.setSelectedIndex(0);
     }
 	
 	/*
@@ -496,9 +509,9 @@ public class AltaUsuario extends JInternalFrame {
 		 */
 		DtUsuario datosUser;
 		if(tipoU == "Profesor")
-			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0),institutoU, descripcionU,biografiaU,websiteU);
+			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0),institutoU, descripcionU,biografiaU,websiteU);
 		else //Se asume que si no es profesor es socio
-			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0));
+			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0));
 		if(controlUsr.ingresarDatosUsuario(datosUser) != 0) {
 			JOptionPane.showMessageDialog(this, "Ya existe un usuario con los datos ingresados.", "Error", JOptionPane.ERROR_MESSAGE);
 			return 1;
@@ -517,14 +530,14 @@ public class AltaUsuario extends JInternalFrame {
 		String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
         String emailU = this.textFieldEmail.getText();
-        String diaU = boxIDia.getSelectedItem().toString();
+        int diaU = boxIDia.getSelectedIndex();
         int mesU = this.boxIMes.getSelectedIndex();
         String anioU = inicioAnio.getText();
         String institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
         String descripcionU = this.textAreaDescripcion.getText();
 
         //Celdas vacias
-        if (tipoU == "-" || nicknameU.isEmpty() || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU.isEmpty() || mesU == 0 || anioU.isEmpty() || ((tipoU == "Profesor") && (institutoU == "-" || descripcionU.isEmpty()))) {
+        if (tipoU == "-" || nicknameU.isEmpty() || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU < 1 || mesU < 1 || anioU.isEmpty() || ((tipoU == "Profesor") && (institutoU == "-" || descripcionU.isEmpty()))) {
             JOptionPane.showMessageDialog(this, "Exisisten campos obligatorios vacios/sin seleccionar.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
