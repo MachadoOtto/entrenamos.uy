@@ -435,7 +435,7 @@ public class CrearCuponera extends JInternalFrame {
                 DtFecha alta = new DtFecha(diaA, mesA, anioA, 0, 0, 0);
                 
                 this.dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-        		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
         	}
 	
        }
