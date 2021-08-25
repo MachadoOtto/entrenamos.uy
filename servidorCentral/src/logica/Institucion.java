@@ -14,6 +14,10 @@ import datatypes.DtClase;
 import datatypes.DtClaseExt;
 
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.HashMap;
@@ -26,125 +30,95 @@ public class Institucion {
     private String descripcion;
     private Map<String, ActividadDeportiva> actsDeps;
     private Set<Profesor> profesores;
-
-    // Guille: Te inventaste un datatype: Institucion(DtInstitucion dataIns) {
+	private Logger log;
     public Institucion(String n, String u, String d) {
         this.nombre = n;
         this.URL = u;
         this.descripcion = d;
         this.actsDeps = new HashMap<>();
         this.profesores = new HashSet<>();
+        
+		log = Logger.getLogger(HandlerInstitucion.class.getName());
+		log.setLevel(Level.INFO);
+		Handler handler = new ConsoleHandler();
+		log.addHandler(handler);
     }
 
-    public String getNombre() {
-        return this.nombre;
-    }
+    public String getNombre() {return nombre;}
+    public String getURL() {return URL;}
+    public String getDescripcion() {return this.descripcion;}
+    public Map<String, ActividadDeportiva> getActsDeps() {return this.actsDeps;}
+    public Set<Profesor> getProfesores() {return profesores;}  
+    public ActividadDeportiva findActividad(String actDepNombre) {return actsDeps.get(actDepNombre);}
 
-    public String getURL() {
-        return this.URL;
-    }
-
-    public String getDescripcion() {
-        return this.descripcion;
-    }
-
-    public Map<String, ActividadDeportiva> getActsDeps() {
-        return this.actsDeps;
-    }
-    
-    public Set<Profesor> getProfesores() {
-    	return profesores;
-    }
-    
-    public ActividadDeportiva findActividad(String actDepNombre) {
-    	return actsDeps.get(actDepNombre);
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setURL(String URL) {
-        this.URL = URL;
-    }
-
-    public void setDescripcion(String desc) {
-        this.descripcion = desc;
-    }
-
-    public void setActsDeps(Map<String, ActividadDeportiva> actsDeps) {
-        this.actsDeps = actsDeps;
-    }
-    
     public void addProfesor(Profesor profe) {
     	profesores.add(profe);
+    	log.info("Institucion "+nombre+" event: "+" new prof "+profe.getNickname());
     }
     
-    public void nuevaActDep(DtActividadDeportiva datosAD) {
-        ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
-        actsDeps.put(datosAD.getNombre(),actDep);
-    }
+//    public void nuevaActDep(DtActividadDeportiva datosAD) {
+//        ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
+//        actsDeps.put(datosAD.getNombre(),actDep);
+//    }
 
-    public void addActividadDeportiva(DtActividadDeportiva datosAD) {
+    public int addActividadDeportiva(DtActividadDeportiva datosAD) {
         ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
-        if (!actsDeps.containsKey(datosAD.getNombre())) {
-			actsDeps.put(datosAD.getNombre(), actDep);
-		}
+        if (actsDeps.containsKey(datosAD.getNombre()))
+        	return 1;
+		actsDeps.put(datosAD.getNombre(), actDep);
+    	log.info("Institucion "+nombre+" event: "+" new actDep "+actDep.getNombre());
+		return 0;
     }
 
     public Boolean existeActDep(String nombreActDep) {
         return actsDeps.containsKey(nombreActDep);
     }
 
-    public Set<String> obtenerActDep() {
+    public Set<String> obtenerNombresActDep() {
 		return actsDeps.keySet();
     }
 
-    public Set<String> obtenerNombreClasesActDep(String actDep) {
-        ActividadDeportiva actDept = actsDeps.get(actDep);
-        return actDept.getNombreClases();
-    }
+//    public Set<String> obtenerNombreClasesActDep(String actDep) {
+//        ActividadDeportiva actDept = actsDeps.get(actDep);
+//        return actDept.getNombreClases();
+//    }
 
-    public DtClaseExt obtenerDtClase(String actDep,String clase) {
-        ActividadDeportiva actDept = actsDeps.get(actDep);
-        return actDept.getClaseDatos(clase);
-    }
+//    public DtClaseExt obtenerDtClase(String actDep,String clase) {
+//        ActividadDeportiva actDept = actsDeps.get(actDep);
+//        return actDept.getClaseDatos(clase);
+//    }
 
-    public Set<DtClase> obtenerDtClases(String actDep) {
-        ActividadDeportiva actDept = actsDeps.get(actDep);
-        return actDept.getDatosClases();
-    }
+//    public Set<DtClase> obtenerDtClases(String actDep) {
+//        ActividadDeportiva actDept = actsDeps.get(actDep);
+//        return actDept.getDatosClases();
+//    }
 
     public ActividadDeportiva getActDep(String nombreActDep) {
         return actsDeps.get(nombreActDep);
     }
 
-    public void addClase(String actDep,DtClase datosClase,Profesor pp){
-        //ActividadDeportiva actDept = actsDeps.get(actDep);
-        //int cod = actDept.addClase(datosClase,pp);
-    }
+//    public void addClase(String actDep,DtClase datosClase,Profesor pp){
+//        //ActividadDeportiva actDept = actsDeps.get(actDep);
+//        //int cod = actDept.addClase(datosClase,pp);
+//    }
 
-    public Clase findClase(String actDep, String clase) {
-        ActividadDeportiva actDept = actsDeps.get(actDep);
-        return actDept.findClase(clase);
-    }
+//    public Clase findClase(String actDep, String clase) {
+//        ActividadDeportiva actDept = actsDeps.get(actDep);
+//        return actDept.findClase(clase);
+//    }
 
     public Set<String> getMiTrabajo(Profesor profe) {
         Set<String> nombreActsDepsProfe = new HashSet<>();
-        Collection<ActividadDeportiva> actDepCollection = actsDeps.values();
-		Iterator<ActividadDeportiva> itActsDeps = actDepCollection.iterator();
-        while (itActsDeps.hasNext()) {
-            //ActividadDeportiva actDepAux = itActsDeps.next();
-			//Set<DtClase> dtClasesActDep = actDepAux.getDatosClases();
-            //Guille: wtf es esto Collection<DtClase> dtClaseCollection = dtClasesActDep.values();
-            //Iterator<DtClase> itDtClase = dtClaseCollection.iterator();
-            //while (itDtClase.hasNext()) {
-            //    DtClase dtClaseAux = itDtClase.next();
-            //    if (dtClaseAux.getNombreProfesor() == profe.getNombre()) {
-            //        nombreActsDepsProfe.add(actDepAux.getNombre());
-            //    }
-           // }
-        }
+		for(Map.Entry<String, ActividadDeportiva> x: actsDeps.entrySet())
+			if(x.getValue().participaProfesor(profe))
+				nombreActsDepsProfe.add(x.getKey());
         return nombreActsDepsProfe;
     }
+
+	public Profesor getProfesor(String nick) {
+		for(Profesor x: profesores)
+			if(x.getNickname().equals(nick))
+				return x;
+		return null;
+	}
 }

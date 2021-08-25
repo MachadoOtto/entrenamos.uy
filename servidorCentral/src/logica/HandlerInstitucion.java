@@ -36,9 +36,8 @@ public class HandlerInstitucion {
 	}
 	
 	public static HandlerInstitucion getInstance() {
-		if (instance == null) {
+		if (instance == null)
 			instance = new HandlerInstitucion(); 
-		}
 		return instance;
 	}
 	
@@ -48,25 +47,23 @@ public class HandlerInstitucion {
 
 	public Set<String> obtenerInstituciones() {
 		Set<String> nombreInstituciones = new HashSet<>();
-		Collection<Institucion> insCollection = instituciones.values();
-		Iterator<Institucion> itIns = insCollection.iterator();
-		while (itIns.hasNext()) {
-			Institucion insAux = itIns.next();
-			nombreInstituciones.add(insAux.getNombre());
-		}
+		for(Map.Entry<String, Institucion> x: instituciones.entrySet())
+			nombreInstituciones.add(x.getKey());
 		return nombreInstituciones; 
 	}
 
-	public Clase findClase(String ins,String actDep,String clase) {
-		Institucion insti = instituciones.get(ins);
-		return insti.findClase(actDep,clase);
-	}
+//	public Clase findClase(String ins,String actDep,String clase) {
+//		Institucion insti = instituciones.get(ins);
+//		return insti.findClase(actDep,clase);
+//	}
 
-	public void addInstitucion(Institucion ins) {
+	public int addInstitucion(Institucion ins) {
 		if (!existeInstitucion(ins.getNombre())) {
 			instituciones.put(ins.getNombre(), ins);
 			log.info("Institucion "+ins.getNombre()+"registered, total: "+instituciones.size());
+			return 0;
 		}
+		return 1;
 	}
 
 	public boolean existeInstitucion(String nombre) {

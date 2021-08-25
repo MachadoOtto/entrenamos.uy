@@ -489,7 +489,7 @@ public class AltaDictadoClase extends JInternalFrame {
             String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex());
             DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
             DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
-            DtClase datos = new DtClase(nombre, nombreProfesor, socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
+            DtClase datos = new DtClase(nombre, nombreProfesor,nombreProfesor,socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
             if (controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
             	// Muestro éxito de la operación
                 JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 

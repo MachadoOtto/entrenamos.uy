@@ -2,31 +2,24 @@ package datatypes;
 
 public class DtClase{
 
-	private String nombre;
-	private String nombreProfesor;
-	private int minSocios;
-	private int maxSocios;
-	private String URL;
-	private DtFecha fechaClase;	
-	private DtFecha fechaRegistro;
+	private String nombre,nombreProfesor,nicknameProfesor,URL;
+	private int minSocios,maxSocios;
+	private DtFecha fechaClase,fechaRegistro;	
 	
-	public DtClase(String nom, String nomP, int min, int max, String url, DtFecha fechC, DtFecha fechR){
-		this.nombre = nom;
-		this.nombreProfesor = nomP;
-		this.minSocios = min;
-		this.maxSocios = max;
-		this.URL = url;
-		this.fechaClase = fechC;
-		this.fechaRegistro = fechR;
+	public DtClase(String nom, String nomP,String nickP, int min, int max, String url, DtFecha fechC, DtFecha fechR){
+		nombre = nom;
+		nombreProfesor = nomP;
+		nicknameProfesor = nickP;
+		minSocios = min;
+		maxSocios = max;
+		URL = url;
+		fechaClase = fechC;
+		fechaRegistro = fechR;
 	}
 	
-	public String getNombre() {
-		return this.nombre;
-	}
-	
-	public String getNombreProfesor() {
-		return this.nombreProfesor;
-	}
+	public String getNombre() {return nombre;}
+	public String getNombreProfesor() {return nombreProfesor;}
+	public String getNicknameProfesor() {return nicknameProfesor;}
 	
 	public int getMinSocios() {
 		return this.minSocios;
