@@ -6,8 +6,8 @@ public class DtClaseExt extends DtClase {
 	
 	private List<String> alumnos;
 	
-	public DtClaseExt(String nom, String nomP, int min, int max, String url, DtFecha fechC, DtFecha fechR, List<String> als) {
-		super(nom, nomP, min, max, url, fechC, fechR);
+	public DtClaseExt(String nom, String nomP,String nickP, int min, int max, String url, DtFecha fechC, DtFecha fechR, List<String> als) {
+		super(nom, nomP,nickP, min, max, url, fechC, fechR);
 		this.alumnos = als;
 	}
 

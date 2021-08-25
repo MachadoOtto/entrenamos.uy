@@ -140,6 +140,12 @@ public class ActividadDeportiva {
 	public DtFecha getFechaRegistro() {
 		return fechaRegistro;
 	}
+	public boolean participaProfesor(Profesor profe) {
+		for(Map.Entry<String, Clase> x: clases.entrySet())
+			if(x.getValue().getProfesor()==profe)
+				return true;
+        return false;
+	}
 
 	//public void setFechaRegistro(DtFecha fechaRegistro) {
 	//	this.fechaRegistro = fechaRegistro;

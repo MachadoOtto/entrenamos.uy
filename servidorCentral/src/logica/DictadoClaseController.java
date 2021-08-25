@@ -18,75 +18,49 @@ import datatypes.TReg;
 public class DictadoClaseController implements IDictadoClaseController {
 	
 	private static DictadoClaseController instance = null;
-	
 	private DictadoClaseController() { }
-	
 	public static DictadoClaseController getInstance() {
-		if (instance == null) {
+		if (instance == null)
 			instance = new DictadoClaseController();
-		}
 		return instance;
 	}
 	
 	public Set<String> obtenerUsuarios() {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		return hu.getNicknameUsuarios();		
+		return getHU().getNicknameUsuarios();		
 	}
 	
 	public Set<String> obtenerInstituciones() {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		return hi.obtenerInstituciones();
+		return getHI().obtenerInstituciones();
 	}
 	
 	public Set<String> obtenerActividades(String ins) {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion instituto = hi.findInstitucion(ins);
-		return instituto.obtenerActDep();
+		return getHI().findInstitucion(ins).obtenerNombresActDep();
 	}
 	
 	public Set<String> obtenerProfesores(String ins) {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion instituto = hi.findInstitucion(ins);
-		Set<Profesor> profes = instituto.getProfesores();
+		Set<Profesor> profes = getHI().findInstitucion(ins).getProfesores();
 		Set<String> nickP = new HashSet<>();
-		for (Profesor x: profes) {
+		for (Profesor x: profes)
 			nickP.add(x.getNickname());
-		}
 		return nickP;
 	}
 	
 	public Set<String> obtenerClases(String ins, String actDep) {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion instituto = hi.findInstitucion(ins);
-		ActividadDeportiva actividad = instituto.findActividad(actDep);
-		return actividad.getNombreClases();
+		return getHI().findInstitucion(ins).findActividad(actDep).getNombreClases();
 	}
 	
 	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) {
-		 HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		 Institucion ins = hi.findInstitucion(inst);
-		 ActividadDeportiva act = ins.getActDep(actDep);
-		 Clase clas = act.findClase(clase);
-		 return clas.getDt();
+		 return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
 	}
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion i = hi.findInstitucion(ins);
-		ActividadDeportiva a = i.getActDep(actDep);
-		Clase cc = i.findClase(actDep, datos.getNombre());
-		Profesor profe = cc.getProfesor();
-		return a.addClase(datos,profe);
+		Profesor profe = getHI().findInstitucion(ins).getProfesor(datos.getNicknameProfesor());
+		return getHI().findInstitucion(ins).getActDep(actDep).addClase(datos,profe);
 	}
 	
 	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro) {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Clase c = hi.findClase(ins,actDep,clase);
-		Institucion i = hi.findInstitucion(ins);
-		ActividadDeportiva ad = i.getActDep(actDep);
-		Usuario usu = hu.findUsuario(socio);
-		return ((Socio)usu).inscribirSocio(ad, c, tipoRegistro);
+		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
+		return ((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, ad.findClase(clase), tipoRegistro);
 	}
 
 // Guille: Esta funcion creo que no va.
@@ -97,4 +71,10 @@ public class DictadoClaseController implements IDictadoClaseController {
 //		Clase clase = actDept.findClase(datos.getNombre());
 //		clase.modificarDatosClase(datos);
 //	}
+	private static HandlerInstitucion getHI() {
+		return  HandlerInstitucion.getInstance();
+	}
+	private static HandlerUsuario getHU() {
+		return  HandlerUsuario.getInstance();
+	}
 }

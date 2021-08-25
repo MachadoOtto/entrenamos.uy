@@ -93,7 +93,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		getContentPane().setLayout(gridBagLayout);
 		
 		DefaultComboBoxModel<String> comboModelInstitucion = new DefaultComboBoxModel<>();
-		comboModelInstitucion.addElement("---Seleccione una institucion---");
+		comboModelInstitucion.addElement("-");
 		Set<String> instituciones = IADC.obtenerInstituciones();
 		Collection<String> strCollection = instituciones;
 		Iterator<String> itStr = strCollection.iterator();
@@ -130,6 +130,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 			public void mouseEntered(MouseEvent e) {
 				String t = (String) comboBoxInstitucion.getSelectedItem();
 				comboBoxInstitucion.removeAllItems();
+				comboBoxInstitucion.addItem("-");
 				for(String x: IADC.obtenerInstituciones()) {
 					comboBoxInstitucion.addItem(x);
 				}
@@ -329,6 +330,13 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		panelFecha.add(comboBoxMes, gbc_comboBoxMes);
 		
 		altaAnio = new JTextField();
+		altaAnio.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(altaAnio.getText().equals("yyyy"))
+					altaAnio.setText("");
+			}
+		});
 		altaAnio.setText("yyyy");
 		GridBagConstraints gbc_altaAnio = new GridBagConstraints();
 		gbc_altaAnio.insets = new Insets(0, 0, 0, 5);
@@ -378,35 +386,29 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		btnCancelar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 clear();
-                setVisible(false);
             }
         }); 
 
 	}
 	
 	private boolean checkFormulario() {
-		String nombreInsti = comboBoxInstitucion.getName();
+		String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
 		String nombre = textFieldNombre.getText();
         String descripcion = textFieldDescripcion.getText();
-        int duracion = Integer.parseInt(textFieldDuracion.getText());
-    	float costo = Float.parseFloat(textFieldCosto.getText());
-    	int anio = Integer.parseInt(altaAnio.getText());
-    	int mes = comboBoxMes.getSelectedIndex();
-    	int dia = comboBoxDia.getSelectedIndex();
-    	
-    	
-        if (nombreInsti.equals("---Seleccione una institucion---") || nombre.isEmpty() || descripcion.isEmpty()
-        		|| textFieldDuracion.getText().isEmpty() || textFieldCosto.getText().isEmpty() || altaAnio.getText().matches("-?\\d+")
-        		    || comboBoxMes.getName().equals("-") || comboBoxDia.getName().equals("-")) {
+    	    	
+        if (nombreInsti.equals("-") || nombre.isEmpty() || descripcion.isEmpty()
+        		|| textFieldDuracion.getText().isEmpty() || textFieldCosto.getText().isEmpty() || altaAnio.getText().matches("yyyy")
+        		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         try {
             Integer.parseInt(textFieldDuracion.getText());
+            Integer.parseInt(altaAnio.getText());
             Float.parseFloat(textFieldCosto.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Duracion y costo deben ser numeros", "Alta actividad deportiva",
+            JOptionPane.showMessageDialog(this, "Datos invalidos: Duracion, costo y fecha deben ser numeros", "Alta actividad deportiva",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -415,7 +417,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	}
 	
 	private void altaActDepACEPTAR() {
-		String nombreInsti = comboBoxInstitucion.getName();
+		String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
     	String nombre = textFieldNombre.getText();
     	String descripcion = textFieldDescripcion.getText();
     	int duracion = Integer.parseInt(textFieldDuracion.getText());
@@ -433,26 +435,26 @@ public class AltaActividadDeportiva extends JInternalFrame{
         //}
         DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
         DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
-        boolean datosIngConExito = IADC.ingresarDatosActividadDep(nombreInsti, datosAD);
-        if (datosIngConExito) {
+        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
         	JOptionPane.showMessageDialog(this, "Actividad deportiva dada de alta con exito", "Alta actividad deportiva", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        	clear();
+		}
+        else
 			JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con el nombre ingresado", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
-        }
 	}
 	
-	public void cargarInstituciones() {
-        DefaultComboBoxModel<String> modelInstituciones;
-        modelInstituciones = new DefaultComboBoxModel<>();
-        modelInstituciones.addElement("---Seleccione una institucion---");
-        for(String ins: IADC.obtenerInstituciones()) {
-        	modelInstituciones.addElement(ins);
-        }
-        comboBoxInstitucion.setModel(modelInstituciones);
-    }
+//	public void cargarInstituciones() {
+//        DefaultComboBoxModel<String> modelInstituciones;
+//        modelInstituciones = new DefaultComboBoxModel<>();
+//        modelInstituciones.addElement("---Seleccione una institucion---");
+//        for(String ins: IADC.obtenerInstituciones()) {
+//        	modelInstituciones.addElement(ins);
+//        }
+//        comboBoxInstitucion.setModel(modelInstituciones);
+//    }
 	
 	public void clear() {
-		comboBoxInstitucion.setSelectedIndex(0);
+		//comboBoxInstitucion.setSelectedIndex(0);
 		textFieldNombre.setText("");
 		textFieldDescripcion.setText("");
 		textFieldDuracion.setText("");

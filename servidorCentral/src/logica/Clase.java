@@ -59,7 +59,7 @@ public class Clase {
 		for(ReciboClase x: ListReciboClase) {
 			ListNombres.add(x.getNombreSocio());
 		}
-		DtClaseExt x = new DtClaseExt(nombre,p.getNombre(),minSocios,maxSocios,URL,this.getFechaClase(),this.getFechaRegistro(),ListNombres);
+		DtClaseExt x = new DtClaseExt(nombre,p.getNombre(),p.getNickname(),minSocios,maxSocios,URL,this.getFechaClase(),this.getFechaRegistro(),ListNombres);
 		return x;
 	}
 	public boolean hayLugar() {
