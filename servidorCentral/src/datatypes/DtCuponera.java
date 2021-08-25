@@ -47,4 +47,15 @@ public class DtCuponera {
 		return costo;
 	}
 
+	public String toString() {
+		String res = new String();
+		res += "Nombre: " + this.getNombre() + "\n";
+		res += "Descripcion: " + this.getDescripcion() + "\n";
+		res += "Descuento: " + this.getDescuento() + "%\n";
+		res += "Fecha inicio: " + this.getFechaInicio().toFecha() + "\n";
+		res += "Fecha fin: " + this.getFechaFin().toFecha() + "\n";
+		res += "Costo: " + this.getCosto() + " pesos.\n";
+		res += "Contenido: " + this.getContenido() + "\n";
+		return res;
+	}
 }
