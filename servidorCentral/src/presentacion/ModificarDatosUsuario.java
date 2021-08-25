@@ -1,6 +1,7 @@
 
 package presentacion;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
@@ -15,6 +16,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
@@ -26,6 +29,8 @@ import datatypes.DtProfesor;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
 import java.awt.event.ItemEvent;
@@ -33,6 +38,9 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.JTextPane;
 import javax.swing.JFrame;
+import javax.swing.ComboBoxModel;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 public class ModificarDatosUsuario extends JInternalFrame {
 
@@ -45,10 +53,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldEmail;
-	private JTextField textFieldDia;
-	private JComboBox comboBoxMes;
-	private JTextField textFieldAnio;
-	private JComboBox comboBoxUsuario;
+	private JComboBox<String> comboBoxUsuario;
 	private JLabel labelUsuario;
 	private JTextArea textAreaBiografia;
 	private JTextField textFieldWebsite;
@@ -60,17 +65,30 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JLabel labelAclaracionProfesor2;
 	private JLabel labelAclaracionProfesor3;
 	private JLabel labelAclaracionProfesor4;
-	private JComboBox comboBoxInstitucion;
 	private JScrollPane scrollPane;
 	private JTextArea textAreaDescripcion;
 	private JScrollPane scrollPane_1;
 	private JLabel labelAclaracionFecha;
 	private JTextPane textPaneTipoDeUsuario;
 	private JLabel lblNewLabel;
-	
+	private JTextField inicioAnio;
+	// Seleccion de Fecha de Inicio:
+	private JComboBox<String> boxIDia; // Depende de mes;
+	private JComboBox<String> boxIMes;
+	private Component verticalStrut;
+	private JTextField textFieldInstitucion;
+		
 	public ModificarDatosUsuario(IUsuarioController controlUsr) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameClosed(InternalFrameEvent e) {
+				clear();
+			}
+		});
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setResizable(false);
 		
 		this.usuarios = new HashSet<>();
 		this.instituciones = new HashSet<>();
@@ -82,8 +100,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		 */
 		int columns = 8;
 		int rows = 9;
-		int iframeWidth = 480;
-		int iframeHeight = 600;
+		int iframeWidth = 450;
+		int iframeHeight = 625;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
 		setBounds(100, 25, iframeWidth, iframeHeight); // w,h
@@ -92,24 +110,26 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {60, 60, 60, 60, 60, 60, 60, 60};
-		gridBagLayout.rowHeights = new int[]{25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 75, 25, 75, 25, 25, 25, 25};
+		gridBagLayout.rowHeights = new int[]{25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 75, 25, 75, 25, 25, 25, 25, 25};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		getContentPane().setLayout(gridBagLayout);
 		
-		comboBoxUsuario = new JComboBox();
+		comboBoxUsuario = new JComboBox<>();
 		comboBoxUsuario.addPopupMenuListener(new PopupMenuListener() {
 			public void popupMenuCanceled(PopupMenuEvent e) {
 			}
 			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
 			}
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-				if(usuarios.isEmpty()) {
-					usuarios = controlUsr.obtenerUsuarios();
-					for(String us:usuarios) {
-						comboBoxUsuario.addItem(us);
-					}
+				DefaultComboBoxModel<String> modeloUsuario = new DefaultComboBoxModel<>();
+				comboBoxUsuario.removeAllItems();
+				modeloUsuario.addElement("-");
+				usuarios = controlUsr.obtenerUsuarios();
+				for(String us:usuarios) {
+					modeloUsuario.addElement(us);
 				}
+				comboBoxUsuario.setModel(modeloUsuario);
 			}
 		});
 		comboBoxUsuario.addItemListener(new ItemListener() {
@@ -120,66 +140,60 @@ public class ModificarDatosUsuario extends JInternalFrame {
 				 * Ademas rellena cada campo con sus datos actuales
 				 * Si no se seleccionan usuarios se limpian los campos
 				 */
+				
 				String tipoUsuario = "-";
-				if(comboBoxUsuario.getSelectedIndex() != 0) {
-					datosUsuarioActual = controlUsr.seleccionarUsuario(comboBoxUsuario.getSelectedItem().toString());
+				if(comboBoxUsuario.getSelectedIndex() > 0) {
+					String nickUsuario = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
+					
+					datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
 					textFieldNombre.setText(datosUsuarioActual.getNombre());
 					textFieldApellido.setText(datosUsuarioActual.getApellido());
 					textFieldEmail.setText(datosUsuarioActual.getEmail());
 					DtFecha fechaNacimiento = datosUsuarioActual.getFechaNacimiento();
-					textFieldDia.setText(String.valueOf(fechaNacimiento.getDia()));
-					comboBoxMes.setSelectedIndex(fechaNacimiento.getMes());
-					textFieldAnio.setText(String.valueOf(fechaNacimiento.getAnio()));
+					boxIDia.setSelectedIndex(fechaNacimiento.getDia());
+					boxIMes.setSelectedIndex(fechaNacimiento.getMes());
+					inicioAnio.setText(String.valueOf(fechaNacimiento.getAnio()));
 					
 					//El usuario es profesor
 					if(datosUsuarioActual instanceof DtProfesor) {
 						tipoUsuario = "Profesor";
 						DtProfesor datosProfesorActual = (DtProfesor)datosUsuarioActual;
-						String nombreInstitucion = datosProfesorActual.getNombreInstitucion();
-						
-						/*
-						 * Carga instituciones al comboBox en caso de no haber sido cargadas antes.
-						 * Ademas encuentra el index perteneciente a la institucion del profesor
-						 */
-						int indexInstitucion = 0;
-						if(instituciones.isEmpty()) {
-							instituciones = controlUsr.obtenerInstituciones();
-							boolean institucionProfesor = false;
-							for(String ins:instituciones) {
-								comboBoxInstitucion.addItem(ins);
-								if(ins == nombreInstitucion) {
-									institucionProfesor = true;
-								}
-								if(!institucionProfesor) {
-									indexInstitucion++;
-								}
-							}
-						}
-						comboBoxInstitucion.setSelectedIndex(indexInstitucion);
+						textFieldInstitucion.setText(datosProfesorActual.getNombreInstitucion());
 						textAreaDescripcion.setText(datosProfesorActual.getDescripcion());
 						textAreaBiografia.setText(datosProfesorActual.getBiografia());
 						textFieldWebsite.setText(datosProfesorActual.getLink());
 					}
 					else {
-						//Los socios no tienen nada especial
+						
 						tipoUsuario = "Socio";
+						
+						/*
+						 * Borro campos no relevantes para socio
+						 */
+						textFieldInstitucion.setText("");
+						textAreaDescripcion.setText("");
+						textAreaBiografia.setText("");
+						textFieldWebsite.setText("");
 					}
 				}
 				else {
-					limpiarFormulario();
+					//clear();
 				}
 				textPaneTipoDeUsuario.setText(tipoUsuario);
 				boolean esUsuario = tipoUsuario != "-";
 				textFieldNombre.setEnabled(esUsuario);
 				textFieldApellido.setEnabled(esUsuario);
-				textFieldDia.setEnabled(esUsuario);
-				comboBoxMes.setEnabled(esUsuario);
-				textFieldAnio.setEnabled(esUsuario);
+				
+				
+				boxIDia.setEnabled(esUsuario);
+				boxIMes.setEnabled(esUsuario);
+				
+				
+				inicioAnio.setEnabled(esUsuario);
 				boolean esProfesor = tipoUsuario == "Profesor";
 				textAreaBiografia.setEnabled(esProfesor);
 				textAreaDescripcion.setEnabled(esProfesor);
 				textFieldWebsite.setEnabled(esProfesor);
-				comboBoxInstitucion.setEnabled(esProfesor);
 			}
 		});
 		
@@ -296,38 +310,63 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		gbc_labelAclaracionFecha.gridy = 6;
 		getContentPane().add(labelAclaracionFecha, gbc_labelAclaracionFecha);
 		
-		textFieldDia = new JTextField();
-		textFieldDia.setEnabled(false);
-		GridBagConstraints gbc_textFieldDia = new GridBagConstraints();
-		gbc_textFieldDia.gridwidth = 2;
-		gbc_textFieldDia.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldDia.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldDia.gridx = 1;
-		gbc_textFieldDia.gridy = 7;
-		getContentPane().add(textFieldDia, gbc_textFieldDia);
-		textFieldDia.setColumns(10);
+		// Arrays auxiliares para Fecha y Hora:
+        String[] meses = new String[] { "-", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+        		"Setiembre", "Octubre", "Noviembre", "Diciembre" };
+        
+        // JComboBox:
+        DefaultComboBoxModel<String> comboModelDia = new DefaultComboBoxModel<>();
+        comboModelDia.addElement("-");
+        for(int i = 1; i < 32; i++) {
+        	comboModelDia.addElement( String.valueOf(i) );
+        }
+        
+        DefaultComboBoxModel<String> comboModelMes = new DefaultComboBoxModel<>(meses);
 		
-		comboBoxMes = new JComboBox();
-		comboBoxMes.setEnabled(false);
-		comboBoxMes.setModel(new DefaultComboBoxModel(new String[] {"-","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"}));
-		GridBagConstraints gbc_comboBoxMes = new GridBagConstraints();
-		gbc_comboBoxMes.gridwidth = 2;
-		gbc_comboBoxMes.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxMes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxMes.gridx = 3;
-		gbc_comboBoxMes.gridy = 7;
-		getContentPane().add(comboBoxMes, gbc_comboBoxMes);
+		boxIDia = new JComboBox<>( comboModelDia );        
+		boxIDia.setEnabled(false);
+		GridBagConstraints gbc_boxIDia = new GridBagConstraints();
+		gbc_boxIDia.insets = new Insets(0, 0, 5, 5);
+		gbc_boxIDia.fill = GridBagConstraints.HORIZONTAL;
+		gbc_boxIDia.gridx = 1;
+		gbc_boxIDia.gridy = 7;
+		getContentPane().add(boxIDia, gbc_boxIDia);
+		boxIMes = new JComboBox<>(comboModelMes);
+		boxIMes.setEnabled(false);
+		boxIMes.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (boxIMes.getSelectedIndex() % 2 == 0) {
+					boxIDia.removeItem("31");
+				} else {
+					if (comboModelDia.getIndexOf("31") == -1)
+						comboModelDia.addElement("31");
+				}
+			}
+		});
+		GridBagConstraints gbc_boxIMes = new GridBagConstraints();
+		gbc_boxIMes.gridwidth = 2;
+		gbc_boxIMes.insets = new Insets(0, 0, 5, 5);
+		gbc_boxIMes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_boxIMes.gridx = 2;
+		gbc_boxIMes.gridy = 7;
+		getContentPane().add(boxIMes, gbc_boxIMes);
 		
-		textFieldAnio = new JTextField();
-		textFieldAnio.setEnabled(false);
-		GridBagConstraints gbc_textFieldAnio = new GridBagConstraints();
-		gbc_textFieldAnio.gridwidth = 2;
-		gbc_textFieldAnio.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldAnio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldAnio.gridx = 5;
-		gbc_textFieldAnio.gridy = 7;
-		getContentPane().add(textFieldAnio, gbc_textFieldAnio);
-		textFieldAnio.setColumns(10);
+        inicioAnio = new JTextField();
+        inicioAnio.setEnabled(false);
+        inicioAnio.setText("yyyy");
+        inicioAnio.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent e) {
+        		inicioAnio.setText("");
+        	}
+        });
+        GridBagConstraints gbc_inicioAnio = new GridBagConstraints();
+        gbc_inicioAnio.gridwidth = 1;
+        gbc_inicioAnio.fill = GridBagConstraints.BOTH;
+        gbc_inicioAnio.insets = new Insets(0, 0, 5, 5);
+        gbc_inicioAnio.gridx = 4;
+        gbc_inicioAnio.gridy = 7;
+        getContentPane().add(inicioAnio, gbc_inicioAnio);
 		
 		labelInstitucion = new JLabel("Nombre de Institucion");
 		GridBagConstraints gbc_labelInstitucion = new GridBagConstraints();
@@ -344,17 +383,16 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		gbc_labelAclaracionProfesor1.gridy = 8;
 		getContentPane().add(labelAclaracionProfesor1, gbc_labelAclaracionProfesor1);
 		
-		comboBoxInstitucion = new JComboBox();
-		comboBoxInstitucion.setModel(new DefaultComboBoxModel(new String[] {"-"}));
-		comboBoxInstitucion.setEnabled(false);
-		
-		GridBagConstraints gbc_comboBoxInstitucion = new GridBagConstraints();
-		gbc_comboBoxInstitucion.gridwidth = 6;
-		gbc_comboBoxInstitucion.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxInstitucion.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxInstitucion.gridx = 1;
-		gbc_comboBoxInstitucion.gridy = 9;
-		getContentPane().add(comboBoxInstitucion, gbc_comboBoxInstitucion);
+		textFieldInstitucion = new JTextField();
+		textFieldInstitucion.setEnabled(false);
+		textFieldInstitucion.setColumns(10);
+		GridBagConstraints gbc_textFieldInstitucion = new GridBagConstraints();
+		gbc_textFieldInstitucion.gridwidth = 6;
+		gbc_textFieldInstitucion.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldInstitucion.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldInstitucion.gridx = 1;
+		gbc_textFieldInstitucion.gridy = 9;
+		getContentPane().add(textFieldInstitucion, gbc_textFieldInstitucion);
 		
 		labelDescripcion = new JLabel("Descripcion");
 		GridBagConstraints gbc_labelDescripcion = new GridBagConstraints();
@@ -448,29 +486,28 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tomarDatos();
-				limpiarFormulario();
-				setVisible(false);
+				if(tomarDatos() == 0) {
+					clear();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.anchor = GridBagConstraints.NORTH;
-		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAceptar.gridx = 5;
 		gbc_btnAceptar.gridy = 17;
 		getContentPane().add(btnAceptar, gbc_btnAceptar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Limpiar");
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				limpiarFormulario();
-				setVisible(false);
+				clear();
 			}
 		});
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
-		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCancelar.gridx = 6;
 		gbc_btnCancelar.gridy = 17;
 		getContentPane().add(btnCancelar, gbc_btnCancelar);
@@ -479,27 +516,10 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	}
 	
 	/*
-	 * Se encarga de limpiar datos ingresados por el usuario
-	 */
-	private void limpiarFormulario() {
-		comboBoxUsuario.setSelectedIndex(0);
-        textPaneTipoDeUsuario.setText("");
-        textFieldNombre.setText("");
-        textFieldApellido.setText("");
-        textFieldEmail.setText("");
-    	textFieldDia.setText("");
-    	comboBoxMes.setSelectedIndex(0);
-    	textFieldAnio.setText("");
-    	instituciones.clear();
-    	usuarios.clear();
-    	datosUsuarioActual = null;
-    }
-	
-	/*
 	 * En caso de ser los datos validos, esta funcion se encarga de ejecutar el caso de uso correspondiente
 	 */
-	private void tomarDatos() {
-		
+	private int tomarDatos() {
+		String tipoDeUsuario;
 		String nicknameU;
 		String nombreU;
         String apellidoU;
@@ -514,69 +534,64 @@ public class ModificarDatosUsuario extends JInternalFrame {
         
         if (checkFormulario())
         {
-        	while(this.isVisible()) 
-        	{
-        		nicknameU = this.comboBoxUsuario.getSelectedItem().toString();
+        	
+        		nicknameU = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
         		nombreU = this.textFieldNombre.getText();
                 apellidoU = this.textFieldApellido.getText();
                 emailU = this.textFieldEmail.getText();
-                diaU = Integer.parseInt(textFieldDia.getText());
-                mesU = this.comboBoxMes.getSelectedIndex();
-                anioU = Integer.parseInt(textFieldAnio.getText());
-                institucionU = this.comboBoxInstitucion.getSelectedItem().toString();
+                diaU = Integer.parseInt(boxIDia.getSelectedItem().toString());
+                mesU = boxIMes.getSelectedIndex();
+                anioU = Integer.parseInt(inicioAnio.getText());
                 descripcionU = this.textAreaDescripcion.getSelectedText();
                 biografiaU = this.textAreaBiografia.getSelectedText();
                 websiteU = this.textFieldWebsite.getSelectedText();
+                institucionU = this.textFieldInstitucion.getSelectedText();
+                tipoDeUsuario = this.textPaneTipoDeUsuario.getText();
                 
         		/*
         		 * Crea el tipo de dato segun el tipo de usuario seleccionado
         		 */
         		DtUsuario datosUser;
-        		if(this.textPaneTipoDeUsuario.getText() == "Profesor") {
-        			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0),institucionU, descripcionU,biografiaU,websiteU);
+        		if(tipoDeUsuario == "Profesor") {
+        			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0),institucionU, descripcionU,biografiaU,websiteU);
         		}
         		else //Se asume que si no es profesor es socio
         		{
-        			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(diaU,mesU,anioU,0,0,0));
+        			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0));
         		}
         		
         		/*
         		 * Fin de caso de uso y MessageDialog final
         		 */
         		this.controlUsr.editarDatosBasicos(nicknameU, datosUser);
-        		JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido modificado con exito", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-        	}
+        		JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido modificado con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        		return 0;
         }
-        
+        return 1;
 	}
 	
 	/*
 	 * Valida los datos ingresados por el usuario
 	 */
 	private boolean checkFormulario() {
+		String tipoU  = this.textPaneTipoDeUsuario.getText();
 		int nicknameU = this.comboBoxUsuario.getSelectedIndex();
 		String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
         String emailU = this.textFieldEmail.getText();
-        String diaU = textFieldDia.getText();
-        int mesU = this.comboBoxMes.getSelectedIndex();
-        String anioU = textFieldAnio.getText();
-        String institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
-        String websiteU = this.textFieldWebsite.getSelectedText();
+        int diaU = boxIDia.getSelectedIndex();
+        int mesU = boxIMes.getSelectedIndex();
+        String anioU = inicioAnio.getText();
+        //String websiteU = this.textFieldWebsite.getSelectedText();
+        String descripcionU = this.textAreaDescripcion.getText();
 
         //Celdas vacias
-        if (nicknameU == 0 || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU.isEmpty() || mesU == 0 || anioU.isEmpty() || institutoU == "-" || websiteU.isEmpty()) {
+        if (nicknameU == 0 || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU < 1 || mesU < 1 || anioU.isEmpty() ||  ((tipoU == "Profesor") &&  descripcionU.isEmpty())) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
       //Numeros no son numeros
-        try {
-            int numDiaUInteger = Integer.parseInt(diaU);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El dia ingresado debe ser un numero", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
         try {
             int numAnioU = Integer.parseInt(anioU);
         } catch (NumberFormatException e) {
@@ -590,17 +605,24 @@ public class ModificarDatosUsuario extends JInternalFrame {
         	JOptionPane.showMessageDialog(this, "El anio ingresado debe ser valido", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        int numDiaU = Integer.parseInt(diaU);
-        if (numDiaU < 1 || numDiaU > 31) {
-        	JOptionPane.showMessageDialog(this, "El dia ingresado debe ser valido", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
         return true;
     }
 
 	public void clear() {
 		// TODO Auto-generated method stub
-		
+		comboBoxUsuario.setSelectedIndex(0);
+        textPaneTipoDeUsuario.setText("");
+        textFieldNombre.setText("");
+        textFieldApellido.setText("");
+        textFieldEmail.setText("");
+    	boxIDia.setSelectedIndex(0);
+    	boxIMes.setSelectedIndex(0);
+    	inicioAnio.setText("yyyy");
+    	textFieldInstitucion.setText("");
+    	textFieldWebsite.setText("");
+    	textAreaDescripcion.setText("");
+    	textAreaBiografia.setText("");
+    	datosUsuarioActual = null;
 	}
 
 
