@@ -30,6 +30,8 @@ import java.util.Set;
 import logica.IDictadoClaseController;
 
 import datatypes.TReg;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class RegistroUsuarioClase extends JInternalFrame {
@@ -131,6 +133,22 @@ public class RegistroUsuarioClase extends JInternalFrame {
         
         // JComboBox:
         boxInstitucion = new JComboBox<>();
+        boxInstitucion.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+        		String z = null,x = null,t=(String) boxInstitucion.getSelectedItem();
+        		if(boxActividad.isEnabled()) 
+        			z=(String) boxActividad.getSelectedItem();
+        		if(boxClase.isEnabled())
+        			x=(String) boxClase.getSelectedItem();
+        		cargarDatos();
+        		boxInstitucion.setSelectedItem(t);
+        		if(boxActividad.isEnabled()) 
+        			boxActividad.setSelectedItem(z);
+        		if(boxClase.isEnabled())
+        			boxClase.setSelectedItem(x);
+        	}
+        });
         boxInstitucion.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
         		int selectIndex = boxInstitucion.getSelectedIndex();
@@ -243,6 +261,8 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_btnCancelar.gridx = 3;
         gbc_btnCancelar.gridy = 11;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
+        
+        cargarDatos();
 	}
 	
 	// Metodo de invocacion de la Consulta de Clase
@@ -287,12 +307,12 @@ public class RegistroUsuarioClase extends JInternalFrame {
 	
 	// Cargar Datos al JComboBox
     // Se invoca el método antes de hacer visible el JInternalFrame
-    public void cargarDatos() {
+    private void cargarDatos() {
     	// Cargar Usuarios:
     	DefaultComboBoxModel<String> modelUsuario;
     	modelUsuario = new DefaultComboBoxModel<>();
     	modelUsuario.addElement("-");
-        for(String x: controlClase.obtenerUsuarios()) {
+        for(String x: controlClase.obtenerSocios()) {
         	modelUsuario.addElement(x);
         }
         boxSocio.setModel(modelUsuario);

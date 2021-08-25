@@ -68,4 +68,7 @@ public class Clase {
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
 		return actDep == a;
 	}
+	public void addRecibo(ReciboClase rc) {
+		ListReciboClase.add(rc);
+	}
 }

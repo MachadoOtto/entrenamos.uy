@@ -425,14 +425,6 @@ public class AltaActividadDeportiva extends JInternalFrame{
     	int anio = Integer.valueOf(altaAnio.getText());
     	int mes = comboBoxMes.getSelectedIndex();
     	int dia = comboBoxDia.getSelectedIndex();
-    	//boolean nombreRepetido = false;
-    	//HandlerInstitucion hi = HandlerInstitucion.getInstance();
-    	//for(String ins: IADC.obtenerInstituciones()) {
-        	//if (hi.findInstitucion(ins).existeActDep(nombre)) {
-        		//nombreRepetido = true;
-        		//break;
-        	//}
-        //}
         DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
         DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
         if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
@@ -443,18 +435,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 			JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con el nombre ingresado", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
 	}
 	
-//	public void cargarInstituciones() {
-//        DefaultComboBoxModel<String> modelInstituciones;
-//        modelInstituciones = new DefaultComboBoxModel<>();
-//        modelInstituciones.addElement("---Seleccione una institucion---");
-//        for(String ins: IADC.obtenerInstituciones()) {
-//        	modelInstituciones.addElement(ins);
-//        }
-//        comboBoxInstitucion.setModel(modelInstituciones);
-//    }
-	
 	public void clear() {
-		//comboBoxInstitucion.setSelectedIndex(0);
 		textFieldNombre.setText("");
 		textFieldDescripcion.setText("");
 		textFieldDuracion.setText("");

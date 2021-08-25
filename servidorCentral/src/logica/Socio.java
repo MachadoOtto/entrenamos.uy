@@ -111,10 +111,13 @@ public class Socio extends Usuario {
 //	}
 //	
 	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t) {
+		if(!cl.hayLugar())
+			return 2;
 		DtFecha d = new DtFecha();
 		if(t.equals(TReg.general)) {
 			ReciboClase nuevoRecibo = new ReciboClase(d, TReg.general, actDep.getCosto(), cl, this, null);
 			reciboClases.add(nuevoRecibo);
+			cl.addRecibo(nuevoRecibo);
 			return 0;		
 		} else {
 			for (ReciboCuponera y: reciboCuponeras) {
@@ -129,6 +132,7 @@ public class Socio extends Usuario {
 					if (cantidadClases < cupActual.cantidadClases(actDep)) {
 						ReciboClase nuevoRecibo = new ReciboClase(d,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
 						reciboClases.add(nuevoRecibo);
+						cl.addRecibo(nuevoRecibo);
 						return 0;
 					}
 				}

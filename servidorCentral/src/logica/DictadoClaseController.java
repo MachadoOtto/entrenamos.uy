@@ -62,6 +62,10 @@ public class DictadoClaseController implements IDictadoClaseController {
 		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
 		return ((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, ad.findClase(clase), tipoRegistro);
 	}
+	
+	public Set<String> obtenerSocios() {
+		return getHU().obtenerNicknameSocios();
+	}
 
 // Guille: Esta funcion creo que no va.
 //	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
@@ -77,4 +81,5 @@ public class DictadoClaseController implements IDictadoClaseController {
 	private static HandlerUsuario getHU() {
 		return  HandlerUsuario.getInstance();
 	}
+
 }

@@ -26,6 +26,14 @@ import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import datatypes.DtActividadDeportiva;
+import datatypes.DtClase;
+import datatypes.DtFecha;
+import datatypes.DtProfesor;
+import datatypes.DtSocio;
+import datatypes.DtUsuario;
 
 public class Menu {
 	
@@ -163,6 +171,14 @@ public class Menu {
 		JMenuItem itemIrInicio = new JMenuItem("Ir a Inicio");
 		menuInicio.add(itemIrInicio);
 
+		JMenuItem itemPueba = new JMenuItem("Cargar Datos Prueba");
+		menuInicio.add(itemPueba);
+		itemPueba.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarDatosPrueba();
+			}
+		});
+		
 		JMenuItem itemSalir = new JMenuItem("Salir");
 		menuInicio.add(itemSalir);
 		itemSalir.addActionListener(new ActionListener() {
@@ -232,7 +248,6 @@ public class Menu {
 					altaClase.toFront();
 				else {
 					altaClase.clear();
-					altaClase.cargarInstitucion();
 					altaClase.setVisible(true);
 				}
 			}
@@ -246,7 +261,6 @@ public class Menu {
 					regUsuClass.toFront();
 				else {
 					regUsuClass.clear();
-					//regUsuClass.cargarDatos(); No!
 					regUsuClass.setVisible(true);
 				}
 			}
@@ -353,26 +367,38 @@ public class Menu {
 				}
 			}
 		});
-	}	
+	}
+	
+	private void cargarDatosPrueba() {
+		
+		//ALTA INSTITUCIONES
+		IDC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aeróbica, spinning y yoga.","https://www.inatural.com");
+		IDC.altaInstitucion("Fuerza Bruta", "Gimnasio especializado en el desarrollo de la musculatura.","https://www.musculos.com");
+		//ALTA USUARIOS
+		DtUsuario datosUser;
+			//SOCIOS
+			datosUser = new DtSocio("Emi71","Emiliano","Lucas","emi71@gmail.com", new DtFecha(31,12,1971,0,0,0));
+			IUC.ingresarDatosUsuario(datosUser);
+			
+			//PROFESORES
+			datosUser = new DtProfesor("viktor","vperez@fuerza.com","Victor","Perez", new DtFecha(1,1,1977,0,0,0),"Fuerza Bruta", "Victor es un apasionado de los músculos. Sus\r\n"
+					+ "clases son organizadas en función de distintos\r\n"
+					+ "aparatos y pesas con el objetivo de desarrollar\r\n"
+					+ "músculos\r\n"
+					+ "","Victor nació en Moscow en 1977. En el año\r\n"
+							+ "2005 emigró a Uruguay luego de quedar\r\n"
+							+ "encantado con el país en un viaje turístico","www.vikgym.com");
+			IUC.ingresarDatosUsuario(datosUser);
+
+		//ALTA ACTIVIDAD DEPORTIVA
+        DtFecha fechaAlta = new DtFecha(7,6,2021,0,0,0);
+        DtActividadDeportiva datosAD = new DtActividadDeportiva("Kickboxing","En busca del nuevo campeón de boxeo.",100,980,fechaAlta);
+        IADC.ingresarDatosActividadDep("Fuerza Bruta", datosAD);
+
+        //ALTA CLASE
+        DtFecha fechaClase= new DtFecha(15,10,2021,20,0,0);
+        DtFecha fechaRegistro= new DtFecha(7,6,2021,0,0,0);
+        DtClase datos = new DtClase("Músculos para boxeo", "viktor","viktor",1, 5, "https://www.musculos.com/muscbox", fechaClase, fechaRegistro);
+        IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", datos);
+	}
 }
-
-/*  ESTO ERA DE MATHI PARA DARLE COLOR CREO, POR AHORA LO SACAMOS. Guille: Apruebo. La GUI debe ser funcional y los mas aburrida posible.
-JDesktopPane desktopPane_1 = new JDesktopPane();
-desktopPane_1.setBorder(null);
-desktopPane_1.setBackground(new Color(102, 153, 255));
-contentPane.add(desktopPane_1, BorderLayout.CENTER);
-GridBagLayout gbl_desktopPane_1 = new GridBagLayout();
-gbl_desktopPane_1.columnWidths = new int[]{248, 451, 0};
-gbl_desktopPane_1.rowHeights = new int[]{271, 93, 0};
-gbl_desktopPane_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-gbl_desktopPane_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-desktopPane_1.setLayout(gbl_desktopPane_1);
-
-JLabel lblNewLabel = new JLabel("ENTRENAMOS.UY");
-lblNewLabel.setForeground(new Color(255, 255, 255));
-lblNewLabel.setFont(new Font("Lucida Sans", Font.BOLD, 50));
-GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
-gbc_lblNewLabel.gridx = 1;
-gbc_lblNewLabel.gridy = 1;
-desktopPane_1.add(lblNewLabel, gbc_lblNewLabel); */
