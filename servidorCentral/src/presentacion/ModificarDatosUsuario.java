@@ -38,6 +38,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.JTextPane;
 import javax.swing.JFrame;
+import javax.swing.Box;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -69,7 +70,6 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JTextArea textAreaDescripcion;
 	private JScrollPane scrollPane_1;
 	private JLabel labelAclaracionFecha;
-	private JTextPane textPaneTipoDeUsuario;
 	private JLabel lblNewLabel;
 	private JTextField inicioAnio;
 	// Seleccion de Fecha de Inicio:
@@ -77,6 +77,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JComboBox<String> boxIMes;
 	private Component verticalStrut;
 	private JTextField textFieldInstitucion;
+	private JTextField textFieldTipoDeUsuario;
 		
 	public ModificarDatosUsuario(IUsuarioController controlUsr) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -179,7 +180,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 				else {
 					//clear();
 				}
-				textPaneTipoDeUsuario.setText(tipoUsuario);
+				textFieldTipoDeUsuario.setText(tipoUsuario);
 				boolean esUsuario = tipoUsuario != "-";
 				textFieldNombre.setEnabled(esUsuario);
 				textFieldApellido.setEnabled(esUsuario);
@@ -196,6 +197,13 @@ public class ModificarDatosUsuario extends JInternalFrame {
 				textFieldWebsite.setEnabled(esProfesor);
 			}
 		});
+		
+		verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 4;
+		gbc_verticalStrut.gridy = 0;
+		getContentPane().add(verticalStrut, gbc_verticalStrut);
 		
 		labelUsuario = new JLabel("Usuario elegido");
 		GridBagConstraints gbc_labelUsuario = new GridBagConstraints();
@@ -223,15 +231,16 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		gbc_comboBoxUsuario.gridy = 1;
 		getContentPane().add(comboBoxUsuario, gbc_comboBoxUsuario);
 		
-		textPaneTipoDeUsuario = new JTextPane();
-		textPaneTipoDeUsuario.setEditable(false);
-		GridBagConstraints gbc_textPaneTipoDeUsuario = new GridBagConstraints();
-		gbc_textPaneTipoDeUsuario.gridwidth = 3;
-		gbc_textPaneTipoDeUsuario.insets = new Insets(0, 0, 5, 5);
-		gbc_textPaneTipoDeUsuario.fill = GridBagConstraints.BOTH;
-		gbc_textPaneTipoDeUsuario.gridx = 4;
-		gbc_textPaneTipoDeUsuario.gridy = 1;
-		getContentPane().add(textPaneTipoDeUsuario, gbc_textPaneTipoDeUsuario);
+		textFieldTipoDeUsuario = new JTextField();
+		textFieldTipoDeUsuario.setEnabled(false);
+		GridBagConstraints gbc_textFieldTipoDeUsuario = new GridBagConstraints();
+		gbc_textFieldTipoDeUsuario.gridwidth = 3;
+		gbc_textFieldTipoDeUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldTipoDeUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldTipoDeUsuario.gridx = 4;
+		gbc_textFieldTipoDeUsuario.gridy = 1;
+		getContentPane().add(textFieldTipoDeUsuario, gbc_textFieldTipoDeUsuario);
+		textFieldTipoDeUsuario.setColumns(10);
 		
 		JLabel labelNombre = new JLabel("Nombre");
 		GridBagConstraints gbc_labelNombre = new GridBagConstraints();
@@ -486,7 +495,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(tomarDatos() == 0) {
+				if(tomarDatos()==0) {
 					clear();
 				}
 			}
@@ -532,9 +541,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
         String biografiaU;
         String websiteU;
         
-        if (checkFormulario())
-        {
-        	
+        if (!checkFormulario())
+        	return 1;
         		nicknameU = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
         		nombreU = this.textFieldNombre.getText();
                 apellidoU = this.textFieldApellido.getText();
@@ -542,17 +550,18 @@ public class ModificarDatosUsuario extends JInternalFrame {
                 diaU = Integer.parseInt(boxIDia.getSelectedItem().toString());
                 mesU = boxIMes.getSelectedIndex();
                 anioU = Integer.parseInt(inicioAnio.getText());
-                descripcionU = this.textAreaDescripcion.getSelectedText();
-                biografiaU = this.textAreaBiografia.getSelectedText();
-                websiteU = this.textFieldWebsite.getSelectedText();
-                institucionU = this.textFieldInstitucion.getSelectedText();
-                tipoDeUsuario = this.textPaneTipoDeUsuario.getText();
-                
+                tipoDeUsuario = textFieldTipoDeUsuario.getText();
+
         		/*
         		 * Crea el tipo de dato segun el tipo de usuario seleccionado
         		 */
         		DtUsuario datosUser;
-        		if(tipoDeUsuario == "Profesor") {
+        		
+        		if(tipoDeUsuario.contains("Profesor")) {
+        			descripcionU = textAreaDescripcion.getText();
+                    biografiaU = textAreaBiografia.getText();
+                    websiteU = textFieldWebsite.getText();
+                    institucionU = textFieldInstitucion.getText();
         			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0),institucionU, descripcionU,biografiaU,websiteU);
         		}
         		else //Se asume que si no es profesor es socio
@@ -566,15 +575,13 @@ public class ModificarDatosUsuario extends JInternalFrame {
         		this.controlUsr.editarDatosBasicos(nicknameU, datosUser);
         		JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido modificado con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
         		return 0;
-        }
-        return 1;
 	}
 	
 	/*
 	 * Valida los datos ingresados por el usuario
 	 */
 	private boolean checkFormulario() {
-		String tipoU  = this.textPaneTipoDeUsuario.getText();
+		String tipoU  = this.textFieldTipoDeUsuario.getText();
 		int nicknameU = this.comboBoxUsuario.getSelectedIndex();
 		String nombreU = this.textFieldNombre.getText();
         String apellidoU = this.textFieldApellido.getText();
@@ -586,7 +593,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
         String descripcionU = this.textAreaDescripcion.getText();
 
         //Celdas vacias
-        if (nicknameU == 0 || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU < 1 || mesU < 1 || anioU.isEmpty() ||  ((tipoU == "Profesor") &&  descripcionU.isEmpty())) {
+        if (nicknameU == 0 || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU < 1 || mesU < 1 || anioU.isEmpty() ||  ((tipoU.contains("Profesor")) &&  descripcionU.isEmpty())) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -611,7 +618,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	public void clear() {
 		// TODO Auto-generated method stub
 		comboBoxUsuario.setSelectedIndex(0);
-        textPaneTipoDeUsuario.setText("");
+        textFieldTipoDeUsuario.setText("");
         textFieldNombre.setText("");
         textFieldApellido.setText("");
         textFieldEmail.setText("");
