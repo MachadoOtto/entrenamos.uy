@@ -36,6 +36,7 @@ public class Institucion {
         this.URL = u;
         this.descripcion = d;
         this.actsDeps = new HashMap<>();
+        this.profesores = new HashSet<>();
         
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
 		log.setLevel(Level.INFO);
