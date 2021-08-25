@@ -302,7 +302,7 @@ public class Menu {
 				if (consActDep.isVisible()) 
 					consActDep.toFront();
 				else {
-					consActDep.clear();
+					//consActDep.clear();
 					consActDep.cargarInstituciones();
 					consActDep.setVisible(true);
 				}
