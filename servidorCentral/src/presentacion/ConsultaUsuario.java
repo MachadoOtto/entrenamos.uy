@@ -211,7 +211,7 @@ public class ConsultaUsuario extends JInternalFrame {
 						}
 					}
 					else {
-						labelWebsite_1.setText("Clases a las que se inscribió (ordenadas por actividad deportiva)");
+						labelWebsite_1.setText("Clases a las que se inscribi (ordenadas por actividad deportiva)");
 						DtSocioExt datosSocioActual = (DtSocioExt)datosUsuarioActual;
 						Set<Entry<String, Set<String>>> m = datosSocioActual.getAguadeUwu().entrySet();
 						if(m.size()==0) {
@@ -219,7 +219,7 @@ public class ConsultaUsuario extends JInternalFrame {
 									new DefaultMutableTreeNode("root") {
 										{
 											//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-											add(new DefaultMutableTreeNode("El socio no está inscripto a ninguna clase."));
+											add(new DefaultMutableTreeNode("El socio no est inscripto a ninguna clase."));
 										}
 									}
 								));
@@ -240,7 +240,7 @@ public class ConsultaUsuario extends JInternalFrame {
 								}
 							));
 						}
-						
+						tipoUsuario = "Socio";
 						/*
 						 * Borro campos no relevantes para socio
 						 */
@@ -543,7 +543,7 @@ public class ConsultaUsuario extends JInternalFrame {
 				{
 					//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
 					// Cada vez que se abre la ventan design hay que corregirlo xddd;
-					add(new DefaultMutableTreeNode("Aquí se listan las clases."));
+					add(new DefaultMutableTreeNode("Aqu se listan las clases."));
 					add(new DefaultMutableTreeNode("Las clases est\u00E1n organizadas por actividad deportiva."));
 				}
 			}
@@ -582,7 +582,7 @@ public class ConsultaUsuario extends JInternalFrame {
 					{
 						//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
 						// Cada vez que se abre la ventan design hay que corregirlo xddd;
-						add(new DefaultMutableTreeNode("Aquí se listan las clases."));
+						add(new DefaultMutableTreeNode("Aqu se listan las clases."));
 						add(new DefaultMutableTreeNode("Las clases est\u00E1n organizadas por actividad deportiva."));
 					}
 				}
