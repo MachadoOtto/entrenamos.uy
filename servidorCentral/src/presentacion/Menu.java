@@ -118,10 +118,10 @@ public class Menu {
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
 
-		// ConsultaActividadDeportiva
-//		consActDep = new ConsultaActividadDeportiva(IADC);
-//		consActDep.setVisible(false);
-//		escritorio.add(consActDep);
+		ConsultaActividadDeportiva
+		consActDep = new ConsultaActividadDeportiva(IADC);
+		consActDep.setVisible(false);
+		escritorio.add(consActDep);
 		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
@@ -313,18 +313,18 @@ public class Menu {
 		});
 		JMenuItem itemConsultaActividad = new JMenuItem("Consulta Actividad Deportiva");
 		menuConsultas.add(itemConsultaActividad);
-//		itemConsultaActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (consActDep.isVisible()) 
-//					consActDep.toFront();
-//				else {
-//					consActDep.clear();
-//					consActDep.cargarInstituciones();
-//					consActDep.setVisible(true);
-//				}
-//			}
-//		});
-//		
+		itemConsultaActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (consActDep.isVisible()) 
+					consActDep.toFront();
+				else {
+					//consActDep.clear();
+					consActDep.cargarInstituciones();
+					consActDep.setVisible(true);
+				}
+			}
+		});
+		
 		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
 		menuConsultas.add(itemConsultaClase);
 		itemConsultaClase.addActionListener(new ActionListener() {
@@ -372,7 +372,7 @@ public class Menu {
 	private void cargarDatosPrueba() {
 		
 		//ALTA INSTITUCIONES
-		IDC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aeróbica, spinning y yoga.","https://www.inatural.com");
+		IDC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aerbica, spinning y yoga.","https://www.inatural.com");
 		IDC.altaInstitucion("Fuerza Bruta", "Gimnasio especializado en el desarrollo de la musculatura.","https://www.musculos.com");
 		//ALTA USUARIOS
 		DtUsuario datosUser;
@@ -381,24 +381,24 @@ public class Menu {
 			IUC.ingresarDatosUsuario(datosUser);
 			
 			//PROFESORES
-			datosUser = new DtProfesor("viktor","vperez@fuerza.com","Victor","Perez", new DtFecha(1,1,1977,0,0,0),"Fuerza Bruta", "Victor es un apasionado de los músculos. Sus\r\n"
-					+ "clases son organizadas en función de distintos\r\n"
+			datosUser = new DtProfesor("viktor","vperez@fuerza.com","Victor","Perez", new DtFecha(1,1,1977,0,0,0),"Fuerza Bruta", "Victor es un apasionado de los msculos. Sus\r\n"
+					+ "clases son organizadas en funcin de distintos\r\n"
 					+ "aparatos y pesas con el objetivo de desarrollar\r\n"
-					+ "músculos\r\n"
-					+ "","Victor nació en Moscow en 1977. En el año\r\n"
-							+ "2005 emigró a Uruguay luego de quedar\r\n"
-							+ "encantado con el país en un viaje turístico","www.vikgym.com");
+					+ "msculos\r\n"
+					+ "","Victor naci en Moscow en 1977. En el ao\r\n"
+							+ "2005 emigr a Uruguay luego de quedar\r\n"
+							+ "encantado con el pas en un viaje turstico","www.vikgym.com");
 			IUC.ingresarDatosUsuario(datosUser);
 
 		//ALTA ACTIVIDAD DEPORTIVA
         DtFecha fechaAlta = new DtFecha(7,6,2021,0,0,0);
-        DtActividadDeportiva datosAD = new DtActividadDeportiva("Kickboxing","En busca del nuevo campeón de boxeo.",100,980,fechaAlta);
+        DtActividadDeportiva datosAD = new DtActividadDeportiva("Kickboxing","En busca del nuevo campen de boxeo.",100,980,fechaAlta);
         IADC.ingresarDatosActividadDep("Fuerza Bruta", datosAD);
 
         //ALTA CLASE
         DtFecha fechaClase= new DtFecha(15,10,2021,20,0,0);
         DtFecha fechaRegistro= new DtFecha(7,6,2021,0,0,0);
-        DtClase datos = new DtClase("Músculos para boxeo", "viktor","viktor",1, 5, "https://www.musculos.com/muscbox", fechaClase, fechaRegistro);
+        DtClase datos = new DtClase("Msculos para boxeo", "viktor","viktor",1, 5, "https://www.musculos.com/muscbox", fechaClase, fechaRegistro);
         IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", datos);
 	}
 }
