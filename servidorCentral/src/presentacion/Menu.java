@@ -140,7 +140,8 @@ public class Menu {
 		modificarUsu.setVisible(false);
 		escritorio.add(modificarUsu);
 		
-		altaCup = new CrearCuponera();
+		altaCup = new CrearCuponera(IDC);
+		altaCup.setBounds(100, 100, 500, 483);
 		altaCup.setVisible(false);
 		escritorio.add(altaCup);
 		

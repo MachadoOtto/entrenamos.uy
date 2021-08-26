@@ -17,24 +17,15 @@ public class DeportivaController implements IDeportivaController {
 		return instance;
 	}
 	
-	public int ingresarCuponera(String nombre, String descripcion,
-			DtFecha inicio, DtFecha fin, int descuento, DtFecha alta)
-	{
-		HandlerCuponera hu = HandlerCuponera.getInstance();
-		int res = hu.addCuponera(nombre, descripcion, inicio, fin, descuento, 
-				alta);
-		return res;
+	public int ingresarCuponera(String nombre, String descripcion, DtFecha inicio, DtFecha fin, int descuento, DtFecha alta) {
+		return getHC().addCuponera(nombre, descripcion, inicio, fin, descuento, alta);
 	}
 	
 	public Set<String> getNombreCuponeras(){
-		HandlerCuponera hu = HandlerCuponera.getInstance();
-		Set<String> res = hu.getNombreCuponeras();
-		return res;
+		return getHC().getNombreCuponeras();
 	}
 		
-	public void agregarActividadCuponera(String nombreCuponera, 
-			String institucion, String actividadDeportiva, int cantidadClases)
-	{
+	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases){
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion i = hi.findInstitucion(institucion);
 		HandlerCuponera hc = HandlerCuponera.getInstance();
@@ -44,10 +35,9 @@ public class DeportivaController implements IDeportivaController {
 	}
 		
 	public int altaInstitucion(String nombre, String descripcion, String URL) {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		if(!hi.existeInstitucion(nombre)){
+		if(!getHI().existeInstitucion(nombre)){
 			Institucion i = new Institucion(nombre,descripcion,URL);
-			hi.addInstitucion(i);
+			getHI().addInstitucion(i);
 			return 0;
 		}
 		return 1;
@@ -58,4 +48,10 @@ public class DeportivaController implements IDeportivaController {
 		return c.getDt();
 	}
 	
+	private HandlerInstitucion getHI() {
+		return HandlerInstitucion.getInstance();
+	}
+	private HandlerCuponera getHC() {
+		return HandlerCuponera.getInstance();
+	}
 }
