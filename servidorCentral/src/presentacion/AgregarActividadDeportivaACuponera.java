@@ -21,7 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 
-import logica.IDeportivaController;
+import logica.IDeportivaController; 
 import logica.IDictadoClaseController;
 import javax.swing.JTextField;
 
