@@ -1,23 +1,31 @@
 package datatypes;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class DtProfesorExt extends DtProfesor{
+
+	private Map<String,Set<String>> x;
 	
-	private Set<String> clasesDictadas;
-	private Set<String> actividadesDepAsociadas;
-	
-	public DtProfesorExt (String nickname, String nombre, String apellido, String email, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, Set<String> clases, Set<String> acts) {
+	public DtProfesorExt (String nickname, String nombre, String apellido, String email, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, Map<String,Set<String>> actxClase) {
 		super(nickname, nombre, apellido, email, fechaNacimiento, nombreInstitucion, descripcion, biografia, link); 
-		this.actividadesDepAsociadas = acts;
-		this.clasesDictadas = clases;
+		x = actxClase;
 	}
 	
 	public Set<String> getActividadesDepAsociadas(){
-		return this.actividadesDepAsociadas;
+		return x.keySet();
 	}
 	
 	public Set<String> getClasesDictadas(){
-		return this.clasesDictadas;
+		Set<String> y = new HashSet<>();
+		for(Entry<String, Set<String>> q: x.entrySet())
+			y.addAll(q.getValue());
+		return y;
+	}
+	
+	public Map<String,Set<String>> getClasesxActividades(){
+		return x;
 	}
 }

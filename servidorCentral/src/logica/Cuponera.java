@@ -60,6 +60,7 @@ public class Cuponera {
 	public void addActDep(ActividadDeportiva act, int num) {
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
+		act.addClasesCup(claCup);
 		costo = costo + act.getCosto();
 	}
 	

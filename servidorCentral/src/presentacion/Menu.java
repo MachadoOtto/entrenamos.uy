@@ -26,6 +26,14 @@ import javax.swing.JDesktopPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import datatypes.DtActividadDeportiva;
+import datatypes.DtClase;
+import datatypes.DtFecha;
+import datatypes.DtProfesor;
+import datatypes.DtSocio;
+import datatypes.DtUsuario;
 
 public class Menu {
 	
@@ -44,7 +52,7 @@ public class Menu {
 	private CrearCuponera altaCup;
 	private RegistroUsuarioClase regUsuClass;
 	private ConsultaDictadoClase consultaClass;
-	//private ConsultaActividadDeportiva consActDep;
+	private ConsultaActividadDeportiva consActDep;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
@@ -109,15 +117,16 @@ public class Menu {
 		consultaClass = new ConsultaDictadoClase(IDCC);
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
-
+		
 		// ConsultaActividadDeportiva
-//		consActDep = new ConsultaActividadDeportiva(IADC);
-//		consActDep.setVisible(false);
-//		escritorio.add(consActDep);
+		consActDep = new ConsultaActividadDeportiva(IADC);
+		consActDep.setBounds(143, 20, 457, 719);
+		consActDep.setVisible(false);
+		escritorio.add(consActDep);
 		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
-		consultaCup.setBounds(200, 100, 400, 200);
+		consultaCup.setBounds(200, 100, 400, 458);
 		consultaCup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		consultaCup.setVisible(false);
 		escritorio.add(consultaCup);
@@ -146,7 +155,7 @@ public class Menu {
 	private void iniciar() {
         // Se crea el Frame con las dimensiones indicadas:
 		menuPrincipal = new JFrame();
-		menuPrincipal.setTitle("ENTRENAMOS.UY");
+		menuPrincipal.setTitle("Entrenamos.uy");
 		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuPrincipal.setBounds(180, 100, 1000, 800);
 		menuPrincipal.setResizable(true);
@@ -161,8 +170,20 @@ public class Menu {
 		JMenu menuInicio = new JMenu("Inicio\r\n");
 		menuBar.add(menuInicio);
 		
-		JMenuItem itemIrInicio = new JMenuItem("Ir a Inicio");
+		JMenuItem itemIrInicio = new JMenuItem("Limpiar Escritorio");
 		menuInicio.add(itemIrInicio);
+		itemIrInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				掃除();
+			}
+		});
+		JMenuItem itemPueba = new JMenuItem("Cargar Datos Prueba");
+		menuInicio.add(itemPueba);
+		itemPueba.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarDatosPrueba();
+			}
+		});
 
 		JMenuItem itemSalir = new JMenuItem("Salir");
 		menuInicio.add(itemSalir);
@@ -233,7 +254,6 @@ public class Menu {
 					altaClase.toFront();
 				else {
 					altaClase.clear();
-					altaClase.cargarInstitucion();
 					altaClase.setVisible(true);
 				}
 			}
@@ -247,7 +267,6 @@ public class Menu {
 					regUsuClass.toFront();
 				else {
 					regUsuClass.clear();
-					//regUsuClass.cargarDatos(); No!
 					regUsuClass.setVisible(true);
 				}
 			}
@@ -300,18 +319,17 @@ public class Menu {
 		});
 		JMenuItem itemConsultaActividad = new JMenuItem("Consulta Actividad Deportiva");
 		menuConsultas.add(itemConsultaActividad);
-//		itemConsultaActividad.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (consActDep.isVisible()) 
-//					consActDep.toFront();
-//				else {
-//					consActDep.clear();
-//					consActDep.cargarInstituciones();
-//					consActDep.setVisible(true);
-//				}
-//			}
-//		});
-//		
+		itemConsultaActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (consActDep.isVisible()) 
+					consActDep.toFront();
+				else {
+					consActDep.clear();
+					consActDep.setVisible(true);
+				}
+			}
+		});
+		
 		JMenuItem itemConsultaClase = new JMenuItem("Consulta de Dictado de Clase");
 		menuConsultas.add(itemConsultaClase);
 		itemConsultaClase.addActionListener(new ActionListener() {
@@ -354,26 +372,68 @@ public class Menu {
 				}
 			}
 		});
-	}	
+	}
+	
+	private void 掃除() {
+		altaUsuario.setVisible(false);
+		altaActDep.setVisible(false);
+		altaClase.setVisible(false);
+		altaIns.setVisible(false);
+	    altaCup.setVisible(false);
+		regUsuClass.setVisible(false);
+		consultaClass.setVisible(false);
+		consActDep.setVisible(false);
+		consultaCup.setVisible(false);
+		consultaUsu.setVisible(false);
+		modificarUsu.setVisible(false);
+		aggCup.setVisible(false);
+	}
+	
+	private void cargarDatosPrueba() {
+		
+		//ALTA INSTITUCIONES
+		IDC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aerbica, spinning y yoga.","https://www.inatural.com");
+		IDC.altaInstitucion("Fuerza Bruta", "Gimnasio especializado en el desarrollo de la musculatura.","https://www.musculos.com");
+		//ALTA USUARIOS
+		DtUsuario datosUser;
+			//SOCIOS
+			datosUser = new DtSocio("Emi71","Emiliano","Lucas","emi71@gmail.com", new DtFecha(1971,31,12,0,0,0));
+			IUC.ingresarDatosUsuario(datosUser);
+			
+			//PROFESORES
+			datosUser = new DtProfesor("viktor","vperez@fuerza.com","Victor","Perez", new DtFecha(1997,1,1,0,0,0),"Fuerza Bruta",
+					"Victor es un apasionado de los msculos. Sus"
+					+ "clases son organizadas en funci\u00f3n de distintos "
+					+ "aparatos y pesas con el objetivo de desarrollar "
+					+ "m\u00fa sculos\r\n"
+					+ "","Victor naci en Moscow en 1977. En el a\u00f1o "
+					+ "2005 emigr\u00f3 a Uruguay luego de quedar "
+					+ "encantado con el pa\u00eds en un viaje turistico","www.vikgym.com");
+			IUC.ingresarDatosUsuario(datosUser);
+
+		//ALTA ACTIVIDAD DEPORTIVA
+        DtFecha fechaAlta = new DtFecha(7,6,2021,0,0,0);
+        DtActividadDeportiva datosAD = new DtActividadDeportiva("Kickboxing","En busca del nuevo campen de boxeo.",100,980,fechaAlta);
+        IADC.ingresarDatosActividadDep("Fuerza Bruta", datosAD);
+
+        //ALTA CLASE
+        DtFecha fechaClase= new DtFecha(2021,10,15,20,0,0);
+        DtFecha fechaRegistro= new DtFecha(2021,6,7,0,0,0);
+        DtClase datos = new DtClase("Msculos para boxeo", "viktor","viktor",1, 5, "https://www.musculos.com/muscbox", fechaClase, fechaRegistro);
+        IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", datos);
+        
+        //CUPONERAS
+        DtFecha fechaIni= new DtFecha(2021,5,1,20,0,0);
+        DtFecha fechaFin= new DtFecha(2021,7,31,0,0,0);
+        fechaAlta= new DtFecha(2021,4,30,20,0,0);
+        IDC.ingresarCuponera("Pelota","Deportes con pelota", fechaIni, fechaFin, 20, fechaAlta);
+        
+        fechaIni= new DtFecha(2021,8,15,0,0,0);
+        fechaFin= new DtFecha(2021,11,15,0,0,0);
+        fechaAlta= new DtFecha(2021,8,1,0,0,0);
+        IDC.ingresarCuponera("Músculos","Pesas.", fechaIni, fechaFin, 20, fechaAlta);
+        IDC.agregarActividadCuponera("Músculos", "Fuerza Bruta", "Kickboxing", 11);
+        
+        JOptionPane.showMessageDialog(escritorio, "Se han cargado los datos de prueba exitosamente.\nテストデータは見事に入力しました", "Info", JOptionPane.INFORMATION_MESSAGE);
+	}
 }
-
-/*  ESTO ERA DE MATHI PARA DARLE COLOR CREO, POR AHORA LO SACAMOS. Guille: Apruebo. La GUI debe ser funcional y los mas aburrida posible.
-JDesktopPane desktopPane_1 = new JDesktopPane();
-desktopPane_1.setBorder(null);
-desktopPane_1.setBackground(new Color(102, 153, 255));
-contentPane.add(desktopPane_1, BorderLayout.CENTER);
-GridBagLayout gbl_desktopPane_1 = new GridBagLayout();
-gbl_desktopPane_1.columnWidths = new int[]{248, 451, 0};
-gbl_desktopPane_1.rowHeights = new int[]{271, 93, 0};
-gbl_desktopPane_1.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-gbl_desktopPane_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-desktopPane_1.setLayout(gbl_desktopPane_1);
-
-JLabel lblNewLabel = new JLabel("ENTRENAMOS.UY");
-lblNewLabel.setForeground(new Color(255, 255, 255));
-lblNewLabel.setFont(new Font("Lucida Sans", Font.BOLD, 50));
-GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-gbc_lblNewLabel.fill = GridBagConstraints.BOTH;
-gbc_lblNewLabel.gridx = 1;
-gbc_lblNewLabel.gridy = 1;
-desktopPane_1.add(lblNewLabel, gbc_lblNewLabel); */

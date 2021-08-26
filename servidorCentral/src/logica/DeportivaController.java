@@ -26,12 +26,7 @@ public class DeportivaController implements IDeportivaController {
 	}
 		
 	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases){
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		Institucion i = hi.findInstitucion(institucion);
-		HandlerCuponera hc = HandlerCuponera.getInstance();
-		Cuponera c = hc.getCup(nombreCuponera);
-		ActividadDeportiva ad = i.getActDep(actividadDeportiva);
-		c.addActDep(ad,cantidadClases);
+		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),cantidadClases);
 	}
 		
 	public int altaInstitucion(String nombre, String descripcion, String URL) {

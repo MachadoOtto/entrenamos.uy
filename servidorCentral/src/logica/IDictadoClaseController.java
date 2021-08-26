@@ -32,6 +32,8 @@ public interface IDictadoClaseController {
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos);
 	
 	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro);
+
+	public Set<String> obtenerSocios();
 	
 	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }

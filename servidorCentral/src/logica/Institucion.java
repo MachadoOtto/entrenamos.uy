@@ -10,8 +10,6 @@
 package logica;
 
 import datatypes.DtActividadDeportiva;
-import datatypes.DtClase;
-import datatypes.DtClaseExt;
 
 import java.util.Set;
 import java.util.logging.ConsoleHandler;
@@ -21,8 +19,6 @@ import java.util.logging.Logger;
 import java.util.Map;
 import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Collection;
-import java.util.Iterator;
 
 public class Institucion {
     private String nombre;

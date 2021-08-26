@@ -10,8 +10,10 @@
 package logica;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -41,7 +43,8 @@ public class Socio extends Usuario {
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
 	}
-	
+
+	//Guille: ...
 	public boolean esSocio() {
 		return true;
 	}
@@ -60,13 +63,19 @@ public class Socio extends Usuario {
 	}
 	
     public DtSocioExt getDtExt() {
-    	//DtSocio datos = this.getDt();
-    	Set<String> clasesInscripto = new HashSet<>();
-    	Iterator<ReciboClase> itRClases = reciboClases.iterator();
-		while (itRClases.hasNext()) {
-			clasesInscripto.add(itRClases.next().getNombreClase());
-		}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha(), clasesInscripto);
+    	Map<String,Set<String>> x = new HashMap<>();
+    	for(ReciboClase rc: reciboClases) {
+    		String z = rc.getClase().getAD().getNombre();
+    		if(!x.containsKey(z)) {
+    			Set<String> y = new HashSet<>();
+    			x.put(z,y);
+    			for(ReciboClase rc2: reciboClases) {
+    				if(rc2.getClase().getAD().getNombre().equals(z))
+    					y.add(rc2.getClase().getNombre());
+    			}
+    		}
+    	}
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha(), x);
     	return datosExt;
     }
 	
@@ -111,10 +120,13 @@ public class Socio extends Usuario {
 //	}
 //	
 	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t) {
+		if(!cl.hayLugar())
+			return 2;
 		DtFecha d = new DtFecha();
 		if(t.equals(TReg.general)) {
 			ReciboClase nuevoRecibo = new ReciboClase(d, TReg.general, actDep.getCosto(), cl, this, null);
 			reciboClases.add(nuevoRecibo);
+			cl.addRecibo(nuevoRecibo);
 			return 0;		
 		} else {
 			for (ReciboCuponera y: reciboCuponeras) {
@@ -129,6 +141,7 @@ public class Socio extends Usuario {
 					if (cantidadClases < cupActual.cantidadClases(actDep)) {
 						ReciboClase nuevoRecibo = new ReciboClase(d,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
 						reciboClases.add(nuevoRecibo);
+						cl.addRecibo(nuevoRecibo);
 						return 0;
 					}
 				}
