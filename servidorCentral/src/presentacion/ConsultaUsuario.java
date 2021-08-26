@@ -28,6 +28,8 @@ import datatypes.DtProfesorExt;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -38,11 +40,13 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.JTextPane;
 import javax.swing.JFrame;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.Color;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class ConsultaUsuario extends JInternalFrame {
@@ -516,6 +520,23 @@ public class ConsultaUsuario extends JInternalFrame {
 		getContentPane().add(labelWebsite_1, gbc_labelWebsite_1);
 		
 		tree = new JTree();
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			    if (SwingUtilities.isRightMouseButton(e)) {
+			        TreePath selPath = tree.getPathForLocation(e.getX(), e.getY());
+			        if(selPath==null) return;
+			        if(selPath.getPathCount()==2 && (((DefaultMutableTreeNode) selPath.getPathComponent(1)).getChildCount())>0) {
+			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
+			        	//AQUI VA LA REFERENCIA A LA ACTIVIDAD DEPORTIVA
+			        }
+			        if(selPath.getPathCount()==3 && (((DefaultMutableTreeNode) selPath.getPathComponent(2)).getChildCount())==0) {
+			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
+			        	//AQUI VA LA REFERENCIA A LA CLASE SELECCIONADA
+			        }
+			    }
+			}
+		});
 		tree.setRootVisible(false);
 		tree.setModel(new DefaultTreeModel(
 			new DefaultMutableTreeNode("root") {

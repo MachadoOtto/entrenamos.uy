@@ -3,6 +3,7 @@ package logica;
 import datatypes.DtClaseExt;
 import datatypes.DtClase;
 import datatypes.DtActividadDeportiva;
+import datatypes.DtActividadDeportivaExt;
 import datatypes.DtFecha;
 
 import java.util.Map;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 public class ActividadDeportiva {
 	
 	private Map <String, Clase> clases;  // Nombre de clase y clase
-	//private reciboCuponera 
+	private Map <String, ClasesCuponera> clCuponera;
 	
 	private String nombre;
 	private String descripcion;
@@ -29,19 +30,12 @@ public class ActividadDeportiva {
 	private Logger log;
 	
 	public ActividadDeportiva(String nom, String desc, int dur, float costo, DtFecha fec){
-		
 		nombre = nom;
 		descripcion = desc;
 		duracionMinutos = dur;
 		this.costo = costo;
 		fechaRegistro = new DtFecha(fec);
-		clases = new HashMap<>();
-		
-		log = Logger.getLogger(HandlerInstitucion.class.getName());
-		log.setLevel(Level.INFO);
-		Handler handler = new ConsoleHandler();
-		log.addHandler(handler);
-		
+		同じ();
 	}
 	public ActividadDeportiva(DtActividadDeportiva x) {
 		nombre=x.getNombre();
@@ -49,8 +43,11 @@ public class ActividadDeportiva {
 		duracionMinutos=x.getDuracionMinutos();
 		costo=x.getCosto();
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
+		同じ();
+	}
+	private void 同じ() {
 		clases = new HashMap<>();
-		
+		clCuponera= new HashMap<>();
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
@@ -60,7 +57,15 @@ public class ActividadDeportiva {
 	public String getNombre() {
 		return nombre;
 	}
-
+	public int addClasesCup(ClasesCuponera cp) {
+		System.out.println(clCuponera.size());
+		if(clCuponera.containsKey(cp.getNombreCuponera()))
+			return 1;
+		clCuponera.put(cp.getNombreCuponera(), cp);
+		log.info("ActDep "+nombre+" event: "+" new cup added "+cp.getNombreCuponera());
+		return 0;
+	}
+	
 	public int addClase(DtClase cl, Profesor p) {
 		if(clases.containsKey(cl.getNombre()))
 			return 1;
@@ -121,6 +126,12 @@ public class ActividadDeportiva {
 			if(x.getValue().getProfesor()==profe)
 				return true;
         return false;
+	}
+	public DtActividadDeportivaExt getDtExt() {
+		Set<String> q = new HashSet<>(clases.keySet());
+		Set<String> r = new HashSet<>(clases.keySet());
+		DtActividadDeportivaExt x = new DtActividadDeportivaExt(nombre, descripcion, duracionMinutos, costo, fechaRegistro,q,r);
+		return x;
 	}
 
 }

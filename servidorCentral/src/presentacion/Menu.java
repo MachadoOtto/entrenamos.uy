@@ -120,6 +120,7 @@ public class Menu {
 		
 		// ConsultaActividadDeportiva
 		consActDep = new ConsultaActividadDeportiva(IADC);
+		consActDep.setBounds(143, 20, 457, 719);
 		consActDep.setVisible(false);
 		escritorio.add(consActDep);
 		
@@ -169,9 +170,13 @@ public class Menu {
 		JMenu menuInicio = new JMenu("Inicio\r\n");
 		menuBar.add(menuInicio);
 		
-		JMenuItem itemIrInicio = new JMenuItem("Ir a Inicio");
+		JMenuItem itemIrInicio = new JMenuItem("Limpiar Escritorio");
 		menuInicio.add(itemIrInicio);
-
+		itemIrInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				掃除();
+			}
+		});
 		JMenuItem itemPueba = new JMenuItem("Cargar Datos Prueba");
 		menuInicio.add(itemPueba);
 		itemPueba.addActionListener(new ActionListener() {
@@ -179,7 +184,7 @@ public class Menu {
 				cargarDatosPrueba();
 			}
 		});
-		
+
 		JMenuItem itemSalir = new JMenuItem("Salir");
 		menuInicio.add(itemSalir);
 		itemSalir.addActionListener(new ActionListener() {
@@ -319,8 +324,7 @@ public class Menu {
 				if (consActDep.isVisible()) 
 					consActDep.toFront();
 				else {
-					//consActDep.clear();
-					consActDep.cargarInstituciones();
+					consActDep.clear();
 					consActDep.setVisible(true);
 				}
 			}
@@ -370,6 +374,21 @@ public class Menu {
 		});
 	}
 	
+	private void 掃除() {
+		altaUsuario.setVisible(false);
+		altaActDep.setVisible(false);
+		altaClase.setVisible(false);
+		altaIns.setVisible(false);
+	    altaCup.setVisible(false);
+		regUsuClass.setVisible(false);
+		consultaClass.setVisible(false);
+		consActDep.setVisible(false);
+		consultaCup.setVisible(false);
+		consultaUsu.setVisible(false);
+		modificarUsu.setVisible(false);
+		aggCup.setVisible(false);
+	}
+	
 	private void cargarDatosPrueba() {
 		
 		//ALTA INSTITUCIONES
@@ -387,7 +406,7 @@ public class Menu {
 					+ "clases son organizadas en funci\u00f3n de distintos "
 					+ "aparatos y pesas con el objetivo de desarrollar "
 					+ "m\u00fa sculos\r\n"
-					+ "","Victor naci en Moscow en 1977. En el a\\u00f1o "
+					+ "","Victor naci en Moscow en 1977. En el a\u00f1o "
 					+ "2005 emigr\u00f3 a Uruguay luego de quedar "
 					+ "encantado con el pa\u00eds en un viaje turistico","www.vikgym.com");
 			IUC.ingresarDatosUsuario(datosUser);

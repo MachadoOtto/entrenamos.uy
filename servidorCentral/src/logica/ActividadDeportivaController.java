@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
+import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.TReg;
 
@@ -21,7 +22,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public Set<String> obtenerInstituciones(){
 		return getHI().obtenerInstituciones();
 	}		
-	
+	public Set<String> obtenerActividades(String ins) {
+		return getHI().findInstitucion(ins).obtenerNombresActDep();
+	}
 	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD){
 		Institucion inst = getHI().findInstitucion(nombreInsti);
 		if (!inst.existeActDep(datosAD.getNombre())) {
@@ -82,10 +85,15 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	return 0;
 	}
 	
+	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) {
+		return getHI().findInstitucion(ins).getActDep(actDep).getDtExt();
+	}
+	
 	private static HandlerInstitucion getHI() {
 		return  HandlerInstitucion.getInstance();
 	}
 	private static HandlerUsuario getHU() {
 		return  HandlerUsuario.getInstance();
 	}
+
 }

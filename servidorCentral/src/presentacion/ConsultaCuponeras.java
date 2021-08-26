@@ -4,7 +4,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-
+import javax.swing.SwingUtilities;
 
 import logica.IDeportivaController;
 
@@ -25,7 +25,13 @@ import java.util.Set;
 import javax.swing.JSeparator;
 import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeSelectionModel;
+
+import com.sun.corba.se.impl.orbutil.graph.Node;
 
 import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
@@ -95,7 +101,6 @@ public class ConsultaCuponeras extends JInternalFrame{
 		getContentPane().add(horizontalStrut, gbc_horizontalStrut);
 		
 		cbCuponera = new JComboBox<>();
-
 		cbCuponera.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if(cbCuponera.getSelectedItem() == "-" ||cbCuponera.getSelectedItem() == null) {
@@ -110,12 +115,15 @@ public class ConsultaCuponeras extends JInternalFrame{
 									DefaultMutableTreeNode nodoAct;
 									add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
 									add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
-									add(new DefaultMutableTreeNode("Valida a partir del:"+x.getFechaInicio().toFecha()));
-									add(new DefaultMutableTreeNode("Valida hasta el:"+x.getFechaFin().toFecha()));
-									add(new DefaultMutableTreeNode("Costo:"+x.getCosto()));
-									nodoAct = new DefaultMutableTreeNode("Contiene las siguientes actividades:");
+									add(new DefaultMutableTreeNode("Valida a partir del: "+x.getFechaInicio().toFecha()));
+									add(new DefaultMutableTreeNode("Valida hasta el: "+x.getFechaFin().toFecha()));
+									add(new DefaultMutableTreeNode("Costo: "+x.getCosto()));
+									nodoAct = new DefaultMutableTreeNode("Contiene las siguientes actividades: ");
 									for(DtClasesCuponera v: x.getContenido()) {
-										nodoAct.add(new DefaultMutableTreeNode(v.getNombreActividad()+" / "+v.getCantidadClases()+" clases"));
+										nodoAct.add(new DefaultMutableTreeNode(v.getNombreActividad()+" / "+v.getCantidadClases()+" clases."));
+									}
+									if(nodoAct.getChildCount()==0) {
+										nodoAct.add(new DefaultMutableTreeNode("No hay actividades asociadas a esta cuponera."));
 									}
 									add(nodoAct);
 								}
@@ -171,6 +179,19 @@ public class ConsultaCuponeras extends JInternalFrame{
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		treeCuponera.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		treeCuponera.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		TreeSelectionListener lst = new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent e) {
+				 DefaultMutableTreeNode node = (DefaultMutableTreeNode) treeCuponera.getLastSelectedPathComponent();
+				 if(node == null) 
+					 return;
+				 DefaultMutableTreeNode dad = (DefaultMutableTreeNode) node.getParent();
+				 if(dad != null && dad.getUserObject().equals("Contiene las siguientes actividades:")) {
+					 //Desde aqui se despliega el caso de uso consulta actividad deportiva si tan solo funcionara...
+				 }
+			}
+		};
+		treeCuponera.addTreeSelectionListener(lst);
 		GridBagConstraints gbc_treeCuponera = new GridBagConstraints();
 		gbc_treeCuponera.insets = new Insets(0, 0, 5, 5);
 		gbc_treeCuponera.fill = GridBagConstraints.BOTH;
