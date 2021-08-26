@@ -432,10 +432,10 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		modelActDep.addElement("---Seleccione una actividad deportiva---");
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-		for (String actDep: ins.obtenerActDep()) {
-			modelActDep.addElement(actDep);
-		}
-		comboBoxActDep.setModel(modelActDep);
+//		for (String actDep: ins.obtenerActDep()) {
+//			modelActDep.addElement(actDep);
+//		}
+//		comboBoxActDep.setModel(modelActDep);
 	}
 	
 	public void cargarDatosActDep() {
@@ -458,10 +458,10 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		modelClases.addElement("---Seleccione una clase---");
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-		for (String clase: ins.obtenerNombreClasesActDep(comboBoxActDep.getName())) {
-			modelClases.addElement(clase);
-		}
-		comboBoxClases.setModel(modelClases);
+//		for (String clase: ins.obtenerNombreClasesActDep(comboBoxActDep.getName())) {
+//			modelClases.addElement(clase);
+//		}
+//		comboBoxClases.setModel(modelClases);
 	}
 	
 	public void cargarCuponeras() {
@@ -470,17 +470,17 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		modelCuponeras.addElement("---Seleccione una cuponera---");
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-		for (String clase: ins.obtenerNombreClasesActDep(comboBoxActDep.getName())) {
-			modelCuponeras.addElement(clase);
-		}
+//		for (String clase: ins.obtenerNombreClasesActDep(comboBoxActDep.getName())) {
+//			modelCuponeras.addElement(clase);
+//		}
 		comboBoxCuponeras.setModel(modelCuponeras);
 	}
 	
 	public void verInfoClase() {
 		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-		DtClaseExt datosClase = ins.obtenerDtClase(comboBoxActDep.getName(),comboBoxClases.getName());
-		textFieldClase.setText(datosClase.toString());
+//		DtClaseExt datosClase = ins.obtenerDtClase(comboBoxActDep.getName(),comboBoxClases.getName());
+//		textFieldClase.setText(datosClase.toString());
 	}
 	
 	public void verInfoCuponera() {

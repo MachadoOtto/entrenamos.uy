@@ -57,4 +57,8 @@ public class ReciboClase {
 	public Cuponera getCuponera() {
 		return cup;
 	}
+
+	public Clase getClase() {
+		return aClase;
+	}
 }

@@ -14,6 +14,7 @@ import datatypes.DtProfesorExt;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Profesor extends Usuario {
 	
@@ -101,17 +102,24 @@ public class Profesor extends Usuario {
 	}
 	
 	public DtProfesor getDt() {
-		// Guille Bruh: DtProfesor datos = new DtProfesor(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha(), this.getDescripcion(), this.getBiografia(), this.getWebsite());
 		DtProfesor datos = new DtProfesor(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website);
 		return datos;
 	}
 	
     public DtProfesorExt getDtExt() {
-    	//DtProfesor datos = this.getDt();
-    	Set<String> clasesDictadas = misClases.keySet();
-    	Set<String> actDeportivas = instituto.getMiTrabajo(this);
-    	// Ya quisieras DtProfesorExt datosExt = new DtProfesorExt(datos, clasesDictadas, actDeportivas);
-    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website,clasesDictadas, actDeportivas);
+    	Set<String> clasesDictadas = new HashSet<>(misClases.keySet());
+    	Map<String,Set<String>> x = new HashMap<>();
+    	for(String aa: instituto.getMiTrabajo(this)) {
+    		Set<String> y = new HashSet<>();
+    		x.put(aa,y);
+    		for(String c: clasesDictadas) {
+    			if(misClases.get(c).tieneActividadDeportiva(aa)) {
+    				y.add(c);
+    			}
+    		}
+    	}
+    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),
+    			descripcion,biografia,website,x);
     	return datosExt;
     }
     

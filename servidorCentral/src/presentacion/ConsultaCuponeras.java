@@ -31,6 +31,8 @@ import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 
@@ -93,27 +95,12 @@ public class ConsultaCuponeras extends JInternalFrame{
 		getContentPane().add(horizontalStrut, gbc_horizontalStrut);
 		
 		cbCuponera = new JComboBox<>();
-		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
-		Set<String> ss= IDC.getNombreCuponeras();
-		for(String x: ss ) {
-			model.addElement(x);
-		}
-		cbCuponera.setModel(model);
-		cbCuponera.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				String t = (String) cbCuponera.getSelectedItem();
-				cbCuponera.removeAllItems();
-				for(String x: IDC.getNombreCuponeras()) {
-					cbCuponera.addItem(x);
-				}
-				cbCuponera.setSelectedItem(t);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(((String) cbCuponera.getSelectedItem())==null) {
+
+		cbCuponera.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(cbCuponera.getSelectedItem() == "-" ||cbCuponera.getSelectedItem() == null) {
 					treeCuponera.setModel(new DefaultTreeModel(
-							new DefaultMutableTreeNode("No hay cuponeras en el sistema.")));
+							new DefaultMutableTreeNode("No hay cuponera seleccionada.")));
 				}
 				else {
 					DtCuponera x = IDC.seleccionarCuponera((String) cbCuponera.getSelectedItem());
@@ -123,8 +110,8 @@ public class ConsultaCuponeras extends JInternalFrame{
 									DefaultMutableTreeNode nodoAct;
 									add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
 									add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
-									add(new DefaultMutableTreeNode("Valida a partir del:"+x.getFechaInicio().toString()));
-									add(new DefaultMutableTreeNode("Valida hasa:"+x.getFechaFin().toString()));
+									add(new DefaultMutableTreeNode("Valida a partir del:"+x.getFechaInicio().toFecha()));
+									add(new DefaultMutableTreeNode("Valida hasta el:"+x.getFechaFin().toFecha()));
 									add(new DefaultMutableTreeNode("Costo:"+x.getCosto()));
 									nodoAct = new DefaultMutableTreeNode("Contiene las siguientes actividades:");
 									for(DtClasesCuponera v: x.getContenido()) {
@@ -137,6 +124,29 @@ public class ConsultaCuponeras extends JInternalFrame{
 				}
 			}
 		});
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+		Set<String> ss= IDC.getNombreCuponeras();
+		model.addElement("-");
+		for(String x: ss ) {
+			model.addElement(x);
+		}
+		cbCuponera.setModel(model);
+		cbCuponera.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				Set<String> tt = IDC.getNombreCuponeras();
+				if(cbCuponera.getItemCount()!=tt.size()+1) {
+					String t = (String) cbCuponera.getSelectedItem();
+					cbCuponera.removeAllItems();
+					model.addElement("-");
+					for(String x: IDC.getNombreCuponeras()) {
+						cbCuponera.addItem(x);
+					}
+					cbCuponera.setSelectedItem(t);
+				}
+			}
+		});
+
 		GridBagConstraints gbc_cbCuponera = new GridBagConstraints();
 		gbc_cbCuponera.insets = new Insets(0, 0, 5, 5);
 		gbc_cbCuponera.fill = GridBagConstraints.HORIZONTAL;
@@ -153,29 +163,10 @@ public class ConsultaCuponeras extends JInternalFrame{
 		getContentPane().add(separator, gbc_separator);
 		
 		treeCuponera = new JTree();
-		if(((String) cbCuponera.getSelectedItem())==null) {
+		treeCuponera.setRootVisible(false);
+		if(((String) cbCuponera.getSelectedItem())=="-") {
 			treeCuponera.setModel(new DefaultTreeModel(
-					new DefaultMutableTreeNode("No hay cuponeras en el sistema.")));
-		}
-		else {
-			DtCuponera x = IDC.seleccionarCuponera((String) cbCuponera.getSelectedItem());
-			treeCuponera.setModel(new DefaultTreeModel(
-					new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
-						{
-							DefaultMutableTreeNode nodoAct;
-							add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
-							add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
-							add(new DefaultMutableTreeNode("Valida a partir del:"+x.getFechaInicio().toString()));
-							add(new DefaultMutableTreeNode("Valida hasa:"+x.getFechaFin().toString()));
-							add(new DefaultMutableTreeNode("Costo:"+x.getCosto()));
-							nodoAct = new DefaultMutableTreeNode("Contiene las siguientes actividades:");
-							for(DtClasesCuponera v: x.getContenido()) {
-								nodoAct.add(new DefaultMutableTreeNode(v.getNombreActividad()+" / "+v.getCantidadClases()+" clases"));
-							}
-							add(nodoAct);
-						}
-					}
-				));
+					new DefaultMutableTreeNode("No hay cuponera seleccionada.")));
 		}
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		treeCuponera.setBorder(BorderFactory.createCompoundBorder(border, 

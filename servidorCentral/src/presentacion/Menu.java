@@ -52,7 +52,7 @@ public class Menu {
 	private CrearCuponera altaCup;
 	private RegistroUsuarioClase regUsuClass;
 	private ConsultaDictadoClase consultaClass;
-	//private ConsultaActividadDeportiva consActDep;
+	private ConsultaActividadDeportiva consActDep;
 	private ConsultaCuponeras consultaCup;
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
@@ -117,15 +117,15 @@ public class Menu {
 		consultaClass = new ConsultaDictadoClase(IDCC);
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
-
-		ConsultaActividadDeportiva
+		
+		// ConsultaActividadDeportiva
 		consActDep = new ConsultaActividadDeportiva(IADC);
 		consActDep.setVisible(false);
 		escritorio.add(consActDep);
 		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
-		consultaCup.setBounds(200, 100, 400, 200);
+		consultaCup.setBounds(200, 100, 400, 458);
 		consultaCup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		consultaCup.setVisible(false);
 		escritorio.add(consultaCup);
@@ -154,7 +154,7 @@ public class Menu {
 	private void iniciar() {
         // Se crea el Frame con las dimensiones indicadas:
 		menuPrincipal = new JFrame();
-		menuPrincipal.setTitle("ENTRENAMOS.UY");
+		menuPrincipal.setTitle("Entrenamos.uy");
 		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuPrincipal.setBounds(180, 100, 1000, 800);
 		menuPrincipal.setResizable(true);
@@ -378,17 +378,18 @@ public class Menu {
 		//ALTA USUARIOS
 		DtUsuario datosUser;
 			//SOCIOS
-			datosUser = new DtSocio("Emi71","Emiliano","Lucas","emi71@gmail.com", new DtFecha(31,12,1971,0,0,0));
+			datosUser = new DtSocio("Emi71","Emiliano","Lucas","emi71@gmail.com", new DtFecha(1971,31,12,0,0,0));
 			IUC.ingresarDatosUsuario(datosUser);
 			
 			//PROFESORES
-			datosUser = new DtProfesor("viktor","vperez@fuerza.com","Victor","Perez", new DtFecha(1,1,1977,0,0,0),"Fuerza Bruta", "Victor es un apasionado de los msculos. Sus\r\n"
-					+ "clases son organizadas en funcin de distintos\r\n"
-					+ "aparatos y pesas con el objetivo de desarrollar\r\n"
-					+ "msculos\r\n"
-					+ "","Victor naci en Moscow en 1977. En el ao\r\n"
-							+ "2005 emigr a Uruguay luego de quedar\r\n"
-							+ "encantado con el pas en un viaje turstico","www.vikgym.com");
+			datosUser = new DtProfesor("viktor","vperez@fuerza.com","Victor","Perez", new DtFecha(1997,1,1,0,0,0),"Fuerza Bruta",
+					"Victor es un apasionado de los msculos. Sus"
+					+ "clases son organizadas en funci\u00f3n de distintos "
+					+ "aparatos y pesas con el objetivo de desarrollar "
+					+ "m\u00fa sculos\r\n"
+					+ "","Victor naci en Moscow en 1977. En el a\\u00f1o "
+					+ "2005 emigr\u00f3 a Uruguay luego de quedar "
+					+ "encantado con el pa\u00eds en un viaje turistico","www.vikgym.com");
 			IUC.ingresarDatosUsuario(datosUser);
 
 		//ALTA ACTIVIDAD DEPORTIVA
@@ -397,9 +398,23 @@ public class Menu {
         IADC.ingresarDatosActividadDep("Fuerza Bruta", datosAD);
 
         //ALTA CLASE
-        DtFecha fechaClase= new DtFecha(15,10,2021,20,0,0);
-        DtFecha fechaRegistro= new DtFecha(7,6,2021,0,0,0);
+        DtFecha fechaClase= new DtFecha(2021,10,15,20,0,0);
+        DtFecha fechaRegistro= new DtFecha(2021,6,7,0,0,0);
         DtClase datos = new DtClase("Msculos para boxeo", "viktor","viktor",1, 5, "https://www.musculos.com/muscbox", fechaClase, fechaRegistro);
         IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", datos);
+        
+        //CUPONERAS
+        DtFecha fechaIni= new DtFecha(2021,5,1,20,0,0);
+        DtFecha fechaFin= new DtFecha(2021,7,31,0,0,0);
+        fechaAlta= new DtFecha(2021,4,30,20,0,0);
+        IDC.ingresarCuponera("Pelota","Deportes con pelota", fechaIni, fechaFin, 20, fechaAlta);
+        
+        fechaIni= new DtFecha(2021,8,15,0,0,0);
+        fechaFin= new DtFecha(2021,11,15,0,0,0);
+        fechaAlta= new DtFecha(2021,8,1,0,0,0);
+        IDC.ingresarCuponera("Músculos","Pesas.", fechaIni, fechaFin, 20, fechaAlta);
+        IDC.agregarActividadCuponera("Músculos", "Fuerza Bruta", "Kickboxing", 11);
+        
+        JOptionPane.showMessageDialog(escritorio, "Se han cargado los datos de prueba exitosamente.\nテストデータは見事に入力しました", "Info", JOptionPane.INFORMATION_MESSAGE);
 	}
 }

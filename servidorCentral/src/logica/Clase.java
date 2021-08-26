@@ -71,4 +71,11 @@ public class Clase {
 	public void addRecibo(ReciboClase rc) {
 		ListReciboClase.add(rc);
 	}
+	public boolean tieneActividadDeportiva(String aa) {
+		return a.getNombre().equals(aa);
+	}
+	public ActividadDeportiva getAD() {
+		return a;
+	}
+	
 }

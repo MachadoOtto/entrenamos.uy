@@ -66,6 +66,7 @@ public class ActividadDeportiva {
 			return 1;
 		Clase x = new Clase(cl,p,this);
 		clases.put(cl.getNombre(), x);
+		p.addClase(x);
 		log.info("ActDep "+nombre+" event: "+" new clase "+cl.getNombre());
 		return 0;
 	}
