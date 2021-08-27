@@ -81,8 +81,8 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JTree tree;
 	private JLabel labelWebsite_1;
 	
-	private ConsultaActividadDeportiva 玉;
-	private ConsultaDictadoClase 授業;
+	ConsultaDictadoClase refCDC;
+	ConsultaActividadDeportiva refCAD;
 	
 /*
  * AVISO IMPORTANTE: EL WINDOW BUILDER ESTA BUGEADO PARA ESTA CLASE
@@ -533,11 +533,16 @@ public class ConsultaUsuario extends JInternalFrame {
 			        if(selPath.getPathCount()==2 && (((DefaultMutableTreeNode) selPath.getPathComponent(1)).getChildCount())>0) {
 			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
 			        	//AQUI VA LA REFERENCIA A LA ACTIVIDAD DEPORTIVA
+			        	System.out.println("DEBUG: selection: "+q);
+			        	refCAD.refEntry(q);
 			        	
 			        }
 			        if(selPath.getPathCount()==3 && (((DefaultMutableTreeNode) selPath.getPathComponent(2)).getChildCount())==0) {
-			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
+			        	String act = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
+			        	String cla = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(2)).getUserObject();
 			        	//AQUI VA LA REFERENCIA A LA CLASE SELECCIONADA
+			        	System.out.println("DEBUG: selection: "+act+" "+cla);
+			        	refCDC.refEntry(act,cla);
 			        }
 			    }
 			}
@@ -562,7 +567,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		getContentPane().add(tree, gbc_tree);
 		
 		
-		JLabel lblNewLabel_1 = new JLabel("Seleccione una clase (click izq) o una actividad deportiva (click derecho) para obtener su info.");
+		JLabel lblNewLabel_1 = new JLabel("Seleccione una clase o una actividad deportiva (click derecho) para obtener su info.");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridwidth = 6;
@@ -573,9 +578,6 @@ public class ConsultaUsuario extends JInternalFrame {
 
 	}
 	
-	/*
-	 * Se encarga de limpiar datos ingresados por el usuario
-	 */
 
 	@SuppressWarnings("serial")
 	public void clear() {
@@ -603,6 +605,12 @@ public class ConsultaUsuario extends JInternalFrame {
 			));
     	datosUsuarioActual = null;
     	comboBoxUsuario.setSelectedIndex(0);
+	}
+
+
+	public void setRef(ConsultaDictadoClase consultaClass, ConsultaActividadDeportiva consActDep) {
+		refCDC = consultaClass;
+		refCAD = consActDep;
 	}
 
 }

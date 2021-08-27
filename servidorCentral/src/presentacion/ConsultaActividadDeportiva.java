@@ -516,7 +516,8 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	}
 
 	public void refEntry(String actDep) {
-		actDep = actDep.split(" ")[0];
+		if(actDep.contains("/"))
+			actDep = actDep.split("/")[0];
         DefaultComboBoxModel<String> model;
         String institf=null;
         model = new DefaultComboBoxModel<>();
@@ -541,10 +542,10 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         comboBoxActDep.setEnabled(true);
         comboBoxActDep.setModel(modelActividad);
         comboBoxIns.setSelectedItem(actDep);
+		loadData();
 		if (this.isVisible()) 
 			this.toFront();
 		else {
-			loadData();
 			this.setVisible(true);
 		}
 	}
