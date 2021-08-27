@@ -118,12 +118,6 @@ public class Menu {
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
 		
-		// ConsultaActividadDeportiva
-		consActDep = new ConsultaActividadDeportiva(IADC);
-		consActDep.setBounds(143, 20, 457, 719);
-		consActDep.setVisible(false);
-		escritorio.add(consActDep);
-		
 		// ConsultaCuponeras:
 		consultaCup = new ConsultaCuponeras(IDC);
 		consultaCup.setBounds(200, 100, 400, 458);
@@ -135,6 +129,12 @@ public class Menu {
 		consultaUsu = new ConsultaUsuario(IUC);
 		consultaUsu.setVisible(false);
 		escritorio.add(consultaUsu);
+
+		// ConsultaActividadDeportiva
+		consActDep = new ConsultaActividadDeportiva(IADC);
+		consActDep.setBounds(143, 20, 457, 719);
+		consActDep.setVisible(false);
+		escritorio.add(consActDep);
 		
 		//ModificarDatosUsuario
 		modificarUsu = new ModificarDatosUsuario(IUC);
@@ -146,10 +146,13 @@ public class Menu {
 		altaCup.setVisible(false);
 		escritorio.add(altaCup);
 		
-		aggCup = new AgregarActividadDeportivaCuponera();
+		aggCup = new AgregarActividadDeportivaCuponera(IDC,IADC);
 		aggCup.setVisible(false);
 		escritorio.add(aggCup);
 		
+		//Se relacionan los Frames de consultas
+		consActDep.setRef(consultaClass,consultaCup);
+		consultaCup.setRef(consActDep);
 	}
 	
 	private void iniciar() {

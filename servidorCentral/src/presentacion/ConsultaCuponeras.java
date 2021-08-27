@@ -49,8 +49,9 @@ public class ConsultaCuponeras extends JInternalFrame{
 	//Controller
 	private IDeportivaController IDC;
 	//Components
-	JComboBox<String> cbCuponera;
-	JTree treeCuponera;
+	private JComboBox<String> cbCuponera;
+	private JTree treeCuponera;
+	private ConsultaActividadDeportiva refAd;
 	
 	public ConsultaCuponeras(IDeportivaController IDC) {
 		this.IDC = IDC;
@@ -115,8 +116,9 @@ public class ConsultaCuponeras extends JInternalFrame{
 									add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
 									add(new DefaultMutableTreeNode("Valida a partir del: "+x.getFechaInicio().toFecha()));
 									add(new DefaultMutableTreeNode("Valida hasta el: "+x.getFechaFin().toFecha()));
-									add(new DefaultMutableTreeNode("Costo: "+x.getCosto()));
-									nodoAct = new DefaultMutableTreeNode("Contiene las siguientes actividades: ");
+									add(new DefaultMutableTreeNode("Costo: "+Math.round(x.getCosto())));
+									add(new DefaultMutableTreeNode("Descuento que aplica: "+Math.round(100*(1-x.getDescuento()))+"%"));
+									nodoAct = new DefaultMutableTreeNode("Actividades deportivas");
 									for(DtClasesCuponera v: x.getContenido()) {
 										nodoAct.add(new DefaultMutableTreeNode(v.getNombreActividad()+" / "+v.getCantidadClases()+" clases."));
 									}
@@ -184,8 +186,9 @@ public class ConsultaCuponeras extends JInternalFrame{
 				 if(node == null) 
 					 return;
 				 DefaultMutableTreeNode dad = (DefaultMutableTreeNode) node.getParent();
-				 if(dad != null && dad.getUserObject().equals("Contiene las siguientes actividades:")) {
-					 //Desde aqui se despliega el caso de uso consulta actividad deportiva si tan solo funcionara...
+				 if(dad != null && dad.getUserObject().equals("Actividades deportivas")) {
+					 //Ref actdep.
+					 refAd.refEntry((String) node.getUserObject());
 				 }
 			}
 		};
@@ -207,10 +210,24 @@ public class ConsultaCuponeras extends JInternalFrame{
 	}
 	
     public void cbCuponeraLoad() {
-        DefaultComboBoxModel<String> model;
-        model = new DefaultComboBoxModel<String>((String[]) IDC.getNombreCuponeras().toArray());
-        cbCuponera.setModel(model);
-
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+		Set<String> ss= IDC.getNombreCuponeras();
+		model.addElement("-");
+		for(String x: ss ) {
+			model.addElement(x);
+		}
+    }
+    public void setRef(ConsultaActividadDeportiva a) {
+    	refAd = a;
+    }
+    public void refEntry(String c) {
+		if (this.isVisible()) 
+			this.toFront();
+		else {
+			cbCuponeraLoad();
+			cbCuponera.setSelectedItem(c);
+			this.setVisible(true);
+		}
     }
 
 }

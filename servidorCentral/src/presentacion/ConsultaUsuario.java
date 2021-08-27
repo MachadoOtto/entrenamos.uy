@@ -1,6 +1,7 @@
 package presentacion;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JInternalFrame;
 
@@ -79,6 +80,9 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JTextField textFieldInstitucion;
 	private JTree tree;
 	private JLabel labelWebsite_1;
+	
+	private ConsultaActividadDeportiva 玉;
+	private ConsultaDictadoClase 授業;
 	
 /*
  * AVISO IMPORTANTE: EL WINDOW BUILDER ESTA BUGEADO PARA ESTA CLASE
@@ -219,7 +223,7 @@ public class ConsultaUsuario extends JInternalFrame {
 									new DefaultMutableTreeNode("root") {
 										{
 											//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-											add(new DefaultMutableTreeNode("El socio no est inscripto a ninguna clase."));
+											add(new DefaultMutableTreeNode("El socio no está inscripto a ninguna clase."));
 										}
 									}
 								));
@@ -529,6 +533,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			        if(selPath.getPathCount()==2 && (((DefaultMutableTreeNode) selPath.getPathComponent(1)).getChildCount())>0) {
 			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
 			        	//AQUI VA LA REFERENCIA A LA ACTIVIDAD DEPORTIVA
+			        	
 			        }
 			        if(selPath.getPathCount()==3 && (((DefaultMutableTreeNode) selPath.getPathComponent(2)).getChildCount())==0) {
 			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
@@ -556,6 +561,15 @@ public class ConsultaUsuario extends JInternalFrame {
 		gbc_tree.gridy = 18;
 		getContentPane().add(tree, gbc_tree);
 		
+		
+		JLabel lblNewLabel_1 = new JLabel("Seleccione una clase (click izq) o una actividad deportiva (click derecho) para obtener su info.");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.gridwidth = 6;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_1.gridx = 1;
+		gbc_lblNewLabel_1.gridy = 19;
+		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
 
 	}
 	

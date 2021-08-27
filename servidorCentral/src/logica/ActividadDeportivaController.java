@@ -59,8 +59,16 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		
 		//cup.getNombresActDep();
 		Set<String> x = new HashSet<>();
-		return x;
+		for(String y: getHI().findInstitucion(ins).getActsDeps().keySet()) {
+			x.add(y);
+			for(String z: getHC().getCup(nombreCup).getNombresActDep()) {
+				if(y.equals(z))
+					x.remove(y);
+				break;
+			}
 		}
+		return x;
+	}
 	
 	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) {
 		return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
@@ -70,20 +78,20 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return getHU().obtenerNicknameSocios(); 
 	}
 	
-	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro){
-//	//Funcion critica. Analizar bien!!! (ARREGLAR)
-//	HandlerUsuario hu = HandlerUsuario.getInstance();
-//	HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//	Clase c = hi.findClase(ins,actDep,clase);
-//	Institucion i = hi.findInstitucion(ins);
-//	ActividadDeportiva ad = i.getActDep(actDep);
-//	Usuario usu = hu.findUsuario(socio);
-//	int res = 1;
-//	if (c != null) {
-//		res = ((Socio) usu).inscribirSocio(ad, c, tipoRegistro);
+//	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro){
+////	//Funcion critica. Analizar bien!!! (ARREGLAR)
+////	HandlerUsuario hu = HandlerUsuario.getInstance();
+////	HandlerInstitucion hi = HandlerInstitucion.getInstance();
+////	Clase c = hi.findClase(ins,actDep,clase);
+////	Institucion i = hi.findInstitucion(ins);
+////	ActividadDeportiva ad = i.getActDep(actDep);
+////	Usuario usu = hu.findUsuario(socio);
+////	int res = 1;
+////	if (c != null) {
+////		res = ((Socio) usu).inscribirSocio(ad, c, tipoRegistro);
+////	}
+//	return 0;
 //	}
-	return 0;
-	}
 	
 	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) {
 		return getHI().findInstitucion(ins).getActDep(actDep).getDtExt();
@@ -95,5 +103,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	private static HandlerUsuario getHU() {
 		return  HandlerUsuario.getInstance();
 	}
-
+	private static HandlerCuponera getHC() {
+		return  HandlerCuponera.getInstance();
+	}
 }
