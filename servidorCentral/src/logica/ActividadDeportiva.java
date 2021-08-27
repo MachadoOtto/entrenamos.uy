@@ -9,8 +9,6 @@ import datatypes.DtFecha;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -108,13 +106,13 @@ public class ActividadDeportiva {
 		return clases.get(c);
 	}
 	
-	public List<String> getNombreActDep(String nombreCup){
-		//Guille: Despues vemos como se hace bien.
-		//Cuponera cup;//FALTA TERMINAR
-		//return cup.getNombresActDep();
-		List<String> x = new ArrayList<>();
-		return x;
-	}
+//	public List<String> getNombreActDep(String nombreCup){
+//		//Guille: Despues vemos como se hace bien.
+//		//Cuponera cup;//FALTA TERMINAR
+//		//return cup.getNombresActDep();
+//		List<String> x = new ArrayList<>();
+//		return x;
+//	}
 
 	public String getDescripcion() {return descripcion;}
 	public int getDuracionMinutos() {return duracionMinutos;}
@@ -129,7 +127,7 @@ public class ActividadDeportiva {
 	}
 	public DtActividadDeportivaExt getDtExt() {
 		Set<String> q = new HashSet<>(clases.keySet());
-		Set<String> r = new HashSet<>(clases.keySet());
+		Set<String> r = new HashSet<>(clCuponera.keySet());
 		DtActividadDeportivaExt x = new DtActividadDeportivaExt(nombre, descripcion, duracionMinutos, costo, fechaRegistro,q,r);
 		return x;
 	}

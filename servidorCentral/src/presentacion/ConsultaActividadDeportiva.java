@@ -20,9 +20,15 @@ import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
+import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
 
@@ -37,6 +43,7 @@ import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class ConsultaActividadDeportiva extends JInternalFrame {
 	
 	//Controller
@@ -45,8 +52,8 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JPanel panelInsActDep;
 	private JLabel lblIns;
 	private JLabel lblActDep;
-	private JComboBox comboBoxIns;
-	private JComboBox comboBoxActDep;
+	private JComboBox<String> comboBoxIns;
+	private JComboBox<String> comboBoxActDep;
 	private JPanel panelDatosAD;
 	private JLabel lblNombre;
 	private JLabel lblDesc;
@@ -68,7 +75,8 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JTree tree;
 	private JTextArea textFieldDesc;
 	private JLabel lblNewLabel;
-	
+	private ConsultaDictadoClase refClase;
+	private ConsultaCuponeras refCup;
 	public ConsultaActividadDeportiva(IActividadDeportivaController IADC) {
 		
 		this.IADC = IADC;
@@ -147,6 +155,12 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         			comboBoxActDep.setEnabled(false);
         		}
     			comboBoxActDep.setModel(modelActividad);
+    			tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
+    				{
+    				DefaultMutableTreeNode nodoAct;
+    				nodoAct = new DefaultMutableTreeNode("No hay actividad deportiva seleccionada.");
+    				add(nodoAct);
+    				}}));
         	}
         });
 		cargarInstitucion();
@@ -389,6 +403,14 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		panelClasesCuponeras.setLayout(gbl_panelClasesCuponeras);
 		
 		tree = new JTree();
+		tree.setRootVisible(false);
+		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
+			{
+			DefaultMutableTreeNode nodoAct;
+			nodoAct = new DefaultMutableTreeNode("No hay actividad deportiva seleccionada.");
+			add(nodoAct);
+			}
+		}));
 		Border border2 = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		tree.setBorder(BorderFactory.createCompoundBorder(border2, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -400,7 +422,24 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_tree.gridx = 0;
 		gbc_tree.gridy = 0;
 		panelClasesCuponeras.add(tree, gbc_tree);
-		
+		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+		TreeSelectionListener lst = new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent e) {
+				 DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+				 if(node == null) 
+					 return;
+				 DefaultMutableTreeNode dad = (DefaultMutableTreeNode) node.getParent();
+				 if(dad != null && dad.getUserObject().equals("Cuponeras")) {
+					 //Ref CU. Consulta Cuponeras
+					 refCup.refEntry((String) node.getUserObject());
+				 }
+				 if(dad != null && dad.getUserObject().equals("Clases")) {
+					 //Ref CU. Consulta Clases
+					 
+				 }
+			}
+		};
+		tree.addTreeSelectionListener(lst);
 		lblEnd = new JLabel("Seleccione una clase o cuponera para obtener su informacion");
 		GridBagConstraints gbc_lblEnd = new GridBagConstraints();
 		gbc_lblEnd.insets = new Insets(0, 0, 0, 5);
@@ -421,6 +460,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
     }
 	
 	
+	@SuppressWarnings("serial")
 	private void loadData() {
 		DtActividadDeportivaExt actDep = IADC.getActDepExt((String)comboBoxIns.getSelectedItem(),(String)comboBoxActDep.getSelectedItem());
 		textFieldNombre.setText(actDep.getNombre());
@@ -432,71 +472,24 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		textFieldMes.setText(Integer.toString(fecha.getMes()));
 		textFieldAnio.setText(Integer.toString(fecha.getAnio()));
 		
+		tree.setModel(new DefaultTreeModel(
+				new DefaultMutableTreeNode("lol") {
+					{
+						DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
+						DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
+						for(String x: actDep.getClases()) {
+							nodoCl.add(new DefaultMutableTreeNode(x));
+						}
+						for(String x: actDep.getCuponeras()) {
+							nodoCup.add(new DefaultMutableTreeNode(x));
+						}
+						add(nodoCl);
+						add(nodoCup);
+					}
+				}
+			));
 	}
-//	public void cargarActividadesDeportivas() {
-//		DefaultComboBoxModel<String> modelActDep;
-//		modelActDep = new DefaultComboBoxModel<>();
-//		modelActDep.addElement("---Seleccione una actividad deportiva---");
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-//		for (String actDep: ins.obtenerActDep()) {
-//			modelActDep.addElement(actDep);
-//		}
-//		comboBoxActDep.setModel(modelActDep);
-//	}
-	
-//	public void cargarDatosActDep() {
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-//		ActividadDeportiva actDep = ins.getActDep(comboBoxActDep.getName());
-//		textFieldNombre.setText(actDep.getNombre());
-//		textFieldDesc.setText(actDep.getDescripcion());
-//		textFieldDur.setText(Integer.toString(actDep.getDuracionMinutos()));
-//		textFieldCosto.setText(Float.toString(actDep.getCosto()));
-//		DtFecha fecha = actDep.getFechaRegistro();
-//		textFieldDia.setText(Integer.toString(fecha.getDia()));
-//		textFieldMes.setText(Integer.toString(fecha.getMes()));
-//		textFieldAnio.setText(Integer.toString(fecha.getAnio()));
-//	}
-//	
-//	public void cargarClases() {
-//		DefaultComboBoxModel<String> modelClases;
-//		modelClases = new DefaultComboBoxModel<>();
-//		modelClases.addElement("---Seleccione una clase---");
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-////		for (String clase: ins.obtenerNombreClasesActDep(comboBoxActDep.getName())) {
-////			modelClases.addElement(clase);
-////		}
-////		comboBoxClases.setModel(modelClases);
-//	}
-//	
-//	public void cargarCuponeras() {
-//		DefaultComboBoxModel<String> modelCuponeras;
-//		modelCuponeras = new DefaultComboBoxModel<>();
-//		modelCuponeras.addElement("---Seleccione una cuponera---");
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-////		for (String clase: ins.obtenerNombreClasesActDep(comboBoxActDep.getName())) {
-////			modelCuponeras.addElement(clase);
-////		}
-//		comboBoxCuponeras.setModel(modelCuponeras);
-//	}
-//	
-//	public void verInfoClase() {
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion ins = hi.findInstitucion(comboBoxIns.getName());
-////		DtClaseExt datosClase = ins.obtenerDtClase(comboBoxActDep.getName(),comboBoxClases.getName());
-////		textFieldClase.setText(datosClase.toString());
-//	}
-//	
-//	public void verInfoCuponera() {
-//		HandlerCuponera hc = HandlerCuponera.getInstance();
-//		DtCuponera datosCuponera = hc.getDtCuponera(comboBoxCuponeras.getName());
-//		textFieldCuponeras.setText(datosCuponera.toString());
-//	}
-	
-	
+
     public void cargarInstitucion() {
         DefaultComboBoxModel<String> model;
         model = new DefaultComboBoxModel<>();
@@ -506,7 +499,10 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         }
         comboBoxIns.setModel(model);
     }
-    
+    public void setRef(ConsultaDictadoClase Refcdc,ConsultaCuponeras Refcc) {
+    	refClase = Refcdc;
+    	refCup = Refcc;
+    }
 	public void clear() {
 		comboBoxIns.setSelectedIndex(0);
 		comboBoxActDep.setEnabled(false);
@@ -517,5 +513,39 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		textFieldDia.setText("");
 		textFieldMes.setText("");
 		textFieldAnio.setText("");
+	}
+
+	public void refEntry(String actDep) {
+		actDep = actDep.split(" ")[0];
+        DefaultComboBoxModel<String> model;
+        String institf=null;
+        model = new DefaultComboBoxModel<>();
+        model.addElement("-");
+        for(String x: IADC.obtenerInstituciones()) {
+            model.addElement(x);
+            for(String y: IADC.obtenerActividades(x)) {
+            	if(y.equals(actDep)) {
+            		institf = x;
+            	}
+            }
+            if(institf != null)
+            	break;
+        }
+        comboBoxIns.setModel(model);
+        comboBoxIns.setSelectedItem(institf);
+		Set<String> actividades = IADC.obtenerActividades(institf);
+		DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+        for (String x: actividades) {
+        	modelActividad.addElement(x);
+        }
+        comboBoxActDep.setEnabled(true);
+        comboBoxActDep.setModel(modelActividad);
+        comboBoxIns.setSelectedItem(actDep);
+		if (this.isVisible()) 
+			this.toFront();
+		else {
+			loadData();
+			this.setVisible(true);
+		}
 	}
 }

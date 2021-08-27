@@ -14,10 +14,10 @@ public class Cuponera {
 	private List<ClasesCuponera> cp;
 	private List<ReciboCuponera> rc;
 	
-	Cuponera(String nombre, String descripcion, float descuento, DtFecha fechaInicio, DtFecha fechaFin){
+	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.descuento = descuento;
+		this.descuento = (float) (1-(float)((float)descuento/100.0));
 		this.fechaInicio = new DtFecha(fechaInicio);
 		this.fechaFin = new DtFecha(fechaFin);
 		this.cp = new ArrayList<>();
@@ -61,7 +61,7 @@ public class Cuponera {
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
 		act.addClasesCup(claCup);
-		costo = costo + act.getCosto();
+		costo = costo + descuento*act.getCosto()*num;
 	}
 	
 	public int cantidadClases(ActividadDeportiva actDep) {

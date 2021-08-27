@@ -25,6 +25,8 @@ import java.util.Set;
 import logica.IActividadDeportivaController;
 import logica.IDeportivaController;
 import javax.swing.JTextField;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 public class AgregarActividadDeportivaCuponera extends JInternalFrame {
@@ -62,31 +64,48 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 		getContentPane().add(cupo, gbc_cupo);
 //---------------------------------------------------------------------------
 		
-		DefaultComboBoxModel<String> comboModelCuponera = new DefaultComboBoxModel<>();
-		comboModelCuponera.addElement("-");
-		Set<String> cuponeras = controlDep.getNombreCuponeras();
-		Collection<String> strColection = cuponeras;
-		Iterator<String> itStr1 = strColection.iterator();
-		while (itStr1.hasNext()) {
-			String strAux1 = itStr1.next();
-			comboModelCuponera.addElement(strAux1);
-		}
-		
 		comboBoxCup = new JComboBox<String>();
-		
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
+		Set<String> ss= controlDep.getNombreCuponeras();
+		model.addElement("-");
+		for(String x: ss ) {
+			model.addElement(x);
+		}
+		comboBoxCup.setModel(model);
+		comboBoxCup.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				String xx = (String) comboBoxCup.getSelectedItem();
+				String yy = (String) comboBoxInstitucion.getSelectedItem();
+				if(xx==null||yy==null)
+					return;
+				deltaI.removeAllItems();
+				deltaI.addItem("-");
+				if(!(xx.equals("-")) && !(yy.equals("-"))) {
+					for(String x: IADC.obtenerDeltaInstituciones((String)comboBoxCup.getSelectedItem(), (String)comboBoxInstitucion.getSelectedItem())) {
+						deltaI.addItem(x);
+					}
+				}
+				deltaI.setSelectedItem("-");
+				
+			}
+		});
+
 		comboBoxCup.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				String t = (String) comboBoxCup.getSelectedItem();
-				comboBoxCup.removeAllItems();
-				comboBoxCup.addItem("-");
-				for(String x: controlDep.getNombreCuponeras()) {
-					comboBoxCup.addItem(x);
+				Set<String> tt = controlDep.getNombreCuponeras();
+				if(comboBoxCup.getItemCount()!=tt.size()+1) {
+					String t = (String) comboBoxCup.getSelectedItem();
+					comboBoxCup.removeAllItems();
+					model.addElement("-");
+					for(String x: controlDep.getNombreCuponeras()) {
+						comboBoxCup.addItem(x);
+					}
+					comboBoxCup.setSelectedItem(t);
 				}
-				comboBoxCup.setSelectedItem(t);
 			}
 		});
-		
+
 		GridBagConstraints gbc_cup = new GridBagConstraints();
 		gbc_cup.gridwidth = 11;
 		gbc_cup.insets = new Insets(0, 0, 5, 5);
@@ -108,25 +127,41 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 
 		DefaultComboBoxModel<String> comboModelInstitucion = new DefaultComboBoxModel<>();
 		comboModelInstitucion.addElement("-");
-		Set<String> instituciones = IADC.obtenerInstituciones();
-		Collection<String> strCollection = instituciones;
-		Iterator<String> itStr = strCollection.iterator();
-		while (itStr.hasNext()) {
-			String strAux = itStr.next();
-			comboModelInstitucion.addElement(strAux);
+		for(String q: IADC.obtenerInstituciones()){
+			comboModelInstitucion.addElement(q);
 		}
 		
-		comboBoxInstitucion = new JComboBox<>(comboModelInstitucion);
+		comboBoxInstitucion = new JComboBox<>();
+		comboBoxInstitucion.setModel(comboModelInstitucion);
+		comboBoxInstitucion.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				String xx = (String) comboBoxCup.getSelectedItem();
+				String yy = (String) comboBoxInstitucion.getSelectedItem();
+				if(xx==null||yy==null)
+					return;
+				deltaI.removeAllItems();
+				deltaI.addItem("-");
+				if(!(xx.equals("-")) && !(yy.equals("-"))) {
+					for(String x: IADC.obtenerDeltaInstituciones((String)comboBoxCup.getSelectedItem(), (String)comboBoxInstitucion.getSelectedItem())) {
+						deltaI.addItem(x);
+					}
+				}
+				deltaI.setSelectedItem("-");
+			}
+		});
 		comboBoxInstitucion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				String t = (String) comboBoxInstitucion.getSelectedItem();
-				comboBoxInstitucion.removeAllItems();
-				comboBoxInstitucion.addItem("-");
-				for(String x: IADC.obtenerInstituciones()) {
-					comboBoxInstitucion.addItem(x);
+				Set<String> tt = IADC.obtenerInstituciones();
+				if(comboBoxInstitucion.getItemCount()!=tt.size()+1) {
+					String t = (String) comboBoxInstitucion.getSelectedItem();
+					comboBoxInstitucion.removeAllItems();
+					comboModelInstitucion.addElement("-");
+					for(String x: IADC.obtenerInstituciones()) {
+						comboBoxInstitucion.addItem(x);
+					}
+					comboBoxInstitucion.setSelectedItem(t);
 				}
-				comboBoxInstitucion.setSelectedItem(t);
 			}
 		});
 		
@@ -150,34 +185,10 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 
 //------------------------------------------------------------------------------		
 
-		String a, b;
-		a = comboBoxInstitucion.getSelectedItem().toString();
-		//b = comboBoxCup.getSelectedItem().toString();
-		
+
 		DefaultComboBoxModel<String> comboModelDeltaI = new DefaultComboBoxModel<>();
 		comboModelDeltaI.addElement("-");
-		Set<String> delta = IADC.obtenerDeltaInstituciones(a,a);
-		Collection<String> strColectio = delta;
-		Iterator<String> itStr2 = strColectio.iterator();
-		while (itStr2.hasNext()) {
-			String strAux2 = itStr2.next();
-			comboModelDeltaI.addElement(strAux2);
-		}
-		
 		deltaI = new JComboBox<>(comboModelDeltaI);
-		
-		deltaI.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				String t = (String) deltaI.getSelectedItem();
-				deltaI.removeAllItems();
-				deltaI.addItem("-");
-				for(String x: IADC.obtenerDeltaInstituciones(a,a)) {
-					deltaI.addItem(x);
-				}
-				deltaI.setSelectedItem(t);
-			}
-		});
 
 		GridBagConstraints gbc_deltaI = new GridBagConstraints();
 		gbc_deltaI.gridwidth = 11;
@@ -211,7 +222,7 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 		
 		CantClases = new JTextField();
 		GridBagConstraints gbc_CantClases = new GridBagConstraints();
-		gbc_CantClases.gridwidth = 5;
+		gbc_CantClases.gridwidth = 3;
 		gbc_CantClases.insets = new Insets(0, 0, 5, 5);
 		gbc_CantClases.fill = GridBagConstraints.HORIZONTAL;
 		gbc_CantClases.gridx = 2;
@@ -235,28 +246,29 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 	}
 
 	public void clear() {
-		//deltaI.setSelectedIndex(0);
-	//	comboBoxCup.setSelectedIndex(0);
-		//comboBoxInstitucion.setSelectedIndex(0);
+		deltaI.setSelectedItem("-");
+		comboBoxCup.setSelectedItem("-");
+		comboBoxInstitucion.setSelectedItem("-");
 		CantClases.setText("");
 		
 	}
 	private void tomarDatos(IDeportivaController controlDep) {
 		
-       /* if (!checkFormulario())
+       if (!checkFormulario())
         	return;
 		
         String institucion;
         String cuponera;
         String deltains;	
         int cant;
-        		institucion = this.insti.getSelectedItem().toString();
-            	cuponera = this.comboBoxCup.getSelectedItem().toString();
-            	deltains = this.deltaI.getSelectedItem().toString();
-            	cant = Integer.valueOf(this.CantClases.getText());
+		institucion = this.comboBoxInstitucion.getSelectedItem().toString();
+    	cuponera = this.comboBoxCup.getSelectedItem().toString();
+    	deltains = this.deltaI.getSelectedItem().toString();
+    	cant = Integer.valueOf(this.CantClases.getText());
         	
-        	controlDep.agregarActividadCuponera(cuponera, institucion, deltains, cant);
-        	*/JOptionPane.showMessageDialog(this, "Actividad deportiva agregada con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);   
+    	controlDep.agregarActividadCuponera(cuponera, institucion, deltains, cant);
+    	JOptionPane.showMessageDialog(this, "Actividad deportiva agregada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);   
+    	clear();
 	}
 
 	private boolean checkFormulario() {
@@ -264,14 +276,26 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 		String institucion = this.comboBoxInstitucion.getSelectedItem().toString();
     	String cuponera = this.comboBoxCup.getSelectedItem().toString();
     	String deltains = this.deltaI.getSelectedItem().toString();
-    	int cant = Integer.valueOf(this.CantClases.getText());
     	
-    	if((cant <= 0 || cuponera.isEmpty() || institucion.isEmpty() ||deltains.isEmpty())) {
-    		JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+    	if((cuponera.equals("-") || institucion.equals("-") || deltains.equals("-"))) {
+    		JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
     	}
-    	else {
-    		return true;
+    	try {
+    		Integer.valueOf(this.CantClases.getText());
+    	} catch (NumberFormatException e) {
+    		JOptionPane.showMessageDialog(this, "Cantidad de clases debe ser un numero.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
     	}
+    	int cant = Integer.valueOf(this.CantClases.getText());
+    	if(cant > 10000) {
+    		JOptionPane.showMessageDialog(this, "No es posible crear una cuponera con tantas clases.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+    	}
+    	if(cant <= 0 ) {
+    		JOptionPane.showMessageDialog(this, "Cantidad de clases debe ser mayor a 0.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            return false;
+    	}
+    	return true;
 	}
 }
