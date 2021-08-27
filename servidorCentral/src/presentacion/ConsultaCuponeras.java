@@ -221,11 +221,11 @@ public class ConsultaCuponeras extends JInternalFrame{
     	refAd = a;
     }
     public void refEntry(String c) {
+		cbCuponeraLoad();
+		cbCuponera.setSelectedItem(c);
 		if (this.isVisible()) 
 			this.toFront();
 		else {
-			cbCuponeraLoad();
-			cbCuponera.setSelectedItem(c);
 			this.setVisible(true);
 		}
     }

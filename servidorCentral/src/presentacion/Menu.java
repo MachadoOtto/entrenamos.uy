@@ -118,6 +118,7 @@ public class Menu {
 		
 		// ConsultaDictadoClase:
 		consultaClass = new ConsultaDictadoClase(IDCC);
+		consultaClass.setBounds(10, 40, 382, 545);
 		consultaClass.setVisible(false);
 		escritorio.add(consultaClass);
 		
@@ -156,6 +157,7 @@ public class Menu {
 		//Se relacionan los Frames de consultas
 		consActDep.setRef(consultaClass,consultaCup);
 		consultaCup.setRef(consActDep);
+		consultaUsu.setRef(consultaClass,consActDep);
 	}
 	
 	private void iniciar() {
@@ -344,7 +346,6 @@ public class Menu {
 					consultaClass.toFront();
 				else {
 					consultaClass.clear();
-					consultaClass.cargarInstitucion();
 					consultaClass.setVisible(true);
 				}
 			}
