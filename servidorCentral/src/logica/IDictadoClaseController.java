@@ -13,7 +13,12 @@ import java.util.Set;
 
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
+import datatypes.DtFecha;
 import datatypes.TReg;
+
+import excepciones.ClaseLlenaException;
+import excepciones.FechaInvalidaException;
+import excepciones.NoExisteCuponeraException;
 
 public interface IDictadoClaseController {
 	
@@ -31,7 +36,8 @@ public interface IDictadoClaseController {
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos);
 	
-	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro);
+	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
+			throws  ClaseLlenaException, FechaInvalidaException, NoExisteCuponeraException;
 
 	public Set<String> obtenerSocios();
 	

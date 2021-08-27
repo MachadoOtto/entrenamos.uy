@@ -11,6 +11,12 @@ package logica;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import excepciones.ClaseLlenaException;
+import excepciones.FechaInvalidaException;
+import excepciones.NoExisteCuponeraException;
+
+import datatypes.DtFecha;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
 import datatypes.TReg;
@@ -58,9 +64,19 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return getHI().findInstitucion(ins).getActDep(actDep).addClase(datos,profe);
 	}
 	
-	public int inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro) {
+	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
+			throws  ClaseLlenaException, FechaInvalidaException, NoExisteCuponeraException {
 		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
-		return ((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, ad.findClase(clase), tipoRegistro);
+		Clase claseSelec = ad.findClase(clase);
+		if(!claseSelec.hayLugar())
+			throw new ClaseLlenaException("La clase seleccionada esta llena.");
+		if (fechaReg.esMenor(claseSelec.getFechaRegistro())) {
+			throw new FechaInvalidaException("La Fecha de Inscripcion es anterior a la Fecha en la que se registro la Clase seleccionada.");
+		}
+		if (!(fechaReg.esMenor(claseSelec.getFechaClase()))) {
+			throw new FechaInvalidaException("La Fecha de Inscripcion es posterior a la Fecha en la que inicia la Clase seleccionada.");
+		}
+		((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg);
 	}
 	
 	public Set<String> obtenerSocios() {
@@ -78,6 +94,7 @@ public class DictadoClaseController implements IDictadoClaseController {
 	private static HandlerInstitucion getHI() {
 		return  HandlerInstitucion.getInstance();
 	}
+	
 	private static HandlerUsuario getHU() {
 		return  HandlerUsuario.getInstance();
 	}

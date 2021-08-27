@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import excepciones.NoExisteCuponeraException;
+
 import datatypes.DtFecha;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
@@ -86,48 +88,12 @@ public class Socio extends Usuario {
 	public List<ReciboClase> getReciboClase() {
 		return reciboClases;
 	}
-		
-//	YOUR BRAIN ON UML
-	//public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg.General) {
-//		ReciboClase nuevoRecibo = new ReciboClase(TReg.General, actDep.getCosto());
-//		nuevoRecibo.setClase(cl);
-//		reciboClases.add(nuevoRecibo);
-//		return 1;
-//	}
-//	
-//	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg.Cuponera) {
-//		int numClasesCuponera = 0;
-//		Iterator<ReciboCuponera> itRCuponeras = reciboCuponeras.iterator();
-//		while (itRCuponeras.hasNext()) {
-//			numClasesCuponera += itRCuponeras.next().cantidadClases(actDep);
-//		}
-//		int numInscripto = 0;
-//		Iterator<ReciboClase> itRClases = reciboClases.iterator();
-//		while (itRClases.hasNext()) {
-//			ReciboClase rCl = itRClases.next();
-//			if (rCl.esTipoCuponera()) {
-//				numInscripto += rCl.tieneActividadDeportiva(actDep);
-//			}
-//		}
-//		if (numClasesCuponera > numInscripto) {
-//			ReciboClase nuevoRecibo = new ReciboClase(TReg.Cuponera, actDep.getCosto());
-//			nuevoRecibo.setClase(cl);
-//			reciboClases.add(nuevoRecibo);
-//			return 0;
-//		} else {
-//			return 1;
-//		}
-//	}
-//	
-	public int inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t) {
-		if(!cl.hayLugar())
-			return 2;
-		DtFecha d = new DtFecha();
+	
+	public void inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t, DtFecha reg) throws NoExisteCuponeraException {
 		if(t.equals(TReg.general)) {
-			ReciboClase nuevoRecibo = new ReciboClase(d, TReg.general, actDep.getCosto(), cl, this, null);
+			ReciboClase nuevoRecibo = new ReciboClase(reg, TReg.general, actDep.getCosto(), cl, this, null);
 			reciboClases.add(nuevoRecibo);
-			cl.addRecibo(nuevoRecibo);
-			return 0;		
+			cl.addRecibo(nuevoRecibo);	
 		} else {
 			for (ReciboCuponera y: reciboCuponeras) {
 				Cuponera cupActual = y.getCuponera();
@@ -139,14 +105,13 @@ public class Socio extends Usuario {
 						}
 					}
 					if (cantidadClases < cupActual.cantidadClases(actDep)) {
-						ReciboClase nuevoRecibo = new ReciboClase(d,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
+						ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
 						reciboClases.add(nuevoRecibo);
 						cl.addRecibo(nuevoRecibo);
-						return 0;
 					}
 				}
 			}
-			return 1;
+			throw new NoExisteCuponeraException("Este Usuario no presenta Cuponeras validas para esta Clase.");
 		}
 	}
 }

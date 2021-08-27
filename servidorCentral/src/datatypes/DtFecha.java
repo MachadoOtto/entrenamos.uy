@@ -69,4 +69,12 @@ public class DtFecha {
 	public String toFecha() {
 		return dia + "/" + mes + "/" + anio;
 	}
+	
+	public boolean esMenor(DtFecha fechaAComp) {
+		long min1, min2 = 0;
+		min1 = minutos + (horas + (dia + (mes + (anio) * 12) * 31) * 24) * 60;
+		min2 = fechaAComp.getMinutos() + (fechaAComp.getHoras() + (fechaAComp.getDia() + (fechaAComp.getMes() + 
+				(fechaAComp.getAnio()) * 12) * 31) * 24) * 60;
+		return (min1 < min2);
+	}
 }
