@@ -185,9 +185,14 @@ public class CrearCuponera extends JInternalFrame {
         boxIMes = new JComboBox<>(comboModelMes);
         boxIMes.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (boxIMes.getSelectedIndex() % 2 == 0) {
+        		if ((boxIMes.getSelectedIndex() % 2 == 0) && (boxIMes.getSelectedIndex() < 7) || 
+        				(boxIMes.getSelectedIndex() % 2 == 1) && (boxIMes.getSelectedIndex() > 8)) {
+        			if (boxIMes.getSelectedIndex() == 2)
+        				boxIDia.removeItem("30");
         			boxIDia.removeItem("31");
         		} else {
+        			if (comboModelDia.getIndexOf("30") == -1)
+        				comboModelDia.addElement("30");
         			if (comboModelDia.getIndexOf("31") == -1)
         				comboModelDia.addElement("31");
         		}
@@ -199,23 +204,18 @@ public class CrearCuponera extends JInternalFrame {
         gbc_boxIMes.gridx = 2;
         gbc_boxIMes.gridy = 7;
         getContentPane().add(boxIMes, gbc_boxIMes);
-        boxIMes.addItemListener(new ItemListener() {
-        	public void itemStateChanged(ItemEvent e) {
-        		if (boxIMes2.getSelectedIndex() % 2 == 0) {
-        			boxIDia2.removeItem("31");
-        		} else {
-        			if (comboModelDia2.getIndexOf("31") == -1)
-        				comboModelDia2.addElement("31");
-        		}
-        	}
-        });
 		
 		MesAlta = new JComboBox<>(comboModelMes3);
         MesAlta.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (MesAlta.getSelectedIndex() % 2 == 0) {
+        		if ((MesAlta.getSelectedIndex() % 2 == 0) && (MesAlta.getSelectedIndex() < 7) || 
+        				(MesAlta.getSelectedIndex() % 2 == 1) && (MesAlta.getSelectedIndex() > 8)) {
+        			if (MesAlta.getSelectedIndex() == 2)
+        				DiaAlta.removeItem("30");
         			DiaAlta.removeItem("31");
         		} else {
+        			if (comboModelDia3.getIndexOf("30") == -1)
+        				comboModelDia3.addElement("30");
         			if (comboModelDia3.getIndexOf("31") == -1)
         				comboModelDia3.addElement("31");
         		}
@@ -227,17 +227,7 @@ public class CrearCuponera extends JInternalFrame {
 		gbc_comboBox_1.gridx = 2;
 		gbc_comboBox_1.gridy = 11;
 		getContentPane().add(MesAlta, gbc_comboBox_1);
-        MesAlta.addItemListener(new ItemListener() {
-        	public void itemStateChanged(ItemEvent e) {
-        		if (MesAlta.getSelectedIndex() % 2 == 0) {
-        			DiaAlta.removeItem("31");
-        		} else {
-        			if (comboModelDia3.getIndexOf("31") == -1)
-        				comboModelDia3.addElement("31");
-        		}
-        	}
-        });
-        
+
 		inicioAnio = new JTextField();
 		inicioAnio.setText("yyyy");
 		inicioAnio.addFocusListener(new FocusAdapter() {
@@ -289,9 +279,14 @@ public class CrearCuponera extends JInternalFrame {
         gbc_boxIMes2.gridy = 9;
         boxIMes2.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (boxIMes2.getSelectedIndex() % 2 == 0) {
+        		if ((boxIMes2.getSelectedIndex() % 2 == 0) && (boxIMes2.getSelectedIndex() < 7) || 
+        				(boxIMes2.getSelectedIndex() % 2 == 1) && (boxIMes2.getSelectedIndex() > 8)) {
+        			if (boxIMes2.getSelectedIndex() == 2)
+        				boxIDia2.removeItem("30");
         			boxIDia2.removeItem("31");
         		} else {
+        			if (comboModelDia2.getIndexOf("30") == -1)
+        				comboModelDia2.addElement("30");
         			if (comboModelDia2.getIndexOf("31") == -1)
         				comboModelDia2.addElement("31");
         		}

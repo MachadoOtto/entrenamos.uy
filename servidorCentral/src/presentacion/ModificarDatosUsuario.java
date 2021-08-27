@@ -344,12 +344,17 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		boxIMes.setEnabled(false);
 		boxIMes.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				if (boxIMes.getSelectedIndex() % 2 == 0) {
-					boxIDia.removeItem("31");
-				} else {
-					if (comboModelDia.getIndexOf("31") == -1)
-						comboModelDia.addElement("31");
-				}
+				if ((boxIMes.getSelectedIndex() % 2 == 0) && (boxIMes.getSelectedIndex() < 7) || 
+        				(boxIMes.getSelectedIndex() % 2 == 1) && (boxIMes.getSelectedIndex() > 8)) {
+        			if (boxIMes.getSelectedIndex() == 2)
+        				boxIDia.removeItem("30");
+        			boxIDia.removeItem("31");
+        		} else {
+        			if (comboModelDia.getIndexOf("30") == -1)
+        				comboModelDia.addElement("30");
+        			if (comboModelDia.getIndexOf("31") == -1)
+        				comboModelDia.addElement("31");
+        		}
 			}
 		});
 		GridBagConstraints gbc_boxIMes = new GridBagConstraints();

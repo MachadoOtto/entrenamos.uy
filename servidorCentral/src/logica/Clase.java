@@ -2,12 +2,10 @@ package logica;
 
 import datatypes.DtClaseExt;
 import datatypes.DtClase;
-
 import datatypes.DtFecha;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class Clase {
 	private String nombre;
@@ -29,51 +27,66 @@ public class Clase {
 		this.URL = d.getURL();
 		this.fechaRegistro = d.getFechaRegistro();
 		this.p = p;
+		this.ListReciboClase = new ArrayList<ReciboClase>();
 	}
+	
 	public String getNombre() {
 		String s = nombre;
 		return s;
 	}
+	
 	public DtFecha getFechaClase() {
 		DtFecha ret = new DtFecha(fechaClase);
 		return ret;
 	}
+	
 	public int getMinSocios() {
 		return minSocios;
 	}
+	
 	public int getMaxSocios() {
 		return maxSocios;
 	}
+	
 	public Profesor getProfesor() {
 		return p;
 	}
+	
 	public String getURL() {
 		return URL;
 	}
+	
 	public DtFecha getFechaRegistro() {
 		DtFecha ret = new DtFecha(fechaRegistro);
 		return ret;
 	}
+	
 	public DtClaseExt getDt() {
 		List<String> ListNombres = new ArrayList<>();
 		for(ReciboClase x: ListReciboClase) {
 			ListNombres.add(x.getNombreSocio());
 		}
-		DtClaseExt x = new DtClaseExt(nombre,p.getNombre(),p.getNickname(),minSocios,maxSocios,URL,this.getFechaClase(),this.getFechaRegistro(),ListNombres);
+		DtClaseExt x = new DtClaseExt(nombre, p.getNombre(), p.getNickname(), minSocios, maxSocios, URL, this.getFechaClase(),
+				this.getFechaRegistro(), ListNombres);
 		return x;
 	}
+	
 	public boolean hayLugar() {
 		return ListReciboClase.size() < maxSocios;
 	}
+	
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
 		return actDep == a;
 	}
+	
 	public void addRecibo(ReciboClase rc) {
 		ListReciboClase.add(rc);
 	}
+	
 	public boolean tieneActividadDeportiva(String aa) {
 		return a.getNombre().equals(aa);
 	}
+	
 	public ActividadDeportiva getAD() {
 		return a;
 	}
