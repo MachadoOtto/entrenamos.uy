@@ -33,10 +33,13 @@ import datatypes.DtClase;
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
-import datatypes.DtUsuario;
+import datatypes.TReg;
+
+import excepciones.FechaInvalidaException;
+import excepciones.NoExisteCuponeraException;
+import excepciones.ClaseLlenaException;
 
 public class Menu {
-	
 	private JFrame menuPrincipal;
 	private JDesktopPane escritorio;
 	private IUsuarioController IUC;
@@ -393,8 +396,7 @@ public class Menu {
 	}
 	
 	private void cargarDatosPrueba() {
-		
-		//ALTA INSTITUCIONES
+		// ALTA INSTITUCIONES
 		// Instituto Natural #IN
 		IDC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aeróbica, spinning y yoga.","https://www.inatural.com");
 		// Fuerza Bruta #FB
@@ -425,7 +427,7 @@ public class Menu {
 		// charly #CB
 		IUC.ingresarDatosUsuario(new DtSocio("charly","Carlos","Boston","charly@gmail.com.uy", new DtFecha(1937,5,8,0,0,0)));	
 		
-		//PROFESORES
+		// PROFESORES
 		String desc;
 		String bio;
 		// viktor #VP
@@ -478,7 +480,7 @@ public class Menu {
 		IUC.ingresarDatosUsuario(new DtProfesor("aldo","Aldo","Vivaldi","aldo@outlook.com", new DtFecha(1952,7,17,0,0,0),
 				"Telón", desc, bio ,"www.sportsaldo.net"));
 			
-		//ALTA ACTIVIDAD DEPORTIVA
+		// ALTA ACTIVIDAD DEPORTIVA
         // Aparatos y pesas #A1
 		IADC.ingresarDatosActividadDep("Fuerza Bruta", new DtActividadDeportiva("Aparatos y pesas",
 				"Clases de aparatos, pesas y calistenia.", 90, 550, new DtFecha(2021,3,31,0,0,0)));
@@ -498,7 +500,7 @@ public class Menu {
 		IADC.ingresarDatosActividadDep("Telón", new DtActividadDeportiva("Basquetbol",
 				"Espectáculo conmemorando los 30 años de Violeta.", 80, 450, new DtFecha(2021,7,31,0,0,0)));
         
-        //ALTA CLASE
+        // ALTA CLASE
         // Calistenia #C1
         IDCC.ingresarDatosClase("Fuerza Bruta", "Aparatos y pesas", new DtClase("Calistenia", "viktor", "viktor", 
         		1, 5, "https://www.musculos.com/Calistenia", new DtFecha(2021,4,15,15,30,0), new DtFecha(2021,3,31,0,0,0)));
@@ -524,7 +526,7 @@ public class Menu {
         IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbico adulto mayor", "clazar", "clazar",
         		5, 12, "https://www.inatural.com/aeroam", new DtFecha(2021,8,31,19,30,0), new DtFecha(2021,5,30,0,0,0)));
         // Aeróbico #C9
-        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbica", "clazar", "clazar",
+        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbico", "clazar", "clazar",
         		5, 20, "https://www.inatural.com/aerogral", new DtFecha(2021,9,30,20,0,0), new DtFecha(2021,5,30,0,0,0)));
         // Boxeo I #C10
         IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", new DtClase("Boxeo I", "TheBoss", "TheBoss",
@@ -551,7 +553,7 @@ public class Menu {
         IDCC.ingresarDatosClase("Telón", "Basquetbol", new DtClase("Basquet II", "aldo", "aldo",
         		10, 10, "https://telon.com.uy/bball2", new DtFecha(2021,10,1,21,0,0), new DtFecha(2021,7,31,0,0,0)));
         
-        //CUPONERAS
+        // CUPONERAS
         // Pelota #P1
         IDC.ingresarCuponera("Pelota", "Deportes con pelota.", new DtFecha(2021,5,1,0,0,0), new DtFecha(2021,7,31,23,59,59), 
         		20, new DtFecha(2021,4,30,0,0,0));
@@ -568,6 +570,157 @@ public class Menu {
         IDC.agregarActividadCuponera("Músculos", "Fuerza Bruta", "Kickboxing", 11);
         IDC.agregarActividadCuponera("Músculos", "Fuerza Bruta", "Aparatos y pesas", 12);
         
-        JOptionPane.showMessageDialog(escritorio, "Se han cargado los datos de prueba exitosamente.\nテストデータは見事に入力しました", "Info", JOptionPane.INFORMATION_MESSAGE);
-	}
+        // REGISTRO A CLASE
+        try {
+        	// #R1
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Calistenia", "caro", TReg.general, 
+        			new DtFecha(2021,4,9,0,0,0));
+        	// #R2
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Calistenia", "sergiop", TReg.general, 
+        			new DtFecha(2021,4,10,0,0,0));
+        	// #R3
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Calistenia", "andy", TReg.general, 
+        			new DtFecha(2021,4,12,0,0,0));
+        	// #R4
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Peso libre", "andy", TReg.general, 
+        			new DtFecha(2021,4,15,0,0,0));
+        	// #R5
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Peso libre", "tonyp", TReg.general, 
+        			new DtFecha(2021,4,20,0,0,0));
+        	// #R6
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Peso libre", "caro", TReg.general, 
+        			new DtFecha(2021,4,25,0,0,0));
+        	// #R7
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Peso libre", "m1k4", TReg.general, 
+        			new DtFecha(2021,4,28,0,0,0));
+        	// #R8
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Aparatos", "charly", TReg.general, 
+        			new DtFecha(2021,4,16,0,0,0));
+        	// #R9
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Aparatos", "caro", TReg.general, 
+        			new DtFecha(2021,5,14,0,0,0));
+        	// #R10
+        	IDCC.inscribirSocio("Fuerza Bruta", "Aparatos y pesas", "Aparatos", "m1k4", TReg.general, 
+        			new DtFecha(2021,5,20,0,0,0));
+        	// #R11
+        	IDCC.inscribirSocio("Telón", "Voleibol", "Voleibol", "Emi71", TReg.general, 
+        			new DtFecha(2021,5,5,0,0,0));
+        	// #R12
+        	IDCC.inscribirSocio("Telón", "Voleibol", "Voleibol", "euge", TReg.general, 
+        			new DtFecha(2021,5,10,0,0,0));
+        	// #R13
+        	IDCC.inscribirSocio("Telón", "Voleibol", "Voleibol", "sergiop", TReg.general, 
+        			new DtFecha(2021,5,15,0,0,0));
+			// #R14
+			IDCC.inscribirSocio("Telón", "Voleibol", "Voleibol", "tonyp", TReg.general, 
+					new DtFecha(2021,5,20,0,0,0));
+			// #R15
+			IDCC.inscribirSocio("Telón", "Voleibol", "Braza", "guille", TReg.general, 
+					new DtFecha(2021,6,8,0,0,0));
+			// #R16
+			IDCC.inscribirSocio("Telón", "Voleibol", "Braza", "euge", TReg.general, 
+					new DtFecha(2021,6,13,0,0,0));
+			// #R17
+			IDCC.inscribirSocio("Telón", "Voleibol", "Braza", "m1k4", TReg.general, 
+					new DtFecha(2021,6,25,0,0,0));
+			// #R18
+			IDCC.inscribirSocio("Telón", "Voleibol", "Mariposa", "charly", TReg.general, 
+					new DtFecha(2021,7,5,0,0,0));
+			// #R19
+			IDCC.inscribirSocio("Telón", "Voleibol", "Mariposa", "sergiop", TReg.general, 
+					new DtFecha(2021,7,11,0,0,0));
+			// #R20
+			IDCC.inscribirSocio("Telón", "Voleibol", "Mariposa", "andy", TReg.general, 
+					new DtFecha(2021,7,18,0,0,0));
+			// #R21
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbica niños", "m1k4", TReg.general, 
+					new DtFecha(2021,7,19,0,0,0));
+			// #R22
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor", "Emi71", TReg.general, 
+					new DtFecha(2021,8,17,0,0,0));
+			// #R23
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor", "guille", TReg.general, 
+					new DtFecha(2021,8,20,0,0,0));
+			// #R24
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor", "andy", TReg.general, 
+					new DtFecha(2021,8,23,0,0,0));
+			// #R25
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico", "caro", TReg.general, 
+					new DtFecha(2021,8,15,0,0,0)); // R25 C9 CO 15/08/21 560
+			// #R26
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico", "euge", TReg.general, 
+					new DtFecha(2021,8,26,0,0,0));
+			// #R27
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo I", "andy", TReg.general, 
+					new DtFecha(2021,7,19,0,0,0));
+			// #R28
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo I", "tonyp", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R29
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo I", "m1k4", TReg.general, 
+					new DtFecha(2021,8,24,0,0,0));
+			// #R30
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo II", "sergiop", TReg.general, 
+					new DtFecha(2021,8,1,0,0,0));
+			// #R31
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo II", "guille", TReg.general, 
+					new DtFecha(2021,8,30,0,0,0));
+			// #R32
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Músculos para boxeo", "Emi71", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R33
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Músculos para boxeo", "caro", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R34
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Músculos para boxeo", "euge", TReg.general, 
+					new DtFecha(2021,9,1,0,0,0));
+			// #R35
+			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Músculos para boxeo", "sergiop", TReg.general, 
+					new DtFecha(2021,9,5,0,0,0));
+			// #R36
+			IDCC.inscribirSocio("Telón", "Atletismo", "100 M", "guille", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R37
+			IDCC.inscribirSocio("Telón", "Atletismo", "100 M", "charly", TReg.general, 
+					new DtFecha(2021,9,3,0,0,0));
+			// #R38
+			IDCC.inscribirSocio("Telón", "Atletismo", "200 M", "Emi71", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R39
+			IDCC.inscribirSocio("Telón", "Atletismo", "200 M", "charly", TReg.general, 
+					new DtFecha(2021,9,6,0,0,0));
+			// #R40
+			IDCC.inscribirSocio("Telón", "Atletismo", "Posta", "caro", TReg.general, 
+					new DtFecha(2021,9,1,0,0,0));
+			// #R41
+			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet I", "sergiop", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R42
+			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet I", "Emi71", TReg.general, 
+					new DtFecha(2021,8,20,0,0,0));
+			// #R43
+			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet I", "tonyp", TReg.general, 
+					new DtFecha(2021,8,31,0,0,0));
+			// #R44
+			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet II", "andy", TReg.general, 
+					new DtFecha(2021,8,16,0,0,0));
+			// #R45
+			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet II", "tonyp", TReg.general, 
+					new DtFecha(2021,8,20,0,0,0));
+			// #R46
+			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet II", "caro", TReg.general, 
+					new DtFecha(2021,9,2,0,0,0));
+		    JOptionPane.showMessageDialog(escritorio, "Se han cargado los datos de prueba exitosamente.\nテストデータは見事に入力しました", 
+		    		"Info", JOptionPane.INFORMATION_MESSAGE);
+        } catch (FechaInvalidaException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        } catch (ClaseLlenaException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        } catch (NoExisteCuponeraException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

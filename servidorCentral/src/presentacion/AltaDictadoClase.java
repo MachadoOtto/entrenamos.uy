@@ -508,8 +508,8 @@ public class AltaDictadoClase extends JInternalFrame {
             int anio = Integer.parseInt(inicioAnio.getText());
             int hora = Integer.parseInt(boxIHora.getItemAt(boxIHora.getSelectedIndex()));
             int minuto = boxIMinuto.getSelectedIndex();
-            int rDia = boxIDia.getSelectedIndex();
-            int rMes = boxIMes.getSelectedIndex();
+            int rDia = boxRDia.getSelectedIndex();
+            int rMes = boxRMes.getSelectedIndex();
             int rAnio = Integer.parseInt(regAnio.getText());
             String urlWeb = url.getText();
             String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
