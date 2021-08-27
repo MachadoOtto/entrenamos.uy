@@ -302,9 +302,14 @@ public class AltaDictadoClase extends JInternalFrame {
         boxIMes = new JComboBox<>(comboModelMes);
         boxIMes.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (boxIMes.getSelectedIndex() % 2 == 0) {
+        		if ((boxIMes.getSelectedIndex() % 2 == 0) && (boxIMes.getSelectedIndex() < 7) || 
+        				(boxIMes.getSelectedIndex() % 2 == 1) && (boxIMes.getSelectedIndex() > 8)) {
+        			if (boxIMes.getSelectedIndex() == 2)
+        				boxIDia.removeItem("30");
         			boxIDia.removeItem("31");
         		} else {
+        			if (comboModelDia.getIndexOf("30") == -1)
+        				comboModelDia.addElement("30");
         			if (comboModelDia.getIndexOf("31") == -1)
         				comboModelDia.addElement("31");
         		}
@@ -438,9 +443,14 @@ public class AltaDictadoClase extends JInternalFrame {
         boxRMes = new JComboBox<>(comboModelMesR);
         boxRMes.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (boxRMes.getSelectedIndex() % 2 == 0) {
+        		if ((boxRMes.getSelectedIndex() % 2 == 0) && (boxRMes.getSelectedIndex() < 7) || 
+        				(boxRMes.getSelectedIndex() % 2 == 1) && (boxRMes.getSelectedIndex() > 8)) {
+        			if (boxRMes.getSelectedIndex() == 2)
+        				boxRDia.removeItem("30");
         			boxRDia.removeItem("31");
         		} else {
+        			if (comboModelDiaR.getIndexOf("30") == -1)
+        				comboModelDiaR.addElement("30");
         			if (comboModelDiaR.getIndexOf("31") == -1)
         				comboModelDiaR.addElement("31");
         		}

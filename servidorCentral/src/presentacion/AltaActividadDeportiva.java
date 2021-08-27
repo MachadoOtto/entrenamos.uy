@@ -314,9 +314,14 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		comboBoxMes = new JComboBox<>(comboModelMes);
 		comboBoxMes.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (comboBoxMes.getSelectedIndex() % 2 == 0) {
+        		if ((comboBoxMes.getSelectedIndex() % 2 == 0) && (comboBoxMes.getSelectedIndex() < 7) || 
+        				(comboBoxMes.getSelectedIndex() % 2 == 1) && (comboBoxMes.getSelectedIndex() > 8)) {
+        			if (comboBoxMes.getSelectedIndex() == 2)
+        				comboBoxDia.removeItem("30");
         			comboBoxDia.removeItem("31");
         		} else {
+        			if (comboModelDia.getIndexOf("30") == -1)
+        				comboModelDia.addElement("30");
         			if (comboModelDia.getIndexOf("31") == -1)
         				comboModelDia.addElement("31");
         		}

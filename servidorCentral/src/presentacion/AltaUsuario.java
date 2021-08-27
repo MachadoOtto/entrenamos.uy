@@ -134,7 +134,7 @@ public class AltaUsuario extends JInternalFrame {
 	
 			}
 		});
-		comboBoxTipoDeUsuario.setModel(new DefaultComboBoxModel(new String[] {"-", "Socio", "Profesor"}));
+		comboBoxTipoDeUsuario.setModel(new DefaultComboBoxModel<>(new String[] {"-", "Socio", "Profesor"}));
 		GridBagConstraints gbc_comboBoxTipoDeUsuario = new GridBagConstraints();
 		gbc_comboBoxTipoDeUsuario.anchor = GridBagConstraints.SOUTH;
 		gbc_comboBoxTipoDeUsuario.insets = new Insets(0, 0, 5, 0);
@@ -261,9 +261,14 @@ public class AltaUsuario extends JInternalFrame {
         boxIMes = new JComboBox<>(comboModelMes);
         boxIMes.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if (boxIMes.getSelectedIndex() % 2 == 0) {
+        		if ((boxIMes.getSelectedIndex() % 2 == 0) && (boxIMes.getSelectedIndex() < 7) || 
+        				(boxIMes.getSelectedIndex() % 2 == 1) && (boxIMes.getSelectedIndex() > 8)) {
+        			if (boxIMes.getSelectedIndex() == 2)
+        				boxIDia.removeItem("30");
         			boxIDia.removeItem("31");
         		} else {
+        			if (comboModelDia.getIndexOf("30") == -1)
+        				comboModelDia.addElement("30");
         			if (comboModelDia.getIndexOf("31") == -1)
         				comboModelDia.addElement("31");
         		}
