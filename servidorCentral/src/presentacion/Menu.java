@@ -182,7 +182,7 @@ public class Menu {
 		menuInicio.add(itemIrInicio);
 		itemIrInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				掃除();
+				capaDeInvisibilidad();
 			}
 		});
 		JMenuItem itemPueba = new JMenuItem("Cargar Datos Prueba");
@@ -381,7 +381,7 @@ public class Menu {
 		});
 	}
 	
-	private void 掃除() {
+	private void capaDeInvisibilidad() {
 		altaUsuario.setVisible(false);
 		altaActDep.setVisible(false);
 		altaClase.setVisible(false);
@@ -711,7 +711,7 @@ public class Menu {
 			// #R46
 			IDCC.inscribirSocio("Telón", "Basquetbol", "Basquet II", "caro", TReg.general, 
 					new DtFecha(2021,9,2,0,0,0));
-		    JOptionPane.showMessageDialog(escritorio, "Se han cargado los datos de prueba exitosamente.\nテストデータは見事に入力しました", 
+		    JOptionPane.showMessageDialog(escritorio, "Se han cargado los datos de prueba exitosamente.", 
 		    		"Info", JOptionPane.INFORMATION_MESSAGE);
         } catch (FechaInvalidaException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +

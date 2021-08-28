@@ -32,7 +32,7 @@ public class ActividadDeportiva {
 		duracionMinutos = dur;
 		this.costo = costo;
 		fechaRegistro = new DtFecha(fec);
-		同じ();
+		crearHandler();
 	}
 	public ActividadDeportiva(DtActividadDeportiva x) {
 		nombre=x.getNombre();
@@ -40,9 +40,9 @@ public class ActividadDeportiva {
 		duracionMinutos=x.getDuracionMinutos();
 		costo=x.getCosto();
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
-		同じ();
+		crearHandler();
 	}
-	private void 同じ() {
+	private void crearHandler() {
 		clases = new HashMap<>();
 		clCuponera= new HashMap<>();
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
