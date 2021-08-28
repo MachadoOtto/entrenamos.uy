@@ -16,6 +16,8 @@ import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 
+import excepciones.InstitucionException;
+
 public class UsuarioController implements IUsuarioController {
 	
 	private static UsuarioController instancia = null;
@@ -44,7 +46,7 @@ public class UsuarioController implements IUsuarioController {
 	 * 	'padre', no se pierdan datos en ese Upcasting (por eso veran que en algunos casos uso el constructor de los 'hijos').*/
 	
 	// Retorna 0 si se logro ingresar/crear el Usuario de forma exitosa, retorna 1 en otro caso.
-	public int ingresarDatosUsuario(DtUsuario datoUser) {
+	public int ingresarDatosUsuario(DtUsuario datoUser) throws InstitucionException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		if (hu.existeNick(datoUser.getNickname()) || hu.existeCorreo(datoUser.getEmail())) {
 			return 1;

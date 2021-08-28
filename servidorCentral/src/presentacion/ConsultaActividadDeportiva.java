@@ -12,6 +12,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
@@ -30,6 +31,7 @@ import javax.swing.JTextArea;
 import java.util.Set;
 
 import logica.IActividadDeportivaController;
+import excepciones.InstitucionException;
 
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtFecha;
@@ -133,26 +135,28 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         });
 		comboBoxIns.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = comboBoxIns.getSelectedIndex();
-        		comboBoxActDep.removeAllItems();
-    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-    			modelActividad.addElement("-");     		
-    			if (selectIndex > 0 && selectIndex != -1) {
-        			Set<String> actividades = IADC.obtenerActividades((String) comboBoxIns.getItemAt(selectIndex));
-                    for (String x: actividades) {
-                    	modelActividad.addElement(x);
-                    }
-                    comboBoxActDep.setEnabled(true);
-        		} else {
-        			comboBoxActDep.setEnabled(false);
-        		}
-    			comboBoxActDep.setModel(modelActividad);
-    			tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
-    				{
-    				DefaultMutableTreeNode nodoAct;
-    				nodoAct = new DefaultMutableTreeNode("No hay actividad deportiva seleccionada.");
-    				add(nodoAct);
-    				}}));
+        		try {
+	        		int selectIndex = comboBoxIns.getSelectedIndex();
+	        		comboBoxActDep.removeAllItems();
+	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	    			modelActividad.addElement("-");     		
+	    			if (selectIndex > 0 && selectIndex != -1) {
+	        			Set<String> actividades = IADC.obtenerActividades((String) comboBoxIns.getItemAt(selectIndex));
+	                    for (String x: actividades) {
+	                    	modelActividad.addElement(x);
+	                    }
+	                    comboBoxActDep.setEnabled(true);
+	        		} else {
+	        			comboBoxActDep.setEnabled(false);
+	        		}
+	    			comboBoxActDep.setModel(modelActividad);
+	    			tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
+	    				{
+	    				DefaultMutableTreeNode nodoAct;
+	    				nodoAct = new DefaultMutableTreeNode("No hay actividad deportiva seleccionada.");
+	    				add(nodoAct);
+	    				}}));
+        		} catch (InstitucionException ignore) { }
         	}
         });
 		cargarInstitucion();
@@ -442,32 +446,37 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	}
 	
 	private void loadData() {
-		DtActividadDeportivaExt actDep = IADC.getActDepExt((String)comboBoxIns.getSelectedItem(),(String)comboBoxActDep.getSelectedItem());
-		textFieldNombre.setText(actDep.getNombre());
-		textFieldDesc.setText(actDep.getDescripcion());
-		textFieldDur.setText(Integer.toString(actDep.getDuracionMinutos()));
-		textFieldCosto.setText(Float.toString(actDep.getCosto()));
-		DtFecha fecha = actDep.getFechaRegistro();
-		textFieldDia.setText(Integer.toString(fecha.getDia()));
-		textFieldMes.setText(Integer.toString(fecha.getMes()));
-		textFieldAnio.setText(Integer.toString(fecha.getAnio()));
-		
-		tree.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("lol") {
-					{
-						DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
-						DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
-						for(String x: actDep.getClases()) {
-							nodoCl.add(new DefaultMutableTreeNode(x));
+		try {
+			DtActividadDeportivaExt actDep = IADC.getActDepExt((String)comboBoxIns.getSelectedItem(),(String)comboBoxActDep.getSelectedItem());
+			textFieldNombre.setText(actDep.getNombre());
+			textFieldDesc.setText(actDep.getDescripcion());
+			textFieldDur.setText(Integer.toString(actDep.getDuracionMinutos()));
+			textFieldCosto.setText(Float.toString(actDep.getCosto()));
+			DtFecha fecha = actDep.getFechaRegistro();
+			textFieldDia.setText(Integer.toString(fecha.getDia()));
+			textFieldMes.setText(Integer.toString(fecha.getMes()));
+			textFieldAnio.setText(Integer.toString(fecha.getAnio()));
+			
+			tree.setModel(new DefaultTreeModel(
+					new DefaultMutableTreeNode("lol") {
+						{
+							DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
+							DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
+							for(String x: actDep.getClases()) {
+								nodoCl.add(new DefaultMutableTreeNode(x));
+							}
+							for(String x: actDep.getCuponeras()) {
+								nodoCup.add(new DefaultMutableTreeNode(x));
+							}
+							add(nodoCl);
+							add(nodoCup);
 						}
-						for(String x: actDep.getCuponeras()) {
-							nodoCup.add(new DefaultMutableTreeNode(x));
-						}
-						add(nodoCl);
-						add(nodoCup);
 					}
-				}
-			));
+				));
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private void cargarInstitucion() {
@@ -498,37 +507,42 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	}
 
 	public void refEntry(String actDep) {
-		if(actDep.contains("/"))
-			actDep = actDep.split("/")[0];
-        DefaultComboBoxModel<String> model;
-        String institf=null;
-        model = new DefaultComboBoxModel<>();
-        model.addElement("-");
-        for(String x: IADC.obtenerInstituciones()) {
-            model.addElement(x);
-            for(String y: IADC.obtenerActividades(x)) {
-            	if(y.equals(actDep)) {
-            		institf = x;
-            	}
-            }
-            if(institf != null)
-            	break;
-        }
-        comboBoxIns.setModel(model);
-        comboBoxIns.setSelectedItem(institf);
-		Set<String> actividades = IADC.obtenerActividades(institf);
-		DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-        for (String x: actividades) {
-        	modelActividad.addElement(x);
-        }
-        comboBoxActDep.setEnabled(true);
-        comboBoxActDep.setModel(modelActividad);
-        comboBoxIns.setSelectedItem(actDep);
-		loadData();
-		if (this.isVisible()) 
-			this.toFront();
-		else {
-			this.setVisible(true);
+		try {
+			if(actDep.contains("/"))
+				actDep = actDep.split("/")[0];
+	        DefaultComboBoxModel<String> model;
+	        String institf=null;
+	        model = new DefaultComboBoxModel<>();
+	        model.addElement("-");
+	        for(String x: IADC.obtenerInstituciones()) {
+	            model.addElement(x);
+	            for(String y: IADC.obtenerActividades(x)) {
+	            	if(y.equals(actDep)) {
+	            		institf = x;
+	            	}
+	            }
+	            if(institf != null)
+	            	break;
+	        }
+	        comboBoxIns.setModel(model);
+	        comboBoxIns.setSelectedItem(institf);
+			Set<String> actividades = IADC.obtenerActividades(institf);
+			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	        for (String x: actividades) {
+	        	modelActividad.addElement(x);
+	        }
+	        comboBoxActDep.setEnabled(true);
+	        comboBoxActDep.setModel(modelActividad);
+	        comboBoxIns.setSelectedItem(actDep);
+			loadData();
+			if (this.isVisible()) 
+				this.toFront();
+			else {
+				this.setVisible(true);
+			}
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

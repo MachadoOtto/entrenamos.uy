@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -31,6 +32,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.util.Set;
+
+import excepciones.InstitucionException;
 
 import logica.IDictadoClaseController;
 
@@ -128,29 +131,31 @@ public class ConsultaDictadoClase extends JInternalFrame {
 		});
         boxInstitucion.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxInstitucion.getSelectedIndex();
-    			boxActividad.removeAllItems();
-    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-    			modelActividad.addElement("-");
-    			if (selectIndex > 0) {
-        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
-                    for (String x: actividades) {
-                    	modelActividad.addElement(x);
-                    }
-                    boxActividad.setEnabled(true);
-        		} else {
-        			boxActividad.setEnabled(false);
-        			treeCuponera.setModel(new DefaultTreeModel(
-        					new DefaultMutableTreeNode("root") {
-        						{
-        							//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-        							// Cada vez que se abre la ventan design hay que corregirlo xddd;
-        							add(new DefaultMutableTreeNode("Seleccione una clase para desplegar su info."));
-        						}
-        					}
-        				));
-        		}
-            	boxActividad.setModel(modelActividad);
+        		try {
+	        		int selectIndex = boxInstitucion.getSelectedIndex();
+	    			boxActividad.removeAllItems();
+	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	    			modelActividad.addElement("-");
+	    			if (selectIndex > 0) {
+	        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
+	                    for (String x: actividades) {
+	                    	modelActividad.addElement(x);
+	                    }
+	                    boxActividad.setEnabled(true);
+	        		} else {
+	        			boxActividad.setEnabled(false);
+	        			treeCuponera.setModel(new DefaultTreeModel(
+	        					new DefaultMutableTreeNode("root") {
+	        						{
+	        							//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
+	        							// Cada vez que se abre la ventan design hay que corregirlo xddd;
+	        							add(new DefaultMutableTreeNode("Seleccione una clase para desplegar su info."));
+	        						}
+	        					}
+	        				));
+	        		}
+	            	boxActividad.setModel(modelActividad);
+        		} catch (InstitucionException ignore) { }
         	}
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
@@ -165,30 +170,32 @@ public class ConsultaDictadoClase extends JInternalFrame {
         boxActividad.setEnabled(false);
         boxActividad.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxActividad.getSelectedIndex();
-    			boxClase.removeAllItems();
-    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
-    			modelClase.addElement("-");
-    			if (selectIndex > 0) {
-        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
-        					boxActividad.getItemAt(selectIndex));
-                    for (String x: clases) {
-                    	modelClase.addElement(x);
-                    }
-                    boxClase.setEnabled(true);
-        		} else {
-        			boxClase.setEnabled(false);
-        			treeCuponera.setModel(new DefaultTreeModel(
-        					new DefaultMutableTreeNode("root") {
-        						{
-        							//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-        							// Cada vez que se abre la ventan design hay que corregirlo xddd;
-        							add(new DefaultMutableTreeNode("Seleccione una clase para desplegar su info."));
-        						}
-        					}
-        				));
-        		}
-    			boxClase.setModel(modelClase);
+        		try {
+	        		int selectIndex = boxActividad.getSelectedIndex();
+	    			boxClase.removeAllItems();
+	    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
+	    			modelClase.addElement("-");
+	    			if (selectIndex > 0) {
+	        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
+	        					boxActividad.getItemAt(selectIndex));
+	                    for (String x: clases) {
+	                    	modelClase.addElement(x);
+	                    }
+	                    boxClase.setEnabled(true);
+	        		} else {
+	        			boxClase.setEnabled(false);
+	        			treeCuponera.setModel(new DefaultTreeModel(
+	        					new DefaultMutableTreeNode("root") {
+	        						{
+	        							//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
+	        							// Cada vez que se abre la ventan design hay que corregirlo xddd;
+	        							add(new DefaultMutableTreeNode("Seleccione una clase para desplegar su info."));
+	        						}
+	        					}
+	        				));
+	        		}
+	    			boxClase.setModel(modelClase);
+        		} catch (InstitucionException ignore) { }
         	}
         });
         GridBagConstraints gbc_boxActividad = new GridBagConstraints();
@@ -272,35 +279,39 @@ public class ConsultaDictadoClase extends JInternalFrame {
     }
     
     private void desplegarClase() {
-        String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
-        String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
-        String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
-        DtClaseExt x = controlClase.seleccionarClase(nombreInstitucion, nombreActividad, nombreClase);
-        
-		treeCuponera.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
-					{
-						add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
-						add(new DefaultMutableTreeNode("Fecha de Inicio: "+x.getFechaClase().toFechaHora()));
-						add(new DefaultMutableTreeNode("Profesor que la Dicta: "+ x.getNicknameProfesor()));
-						DefaultMutableTreeNode nodoF = new DefaultMutableTreeNode("Cantidad de Cupos");
-						nodoF.add(new DefaultMutableTreeNode("Min: "+x.getMinSocios()+" socios."));
-						nodoF.add(new DefaultMutableTreeNode("Max: "+x.getMaxSocios()+" socios."));
-						add(nodoF);
-						add(new DefaultMutableTreeNode("URL: "+x.getURL()));
-						add(new DefaultMutableTreeNode("Fecha de registro: "+x.getFechaRegistro().toFecha()));
-						
-						DefaultMutableTreeNode nodoA = new DefaultMutableTreeNode("Socios inscriptos");
-						for(String v: x.getAlumnos()) {
-							nodoA.add(new DefaultMutableTreeNode(v));
+    	try {
+	        String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
+	        String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
+	        String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
+	        DtClaseExt x = controlClase.seleccionarClase(nombreInstitucion, nombreActividad, nombreClase);
+	        
+			treeCuponera.setModel(new DefaultTreeModel(
+					new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
+						{
+							add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
+							add(new DefaultMutableTreeNode("Fecha de Inicio: "+x.getFechaClase().toFechaHora()));
+							add(new DefaultMutableTreeNode("Profesor que la Dicta: "+ x.getNicknameProfesor()));
+							DefaultMutableTreeNode nodoF = new DefaultMutableTreeNode("Cantidad de Cupos");
+							nodoF.add(new DefaultMutableTreeNode("Min: "+x.getMinSocios()+" socios."));
+							nodoF.add(new DefaultMutableTreeNode("Max: "+x.getMaxSocios()+" socios."));
+							add(nodoF);
+							add(new DefaultMutableTreeNode("URL: "+x.getURL()));
+							add(new DefaultMutableTreeNode("Fecha de registro: "+x.getFechaRegistro().toFecha()));
+							
+							DefaultMutableTreeNode nodoA = new DefaultMutableTreeNode("Socios inscriptos");
+							for(String v: x.getAlumnos()) {
+								nodoA.add(new DefaultMutableTreeNode(v));
+							}
+							if(nodoA.getChildCount()==0) {
+								nodoA.add(new DefaultMutableTreeNode("No hay socios inscriptos a esta clase."));
+							}
+							add(nodoA);
 						}
-						if(nodoA.getChildCount()==0) {
-							nodoA.add(new DefaultMutableTreeNode("No hay socios inscriptos a esta clase."));
-						}
-						add(nodoA);
 					}
-				}
-			));
+				));
+    	} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
     }
     
     // Limpia el JInternalFrame
@@ -314,43 +325,47 @@ public class ConsultaDictadoClase extends JInternalFrame {
     }
 
 	public void refEntry(String act, String cla) {
-        DefaultComboBoxModel<String> model;
-        String institf=null;
-        model = new DefaultComboBoxModel<>();
-        model.addElement("-");
-        for(String x: controlClase.obtenerInstituciones()) {
-            model.addElement(x);
-            for(String y: controlClase.obtenerActividades(x)) {
-            	if(y.equals(act)) {
-            		institf = x;
-            	}
-            }
-            if(institf != null)
-            	break;
-        }
-        boxInstitucion.setModel(model);
-        boxInstitucion.setSelectedItem(institf);
-		Set<String> actividades = controlClase.obtenerActividades(institf);
-		DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-        for (String x: actividades) {
-        	modelActividad.addElement(x);
-        }
-        boxActividad.setEnabled(true);
-        boxActividad.setModel(modelActividad);
-        boxActividad.setSelectedItem(act);
-		Set<String> clases = controlClase.obtenerClases(institf, act);
-		DefaultComboBoxModel<String> modelClases = new DefaultComboBoxModel<>();
-        for (String x: clases) {
-        	modelClases.addElement(x);
-        }
-        boxClase.setEnabled(true);
-        boxClase.setModel(modelClases);
-        boxClase.setSelectedItem(cla);
-        desplegarClase();
-		if (this.isVisible()) 
-			this.toFront();
-		else {
-			this.setVisible(true);
+		try {
+	        DefaultComboBoxModel<String> model;
+	        String institf=null;
+	        model = new DefaultComboBoxModel<>();
+	        model.addElement("-");
+	        for(String x: controlClase.obtenerInstituciones()) {
+	            model.addElement(x);
+	            for(String y: controlClase.obtenerActividades(x)) {
+	            	if(y.equals(act)) {
+	            		institf = x;
+	            	}
+	            }
+	            if(institf != null)
+	            	break;
+	        }
+	        boxInstitucion.setModel(model);
+	        boxInstitucion.setSelectedItem(institf);
+			Set<String> actividades = controlClase.obtenerActividades(institf);
+			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	        for (String x: actividades) {
+	        	modelActividad.addElement(x);
+	        }
+	        boxActividad.setEnabled(true);
+	        boxActividad.setModel(modelActividad);
+	        boxActividad.setSelectedItem(act);
+			Set<String> clases = controlClase.obtenerClases(institf, act);
+			DefaultComboBoxModel<String> modelClases = new DefaultComboBoxModel<>();
+	        for (String x: clases) {
+	        	modelClases.addElement(x);
+	        }
+	        boxClase.setEnabled(true);
+	        boxClase.setModel(modelClases);
+	        boxClase.setSelectedItem(cla);
+	        desplegarClase();
+			if (this.isVisible()) 
+				this.toFront();
+			else {
+				this.setVisible(true);
+			}
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

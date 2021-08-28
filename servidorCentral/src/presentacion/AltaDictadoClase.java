@@ -31,6 +31,8 @@ import java.awt.event.ItemEvent;
 
 import java.util.Set;
 
+import excepciones.InstitucionException;
+
 import logica.IDictadoClaseController;
 import datatypes.DtFecha;
 import datatypes.DtClase;
@@ -372,30 +374,32 @@ public class AltaDictadoClase extends JInternalFrame {
         });
         boxInstitucion.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxInstitucion.getSelectedIndex();
-    			boxActividad.removeAllItems();
-    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-    			modelActividad.addElement("-");
-    			boxProfesor.removeAllItems();
-    			DefaultComboBoxModel<String> modelProfesor = new DefaultComboBoxModel<>();
-    			modelProfesor.addElement("-");        		
-    			if (selectIndex > 0) {
-        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
-                    for (String x: actividades) {
-                    	modelActividad.addElement(x);
-                    }
-                    Set<String> profesores = controlClase.obtenerProfesores(boxInstitucion.getItemAt(selectIndex));
-                    for (String x: profesores) {
-                    	modelProfesor.addElement(x);
-                    }
-                    boxActividad.setEnabled(true);
-                    boxProfesor.setEnabled(true);
-        		} else {
-        			boxActividad.setEnabled(false);
-        			boxProfesor.setEnabled(false);
-        		}
-            	boxActividad.setModel(modelActividad);
-            	boxProfesor.setModel(modelProfesor);
+        		try {
+	        		int selectIndex = boxInstitucion.getSelectedIndex();
+	    			boxActividad.removeAllItems();
+	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	    			modelActividad.addElement("-");
+	    			boxProfesor.removeAllItems();
+	    			DefaultComboBoxModel<String> modelProfesor = new DefaultComboBoxModel<>();
+	    			modelProfesor.addElement("-");        		
+	    			if (selectIndex > 0) {
+	        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
+	                    for (String x: actividades) {
+	                    	modelActividad.addElement(x);
+	                    }
+	                    Set<String> profesores = controlClase.obtenerProfesores(boxInstitucion.getItemAt(selectIndex));
+	                    for (String x: profesores) {
+	                    	modelProfesor.addElement(x);
+	                    }
+	                    boxActividad.setEnabled(true);
+	                    boxProfesor.setEnabled(true);
+	        		} else {
+	        			boxActividad.setEnabled(false);
+	        			boxProfesor.setEnabled(false);
+	        		}
+	            	boxActividad.setModel(modelActividad);
+	            	boxProfesor.setModel(modelProfesor);
+        		} catch (InstitucionException ignore) { }
         	}
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
@@ -498,36 +502,41 @@ public class AltaDictadoClase extends JInternalFrame {
 	
 	// Metodo de invocacion del Alta de Dictado de Clase
     protected void darAltaDeClase(ActionEvent arg0) {
-        if (checkDatos()) {
-        	// Obtengo datos de los controles Swing:
-        	String nombre = nombreClase.getText();
-            int socioMin = Integer.parseInt(sociosMin.getText());
-            int socioMax = Integer.parseInt(sociosMax.getText());
-            int dia = boxIDia.getSelectedIndex();
-            int mes = boxIMes.getSelectedIndex();
-            int anio = Integer.parseInt(inicioAnio.getText());
-            int hora = Integer.parseInt(boxIHora.getItemAt(boxIHora.getSelectedIndex()));
-            int minuto = boxIMinuto.getSelectedIndex();
-            int rDia = boxRDia.getSelectedIndex();
-            int rMes = boxRMes.getSelectedIndex();
-            int rAnio = Integer.parseInt(regAnio.getText());
-            String urlWeb = url.getText();
-            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
-            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
-            String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex());
-            DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
-            DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
-            DtClase datos = new DtClase(nombre, nombreProfesor,nombreProfesor,socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
-            if (controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
-            	// Muestro éxito de la operación
-                JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 
-                		"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
-                clear();
-            } else {
-            	JOptionPane.showMessageDialog(this, "Ya existe una Clase con ese nombre", "Alta Dictado de Clase",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    	try {
+	        if (checkDatos()) {
+	        	// Obtengo datos de los controles Swing:
+	        	String nombre = nombreClase.getText();
+	            int socioMin = Integer.parseInt(sociosMin.getText());
+	            int socioMax = Integer.parseInt(sociosMax.getText());
+	            int dia = boxIDia.getSelectedIndex();
+	            int mes = boxIMes.getSelectedIndex();
+	            int anio = Integer.parseInt(inicioAnio.getText());
+	            int hora = Integer.parseInt(boxIHora.getItemAt(boxIHora.getSelectedIndex()));
+	            int minuto = boxIMinuto.getSelectedIndex();
+	            int rDia = boxRDia.getSelectedIndex();
+	            int rMes = boxRMes.getSelectedIndex();
+	            int rAnio = Integer.parseInt(regAnio.getText());
+	            String urlWeb = url.getText();
+	            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
+	            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
+	            String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex());
+	            DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
+	            DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
+	            DtClase datos = new DtClase(nombre, nombreProfesor,nombreProfesor,socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
+	            if (controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
+	            	// Muestro éxito de la operación
+	                JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 
+	                		"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
+	                clear();
+	            } else {
+	            	JOptionPane.showMessageDialog(this, "Ya existe una Clase con ese nombre", "Alta Dictado de Clase",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+    	} catch (InstitucionException e) {
+    		JOptionPane.showMessageDialog(this, e.getMessage(), "Alta Dictado de Clase",
+                    JOptionPane.ERROR_MESSAGE);
+    	}
     }
 	
 	// Realiza el checkeo de la entrada de datos.

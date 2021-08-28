@@ -25,7 +25,7 @@ public class LaFabrica {
     	return idic;
      }
     
-    public ICuponeraController obtenerIDeportivaController() {
+    public ICuponeraController obtenerICuponeraController() {
     	ICuponeraController idep = CuponeraController.getInstance();
     	return idep;
      }

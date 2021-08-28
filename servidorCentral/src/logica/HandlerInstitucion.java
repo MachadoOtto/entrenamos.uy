@@ -18,6 +18,8 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import excepciones.InstitucionException;
+
 public class HandlerInstitucion {
 	
 	private static HandlerInstitucion instance = null;
@@ -39,8 +41,12 @@ public class HandlerInstitucion {
 		return instance;
 	}
 	
-	public Institucion findInstitucion(String nombreIns) {
-		return instituciones.get(nombreIns);
+	public Institucion findInstitucion(String nombreIns) throws InstitucionException {
+		Institucion res = instituciones.get(nombreIns);
+		if (res != null)
+			return instituciones.get(nombreIns);
+		else 
+			throw new InstitucionException("La institucion no existe en el Sistema.");
 	}
 
 	public Set<String> obtenerInstituciones() {

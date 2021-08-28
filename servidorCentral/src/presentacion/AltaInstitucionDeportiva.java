@@ -22,19 +22,19 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import logica.ICuponeraController;
+import logica.IActividadDeportivaController;
 
 @SuppressWarnings("serial")
 public class AltaInstitucionDeportiva extends JInternalFrame{
 	
 	//Controller
-	private ICuponeraController IDC;
+	private IActividadDeportivaController IDC;
 	//Inputs
 	private JTextField inputNombre;
 	private JTextField inputURL;
 	private JTextArea inputDescripcion;
 	
-	public AltaInstitucionDeportiva(ICuponeraController IDC) {
+	public AltaInstitucionDeportiva(IActividadDeportivaController IDC) {
 		this.IDC = IDC;
 		//Configuracion del JFRAME
 		setResizable(true);

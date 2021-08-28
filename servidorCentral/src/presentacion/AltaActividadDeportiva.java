@@ -35,6 +35,8 @@ import java.util.Set;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtFecha;
 
+import excepciones.InstitucionException;
+
 import logica.IActividadDeportivaController;
 
 @SuppressWarnings("serial")
@@ -414,22 +416,29 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	}
 	
 	private void altaActDepACEPTAR() {
-		String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
-    	String nombre = textFieldNombre.getText();
-    	String descripcion = textFieldDescripcion.getText();
-    	int duracion = Integer.parseInt(textFieldDuracion.getText());
-    	float costo = Float.parseFloat(textFieldCosto.getText());
-    	int anio = Integer.valueOf(altaAnio.getText());
-    	int mes = comboBoxMes.getSelectedIndex();
-    	int dia = comboBoxDia.getSelectedIndex();
-        DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
-        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
-        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
-        	JOptionPane.showMessageDialog(this, "Actividad deportiva dada de alta con exito", "Alta actividad deportiva", JOptionPane.INFORMATION_MESSAGE);
-        	clear();
+		try {
+			String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
+	    	String nombre = textFieldNombre.getText();
+	    	String descripcion = textFieldDescripcion.getText();
+	    	int duracion = Integer.parseInt(textFieldDuracion.getText());
+	    	float costo = Float.parseFloat(textFieldCosto.getText());
+	    	int anio = Integer.valueOf(altaAnio.getText());
+	    	int mes = comboBoxMes.getSelectedIndex();
+	    	int dia = comboBoxDia.getSelectedIndex();
+	        DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
+	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
+	        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
+	        	JOptionPane.showMessageDialog(this, "Actividad deportiva dada de alta con exito", "Alta actividad deportiva", 
+	        			JOptionPane.INFORMATION_MESSAGE);
+	        	clear();
+			}
+	        else
+				JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con el nombre ingresado", 
+						"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
 		}
-        else
-			JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con el nombre ingresado", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void clear() {

@@ -41,6 +41,7 @@ import datatypes.DtFecha;
 import excepciones.ClaseLlenaException;
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
+import excepciones.InstitucionException;
 
 @SuppressWarnings("serial")
 public class RegistroUsuarioClase extends JInternalFrame {
@@ -219,20 +220,22 @@ public class RegistroUsuarioClase extends JInternalFrame {
         });
         boxInstitucion.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxInstitucion.getSelectedIndex();
-    			boxActividad.removeAllItems();
-    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-    			modelActividad.addElement("-");
-    			if (selectIndex > 0) {
-        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
-                    for (String x: actividades) {
-                    	modelActividad.addElement(x);
-                    }
-                    boxActividad.setEnabled(true);
-        		} else {
-        			boxActividad.setEnabled(false);
-        		}
-            	boxActividad.setModel(modelActividad);
+        		try {
+	        		int selectIndex = boxInstitucion.getSelectedIndex();
+	    			boxActividad.removeAllItems();
+	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	    			modelActividad.addElement("-");
+	    			if (selectIndex > 0) {
+	        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
+	                    for (String x: actividades) {
+	                    	modelActividad.addElement(x);
+	                    }
+	                    boxActividad.setEnabled(true);
+	        		} else {
+	        			boxActividad.setEnabled(false);
+	        		}
+	            	boxActividad.setModel(modelActividad);
+        		} catch (InstitucionException ignore) { }
         	}
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
@@ -247,21 +250,23 @@ public class RegistroUsuarioClase extends JInternalFrame {
         boxActividad.setEnabled(false);
         boxActividad.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = boxActividad.getSelectedIndex();
-    			boxClase.removeAllItems();
-    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
-    			modelClase.addElement("-");
-    			if (selectIndex > 0) {
-        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
-        					boxActividad.getItemAt(selectIndex));
-                    for (String x: clases) {
-                    	modelClase.addElement(x);
-                    }
-                    boxClase.setEnabled(true);
-        		} else {
-        			boxClase.setEnabled(false);
-        		}
-    			boxClase.setModel(modelClase);
+        		try {
+	        		int selectIndex = boxActividad.getSelectedIndex();
+	    			boxClase.removeAllItems();
+	    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
+	    			modelClase.addElement("-");
+	    			if (selectIndex > 0) {
+	        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
+	        					boxActividad.getItemAt(selectIndex));
+	                    for (String x: clases) {
+	                    	modelClase.addElement(x);
+	                    }
+	                    boxClase.setEnabled(true);
+	        		} else {
+	        			boxClase.setEnabled(false);
+	        		}
+	    			boxClase.setModel(modelClase);
+        		} catch (InstitucionException ignore) { }
         	}
         });
         GridBagConstraints gbc_boxActividad = new GridBagConstraints();
@@ -383,7 +388,9 @@ public class RegistroUsuarioClase extends JInternalFrame {
             } catch (NoExisteCuponeraException e) {
             	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
             			JOptionPane.ERROR_MESSAGE);
-            }
+            } catch (InstitucionException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+    		}
         }
     }
 	

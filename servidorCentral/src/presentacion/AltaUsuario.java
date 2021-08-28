@@ -35,6 +35,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
+import excepciones.InstitucionException;
+import excepciones.NoExisteCuponeraException;
 
 @SuppressWarnings("serial")
 public class AltaUsuario extends JInternalFrame {
@@ -487,49 +489,53 @@ public class AltaUsuario extends JInternalFrame {
 	 * En caso de ser los datos validos, esta funcion se encarga de ejecutar el caso de uso correspondiente
 	 */
 	private int tomarDatos() {
-		
-		String tipoU;
-		String nicknameU;
-		String nombreU;
-        String apellidoU;
-        String emailU;
-        int diaU;
-        int mesU;
-        int anioU;
-        String institutoU;
-        String descripcionU;
-        String biografiaU;
-        String websiteU;
-        
-        if(!checkFormulario())
-        	return 1;
-		tipoU = this.comboBoxTipoDeUsuario.getSelectedItem().toString();
-		nicknameU = this.textFieldNickname.getText();
-		nombreU = this.textFieldNombre.getText();
-        apellidoU = this.textFieldApellido.getText();
-        emailU = this.textFieldEmail.getText();
-        diaU = boxIDia.getSelectedIndex();
-        mesU = boxIMes.getSelectedIndex();
-        anioU = Integer.parseInt(inicioAnio.getText());
-        institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
-        descripcionU = this.textAreaDescripcion.getText();
-        biografiaU = this.textAreaBiografia.getText();
-        websiteU = this.textFieldWebsite.getText();
-        
-		/*
-		 * Crea el tipo de dato segun el tipo de usuario seleccionado
-		 */
-		DtUsuario datosUser;
-		if(tipoU == "Profesor")
-			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0),institutoU, descripcionU,biografiaU,websiteU);
-		else //Se asume que si no es profesor es socio
-			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0));
-		if(controlUsr.ingresarDatosUsuario(datosUser) != 0) {
-			JOptionPane.showMessageDialog(this, "Ya existe un usuario con los datos ingresados.", "Error", JOptionPane.ERROR_MESSAGE);
-			return 1;
-		} else {
-			JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido registrado con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-			return 0;
+		try {
+			String tipoU;
+			String nicknameU;
+			String nombreU;
+	        String apellidoU;
+	        String emailU;
+	        int diaU;
+	        int mesU;
+	        int anioU;
+	        String institutoU;
+	        String descripcionU;
+	        String biografiaU;
+	        String websiteU;
+	        
+	        if(!checkFormulario())
+	        	return 1;
+			tipoU = this.comboBoxTipoDeUsuario.getSelectedItem().toString();
+			nicknameU = this.textFieldNickname.getText();
+			nombreU = this.textFieldNombre.getText();
+	        apellidoU = this.textFieldApellido.getText();
+	        emailU = this.textFieldEmail.getText();
+	        diaU = boxIDia.getSelectedIndex();
+	        mesU = boxIMes.getSelectedIndex();
+	        anioU = Integer.parseInt(inicioAnio.getText());
+	        institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
+	        descripcionU = this.textAreaDescripcion.getText();
+	        biografiaU = this.textAreaBiografia.getText();
+	        websiteU = this.textFieldWebsite.getText();
+	        
+			/*
+			 * Crea el tipo de dato segun el tipo de usuario seleccionado
+			 */
+			DtUsuario datosUser;
+			if(tipoU == "Profesor")
+				datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0),institutoU, descripcionU,biografiaU,websiteU);
+			else //Se asume que si no es profesor es socio
+				datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0));
+			if(controlUsr.ingresarDatosUsuario(datosUser) != 0) {
+				JOptionPane.showMessageDialog(this, "Ya existe un usuario con los datos ingresados.", "Error", JOptionPane.ERROR_MESSAGE);
+				return 1;
+			} else {
+				JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido registrado con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+				return 0;
+			}
+		} catch (InstitucionException e) {
+	        JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+	        return 0;
 		}
 	}
 	

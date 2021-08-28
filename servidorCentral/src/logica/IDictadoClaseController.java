@@ -18,6 +18,7 @@ import datatypes.TReg;
 
 import excepciones.ClaseLlenaException;
 import excepciones.FechaInvalidaException;
+import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 
 public interface IDictadoClaseController {
@@ -26,18 +27,18 @@ public interface IDictadoClaseController {
 	
 	public Set<String> obtenerInstituciones();
 	
-	public Set<String> obtenerActividades(String ins);
+	public Set<String> obtenerActividades(String ins) throws InstitucionException ;
 	
-	public Set<String> obtenerProfesores(String ins);
+	public Set<String> obtenerProfesores(String ins) throws InstitucionException ;
 	
-	public Set<String> obtenerClases(String ins, String actDep);
+	public Set<String> obtenerClases(String ins, String actDep) throws InstitucionException ;
 	
-	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase);
+	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException ;
 	
-	public int ingresarDatosClase(String ins, String actDep, DtClase datos);
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException ;
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
-			throws  ClaseLlenaException, FechaInvalidaException, NoExisteCuponeraException;
+			throws  ClaseLlenaException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException;
 
 	public Set<String> obtenerSocios();
 	
