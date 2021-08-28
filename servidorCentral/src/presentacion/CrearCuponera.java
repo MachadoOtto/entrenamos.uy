@@ -469,8 +469,13 @@ public class CrearCuponera extends JInternalFrame {
         DtFecha  FFinal = new DtFecha(anio2, mes2, dia2, 0, 0, 0);
         DtFecha alta = new DtFecha(diaA, mesA, anioA, 0, 0, 0);
 
-        dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        if (FInicio.esMenor(alta)) {
+        	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior a la fecha de inicio de la clase", 
+        			this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else {
+        	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
+    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        }    	     
 	}
 	
 	private boolean checkFormulario() {
@@ -478,9 +483,14 @@ public class CrearCuponera extends JInternalFrame {
        int dia = this.boxIDia.getSelectedIndex();
        int mes = this.boxIMes.getSelectedIndex();
        String anio = inicioAnio.getText();
+       int anioInt = Integer.parseInt(anio);
+       DtFecha FInicio = new DtFecha(anioInt,mes,dia,0,0,0);
+       
        int dia2 = this.boxIDia2.getSelectedIndex();
        int mes2 = this.boxIMes2.getSelectedIndex();
        String anio2 = inicioAnio2.getText();
+       int anio2Int = Integer.parseInt(anio2);
+       DtFecha FFinal = new DtFecha(anio2Int,mes2,dia2,0,0,0);
        
        int dia3 = this.DiaAlta.getSelectedIndex();
        int mes3 = this.MesAlta.getSelectedIndex();
@@ -514,8 +524,7 @@ public class CrearCuponera extends JInternalFrame {
        }
        
        //
-       if(Nanio*365+mes*30+dia > Nanio2*365+mes*30+dia) {
-    	   //No es una verificacion perfecta :)
+       if(FFinal.esMenor(FInicio)) {
            JOptionPane.showMessageDialog(this, "La fecha de vencimiento de la cuponera no puede ser antes que la de su creacion.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
            return false;
        }
