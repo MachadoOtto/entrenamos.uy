@@ -13,35 +13,28 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTree;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.util.Set;
 
 import logica.IDictadoClaseController;
 
 import datatypes.DtClaseExt;
-import datatypes.DtClasesCuponera;
-
-import javax.swing.JTree;
 
 @SuppressWarnings("serial")
 public class ConsultaDictadoClase extends JInternalFrame {
@@ -161,7 +154,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         	}
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
-        gbc_boxInstitucion.gridwidth = 4;
+        gbc_boxInstitucion.gridwidth = 3;
         gbc_boxInstitucion.insets = new Insets(0, 0, 5, 0);
         gbc_boxInstitucion.fill = GridBagConstraints.HORIZONTAL;
         gbc_boxInstitucion.gridx = 1;
@@ -199,7 +192,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         	}
         });
         GridBagConstraints gbc_boxActividad = new GridBagConstraints();
-        gbc_boxActividad.gridwidth = 4;
+        gbc_boxActividad.gridwidth = 3;
         gbc_boxActividad.insets = new Insets(0, 0, 5, 0);
         gbc_boxActividad.fill = GridBagConstraints.HORIZONTAL;
         gbc_boxActividad.gridx = 1;
@@ -208,7 +201,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         
         boxClase = new JComboBox<>();
         GridBagConstraints gbc_boxClase = new GridBagConstraints();
-        gbc_boxClase.gridwidth = 4;
+        gbc_boxClase.gridwidth = 3;
         gbc_boxClase.insets = new Insets(0, 0, 5, 0);
         gbc_boxClase.fill = GridBagConstraints.HORIZONTAL;
         gbc_boxClase.gridx = 1;
@@ -258,8 +251,8 @@ public class ConsultaDictadoClase extends JInternalFrame {
 		treeCuponera.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         GridBagConstraints gbc_treeCuponera = new GridBagConstraints();
-        gbc_treeCuponera.gridwidth = 4;
-        gbc_treeCuponera.gridheight = 5;
+        gbc_treeCuponera.gridwidth = 3;
+        gbc_treeCuponera.gridheight = 4;
         gbc_treeCuponera.fill = GridBagConstraints.BOTH;
         gbc_treeCuponera.gridx = 1;
         gbc_treeCuponera.gridy = 7;
@@ -288,8 +281,8 @@ public class ConsultaDictadoClase extends JInternalFrame {
 				new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
 					{
 						add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
-						add(new DefaultMutableTreeNode("Fecha de Inicio: "+x.getFechaClase().toFecha()));
-						add(new DefaultMutableTreeNode("Profesor que la Dicta: "+x.getNicknameProfesor()));
+						add(new DefaultMutableTreeNode("Fecha de Inicio: "+x.getFechaClase().toFechaHora()));
+						add(new DefaultMutableTreeNode("Profesor que la Dicta: "+ x.getNicknameProfesor()));
 						DefaultMutableTreeNode nodoF = new DefaultMutableTreeNode("Cantidad de Cupos");
 						nodoF.add(new DefaultMutableTreeNode("Min: "+x.getMinSocios()+" socios."));
 						nodoF.add(new DefaultMutableTreeNode("Max: "+x.getMaxSocios()+" socios."));
@@ -299,7 +292,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 						
 						DefaultMutableTreeNode nodoA = new DefaultMutableTreeNode("Socios inscriptos");
 						for(String v: x.getAlumnos()) {
-							nodoA.add(new DefaultMutableTreeNode(x));
+							nodoA.add(new DefaultMutableTreeNode(v));
 						}
 						if(nodoA.getChildCount()==0) {
 							nodoA.add(new DefaultMutableTreeNode("No hay socios inscriptos a esta clase."));

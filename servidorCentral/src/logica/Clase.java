@@ -64,7 +64,7 @@ public class Clase {
 	public DtClaseExt getDt() {
 		List<String> ListNombres = new ArrayList<>();
 		for(ReciboClase x: ListReciboClase) {
-			ListNombres.add(x.getNombreSocio());
+			ListNombres.add(x.getNickCorreoSocio());
 		}
 		DtClaseExt x = new DtClaseExt(nombre, p.getNombre(), p.getNickname(), minSocios, maxSocios, URL, this.getFechaClase(),
 				this.getFechaRegistro(), ListNombres);

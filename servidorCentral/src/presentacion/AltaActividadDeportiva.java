@@ -1,51 +1,43 @@
 package presentacion;
 
-import datatypes.DtActividadDeportiva;
-import datatypes.DtFecha;
-
-import java.awt.EventQueue;
-
-import logica.HandlerInstitucion;
-import logica.IActividadDeportivaController;
-import logica.Institucion;
-
 import javax.swing.JInternalFrame;
-import java.awt.GridBagLayout;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.border.TitledBorder;
-import java.awt.SystemColor;
-
+import javax.swing.JFrame;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import java.awt.event.MouseListener;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.SystemColor;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+
+import datatypes.DtActividadDeportiva;
+import datatypes.DtFecha;
+
+import logica.IActividadDeportivaController;
+
+@SuppressWarnings("serial")
 public class AltaActividadDeportiva extends JInternalFrame{
 	
 	//Controller
@@ -67,8 +59,8 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JLabel lblPesos;
 	private JLabel lblFecha;
 	private JPanel panelFecha;
-	private JComboBox comboBoxDia;
-	private JComboBox comboBoxMes;
+	private JComboBox<String> comboBoxDia;
+	private JComboBox<String> comboBoxMes;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JPanel panel;

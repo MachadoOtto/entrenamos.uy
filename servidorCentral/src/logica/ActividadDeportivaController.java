@@ -6,7 +6,6 @@ import java.util.Set;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
-import datatypes.TReg;
 
 public class ActividadDeportivaController implements IActividadDeportivaController {
 	private static ActividadDeportivaController instance = null;

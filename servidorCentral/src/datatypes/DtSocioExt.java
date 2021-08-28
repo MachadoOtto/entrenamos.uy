@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 public class DtSocioExt extends DtSocio {
 	
 	private Map<String,Set<String>> x;
-	private Set<String> clases;
 	
 	public DtSocioExt(String nickname, String nombre, String apellido, String email, DtFecha fechaNacimiento, Map<String,Set<String>> clases){
 		super(nickname, nombre, apellido, email, fechaNacimiento);

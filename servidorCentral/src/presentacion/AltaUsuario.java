@@ -36,6 +36,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 
+@SuppressWarnings("serial")
 public class AltaUsuario extends JInternalFrame {
 
 	Set<String> instituciones;

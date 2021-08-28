@@ -1,46 +1,40 @@
 package presentacion;
 
-import javax.swing.JInternalFrame;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.JInternalFrame;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
 import java.awt.Font;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-
-import logica.IDeportivaController;
-
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import logica.ICuponeraController;
+
 @SuppressWarnings("serial")
 public class AltaInstitucionDeportiva extends JInternalFrame{
 	
 	//Controller
-	private IDeportivaController IDC;
+	private ICuponeraController IDC;
 	//Inputs
 	private JTextField inputNombre;
 	private JTextField inputURL;
 	private JTextArea inputDescripcion;
 	
-	public AltaInstitucionDeportiva(IDeportivaController IDC) {
+	public AltaInstitucionDeportiva(ICuponeraController IDC) {
 		this.IDC = IDC;
 		//Configuracion del JFRAME
 		setResizable(true);

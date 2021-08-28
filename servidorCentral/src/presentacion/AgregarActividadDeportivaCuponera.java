@@ -1,15 +1,13 @@
 package presentacion;
 
-
 import javax.swing.JInternalFrame;
-
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -18,19 +16,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-
-import logica.IActividadDeportivaController;
-import logica.IDeportivaController;
-import javax.swing.JTextField;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+import java.util.Set;
 
+import logica.IActividadDeportivaController;
+import logica.ICuponeraController;
+
+@SuppressWarnings("serial")
 public class AgregarActividadDeportivaCuponera extends JInternalFrame {
-//	private IDeportivaController controlDep;
+//	private ICuponeraController controlDep;
 	private JComboBox<String> comboBoxCup;
 	private JComboBox<String> comboBoxInstitucion;
 	private JComboBox<String> deltaI;
@@ -38,7 +34,7 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 	private JButton Acept;
 	private JButton Cancel;
 	
-	public AgregarActividadDeportivaCuponera(IDeportivaController controlDep, IActividadDeportivaController IADC) {
+	public AgregarActividadDeportivaCuponera(ICuponeraController controlDep, IActividadDeportivaController IADC) {
 
 		setResizable(true);
 		setIconifiable(true);
@@ -252,7 +248,7 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 		CantClases.setText("");
 		
 	}
-	private void tomarDatos(IDeportivaController controlDep) {
+	private void tomarDatos(ICuponeraController controlDep) {
 		
        if (!checkFormulario())
         	return;
@@ -278,7 +274,7 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
     	String deltains = this.deltaI.getSelectedItem().toString();
     	
     	if((cuponera.equals("-") || institucion.equals("-") || deltains.equals("-"))) {
-    		JOptionPane.showMessageDialog(this, "No puede haber campos vacíos.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(this, "No puede haber campos vacï¿½os.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
     	}
     	try {

@@ -6,7 +6,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-import logica.IDeportivaController;
+import logica.ICuponeraController;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -47,13 +47,13 @@ public class ConsultaCuponeras extends JInternalFrame{
 	 */
 	
 	//Controller
-	private IDeportivaController IDC;
+	private ICuponeraController IDC;
 	//Components
 	private JComboBox<String> cbCuponera;
 	private JTree treeCuponera;
 	private ConsultaActividadDeportiva refAd;
 	
-	public ConsultaCuponeras(IDeportivaController IDC) {
+	public ConsultaCuponeras(ICuponeraController IDC) {
 		this.IDC = IDC;
 		//Configuracion del JFRAME
 		setResizable(true);
@@ -229,5 +229,4 @@ public class ConsultaCuponeras extends JInternalFrame{
 			this.setVisible(true);
 		}
     }
-
 }

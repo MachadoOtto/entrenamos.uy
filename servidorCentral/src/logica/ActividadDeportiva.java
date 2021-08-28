@@ -19,7 +19,6 @@ public class ActividadDeportiva {
 	
 	private Map <String, Clase> clases;  // Nombre de clase y clase
 	private Map <String, ClasesCuponera> clCuponera;
-	
 	private String nombre;
 	private String descripcion;
 	private int duracionMinutos;

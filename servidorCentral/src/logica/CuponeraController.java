@@ -5,15 +5,15 @@ import java.util.Set;
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
 
-public class DeportivaController implements IDeportivaController {
+public class CuponeraController implements ICuponeraController {
 
-	private static DeportivaController instance = null;
+	private static CuponeraController instance = null;
 
-	private DeportivaController() {}
+	private CuponeraController() {}
 	
-	public static DeportivaController getInstance(){
+	public static CuponeraController getInstance(){
 		if ( instance == null )
-			instance = new DeportivaController();
+			instance = new CuponeraController();
 		return instance;
 	}
 	

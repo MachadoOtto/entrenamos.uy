@@ -8,6 +8,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -17,24 +28,11 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextArea;
-import javax.swing.JSlider;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import datatypes.DtFecha;
-import logica.IDeportivaController;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+import logica.ICuponeraController;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-
+@SuppressWarnings("serial")
 public class CrearCuponera extends JInternalFrame {
 	
 	private JTextField textField;
@@ -60,7 +58,7 @@ public class CrearCuponera extends JInternalFrame {
 	private JLabel lblNewLabel_5;
 	private JSlider slider;
 	
-	public CrearCuponera(IDeportivaController dep) {
+	public CrearCuponera(ICuponeraController dep) {
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -439,7 +437,7 @@ public class CrearCuponera extends JInternalFrame {
         slider.setValue(0);
     }
 	
-	private void tomarDatos(IDeportivaController dep) {
+	private void tomarDatos(ICuponeraController dep) {
 		if(!checkFormulario())
 			return;
 		

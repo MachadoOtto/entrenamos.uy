@@ -19,7 +19,7 @@ public class DtClaseExt extends DtClase {
 		String res = new String();
 		res += "Nombre de Clase: " + this.getNombre() + "\n";
 		res += "Fecha de Inicio: " + this.getFechaClase().toFechaHora() + "\n";
-		res += "Profesor que la Dicta: " + this.getNombreProfesor() + "\n";
+		res += "Profesor que la Dicta: " + this.getNicknameProfesor() + "\n";
 		res += "Cantidad de Cupos: \n";
 		res += "    Minimos: " + this.getMinSocios() + " socios.\n";
 		res += "    Maximos: " + this.getMaxSocios() + " socios.\n";

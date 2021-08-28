@@ -15,7 +15,6 @@ import java.util.Set;
 import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import excepciones.NoExisteCuponeraException;
 
@@ -25,15 +24,11 @@ import datatypes.DtSocioExt;
 import datatypes.TReg;
 
 public class Socio extends Usuario {
+	
 	private List<ReciboCuponera> reciboCuponeras;
+	
 	private List<ReciboClase> reciboClases;
 	
-//	public Socio() {
-//		super();
-//		reciboCuponeras = new LinkedList<>();
-//		reciboClases = new LinkedList<>();
-//	}
-//	
 	public Socio(String nickname, String nombre, String apellido, String correo, DtFecha fecha) {
 		super(nickname, nombre, apellido, correo, fecha);
 		reciboCuponeras = new LinkedList<>();

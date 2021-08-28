@@ -15,7 +15,7 @@ import logica.LaFabrica;
 import logica.IUsuarioController;
 import logica.IActividadDeportivaController;
 import logica.IDictadoClaseController;
-import logica.IDeportivaController;
+import logica.ICuponeraController;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
@@ -44,7 +44,7 @@ public class Menu {
 	private JDesktopPane escritorio;
 	private IUsuarioController IUC;
 	private IActividadDeportivaController IADC;
-	private IDeportivaController IDC;
+	private ICuponeraController IDC;
 	private IDictadoClaseController IDCC;
 	
 	// Declaracion de los JInternalFrames:

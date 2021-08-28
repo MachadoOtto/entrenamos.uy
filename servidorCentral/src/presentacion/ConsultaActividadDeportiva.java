@@ -1,22 +1,17 @@
 package presentacion;
 
-import java.awt.EventQueue;
 import java.awt.GridBagLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-
-import logica.IActividadDeportivaController;
-
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Set;
+import java.awt.Color;
 
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
@@ -25,23 +20,19 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
-
-import datatypes.DtActividadDeportivaExt;
-import datatypes.DtClaseExt;
-import datatypes.DtClasesCuponera;
-import datatypes.DtCuponera;
-import datatypes.DtFecha;
-
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.JTextArea;
+
+import java.util.Set;
+
+import logica.IActividadDeportivaController;
+
+import datatypes.DtActividadDeportivaExt;
+import datatypes.DtFecha;
 
 @SuppressWarnings("serial")
 public class ConsultaActividadDeportiva extends JInternalFrame {
@@ -77,6 +68,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JLabel lblNewLabel;
 	private ConsultaDictadoClase refClase;
 	private ConsultaCuponeras refCup;
+	
 	public ConsultaActividadDeportiva(IActividadDeportivaController IADC) {
 		
 		this.IADC = IADC;
@@ -130,7 +122,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		comboBoxIns.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseEntered(MouseEvent e) {
-        		String z = null,x = null,t=(String) comboBoxIns.getSelectedItem();
+        		String z = null,t=(String) comboBoxIns.getSelectedItem();
         		if(comboBoxActDep.isEnabled()) 
         			z=(String) comboBoxActDep.getSelectedItem();
         		cargarInstitucion();
@@ -435,7 +427,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 				 }
 				 if(dad != null && dad.getUserObject().equals("Clases")) {
 					 //Ref CU. Consulta Clases
-					 
+					 refClase.refEntry((String) node.getUserObject(), (String)comboBoxActDep.getSelectedItem());
 				 }
 			}
 		};
@@ -449,18 +441,6 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 
 	}
 	
-	private void cargarInstituciones() {
-        DefaultComboBoxModel<String> modelInstituciones;
-        modelInstituciones = new DefaultComboBoxModel<>();
-        modelInstituciones.addElement("---Seleccione una institucion---");
-        for (String ins: IADC.obtenerInstituciones()) {
-        	modelInstituciones.addElement(ins);
-        }
-        comboBoxIns.setModel(modelInstituciones);
-    }
-	
-	
-	@SuppressWarnings("serial")
 	private void loadData() {
 		DtActividadDeportivaExt actDep = IADC.getActDepExt((String)comboBoxIns.getSelectedItem(),(String)comboBoxActDep.getSelectedItem());
 		textFieldNombre.setText(actDep.getNombre());
@@ -489,20 +469,22 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 				}
 			));
 	}
-
-    public void cargarInstitucion() {
-        DefaultComboBoxModel<String> model;
-        model = new DefaultComboBoxModel<>();
-        model.addElement("-");
-        for(String x: IADC.obtenerInstituciones()) {
-            model.addElement(x);
+	
+	private void cargarInstitucion() {
+        DefaultComboBoxModel<String> modelInstituciones;
+        modelInstituciones = new DefaultComboBoxModel<>();
+        modelInstituciones.addElement("---Seleccione una institucion---");
+        for (String ins: IADC.obtenerInstituciones()) {
+        	modelInstituciones.addElement(ins);
         }
-        comboBoxIns.setModel(model);
+        comboBoxIns.setModel(modelInstituciones);
     }
+	
     public void setRef(ConsultaDictadoClase Refcdc,ConsultaCuponeras Refcc) {
     	refClase = Refcdc;
     	refCup = Refcc;
     }
+    
 	public void clear() {
 		comboBoxIns.setSelectedIndex(0);
 		comboBoxActDep.setEnabled(false);
