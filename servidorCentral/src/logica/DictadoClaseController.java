@@ -60,9 +60,14 @@ public class DictadoClaseController implements IDictadoClaseController {
 		 return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
 	}
 	
-	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException {
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException, FechaInvalidaException {
 		Profesor profe = getHI().findInstitucion(ins).getProfesor(datos.getNicknameProfesor());
-		return getHI().findInstitucion(ins).getActDep(actDep).addClase(datos,profe);
+		ActividadDeportiva actDept = getHI().findInstitucion(ins).getActDep(actDep);
+		if (!actDept.getFechaRegistro().esMenor(datos.getFechaRegistro())) {
+			throw new FechaInvalidaException("La fecha de registro de la clase debe ser posterior a la fecha de registro de la actividad deportiva");
+		} else {
+			return actDept.addClase(datos,profe);
+		}
 	}
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
@@ -74,7 +79,7 @@ public class DictadoClaseController implements IDictadoClaseController {
 		if (fechaReg.esMenor(claseSelec.getFechaRegistro())) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es anterior a la Fecha en la que se registro la Clase seleccionada.");
 		}
-		if (!(fechaReg.esMenor(claseSelec.getFechaClase()))) {
+		if (claseSelec.getFechaClase().esMenor(fechaReg)) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es posterior a la Fecha en la que inicia la Clase seleccionada.");
 		}
 		((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg);
