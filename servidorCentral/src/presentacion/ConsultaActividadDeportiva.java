@@ -14,8 +14,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -65,7 +68,9 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JTextField textFieldAnio;
 	private JPanel panelClasesCuponeras;
 	private JLabel lblEnd;
+	private JScrollPane scrollPane;
 	private JTree tree;
+	private JScrollPane scrollPaneDesc;
 	private JTextArea textFieldDesc;
 	private JLabel lblNewLabel;
 	private ConsultaDictadoClase refClase;
@@ -121,9 +126,12 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		panelInsActDep.add(lblIns, gbc_lblIns);
 		
 		comboBoxIns = new JComboBox<>();
-		comboBoxIns.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseEntered(MouseEvent e) {
+		comboBoxIns.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
         		String z = null,t=(String) comboBoxIns.getSelectedItem();
         		if(comboBoxActDep.isEnabled()) 
         			z=(String) comboBoxActDep.getSelectedItem();
@@ -140,7 +148,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	        		comboBoxActDep.removeAllItems();
 	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
 	    			modelActividad.addElement("-");     		
-	    			if (selectIndex > 0 && selectIndex != -1) {
+	    			if (selectIndex > 0) {
 	        			Set<String> actividades = IADC.obtenerActividades((String) comboBoxIns.getItemAt(selectIndex));
 	                    for (String x: actividades) {
 	                    	modelActividad.addElement(x);
@@ -229,7 +237,18 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		panelDatosAD.add(textFieldNombre, gbc_textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
+		scrollPaneDesc = new JScrollPane();
+		GridBagConstraints gbc_scrollPaneDesc = new GridBagConstraints();
+		gbc_scrollPaneDesc.gridheight = 1;
+		gbc_scrollPaneDesc.gridwidth = 3;
+		gbc_scrollPaneDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPaneDesc.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneDesc.gridx = 1;
+		gbc_scrollPaneDesc.gridy = 1;
+		panelDatosAD.add(scrollPaneDesc, gbc_scrollPaneDesc);
+		
 		textFieldDesc = new JTextArea();
+		scrollPaneDesc.setViewportView(textFieldDesc);
 		textFieldDesc.setEditable(false);
 		textFieldDesc.setLineWrap(true);
 		textFieldDesc.setWrapStyleWord(true);
@@ -250,7 +269,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		panelDatosAD.add(lblDesc, gbc_lblDesc);
 		textFieldDesc.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		panelDatosAD.add(textFieldDesc, gbc_textFieldDesc);
+		//panelDatosAD.add(textFieldDesc, gbc_textFieldDesc);
 		
 		lblDuracion = new JLabel("Duracion:");
 		GridBagConstraints gbc_lblDuracion = new GridBagConstraints();
@@ -398,7 +417,18 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbl_panelClasesCuponeras.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panelClasesCuponeras.setLayout(gbl_panelClasesCuponeras);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panelClasesCuponeras.add(scrollPane, gbc_scrollPane);
+		
 		tree = new JTree();
+		scrollPane.setViewportView(tree);
 		tree.setRootVisible(false);
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
 			{
@@ -417,7 +447,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_tree.fill = GridBagConstraints.BOTH;
 		gbc_tree.gridx = 0;
 		gbc_tree.gridy = 0;
-		panelClasesCuponeras.add(tree, gbc_tree);
+		//panelClasesCuponeras.add(tree, gbc_tree);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		TreeSelectionListener lst = new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
@@ -431,7 +461,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 				 }
 				 if(dad != null && dad.getUserObject().equals("Clases")) {
 					 //Ref CU. Consulta Clases
-					 refClase.refEntry((String) node.getUserObject(), (String)comboBoxActDep.getSelectedItem());
+					 refClase.refEntry((String)comboBoxActDep.getSelectedItem(), (String) node.getUserObject());
 				 }
 			}
 		};
@@ -475,7 +505,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 				));
 		} catch (InstitucionException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), 
-					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+					this.getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -507,9 +537,12 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	}
 
 	public void refEntry(String actDep) {
+		
 		try {
-			if(actDep.contains("/"))
+			if(actDep.contains("/")) {
 				actDep = actDep.split("/")[0];
+				actDep = actDep.trim();
+			}
 	        DefaultComboBoxModel<String> model;
 	        String institf=null;
 	        model = new DefaultComboBoxModel<>();
@@ -525,7 +558,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	            	break;
 	        }
 	        comboBoxIns.setModel(model);
-	        comboBoxIns.setSelectedItem(institf);
+	        comboBoxIns.getModel().setSelectedItem(institf);
 			Set<String> actividades = IADC.obtenerActividades(institf);
 			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
 	        for (String x: actividades) {
@@ -533,7 +566,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	        }
 	        comboBoxActDep.setEnabled(true);
 	        comboBoxActDep.setModel(modelActividad);
-	        comboBoxIns.setSelectedItem(actDep);
+	        comboBoxActDep.getModel().setSelectedItem(actDep);
 			loadData();
 			if (this.isVisible()) 
 				this.toFront();
