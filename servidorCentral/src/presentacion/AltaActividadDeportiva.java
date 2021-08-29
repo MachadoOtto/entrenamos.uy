@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
@@ -66,6 +67,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JPanel panel;
+	private JScrollPane scrollPane;
 	private JTextArea textFieldDescripcion;
 	private JTextField altaAnio;
 	
@@ -195,9 +197,20 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_lblDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDescripcion.gridx = 1;
 		gbc_lblDescripcion.gridy = 1;
-		panelDatosActDep.add(lblDescripcion, gbc_lblDescripcion);
+		//panelDatosActDep.add(lblDescripcion, gbc_lblDescripcion);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 1;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 1;
+		panelDatosActDep.add(scrollPane, gbc_scrollPane);
 		
 		textFieldDescripcion = new JTextArea();
+		scrollPane.setViewportView(textFieldDescripcion);
 		textFieldDescripcion.setWrapStyleWord(true);
 		textFieldDescripcion.setLineWrap(true);
 		GridBagConstraints gbc_textFieldDescripcion = new GridBagConstraints();
@@ -208,7 +221,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		textFieldDescripcion.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		panelDatosActDep.add(textFieldDescripcion, gbc_textFieldDescripcion);
+		//panelDatosActDep.add(textFieldDescripcion, gbc_textFieldDescripcion);
 		
 		lblDuracion = new JLabel("Duracion:");
 		GridBagConstraints gbc_lblDuracion = new GridBagConstraints();

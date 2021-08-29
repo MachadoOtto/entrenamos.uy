@@ -3,6 +3,7 @@ package presentacion;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -50,6 +51,7 @@ public class CrearCuponera extends JInternalFrame {
 	private Component verticalStrut;
 	private Component verticalStrut_1;
 	private Component verticalStrut_2;
+	private JScrollPane scrollPane;
 	private JTextArea textArea;
 	private JComboBox<String> DiaAlta;
 	private JComboBox<String> MesAlta;
@@ -133,7 +135,18 @@ public class CrearCuponera extends JInternalFrame {
 		gbc_lblNewLabel_1.gridy = 3;
 		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 4;
+		add(scrollPane, gbc_scrollPane);
+		
 		textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
@@ -146,7 +159,7 @@ public class CrearCuponera extends JInternalFrame {
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		textArea.setBorder(BorderFactory.createCompoundBorder(border, 
 		      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		getContentPane().add(textArea, gbc_textArea);
+		//getContentPane().add(textArea, gbc_textArea);
         
         JLabel lblNewLabel_2 = new JLabel("Fecha de inicio");
         GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -480,7 +493,6 @@ public class CrearCuponera extends JInternalFrame {
         	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
     		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  
 			clear();
-			setVisible(false);	
         }
 	}
 	

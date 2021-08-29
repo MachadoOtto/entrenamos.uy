@@ -568,13 +568,6 @@ public class AltaUsuario extends JInternalFrame {
             return false;
         }
         
-        //Fechas inexistentes
-        int numAnioU = Integer.parseInt(anioU);
-        if (numAnioU < 1900 || numAnioU > 2021) {
-        	JOptionPane.showMessageDialog(this, "El sistema no acepta fechas que no coincidan con la realidad", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        
         return true;
 	}
 }

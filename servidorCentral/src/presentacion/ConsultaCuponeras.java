@@ -24,6 +24,8 @@ import java.util.Set;
 import javax.swing.JSeparator;
 import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
@@ -138,9 +140,12 @@ public class ConsultaCuponeras extends JInternalFrame{
 			model.addElement(x);
 		}
 		cbCuponera.setModel(model);
-		cbCuponera.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
+		cbCuponera.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				Set<String> tt = IDC.getNombreCuponeras();
 				if(cbCuponera.getItemCount()!=tt.size()+1) {
 					String t = (String) cbCuponera.getSelectedItem();
@@ -231,8 +236,10 @@ public class ConsultaCuponeras extends JInternalFrame{
     	refAd = a;
     }
     public void refEntry(String c) {
+    	
+			
 		cbCuponeraLoad();
-		cbCuponera.setSelectedItem(c);
+		cbCuponera.getModel().setSelectedItem(c);
 		if (this.isVisible()) 
 			this.toFront();
 		else {

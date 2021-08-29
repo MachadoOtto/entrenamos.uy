@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.BorderFactory;
@@ -120,9 +122,12 @@ public class ConsultaDictadoClase extends JInternalFrame {
         // JComboBox:
         boxInstitucion = new JComboBox<>();
         cargarInstitucion();
-        boxInstitucion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
+        boxInstitucion.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				Set<String> tt = controlClase.obtenerInstituciones();
 				if(boxInstitucion.getItemCount()!=tt.size()+1) {
 					String t = (String) boxInstitucion.getSelectedItem();
@@ -362,7 +367,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	            	break;
 	        }
 	        boxInstitucion.setModel(model);
-	        boxInstitucion.setSelectedItem(institf);
+	        boxInstitucion.getModel().setSelectedItem(institf);
 			Set<String> actividades = controlClase.obtenerActividades(institf);
 			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
 	        for (String x: actividades) {
@@ -370,7 +375,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	        }
 	        boxActividad.setEnabled(true);
 	        boxActividad.setModel(modelActividad);
-	        boxActividad.setSelectedItem(act);
+	        boxActividad.getModel().setSelectedItem(act);
 			Set<String> clases = controlClase.obtenerClases(institf, act);
 			DefaultComboBoxModel<String> modelClases = new DefaultComboBoxModel<>();
 	        for (String x: clases) {

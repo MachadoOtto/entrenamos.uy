@@ -537,7 +537,6 @@ public class AltaDictadoClase extends JInternalFrame {
 		            	JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con Ã©xito", 
 		            			"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
 		                clear();
-		                setVisible(false);
 	            	} else {
 	            		JOptionPane.showMessageDialog(this, "Ya existe una clase con ese nombre ingresada en el sistema.",
 	            				"Registro de Usuario a Dictado de Clase", JOptionPane.ERROR_MESSAGE);

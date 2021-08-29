@@ -3,6 +3,7 @@ package presentacion;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JTextField;
@@ -33,6 +34,8 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 	private JTextField inputNombre;
 	private JTextField inputURL;
 	private JTextArea inputDescripcion;
+	//Scroll Descripcion
+	private JScrollPane scrollPane;
 	
 	public AltaInstitucionDeportiva(IActividadDeportivaController IDC) {
 		this.IDC = IDC;
@@ -86,7 +89,18 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 		gbc_lblDescripcion.gridy = 3;
 		getContentPane().add(lblDescripcion, gbc_lblDescripcion);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 4;
+		add(scrollPane, gbc_scrollPane);
+		
 		inputDescripcion = new JTextArea();
+		scrollPane.setViewportView(inputDescripcion);
 		inputDescripcion.setLineWrap(true);
 		inputDescripcion.setWrapStyleWord(true);
 		inputDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -99,7 +113,7 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		inputDescripcion.setBorder(BorderFactory.createCompoundBorder(border, 
 		      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		getContentPane().add(inputDescripcion, gbc_inputDescripcion);
+		//getContentPane().add(inputDescripcion, gbc_inputDescripcion);
 		
 		JLabel lblURL = new JLabel("URL:");
 		GridBagConstraints gbc_lblURL = new GridBagConstraints();
