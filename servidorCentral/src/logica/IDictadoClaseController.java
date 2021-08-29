@@ -16,10 +16,11 @@ import datatypes.DtClaseExt;
 import datatypes.DtFecha;
 import datatypes.TReg;
 
-import excepciones.ClaseLlenaException;
+import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
+import excepciones.UsuarioNoExisteException;
 
 public interface IDictadoClaseController {
 	
@@ -38,7 +39,7 @@ public interface IDictadoClaseController {
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException ;
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
-			throws  ClaseLlenaException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException;
+			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, UsuarioNoExisteException;
 
 	public Set<String> obtenerSocios();
 	

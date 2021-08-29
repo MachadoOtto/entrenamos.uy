@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.Collection;
 import java.util.Iterator;
 
+import excepciones.UsuarioNoExisteException;
+
 public class HandlerUsuario {
 	
 	private static HandlerUsuario instancia = null;
@@ -57,8 +59,12 @@ public class HandlerUsuario {
 		}
 	}
 	
-	public Usuario findUsuario(String userNick) {
-		return usuarios.get(userNick);
+	public Usuario findUsuario(String userNick) throws UsuarioNoExisteException {
+		Usuario res = usuarios.get(userNick);
+		if (res == null) {
+			throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
+		}
+		return res;
 	}
 	
 	public boolean existeNick(String userNick) {

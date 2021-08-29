@@ -12,10 +12,11 @@ package logica;
 import java.util.HashSet;
 import java.util.Set;
 
-import excepciones.ClaseLlenaException;
+import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
+import excepciones.UsuarioNoExisteException;
 
 import datatypes.DtFecha;
 import datatypes.DtClase;
@@ -66,11 +67,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 	}
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
-			throws  ClaseLlenaException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException { 
+			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, UsuarioNoExisteException { 
 		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
 		Clase claseSelec = ad.findClase(clase);
+		claseSelec.hayLugar();
 		if(!claseSelec.hayLugar())
-			throw new ClaseLlenaException("La clase seleccionada esta llena.");
+			throw new ClaseException("La clase seleccionada esta llena.");
 		if (fechaReg.esMenor(claseSelec.getFechaRegistro())) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es anterior a la Fecha en la que se registro la Clase seleccionada.");
 		}

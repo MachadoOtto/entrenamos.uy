@@ -50,6 +50,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import excepciones.UsuarioNoExisteException;
+
 @SuppressWarnings("serial")
 public class ConsultaUsuario extends JInternalFrame {
 
@@ -157,108 +159,109 @@ public class ConsultaUsuario extends JInternalFrame {
 		});
 		comboBoxUsuario.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				
-				/*
-				 * Habilita determinados campos segun el tipo de usuario.
-				 * Ademas rellena cada campo con sus datos actuales
-				 * Si no se seleccionan usuarios se limpian los campos
-				 */	
-				
-				String tipoUsuario = "-";
-				if(comboBoxUsuario.getSelectedIndex() > 0) {
-					String nickUsuario = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
-					datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
-					textFieldNombre.setText(datosUsuarioActual.getNombre());
-					textFieldApellido.setText(datosUsuarioActual.getApellido());
-					textFieldEmail.setText(datosUsuarioActual.getEmail());
-					DtFecha fechaNacimiento = datosUsuarioActual.getFechaNacimiento();
-					textFieldDia.setText(String.valueOf(fechaNacimiento.getDia()));
-					textFieldMes.setText(String.valueOf(fechaNacimiento.getMes()));
-					textFieldAnio.setText(String.valueOf(fechaNacimiento.getAnio()));
+				try {
+					/*
+					 * Habilita determinados campos segun el tipo de usuario.
+					 * Ademas rellena cada campo con sus datos actuales
+					 * Si no se seleccionan usuarios se limpian los campos
+					 */	
 					
-					//El usuario es profesor
-					if(datosUsuarioActual instanceof DtProfesorExt) {
-						tipoUsuario = "Profesor";
-						DtProfesorExt datosProfesorActual = (DtProfesorExt)datosUsuarioActual;
-						textFieldInstitucion.setText(datosProfesorActual.getNombreInstitucion());
-						textAreaDescripcion.setText(datosProfesorActual.getDescripcion());
-						textAreaBiografia.setText(datosProfesorActual.getBiografia());
-						textFieldWebsite.setText(datosProfesorActual.getLink());
-						labelWebsite_1.setText("Clases dictadas (ordenadas por actividad deportiva)");
-						Set<Entry<String, Set<String>>> m = datosProfesorActual.getClasesxActividades().entrySet();
-						if(m.size()==0) {
-							tree.setModel(new DefaultTreeModel(
+					String tipoUsuario = "-";
+					if(comboBoxUsuario.getSelectedIndex() > 0) {
+						String nickUsuario = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
+						datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
+						textFieldNombre.setText(datosUsuarioActual.getNombre());
+						textFieldApellido.setText(datosUsuarioActual.getApellido());
+						textFieldEmail.setText(datosUsuarioActual.getEmail());
+						DtFecha fechaNacimiento = datosUsuarioActual.getFechaNacimiento();
+						textFieldDia.setText(String.valueOf(fechaNacimiento.getDia()));
+						textFieldMes.setText(String.valueOf(fechaNacimiento.getMes()));
+						textFieldAnio.setText(String.valueOf(fechaNacimiento.getAnio()));
+						
+						//El usuario es profesor
+						if(datosUsuarioActual instanceof DtProfesorExt) {
+							tipoUsuario = "Profesor";
+							DtProfesorExt datosProfesorActual = (DtProfesorExt)datosUsuarioActual;
+							textFieldInstitucion.setText(datosProfesorActual.getNombreInstitucion());
+							textAreaDescripcion.setText(datosProfesorActual.getDescripcion());
+							textAreaBiografia.setText(datosProfesorActual.getBiografia());
+							textFieldWebsite.setText(datosProfesorActual.getLink());
+							labelWebsite_1.setText("Clases dictadas (ordenadas por actividad deportiva)");
+							Set<Entry<String, Set<String>>> m = datosProfesorActual.getClasesxActividades().entrySet();
+							if(m.size()==0) {
+								tree.setModel(new DefaultTreeModel(
+										new DefaultMutableTreeNode("root") {
+											{
+												//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
+												add(new DefaultMutableTreeNode("El profesor no dicta ninguna clase."));
+											}
+										}
+									));
+							} else {
+								tree.setModel(new DefaultTreeModel(
 									new DefaultMutableTreeNode("root") {
 										{
-											//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-											add(new DefaultMutableTreeNode("El profesor no dicta ninguna clase."));
+										
+										for(Entry<String, Set<String>> ad: m) {
+											DefaultMutableTreeNode nodoAct = new DefaultMutableTreeNode(ad.getKey());
+											for(String c: ad.getValue()) {
+												nodoAct.add(new DefaultMutableTreeNode(c));
+											}
+											add(nodoAct);
+										}
+										
 										}
 									}
 								));
-						} else {
-							tree.setModel(new DefaultTreeModel(
-								new DefaultMutableTreeNode("root") {
-									{
-									
-									for(Entry<String, Set<String>> ad: m) {
-										DefaultMutableTreeNode nodoAct = new DefaultMutableTreeNode(ad.getKey());
-										for(String c: ad.getValue()) {
-											nodoAct.add(new DefaultMutableTreeNode(c));
-										}
-										add(nodoAct);
-									}
-									
-									}
-								}
-							));
+							}
 						}
+						else {
+							labelWebsite_1.setText("Clases inscripto (ordenadas por actividad deportiva)");
+							DtSocioExt datosSocioActual = (DtSocioExt)datosUsuarioActual;
+							Set<Entry<String, Set<String>>> m = datosSocioActual.getAguadeUwu().entrySet();
+							if(m.size()==0) {
+								tree.setModel(new DefaultTreeModel(
+										new DefaultMutableTreeNode("root") {
+											{
+												//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
+												add(new DefaultMutableTreeNode("El socio no está inscripto a ninguna clase."));
+											}
+										}
+									));
+							} else {
+								tree.setModel(new DefaultTreeModel(
+									new DefaultMutableTreeNode("root") {
+										{
+										
+										for(Entry<String, Set<String>> ad: m) {
+											DefaultMutableTreeNode nodoAct = new DefaultMutableTreeNode(ad.getKey());
+											for(String c: ad.getValue()) {
+												nodoAct.add(new DefaultMutableTreeNode(c));
+											}
+											add(nodoAct);
+										}
+										
+										}
+									}
+								));
+							}
+							tipoUsuario = "Socio";
+							/*
+							 * Borro campos no relevantes para socio
+							 */
+							
+							textFieldInstitucion.setText("");
+							textAreaDescripcion.setText("");
+							textAreaBiografia.setText("");
+							textFieldWebsite.setText("");
+	//						textAreaActividades.setText("");
+						}
+						textPaneTipoDeUsuario.setText(tipoUsuario);
 					}
 					else {
-						labelWebsite_1.setText("Clases inscripto (ordenadas por actividad deportiva)");
-						DtSocioExt datosSocioActual = (DtSocioExt)datosUsuarioActual;
-						Set<Entry<String, Set<String>>> m = datosSocioActual.getAguadeUwu().entrySet();
-						if(m.size()==0) {
-							tree.setModel(new DefaultTreeModel(
-									new DefaultMutableTreeNode("root") {
-										{
-											//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-											add(new DefaultMutableTreeNode("El socio no está inscripto a ninguna clase."));
-										}
-									}
-								));
-						} else {
-							tree.setModel(new DefaultTreeModel(
-								new DefaultMutableTreeNode("root") {
-									{
-									
-									for(Entry<String, Set<String>> ad: m) {
-										DefaultMutableTreeNode nodoAct = new DefaultMutableTreeNode(ad.getKey());
-										for(String c: ad.getValue()) {
-											nodoAct.add(new DefaultMutableTreeNode(c));
-										}
-										add(nodoAct);
-									}
-									
-									}
-								}
-							));
-						}
-						tipoUsuario = "Socio";
-						/*
-						 * Borro campos no relevantes para socio
-						 */
-						
-						textFieldInstitucion.setText("");
-						textAreaDescripcion.setText("");
-						textAreaBiografia.setText("");
-						textFieldWebsite.setText("");
-//						textAreaActividades.setText("");
+						//clear();
 					}
-					textPaneTipoDeUsuario.setText(tipoUsuario);
-				}
-				else {
-					//clear();
-				}
+				} catch (UsuarioNoExisteException ignore) { }
 			}
 		});
 		

@@ -72,7 +72,7 @@ public class Clase {
 	}
 	
 	public boolean hayLugar() {
-		return ListReciboClase.size() < maxSocios;
+		return ListReciboClase.size() <= maxSocios;
 	}
 	
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {

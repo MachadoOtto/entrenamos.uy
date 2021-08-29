@@ -37,8 +37,9 @@ import datatypes.TReg;
 
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
-import excepciones.ClaseLlenaException;
+import excepciones.ClaseException;
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
 
 public class Menu {
 	private JFrame menuPrincipal;
@@ -401,13 +402,14 @@ public class Menu {
 		try {
 			// ALTA INSTITUCIONES
 			// Instituto Natural #IN
-			IADC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aeróbica, spinning y yoga.","https://www.inatural.com");
+			IADC.altaInstitucion("Instituto Natural","https://www.inatural.com", "Clases de gimnasia, aeróbica, spinning y yoga.");
 			// Fuerza Bruta #FB
-			IADC.altaInstitucion("Fuerza Bruta", "Gimnasio especializado en el desarrollo de la musculatura.","https://www.musculos.com");
+			IADC.altaInstitucion("Fuerza Bruta", "https://www.musculos.com", "Gimnasio especializado en el desarrollo de la musculatura.");
 			// Telón #TL
-			IADC.altaInstitucion("Telón", "Actividades deportivas para todas las edades.","https://telon.com.uy");
+			IADC.altaInstitucion("Telón", "https://telon.com.uy", "Actividades deportivas para todas las edades.");
 			// Olympic #YT
-			IADC.altaInstitucion("Olympic", "Gimnasia y Aparatos.","https://www.olympic21.com");
+			IADC.altaInstitucion("Olympic", "https://www.olympic21.com", "Gimnasia y Aparatos.");
+						
 			
 			// ALTA USUARIOS
 			// SOCIOS
@@ -717,13 +719,16 @@ public class Menu {
         } catch (FechaInvalidaException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
-        } catch (ClaseLlenaException e) {
+        } catch (ClaseException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
         } catch (NoExisteCuponeraException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
         } catch (InstitucionException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        } catch (UsuarioNoExisteException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
         }

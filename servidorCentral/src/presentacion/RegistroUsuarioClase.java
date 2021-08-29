@@ -38,10 +38,11 @@ import logica.IDictadoClaseController;
 import datatypes.TReg;
 import datatypes.DtFecha;
 
-import excepciones.ClaseLlenaException;
+import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
 
 @SuppressWarnings("serial")
 public class RegistroUsuarioClase extends JInternalFrame {
@@ -379,7 +380,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
                 		"Registro de Usuario a Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
                 clear();
                 setVisible(false);
-            } catch (ClaseLlenaException e) {
+            } catch (ClaseException e) {
             	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
             			JOptionPane.ERROR_MESSAGE);
             } catch (FechaInvalidaException e) {
@@ -389,6 +390,8 @@ public class RegistroUsuarioClase extends JInternalFrame {
             	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
             			JOptionPane.ERROR_MESSAGE);
             } catch (InstitucionException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+    		} catch (UsuarioNoExisteException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
     		}
         }

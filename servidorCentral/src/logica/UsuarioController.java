@@ -17,6 +17,7 @@ import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
 
 public class UsuarioController implements IUsuarioController {
 	
@@ -67,7 +68,7 @@ public class UsuarioController implements IUsuarioController {
 	}
 	
 	// Ver la nota ATENCION mas arriba.
-	public DtUsuario seleccionarUsuario(String userNick) {
+	public DtUsuario seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		Usuario user = hu.findUsuario(userNick);
 		if (user instanceof Socio) {
@@ -81,7 +82,7 @@ public class UsuarioController implements IUsuarioController {
 	
 	// Ver la nota ATENCION mas arriba.
 	// Precaucion: Esta funcion no edita/ ni reemplaza la Institucion que tiene Profesor asignada.
-	public void editarDatosBasicos(String userNick, DtUsuario datoUser) {
+	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		Usuario user = hu.findUsuario(userNick);
 		if (user instanceof Profesor) {
