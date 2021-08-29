@@ -441,6 +441,7 @@ public class AltaUsuario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(tomarDatos()==0)
 					clear();
+					setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();

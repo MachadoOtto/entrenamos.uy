@@ -474,7 +474,9 @@ public class CrearCuponera extends JInternalFrame {
         			this.getTitle(), JOptionPane.ERROR_MESSAGE);
         } else {
         	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  	
+    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  
+			clear();
+			setVisible(false);	
         }
 	}
 	
@@ -526,5 +528,4 @@ public class CrearCuponera extends JInternalFrame {
        }
        return true;       
 	}
-	
 }

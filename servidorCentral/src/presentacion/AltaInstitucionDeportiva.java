@@ -167,6 +167,7 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 		else {
 			JOptionPane.showMessageDialog(this, "La institucion ha sido registrada de forma exitosa.", this.getTitle(),JOptionPane.INFORMATION_MESSAGE);
 			clear();
+			setVisible(false);
 		}
 	}
 	
