@@ -467,12 +467,15 @@ public class CrearCuponera extends JInternalFrame {
    
         DtFecha FInicio = new DtFecha(anio, mes, dia, 0, 0, 0);
         DtFecha  FFinal = new DtFecha(anio2, mes2, dia2, 0, 0, 0);
-        DtFecha alta = new DtFecha(diaA, mesA, anioA, 0, 0, 0);
+        DtFecha alta = new DtFecha(anioA, mesA, diaA, 0, 0, 0);
 
-        if(dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta) == 0)
-        	JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-        else
-        	JOptionPane.showMessageDialog(this, "Ya existe una cuponera con los datos ingresados", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+		if (FInicio.esMenor(alta)) {
+        	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior a la fecha de inicio de la clase", 
+        			this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else {
+        	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
+    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  	
+        }
 	}
 	
 	private boolean checkFormulario() {
