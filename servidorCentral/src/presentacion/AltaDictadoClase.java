@@ -32,6 +32,7 @@ import java.awt.event.ItemEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
+import excepciones.FechaInvalidaException;
 
 import logica.IDictadoClaseController;
 import datatypes.DtFecha;
@@ -502,51 +503,58 @@ public class AltaDictadoClase extends JInternalFrame {
 	
 	// Metodo de invocacion del Alta de Dictado de Clase
     protected void darAltaDeClase(ActionEvent arg0) {
-    	try {
-	        if (checkDatos()) {
-	        	// Obtengo datos de los controles Swing:
-	        	String nombre = nombreClase.getText();
-	            int socioMin = Integer.parseInt(sociosMin.getText());
-	            int socioMax = Integer.parseInt(sociosMax.getText());
-	            int dia = boxIDia.getSelectedIndex();
-	            int mes = boxIMes.getSelectedIndex();
-	            int anio = Integer.parseInt(inicioAnio.getText());
-	            int hora = Integer.parseInt(boxIHora.getItemAt(boxIHora.getSelectedIndex()));
-	            int minuto = boxIMinuto.getSelectedIndex();
-	            int rDia = boxRDia.getSelectedIndex();
-	            int rMes = boxRMes.getSelectedIndex();
-	            int rAnio = Integer.parseInt(regAnio.getText());
-	            String urlWeb = url.getText();
-	            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
-	            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
-	            String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex());
-	            DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
-	            DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
-	            DtClase datos = new DtClase(nombre, nombreProfesor,nombreProfesor,socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
-	            if (controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
-	            	// Muestro éxito de la operación
-	                JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 
-	                		"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
-	                clear();
-	            } else {
-	            	JOptionPane.showMessageDialog(this, "Ya existe una Clase con ese nombre", "Alta Dictado de Clase",
-	                        JOptionPane.ERROR_MESSAGE);
-	            }
-	        }
-    	} catch (InstitucionException e) {
-    		JOptionPane.showMessageDialog(this, e.getMessage(), "Alta Dictado de Clase",
-                    JOptionPane.ERROR_MESSAGE);
-    	}
+        if (checkDatos()) {
+        	// Obtengo datos de los controles Swing:
+        	String nombre = nombreClase.getText().trim();
+            int socioMin = Integer.parseInt(sociosMin.getText());
+            int socioMax = Integer.parseInt(sociosMax.getText());
+            int dia = boxIDia.getSelectedIndex();
+            int mes = boxIMes.getSelectedIndex();
+            int anio = Integer.parseInt(inicioAnio.getText());
+            int hora = Integer.parseInt(boxIHora.getItemAt(boxIHora.getSelectedIndex()));
+            int minuto = boxIMinuto.getSelectedIndex();
+            int rDia = boxRDia.getSelectedIndex();
+            int rMes = boxRMes.getSelectedIndex();
+            int rAnio = Integer.parseInt(regAnio.getText());
+            String urlWeb = url.getText().trim();
+            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()).trim();
+            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex()).trim();
+            String nombreProfesor = boxProfesor.getItemAt(boxProfesor.getSelectedIndex()).trim();
+            DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
+            DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
+            DtClase datos = new DtClase(nombre, nombreProfesor,nombreProfesor,socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
+            if (!fechaRegistro.esMenor(fechaClase)) {
+            	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior a la fecha de inicio de la clase", 
+            			"Alta Dictado de Clase", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+	            try {
+	            	if(controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
+		            	JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con Ã©xito", 
+		            			"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
+		                clear();
+	            	} else {
+	            		JOptionPane.showMessageDialog(this, "Ya existe una clase con ese nombre ingresada en el sistema.",
+	            				"Registro de Usuario a Dictado de Clase", JOptionPane.ERROR_MESSAGE);
+	            	}
+	            } catch (FechaInvalidaException e) {
+	            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
+	            			JOptionPane.ERROR_MESSAGE);
+	            } catch (InstitucionException e) {
+	    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+	    		}
+            }    
+        }
     }
 	
 	// Realiza el checkeo de la entrada de datos.
     private boolean checkDatos() {
-        String campoNombre = nombreClase.getText();
-        String campoMin = sociosMin.getText();
-        String campoMax = sociosMax.getText();
-        String campoAnio = inicioAnio.getText();
-        String campoAnioR = regAnio.getText();
-        String campoWeb = url.getText();
+        String campoNombre = nombreClase.getText().trim();
+        String campoMin = sociosMin.getText().trim();
+        String campoMax = sociosMax.getText().trim();
+        String campoAnio = inicioAnio.getText().trim();
+        String campoAnioR = regAnio.getText().trim();
+        String campoWeb = url.getText().trim();
         int indexDia = boxIDia.getSelectedIndex();
         int indexMes = boxIMes.getSelectedIndex();
         int indexHora = boxIHora.getSelectedIndex();
@@ -559,20 +567,20 @@ public class AltaDictadoClase extends JInternalFrame {
         if (campoNombre.isEmpty() || campoMin.isEmpty() || campoMax.isEmpty() || campoAnio.isEmpty() || campoAnioR.isEmpty() ||
         		campoWeb.isEmpty() || indexDia < 1 || indexMes < 1 || indexHora < 1 || indexMinuto < 1 || indexInstitucion < 1 || 
         		indexActividad < 1 || indexProfesor < 1 || indexDiaR < 1 || indexMesR < 1) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Alta Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
             int x = Integer.parseInt(campoMin);
             int y = Integer.parseInt(campoMax);
-            if(y<=x) {
-                JOptionPane.showMessageDialog(this, "La cantidad maxima de alumnos debe ser mayor o igual a la minima.", "Alta Dictado de Clase",
+            if(x>y) {
+                JOptionPane.showMessageDialog(this, "La cantidad maxima de alumnos debe ser mayor o igual a la minima.", this.getTitle(),
                         JOptionPane.ERROR_MESSAGE);
                 return false; 	
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Los campos de Cantidad Socios debe ser un numero", "Alta Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "Los campos de Cantidad Socios debe ser un numero", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -580,7 +588,7 @@ public class AltaDictadoClase extends JInternalFrame {
             Integer.parseInt(campoAnio);
             Integer.parseInt(campoAnioR);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El año ingresado debe ser un numero", "Alta Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "La fecha de ingresada no es valida", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
