@@ -172,7 +172,7 @@ public class Menu {
 		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuPrincipal.setBounds(100, 100, 1200, 850);
 		menuPrincipal.setResizable(true);
-		menuPrincipal.setIconImage(new ImageIcon(getClass().getResource("/img/icons8-ball-60.png")).getImage());
+		menuPrincipal.setIconImage(new ImageIcon(getClass().getResource("/img/iconoEntrenamos-uy.png")).getImage());
 		
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(new Color(174, 182, 191));
