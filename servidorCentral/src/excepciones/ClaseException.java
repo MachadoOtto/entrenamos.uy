@@ -16,9 +16,9 @@ package excepciones;
  */
 
 @SuppressWarnings("serial")
-public class ClaseLlenaException extends Exception {
+public class ClaseException extends Exception {
 
-    public ClaseLlenaException(String string) {
+    public ClaseException(String string) {
         super(string);
     }
 }

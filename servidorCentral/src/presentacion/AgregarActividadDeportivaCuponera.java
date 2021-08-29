@@ -21,6 +21,7 @@ import java.awt.event.ItemEvent;
 
 import java.util.Set;
 
+import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 import logica.IActividadDeportivaController;
@@ -268,7 +269,10 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 	    	controlDep.agregarActividadCuponera(cuponera, institucion, deltains, cant);
 	    	JOptionPane.showMessageDialog(this, "Actividad deportiva agregada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);   
 	    	clear();
+			setVisible(false);
 		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE); 
+		} catch (ActividadDeportivaException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE); 
 		}
 	}

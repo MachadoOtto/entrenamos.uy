@@ -6,8 +6,8 @@ public class DtClaseExt extends DtClase {
 	
 	private List<String> alumnos;
 	
-	public DtClaseExt(String nom, String nomP,String nickP, int min, int max, String url, DtFecha fechC, DtFecha fechR, List<String> als) {
-		super(nom, nomP,nickP, min, max, url, fechC, fechR);
+	public DtClaseExt(String nom, String nickP,String correoP, int min, int max, String url, DtFecha fechC, DtFecha fechR, List<String> als) {
+		super(nom, nickP,correoP, min, max, url, fechC, fechR);
 		this.alumnos = als;
 	}
 
@@ -19,7 +19,7 @@ public class DtClaseExt extends DtClase {
 		String res = new String();
 		res += "Nombre de Clase: " + this.getNombre() + "\n";
 		res += "Fecha de Inicio: " + this.getFechaClase().toFechaHora() + "\n";
-		res += "Profesor que la Dicta: " + this.getNicknameProfesor() + "\n";
+		res += "Profesor que la Dicta: " + this.getNicknameProfesor() + " <" + this.getCorreoProfesor() + ">\n";
 		res += "Cantidad de Cupos: \n";
 		res += "    Minimos: " + this.getMinSocios() + " socios.\n";
 		res += "    Maximos: " + this.getMaxSocios() + " socios.\n";

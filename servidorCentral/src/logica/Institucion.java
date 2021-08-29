@@ -12,6 +12,9 @@ package logica;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtInstitucion;
 
+import excepciones.UsuarioNoExisteException;
+import excepciones.ActividadDeportivaException;
+
 import java.util.Set;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
@@ -90,8 +93,12 @@ public class Institucion {
 //        return actDept.getDatosClases();
 //    }
 
-    public ActividadDeportiva getActDep(String nombreActDep) {
-        return actsDeps.get(nombreActDep);
+    public ActividadDeportiva getActDep(String nombreActDep) throws ActividadDeportivaException {
+    	ActividadDeportiva res = actsDeps.get(nombreActDep);
+    	if (res == null) {
+    		throw new ActividadDeportivaException("La Actividad Deportiva no pertenece a esta Institucion.");
+    	}
+    	return res;
     }
 
 //    public void addClase(String actDep,DtClase datosClase,Profesor pp){
@@ -112,11 +119,16 @@ public class Institucion {
         return nombreActsDepsProfe;
     }
 
-	public Profesor getProfesor(String nick) {
+	public Profesor getProfesor(String nick) throws UsuarioNoExisteException {
+		Profesor res = null;
 		for(Profesor x: profesores)
-			if(x.getNickname().equals(nick))
-				return x;
-		return null;
+			if(x.getNickname().equals(nick)) {
+				res = x;
+			}
+		if (res == null) {
+			throw new UsuarioNoExisteException("El Profesor seleccionado no pertenece a esta Institucion.");
+		}
+		return res;
 	}
 	
 	public DtInstitucion obtenerDatos() {

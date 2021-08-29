@@ -37,7 +37,7 @@ import logica.IDictadoClaseController;
 
 import datatypes.TReg;
 import datatypes.DtFecha;
-
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
@@ -74,7 +74,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
 	
 	// JButton:
 	private JButton btnAceptar;
-    private JButton btnCancelar;
+    private JButton btnLimpiar;
     
     /* Crear frame */
 	public RegistroUsuarioClase(IDictadoClaseController idcc) {
@@ -340,19 +340,19 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_btnAceptar.gridy = 13;
         getContentPane().add(btnAceptar, gbc_btnAceptar);
         
-        btnCancelar = new JButton("Cancelar");
-        btnCancelar.addActionListener(new ActionListener() {
+        btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 clear();
             }
         });    
-        GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-        gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-        gbc_btnCancelar.gridwidth = 2;
-        gbc_btnCancelar.fill = GridBagConstraints.BOTH;
-        gbc_btnCancelar.gridx = 4;
-        gbc_btnCancelar.gridy = 13;
-        getContentPane().add(btnCancelar, gbc_btnCancelar);
+        GridBagConstraints gbc_btnLimpiar = new GridBagConstraints();
+        gbc_btnLimpiar.insets = new Insets(0, 0, 0, 5);
+        gbc_btnLimpiar.gridwidth = 2;
+        gbc_btnLimpiar.fill = GridBagConstraints.BOTH;
+        gbc_btnLimpiar.gridx = 4;
+        gbc_btnLimpiar.gridy = 13;
+        getContentPane().add(btnLimpiar, gbc_btnLimpiar);
         
         cargarDatos();
 	}
@@ -392,7 +392,9 @@ public class RegistroUsuarioClase extends JInternalFrame {
     			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
     		} catch (UsuarioNoExisteException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
-    		}
+    		} catch (ActividadDeportivaException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+			}
         }
     }
 	
@@ -423,7 +425,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
     }
 	
 	// Cargar Datos al JComboBox
-    // Se invoca el método antes de hacer visible el JInternalFrame
+    // Se invoca el mÃ©todo antes de hacer visible el JInternalFrame
     private void cargarDatos() {
     	// Cargar Usuarios:
     	DefaultComboBoxModel<String> modelUsuario;

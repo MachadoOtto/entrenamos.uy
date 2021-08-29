@@ -21,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,9 @@ import java.awt.event.ItemEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
+import excepciones.ActividadDeportivaException;
+import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 
 import logica.IDictadoClaseController;
@@ -538,11 +542,16 @@ public class AltaDictadoClase extends JInternalFrame {
 	            				"Registro de Usuario a Dictado de Clase", JOptionPane.ERROR_MESSAGE);
 	            	}
 	            } catch (FechaInvalidaException e) {
-	            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
-	            			JOptionPane.ERROR_MESSAGE);
+	            	JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
 	            } catch (InstitucionException e) {
 	    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
-	    		}
+	    		} catch (ClaseException e) {
+	    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+				} catch (UsuarioNoExisteException e) {
+	    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+				} catch (ActividadDeportivaException e) {
+	    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+				} 
             }    
         }
     }

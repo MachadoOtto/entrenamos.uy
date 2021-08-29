@@ -508,6 +508,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(tomarDatos()==0) {
 					clear();
+					setVisible(false);
 				}
 			}
 		});

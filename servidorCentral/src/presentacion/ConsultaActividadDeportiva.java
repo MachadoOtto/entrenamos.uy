@@ -34,6 +34,7 @@ import javax.swing.JTextArea;
 import java.util.Set;
 
 import logica.IActividadDeportivaController;
+import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 import datatypes.DtActividadDeportivaExt;
@@ -504,8 +505,9 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 					}
 				));
 		} catch (InstitucionException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), 
-					this.getTitle(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		} catch (ActividadDeportivaException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

@@ -56,11 +56,6 @@ public class HandlerInstitucion {
 		return nombreInstituciones; 
 	}
 
-//	public Clase findClase(String ins,String actDep,String clase) {
-//		Institucion insti = instituciones.get(ins);
-//		return insti.findClase(actDep,clase);
-//	}
-
 	public int addInstitucion(Institucion ins) {
 		if (!existeInstitucion(ins.getNombre())) {
 			instituciones.put(ins.getNombre(), ins);

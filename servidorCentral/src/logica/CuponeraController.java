@@ -4,6 +4,7 @@ import java.util.Set;
 
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
+import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 public class CuponeraController implements ICuponeraController {
@@ -26,7 +27,8 @@ public class CuponeraController implements ICuponeraController {
 		return getHC().getNombreCuponeras();
 	}
 		
-	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases) throws InstitucionException {
+	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases) 
+			throws InstitucionException, ActividadDeportivaException {
 		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),cantidadClases);
 	}
 		

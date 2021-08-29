@@ -1,4 +1,3 @@
-
 package presentacion;
 
 import javax.swing.JInternalFrame;
@@ -441,6 +440,7 @@ public class AltaUsuario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(tomarDatos()==0)
 					clear();
+					setVisible(false);
 			}
 		});
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
@@ -471,6 +471,7 @@ public class AltaUsuario extends JInternalFrame {
 	 * Se encarga de limpiar datos ingresados por el usuario
 	 */
 	public void clear() {
+		comboBoxTipoDeUsuario.setSelectedIndex(0);
         textFieldNombre.setText("");
         textFieldApellido.setText("");
         textFieldNickname.setText("");

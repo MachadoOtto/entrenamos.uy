@@ -20,6 +20,7 @@ import logica.ICuponeraController;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JDesktopPane;
@@ -27,6 +28,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClase;
@@ -37,8 +39,10 @@ import datatypes.TReg;
 
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
-import excepciones.ClaseLlenaException;
+import excepciones.ActividadDeportivaException;
+import excepciones.ClaseException;
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
 
 public class Menu {
 	private JFrame menuPrincipal;
@@ -166,10 +170,12 @@ public class Menu {
 		menuPrincipal = new JFrame();
 		menuPrincipal.setTitle("Entrenamos.uy");
 		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		menuPrincipal.setBounds(180, 100, 1000, 800);
+		menuPrincipal.setBounds(100, 100, 1200, 850);
 		menuPrincipal.setResizable(true);
+		menuPrincipal.setIconImage(new ImageIcon(getClass().getResource("/img/iconoEntrenamos-uy.png")).getImage());
 		
 		escritorio = new JDesktopPane();
+		escritorio.setBackground(new Color(174, 182, 191));
 		menuPrincipal.getContentPane().add(escritorio);
 		
 		// Crear la Barra del Menu:
@@ -717,7 +723,7 @@ public class Menu {
         } catch (FechaInvalidaException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
-        } catch (ClaseLlenaException e) {
+        } catch (ClaseException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
         } catch (NoExisteCuponeraException e) {
@@ -726,6 +732,12 @@ public class Menu {
         } catch (InstitucionException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (UsuarioNoExisteException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        } catch (ActividadDeportivaException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+		}
     }
 }

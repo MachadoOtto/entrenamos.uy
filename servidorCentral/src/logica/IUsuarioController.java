@@ -12,6 +12,8 @@ package logica;
 import java.util.Set;
 import datatypes.DtUsuario;
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
+
 
 public interface IUsuarioController {
 	
@@ -21,7 +23,7 @@ public interface IUsuarioController {
 	
 	public int ingresarDatosUsuario(DtUsuario datoUser) throws InstitucionException;
 	
-	public DtUsuario seleccionarUsuario(String userNick);
+	public DtUsuario seleccionarUsuario(String userNick) throws UsuarioNoExisteException;
 	
-	public void editarDatosBasicos(String userNick, DtUsuario datoUser);
+	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException;
 }
