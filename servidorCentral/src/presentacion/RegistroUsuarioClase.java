@@ -362,10 +362,10 @@ public class RegistroUsuarioClase extends JInternalFrame {
     protected void inscribirSocioClase(ActionEvent arg0) {
         if (checkDatos()) {
         	// Obtengo datos de los controles Swing:
-            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
-            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
-            String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
-            String nombreSocio = boxSocio.getItemAt(boxSocio.getSelectedIndex());
+            String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()).trim();
+            String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex()).trim();
+            String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex()).trim();
+            String nombreSocio = boxSocio.getItemAt(boxSocio.getSelectedIndex()).trim();
             int tipo = boxTipo.getSelectedIndex();
             int rDia = boxRDia.getSelectedIndex();
             int rMes = boxRMes.getSelectedIndex();
@@ -376,18 +376,18 @@ public class RegistroUsuarioClase extends JInternalFrame {
             	x = TReg.cuponera;
             try {
             	controlClase.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, nombreSocio, x, fecha);
-            	JOptionPane.showMessageDialog(this, "La inscripcion al Dictado de la Clase fue un exito", 
-                		"Registro de Usuario a Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
+            	JOptionPane.showMessageDialog(this, "La inscripcion al Dictado de la Clase ha sido exitosa", 
+                		this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
                 clear();
                 setVisible(false);
             } catch (ClaseException e) {
-            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
+            	JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), 
             			JOptionPane.ERROR_MESSAGE);
             } catch (FechaInvalidaException e) {
-            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
+            	JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), 
             			JOptionPane.ERROR_MESSAGE);
             } catch (NoExisteCuponeraException e) {
-            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
+            	JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), 
             			JOptionPane.ERROR_MESSAGE);
             } catch (InstitucionException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
@@ -406,17 +406,17 @@ public class RegistroUsuarioClase extends JInternalFrame {
         int indexTipo = boxTipo.getSelectedIndex();
         int indexDia = boxRDia.getSelectedIndex();
         int indexMes = boxRMes.getSelectedIndex();
-        String campoAnioR = regAnio.getText();
+        String campoAnioR = regAnio.getText().trim();
         if (indexInstitucion < 1 || indexActividad < 1 || indexClase < 1 || indexSocio < 1 || indexTipo < 1 ||
         		indexDia < 1 || indexMes < 1 || campoAnioR.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Registro de Usuario a Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
             Integer.parseInt(campoAnioR);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El aÃ±o ingresado debe ser un numero", "Alta Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "La fecha de ingresada no es valida", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -424,7 +424,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
     }
 	
 	// Cargar Datos al JComboBox
-    // Se invoca el mÃ©todo antes de hacer visible el JInternalFrame
+    // Se invoca el método antes de hacer visible el JInternalFrame
     private void cargarDatos() {
     	// Cargar Usuarios:
     	DefaultComboBoxModel<String> modelUsuario;

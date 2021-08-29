@@ -34,7 +34,7 @@ public interface IDictadoClaseController {
 	
 	public Set<String> obtenerClases(String ins, String actDep) throws InstitucionException ;
 	
-	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException ;
+	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException, ClaseException;
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws  InstitucionException, FechaInvalidaException;
 	

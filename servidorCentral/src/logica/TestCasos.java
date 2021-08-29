@@ -2,6 +2,8 @@ package logica;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -857,7 +859,40 @@ class TestCasos {
 
 	@Test
 	void testAltaClaseOk() {
-		
+		try {
+			// Iniciamos las instancias de institucion, profesor y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseNueva", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			// Seleccionamos la clase recien creada.
+	        DtClase claseA = IDCC.seleccionarClase("InstitutoAuxiliar", "ActividadAuxiliar", "ClaseNueva");
+	        // Verificamos que este en la Institucion y la ActividadDeportiva.
+	        assertEquals(IDCC.obtenerClases("InstitutoAuxiliar", "ActividadAuxiliar").contains(claseNueva.getNombre()), true);
+	        assertEquals(claseA.getNombre(), claseNueva.getNombre());
+	        assertEquals(claseA.getNicknameProfesor(), claseNueva.getNicknameProfesor());
+	        assertEquals(claseA.getMinSocios(), claseNueva.getMinSocios());
+	        assertEquals(claseA.getMaxSocios(), claseNueva.getMaxSocios());
+	        assertEquals(claseA.getURL(), claseNueva.getURL());
+	        assertEquals(claseA.getFechaClase().toFecha(), claseNueva.getFechaClase().toFecha());
+	        assertEquals(claseA.getFechaRegistro().toFecha(), claseNueva.getFechaRegistro().toFecha());        
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

@@ -261,10 +261,10 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 	        String cuponera;
 	        String deltains;	
 	        int cant;
-			institucion = this.comboBoxInstitucion.getSelectedItem().toString();
-	    	cuponera = this.comboBoxCup.getSelectedItem().toString();
-	    	deltains = this.deltaI.getSelectedItem().toString();
-	    	cant = Integer.valueOf(this.CantClases.getText());
+			institucion = this.comboBoxInstitucion.getSelectedItem().toString().trim();
+	    	cuponera = this.comboBoxCup.getSelectedItem().toString().trim();
+	    	deltains = this.deltaI.getSelectedItem().toString().trim();
+	    	cant = Integer.valueOf(this.CantClases.getText().trim());
 	    	controlDep.agregarActividadCuponera(cuponera, institucion, deltains, cant);
 	    	JOptionPane.showMessageDialog(this, "Actividad deportiva agregada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);   
 	    	clear();
@@ -275,18 +275,18 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 
 	private boolean checkFormulario() {
 		
-		String institucion = this.comboBoxInstitucion.getSelectedItem().toString();
-    	String cuponera = this.comboBoxCup.getSelectedItem().toString();
-    	String deltains = this.deltaI.getSelectedItem().toString();
+		String institucion = this.comboBoxInstitucion.getSelectedItem().toString().trim();
+    	String cuponera = this.comboBoxCup.getSelectedItem().toString().trim();
+    	String deltains = this.deltaI.getSelectedItem().toString().trim();
     	
-    	if((cuponera.equals("-") || institucion.equals("-") || deltains.equals("-"))) {
+    	if((cuponera.trim().equals("-") || institucion.trim().equals("-") || deltains.trim().equals("-"))) {
     		JOptionPane.showMessageDialog(this, "No puede haber campos vacios.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
     	}
     	try {
     		Integer.valueOf(this.CantClases.getText());
     	} catch (NumberFormatException e) {
-    		JOptionPane.showMessageDialog(this, "Cantidad de clases debe ser un numero.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(this, "La cantidad de clases debe ser un numero.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
     	}
     	int cant = Integer.valueOf(this.CantClases.getText());
@@ -295,7 +295,7 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
             return false;
     	}
     	if(cant <= 0 ) {
-    		JOptionPane.showMessageDialog(this, "Cantidad de clases debe ser mayor a 0.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(this, "La cantidad de clases debe ser mayor a 0.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
     	}
     	return true;

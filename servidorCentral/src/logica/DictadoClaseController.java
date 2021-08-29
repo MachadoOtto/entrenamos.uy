@@ -57,8 +57,13 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return getHI().findInstitucion(ins).findActividad(actDep).getNombreClases();
 	}
 	
-	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException {
-		 return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
+	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, ClaseException {
+		Clase classFind = getHI().findInstitucion(inst).getActDep(actDep).findClase(clase);
+		if (classFind != null) {
+			return classFind.getDt();
+		} else {
+			throw new ClaseException("La clase seleccionada no pertenece a esta ActividadDeportiva o Institucion.");
+		}
 	}
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException, FechaInvalidaException {

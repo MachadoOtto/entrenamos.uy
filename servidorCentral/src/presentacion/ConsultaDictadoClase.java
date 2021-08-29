@@ -14,6 +14,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -34,6 +35,7 @@ import java.awt.event.MouseEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
+import excepciones.ClaseException;
 
 import logica.IDictadoClaseController;
 
@@ -58,6 +60,9 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	private JTree treeCuponera;
 	private JLabel lblInformacin;
     
+	//Scrollllllll
+	private JScrollPane scrollPane;
+	
     /* Crear frame */
 	public ConsultaDictadoClase(IDictadoClaseController idcc) {
 		// Inicializa controlador Dictado de Clase:
@@ -242,7 +247,18 @@ public class ConsultaDictadoClase extends JInternalFrame {
         gbc_lblInformacin.gridy = 6;
         getContentPane().add(lblInformacin, gbc_lblInformacin);
         
+        scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 4;
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 7;
+		add(scrollPane, gbc_scrollPane);
+        
         treeCuponera = new JTree();
+        scrollPane.setViewportView(treeCuponera);
         treeCuponera.setRootVisible(false);
 		treeCuponera.setRootVisible(false);
 		treeCuponera.setModel(new DefaultTreeModel(
@@ -263,7 +279,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         gbc_treeCuponera.fill = GridBagConstraints.BOTH;
         gbc_treeCuponera.gridx = 1;
         gbc_treeCuponera.gridy = 7;
-        getContentPane().add(treeCuponera, gbc_treeCuponera);
+        //getContentPane().add(treeCuponera, gbc_treeCuponera);
 	}
 
 	// Cargar Datos al JComboBox
@@ -310,6 +326,8 @@ public class ConsultaDictadoClase extends JInternalFrame {
 					}
 				));
     	} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		}  catch (ClaseException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
     }

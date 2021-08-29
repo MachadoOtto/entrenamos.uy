@@ -451,55 +451,47 @@ public class CrearCuponera extends JInternalFrame {
         int anio2;
         int desc;
         
-		nombreU = this.textField.getText();
-        descripcion = this.textArea.getSelectedText();
+		nombreU = this.textField.getText().trim();
+        descripcion = this.textArea.getText().trim();
         
         dia = this.boxIDia.getSelectedIndex();
         mes = this.boxIMes.getSelectedIndex();
-        anio = Integer.parseInt(inicioAnio.getText());
+        anio = Integer.parseInt(inicioAnio.getText().trim());
         dia2 = this.boxIDia2.getSelectedIndex();
         mes2 = this.boxIMes2.getSelectedIndex();
-        anio2 = Integer.parseInt(inicioAnio2.getText());
+        anio2 = Integer.parseInt(inicioAnio2.getText().trim());
         desc = slider.getValue();
         int diaA = this.DiaAlta.getSelectedIndex();
         int mesA = this.MesAlta.getSelectedIndex();
-        int anioA = Integer.parseInt(AnioAlta.getText());
+        int anioA = Integer.parseInt(AnioAlta.getText().trim());
    
         DtFecha FInicio = new DtFecha(anio, mes, dia, 0, 0, 0);
         DtFecha  FFinal = new DtFecha(anio2, mes2, dia2, 0, 0, 0);
         DtFecha alta = new DtFecha(diaA, mesA, anioA, 0, 0, 0);
 
-        if (FInicio.esMenor(alta)) {
-        	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior a la fecha de inicio de la clase", 
-        			this.getTitle(), JOptionPane.ERROR_MESSAGE);
-        } else {
-        	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-        }    	     
+        if(dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta) == 0)
+        	JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        else
+        	JOptionPane.showMessageDialog(this, "Ya existe una cuponera con los datos ingresados", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private boolean checkFormulario() {
 
        int dia = this.boxIDia.getSelectedIndex();
        int mes = this.boxIMes.getSelectedIndex();
-       String anio = inicioAnio.getText();
-       int anioInt = Integer.parseInt(anio);
-       DtFecha FInicio = new DtFecha(anioInt,mes,dia,0,0,0);
-       
+       String anio = inicioAnio.getText().trim();
        int dia2 = this.boxIDia2.getSelectedIndex();
        int mes2 = this.boxIMes2.getSelectedIndex();
-       String anio2 = inicioAnio2.getText();
-       int anio2Int = Integer.parseInt(anio2);
-       DtFecha FFinal = new DtFecha(anio2Int,mes2,dia2,0,0,0);
+       String anio2 = inicioAnio2.getText().trim();
        
        int dia3 = this.DiaAlta.getSelectedIndex();
        int mes3 = this.MesAlta.getSelectedIndex();
-       String anio3 = AnioAlta.getText();
+       String anio3 = AnioAlta.getText().trim();
        
 	   String nombreU = this.textField.getText();
        String descripcion = this.textArea.getText();
-       if (nombreU.isEmpty() || anio3.equals("yyyy")||anio.equals("yyyy") || anio2.equals("yyyy")  ||
-    		   dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
+       if (nombreU.isEmpty() || anio3.equals("yyyy")|| anio3.isEmpty()  || anio.equals("yyyy") || anio.isEmpty() || anio2.equals("yyyy")  ||
+    		  anio2.isEmpty() || dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
            return false;
        }  
@@ -524,7 +516,8 @@ public class CrearCuponera extends JInternalFrame {
        }
        
        //
-       if(FFinal.esMenor(FInicio)) {
+       if(Nanio*365+mes*30+dia > Nanio2*365+mes*30+dia) {
+    	   //No es una verificacion perfecta :)
            JOptionPane.showMessageDialog(this, "La fecha de vencimiento de la cuponera no puede ser antes que la de su creacion.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
            return false;
        }

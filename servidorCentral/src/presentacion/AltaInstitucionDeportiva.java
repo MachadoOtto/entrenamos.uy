@@ -157,14 +157,15 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 	}
 
 	private void altaInsSTART() {
-		if(inputNombre.getText().length()==0|| inputDescripcion.getText().length()==0|| inputURL.getText().length()==0) {
-			JOptionPane.showMessageDialog(this, "No se permite el ingreso de campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+		if(inputNombre.getText().trim().isEmpty()|| inputDescripcion.getText().trim().isEmpty()|| inputURL.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No se permite el ingreso de campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		if(IDC.altaInstitucion(inputNombre.getText(), inputDescripcion.getText(), inputURL.getText())!=0)
-			JOptionPane.showMessageDialog(this, "Ya existe una institucion con el nombre ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+		if(IDC.altaInstitucion(inputNombre.getText(), inputDescripcion.getText(), inputURL.getText())!=0) {
+			JOptionPane.showMessageDialog(this, "Ya existe una institucion con el nombre ingresado", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
 		else {
-			JOptionPane.showMessageDialog(this, "Se registro la institucion de forma existosa.", "Informacion",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "La institucion ha sido registrada de forma exitosa.", this.getTitle(),JOptionPane.INFORMATION_MESSAGE);
 			clear();
 		}
 	}

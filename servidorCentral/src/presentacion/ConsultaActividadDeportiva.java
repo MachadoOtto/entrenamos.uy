@@ -14,6 +14,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.TreeSelectionEvent;
@@ -65,6 +66,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JTextField textFieldAnio;
 	private JPanel panelClasesCuponeras;
 	private JLabel lblEnd;
+	private JScrollPane scrollPane;
 	private JTree tree;
 	private JTextArea textFieldDesc;
 	private JLabel lblNewLabel;
@@ -140,7 +142,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	        		comboBoxActDep.removeAllItems();
 	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
 	    			modelActividad.addElement("-");     		
-	    			if (selectIndex > 0 && selectIndex != -1) {
+	    			if (selectIndex > 0) {
 	        			Set<String> actividades = IADC.obtenerActividades((String) comboBoxIns.getItemAt(selectIndex));
 	                    for (String x: actividades) {
 	                    	modelActividad.addElement(x);
@@ -398,7 +400,18 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbl_panelClasesCuponeras.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panelClasesCuponeras.setLayout(gbl_panelClasesCuponeras);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panelClasesCuponeras.add(scrollPane, gbc_scrollPane);
+		
 		tree = new JTree();
+		scrollPane.setViewportView(tree);
 		tree.setRootVisible(false);
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
 			{
@@ -417,7 +430,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_tree.fill = GridBagConstraints.BOTH;
 		gbc_tree.gridx = 0;
 		gbc_tree.gridy = 0;
-		panelClasesCuponeras.add(tree, gbc_tree);
+		//panelClasesCuponeras.add(tree, gbc_tree);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		TreeSelectionListener lst = new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {

@@ -66,7 +66,7 @@ public class Clase {
 		for(ReciboClase x: ListReciboClase) {
 			ListNombres.add(x.getNickCorreoSocio());
 		}
-		DtClaseExt x = new DtClaseExt(nombre, p.getNombre(), p.getNickname(), minSocios, maxSocios, URL, this.getFechaClase(),
+		DtClaseExt x = new DtClaseExt(nombre, p.getNickname(), p.getCorreo(), minSocios, maxSocios, URL, this.getFechaClase(),
 				this.getFechaRegistro(), ListNombres);
 		return x;
 	}

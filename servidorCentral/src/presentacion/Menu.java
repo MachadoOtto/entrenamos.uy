@@ -402,14 +402,13 @@ public class Menu {
 		try {
 			// ALTA INSTITUCIONES
 			// Instituto Natural #IN
-			IADC.altaInstitucion("Instituto Natural","https://www.inatural.com", "Clases de gimnasia, aeróbica, spinning y yoga.");
+			IADC.altaInstitucion("Instituto Natural", "Clases de gimnasia, aeróbica, spinning y yoga.","https://www.inatural.com");
 			// Fuerza Bruta #FB
-			IADC.altaInstitucion("Fuerza Bruta", "https://www.musculos.com", "Gimnasio especializado en el desarrollo de la musculatura.");
+			IADC.altaInstitucion("Fuerza Bruta", "Gimnasio especializado en el desarrollo de la musculatura.","https://www.musculos.com");
 			// Telón #TL
-			IADC.altaInstitucion("Telón", "https://telon.com.uy", "Actividades deportivas para todas las edades.");
+			IADC.altaInstitucion("Telón", "Actividades deportivas para todas las edades.","https://telon.com.uy");
 			// Olympic #YT
-			IADC.altaInstitucion("Olympic", "https://www.olympic21.com", "Gimnasia y Aparatos.");
-						
+			IADC.altaInstitucion("Olympic", "Gimnasia y Aparatos.","https://www.olympic21.com");
 			
 			// ALTA USUARIOS
 			// SOCIOS

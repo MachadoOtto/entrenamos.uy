@@ -36,7 +36,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.event.PopupMenuEvent;
 import excepciones.InstitucionException;
-import excepciones.NoExisteCuponeraException;
 
 @SuppressWarnings("serial")
 public class AltaUsuario extends JInternalFrame {
@@ -505,18 +504,18 @@ public class AltaUsuario extends JInternalFrame {
 	        
 	        if(!checkFormulario())
 	        	return 1;
-			tipoU = this.comboBoxTipoDeUsuario.getSelectedItem().toString();
-			nicknameU = this.textFieldNickname.getText();
-			nombreU = this.textFieldNombre.getText();
-	        apellidoU = this.textFieldApellido.getText();
-	        emailU = this.textFieldEmail.getText();
+			tipoU = this.comboBoxTipoDeUsuario.getSelectedItem().toString().trim();
+			nicknameU = this.textFieldNickname.getText().trim();
+			nombreU = this.textFieldNombre.getText().trim();
+	        apellidoU = this.textFieldApellido.getText().trim();
+	        emailU = this.textFieldEmail.getText().trim();
 	        diaU = boxIDia.getSelectedIndex();
 	        mesU = boxIMes.getSelectedIndex();
-	        anioU = Integer.parseInt(inicioAnio.getText());
-	        institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
-	        descripcionU = this.textAreaDescripcion.getText();
-	        biografiaU = this.textAreaBiografia.getText();
-	        websiteU = this.textFieldWebsite.getText();
+	        anioU = Integer.parseInt(inicioAnio.getText().trim());
+	        institutoU = this.comboBoxInstitucion.getSelectedItem().toString().trim();
+	        descripcionU = this.textAreaDescripcion.getText().trim();
+	        biografiaU = this.textAreaBiografia.getText().trim();
+	        websiteU = this.textFieldWebsite.getText().trim();
 	        
 			/*
 			 * Crea el tipo de dato segun el tipo de usuario seleccionado
@@ -527,10 +526,10 @@ public class AltaUsuario extends JInternalFrame {
 			else //Se asume que si no es profesor es socio
 				datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0));
 			if(controlUsr.ingresarDatosUsuario(datosUser) != 0) {
-				JOptionPane.showMessageDialog(this, "Ya existe un usuario con los datos ingresados.", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Ya existe un usuario con los datos ingresados.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 				return 1;
 			} else {
-				JOptionPane.showMessageDialog(this, "El usuario " + nicknameU + " ha sido registrado con exito", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, "El usuario ha sido registrado de forma exitosa.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
 				return 0;
 			}
 		} catch (InstitucionException e) {
@@ -543,16 +542,16 @@ public class AltaUsuario extends JInternalFrame {
 	 * Valida los datos ingresados por el usuario
 	 */
 	private boolean checkFormulario() {
-		String tipoU  = this.comboBoxTipoDeUsuario.getSelectedItem().toString();
-		String nicknameU = this.textFieldNickname.getText();
-		String nombreU = this.textFieldNombre.getText();
-        String apellidoU = this.textFieldApellido.getText();
-        String emailU = this.textFieldEmail.getText();
+		String tipoU  = this.comboBoxTipoDeUsuario.getSelectedItem().toString().trim();
+		String nicknameU = this.textFieldNickname.getText().trim();
+		String nombreU = this.textFieldNombre.getText().trim();
+        String apellidoU = this.textFieldApellido.getText().trim();
+        String emailU = this.textFieldEmail.getText().trim();
         int diaU = boxIDia.getSelectedIndex();
         int mesU = this.boxIMes.getSelectedIndex();
-        String anioU = inicioAnio.getText();
-        String institutoU = this.comboBoxInstitucion.getSelectedItem().toString();
-        String descripcionU = this.textAreaDescripcion.getText();
+        String anioU = inicioAnio.getText().trim();
+        String institutoU = this.comboBoxInstitucion.getSelectedItem().toString().trim();
+        String descripcionU = this.textAreaDescripcion.getText().trim();
 
         //Celdas vacias
         if (tipoU == "-" || nicknameU.isEmpty() || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU < 1 || mesU < 1 || anioU.isEmpty() || ((tipoU == "Profesor") && (institutoU == "-" || descripcionU.isEmpty()))) {
@@ -564,21 +563,17 @@ public class AltaUsuario extends JInternalFrame {
         try {
             Integer.parseInt(anioU);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La fecha de nacimiento ingresada no es valida.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La fecha de ingresada no es valida", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
         //Fechas inexistentes
         int numAnioU = Integer.parseInt(anioU);
-        if (numAnioU < 1900) {
-        	JOptionPane.showMessageDialog(this, "Las personas mayores a 121 no pueden hacer deporte.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        if (numAnioU < 1900 || numAnioU > 2021) {
+        	JOptionPane.showMessageDialog(this, "El sistema no acepta fechas que no coincidan con la realidad", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (numAnioU > 2021) {
-        	JOptionPane.showMessageDialog(this, "Las personas que aun no nacieron no pueden hacer deporte.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+        
         return true;
-    }
-
+	}
 }
