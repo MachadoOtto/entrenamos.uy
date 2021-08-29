@@ -14,8 +14,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.BorderFactory;
@@ -34,6 +37,7 @@ import java.awt.event.MouseEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
+import excepciones.ClaseException;
 
 import logica.IDictadoClaseController;
 
@@ -58,6 +62,9 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	private JTree treeCuponera;
 	private JLabel lblInformacin;
     
+	//Scrollllllll
+	private JScrollPane scrollPane;
+	
     /* Crear frame */
 	public ConsultaDictadoClase(IDictadoClaseController idcc) {
 		// Inicializa controlador Dictado de Clase:
@@ -114,9 +121,12 @@ public class ConsultaDictadoClase extends JInternalFrame {
         // JComboBox:
         boxInstitucion = new JComboBox<>();
         cargarInstitucion();
-        boxInstitucion.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
+        boxInstitucion.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				Set<String> tt = controlClase.obtenerInstituciones();
 				if(boxInstitucion.getItemCount()!=tt.size()+1) {
 					String t = (String) boxInstitucion.getSelectedItem();
@@ -242,7 +252,18 @@ public class ConsultaDictadoClase extends JInternalFrame {
         gbc_lblInformacin.gridy = 6;
         getContentPane().add(lblInformacin, gbc_lblInformacin);
         
+        scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 4;
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 7;
+		add(scrollPane, gbc_scrollPane);
+        
         treeCuponera = new JTree();
+        scrollPane.setViewportView(treeCuponera);
         treeCuponera.setRootVisible(false);
 		treeCuponera.setRootVisible(false);
 		treeCuponera.setModel(new DefaultTreeModel(
@@ -263,7 +284,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         gbc_treeCuponera.fill = GridBagConstraints.BOTH;
         gbc_treeCuponera.gridx = 1;
         gbc_treeCuponera.gridy = 7;
-        getContentPane().add(treeCuponera, gbc_treeCuponera);
+        //getContentPane().add(treeCuponera, gbc_treeCuponera);
 	}
 
 	// Cargar Datos al JComboBox
@@ -311,6 +332,8 @@ public class ConsultaDictadoClase extends JInternalFrame {
 				));
     	} catch (InstitucionException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		}  catch (ClaseException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
     }
     
@@ -341,7 +364,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	            	break;
 	        }
 	        boxInstitucion.setModel(model);
-	        boxInstitucion.setSelectedItem(institf);
+	        boxInstitucion.getModel().setSelectedItem(institf);
 			Set<String> actividades = controlClase.obtenerActividades(institf);
 			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
 	        for (String x: actividades) {
@@ -349,7 +372,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	        }
 	        boxActividad.setEnabled(true);
 	        boxActividad.setModel(modelActividad);
-	        boxActividad.setSelectedItem(act);
+	        boxActividad.getModel().setSelectedItem(act);
 			Set<String> clases = controlClase.obtenerClases(institf, act);
 			DefaultComboBoxModel<String> modelClases = new DefaultComboBoxModel<>();
 	        for (String x: clases) {
