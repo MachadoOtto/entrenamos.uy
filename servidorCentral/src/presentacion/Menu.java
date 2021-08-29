@@ -725,7 +725,7 @@ public class Menu {
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
         } catch (ClaseException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
-        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+        			"Los datos de prueba ya han sido cargados.", "Info", JOptionPane.ERROR_MESSAGE);
         } catch (NoExisteCuponeraException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
