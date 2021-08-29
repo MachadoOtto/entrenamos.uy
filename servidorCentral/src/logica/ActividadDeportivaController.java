@@ -3,10 +3,12 @@ package logica;
 import java.util.HashSet;
 import java.util.Set;
 
+import excepciones.InstitucionException;
+
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
-import datatypes.TReg;
+import datatypes.DtInstitucion;
 
 public class ActividadDeportivaController implements IActividadDeportivaController {
 	private static ActividadDeportivaController instance = null;
@@ -22,10 +24,10 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public Set<String> obtenerInstituciones(){
 		return getHI().obtenerInstituciones();
 	}		
-	public Set<String> obtenerActividades(String ins) {
+	public Set<String> obtenerActividades(String ins) throws InstitucionException {
 		return getHI().findInstitucion(ins).obtenerNombresActDep();
 	}
-	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD){
+	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD) throws InstitucionException {
 		Institucion inst = getHI().findInstitucion(nombreInsti);
 		if (!inst.existeActDep(datosAD.getNombre())) {
 			inst.addActividadDeportiva(datosAD);
@@ -34,7 +36,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return false;
 	}
 	
-	public Set<String> seleccionarInstitucion(String ins){
+	public Set<String> seleccionarInstitucion(String ins) throws InstitucionException {
 		return getHI().findInstitucion(ins).obtenerNombresActDep();
 	}
 	
@@ -50,7 +52,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 
 	}
 	
-	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins){
+	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins) throws InstitucionException {
 		//Aaa pero hicieron cualquiera...
 		//HandlerInstitucion hi = HandlerInstitucion.getInstance();
 		//Institucion inst = hi.findInstitucion(ins);
@@ -70,7 +72,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return x;
 	}
 	
-	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) {
+	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException {
 		return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
 	}
 	
@@ -93,7 +95,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 //	return 0;
 //	}
 	
-	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) {
+	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) throws InstitucionException {
 		return getHI().findInstitucion(ins).getActDep(actDep).getDtExt();
 	}
 	
@@ -105,5 +107,19 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 	private static HandlerCuponera getHC() {
 		return  HandlerCuponera.getInstance();
+	}
+	
+	public int altaInstitucion(String nombre, String descripcion, String URL) {
+		if(!getHI().existeInstitucion(nombre)){
+			Institucion i = new Institucion(nombre,descripcion,URL);
+			getHI().addInstitucion(i);
+			return 0;
+		}
+		return 1;
+	}
+	
+	public DtInstitucion obtenerDatosInstitucion(String inst) throws InstitucionException {
+		Institucion instit = getHI().findInstitucion(inst);
+		return instit.obtenerDatos();
 	}
 }

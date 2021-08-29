@@ -1,46 +1,40 @@
 package presentacion;
 
-import javax.swing.JInternalFrame;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.JInternalFrame;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextPane;
-import javax.swing.JTextArea;
 import java.awt.Font;
-import javax.swing.UIManager;
-import javax.swing.border.Border;
-
-import logica.IDeportivaController;
-
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import logica.IActividadDeportivaController;
+
 @SuppressWarnings("serial")
 public class AltaInstitucionDeportiva extends JInternalFrame{
 	
 	//Controller
-	private IDeportivaController IDC;
+	private IActividadDeportivaController IDC;
 	//Inputs
 	private JTextField inputNombre;
 	private JTextField inputURL;
 	private JTextArea inputDescripcion;
 	
-	public AltaInstitucionDeportiva(IDeportivaController IDC) {
+	public AltaInstitucionDeportiva(IActividadDeportivaController IDC) {
 		this.IDC = IDC;
 		//Configuracion del JFRAME
 		setResizable(true);
@@ -163,14 +157,15 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 	}
 
 	private void altaInsSTART() {
-		if(inputNombre.getText().length()==0|| inputDescripcion.getText().length()==0|| inputURL.getText().length()==0) {
-			JOptionPane.showMessageDialog(this, "No se permite el ingreso de campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+		if(inputNombre.getText().trim().isEmpty()|| inputDescripcion.getText().trim().isEmpty()|| inputURL.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No se permite el ingreso de campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		if(IDC.altaInstitucion(inputNombre.getText(), inputDescripcion.getText(), inputURL.getText())!=0)
-			JOptionPane.showMessageDialog(this, "Ya existe una institucion con el nombre ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+		if(IDC.altaInstitucion(inputNombre.getText(), inputDescripcion.getText(), inputURL.getText())!=0) {
+			JOptionPane.showMessageDialog(this, "Ya existe una institucion con el nombre ingresado", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
 		else {
-			JOptionPane.showMessageDialog(this, "Se registro la institucion de forma existosa.", "Informacion",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "La institucion ha sido registrada de forma exitosa.", this.getTitle(),JOptionPane.INFORMATION_MESSAGE);
 			clear();
 		}
 	}

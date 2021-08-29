@@ -50,8 +50,8 @@ public class ReciboClase {
 		return aClase.tieneActividadDeportiva(actDep);
 	}
 	
-	public String getNombreSocio() {
-		return aSocio.getNombre();
+	public String getNickCorreoSocio() {
+		return aSocio.getNickname() + " <" + aSocio.getCorreo() + ">";
 	}
 	
 	public Cuponera getCuponera() {

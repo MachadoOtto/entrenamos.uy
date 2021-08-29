@@ -15,9 +15,9 @@ import java.util.Set;
 import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 
 import excepciones.NoExisteCuponeraException;
+import excepciones.ClaseException;
 
 import datatypes.DtFecha;
 import datatypes.DtSocio;
@@ -25,15 +25,11 @@ import datatypes.DtSocioExt;
 import datatypes.TReg;
 
 public class Socio extends Usuario {
+	
 	private List<ReciboCuponera> reciboCuponeras;
+	
 	private List<ReciboClase> reciboClases;
 	
-//	public Socio() {
-//		super();
-//		reciboCuponeras = new LinkedList<>();
-//		reciboClases = new LinkedList<>();
-//	}
-//	
 	public Socio(String nickname, String nombre, String apellido, String correo, DtFecha fecha) {
 		super(nickname, nombre, apellido, correo, fecha);
 		reciboCuponeras = new LinkedList<>();
@@ -89,29 +85,40 @@ public class Socio extends Usuario {
 		return reciboClases;
 	}
 	
-	public void inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t, DtFecha reg) throws NoExisteCuponeraException {
-		if(t.equals(TReg.general)) {
-			ReciboClase nuevoRecibo = new ReciboClase(reg, TReg.general, actDep.getCosto(), cl, this, null);
-			reciboClases.add(nuevoRecibo);
-			cl.addRecibo(nuevoRecibo);	
-		} else {
-			for (ReciboCuponera y: reciboCuponeras) {
-				Cuponera cupActual = y.getCuponera();
-				if (cupActual.tieneActividadDeportiva(actDep)) {
-					int cantidadClases = 0;
-					for (ReciboClase x: reciboClases) {
-						if ((x.getCuponera() == cupActual) && (x.tieneActividadDeportiva(actDep))) {
-							cantidadClases++;
+	public void inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t, DtFecha reg) throws NoExisteCuponeraException, 
+			ClaseException {
+		boolean noEstaInsc = true;
+		for (ReciboClase res: reciboClases) {
+			if (res.getNombreClase() == cl.getNombre()) {
+				noEstaInsc = false;
+			}
+		} 
+		if (noEstaInsc) {
+			if(t.equals(TReg.general)) {
+				ReciboClase nuevoRecibo = new ReciboClase(reg, TReg.general, actDep.getCosto(), cl, this, null);
+				reciboClases.add(nuevoRecibo);
+				cl.addRecibo(nuevoRecibo);	
+			} else {
+				for (ReciboCuponera y: reciboCuponeras) {
+					Cuponera cupActual = y.getCuponera();
+					if (cupActual.tieneActividadDeportiva(actDep)) {
+						int cantidadClases = 0;
+						for (ReciboClase x: reciboClases) {
+							if ((x.getCuponera() == cupActual) && (x.tieneActividadDeportiva(actDep))) {
+								cantidadClases++;
+							}
+						}
+						if (cantidadClases < cupActual.cantidadClases(actDep)) {
+							ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
+							reciboClases.add(nuevoRecibo);
+							cl.addRecibo(nuevoRecibo);
 						}
 					}
-					if (cantidadClases < cupActual.cantidadClases(actDep)) {
-						ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
-						reciboClases.add(nuevoRecibo);
-						cl.addRecibo(nuevoRecibo);
-					}
 				}
+				throw new NoExisteCuponeraException("Este Usuario no presenta Cuponeras validas para esta Clase.");
 			}
-			throw new NoExisteCuponeraException("Este Usuario no presenta Cuponeras validas para esta Clase.");
+		} else {
+			throw new ClaseException("Este Usuario ya esta inscripto a esta Clase.");
 		}
 	}
 }

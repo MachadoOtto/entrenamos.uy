@@ -10,6 +10,7 @@
 package logica;
 
 import datatypes.DtActividadDeportiva;
+import datatypes.DtInstitucion;
 
 import java.util.Set;
 import java.util.logging.ConsoleHandler;
@@ -116,5 +117,9 @@ public class Institucion {
 			if(x.getNickname().equals(nick))
 				return x;
 		return null;
+	}
+	
+	public DtInstitucion obtenerDatos() {
+		return new DtInstitucion(nombre, descripcion, URL);
 	}
 }

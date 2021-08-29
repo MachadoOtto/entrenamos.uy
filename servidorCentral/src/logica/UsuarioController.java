@@ -16,6 +16,9 @@ import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 
+import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
+
 public class UsuarioController implements IUsuarioController {
 	
 	private static UsuarioController instancia = null;
@@ -44,7 +47,7 @@ public class UsuarioController implements IUsuarioController {
 	 * 	'padre', no se pierdan datos en ese Upcasting (por eso veran que en algunos casos uso el constructor de los 'hijos').*/
 	
 	// Retorna 0 si se logro ingresar/crear el Usuario de forma exitosa, retorna 1 en otro caso.
-	public int ingresarDatosUsuario(DtUsuario datoUser) {
+	public int ingresarDatosUsuario(DtUsuario datoUser) throws InstitucionException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		if (hu.existeNick(datoUser.getNickname()) || hu.existeCorreo(datoUser.getEmail())) {
 			return 1;
@@ -65,7 +68,7 @@ public class UsuarioController implements IUsuarioController {
 	}
 	
 	// Ver la nota ATENCION mas arriba.
-	public DtUsuario seleccionarUsuario(String userNick) {
+	public DtUsuario seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		Usuario user = hu.findUsuario(userNick);
 		if (user instanceof Socio) {
@@ -79,7 +82,7 @@ public class UsuarioController implements IUsuarioController {
 	
 	// Ver la nota ATENCION mas arriba.
 	// Precaucion: Esta funcion no edita/ ni reemplaza la Institucion que tiene Profesor asignada.
-	public void editarDatosBasicos(String userNick, DtUsuario datoUser) {
+	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		Usuario user = hu.findUsuario(userNick);
 		if (user instanceof Profesor) {

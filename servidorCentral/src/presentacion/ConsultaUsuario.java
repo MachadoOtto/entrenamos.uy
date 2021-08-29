@@ -1,18 +1,15 @@
 package presentacion;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JInternalFrame;
 
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,7 +29,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.awt.event.ItemEvent;
@@ -43,13 +39,14 @@ import javax.swing.JFrame;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import java.awt.Color;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import excepciones.UsuarioNoExisteException;
+
+@SuppressWarnings("serial")
 public class ConsultaUsuario extends JInternalFrame {
 
 	//Datos del caso de uso
@@ -78,6 +75,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblNewLabel;
 	private JTextField textFieldMes;
 	private JTextField textFieldInstitucion;
+	private JScrollPane scrollPaneTree;
 	private JTree tree;
 	private JLabel labelWebsite_1;
 	
@@ -91,8 +89,7 @@ public class ConsultaUsuario extends JInternalFrame {
  * LOS ERRORES QUE GENERA.
  * 
  */
-	@SuppressWarnings("serial")
-	public ConsultaUsuario(IUsuarioController controlUsr) {
+	public ConsultaUsuario(IUsuarioController IUC) {
 //		addInternalFrameListener(new InternalFrameAdapter() {
 //			@Override
 //			public void internalFrameClosed(InternalFrameEvent e) {
@@ -107,7 +104,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		setResizable(true);
 		this.usuarios = new HashSet<>();
 		this.datosUsuarioActual = null;
-		this.controlUsr = controlUsr;
+		this.controlUsr = IUC;
 		
 		/* 
 		 *  Parametrizacion de dimensiones
@@ -156,7 +153,6 @@ public class ConsultaUsuario extends JInternalFrame {
 			}
 		});
 		comboBoxUsuario.addItemListener(new ItemListener() {
-			@SuppressWarnings("serial")
 			public void itemStateChanged(ItemEvent e) {
 				
 				/*
@@ -168,7 +164,9 @@ public class ConsultaUsuario extends JInternalFrame {
 				String tipoUsuario = "-";
 				if(comboBoxUsuario.getSelectedIndex() > 0) {
 					String nickUsuario = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
-					datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
+					try {
+						datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
+					} catch (UsuarioNoExisteException ignore) { }
 					textFieldNombre.setText(datosUsuarioActual.getNombre());
 					textFieldApellido.setText(datosUsuarioActual.getApellido());
 					textFieldEmail.setText(datosUsuarioActual.getEmail());
@@ -215,7 +213,7 @@ public class ConsultaUsuario extends JInternalFrame {
 						}
 					}
 					else {
-						labelWebsite_1.setText("Clases a las que se inscribi (ordenadas por actividad deportiva)");
+						labelWebsite_1.setText("Clases inscripto (ordenadas por actividad deportiva)");
 						DtSocioExt datosSocioActual = (DtSocioExt)datosUsuarioActual;
 						Set<Entry<String, Set<String>>> m = datosSocioActual.getAguadeUwu().entrySet();
 						if(m.size()==0) {
@@ -280,7 +278,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		gbc_lblNewLabel.gridx = 4;
 		gbc_lblNewLabel.gridy = 0;
 		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
-		comboBoxUsuario.setModel(new DefaultComboBoxModel(new String[] {"-"}));
+		comboBoxUsuario.setModel(new DefaultComboBoxModel<>(new String[] {"-"}));
 		GridBagConstraints gbc_comboBoxUsuario = new GridBagConstraints();
 		gbc_comboBoxUsuario.gridwidth = 3;
 		gbc_comboBoxUsuario.insets = new Insets(0, 0, 5, 5);
@@ -467,7 +465,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		textAreaDescripcion.setLineWrap(true);
 		textAreaDescripcion.setWrapStyleWord(true);
 		
-		labelBiografia = new JLabel("Biograf\u00EDa");
+		labelBiografia = new JLabel("Biografia");
 		GridBagConstraints gbc_labelBiografia = new GridBagConstraints();
 		gbc_labelBiografia.gridwidth = 2;
 		gbc_labelBiografia.anchor = GridBagConstraints.WEST;
@@ -523,7 +521,35 @@ public class ConsultaUsuario extends JInternalFrame {
 		gbc_labelWebsite_1.gridy = 17;
 		getContentPane().add(labelWebsite_1, gbc_labelWebsite_1);
 		
+		scrollPaneTree = new JScrollPane();
+		GridBagConstraints gbc_scrollPaneTree = new GridBagConstraints();
+		gbc_scrollPaneTree.gridy = 18;
+		gbc_scrollPaneTree.gridx = 1;
+		gbc_scrollPaneTree.gridwidth = 6;
+		gbc_scrollPaneTree.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 6;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 18;
+		getContentPane().add(scrollPaneTree, gbc_scrollPaneTree);
+		
+		
+		
 		tree = new JTree();
+		tree.setRootVisible(false);
+		tree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("root") {
+				{
+					//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
+					// Cada vez que se abre la ventan design hay que corregirlo xddd;
+					add(new DefaultMutableTreeNode("Aqui se listan las clases."));
+					add(new DefaultMutableTreeNode("Las clases estan organizadas por actividad deportiva."));
+				}
+			}
+		));
+		scrollPaneTree.setViewportView(tree);
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -547,24 +573,14 @@ public class ConsultaUsuario extends JInternalFrame {
 			    }
 			}
 		});
-		tree.setRootVisible(false);
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("root") {
-				{
-					//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-					// Cada vez que se abre la ventan design hay que corregirlo xddd;
-					add(new DefaultMutableTreeNode("Aqu se listan las clases."));
-					add(new DefaultMutableTreeNode("Las clases est\u00E1n organizadas por actividad deportiva."));
-				}
-			}
-		));
+		
 		GridBagConstraints gbc_tree = new GridBagConstraints();
 		gbc_tree.gridwidth = 6;
 		gbc_tree.insets = new Insets(0, 0, 5, 5);
 		gbc_tree.fill = GridBagConstraints.BOTH;
 		gbc_tree.gridx = 1;
 		gbc_tree.gridy = 18;
-		getContentPane().add(tree, gbc_tree);
+		//getContentPane().add(tree, gbc_tree);
 		
 		
 		JLabel lblNewLabel_1 = new JLabel("Seleccione una clase o una actividad deportiva (click derecho) para obtener su info.");
@@ -575,36 +591,39 @@ public class ConsultaUsuario extends JInternalFrame {
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 19;
 		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
-
 	}
 	
-
-	@SuppressWarnings("serial")
 	public void clear() {
-        textPaneTipoDeUsuario.setText("");
-        textFieldNombre.setText("");
-        textFieldApellido.setText("");
-        textFieldEmail.setText("");
-    	textFieldDia.setText("");
-    	textFieldMes.setText("");
-    	textFieldAnio.setText("");
-    	textFieldInstitucion.setText("");
-    	textFieldWebsite.setText("");
-    	textAreaDescripcion.setText("");
-    	textAreaBiografia.setText("");
-    	labelWebsite_1.setText("Clases");
-		tree.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("root") {
-					{
-						//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
-						// Cada vez que se abre la ventan design hay que corregirlo xddd;
-						add(new DefaultMutableTreeNode("Aqu se listan las clases."));
-						add(new DefaultMutableTreeNode("Las clases est\u00E1n organizadas por actividad deportiva."));
+		try {
+	        textPaneTipoDeUsuario.setText("");
+	        textFieldNombre.setText("");
+	        textFieldApellido.setText("");
+	        textFieldEmail.setText("");
+	    	textFieldDia.setText("");
+	    	textFieldMes.setText("");
+	    	textFieldAnio.setText("");
+	    	textFieldInstitucion.setText("");
+	    	textFieldWebsite.setText("");
+	    	textAreaDescripcion.setText("");
+	    	textAreaBiografia.setText("");
+	    	labelWebsite_1.setText("Clases");
+			tree.setModel(new DefaultTreeModel(
+					new DefaultMutableTreeNode("root") {
+						{
+							
+								//WindowBuilder BUG: se cambia a getContentPane.add() por algun motivo. Dejarlo solo como add();
+								// Cada vez que se abre la ventan design hay que corregirlo xddd;
+								add(new DefaultMutableTreeNode("Aqui se listan las clases."));
+								add(new DefaultMutableTreeNode("Las clases estan organizadas por actividad deportiva."));
+							
+						}
 					}
-				}
-			));
-    	datosUsuarioActual = null;
-    	comboBoxUsuario.setSelectedIndex(0);
+				));
+	    	datosUsuarioActual = null;
+	    	comboBoxUsuario.setSelectedIndex(0);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 
@@ -614,12 +633,3 @@ public class ConsultaUsuario extends JInternalFrame {
 	}
 
 }
-
-//tree.setModel(new DefaultTreeModel(
-//		new DefaultMutableTreeNode("root") {
-//			{
-//				add(new DefaultMutableTreeNode("Aqui se listan las clases que el profesor seleccionado dicta."));
-//				add(new DefaultMutableTreeNode("Las clases est\u00E1n organizadas por actividad deportiva."));
-//			}
-//		}
-//	));

@@ -4,16 +4,17 @@ import java.util.Set;
 
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
+import excepciones.InstitucionException;
 
-public class DeportivaController implements IDeportivaController {
+public class CuponeraController implements ICuponeraController {
 
-	private static DeportivaController instance = null;
+	private static CuponeraController instance = null;
 
-	private DeportivaController() {}
+	private CuponeraController() {}
 	
-	public static DeportivaController getInstance(){
+	public static CuponeraController getInstance(){
 		if ( instance == null )
-			instance = new DeportivaController();
+			instance = new CuponeraController();
 		return instance;
 	}
 	
@@ -25,18 +26,10 @@ public class DeportivaController implements IDeportivaController {
 		return getHC().getNombreCuponeras();
 	}
 		
-	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases){
+	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases) throws InstitucionException {
 		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),cantidadClases);
 	}
 		
-	public int altaInstitucion(String nombre, String descripcion, String URL) {
-		if(!getHI().existeInstitucion(nombre)){
-			Institucion i = new Institucion(nombre,descripcion,URL);
-			getHI().addInstitucion(i);
-			return 0;
-		}
-		return 1;
-	}
 	public DtCuponera seleccionarCuponera(String n) {
 		HandlerCuponera hu = HandlerCuponera.getInstance();
 		Cuponera c = hu.getCup(n);

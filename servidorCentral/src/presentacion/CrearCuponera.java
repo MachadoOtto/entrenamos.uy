@@ -8,6 +8,17 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -17,24 +28,11 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import javax.swing.JTextArea;
-import javax.swing.JSlider;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import datatypes.DtFecha;
-import logica.IDeportivaController;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+import logica.ICuponeraController;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseEvent;
-
+@SuppressWarnings("serial")
 public class CrearCuponera extends JInternalFrame {
 	
 	private JTextField textField;
@@ -60,7 +58,7 @@ public class CrearCuponera extends JInternalFrame {
 	private JLabel lblNewLabel_5;
 	private JSlider slider;
 	
-	public CrearCuponera(IDeportivaController dep) {
+	public CrearCuponera(ICuponeraController dep) {
 		setResizable(true);
 		setIconifiable(true);
 		setMaximizable(true);
@@ -439,7 +437,7 @@ public class CrearCuponera extends JInternalFrame {
         slider.setValue(0);
     }
 	
-	private void tomarDatos(IDeportivaController dep) {
+	private void tomarDatos(ICuponeraController dep) {
 		if(!checkFormulario())
 			return;
 		
@@ -453,45 +451,47 @@ public class CrearCuponera extends JInternalFrame {
         int anio2;
         int desc;
         
-		nombreU = this.textField.getText();
-        descripcion = this.textArea.getSelectedText();
+		nombreU = this.textField.getText().trim();
+        descripcion = this.textArea.getText().trim();
         
         dia = this.boxIDia.getSelectedIndex();
         mes = this.boxIMes.getSelectedIndex();
-        anio = Integer.parseInt(inicioAnio.getText());
+        anio = Integer.parseInt(inicioAnio.getText().trim());
         dia2 = this.boxIDia2.getSelectedIndex();
         mes2 = this.boxIMes2.getSelectedIndex();
-        anio2 = Integer.parseInt(inicioAnio2.getText());
+        anio2 = Integer.parseInt(inicioAnio2.getText().trim());
         desc = slider.getValue();
         int diaA = this.DiaAlta.getSelectedIndex();
         int mesA = this.MesAlta.getSelectedIndex();
-        int anioA = Integer.parseInt(AnioAlta.getText());
+        int anioA = Integer.parseInt(AnioAlta.getText().trim());
    
         DtFecha FInicio = new DtFecha(anio, mes, dia, 0, 0, 0);
         DtFecha  FFinal = new DtFecha(anio2, mes2, dia2, 0, 0, 0);
         DtFecha alta = new DtFecha(diaA, mesA, anioA, 0, 0, 0);
 
-        dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        if(dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta) == 0)
+        	JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+        else
+        	JOptionPane.showMessageDialog(this, "Ya existe una cuponera con los datos ingresados", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private boolean checkFormulario() {
 
        int dia = this.boxIDia.getSelectedIndex();
        int mes = this.boxIMes.getSelectedIndex();
-       String anio = inicioAnio.getText();
+       String anio = inicioAnio.getText().trim();
        int dia2 = this.boxIDia2.getSelectedIndex();
        int mes2 = this.boxIMes2.getSelectedIndex();
-       String anio2 = inicioAnio2.getText();
+       String anio2 = inicioAnio2.getText().trim();
        
        int dia3 = this.DiaAlta.getSelectedIndex();
        int mes3 = this.MesAlta.getSelectedIndex();
-       String anio3 = AnioAlta.getText();
+       String anio3 = AnioAlta.getText().trim();
        
 	   String nombreU = this.textField.getText();
        String descripcion = this.textArea.getText();
-       if (nombreU.isEmpty() || anio3.equals("yyyy")||anio.equals("yyyy") || anio2.equals("yyyy")  ||
-    		   dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
+       if (nombreU.isEmpty() || anio3.equals("yyyy")|| anio3.isEmpty()  || anio.equals("yyyy") || anio.isEmpty() || anio2.equals("yyyy")  ||
+    		  anio2.isEmpty() || dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
            return false;
        }  

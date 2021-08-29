@@ -1,51 +1,45 @@
 package presentacion;
 
-import datatypes.DtActividadDeportiva;
-import datatypes.DtFecha;
-
-import java.awt.EventQueue;
-
-import logica.HandlerInstitucion;
-import logica.IActividadDeportivaController;
-import logica.Institucion;
-
 import javax.swing.JInternalFrame;
-import java.awt.GridBagLayout;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import javax.swing.border.TitledBorder;
-import java.awt.SystemColor;
-
+import javax.swing.JFrame;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import java.awt.event.MouseListener;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.SystemColor;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
+
+import datatypes.DtActividadDeportiva;
+import datatypes.DtFecha;
+
+import excepciones.InstitucionException;
+
+import logica.IActividadDeportivaController;
+
+@SuppressWarnings("serial")
 public class AltaActividadDeportiva extends JInternalFrame{
 	
 	//Controller
@@ -67,8 +61,8 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JLabel lblPesos;
 	private JLabel lblFecha;
 	private JPanel panelFecha;
-	private JComboBox comboBoxDia;
-	private JComboBox comboBoxMes;
+	private JComboBox<String> comboBoxDia;
+	private JComboBox<String> comboBoxMes;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JPanel panel;
@@ -397,14 +391,14 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	}
 	
 	private boolean checkFormulario() {
-		String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
-		String nombre = textFieldNombre.getText();
-        String descripcion = textFieldDescripcion.getText();
+		String nombreInsti = ((String) comboBoxInstitucion.getSelectedItem()).trim();
+		String nombre = textFieldNombre.getText().trim();
+        String descripcion = textFieldDescripcion.getText().trim();
     	    	
-        if (nombreInsti.equals("-") || nombre.isEmpty() || descripcion.isEmpty()
-        		|| textFieldDuracion.getText().isEmpty() || textFieldCosto.getText().isEmpty() || altaAnio.getText().matches("yyyy")
+        if (nombreInsti.trim().isEmpty() || nombre.trim().isEmpty()|| descripcion.trim().isEmpty()
+        		|| textFieldDuracion.getText().trim().isEmpty() || textFieldCosto.getText().trim().isEmpty() || altaAnio.getText().matches("yyyy")
         		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-")) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -413,7 +407,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
             Integer.parseInt(altaAnio.getText());
             Float.parseFloat(textFieldCosto.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Datos invalidos: Duracion, costo y fecha deben ser numeros", "Alta actividad deportiva",
+            JOptionPane.showMessageDialog(this, "Datos invalidos: Duracion, costo y fecha deben ser numeros", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -422,22 +416,30 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	}
 	
 	private void altaActDepACEPTAR() {
-		String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
-    	String nombre = textFieldNombre.getText();
-    	String descripcion = textFieldDescripcion.getText();
-    	int duracion = Integer.parseInt(textFieldDuracion.getText());
-    	float costo = Float.parseFloat(textFieldCosto.getText());
-    	int anio = Integer.valueOf(altaAnio.getText());
-    	int mes = comboBoxMes.getSelectedIndex();
-    	int dia = comboBoxDia.getSelectedIndex();
-        DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
-        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
-        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
-        	JOptionPane.showMessageDialog(this, "Actividad deportiva dada de alta con exito", "Alta actividad deportiva", JOptionPane.INFORMATION_MESSAGE);
-        	clear();
+		try {
+			String nombreInsti = ((String) comboBoxInstitucion.getSelectedItem()).trim();
+	    	String nombre = textFieldNombre.getText().trim();
+	    	String descripcion = textFieldDescripcion.getText().trim();
+	    	int duracion = Integer.parseInt(textFieldDuracion.getText().trim());
+	    	float costo = Float.parseFloat(textFieldCosto.getText().trim());
+	    	int anio = Integer.valueOf(altaAnio.getText().trim());
+	    	int mes = comboBoxMes.getSelectedIndex();
+	    	int dia = comboBoxDia.getSelectedIndex();
+	        DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
+	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
+	        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
+	        	JOptionPane.showMessageDialog(this,"La actividad deportiva ha sido registrada de forma exitosa.", this.getTitle(), 
+	        			JOptionPane.INFORMATION_MESSAGE);
+	        	clear();
+				setVisible(false);
+			}
+	        else
+				JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con los datos ingresados.", 
+						this.getTitle(), JOptionPane.ERROR_MESSAGE);
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					this.getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
-        else
-			JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con el nombre ingresado", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void clear() {

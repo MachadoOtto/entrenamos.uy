@@ -1,12 +1,11 @@
 package presentacion;
 
 import javax.swing.JInternalFrame;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.JScrollPane;
 
-import logica.IDeportivaController;
+import logica.ICuponeraController;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -28,7 +27,6 @@ import javax.swing.border.Border;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import datatypes.DtClasesCuponera;
@@ -47,13 +45,14 @@ public class ConsultaCuponeras extends JInternalFrame{
 	 */
 	
 	//Controller
-	private IDeportivaController IDC;
+	private ICuponeraController IDC;
 	//Components
 	private JComboBox<String> cbCuponera;
 	private JTree treeCuponera;
 	private ConsultaActividadDeportiva refAd;
+	JScrollPane scrollPane;
 	
-	public ConsultaCuponeras(IDeportivaController IDC) {
+	public ConsultaCuponeras(ICuponeraController IDC) {
 		this.IDC = IDC;
 		//Configuracion del JFRAME
 		setResizable(true);
@@ -170,7 +169,18 @@ public class ConsultaCuponeras extends JInternalFrame{
 		gbc_separator.gridy = 3;
 		getContentPane().add(separator, gbc_separator);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 1;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 4;
+		add(scrollPane, gbc_scrollPane);
+		
 		treeCuponera = new JTree();
+		scrollPane.setViewportView(treeCuponera);
 		treeCuponera.setRootVisible(false);
 		if(((String) cbCuponera.getSelectedItem())=="-") {
 			treeCuponera.setModel(new DefaultTreeModel(
@@ -198,7 +208,7 @@ public class ConsultaCuponeras extends JInternalFrame{
 		gbc_treeCuponera.fill = GridBagConstraints.BOTH;
 		gbc_treeCuponera.gridx = 1;
 		gbc_treeCuponera.gridy = 4;
-		getContentPane().add(treeCuponera, gbc_treeCuponera);
+		//getContentPane().add(treeCuponera, gbc_treeCuponera);
 		
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -229,5 +239,4 @@ public class ConsultaCuponeras extends JInternalFrame{
 			this.setVisible(true);
 		}
     }
-
 }

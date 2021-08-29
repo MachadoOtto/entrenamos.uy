@@ -1,23 +1,20 @@
 package presentacion;
 
-import java.awt.EventQueue;
 import java.awt.GridBagLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-
-import logica.IActividadDeportivaController;
-
-import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Set;
+import java.awt.Color;
 
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.TreeSelectionEvent;
@@ -25,23 +22,20 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
-
-import datatypes.DtActividadDeportivaExt;
-import datatypes.DtClaseExt;
-import datatypes.DtClasesCuponera;
-import datatypes.DtCuponera;
-import datatypes.DtFecha;
-
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.JTextArea;
+
+import java.util.Set;
+
+import logica.IActividadDeportivaController;
+import excepciones.InstitucionException;
+
+import datatypes.DtActividadDeportivaExt;
+import datatypes.DtFecha;
 
 @SuppressWarnings("serial")
 public class ConsultaActividadDeportiva extends JInternalFrame {
@@ -72,11 +66,13 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JTextField textFieldAnio;
 	private JPanel panelClasesCuponeras;
 	private JLabel lblEnd;
+	private JScrollPane scrollPane;
 	private JTree tree;
 	private JTextArea textFieldDesc;
 	private JLabel lblNewLabel;
 	private ConsultaDictadoClase refClase;
 	private ConsultaCuponeras refCup;
+	
 	public ConsultaActividadDeportiva(IActividadDeportivaController IADC) {
 		
 		this.IADC = IADC;
@@ -130,7 +126,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		comboBoxIns.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseEntered(MouseEvent e) {
-        		String z = null,x = null,t=(String) comboBoxIns.getSelectedItem();
+        		String z = null,t=(String) comboBoxIns.getSelectedItem();
         		if(comboBoxActDep.isEnabled()) 
         			z=(String) comboBoxActDep.getSelectedItem();
         		cargarInstitucion();
@@ -141,26 +137,28 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         });
 		comboBoxIns.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		int selectIndex = comboBoxIns.getSelectedIndex();
-        		comboBoxActDep.removeAllItems();
-    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-    			modelActividad.addElement("-");     		
-    			if (selectIndex > 0 && selectIndex != -1) {
-        			Set<String> actividades = IADC.obtenerActividades((String) comboBoxIns.getItemAt(selectIndex));
-                    for (String x: actividades) {
-                    	modelActividad.addElement(x);
-                    }
-                    comboBoxActDep.setEnabled(true);
-        		} else {
-        			comboBoxActDep.setEnabled(false);
-        		}
-    			comboBoxActDep.setModel(modelActividad);
-    			tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
-    				{
-    				DefaultMutableTreeNode nodoAct;
-    				nodoAct = new DefaultMutableTreeNode("No hay actividad deportiva seleccionada.");
-    				add(nodoAct);
-    				}}));
+        		try {
+	        		int selectIndex = comboBoxIns.getSelectedIndex();
+	        		comboBoxActDep.removeAllItems();
+	    			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	    			modelActividad.addElement("-");     		
+	    			if (selectIndex > 0) {
+	        			Set<String> actividades = IADC.obtenerActividades((String) comboBoxIns.getItemAt(selectIndex));
+	                    for (String x: actividades) {
+	                    	modelActividad.addElement(x);
+	                    }
+	                    comboBoxActDep.setEnabled(true);
+	        		} else {
+	        			comboBoxActDep.setEnabled(false);
+	        		}
+	    			comboBoxActDep.setModel(modelActividad);
+	    			tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
+	    				{
+	    				DefaultMutableTreeNode nodoAct;
+	    				nodoAct = new DefaultMutableTreeNode("No hay actividad deportiva seleccionada.");
+	    				add(nodoAct);
+	    				}}));
+        		} catch (InstitucionException ignore) { }
         	}
         });
 		cargarInstitucion();
@@ -402,7 +400,18 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbl_panelClasesCuponeras.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panelClasesCuponeras.setLayout(gbl_panelClasesCuponeras);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 2;
+		gbc_scrollPane.gridwidth = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 0;
+		gbc_scrollPane.gridy = 0;
+		panelClasesCuponeras.add(scrollPane, gbc_scrollPane);
+		
 		tree = new JTree();
+		scrollPane.setViewportView(tree);
 		tree.setRootVisible(false);
 		tree.setModel(new DefaultTreeModel(new DefaultMutableTreeNode("z") {
 			{
@@ -421,7 +430,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_tree.fill = GridBagConstraints.BOTH;
 		gbc_tree.gridx = 0;
 		gbc_tree.gridy = 0;
-		panelClasesCuponeras.add(tree, gbc_tree);
+		//panelClasesCuponeras.add(tree, gbc_tree);
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		TreeSelectionListener lst = new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
@@ -435,7 +444,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 				 }
 				 if(dad != null && dad.getUserObject().equals("Clases")) {
 					 //Ref CU. Consulta Clases
-					 
+					 refClase.refEntry((String) node.getUserObject(), (String)comboBoxActDep.getSelectedItem());
 				 }
 			}
 		};
@@ -449,7 +458,41 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 
 	}
 	
-	private void cargarInstituciones() {
+	private void loadData() {
+		try {
+			DtActividadDeportivaExt actDep = IADC.getActDepExt((String)comboBoxIns.getSelectedItem(),(String)comboBoxActDep.getSelectedItem());
+			textFieldNombre.setText(actDep.getNombre());
+			textFieldDesc.setText(actDep.getDescripcion());
+			textFieldDur.setText(Integer.toString(actDep.getDuracionMinutos()));
+			textFieldCosto.setText(Float.toString(actDep.getCosto()));
+			DtFecha fecha = actDep.getFechaRegistro();
+			textFieldDia.setText(Integer.toString(fecha.getDia()));
+			textFieldMes.setText(Integer.toString(fecha.getMes()));
+			textFieldAnio.setText(Integer.toString(fecha.getAnio()));
+			
+			tree.setModel(new DefaultTreeModel(
+					new DefaultMutableTreeNode("lol") {
+						{
+							DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
+							DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
+							for(String x: actDep.getClases()) {
+								nodoCl.add(new DefaultMutableTreeNode(x));
+							}
+							for(String x: actDep.getCuponeras()) {
+								nodoCup.add(new DefaultMutableTreeNode(x));
+							}
+							add(nodoCl);
+							add(nodoCup);
+						}
+					}
+				));
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private void cargarInstitucion() {
         DefaultComboBoxModel<String> modelInstituciones;
         modelInstituciones = new DefaultComboBoxModel<>();
         modelInstituciones.addElement("---Seleccione una institucion---");
@@ -459,50 +502,11 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         comboBoxIns.setModel(modelInstituciones);
     }
 	
-	
-	@SuppressWarnings("serial")
-	private void loadData() {
-		DtActividadDeportivaExt actDep = IADC.getActDepExt((String)comboBoxIns.getSelectedItem(),(String)comboBoxActDep.getSelectedItem());
-		textFieldNombre.setText(actDep.getNombre());
-		textFieldDesc.setText(actDep.getDescripcion());
-		textFieldDur.setText(Integer.toString(actDep.getDuracionMinutos()));
-		textFieldCosto.setText(Float.toString(actDep.getCosto()));
-		DtFecha fecha = actDep.getFechaRegistro();
-		textFieldDia.setText(Integer.toString(fecha.getDia()));
-		textFieldMes.setText(Integer.toString(fecha.getMes()));
-		textFieldAnio.setText(Integer.toString(fecha.getAnio()));
-		
-		tree.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode("lol") {
-					{
-						DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
-						DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
-						for(String x: actDep.getClases()) {
-							nodoCl.add(new DefaultMutableTreeNode(x));
-						}
-						for(String x: actDep.getCuponeras()) {
-							nodoCup.add(new DefaultMutableTreeNode(x));
-						}
-						add(nodoCl);
-						add(nodoCup);
-					}
-				}
-			));
-	}
-
-    public void cargarInstitucion() {
-        DefaultComboBoxModel<String> model;
-        model = new DefaultComboBoxModel<>();
-        model.addElement("-");
-        for(String x: IADC.obtenerInstituciones()) {
-            model.addElement(x);
-        }
-        comboBoxIns.setModel(model);
-    }
     public void setRef(ConsultaDictadoClase Refcdc,ConsultaCuponeras Refcc) {
     	refClase = Refcdc;
     	refCup = Refcc;
     }
+    
 	public void clear() {
 		comboBoxIns.setSelectedIndex(0);
 		comboBoxActDep.setEnabled(false);
@@ -516,37 +520,42 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	}
 
 	public void refEntry(String actDep) {
-		if(actDep.contains("/"))
-			actDep = actDep.split("/")[0];
-        DefaultComboBoxModel<String> model;
-        String institf=null;
-        model = new DefaultComboBoxModel<>();
-        model.addElement("-");
-        for(String x: IADC.obtenerInstituciones()) {
-            model.addElement(x);
-            for(String y: IADC.obtenerActividades(x)) {
-            	if(y.equals(actDep)) {
-            		institf = x;
-            	}
-            }
-            if(institf != null)
-            	break;
-        }
-        comboBoxIns.setModel(model);
-        comboBoxIns.setSelectedItem(institf);
-		Set<String> actividades = IADC.obtenerActividades(institf);
-		DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
-        for (String x: actividades) {
-        	modelActividad.addElement(x);
-        }
-        comboBoxActDep.setEnabled(true);
-        comboBoxActDep.setModel(modelActividad);
-        comboBoxIns.setSelectedItem(actDep);
-		loadData();
-		if (this.isVisible()) 
-			this.toFront();
-		else {
-			this.setVisible(true);
+		try {
+			if(actDep.contains("/"))
+				actDep = actDep.split("/")[0];
+	        DefaultComboBoxModel<String> model;
+	        String institf=null;
+	        model = new DefaultComboBoxModel<>();
+	        model.addElement("-");
+	        for(String x: IADC.obtenerInstituciones()) {
+	            model.addElement(x);
+	            for(String y: IADC.obtenerActividades(x)) {
+	            	if(y.equals(actDep)) {
+	            		institf = x;
+	            	}
+	            }
+	            if(institf != null)
+	            	break;
+	        }
+	        comboBoxIns.setModel(model);
+	        comboBoxIns.setSelectedItem(institf);
+			Set<String> actividades = IADC.obtenerActividades(institf);
+			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+	        for (String x: actividades) {
+	        	modelActividad.addElement(x);
+	        }
+	        comboBoxActDep.setEnabled(true);
+	        comboBoxActDep.setModel(modelActividad);
+	        comboBoxIns.setSelectedItem(actDep);
+			loadData();
+			if (this.isVisible()) 
+				this.toFront();
+			else {
+				this.setVisible(true);
+			}
+		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

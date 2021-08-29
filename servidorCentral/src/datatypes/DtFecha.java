@@ -75,6 +75,6 @@ public class DtFecha {
 		min1 = minutos + (horas + (dia + (mes + (anio) * 12) * 31) * 24) * 60;
 		min2 = fechaAComp.getMinutos() + (fechaAComp.getHoras() + (fechaAComp.getDia() + (fechaAComp.getMes() + 
 				(fechaAComp.getAnio()) * 12) * 31) * 24) * 60;
-		return (min1 < min2);
+		return (min1 <= min2);
 	}
 }
