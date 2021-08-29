@@ -431,6 +431,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	        	JOptionPane.showMessageDialog(this,"La actividad deportiva ha sido registrada de forma exitosa.", this.getTitle(), 
 	        			JOptionPane.INFORMATION_MESSAGE);
 	        	clear();
+				setVisible(false);
 			}
 	        else
 				JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con los datos ingresados.", 
