@@ -32,8 +32,6 @@ import java.awt.event.ItemEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
-import excepciones.NoExisteCuponeraException;
-import excepciones.ClaseLlenaException;
 import excepciones.FechaInvalidaException;
 
 import logica.IDictadoClaseController;
