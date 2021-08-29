@@ -443,6 +443,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	}
 	
 	public void clear() {
+		comboBoxInstitucion.setSelectedIndex(0);
 		textFieldNombre.setText("");
 		textFieldDescripcion.setText("");
 		textFieldDuracion.setText("");
