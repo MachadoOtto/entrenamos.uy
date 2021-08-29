@@ -198,6 +198,13 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         	public void itemStateChanged(ItemEvent e) {
         		if (comboBoxIns.getSelectedIndex() >0 && comboBoxActDep.getSelectedIndex() > 0) {
         			loadData();
+        		} else {
+        			textFieldNombre.setText("");
+        			textFieldDesc.setText("");
+        			textFieldDur.setText("");
+        			textFieldCosto.setText("");
+        			textFieldDia.setText("");
+        			textFieldMes.setText("");
         		}
         	}
         });
