@@ -169,8 +169,10 @@ public class Menu {
 		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		menuPrincipal.setBounds(180, 100, 1000, 800);
 		menuPrincipal.setResizable(true);
+		menuPrincipal.setIconImage(new ImageIcon(getClass().getResource("/img/icons8-ball-60.png")).getImage());
 		
 		escritorio = new JDesktopPane();
+		escritorio.setBackground(new Color(174, 182, 191));
 		menuPrincipal.getContentPane().add(escritorio);
 		
 		// Crear la Barra del Menu:
