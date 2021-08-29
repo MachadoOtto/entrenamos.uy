@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
@@ -66,6 +67,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JPanel panel;
+	private JScrollPane scrollPane;
 	private JTextArea textFieldDescripcion;
 	private JTextField altaAnio;
 	
@@ -195,9 +197,20 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_lblDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDescripcion.gridx = 1;
 		gbc_lblDescripcion.gridy = 1;
-		panelDatosActDep.add(lblDescripcion, gbc_lblDescripcion);
+		//panelDatosActDep.add(lblDescripcion, gbc_lblDescripcion);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 1;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 1;
+		panelDatosActDep.add(scrollPane, gbc_scrollPane);
 		
 		textFieldDescripcion = new JTextArea();
+		scrollPane.setViewportView(textFieldDescripcion);
 		textFieldDescripcion.setWrapStyleWord(true);
 		textFieldDescripcion.setLineWrap(true);
 		GridBagConstraints gbc_textFieldDescripcion = new GridBagConstraints();
@@ -208,7 +221,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		textFieldDescripcion.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		panelDatosActDep.add(textFieldDescripcion, gbc_textFieldDescripcion);
+		//panelDatosActDep.add(textFieldDescripcion, gbc_textFieldDescripcion);
 		
 		lblDuracion = new JLabel("Duracion:");
 		GridBagConstraints gbc_lblDuracion = new GridBagConstraints();
@@ -391,14 +404,14 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	}
 	
 	private boolean checkFormulario() {
-		String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
-		String nombre = textFieldNombre.getText();
-        String descripcion = textFieldDescripcion.getText();
+		String nombreInsti = ((String) comboBoxInstitucion.getSelectedItem()).trim();
+		String nombre = textFieldNombre.getText().trim();
+        String descripcion = textFieldDescripcion.getText().trim();
     	    	
-        if (nombreInsti.equals("-") || nombre.isEmpty() || descripcion.isEmpty()
-        		|| textFieldDuracion.getText().isEmpty() || textFieldCosto.getText().isEmpty() || altaAnio.getText().matches("yyyy")
+        if (nombreInsti.trim().isEmpty() || nombre.trim().isEmpty()|| descripcion.trim().isEmpty()
+        		|| textFieldDuracion.getText().trim().isEmpty() || textFieldCosto.getText().trim().isEmpty() || altaAnio.getText().matches("yyyy")
         		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-")) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", "Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -407,7 +420,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
             Integer.parseInt(altaAnio.getText());
             Float.parseFloat(textFieldCosto.getText());
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Datos invalidos: Duracion, costo y fecha deben ser numeros", "Alta actividad deportiva",
+            JOptionPane.showMessageDialog(this, "Datos invalidos: Duracion, costo y fecha deben ser numeros", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -417,27 +430,27 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	
 	private void altaActDepACEPTAR() {
 		try {
-			String nombreInsti = (String) comboBoxInstitucion.getSelectedItem();
-	    	String nombre = textFieldNombre.getText();
-	    	String descripcion = textFieldDescripcion.getText();
-	    	int duracion = Integer.parseInt(textFieldDuracion.getText());
-	    	float costo = Float.parseFloat(textFieldCosto.getText());
-	    	int anio = Integer.valueOf(altaAnio.getText());
+			String nombreInsti = ((String) comboBoxInstitucion.getSelectedItem()).trim();
+	    	String nombre = textFieldNombre.getText().trim();
+	    	String descripcion = textFieldDescripcion.getText().trim();
+	    	int duracion = Integer.parseInt(textFieldDuracion.getText().trim());
+	    	float costo = Float.parseFloat(textFieldCosto.getText().trim());
+	    	int anio = Integer.valueOf(altaAnio.getText().trim());
 	    	int mes = comboBoxMes.getSelectedIndex();
 	    	int dia = comboBoxDia.getSelectedIndex();
 	        DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
 	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
 	        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
-	        	JOptionPane.showMessageDialog(this, "Actividad deportiva dada de alta con exito", "Alta actividad deportiva", 
+	        	JOptionPane.showMessageDialog(this,"La actividad deportiva ha sido registrada de forma exitosa.", this.getTitle(), 
 	        			JOptionPane.INFORMATION_MESSAGE);
 	        	clear();
 			}
 	        else
-				JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con el nombre ingresado", 
-						"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con los datos ingresados.", 
+						this.getTitle(), JOptionPane.ERROR_MESSAGE);
 		} catch (InstitucionException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), 
-					"Alta actividad deportiva", JOptionPane.ERROR_MESSAGE);
+					this.getTitle(), JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
