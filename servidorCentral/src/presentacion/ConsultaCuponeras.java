@@ -1,10 +1,9 @@
 package presentacion;
 
 import javax.swing.JInternalFrame;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
+import javax.swing.JScrollPane;
 
 import logica.ICuponeraController;
 
@@ -25,10 +24,11 @@ import java.util.Set;
 import javax.swing.JSeparator;
 import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import datatypes.DtClasesCuponera;
@@ -52,6 +52,7 @@ public class ConsultaCuponeras extends JInternalFrame{
 	private JComboBox<String> cbCuponera;
 	private JTree treeCuponera;
 	private ConsultaActividadDeportiva refAd;
+	JScrollPane scrollPane;
 	
 	public ConsultaCuponeras(ICuponeraController IDC) {
 		this.IDC = IDC;
@@ -139,9 +140,12 @@ public class ConsultaCuponeras extends JInternalFrame{
 			model.addElement(x);
 		}
 		cbCuponera.setModel(model);
-		cbCuponera.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
+		cbCuponera.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				Set<String> tt = IDC.getNombreCuponeras();
 				if(cbCuponera.getItemCount()!=tt.size()+1) {
 					String t = (String) cbCuponera.getSelectedItem();
@@ -170,7 +174,18 @@ public class ConsultaCuponeras extends JInternalFrame{
 		gbc_separator.gridy = 3;
 		getContentPane().add(separator, gbc_separator);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 1;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 4;
+		add(scrollPane, gbc_scrollPane);
+		
 		treeCuponera = new JTree();
+		scrollPane.setViewportView(treeCuponera);
 		treeCuponera.setRootVisible(false);
 		if(((String) cbCuponera.getSelectedItem())=="-") {
 			treeCuponera.setModel(new DefaultTreeModel(
@@ -198,7 +213,7 @@ public class ConsultaCuponeras extends JInternalFrame{
 		gbc_treeCuponera.fill = GridBagConstraints.BOTH;
 		gbc_treeCuponera.gridx = 1;
 		gbc_treeCuponera.gridy = 4;
-		getContentPane().add(treeCuponera, gbc_treeCuponera);
+		//getContentPane().add(treeCuponera, gbc_treeCuponera);
 		
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -221,8 +236,10 @@ public class ConsultaCuponeras extends JInternalFrame{
     	refAd = a;
     }
     public void refEntry(String c) {
+    	
+			
 		cbCuponeraLoad();
-		cbCuponera.setSelectedItem(c);
+		cbCuponera.getModel().setSelectedItem(c);
 		if (this.isVisible()) 
 			this.toFront();
 		else {
