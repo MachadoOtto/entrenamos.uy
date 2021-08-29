@@ -4,6 +4,7 @@ import java.util.Set;
 
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
+import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 public interface ICuponeraController {
@@ -12,7 +13,8 @@ public interface ICuponeraController {
 	
 	public Set<String> getNombreCuponeras();
 	
-	public void agregarActividadCuponera(String nombre, String instituto,String actividadDeportiva, int cantidadClases) throws InstitucionException;
+	public void agregarActividadCuponera(String nombre, String instituto,String actividadDeportiva, int cantidadClases) 
+			throws InstitucionException, ActividadDeportivaException;
 	
 	public DtCuponera seleccionarCuponera(String n);
 }

@@ -39,6 +39,7 @@ import datatypes.TReg;
 
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
@@ -734,6 +735,9 @@ public class Menu {
         } catch (UsuarioNoExisteException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (ActividadDeportivaException e) {
+        	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+		}
     }
 }

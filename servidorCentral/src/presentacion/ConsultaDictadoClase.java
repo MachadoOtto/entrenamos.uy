@@ -35,6 +35,7 @@ import java.awt.event.MouseEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 
 import logica.IDictadoClaseController;
@@ -329,6 +330,8 @@ public class ConsultaDictadoClase extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
 		}  catch (ClaseException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		} catch (ActividadDeportivaException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);		
 		}
     }
     

@@ -469,8 +469,11 @@ public class CrearCuponera extends JInternalFrame {
         DtFecha  FFinal = new DtFecha(anio2, mes2, dia2, 0, 0, 0);
         DtFecha alta = new DtFecha(anioA, mesA, diaA, 0, 0, 0);
 
-		if (FInicio.esMenor(alta)) {
-        	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior a la fecha de inicio de la clase", 
+		if (!alta.esMenor(FInicio)) {
+        	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior o igual a la fecha de "
+        			+ "inicio de la clase", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        } else if (FFinal.esMenor(FInicio)) {
+        	JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior a la fecha final de la clase", 
         			this.getTitle(), JOptionPane.ERROR_MESSAGE);
         } else {
         	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
@@ -481,51 +484,33 @@ public class CrearCuponera extends JInternalFrame {
 	}
 	
 	private boolean checkFormulario() {
-
-       int dia = this.boxIDia.getSelectedIndex();
-       int mes = this.boxIMes.getSelectedIndex();
-       String anio = inicioAnio.getText().trim();
-       int dia2 = this.boxIDia2.getSelectedIndex();
-       int mes2 = this.boxIMes2.getSelectedIndex();
-       String anio2 = inicioAnio2.getText().trim();
-       
-       int dia3 = this.DiaAlta.getSelectedIndex();
-       int mes3 = this.MesAlta.getSelectedIndex();
-       String anio3 = AnioAlta.getText().trim();
-       
-	   String nombreU = this.textField.getText();
-       String descripcion = this.textArea.getText();
-       if (nombreU.isEmpty() || anio3.equals("yyyy")|| anio3.isEmpty()  || anio.equals("yyyy") || anio.isEmpty() || anio2.equals("yyyy")  ||
-    		  anio2.isEmpty() || dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
-           JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-           return false;
-       }  
-       
-       //Numeros no son numeros
-       try {
-           Integer.parseInt(anio2);
-           Integer.parseInt(anio3);
-           Integer.parseInt(anio);
-       } catch (NumberFormatException e) {
-           JOptionPane.showMessageDialog(this, "La fecha ingresada debe ser un numero.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-           return false;
-       }       
-
-       
-       //Fechas inexistentes
-       int Nanio = Integer.parseInt(anio);
-       int Nanio2 = Integer.parseInt(anio2);
-       if (Nanio < 1900 || Nanio2 < 1900 ) {
-    	   JOptionPane.showMessageDialog(this, "La fecha ingresada debe ser valida", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-           return false;
-       }
-       
-       //
-       if(Nanio*365+mes*30+dia > Nanio2*365+mes*30+dia) {
-    	   //No es una verificacion perfecta :)
-           JOptionPane.showMessageDialog(this, "La fecha de vencimiento de la cuponera no puede ser antes que la de su creacion.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-           return false;
-       }
-       return true;       
+		int dia = this.boxIDia.getSelectedIndex();
+		int mes = this.boxIMes.getSelectedIndex();
+		String anio = inicioAnio.getText().trim();
+		int dia2 = this.boxIDia2.getSelectedIndex();
+		int mes2 = this.boxIMes2.getSelectedIndex();
+		String anio2 = inicioAnio2.getText().trim();
+	   
+		int dia3 = this.DiaAlta.getSelectedIndex();
+		int mes3 = this.MesAlta.getSelectedIndex();
+		String anio3 = AnioAlta.getText().trim();
+	   
+		String nombreU = this.textField.getText();
+		String descripcion = this.textArea.getText();
+		if (nombreU.isEmpty() || anio3.equals("yyyy")|| anio3.isEmpty()  || anio.equals("yyyy") || anio.isEmpty() || anio2.equals("yyyy")  ||
+			anio2.isEmpty() || dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		//Numeros no son numeros
+		try {
+			Integer.parseInt(anio2);
+			Integer.parseInt(anio3);
+			Integer.parseInt(anio);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "La fecha ingresada debe ser un numero.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+			return false;
+		}	
+		return true;       
 	}
 }

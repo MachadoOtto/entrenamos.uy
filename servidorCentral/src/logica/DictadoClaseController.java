@@ -12,6 +12,7 @@ package logica;
 import java.util.HashSet;
 import java.util.Set;
 
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
@@ -57,7 +58,8 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return getHI().findInstitucion(ins).findActividad(actDep).getNombreClases();
 	}
 	
-	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, ClaseException {
+	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, ClaseException,
+			ActividadDeportivaException {
 		Clase classFind = getHI().findInstitucion(inst).getActDep(actDep).findClase(clase);
 		if (classFind != null) {
 			return classFind.getDt();
@@ -66,18 +68,30 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 	}
 	
-	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException, FechaInvalidaException {
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException, FechaInvalidaException,
+			ClaseException, UsuarioNoExisteException, ActividadDeportivaException {
+		for (String x: getHI().obtenerInstituciones()) {
+			for (String y: getHI().findInstitucion(x).obtenerNombresActDep()) {
+				if (getHI().findInstitucion(x).findActividad(y).getNombreClases().contains(datos.getNombre())) {
+					throw new ClaseException("Ya existe una clase con ese nombre en el sistema.");
+				}
+			}
+		}
 		Profesor profe = getHI().findInstitucion(ins).getProfesor(datos.getNicknameProfesor());
 		ActividadDeportiva actDept = getHI().findInstitucion(ins).getActDep(actDep);
+		if (!datos.getFechaRegistro().esMenor(datos.getFechaClase())) {
+			throw new FechaInvalidaException("La fecha de registro de la clase debe ser anterior a su fecha de inicio.");
+		}
 		if (!actDept.getFechaRegistro().esMenor(datos.getFechaRegistro())) {
-			throw new FechaInvalidaException("La fecha de registro de la clase debe ser posterior a la fecha de registro de la actividad deportiva");
+			throw new FechaInvalidaException("La fecha de registro de la clase debe ser posterior a la fecha de registro de la actividad deportiva.");
 		} else {
 			return actDept.addClase(datos,profe);
 		}
 	}
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
-			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, UsuarioNoExisteException { 
+			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, 
+			UsuarioNoExisteException, ActividadDeportivaException { 
 		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
 		Clase claseSelec = ad.findClase(clase);
 		claseSelec.hayLugar();

@@ -16,6 +16,7 @@ import datatypes.DtUsuario;
 import datatypes.TReg;
 import datatypes.DtInstitucion;
 import datatypes.DtProfesor;
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
@@ -370,7 +371,10 @@ class TestCasos {
         } catch (UsuarioNoExisteException e) {
         	fail(e.getMessage());
         	e.printStackTrace();
-        }
+        } catch (ActividadDeportivaException e) {
+        	fail(e.getMessage());
+        	e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -801,6 +805,9 @@ class TestCasos {
 		} catch (InstitucionException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+        	e.printStackTrace();
 		}
 	}
 	
@@ -822,6 +829,9 @@ class TestCasos {
 		} catch (InstitucionException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+        	e.printStackTrace();
 		}
 	}
 	
@@ -882,7 +892,7 @@ class TestCasos {
 	        assertEquals(claseA.getMaxSocios(), claseNueva.getMaxSocios());
 	        assertEquals(claseA.getURL(), claseNueva.getURL());
 	        assertEquals(claseA.getFechaClase().toFecha(), claseNueva.getFechaClase().toFecha());
-	        assertEquals(claseA.getFechaRegistro().toFecha(), claseNueva.getFechaRegistro().toFecha());        
+	        assertEquals(claseA.getFechaRegistro().toFecha(), claseNueva.getFechaRegistro().toFecha());
 		} catch (InstitucionException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -892,37 +902,144 @@ class TestCasos {
 		} catch (ClaseException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
 	@Test
 	void testClaseRepetida() {
-		
+		try {
+			// Iniciamos las instancias de institucion, profesor y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", new DtClase("ClaseRepetida", "profAuxiliar", 
+					"profe@auxiliar.com", 1, 99, "https://www.auxiliar.com/repetida", inicioClase, registroClase));
+			// Volvemos a crear una clase con el mismo nombre, nos debe saltar el throw ClaseException.
+			Assertions.assertThrows(ClaseException.class, () -> {IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", 
+					new DtClase("ClaseRepetida", "profAuxiliar", "profe@auxiliar.com", 1, 99, "https://www.auxiliar.com/repetida2", 
+					inicioClase, registroClase));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testClaseFechaRegistroInvalida() {
-		
+		try {
+			// Iniciamos las instancias de institucion, profesor y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			// Creamos una fecha de registro no valida.
+			DtFecha registroClase = new DtFecha(2019,1,1,0,0,0);
+			// Creamos la clase con la fecha registro invalida, nos debe saltar el throw FechaInvalidaException.
+			Assertions.assertThrows(FechaInvalidaException.class, () -> {IDCC.ingresarDatosClase("InstitutoAuxiliar", 
+					"ActividadAuxiliar", new DtClase("ClaseFechaInvalida", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/registroInvalido", inicioClase, registroClase));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testClaseFechaInicioInvalida() {
-		
+		try {
+			// Iniciamos las instancias de institucion, profesor y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			// Creamos una fecha de inicio no valida.
+			DtFecha inicioClase = new DtFecha(2019,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			// Creamos la clase con la fecha inicio invalida, nos debe saltar el throw FechaInvalidaException.
+			Assertions.assertThrows(FechaInvalidaException.class, () -> {IDCC.ingresarDatosClase("InstitutoAuxiliar", 
+					"ActividadAuxiliar", new DtClase("ClaseFechaInvalida", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/registroInvalido", inicioClase, registroClase));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testClaseNoExisteInstitucion() {
-		
+		DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+		DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+		// Creamos la clase con una Institucion no valida, nos debe saltar el throw InstitucionException.
+		Assertions.assertThrows(InstitucionException.class, () -> {IDCC.ingresarDatosClase("InstitutoFalso", 
+				"ActividadAuxiliar", new DtClase("ClaseARomper", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+				"https://www.auxiliar.com/InstitutoFalso", inicioClase, registroClase));});
 	}
 	
 	@Test
 	void testClaseActividadNoEsDeInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion, profesor y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2019,1,1,0,0,0);
+			// Creamos la clase con una actividad no valida, nos debe saltar el throw ActividadDeportivaException.
+			Assertions.assertThrows(ActividadDeportivaException.class, () -> {IDCC.ingresarDatosClase("InstitutoAuxiliar", 
+					"ActividadFalsa", new DtClase("ClaseARomper", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/ActividadFalsa", inicioClase, registroClase));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testClaseProfesorNoEsDeInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion, profesor y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2019,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			// Creamos la clase con un Profesor no valido, nos debe saltar el throw UsuarioNoExisteException.
+			Assertions.assertThrows(UsuarioNoExisteException.class, () -> {IDCC.ingresarDatosClase("InstitutoAuxiliar", 
+					"ActividadAuxiliar", new DtClase("ClaseProfeInvalido", "profesorFalso", "profe@falso.com", 1, 99, 
+					"https://www.auxiliar.com/profeInvalido", inicioClase, registroClase));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test

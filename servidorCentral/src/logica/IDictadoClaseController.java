@@ -15,7 +15,7 @@ import datatypes.DtClase;
 import datatypes.DtClaseExt;
 import datatypes.DtFecha;
 import datatypes.TReg;
-
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
@@ -34,12 +34,15 @@ public interface IDictadoClaseController {
 	
 	public Set<String> obtenerClases(String ins, String actDep) throws InstitucionException ;
 	
-	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException, ClaseException;
+	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException, ClaseException,
+			ActividadDeportivaException;
 	
-	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws  InstitucionException, FechaInvalidaException;
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws  InstitucionException, FechaInvalidaException,
+			ClaseException, UsuarioNoExisteException, ActividadDeportivaException;
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
-			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, UsuarioNoExisteException;
+			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, 
+			UsuarioNoExisteException, ActividadDeportivaException;
 
 	public Set<String> obtenerSocios();
 	

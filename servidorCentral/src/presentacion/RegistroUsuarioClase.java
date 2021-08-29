@@ -37,7 +37,7 @@ import logica.IDictadoClaseController;
 
 import datatypes.TReg;
 import datatypes.DtFecha;
-
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
@@ -393,7 +393,9 @@ public class RegistroUsuarioClase extends JInternalFrame {
     			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
     		} catch (UsuarioNoExisteException e) {
     			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
-    		}
+    		} catch (ActividadDeportivaException e) {
+    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+			}
         }
     }
 	

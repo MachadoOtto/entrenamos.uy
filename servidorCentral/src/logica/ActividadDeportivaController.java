@@ -3,6 +3,7 @@ package logica;
 import java.util.HashSet;
 import java.util.Set;
 
+import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 import datatypes.DtActividadDeportiva;
@@ -72,7 +73,8 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return x;
 	}
 	
-	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException {
+	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, 
+			ActividadDeportivaException {
 		return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
 	}
 	
@@ -95,7 +97,8 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 //	return 0;
 //	}
 	
-	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) throws InstitucionException {
+	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) throws InstitucionException, 
+			ActividadDeportivaException {
 		return getHI().findInstitucion(ins).getActDep(actDep).getDtExt();
 	}
 	
