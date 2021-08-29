@@ -97,10 +97,10 @@ public class DictadoClaseController implements IDictadoClaseController {
 		claseSelec.hayLugar();
 		if(!claseSelec.hayLugar())
 			throw new ClaseException("La clase seleccionada esta llena.");
-		if (fechaReg.esMenor(claseSelec.getFechaRegistro())) {
+		if (!claseSelec.getFechaRegistro().esMenor(fechaReg)) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es anterior a la Fecha en la que se registro la Clase seleccionada.");
 		}
-		if (claseSelec.getFechaClase().esMenor(fechaReg)) {
+		if (!fechaReg.esMenor(claseSelec.getFechaClase())) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es posterior a la Fecha en la que inicia la Clase seleccionada.");
 		}
 		((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg);
