@@ -398,6 +398,7 @@ public class CrearCuponera extends JInternalFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				clear();
+				desculab.setText("Descuento: "+slider.getValue()+"%");
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
