@@ -170,7 +170,7 @@ public class Menu {
 		menuPrincipal = new JFrame();
 		menuPrincipal.setTitle("Entrenamos.uy");
 		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		menuPrincipal.setBounds(180, 100, 1000, 800);
+		menuPrincipal.setBounds(100, 100, 1200, 850);
 		menuPrincipal.setResizable(true);
 		menuPrincipal.setIconImage(new ImageIcon(getClass().getResource("/img/icons8-ball-60.png")).getImage());
 		
