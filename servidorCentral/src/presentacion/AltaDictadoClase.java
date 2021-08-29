@@ -32,6 +32,9 @@ import java.awt.event.ItemEvent;
 import java.util.Set;
 
 import excepciones.InstitucionException;
+import excepciones.NoExisteCuponeraException;
+import excepciones.ClaseLlenaException;
+import excepciones.FechaInvalidaException;
 
 import logica.IDictadoClaseController;
 import datatypes.DtFecha;
@@ -502,7 +505,6 @@ public class AltaDictadoClase extends JInternalFrame {
 	
 	// Metodo de invocacion del Alta de Dictado de Clase
     protected void darAltaDeClase(ActionEvent arg0) {
-    	try {
 	        if (checkDatos()) {
 	        	// Obtengo datos de los controles Swing:
 	        	String nombre = nombreClase.getText();
@@ -523,21 +525,26 @@ public class AltaDictadoClase extends JInternalFrame {
 	            DtFecha fechaClase = new DtFecha(anio, mes, dia, hora, minuto, 0);
 	            DtFecha fechaRegistro = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
 	            DtClase datos = new DtClase(nombre, nombreProfesor,nombreProfesor,socioMin, socioMax, urlWeb, fechaClase, fechaRegistro);
-	            if (controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos) == 0) {
-	            	// Muestro éxito de la operación
-	                JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con éxito", 
-	                		"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
-	                clear();
-	            } else {
-	            	JOptionPane.showMessageDialog(this, "Ya existe una Clase con ese nombre", "Alta Dictado de Clase",
-	                        JOptionPane.ERROR_MESSAGE);
+	            if (!fechaRegistro.esMenor(fechaClase)) {
+	            	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior a la fecha de inicio de la clase", 
+	            			"Alta Dictado de Clase", JOptionPane.ERROR_MESSAGE);
 	            }
+	            else {
+		            try {
+		            	int exito = controlClase.ingresarDatosClase(nombreInstitucion, nombreActividad, datos);
+		            	JOptionPane.showMessageDialog(this, "El Dictado de la Clase se ha dado de alta con Ã©xito", 
+		            			"Alta Dictado de Clase", JOptionPane.INFORMATION_MESSAGE);
+		                clear();
+		                setVisible(false);
+		            } catch (FechaInvalidaException e) {
+		            	JOptionPane.showMessageDialog(this, e.getMessage(), "Registro de Usuario a Dictado de Clase", 
+		            			JOptionPane.ERROR_MESSAGE);
+		            } catch (InstitucionException e) {
+		    			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+		    		}
+	            }    
 	        }
-    	} catch (InstitucionException e) {
-    		JOptionPane.showMessageDialog(this, e.getMessage(), "Alta Dictado de Clase",
-                    JOptionPane.ERROR_MESSAGE);
-    	}
-    }
+    }	        
 	
 	// Realiza el checkeo de la entrada de datos.
     private boolean checkDatos() {
@@ -580,7 +587,7 @@ public class AltaDictadoClase extends JInternalFrame {
             Integer.parseInt(campoAnio);
             Integer.parseInt(campoAnioR);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El año ingresado debe ser un numero", "Alta Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "El aÃ±o ingresado debe ser un numero", "Alta Dictado de Clase",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

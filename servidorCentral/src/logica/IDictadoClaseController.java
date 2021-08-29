@@ -36,7 +36,7 @@ public interface IDictadoClaseController {
 	
 	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException ;
 	
-	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException ;
+	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws  InstitucionException, FechaInvalidaException;
 	
 	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
 			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, UsuarioNoExisteException;

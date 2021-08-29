@@ -409,14 +409,14 @@ public class RegistroUsuarioClase extends JInternalFrame {
         String campoAnioR = regAnio.getText();
         if (indexInstitucion < 1 || indexActividad < 1 || indexClase < 1 || indexSocio < 1 || indexTipo < 1 ||
         		indexDia < 1 || indexMes < 1 || campoAnioR.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacíos", "Registro de Usuario a Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "No puede haber campos vacÃ­os", "Registro de Usuario a Dictado de Clase",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
         try {
             Integer.parseInt(campoAnioR);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El año ingresado debe ser un numero", "Alta Dictado de Clase",
+            JOptionPane.showMessageDialog(this, "El aÃ±o ingresado debe ser un numero", "Alta Dictado de Clase",
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -424,7 +424,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
     }
 	
 	// Cargar Datos al JComboBox
-    // Se invoca el método antes de hacer visible el JInternalFrame
+    // Se invoca el mÃ©todo antes de hacer visible el JInternalFrame
     private void cargarDatos() {
     	// Cargar Usuarios:
     	DefaultComboBoxModel<String> modelUsuario;
