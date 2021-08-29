@@ -3,6 +3,7 @@ package presentacion;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JTextField;
@@ -33,6 +34,8 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 	private JTextField inputNombre;
 	private JTextField inputURL;
 	private JTextArea inputDescripcion;
+	//Scroll Descripcion
+	private JScrollPane scrollPane;
 	
 	public AltaInstitucionDeportiva(IActividadDeportivaController IDC) {
 		this.IDC = IDC;
@@ -86,7 +89,18 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 		gbc_lblDescripcion.gridy = 3;
 		getContentPane().add(lblDescripcion, gbc_lblDescripcion);
 		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 1;
+		gbc_scrollPane.gridwidth = 3;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 4;
+		add(scrollPane, gbc_scrollPane);
+		
 		inputDescripcion = new JTextArea();
+		scrollPane.setViewportView(inputDescripcion);
 		inputDescripcion.setLineWrap(true);
 		inputDescripcion.setWrapStyleWord(true);
 		inputDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -99,7 +113,7 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		inputDescripcion.setBorder(BorderFactory.createCompoundBorder(border, 
 		      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		getContentPane().add(inputDescripcion, gbc_inputDescripcion);
+		//getContentPane().add(inputDescripcion, gbc_inputDescripcion);
 		
 		JLabel lblURL = new JLabel("URL:");
 		GridBagConstraints gbc_lblURL = new GridBagConstraints();
@@ -157,14 +171,15 @@ public class AltaInstitucionDeportiva extends JInternalFrame{
 	}
 
 	private void altaInsSTART() {
-		if(inputNombre.getText().length()==0|| inputDescripcion.getText().length()==0|| inputURL.getText().length()==0) {
-			JOptionPane.showMessageDialog(this, "No se permite el ingreso de campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+		if(inputNombre.getText().trim().isEmpty()|| inputDescripcion.getText().trim().isEmpty()|| inputURL.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(this, "No se permite el ingreso de campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		if(IDC.altaInstitucion(inputNombre.getText(), inputDescripcion.getText(), inputURL.getText())!=0)
-			JOptionPane.showMessageDialog(this, "Ya existe una institucion con el nombre ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+		if(IDC.altaInstitucion(inputNombre.getText(), inputDescripcion.getText(), inputURL.getText())!=0) {
+			JOptionPane.showMessageDialog(this, "Ya existe una institucion con el nombre ingresado", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+		}
 		else {
-			JOptionPane.showMessageDialog(this, "Se registro la institucion de forma existosa.", "Informacion",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "La institucion ha sido registrada de forma exitosa.", this.getTitle(),JOptionPane.INFORMATION_MESSAGE);
 			clear();
 		}
 	}
