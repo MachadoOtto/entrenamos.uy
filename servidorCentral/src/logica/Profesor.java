@@ -23,16 +23,8 @@ public class Profesor extends Usuario {
 	private Institucion instituto;
 	
 	private Map<String, Clase> misClases;
-	//Guille (...)
-//	public Profesor() {
-//		super();
-//		this.setDescripcion(new String());
-//		this.setBiografia(new String());
-//		this.setWebsite(new String());
-//		instituto = null;
-//		misClases = new HashMap<>();
-//	}
 	
+	/* No se usa constructor
 	public Profesor(String nick, String nombre, String apellido, String mail, DtFecha fecha, String descripcion, String biografia, String website) {
 		super(nick, nombre, apellido, mail, fecha);
 		this.setDescripcion(descripcion);
@@ -40,7 +32,7 @@ public class Profesor extends Usuario {
 		this.setWebsite(website);
 		instituto = null;
 		misClases = new HashMap<>();
-	}
+	} */
 	
 	public Profesor(DtProfesor datos) {
 		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getFechaNacimiento());

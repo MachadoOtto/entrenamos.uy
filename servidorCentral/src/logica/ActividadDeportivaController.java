@@ -53,9 +53,10 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		for(String y: getHI().findInstitucion(ins).getActsDeps().keySet()) {
 			x.add(y);
 			for(String z: getHC().getCup(nombreCup).getNombresActDep()) {
-				if(y.equals(z))
+				if(y.equals(z)) {
 					x.remove(y);
-				break;
+					break;
+				}
 			}
 		}
 		return x;
