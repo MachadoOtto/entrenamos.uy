@@ -567,6 +567,32 @@ class TestCasos {
 	}
 	
 	@Test
+	void testEditarDatosSocio() {
+		try {
+			// Generamos un Socio Nuevo			
+			// Retorna 0 si se da de alta de manera exitosa; 1 en otro caso;
+			int exitoEnAlta = IUC.ingresarDatosUsuario(new DtSocio("UserAEditar","Nuevo","Usuario","newEditado@user.com", 
+					new DtFecha(2020,1,1,0,0,0)));
+			assertEquals(exitoEnAlta, 0);
+			DtSocio editado = new DtSocio("UserAEditar","Editado","XD","newEditado@user.com", new DtFecha(2018,11,15,0,0,0));
+			IUC.editarDatosBasicos("UserAEditar", editado);
+			DtUsuario socio = IUC.seleccionarUsuario("UserAEditar");
+			assertEquals(socio.getNickname(), "UserAEditar");
+			assertEquals(socio.getNombre(), "Editado");
+			assertEquals(socio.getApellido(), "XD");
+			assertEquals(socio.getEmail(), "newEditado@user.com");
+			DtFecha fecha = new DtFecha(2018,11,15,0,0,0);
+			assertEquals(socio.getFechaNacimiento().toFecha(), fecha.toFecha());
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
 	void testSocioCorreoRepetido() {
 		try {
 			// Generamos un Socio Nuevo
@@ -742,6 +768,37 @@ class TestCasos {
 			assertEquals(profe.getDescripcion(), "Descripcion");
 			assertEquals(profe.getBiografia(), "Bio");
 			assertEquals(profe.getLink(), "www.newProfe.com");
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testEditarDatosProfe() {
+		try {
+			IADC.altaInstitucion("InstitutoEditado","https://www.nuevoInsti.com", "Sirve como test.");
+			// Generamos un Socio Nuevo			
+			// Retorna 0 si se da de alta de manera exitosa; 1 en otro caso;
+			int exitoEnAlta = IUC.ingresarDatosUsuario(new DtProfesor("newEDITADOprofe","Nuevo","Profe","newEDITADO@profe.com", 
+					new DtFecha(2020,1,1,0,0,0), "InstitutoEditado", "Descripcion", "Bio", "www.newProfe.com"));
+			assertEquals(exitoEnAlta, 0);
+			DtProfesor editado = new DtProfesor("newEDITADOprofe","Edicion","Lol","newEDITADO@profe.com", 
+					new DtFecha(2019,1,1,0,0,0), "InstitutoEditado", "Desc Edit", "Bio Edit", "www.Editado.com");
+			IUC.editarDatosBasicos("newEDITADOprofe", editado);
+			DtProfesor profe = (DtProfesor)IUC.seleccionarUsuario("newEDITADOprofe");
+			assertEquals(profe.getNickname(), "newEDITADOprofe");
+			assertEquals(profe.getNombre(), "Edicion");
+			assertEquals(profe.getApellido(), "Lol");
+			assertEquals(profe.getEmail(), "newEDITADO@profe.com");
+			assertEquals(profe.getFechaNacimiento().toFecha(), new DtFecha(2019,1,1,0,0,0).toFecha());
+			assertEquals(profe.getNombreInstitucion(), "InstitutoEditado");
+			assertEquals(profe.getDescripcion(), "Desc Edit");
+			assertEquals(profe.getBiografia(), "Bio Edit");
+			assertEquals(profe.getLink(), "www.Editado.com");
 		} catch (InstitucionException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
@@ -1940,6 +1997,41 @@ class TestCasos {
 			fail(e.getMessage());
 			e.printStackTrace();
 		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testActividadesNoDentroDeCuponeraYInstitucionOk() {
+		try {
+		    // Pelota #P1
+			Set<String> actividades = IADC.obtenerDeltaInstituciones("Pelota", "Telón");
+			assertEquals(actividades.contains("Voleibol"), false);
+			assertEquals(actividades.contains("Basquetbol"), false);
+			assertEquals(actividades.contains("Atletismo"), true);
+			actividades = IADC.obtenerDeltaInstituciones("Pelota", "Instituto Natural");
+			assertEquals(actividades.contains("Aeróbica"), true);
+			actividades = IADC.obtenerDeltaInstituciones("Pelota", "Fuerza Bruta");
+			assertEquals(actividades.contains("Aparatos y pesas"), true);
+			// Gimnasia #P2
+			actividades = IADC.obtenerDeltaInstituciones("Gimnasia", "Instituto Natural");
+			assertEquals(actividades.contains("Aeróbica"), false);
+			actividades = IADC.obtenerDeltaInstituciones("Gimnasia", "Fuerza Bruta");
+			assertEquals(actividades.contains("Aparatos y pesas"), false);
+			actividades = IADC.obtenerDeltaInstituciones("Gimnasia", "Telón");
+			assertEquals(actividades.contains("Voleibol"), true);
+			assertEquals(actividades.contains("Basquetbol"), true);
+			assertEquals(actividades.contains("Atletismo"), true);
+			// Músculos #P2
+			actividades = IADC.obtenerDeltaInstituciones("Músculos", "Fuerza Bruta");
+			assertEquals(actividades.contains("Kickboxing"), false);
+			assertEquals(actividades.contains("Aparatos y pesas"), false);
+			actividades = IADC.obtenerDeltaInstituciones("Músculos", "Telón");
+			assertEquals(actividades.contains("Voleibol"), true);
+			assertEquals(actividades.contains("Basquetbol"), true);
+			assertEquals(actividades.contains("Atletismo"), true);
+		} catch (InstitucionException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}

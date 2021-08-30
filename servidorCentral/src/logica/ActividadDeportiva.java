@@ -126,7 +126,8 @@ public class ActividadDeportiva {
 	public DtActividadDeportivaExt getDtExt() {
 		Set<String> q = new HashSet<>(clases.keySet());
 		Set<String> r = new HashSet<>(clCuponera.keySet());
-		DtActividadDeportivaExt x = new DtActividadDeportivaExt(nombre, descripcion, duracionMinutos, costo, fechaRegistro,q,r);
+		DtActividadDeportivaExt x = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
+				getCosto(), getFechaRegistro(),q,r);
 		return x;
 	}
 
