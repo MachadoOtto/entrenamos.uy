@@ -559,7 +559,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			        if(selPath.getPathCount()==2 && (((DefaultMutableTreeNode) selPath.getPathComponent(1)).getChildCount())>0) {
 			        	String q = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
 			        	//AQUI VA LA REFERENCIA A LA ACTIVIDAD DEPORTIVA
-			        	System.out.println("DEBUG: selection: "+q);
+			        	//System.out.println("DEBUG: selection: "+q);
 			        	refCAD.refEntry(q);
 			        	
 			        }
@@ -567,7 +567,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			        	String act = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(1)).getUserObject();
 			        	String cla = (String) ((DefaultMutableTreeNode) selPath.getPathComponent(2)).getUserObject();
 			        	//AQUI VA LA REFERENCIA A LA CLASE SELECCIONADA
-			        	System.out.println("DEBUG: selection: "+act+" "+cla);
+			        	//System.out.println("DEBUG: selection: "+act+" "+cla);
 			        	refCDC.refEntry(act,cla);
 			        }
 			    }
