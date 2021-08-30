@@ -54,6 +54,10 @@ public class ReciboClase {
 		return aSocio.getNickname() + " <" + aSocio.getCorreo() + ">";
 	}
 	
+	public String getNick() {
+		return aSocio.getNickname();
+	}
+	
 	public Cuponera getCuponera() {
 		return cup;
 	}

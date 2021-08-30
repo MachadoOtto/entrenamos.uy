@@ -2,6 +2,9 @@ package logica;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
@@ -10,6 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClase;
+import datatypes.DtClaseExt;
+import datatypes.DtClasesCuponera;
+import datatypes.DtCuponera;
 import datatypes.DtFecha;
 import datatypes.DtSocio;
 import datatypes.DtUsuario;
@@ -18,6 +24,7 @@ import datatypes.DtInstitucion;
 import datatypes.DtProfesor;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
+import excepciones.CuponeraRepetidaException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
@@ -173,7 +180,7 @@ class TestCasos {
 	        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbico adulto mayor", "clazar", "clazar",
 	        		5, 12, "https://www.inatural.com/aeroam", new DtFecha(2021,8,31,19,30,0), new DtFecha(2021,5,30,0,0,0)));
 	        // Aeróbico #C9
-	        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbico", "clazar", "clazar",
+	        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbica", "clazar", "clazar",
 	        		5, 20, "https://www.inatural.com/aerogral", new DtFecha(2021,9,30,20,0,0), new DtFecha(2021,5,30,0,0,0)));
 	        // Boxeo I #C10
 	        IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", new DtClase("Boxeo I", "TheBoss", "TheBoss",
@@ -291,10 +298,10 @@ class TestCasos {
 			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor", "andy", TReg.general, 
 					new DtFecha(2021,8,23,0,0,0));
 			// #R25
-			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico", "caro", TReg.general, 
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbica", "caro", TReg.general, 
 					new DtFecha(2021,8,15,0,0,0)); // R25 C9 CO 15/08/21 560
 			// #R26
-			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico", "euge", TReg.general, 
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbica", "euge", TReg.general, 
 					new DtFecha(2021,8,26,0,0,0));
 			// #R27
 			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo I", "andy", TReg.general, 
@@ -373,6 +380,9 @@ class TestCasos {
         	e.printStackTrace();
         } catch (ActividadDeportivaException e) {
         	fail(e.getMessage());
+        	e.printStackTrace();
+		} catch (CuponeraRepetidaException e) {
+			fail(e.getMessage());
         	e.printStackTrace();
 		}
 	}
@@ -860,11 +870,206 @@ class TestCasos {
 			{IADC.ingresarDatosActividadDep("InstitutoInexistente", nuevaActividad);});		
 	}
 	
-	// Test que me faltan implementar
-	
 	@Test
 	void testCargaDeClases() {
-		
+		try {
+			// Calistenia #C1
+			DtClase claseOk = new DtClase("Calistenia", "viktor", "viktor", 1, 5, "https://www.musculos.com/Calistenia", 
+					new DtFecha(2021,4,15,15,30,0), new DtFecha(2021,3,31,0,0,0));
+			DtClaseExt claseIngresada = IDCC.seleccionarClase("Fuerza Bruta", "Aparatos y pesas", "Calistenia");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+			// Peso libre #C2
+	        claseOk = new DtClase("Peso libre", "viktor", "viktor", 1, 5, "https://www.musculos.com/pesolibre", 
+	        		new DtFecha(2021,5,1,17,0,0), new DtFecha(2021,3,31,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Fuerza Bruta", "Aparatos y pesas", "Peso libre");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Aparatos #C3
+	        claseOk = new DtClase("Aparatos", "viktor", "viktor", 1, 7, "https://www.musculos.com/aparatos", 
+	        		new DtFecha(2021,6,1,18,0,0), new DtFecha(2021,3,31,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Fuerza Bruta", "Aparatos y pesas", "Aparatos");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+			// Voleibol #C4
+	        claseOk = new DtClase("Voleibol", "denis", "denis", 10, 21, 
+	        		"https://telon.com.uy/voley", new DtFecha(2021,6,10,19,0,0), new DtFecha(2021,4,20,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Voleibol", "Voleibol");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Braza #C5
+	        claseOk = new DtClase("Braza", "Nelson", "Nelson", 2, 6, "https://telon.com.uy/natacionB", 
+	        		new DtFecha(2021,7,10,20,0,0), new DtFecha(2021,4,20,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Voleibol", "Braza");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Mariposa #C6
+	        claseOk = new DtClase("Mariposa", "Nelson", "Nelson", 2, 6, "https://telon.com.uy/natacionM", 
+	        		new DtFecha(2021,8,10,17,45,0), new DtFecha(2021,4,20,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Voleibol", "Mariposa");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+			// Aeróbica niños #C7
+	        claseOk = new DtClase("Aeróbica niños", "clazar", "clazar", 5, 10, "https://www.inatural.com/aeroni", 
+	        		new DtFecha(2021,8,15,16,30,0), new DtFecha(2021,5,30,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Instituto Natural", "Aeróbica", "Aeróbica niños");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Aeróbico adulto mayor #C8
+	        claseOk = new DtClase("Aeróbico adulto mayor", "clazar", "clazar", 5, 12, "https://www.inatural.com/aeroam", 
+	        		new DtFecha(2021,8,31,19,30,0), new DtFecha(2021,5,30,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Aeróbico #C9
+			claseOk = new DtClase("Aeróbica", "clazar", "clazar", 5, 20, "https://www.inatural.com/aerogral", 
+	        		new DtFecha(2021,9,30,20,0,0), new DtFecha(2021,5,30,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Instituto Natural", "Aeróbica", "Aeróbica");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+			 // Boxeo I #C10
+	        claseOk = new DtClase("Boxeo I", "TheBoss", "TheBoss", 1, 4, "https://www.musculos.com/boxeo1", 
+	        		new DtFecha(2021,9,1,19,30,0), new DtFecha(2021,6,7,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Fuerza Bruta", "Kickboxing", "Boxeo I");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Boxeo II #C11
+	        claseOk = new DtClase("Boxeo II", "TheBoss", "TheBoss", 2, 2, "https://www.musculos.com/boxeo2", 
+	        		new DtFecha(2021,9,30,17,0,0), new DtFecha(2021,6,7,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Fuerza Bruta", "Kickboxing", "Boxeo II");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Músculos para boxeo #C12
+	        claseOk = new DtClase("Músculos para boxeo", "viktor", "viktor", 1, 5, "https://www.musculos.com/muscbox", 
+	        		new DtFecha(2021,10,15,20,0,0), new DtFecha(2021,6,7,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Fuerza Bruta", "Kickboxing", "Músculos para boxeo");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+			// 100 M #C13
+	        claseOk = new DtClase("100 M", "lale", "lale", 3, 10, "https://telon.com.uy/100m", 
+	        		new DtFecha(2021,9,25,19,0,0), new DtFecha(2021,7,8,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Atletismo", "100 M");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // 200 M #C14
+	        claseOk = new DtClase("200 M", "lale", "lale", 3, 10, "https://telon.com.uy/200m", 
+	        		new DtFecha(2021,10,25,18,30,0), new DtFecha(2021,7,8,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Atletismo", "200 M");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Posta #C15
+	        claseOk = new DtClase("Posta", "lale", "lale", 8, 16, "https://telon.com.uy/posta", 
+	        		new DtFecha(2021,11,25,17,45,0), new DtFecha(2021,7,8,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Atletismo", "Posta");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+			// Basquet I #C16
+	        claseOk = new DtClase("Basquet I", "aldo", "aldo", 10, 15, "https://telon.com.uy/bball1", 
+	        		new DtFecha(2021,9,1,21,0,0), new DtFecha(2021,7,31,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Basquetbol", "Basquet I");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+	        // Basquet II #C17
+	        claseOk =new DtClase("Basquet II", "aldo", "aldo", 10, 10, "https://telon.com.uy/bball2", 
+	        		new DtFecha(2021,10,1,21,0,0), new DtFecha(2021,7,31,0,0,0));
+			claseIngresada = IDCC.seleccionarClase("Telón", "Basquetbol", "Basquet II");
+			assertEquals(claseIngresada.getNombre(), claseOk.getNombre());
+			assertEquals(claseIngresada.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseIngresada.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseIngresada.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseIngresada.getURL(), claseOk.getURL());
+			assertEquals(claseIngresada.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseIngresada.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+	    	e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+	    	e.printStackTrace();
+		}
 	}
 
 	@Test
@@ -1043,81 +1248,656 @@ class TestCasos {
 	}
 	
 	@Test
-	void testCargaDeCuponeras() {
-		
-	}
+	void testCargaDeCuponerasOk() {
+		try {
+			DtActividadDeportiva voleibol = IADC.getActDepExt("Telón", "Voleibol");
+			DtActividadDeportiva basket = IADC.getActDepExt("Telón", "Basquetbol");
+			DtActividadDeportiva aero = IADC.getActDepExt("Instituto Natural", "Aeróbica");
+			DtActividadDeportiva aypesas = IADC.getActDepExt("Fuerza Bruta", "Aparatos y pesas");
+			DtActividadDeportiva kick = IADC.getActDepExt("Fuerza Bruta", "Kickboxing");
+	        // Pelota #P1 : Voleibol(Telón, 7 clases, 750 pesos), Basquetbol(Telón, 18 clases, 450)
+			Set<String> actividades = new HashSet<>(Arrays.asList("Voleibol", "Basquetbol"));
+			DtFecha inicio = new DtFecha(2021,5,1,0,0,0);
+			DtFecha fin = new DtFecha(2021,7,31,23,59,59);
+			float costoTotal = (float)(0.8*(voleibol.getCosto()*7 + basket.getCosto()*18));
+			DtCuponera cuponeraAProbar = ICC.seleccionarCuponera("Pelota");
+			assertEquals(cuponeraAProbar.getNombre(), "Pelota");
+			assertEquals(cuponeraAProbar.getDescripcion(), "Deportes con pelota.");
+			assertEquals(cuponeraAProbar.getDescuento(), 20);
+			assertEquals(cuponeraAProbar.getCosto(), costoTotal);
+			assertEquals(cuponeraAProbar.getFechaInicio().toFecha(), inicio.toFecha());
+			assertEquals(cuponeraAProbar.getFechaFin().toFecha(), fin.toFecha());
+			for (DtClasesCuponera x : cuponeraAProbar.getContenido()) {
+				assertEquals(actividades.contains(x.getNombreActividad()), true);
+			}
+			// Gimnasia #P2 : Aeróbica(Instituto Natural, 2 clases, 800 pesos), Aparatos y pesas(Fuerza Bruta, 8 clases, 550)
+			actividades = new HashSet<>(Arrays.asList("Aeróbica", "Aparatos y pesas"));
+			inicio = new DtFecha(2021,8,1,0,0,0);
+			fin = new DtFecha(2021,9,30,23,59,59);
+			costoTotal = (float)(0.7*(aero.getCosto()*2 + aypesas.getCosto()*8));
+			cuponeraAProbar = ICC.seleccionarCuponera("Gimnasia");
+			assertEquals(cuponeraAProbar.getNombre(), "Gimnasia");
+			assertEquals(cuponeraAProbar.getDescripcion(), "Aeróbica y aparatos.");
+			assertEquals(cuponeraAProbar.getDescuento(), 30);
+			assertEquals(cuponeraAProbar.getCosto(), costoTotal);
+			assertEquals(cuponeraAProbar.getFechaInicio().toFecha(), inicio.toFecha());
+			assertEquals(cuponeraAProbar.getFechaFin().toFecha(), fin.toFecha());
+			for (DtClasesCuponera x : cuponeraAProbar.getContenido()) {
+				assertEquals(actividades.contains(x.getNombreActividad()), true);
+			}
+			// Músculos #P2 : Kickboxing(Fuerza Bruta, 11 clases, 980 pesos), Aparatos y pesas(Fuerza Bruta, 12 clases, 550)
+			actividades = new HashSet<>(Arrays.asList("Kickboxing", "Aparatos y pesas"));
+			inicio = new DtFecha(2021,8,15,0,0,0);
+			fin = new DtFecha(2021,11,15,23,59,59);
+			costoTotal = (float)(0.9*(kick.getCosto()*11 + aypesas.getCosto()*12));
+			cuponeraAProbar = ICC.seleccionarCuponera("Músculos");
+			assertEquals(cuponeraAProbar.getNombre(), "Músculos");
+			assertEquals(cuponeraAProbar.getDescripcion(), "Pesas.");
+			assertEquals(cuponeraAProbar.getDescuento(), 10);
+			assertEquals(cuponeraAProbar.getCosto(), costoTotal);
+			assertEquals(cuponeraAProbar.getFechaInicio().toFecha(), inicio.toFecha());
+			assertEquals(cuponeraAProbar.getFechaFin().toFecha(), fin.toFecha());
+			for (DtClasesCuponera x : cuponeraAProbar.getContenido()) {
+				assertEquals(actividades.contains(x.getNombreActividad()), true);
+			}
+		} catch (NoExisteCuponeraException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+    }
 	
 	@Test
 	void testAltaCuponeraOk() {
-		
+		try {
+			// Iniciamos las instancias de institucion y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			// Generamos la cuponera a probar.
+	        ICC.ingresarCuponera("CupNueva", "PruebaCuponera", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
+	        		55, new DtFecha(2020,1,1,0,0,0));
+	        ICC.agregarActividadCuponera("CupNueva", "InstitutoAuxiliar", "ActividadAuxiliar", 10);
+			Set<String> actividades = new HashSet<>(Arrays.asList("ActividadAuxiliar"));
+			DtFecha inicio = new DtFecha(2020,1,1,0,0,0);
+			DtFecha fin = new DtFecha(2022,1,1,0,0,0);
+			float costoTotal = (float)(0.45*(actividadAuxiliar.getCosto())*10);
+			DtCuponera cuponeraAProbar = ICC.seleccionarCuponera("CupNueva");
+			assertEquals(cuponeraAProbar.getNombre(), "CupNueva");
+			assertEquals(cuponeraAProbar.getDescripcion(), "PruebaCuponera");
+			assertEquals(cuponeraAProbar.getDescuento(), 55);
+			assertEquals(cuponeraAProbar.getCosto(), costoTotal);
+			assertEquals(cuponeraAProbar.getFechaInicio().toFecha(), inicio.toFecha());
+			assertEquals(cuponeraAProbar.getFechaFin().toFecha(), fin.toFecha());
+			for (DtClasesCuponera x : cuponeraAProbar.getContenido()) {
+				assertEquals(actividades.contains(x.getNombreActividad()), true);
+			}			
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (NoExisteCuponeraException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (CuponeraRepetidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testCuponeraRepetida() {
-		
+		try {
+			// Generamos la cuponera a probar.
+	        ICC.ingresarCuponera("CupARepetir", "PrimeraIteracion", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
+	        		55, new DtFecha(2020,1,1,0,0,0));
+	        Assertions.assertThrows(CuponeraRepetidaException.class, () -> {ICC.ingresarCuponera("CupARepetir", "SegundaIteracion", 
+	        		new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 55, new DtFecha(2020,1,1,0,0,0));});
+		} catch (CuponeraRepetidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testCuponeraNoExisteInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			// Generamos la cuponera a probar.
+			try {
+		        ICC.ingresarCuponera("CupAuxiliar", "PruebaCuponera", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
+		        		55, new DtFecha(2020,1,1,0,0,0));
+			} catch (CuponeraRepetidaException ignore) { }
+	        Assertions.assertThrows(InstitucionException.class, () -> {ICC.agregarActividadCuponera("CupAuxiliar", 
+	        		"InstitutoFalso", "ActividadAuxiliar", 10);});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testCuponeraActividadNoEsDeInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			// Generamos la cuponera a probar.
+			try {
+		        ICC.ingresarCuponera("CupAuxiliar", "PruebaCuponera", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
+		        		55, new DtFecha(2020,1,1,0,0,0));
+			} catch (CuponeraRepetidaException ignore) { }
+	        Assertions.assertThrows(ActividadDeportivaException.class, () -> {ICC.agregarActividadCuponera("CupAuxiliar", 
+	        		"InstitutoAuxiliar", "ActividadFalsa", 10);});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testCuponeraFechaRegistroInvalida() {
-		
+		try {
+			// Iniciamos las instancias de institucion y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			// Generamos la cuponera a probar.
+	        Assertions.assertThrows(FechaInvalidaException.class, () -> {ICC.ingresarCuponera("CupAuxiliar", "PruebaCuponera", 
+	        		new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 55, new DtFecha(2022,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testCargaDeInscripcionesClase() {
-		
+		try {
+			// Calistenia
+			DtClaseExt datosClase = IDCC.seleccionarClase("Fuerza Bruta", "Aparatos y pesas", "Calistenia");
+			List<String> alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("caro"), true);
+			assertEquals(alumnosClase.contains("sergiop"), true);
+			assertEquals(alumnosClase.contains("andy"), true);
+			// 
+			datosClase = IDCC.seleccionarClase("Fuerza Bruta", "Aparatos y pesas", "Peso libre");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("andy"), true);
+			assertEquals(alumnosClase.contains("tonyp"), true);
+			assertEquals(alumnosClase.contains("caro"), true);
+			assertEquals(alumnosClase.contains("m1k4"), true); 
+			// Aparatos
+			datosClase = IDCC.seleccionarClase("Fuerza Bruta", "Aparatos y pesas", "Aparatos");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("charly"), true);
+			assertEquals(alumnosClase.contains("caro"), true);
+			assertEquals(alumnosClase.contains("m1k4"), true);
+			// Voleibol
+			datosClase = IDCC.seleccionarClase("Telón", "Voleibol", "Voleibol");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("Emi71"), true);
+			assertEquals(alumnosClase.contains("euge"), true);
+			assertEquals(alumnosClase.contains("sergiop"), true);
+			assertEquals(alumnosClase.contains("tonyp"), true);
+			// Braza
+			datosClase = IDCC.seleccionarClase("Telón", "Voleibol", "Braza");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("guille"), true);
+			assertEquals(alumnosClase.contains("euge"), true);
+			assertEquals(alumnosClase.contains("m1k4"), true);
+			// Mariposa
+			datosClase = IDCC.seleccionarClase("Telón", "Voleibol", "Mariposa");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("charly"), true);
+			assertEquals(alumnosClase.contains("sergiop"), true);
+			assertEquals(alumnosClase.contains("andy"), true);
+			// Aeróbica niños
+			datosClase = IDCC.seleccionarClase("Instituto Natural", "Aeróbica", "Aeróbica niños");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("m1k4"), true);
+			// Aeróbico adulto mayor
+			datosClase = IDCC.seleccionarClase("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("Emi71"), true);
+			assertEquals(alumnosClase.contains("guille"), true);
+			assertEquals(alumnosClase.contains("andy"), true);
+			// Aeróbica
+			datosClase = IDCC.seleccionarClase("Instituto Natural", "Aeróbica", "Aeróbica");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("caro"), true);
+			assertEquals(alumnosClase.contains("euge"), true);
+			// Boxeo I
+			datosClase = IDCC.seleccionarClase("Fuerza Bruta", "Kickboxing", "Boxeo I");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("andy"), true);
+			assertEquals(alumnosClase.contains("tonyp"), true);
+			assertEquals(alumnosClase.contains("m1k4"), true);
+			// Boxeo II
+			datosClase = IDCC.seleccionarClase("Fuerza Bruta", "Kickboxing", "Boxeo II");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("sergiop"), true);
+			assertEquals(alumnosClase.contains("guille"), true);
+			// Músculos para boxeo
+			datosClase = IDCC.seleccionarClase("Fuerza Bruta", "Kickboxing", "Músculos para boxeo");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("Emi71"), true);
+			assertEquals(alumnosClase.contains("caro"), true);
+			assertEquals(alumnosClase.contains("euge"), true);
+			assertEquals(alumnosClase.contains("sergiop"), true);
+			// 100 M
+			datosClase = IDCC.seleccionarClase("Telón", "Atletismo", "100 M");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("guille"), true);
+			assertEquals(alumnosClase.contains("charly"), true);
+			// 200 M
+			datosClase = IDCC.seleccionarClase("Telón", "Atletismo", "200 M");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("Emi71"), true);
+			assertEquals(alumnosClase.contains("charly"), true);
+			// Posta
+			datosClase = IDCC.seleccionarClase("Telón", "Atletismo", "Posta");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("caro"), true);
+			// Basquet I
+			datosClase = IDCC.seleccionarClase("Telón", "Basquetbol", "Basquet I");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("sergiop"), true);
+			assertEquals(alumnosClase.contains("Emi71"), true);
+			assertEquals(alumnosClase.contains("tonyp"), true);
+			// Basquet II
+			datosClase = IDCC.seleccionarClase("Telón", "Basquetbol", "Basquet II");
+			alumnosClase = datosClase.getNickAlumnos();
+			assertEquals(alumnosClase.contains("andy"), true);
+			assertEquals(alumnosClase.contains("tonyp"), true);
+			assertEquals(alumnosClase.contains("caro"), true);
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}		
 	}
 	
 	@Test
-	void testInscripcionClaseOk() {
-		
+	void testInscripcionClaseSinCuponeraOk() {
+		try {
+		// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+		IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+		IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar","Socio","Auxiliar","socio@auxiliar.com", 
+				new DtFecha(1998,1,1,0,0,0)));
+		IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+				new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+		DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+		DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+		IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+		DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+		DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+		DtClase claseNueva = new DtClase("ClaseAuxiliar", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+				"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+		try {
+			IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+		} catch (ClaseException ignore) { }
+		IDCC.inscribirSocio("InstitutoAuxiliar", "ActividadAuxiliar", "ClaseAuxiliar", "socioAuxiliar", TReg.general, 
+				new DtFecha(2020,1,1,0,0,0));
+		DtClaseExt datosClase = IDCC.seleccionarClase("InstitutoAuxiliar", "ActividadAuxiliar", "ClaseAuxiliar");
+		List<String> alumnosClase = datosClase.getNickAlumnos();
+		assertEquals(alumnosClase.contains("socioAuxiliar"), true);
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (NoExisteCuponeraException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testReinscripcionInvalida() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioRepetido","Socio","Auxiliar","sociorepetido@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliar", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			IDCC.inscribirSocio("InstitutoAuxiliar", "ActividadAuxiliar", "ClaseAuxiliar", "socioRepetido", TReg.general, 
+					new DtFecha(2020,1,1,0,0,0));
+			Assertions.assertThrows(ClaseException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadAuxiliar", "ClaseAuxiliar", "socioRepetido", TReg.general, new DtFecha(2020,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (NoExisteCuponeraException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testInscripcionClaseIniciada() {
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar","Socio","Auxiliar","socio@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			Assertions.assertThrows(FechaInvalidaException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadAuxiliar", "ClaseAuxiliarFail", "socioAuxiliar", TReg.general, new DtFecha(2020,1,3,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testInscripcionFechaInvalida() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar","Socio","Auxiliar","socio@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			Assertions.assertThrows(FechaInvalidaException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadAuxiliar", "ClaseAuxiliarFail", "socioAuxiliar", TReg.general, new DtFecha(2019,12,31,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testInscipcionNoExisteInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar","Socio","Auxiliar","socio@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			Assertions.assertThrows(InstitucionException.class, () -> {IDCC.inscribirSocio("InstitutoFalso", 
+					"ActividadAuxiliar", "ClaseAuxiliarFail", "socioAuxiliar", TReg.general, new DtFecha(2020,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testInscripcionActividadNoEsDeInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar","Socio","Auxiliar","socio@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			Assertions.assertThrows(ActividadDeportivaException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadFalsa", "ClaseAuxiliarFail", "socioAuxiliar", TReg.general, new DtFecha(2020,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testInscripcionClaseNoEsDeInstitucion() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar","Socio","Auxiliar","socio@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			Assertions.assertThrows(ClaseException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadAuxiliar", "ClaseFalsa", "socioAuxiliar", TReg.general, new DtFecha(2020,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	void testClaseLlena() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar1","Socio","Auxiliar","socio1@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliar2","Socio","Auxiliar","socio2@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseChica", "profAuxiliar", "profe@auxiliar.com", 1, 1, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			IDCC.inscribirSocio("InstitutoAuxiliar", "ActividadAuxiliar", "ClaseChica", "socioAuxiliar1", TReg.general, 
+					new DtFecha(2020,1,1,0,0,0));
+			Assertions.assertThrows(ClaseException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadAuxiliar", "ClaseChica", "socioAuxiliar2", TReg.general, new DtFecha(2020,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (NoExisteCuponeraException e) {
+			fail(e.getMessage());
+			e.printStackTrace();		
+		}
 	}
 	
 	@Test
 	void testInscripcionSinCuponeraValida() {
-		
+		try {
+			// Iniciamos las instancias de institucion, socio, profesor, clase, cuponera y actividadDeportiva.
+			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
+			IUC.ingresarDatosUsuario(new DtSocio("socioAuxiliarSinCuponera","Socio","No Cuponera",
+					"socioSinCuponera@auxiliar.com", new DtFecha(1998,1,1,0,0,0)));
+			IUC.ingresarDatosUsuario(new DtProfesor("profAuxiliar","Profesor","Auxiliar","profe@auxiliar.com", 
+					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
+			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
+			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
+			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
+			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 10, 
+					"https://www.auxiliar.com/auxiliar", inicioClase, registroClase);
+			try {
+				IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", claseNueva);
+			} catch (ClaseException ignore) { }
+			Assertions.assertThrows(NoExisteCuponeraException.class, () -> {IDCC.inscribirSocio("InstitutoAuxiliar", 
+					"ActividadAuxiliar", "ClaseAuxiliarFail", "socioAuxiliar", TReg.cuponera, new DtFecha(2020,1,1,0,0,0));});
+		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (FechaInvalidaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (UsuarioNoExisteException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }

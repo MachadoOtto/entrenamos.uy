@@ -5,14 +5,21 @@ import java.util.List;
 public class DtClaseExt extends DtClase {
 	
 	private List<String> alumnos;
+	private List<String> soloNickAlumnos;
 	
-	public DtClaseExt(String nom, String nickP,String correoP, int min, int max, String url, DtFecha fechC, DtFecha fechR, List<String> als) {
+	public DtClaseExt(String nom, String nickP,String correoP, int min, int max, String url, DtFecha fechC, DtFecha fechR, 
+			List<String> als, List<String> soloNickAlumnos) {
 		super(nom, nickP,correoP, min, max, url, fechC, fechR);
 		this.alumnos = als;
+		this.soloNickAlumnos = soloNickAlumnos;
 	}
 
 	public List<String> getAlumnos() {
 		return this.alumnos;
+	}
+	
+	public List<String> getNickAlumnos() {
+		return this.soloNickAlumnos;
 	}
 	
 	public String toString() {

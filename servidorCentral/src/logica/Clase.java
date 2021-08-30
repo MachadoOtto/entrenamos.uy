@@ -62,17 +62,19 @@ public class Clase {
 	}
 	
 	public DtClaseExt getDt() {
+		List<String> SoloNombres = new ArrayList<>();
 		List<String> ListNombres = new ArrayList<>();
 		for(ReciboClase x: ListReciboClase) {
 			ListNombres.add(x.getNickCorreoSocio());
+			SoloNombres.add(x.getNick());
 		}
 		DtClaseExt x = new DtClaseExt(nombre, p.getNickname(), p.getCorreo(), minSocios, maxSocios, URL, this.getFechaClase(),
-				this.getFechaRegistro(), ListNombres);
+				this.getFechaRegistro(), ListNombres, SoloNombres);
 		return x;
 	}
 	
 	public boolean hayLugar() {
-		return ListReciboClase.size() <= maxSocios;
+		return ListReciboClase.size() < maxSocios;
 	}
 	
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {

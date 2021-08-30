@@ -3,6 +3,7 @@ package logica;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
+import excepciones.ClaseException;
 import excepciones.InstitucionException;
 
 import datatypes.DtActividadDeportiva;
@@ -24,7 +25,7 @@ public interface IActividadDeportivaController {
 	
 	// Migue: Esta funcion va a cambiar de controller, me lo llevo a DictadoClaseController, si no la usan en otro lado favor borrar
 	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException,
-			ActividadDeportivaException;
+			ActividadDeportivaException, ClaseException;
 	
 	public Set<String> obtenerSocios();
 	

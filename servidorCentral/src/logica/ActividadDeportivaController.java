@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
+import excepciones.ClaseException;
 import excepciones.InstitucionException;
 
 import datatypes.DtActividadDeportiva;
@@ -74,7 +75,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 	
 	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, 
-			ActividadDeportivaException {
+			ActividadDeportivaException, ClaseException {
 		return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
 	}
 	

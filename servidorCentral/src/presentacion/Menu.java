@@ -41,6 +41,7 @@ import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
+import excepciones.CuponeraRepetidaException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
@@ -535,7 +536,7 @@ public class Menu {
 	        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbico adulto mayor", "clazar", "clazar",
 	        		5, 12, "https://www.inatural.com/aeroam", new DtFecha(2021,8,31,19,30,0), new DtFecha(2021,5,30,0,0,0)));
 	        // Aeróbico #C9
-	        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbico", "clazar", "clazar",
+	        IDCC.ingresarDatosClase("Instituto Natural", "Aeróbica", new DtClase("Aeróbica", "clazar", "clazar",
 	        		5, 20, "https://www.inatural.com/aerogral", new DtFecha(2021,9,30,20,0,0), new DtFecha(2021,5,30,0,0,0)));
 	        // Boxeo I #C10
 	        IDCC.ingresarDatosClase("Fuerza Bruta", "Kickboxing", new DtClase("Boxeo I", "TheBoss", "TheBoss",
@@ -653,10 +654,10 @@ public class Menu {
 			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico adulto mayor", "andy", TReg.general, 
 					new DtFecha(2021,8,23,0,0,0));
 			// #R25
-			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico", "caro", TReg.general, 
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbica", "caro", TReg.general, 
 					new DtFecha(2021,8,15,0,0,0)); // R25 C9 CO 15/08/21 560
 			// #R26
-			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbico", "euge", TReg.general, 
+			IDCC.inscribirSocio("Instituto Natural", "Aeróbica", "Aeróbica", "euge", TReg.general, 
 					new DtFecha(2021,8,26,0,0,0));
 			// #R27
 			IDCC.inscribirSocio("Fuerza Bruta", "Kickboxing", "Boxeo I", "andy", TReg.general, 
@@ -737,6 +738,9 @@ public class Menu {
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
         } catch (ActividadDeportivaException e) {
         	JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+        			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+		} catch (CuponeraRepetidaException e) {
+			JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
 		}
     }

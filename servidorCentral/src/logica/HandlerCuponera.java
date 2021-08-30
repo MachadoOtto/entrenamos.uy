@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import datatypes.DtFecha;
+import excepciones.CuponeraRepetidaException;
 import datatypes.DtCuponera;
 
 public class HandlerCuponera {
@@ -42,9 +43,10 @@ public class HandlerCuponera {
 		cuponeras.put(nombreCuponera, cuponera);
 	}
 
-	public int addCuponera(String nombreCuponera, String descripcion, DtFecha ini, DtFecha fin, int descuento, DtFecha fechaAlta){
+	public int addCuponera(String nombreCuponera, String descripcion, DtFecha ini, DtFecha fin, 
+			int descuento, DtFecha fechaAlta) throws CuponeraRepetidaException {
 		if( cuponeras.containsKey(nombreCuponera ) )
-			return 1;
+			throw new CuponeraRepetidaException("La cuponera ingresada ya existe en el sistema.");
 		Cuponera nuevaCuponera = new Cuponera(nombreCuponera, descripcion, descuento, ini, fin);
 		cuponeras.put( nombreCuponera, nuevaCuponera );
 		log.info("New Cuponera "+nuevaCuponera.getNombre()+" registered, total: "+cuponeras.size());
