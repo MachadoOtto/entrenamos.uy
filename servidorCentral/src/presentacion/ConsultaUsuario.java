@@ -115,7 +115,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		int iframeHeight = 575;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
-		setBounds(100, 25, 487, 682); // w,h
+		setBounds(100-gridWidth+gridWidth-gridHeight+gridHeight, 25, 487, 682); // w,h
 		
 		setTitle("Consulta de usuario");
 		

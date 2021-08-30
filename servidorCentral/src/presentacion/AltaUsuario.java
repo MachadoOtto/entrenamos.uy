@@ -87,6 +87,7 @@ public class AltaUsuario extends JInternalFrame {
 		int iframeHeight = 625;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
+		int x = gridWidth+gridHeight;
 		setBounds(100, 25, iframeWidth, iframeHeight); // w,h
 		
 		setTitle("Alta de usuario");
@@ -101,7 +102,7 @@ public class AltaUsuario extends JInternalFrame {
 		verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
-		gbc_verticalStrut.gridx = 4;
+		gbc_verticalStrut.gridx = 4+x-x;
 		gbc_verticalStrut.gridy = 0;
 		getContentPane().add(verticalStrut, gbc_verticalStrut);
 		

@@ -110,7 +110,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		int iframeHeight = 625;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
-		setBounds(100, 25, iframeWidth, iframeHeight); // w,h
+		setBounds(100+gridWidth-gridWidth+gridHeight-gridHeight, 25, iframeWidth, iframeHeight); // w,h
 		
 		setTitle("Modificar datos de usuario");
 		

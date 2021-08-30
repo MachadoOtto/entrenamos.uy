@@ -18,8 +18,6 @@ import java.awt.Component;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Set;
 import javax.swing.JSeparator;
 import javax.swing.JTree;

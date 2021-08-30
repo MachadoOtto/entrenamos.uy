@@ -9,7 +9,7 @@
 
 package logica;
 import datatypes.DtProfesor;
-import datatypes.DtFecha;
+
 import datatypes.DtProfesorExt;
 import java.util.Set;
 import java.util.Map;
@@ -19,9 +19,7 @@ import java.util.HashSet;
 public class Profesor extends Usuario {
 	
 	private String descripcion, biografia, website;
-	
 	private Institucion instituto;
-	
 	private Map<String, Clase> misClases;
 	
 	/* No se usa constructor
