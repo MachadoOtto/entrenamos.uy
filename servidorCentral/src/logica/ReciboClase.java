@@ -55,6 +55,10 @@ public class ReciboClase {
 				+ fechaInscripcion.toFecha() + " (" + tipo.toString() + ")";
 	}
 	
+	public String getNick() {
+		return aSocio.getNickname();
+	}
+	
 	public Cuponera getCuponera() {
 		return cup;
 	}

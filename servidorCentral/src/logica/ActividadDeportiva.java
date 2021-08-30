@@ -5,6 +5,7 @@ import datatypes.DtClase;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtFecha;
+import excepciones.ClaseException;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -55,7 +56,6 @@ public class ActividadDeportiva {
 		return nombre;
 	}
 	public int addClasesCup(ClasesCuponera cp) {
-		System.out.println(clCuponera.size());
 		if(clCuponera.containsKey(cp.getNombreCuponera()))
 			return 1;
 		clCuponera.put(cp.getNombreCuponera(), cp);
@@ -101,17 +101,13 @@ public class ActividadDeportiva {
 		fechaRegistro = datosAD.getFechaRegistro();
 	}
 	
-	public Clase findClase(String c) {	
-		return clases.get(c);
+	public Clase findClase(String c) throws ClaseException {	
+		Clase res = clases.get(c);
+		if (res == null) {
+			throw new ClaseException("La Clase seleccionada no pertenece a esta Actividad Deportiva.");
+		}
+		return res;
 	}
-	
-//	public List<String> getNombreActDep(String nombreCup){
-//		//Guille: Despues vemos como se hace bien.
-//		//Cuponera cup;//FALTA TERMINAR
-//		//return cup.getNombresActDep();
-//		List<String> x = new ArrayList<>();
-//		return x;
-//	}
 
 	public String getDescripcion() {return descripcion;}
 	public int getDuracionMinutos() {return duracionMinutos;}

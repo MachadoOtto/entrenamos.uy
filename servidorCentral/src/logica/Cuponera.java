@@ -17,7 +17,7 @@ public class Cuponera {
 	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin, DtFecha fechaAlta){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.descuento = (float) (1-(float)((float)descuento/100.0));
+		this.descuento = (float)descuento;
 		this.fechaInicio = new DtFecha(fechaInicio);
 		this.fechaFin = new DtFecha(fechaFin);
 		this.fechaAlta = new DtFecha(fechaAlta);
@@ -62,7 +62,7 @@ public class Cuponera {
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
 		act.addClasesCup(claCup);
-		costo = costo + descuento*act.getCosto()*num;
+		costo = costo + (1 - descuento/100)*act.getCosto()*num;
 	}
 	
 	public int cantidadClases(ActividadDeportiva actDep) {

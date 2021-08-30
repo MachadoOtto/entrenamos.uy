@@ -33,6 +33,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
+import excepciones.NoExisteCuponeraException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.event.ItemListener;
@@ -108,29 +109,30 @@ public class ConsultaCuponeras extends JInternalFrame{
 							new DefaultMutableTreeNode("No hay cuponera seleccionada.")));
 				}
 				else {
-					DtCuponera x = IDC.seleccionarCuponera((String) cbCuponera.getSelectedItem());
-					treeCuponera.setModel(new DefaultTreeModel(
-							new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
-								{
-									DefaultMutableTreeNode nodoAct;
-									add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
-									add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
-									add(new DefaultMutableTreeNode("Valida a partir del: "+x.getFechaInicio().toFecha()));
-									add(new DefaultMutableTreeNode("Valida hasta el: "+x.getFechaFin().toFecha()));
-									add(new DefaultMutableTreeNode("Fecha de registro: "+x.getFechaAlta().toFecha()));
-									add(new DefaultMutableTreeNode("Costo: "+Math.round(x.getCosto())));
-									add(new DefaultMutableTreeNode("Descuento que aplica: "+Math.round(100*(1-x.getDescuento()))+"%"));
-									nodoAct = new DefaultMutableTreeNode("Actividades deportivas");
-									for(DtClasesCuponera v: x.getContenido()) {
-										nodoAct.add(new DefaultMutableTreeNode(v.getNombreActividad()+" / "+v.getCantidadClases()+" clases."));
+					try {
+						DtCuponera x = IDC.seleccionarCuponera((String) cbCuponera.getSelectedItem());
+						treeCuponera.setModel(new DefaultTreeModel(
+								new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
+									{
+										DefaultMutableTreeNode nodoAct;
+										add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
+										add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
+										add(new DefaultMutableTreeNode("Valida a partir del: "+x.getFechaInicio().toFecha()));
+										add(new DefaultMutableTreeNode("Valida hasta el: "+x.getFechaFin().toFecha()));
+										add(new DefaultMutableTreeNode("Costo: "+Math.round(x.getCosto())));
+										add(new DefaultMutableTreeNode("Descuento que aplica: "+x.getDescuento()+"%"));
+										nodoAct = new DefaultMutableTreeNode("Actividades deportivas");
+										for(DtClasesCuponera v: x.getContenido()) {
+											nodoAct.add(new DefaultMutableTreeNode(v.getNombreActividad()+" / "+v.getCantidadClases()+" clases."));
+										}
+										if(nodoAct.getChildCount()==0) {
+											nodoAct.add(new DefaultMutableTreeNode("No hay actividades asociadas a esta cuponera."));
+										}
+										add(nodoAct);
 									}
-									if(nodoAct.getChildCount()==0) {
-										nodoAct.add(new DefaultMutableTreeNode("No hay actividades asociadas a esta cuponera."));
-									}
-									add(nodoAct);
 								}
-							}
-						));
+							));
+					} catch (NoExisteCuponeraException ignore) { }
 				}
 			}
 		});

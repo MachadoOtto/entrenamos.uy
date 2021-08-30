@@ -31,6 +31,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import datatypes.DtFecha;
+import excepciones.CuponeraRepetidaException;
+import excepciones.FechaInvalidaException;
 import logica.ICuponeraController;
 
 @SuppressWarnings("serial")
@@ -490,9 +492,15 @@ public class CrearCuponera extends JInternalFrame {
         	JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior a la fecha final de la clase", 
         			this.getTitle(), JOptionPane.ERROR_MESSAGE);
         } else {
-        	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  
-			clear();
+        	try {
+	        	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
+	    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  
+				clear();
+        	} catch (CuponeraRepetidaException e) {
+        		JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        	} catch (FechaInvalidaException e) {
+        		JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+			}
         }
 	}
 	
