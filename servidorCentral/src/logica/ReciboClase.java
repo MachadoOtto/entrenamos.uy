@@ -51,7 +51,8 @@ public class ReciboClase {
 	}
 	
 	public String getNickCorreoSocio() {
-		return aSocio.getNickname() + " <" + aSocio.getCorreo() + ">";
+		return aSocio.getNickname() + " <" + aSocio.getCorreo() + "> - " 
+				+ fechaInscripcion.toFecha() + " (" + tipo.toString() + ")";
 	}
 	
 	public String getNick() {

@@ -8,18 +8,19 @@ import datatypes.DtCuponera;
 
 public class Cuponera {
 	private String nombre,descripcion;
-	private DtFecha fechaInicio,fechaFin;
+	private DtFecha fechaInicio,fechaFin,fechaAlta;
 	private float descuento,costo;
 	
 	private List<ClasesCuponera> cp;
 	private List<ReciboCuponera> rc;
 	
-	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin){
+	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin, DtFecha fechaAlta){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.descuento = (float)descuento;
 		this.fechaInicio = new DtFecha(fechaInicio);
 		this.fechaFin = new DtFecha(fechaFin);
+		this.fechaAlta = new DtFecha(fechaAlta);
 		this.cp = new ArrayList<>();
 		this.rc = new ArrayList<>();
 		costo = 0;
@@ -84,7 +85,7 @@ public class Cuponera {
 			DtClasesCuponera rr = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
 			r.add(rr);
 		}
-		DtCuponera x = new DtCuponera(nombre, descripcion, descuento, costo, fechaInicio, fechaFin, r);
+		DtCuponera x = new DtCuponera(nombre, descripcion, descuento, costo, fechaInicio, fechaFin, fechaAlta, r);
 		return x;
 	}
 
