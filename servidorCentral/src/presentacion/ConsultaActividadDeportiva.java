@@ -521,7 +521,8 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private void cargarInstitucion() {
         DefaultComboBoxModel<String> modelInstituciones;
         modelInstituciones = new DefaultComboBoxModel<>();
-        modelInstituciones.addElement("---Seleccione una institucion---");
+        //modelInstituciones.addElement("---Seleccione una institucion---");
+		modelInstituciones.addElement("-");
         for (String ins: IADC.obtenerInstituciones()) {
         	modelInstituciones.addElement(ins);
         }
