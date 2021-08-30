@@ -570,6 +570,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	        comboBoxIns.getModel().setSelectedItem(institf);
 			Set<String> actividades = IADC.obtenerActividades(institf);
 			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+			modelActividad.addElement("-");
 	        for (String x: actividades) {
 	        	modelActividad.addElement(x);
 	        }
