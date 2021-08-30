@@ -44,12 +44,19 @@ public class Cuponera {
 		return d;
 	}
 	
+	public DtFecha getFechaAlta() {
+		DtFecha d = new DtFecha(fechaAlta);
+		return d;
+	}
+	
 	public float getDescuento() {
 		return descuento;
 	}
+	
 	public float getCosto() {
 		return costo;
 	}
+	
 	public List<String> getNombresActDep(){
 		List<String> nomnom = new ArrayList<>();
 		for(ClasesCuponera cc: cp) {
@@ -85,7 +92,8 @@ public class Cuponera {
 			DtClasesCuponera rr = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
 			r.add(rr);
 		}
-		DtCuponera x = new DtCuponera(nombre, descripcion, descuento, costo, fechaInicio, fechaFin, fechaAlta, r);
+		DtCuponera x = new DtCuponera(getNombre(), getDescripcion(), getDescuento(), getCosto(), getFechaInicio(),
+				getFechaFin(), getFechaAlta(), r);
 		return x;
 	}
 

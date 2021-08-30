@@ -47,7 +47,7 @@ public class HandlerCuponera {
 			int descuento, DtFecha fechaAlta) throws CuponeraRepetidaException {
 		if( cuponeras.containsKey(nombreCuponera ) )
 			throw new CuponeraRepetidaException("La cuponera ingresada ya existe en el sistema.");
-		Cuponera nuevaCuponera = new Cuponera(nombreCuponera, descripcion, descuento, ini, fin);
+		Cuponera nuevaCuponera = new Cuponera(nombreCuponera, descripcion, descuento, ini, fin, fechaAlta);
 		cuponeras.put( nombreCuponera, nuevaCuponera );
 		log.info("New Cuponera "+nuevaCuponera.getNombre()+" registered, total: "+cuponeras.size());
 		return 0;

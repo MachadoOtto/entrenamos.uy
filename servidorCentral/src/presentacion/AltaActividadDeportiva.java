@@ -27,6 +27,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.awt.SystemColor;
 
 import java.util.Collection;
@@ -35,7 +36,7 @@ import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtFecha;
-
+import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 import logica.IActividadDeportivaController;
@@ -450,6 +451,9 @@ public class AltaActividadDeportiva extends JInternalFrame{
 				JOptionPane.showMessageDialog(this, "Ya existe una actividad deportiva con los datos ingresados.", 
 						this.getTitle(), JOptionPane.ERROR_MESSAGE);
 		} catch (InstitucionException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), 
+					this.getTitle(), JOptionPane.ERROR_MESSAGE);
+		} catch (ActividadDeportivaException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), 
 					this.getTitle(), JOptionPane.ERROR_MESSAGE);
 		}

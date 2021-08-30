@@ -15,9 +15,8 @@ public interface IActividadDeportivaController {
 	
 	public Set<String> obtenerInstituciones(); 
 	
-	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD) throws InstitucionException ;
-	
-	public Set<Set<String>> seleccionarActividadDeportiva(String ins, String nActDep, DtActividadDeportiva actDep);
+	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD) throws InstitucionException,
+			ActividadDeportivaException;
 	
 	public Set<String> obtenerActividades(String ins) throws InstitucionException ;
 	

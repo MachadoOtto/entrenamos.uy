@@ -35,13 +35,14 @@ public abstract class Usuario {
         this.setFecha(fecha);
     }
     
+    /* Constructor no usado
     public Usuario(DtUsuario datos) {
     	this.setNickname(datos.getNickname());
     	this.setNombre(datos.getNombre());
         this.setApellido(datos.getApellido());
         this.setCorreo(datos.getEmail());
         this.setFecha(datos.getFechaNacimiento());
-    }
+    } */
     
     private void setNickname(String nick) {
     	this.nickname = nick;

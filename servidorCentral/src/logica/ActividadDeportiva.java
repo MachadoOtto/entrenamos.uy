@@ -27,6 +27,7 @@ public class ActividadDeportiva {
 	private DtFecha fechaRegistro;
 	private Logger log;
 	
+	/* Constructor sin usos
 	public ActividadDeportiva(String nom, String desc, int dur, float costo, DtFecha fec){
 		nombre = nom;
 		descripcion = desc;
@@ -34,7 +35,8 @@ public class ActividadDeportiva {
 		this.costo = costo;
 		fechaRegistro = new DtFecha(fec);
 		crearHandler();
-	}
+	} */
+	
 	public ActividadDeportiva(DtActividadDeportiva x) {
 		nombre=x.getNombre();
 		descripcion=x.getDescripcion();
@@ -93,13 +95,14 @@ public class ActividadDeportiva {
 		return resultado;
 	}
 	
+	/* Migue Watafa: Esto no se usa nunca!!
 	public void modificarDatos(DtActividadDeportiva datosAD) {	
 		nombre = datosAD.getNombre();
 		descripcion = datosAD.getDescripcion();
 		duracionMinutos = datosAD.getDuracionMinutos();
 		costo = datosAD.getCosto();
 		fechaRegistro = datosAD.getFechaRegistro();
-	}
+	} */
 	
 	public Clase findClase(String c) throws ClaseException {	
 		Clase res = clases.get(c);

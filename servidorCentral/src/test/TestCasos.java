@@ -1,4 +1,4 @@
-package logica;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +29,11 @@ import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
-//import excepciones.UsuarioRepetidoException;
+import logica.IActividadDeportivaController;
+import logica.ICuponeraController;
+import logica.IDictadoClaseController;
+import logica.IUsuarioController;
+import logica.LaFabrica;
 
 class TestCasos {
 	
@@ -853,9 +857,13 @@ class TestCasos {
 			DtActividadDeportiva actividadRepetida = new DtActividadDeportiva("ActividadARepetir", "Desc", 1, 10, fecha);
 			// Devuelve true si se ingresa con exito la Actividad Deportiva.
 			assertEquals(IADC.ingresarDatosActividadDep("Instituto Muy Nuevo", actividadRepetida), true);
-			actividadRepetida = new DtActividadDeportiva("ActividadARepetir", "OtraDesc", 2, 30, fecha);
-			assertEquals(IADC.ingresarDatosActividadDep("Instituto Muy Nuevo", actividadRepetida), false);
+			DtActividadDeportiva actividadRepetida2 = new DtActividadDeportiva("ActividadARepetir", "OtraDesc", 2, 30, fecha);
+			Assertions.assertThrows(ActividadDeportivaException.class, () -> 
+				{IADC.ingresarDatosActividadDep("Instituto Muy Nuevo", actividadRepetida2);});
 		} catch (InstitucionException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		} catch (ActividadDeportivaException e) {
 			fail(e.getMessage());
 			e.printStackTrace();
 		}
@@ -1081,7 +1089,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseNueva", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1125,7 +1135,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			IDCC.ingresarDatosClase("InstitutoAuxiliar", "ActividadAuxiliar", new DtClase("ClaseRepetida", "profAuxiliar", 
@@ -1161,7 +1173,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			// Creamos una fecha de registro no valida.
 			DtFecha registroClase = new DtFecha(2019,1,1,0,0,0);
@@ -1184,7 +1198,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			// Creamos una fecha de inicio no valida.
 			DtFecha inicioClase = new DtFecha(2019,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
@@ -1234,7 +1250,9 @@ class TestCasos {
 			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2019,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			// Creamos la clase con un Profesor no valido, nos debe saltar el throw UsuarioNoExisteException.
@@ -1319,7 +1337,9 @@ class TestCasos {
 			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			// Generamos la cuponera a probar.
 	        ICC.ingresarCuponera("CupNueva", "PruebaCuponera", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
 	        		55, new DtFecha(2020,1,1,0,0,0));
@@ -1380,7 +1400,9 @@ class TestCasos {
 			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			// Generamos la cuponera a probar.
 			try {
 		        ICC.ingresarCuponera("CupAuxiliar", "PruebaCuponera", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
@@ -1404,7 +1426,9 @@ class TestCasos {
 			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			// Generamos la cuponera a probar.
 			try {
 		        ICC.ingresarCuponera("CupAuxiliar", "PruebaCuponera", new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 
@@ -1428,7 +1452,9 @@ class TestCasos {
 			IADC.altaInstitucion("InstitutoAuxiliar","https://www.auxiliar.com", "Sirve como Auxiliar.");
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			// Generamos la cuponera a probar.
 	        Assertions.assertThrows(FechaInvalidaException.class, () -> {ICC.ingresarCuponera("CupAuxiliar", "PruebaCuponera", 
 	        		new DtFecha(2020,1,1,0,0,0), new DtFecha(2022,1,1,0,0,0), 55, new DtFecha(2022,1,1,0,0,0));});
@@ -1561,7 +1587,9 @@ class TestCasos {
 				new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 		DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 		DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-		IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+		try {
+			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+		} catch (ActividadDeportivaException ignore) { }
 		DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 		DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 		DtClase claseNueva = new DtClase("ClaseAuxiliar", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1606,7 +1634,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliar", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1650,7 +1680,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1686,7 +1718,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1722,7 +1756,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1758,7 +1794,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1794,7 +1832,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 99, 
@@ -1832,7 +1872,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseChica", "profAuxiliar", "profe@auxiliar.com", 1, 1, 
@@ -1876,7 +1918,9 @@ class TestCasos {
 					new DtFecha(1998,1,1,0,0,0), "InstitutoAuxiliar", "Auxiliar", "Auxiliar" ,"www.auxiliar.uy"));
 			DtFecha fechaActividad = new DtFecha(2020,1,1,0,0,0);
 			DtActividadDeportiva actividadAuxiliar = new DtActividadDeportiva("ActividadAuxiliar", "Auxiliar", 1, 10, fechaActividad);
-			IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			try {
+				IADC.ingresarDatosActividadDep("InstitutoAuxiliar", actividadAuxiliar);
+			} catch (ActividadDeportivaException ignore) { }
 			DtFecha inicioClase = new DtFecha(2020,1,2,0,0,0);
 			DtFecha registroClase = new DtFecha(2020,1,1,0,0,0);
 			DtClase claseNueva = new DtClase("ClaseAuxiliarFail", "profAuxiliar", "profe@auxiliar.com", 1, 10, 
