@@ -45,7 +45,7 @@ public class HandlerCuponera {
 	public int addCuponera(String nombreCuponera, String descripcion, DtFecha ini, DtFecha fin, int descuento, DtFecha fechaAlta){
 		if( cuponeras.containsKey(nombreCuponera ) )
 			return 1;
-		Cuponera nuevaCuponera = new Cuponera(nombreCuponera, descripcion, descuento, ini, fin);
+		Cuponera nuevaCuponera = new Cuponera(nombreCuponera, descripcion, descuento, ini, fin, fechaAlta);
 		cuponeras.put( nombreCuponera, nuevaCuponera );
 		log.info("New Cuponera "+nuevaCuponera.getNombre()+" registered, total: "+cuponeras.size());
 		return 0;
