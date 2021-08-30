@@ -370,6 +370,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	        boxInstitucion.getModel().setSelectedItem(institf);
 			Set<String> actividades = controlClase.obtenerActividades(institf);
 			DefaultComboBoxModel<String> modelActividad = new DefaultComboBoxModel<>();
+			modelActividad.addElement("-");
 	        for (String x: actividades) {
 	        	modelActividad.addElement(x);
 	        }
@@ -378,6 +379,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	        boxActividad.getModel().setSelectedItem(act);
 			Set<String> clases = controlClase.obtenerClases(institf, act);
 			DefaultComboBoxModel<String> modelClases = new DefaultComboBoxModel<>();
+			modelClases.addElement("-");
 	        for (String x: clases) {
 	        	modelClases.addElement(x);
 	        }
