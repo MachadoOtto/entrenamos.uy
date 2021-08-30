@@ -30,11 +30,12 @@ public class Socio extends Usuario {
 	
 	private List<ReciboClase> reciboClases;
 	
+	/* Constructor no usado
 	public Socio(String nickname, String nombre, String apellido, String correo, DtFecha fecha) {
 		super(nickname, nombre, apellido, correo, fecha);
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
-	}
+	} */
 	
 	public Socio(DtSocio datos) {
 		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getFechaNacimiento());

@@ -119,6 +119,7 @@ public class ConsultaCuponeras extends JInternalFrame{
 										add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
 										add(new DefaultMutableTreeNode("Valida a partir del: "+x.getFechaInicio().toFecha()));
 										add(new DefaultMutableTreeNode("Valida hasta el: "+x.getFechaFin().toFecha()));
+										add(new DefaultMutableTreeNode("Fecha de registro: "+x.getFechaAlta().toFecha()));
 										add(new DefaultMutableTreeNode("Costo: "+Math.round(x.getCosto())));
 										add(new DefaultMutableTreeNode("Descuento que aplica: "+x.getDescuento()+"%"));
 										nodoAct = new DefaultMutableTreeNode("Actividades deportivas");
