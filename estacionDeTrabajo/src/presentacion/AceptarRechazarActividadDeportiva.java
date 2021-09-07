@@ -7,10 +7,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+
 import javax.swing.ScrollPaneConstants;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -18,7 +15,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Component;
 import javax.swing.Box;
-import javax.swing.SwingConstants;
+
 import javax.swing.border.LineBorder;
 
 import datatypes.TEstado;
@@ -28,8 +25,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -65,7 +60,7 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 			gbc_horizontalStrut.gridy = 1;
 			p.add(horizontalStrut, gbc_horizontalStrut);
 			
-			JLabel n = new JLabel(ad);
+			n = new JLabel(ad);
 			GridBagConstraints ng = new GridBagConstraints();
 			ng.anchor = GridBagConstraints.WEST;
 			ng.insets = new Insets(0, 0, 0, 5);
@@ -73,14 +68,14 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 			ng.gridy = 1;
 			p.add(n, ng);
 			
-			JButton accept = new JButton("Aceptar");
+			accept = new JButton("Aceptar");
 			GridBagConstraints acceptg = new GridBagConstraints();
 			acceptg.insets = new Insets(0, 0, 0, 5);
 			acceptg.gridx = 6;
 			acceptg.gridy = 1;
 			p.add(accept, acceptg);
 			
-			JButton reject = new JButton("Rechazar");
+			reject = new JButton("Rechazar");
 			GridBagConstraints rejectg = new GridBagConstraints();
 			rejectg.insets = new Insets(0, 0, 0, 5);
 			rejectg.gridx = 7;

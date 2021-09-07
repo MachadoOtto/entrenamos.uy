@@ -21,6 +21,7 @@ public class ActividadDeportiva {
 	
 	private Map <String, Clase> clases;  // Nombre de clase y clase
 	private Map <String, ClasesCuponera> clCuponera;
+	private Map <String, Categoria> cats;
 	private String nombre;
 	private String descripcion;
 	private int duracionMinutos;
@@ -38,16 +39,17 @@ public class ActividadDeportiva {
 		crearHandler();
 	} */
 	
-	public ActividadDeportiva(DtActividadDeportiva x) {
+	public ActividadDeportiva(DtActividadDeportiva x, Map <String, Categoria> cat) {
 		nombre=x.getNombre();
 		descripcion=x.getDescripcion();
 		duracionMinutos=x.getDuracionMinutos();
 		costo=x.getCosto();
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
-		estado = TEstado.ingresada; 
+		cats = cat;
 		crearHandler();
 	}
 	private void crearHandler() {
+		estado = TEstado.ingresada; 
 		clases = new HashMap<>();
 		clCuponera= new HashMap<>();
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
@@ -78,7 +80,8 @@ public class ActividadDeportiva {
 	}
 
 	public DtActividadDeportiva getDt(){
-		DtActividadDeportiva x = new DtActividadDeportiva(nombre, descripcion, duracionMinutos, costo, fechaRegistro);
+		Set<String> c = new HashSet<String>(cats.keySet());
+		DtActividadDeportiva x = new DtActividadDeportiva(nombre, descripcion, duracionMinutos, costo, fechaRegistro,c);
 		return x;
 	}
 	
@@ -129,7 +132,7 @@ public class ActividadDeportiva {
 		Set<String> q = new HashSet<>(clases.keySet());
 		Set<String> r = new HashSet<>(clCuponera.keySet());
 		DtActividadDeportivaExt x = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
-				getCosto(), getFechaRegistro(),q,r);
+				getCosto(), getFechaRegistro(),cats.keySet(),q,r);
 		return x;
 	}
 	public TEstado getEstado() {
@@ -141,6 +144,11 @@ public class ActividadDeportiva {
 			return true;
 		}
 		else return false;
+	}
+	public Set<Categoria> getCategorias() {
+		Set<Categoria> x = new HashSet<>();
+		x.addAll(cats.values());
+		return x;
 	}
 
 }

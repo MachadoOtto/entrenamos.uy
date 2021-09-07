@@ -61,8 +61,8 @@ public class Institucion {
 //        actsDeps.put(datosAD.getNombre(),actDep);
 //    }
 
-    public int addActividadDeportiva(DtActividadDeportiva datosAD) {
-        ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
+    public int addActividadDeportiva(DtActividadDeportiva datosAD, Map<String, Categoria> cat) {
+        ActividadDeportiva actDep = new ActividadDeportiva(datosAD,cat);
         if (actsDeps.containsKey(datosAD.getNombre()))
         	return 1;
 		actsDeps.put(datosAD.getNombre(), actDep);

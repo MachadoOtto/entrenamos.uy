@@ -113,6 +113,7 @@ public class ConsultaCuponeras extends JInternalFrame{
 								new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
 									{
 										DefaultMutableTreeNode nodoAct;
+										DefaultMutableTreeNode nodoCat;
 										add(new DefaultMutableTreeNode("Nombre: "+x.getNombre()));
 										add(new DefaultMutableTreeNode("Descripcion: "+x.getDescripcion()));
 										add(new DefaultMutableTreeNode("Valida a partir del: "+x.getFechaInicio().toFecha()));
@@ -128,6 +129,14 @@ public class ConsultaCuponeras extends JInternalFrame{
 											nodoAct.add(new DefaultMutableTreeNode("No hay actividades asociadas a esta cuponera."));
 										}
 										add(nodoAct);
+										nodoCat = new DefaultMutableTreeNode("Categorías");
+										for(String v: x.getCategorias()) {
+											nodoCat.add(new DefaultMutableTreeNode(v));
+										}
+										if(nodoCat.getChildCount()==0) {
+											nodoCat.add(new DefaultMutableTreeNode("No hay categorías asociadas a esta cuponera."));
+										}
+										add(nodoCat);
 									}
 								}
 							));

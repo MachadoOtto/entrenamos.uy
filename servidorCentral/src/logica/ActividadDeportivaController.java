@@ -1,10 +1,13 @@
 package logica;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
+import excepciones.CategoriaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
 
@@ -40,7 +43,15 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			}
 		}
 		if (!inst.existeActDep(datosAD.getNombre())) {
-			inst.addActividadDeportiva(datosAD);
+			Map<String,Categoria> cat = new HashMap<>();
+			for(String x: datosAD.getCategorias())
+				try {
+					cat.put(x, getHCAT().findCategoria(x));
+				} catch (CategoriaException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			inst.addActividadDeportiva(datosAD,cat);
 			return true;
 		}
 		return false;
@@ -86,6 +97,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 	private static HandlerCuponera getHC() {
 		return  HandlerCuponera.getInstance();
+	}
+	private static HandlerCategoria getHCAT() {
+		return  HandlerCategoria.getInstance();
 	}
 	
 	public int altaInstitucion(String nombre, String descripcion, String URL) {

@@ -1,6 +1,8 @@
 package logica;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import datatypes.DtFecha;
 import datatypes.DtClasesCuponera;
@@ -13,6 +15,7 @@ public class Cuponera {
 	
 	private List<ClasesCuponera> cp;
 	private List<ReciboCuponera> rc;
+	private Set<Categoria> cc;
 	
 	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin, DtFecha fechaAlta){
 		this.nombre = nombre;
@@ -21,8 +24,10 @@ public class Cuponera {
 		this.fechaInicio = new DtFecha(fechaInicio);
 		this.fechaFin = new DtFecha(fechaFin);
 		this.fechaAlta = new DtFecha(fechaAlta);
-		this.cp = new ArrayList<>();
-		this.rc = new ArrayList<>();
+		
+		cp = new ArrayList<>();
+		rc = new ArrayList<>();
+		cc = new HashSet<>();
 		costo = 0;
 	}
 	
@@ -68,6 +73,7 @@ public class Cuponera {
 	public void addActDep(ActividadDeportiva act, int num) {
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
+		cc.addAll(act.getCategorias());
 		act.addClasesCup(claCup);
 		costo = costo + (1 - descuento/100)*act.getCosto()*num;
 	}
@@ -88,12 +94,16 @@ public class Cuponera {
 	}
 	public DtCuponera getDt() {
 		List<DtClasesCuponera> r = new ArrayList<>();
+		List<String> r2 = new ArrayList<>();
 		for(ClasesCuponera cc: cp) {
 			DtClasesCuponera rr = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
 			r.add(rr);
 		}
+		for(Categoria c: cc) {
+			r2.add(c.getNombre());
+		}
 		DtCuponera x = new DtCuponera(getNombre(), getDescripcion(), getDescuento(), getCosto(), getFechaInicio(),
-				getFechaFin(), getFechaAlta(), r);
+				getFechaFin(), getFechaAlta(), r,r2);
 		return x;
 	}
 
