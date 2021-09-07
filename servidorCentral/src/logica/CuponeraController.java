@@ -57,4 +57,16 @@ public class CuponeraController implements ICuponeraController {
 	private HandlerCuponera getHC() {
 		return HandlerCuponera.getInstance();
 	}
+	
+	public Set<String> getNombreCuponerasSinRecibos(){
+		
+		 Set<String> ss = getHC().getNombreCuponeras();
+			for(String x: ss ) {
+				Boolean comprada = (getHC().getCup(x).getRc()) != null;
+				if(comprada) {
+					ss.remove(x);
+				}	
+			}
+		return ss;
+	}
 }

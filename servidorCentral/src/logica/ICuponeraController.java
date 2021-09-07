@@ -21,4 +21,6 @@ public interface ICuponeraController {
 			throws InstitucionException, ActividadDeportivaException;
 	
 	public DtCuponera seleccionarCuponera(String n) throws NoExisteCuponeraException;
+	
+	public Set<String> getNombreCuponerasSinRecibos();
 }

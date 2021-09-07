@@ -65,7 +65,7 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 		
 		comboBoxCup = new JComboBox<String>();
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
-		Set<String> ss= controlDep.getNombreCuponeras();
+		Set<String> ss= controlDep.getNombreCuponerasSinRecibos();
 		model.addElement("-");
 		for(String x: ss ) {
 			model.addElement(x);
