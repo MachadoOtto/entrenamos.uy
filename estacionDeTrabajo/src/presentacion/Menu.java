@@ -67,6 +67,7 @@ public class Menu {
 	private ModificarDatosUsuario modificarUsu;
 	private AgregarActividadDeportivaCuponera aggCup;
 	private AceptarRechazarActividadDeportiva acceptActDep;
+	private AltaCategoria altaCat;
 	//Run program!
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -168,6 +169,11 @@ public class Menu {
 		acceptActDep.setBounds(437, 290, 500, 400);
 		acceptActDep.setVisible(false);
 		escritorio.add(acceptActDep);
+		
+		//Alta Categoria
+		altaCat = new AltaCategoria(IADC);
+		altaCat.setVisible(false);
+		escritorio.add(altaCat);
 		
 		//Se relacionan los Frames de consultas
 		consActDep.setRef(consultaClass,consultaCup);
@@ -323,6 +329,22 @@ public class Menu {
 				else {
 					aggCup.clear();
 					aggCup.setVisible(true);
+				}
+			}
+		});
+		
+		JMenu subMenuCategoria = new JMenu("Categoria");
+		menuRegistro.add(subMenuCategoria);
+
+		JMenuItem itemCrearCategoria = new JMenuItem("Crear Categoria");
+		subMenuCategoria.add(itemCrearCategoria);
+		itemCrearCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (altaCat.isVisible()) 
+					altaCat.toFront();
+				else {
+					altaCat.clear();
+					altaCat.setVisible(true);
 				}
 			}
 		});

@@ -13,6 +13,7 @@ import excepciones.InstitucionException;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
+import datatypes.DtCategoria;
 import datatypes.DtClaseExt;
 import datatypes.DtInstitucion;
 import datatypes.TEstado;
@@ -144,5 +145,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void ingresarCatergoria(DtCategoria datos) throws CategoriaException {
+		getHCAT().addCategoria(new Categoria(datos.getNombre(), datos.getDescripcion()));
 	}
 }
