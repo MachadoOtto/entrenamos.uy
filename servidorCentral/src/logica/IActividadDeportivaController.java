@@ -10,6 +10,7 @@ import datatypes.DtActividadDeportiva;
 import datatypes.DtClaseExt;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtInstitucion;
+import datatypes.TEstado;
 
 public interface IActividadDeportivaController {
 	
@@ -34,4 +35,8 @@ public interface IActividadDeportivaController {
 	public int altaInstitucion(String nombre, String descripcion, String URL);
 	
 	public DtInstitucion obtenerDatosInstitucion(String inst) throws InstitucionException;
+	
+	public void aprobarActividad(String ad, TEstado ok);
+	
+	public Set<String> obtenerActDepIngresadas();
 }

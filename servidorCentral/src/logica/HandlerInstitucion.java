@@ -49,7 +49,7 @@ public class HandlerInstitucion {
 			throw new InstitucionException("La institucion no existe en el Sistema.");
 	}
 
-	public Set<String> obtenerInstituciones() {
+	public Set<String> obtenerInstituciones() { 
 		Set<String> nombreInstituciones = new HashSet<>();
 		for(Map.Entry<String, Institucion> x: instituciones.entrySet())
 			nombreInstituciones.add(x.getKey());

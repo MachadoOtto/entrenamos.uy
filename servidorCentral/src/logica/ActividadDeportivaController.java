@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
@@ -11,6 +12,7 @@ import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.DtInstitucion;
+import datatypes.TEstado;
 
 public class ActividadDeportivaController implements IActividadDeportivaController {
 	private static ActividadDeportivaController instance = null;
@@ -98,5 +100,35 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public DtInstitucion obtenerDatosInstitucion(String inst) throws InstitucionException {
 		Institucion instit = getHI().findInstitucion(inst);
 		return instit.obtenerDatos();
+	}
+	
+	public Set<String> obtenerActDepIngresadas(){
+		Set<String> r = new HashSet<>();
+		for(String i: getHI().obtenerInstituciones()) {
+			try {
+				for(Entry<String, ActividadDeportiva> a: getHI().findInstitucion(i).getActsDeps().entrySet()) {
+					if(a.getValue().getEstado() == TEstado.ingresada) {
+						r.add(new String(a.getKey()));
+					}
+				}
+			} catch (InstitucionException e) {
+				// Que buena idea agregar un exception a un handler xd.
+				e.printStackTrace();
+			}
+		}
+		return r;
+	}
+	
+	public void aprobarActividad(String ad, TEstado ok) {
+		for(String i: getHI().obtenerInstituciones()) {
+			 try {
+				if(getHI().findInstitucion(i).getActsDeps().containsKey(ad)) {
+					 getHI().findInstitucion(i).getActsDeps().get(ad).setEstado(ok);
+					 break;
+				 }
+			} catch (InstitucionException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

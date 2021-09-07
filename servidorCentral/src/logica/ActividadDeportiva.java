@@ -5,6 +5,7 @@ import datatypes.DtClase;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtFecha;
+import datatypes.TEstado;
 import excepciones.ClaseException;
 
 import java.util.Map;
@@ -26,7 +27,7 @@ public class ActividadDeportiva {
 	private float costo;
 	private DtFecha fechaRegistro;
 	private Logger log;
-	
+	private TEstado estado;
 	/* Constructor sin usos
 	public ActividadDeportiva(String nom, String desc, int dur, float costo, DtFecha fec){
 		nombre = nom;
@@ -43,6 +44,7 @@ public class ActividadDeportiva {
 		duracionMinutos=x.getDuracionMinutos();
 		costo=x.getCosto();
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
+		estado = TEstado.ingresada; 
 		crearHandler();
 	}
 	private void crearHandler() {
@@ -129,6 +131,16 @@ public class ActividadDeportiva {
 		DtActividadDeportivaExt x = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
 				getCosto(), getFechaRegistro(),q,r);
 		return x;
+	}
+	public TEstado getEstado() {
+		return estado;
+	}
+	public boolean setEstado(TEstado e) {
+		if(estado==TEstado.ingresada && (e==TEstado.aceptada || e==TEstado.rechazada)) {
+			estado = e;
+			return true;
+		}
+		else return false;
 	}
 
 }

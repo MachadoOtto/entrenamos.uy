@@ -66,6 +66,7 @@ public class Menu {
 	private ConsultaUsuario consultaUsu;
 	private ModificarDatosUsuario modificarUsu;
 	private AgregarActividadDeportivaCuponera aggCup;
+	private AceptarRechazarActividadDeportiva acceptActDep;
 	//Run program!
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -151,14 +152,22 @@ public class Menu {
 		modificarUsu.setVisible(false);
 		escritorio.add(modificarUsu);
 		
+		//AltaCuponera
 		altaCup = new CrearCuponera(IDC);
 		altaCup.setBounds(100, 100, 500, 483);
 		altaCup.setVisible(false);
 		escritorio.add(altaCup);
 		
+		//Aggreagar actividad deportiva a cuponera
 		aggCup = new AgregarActividadDeportivaCuponera(IDC,IADC);
 		aggCup.setVisible(false);
 		escritorio.add(aggCup);
+		
+		//Aceptar rechazar actividad deportiva
+		acceptActDep = new AceptarRechazarActividadDeportiva(IADC);
+		acceptActDep.setBounds(437, 290, 500, 400);
+		acceptActDep.setVisible(false);
+		escritorio.add(acceptActDep);
 		
 		//Se relacionan los Frames de consultas
 		consActDep.setRef(consultaClass,consultaCup);
@@ -384,6 +393,18 @@ public class Menu {
 				else {
 					modificarUsu.clear();
 					modificarUsu.setVisible(true);
+				}
+			}
+		});
+		JMenuItem itemAcceptRejectActD = new JMenuItem("Aceptar/Rechazar Actividad Deportiva");
+		menuModificaciones.add(itemAcceptRejectActD);
+		itemAcceptRejectActD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (acceptActDep.isVisible()) 
+					acceptActDep.toFront();
+				else {
+					acceptActDep.clear();
+					acceptActDep.setVisible(true);
 				}
 			}
 		});
