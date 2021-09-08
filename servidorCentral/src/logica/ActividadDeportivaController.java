@@ -150,4 +150,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public void ingresarCatergoria(DtCategoria datos) throws CategoriaException {
 		getHCAT().addCategoria(new Categoria(datos.getNombre(), datos.getDescripcion()));
 	}
+
+	public Set<String> obtenerCategorias() {
+		HandlerCategoria hc = HandlerCategoria.getInstance();
+		return hc.getNombreCategorias();
+	}
 }

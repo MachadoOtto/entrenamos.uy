@@ -159,6 +159,7 @@ public class AltaCategoria extends JInternalFrame {
 				JOptionPane.showMessageDialog(this, "La Categoria ha sido registrada de forma exitosa.", 
 						this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
 				clear();
+                setVisible(false);
 	        } catch (CategoriaException e) {
 	        	JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
             }    

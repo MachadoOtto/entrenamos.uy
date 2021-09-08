@@ -401,7 +401,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		panelFecha.add(textFieldAnio, gbc_textFieldAnio);
 		textFieldAnio.setColumns(10);
 		
-		lblNewLabel = new JLabel("Clases y cuponeras asociadas:");
+		lblNewLabel = new JLabel("Clases, cuponeras y categorias asociadas:");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -498,14 +498,19 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 						{
 							DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
 							DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
+							DefaultMutableTreeNode nodoCats = new DefaultMutableTreeNode("Categorias");
 							for(String x: actDep.getClases()) {
 								nodoCl.add(new DefaultMutableTreeNode(x));
 							}
 							for(String x: actDep.getCuponeras()) {
 								nodoCup.add(new DefaultMutableTreeNode(x));
 							}
+							for(String x: actDep.getCategorias()) {
+								nodoCats.add(new DefaultMutableTreeNode(x));
+							}
 							add(nodoCl);
 							add(nodoCup);
+							add(nodoCats);
 						}
 					}
 				));
