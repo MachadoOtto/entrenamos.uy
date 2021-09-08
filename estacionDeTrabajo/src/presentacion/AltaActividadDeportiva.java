@@ -45,6 +45,9 @@ import logica.IActividadDeportivaController;
 import javax.swing.JList;
 import java.awt.event.ComponentListener;
 import java.awt.event.ComponentEvent;
+import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
+import java.awt.event.ComponentAdapter;
 
 @SuppressWarnings("serial")
 public class AltaActividadDeportiva extends JInternalFrame {
@@ -82,6 +85,7 @@ public class AltaActividadDeportiva extends JInternalFrame {
 	private JScrollPane scrollPaneCats;
 	
 	public AltaActividadDeportiva(IActividadDeportivaController IADC) {
+
 		setResizable(true);
 		this.IADC = IADC;
 		//Configuracion del internal frame
@@ -406,6 +410,7 @@ public class AltaActividadDeportiva extends JInternalFrame {
 		}
 		
 		listCats = new JList<String>(listModelCategorias);
+		listCats.setBorder(new CompoundBorder());
 		GridBagConstraints gbc_listCats = new GridBagConstraints();
 		gbc_listCats.insets = new Insets(0, 0, 5, 5);
 		gbc_listCats.fill = GridBagConstraints.BOTH;
@@ -423,7 +428,17 @@ public class AltaActividadDeportiva extends JInternalFrame {
 				listCats.setModel(listModelCategorias);
 			}
 		});
-	
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				listModelCategorias.removeAllElements();
+				listCats.setModel(listModelCategorias);
+				for(String x: IADC.obtenerCategorias()) {
+					listModelCategorias.addElement(x);
+				}
+				listCats.setModel(listModelCategorias);
+			}
+		});
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.EAST;

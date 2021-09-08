@@ -103,7 +103,7 @@ public class Menu {
 		//AltaActividadDeportiva
 		altaActDep = new AltaActividadDeportiva(IADC);
 		altaActDep.setLocation(20, 20);
-		altaActDep.setSize(450, 500);
+		altaActDep.setSize(450, 700);
 		altaActDep.setVisible(false);
 		escritorio.add(altaActDep);
 

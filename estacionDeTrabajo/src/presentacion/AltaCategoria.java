@@ -77,7 +77,7 @@ public class AltaCategoria extends JInternalFrame {
         lblIngreseNombre = new JLabel("Nombre de Categoria:");
         lblIngreseNombre.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc_lblIngreseNombre = new GridBagConstraints();
-        gbc_lblIngreseNombre.gridwidth = 4;
+        gbc_lblIngreseNombre.gridwidth = 5;
         gbc_lblIngreseNombre.fill = GridBagConstraints.BOTH;
         gbc_lblIngreseNombre.insets = new Insets(0, 0, 5, 5);
         gbc_lblIngreseNombre.gridx = 1;
@@ -88,7 +88,7 @@ public class AltaCategoria extends JInternalFrame {
         campoNombre = new JTextField();
         lblIngreseNombre.setLabelFor(campoNombre);
         GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
-        gbc_textFieldNombre.gridwidth = 4;
+        gbc_textFieldNombre.gridwidth = 5;
         gbc_textFieldNombre.fill = GridBagConstraints.BOTH;
         gbc_textFieldNombre.insets = new Insets(0, 0, 5, 5);
         gbc_textFieldNombre.gridx = 1;
@@ -99,7 +99,7 @@ public class AltaCategoria extends JInternalFrame {
         lblIngreseDesc = new JLabel("Descripcion:");
         lblIngreseDesc.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc_lblIngreseDesc = new GridBagConstraints();
-        gbc_lblIngreseDesc.gridwidth = 2;
+        gbc_lblIngreseDesc.gridwidth = 5;
         gbc_lblIngreseDesc.fill = GridBagConstraints.BOTH;
         gbc_lblIngreseDesc.insets = new Insets(0, 0, 5, 5);
         gbc_lblIngreseDesc.gridx = 1;
@@ -109,7 +109,7 @@ public class AltaCategoria extends JInternalFrame {
         scrollPane = new JScrollPane();
         GridBagConstraints gbc_scrollPane = new GridBagConstraints();
         gbc_scrollPane.gridheight = 3;
-        gbc_scrollPane.gridwidth = 4;
+        gbc_scrollPane.gridwidth = 5;
         gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
         gbc_scrollPane.fill = GridBagConstraints.BOTH;
         gbc_scrollPane.gridx = 1;
@@ -127,10 +127,11 @@ public class AltaCategoria extends JInternalFrame {
             }
         });
         GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
-        gbc_btnAceptar.fill = GridBagConstraints.HORIZONTAL;
+        gbc_btnAceptar.anchor = GridBagConstraints.EAST;
+        gbc_btnAceptar.gridwidth = 2;
         gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
         gbc_btnAceptar.gridx = 3;
-        gbc_btnAceptar.gridy = 7;
+        gbc_btnAceptar.gridy = 6;
         getContentPane().add(btnAceptar, gbc_btnAceptar);
         
         btnCancelar = new JButton("Limpiar");
@@ -140,11 +141,10 @@ public class AltaCategoria extends JInternalFrame {
             }
         });    
         GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-        gbc_btnCancelar.insets = new Insets(0, 0, 5, 0);
-        gbc_btnCancelar.gridwidth = 2;
+        gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
         gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
-        gbc_btnCancelar.gridx = 4;
-        gbc_btnCancelar.gridy = 7;
+        gbc_btnCancelar.gridx = 5;
+        gbc_btnCancelar.gridy = 6;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
 	}
 	
