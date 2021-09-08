@@ -43,4 +43,6 @@ public interface IActividadDeportivaController {
 	public Set<String> obtenerActDepIngresadas();
 	
 	public void ingresarCatergoria(DtCategoria datos) throws CategoriaException;
+
+	public Set<String> obtenerCategorias();
 }
