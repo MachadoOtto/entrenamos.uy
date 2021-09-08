@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.GridBagConstraints;
@@ -30,7 +31,10 @@ import java.awt.GridBagLayout;
 import java.awt.SystemColor;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
@@ -39,6 +43,13 @@ import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 import logica.IActividadDeportivaController;
+import javax.swing.JSpinner;
+import java.awt.ScrollPane;
+import javax.swing.JTree;
+import javax.swing.ListModel;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.JList;
 
 @SuppressWarnings("serial")
 public class AltaActividadDeportiva extends JInternalFrame{
@@ -70,6 +81,12 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JScrollPane scrollPane;
 	private JTextArea textFieldDescripcion;
 	private JTextField altaAnio;
+	private JLabel lblSeleccionCats;
+	private JList<String> listCats;
+	private JPanel panelCats;
+	private JLabel lblCatsSelected;
+	private JScrollPane scrollPaneCats;
+	//private JScrollPane scrollCats;
 	
 	public AltaActividadDeportiva(IActividadDeportivaController IADC) {
 		setResizable(true);
@@ -80,12 +97,12 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		//setBounds(100, 100, 562, 551);
+		setBounds(100, 100, 461, 741);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{20, 433, 0, 0};
-		gridBagLayout.rowHeights = new int[]{19, 33, 48, 310, 14, 69, 0};
+		gridBagLayout.columnWidths = new int[]{20, 412, 0, 0};
+		gridBagLayout.rowHeights = new int[]{19, 33, 48, 310, 31, 147, 55, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		DefaultComboBoxModel<String> comboModelInstitucion = new DefaultComboBoxModel<>();
@@ -357,27 +374,82 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_altaAnio.gridy = 0;
 		panelFecha.add(altaAnio, gbc_altaAnio);
 		
+		lblSeleccionCats = new JLabel("    Seleccione las categorias:");
+		GridBagConstraints gbc_lblSeleccionCats = new GridBagConstraints();
+		gbc_lblSeleccionCats.anchor = GridBagConstraints.WEST;
+		gbc_lblSeleccionCats.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSeleccionCats.gridx = 1;
+		gbc_lblSeleccionCats.gridy = 4;
+		getContentPane().add(lblSeleccionCats, gbc_lblSeleccionCats);
+		
+		panelCats = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 1;
+		gbc_panel_1.gridy = 5;
+		getContentPane().add(panelCats, gbc_panel_1);
+		GridBagLayout gbl_panelCats = new GridBagLayout();
+		gbl_panelCats.columnWidths = new int[]{403, 0};
+		gbl_panelCats.rowHeights = new int[]{141, 49, 0};
+		gbl_panelCats.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panelCats.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		panelCats.setLayout(gbl_panelCats);
+		
+		scrollPaneCats = new JScrollPane();
+		GridBagConstraints gbc_scrollPaneCats = new GridBagConstraints();
+		gbc_scrollPaneCats.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPaneCats.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneCats.gridx = 0;
+		gbc_scrollPaneCats.gridy = 0;
+		panelCats.add(scrollPaneCats, gbc_scrollPaneCats);
+		
+		DefaultListModel<String> listModelCategorias = new DefaultListModel<>();
+		Set<String> nombreCategorias = IADC.obtenerCategorias();
+		Collection<String> strCollection2 = nombreCategorias;
+		Iterator<String> itStr2 = strCollection2.iterator();
+		while (itStr2.hasNext()) {
+			String strAux2 = itStr2.next();
+			listModelCategorias.addElement(strAux2);
+		}
+		
+		listCats = new JList<String>(listModelCategorias);
+		GridBagConstraints gbc_listCats = new GridBagConstraints();
+		gbc_listCats.insets = new Insets(0, 0, 5, 5);
+		gbc_listCats.fill = GridBagConstraints.BOTH;
+		gbc_listCats.gridx = 1;
+		gbc_listCats.gridy = 5;
+		getContentPane().add(listCats, gbc_listCats);
+		scrollPaneCats.setViewportView(listCats);
+		
+		lblCatsSelected = new JLabel("Categorias seleccionadas:");
+		GridBagConstraints gbc_lblCatsSelected = new GridBagConstraints();
+		gbc_lblCatsSelected.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCatsSelected.gridx = 0;
+		gbc_lblCatsSelected.gridy = 1;
+		panelCats.add(lblCatsSelected, gbc_lblCatsSelected);
+		
+		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.anchor = GridBagConstraints.NORTHEAST;
-		gbc_panel.gridheight = 2;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.anchor = GridBagConstraints.EAST;
+		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 4;
+		gbc_panel.gridy = 6;
 		getContentPane().add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		btnAceptar = new JButton("Aceptar");
 		GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
 		gbc_btnAceptar.anchor = GridBagConstraints.EAST;
 		gbc_btnAceptar.gridwidth = 2;
-		gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAceptar.gridx = 9;
+		gbc_btnAceptar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAceptar.gridx = 10;
 		gbc_btnAceptar.gridy = 0;
 		panel.add(btnAceptar, gbc_btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
@@ -391,8 +463,8 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		btnCancelar = new JButton("Limpiar");
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.EAST;
-		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCancelar.gridx = 11;
+		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancelar.gridx = 12;
 		gbc_btnCancelar.gridy = 0;
 		panel.add(btnCancelar, gbc_btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
@@ -410,7 +482,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
     	    	
         if (nombreInsti.trim().isEmpty() || nombre.trim().isEmpty()|| descripcion.trim().isEmpty()
         		|| textFieldDuracion.getText().trim().isEmpty() || textFieldCosto.getText().trim().isEmpty() || altaAnio.getText().matches("yyyy")
-        		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-")) {
+        		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-") || listCats.isSelectionEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
@@ -439,7 +511,12 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	    	int mes = comboBoxMes.getSelectedIndex();
 	    	int dia = comboBoxDia.getSelectedIndex();
 	        DtFecha fechaAlta = new DtFecha(anio,mes,dia,0,0,0);
-	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta);
+	        List<String> categoriasList = listCats.getSelectedValuesList();
+	        Set<String> categoriasSet = new HashSet<>();
+	        for (String nombreCat: categoriasList) {
+	        	categoriasSet.add(nombreCat);
+	        }
+	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta,categoriasSet);
 	        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
 	        	JOptionPane.showMessageDialog(this,"La actividad deportiva ha sido registrada de forma exitosa.", this.getTitle(), 
 	        			JOptionPane.INFORMATION_MESSAGE);
@@ -467,5 +544,6 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		comboBoxDia.setSelectedIndex(0);
 		comboBoxMes.setSelectedIndex(0);
 		altaAnio.setText("yyyy");
+		listCats.clearSelection();
 	}
 }
