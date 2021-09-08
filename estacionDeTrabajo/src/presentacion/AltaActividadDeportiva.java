@@ -34,7 +34,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
@@ -43,16 +42,12 @@ import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
 import logica.IActividadDeportivaController;
-import javax.swing.JSpinner;
-import java.awt.ScrollPane;
-import javax.swing.JTree;
-import javax.swing.ListModel;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JList;
+import java.awt.event.ComponentListener;
+import java.awt.event.ComponentEvent;
 
 @SuppressWarnings("serial")
-public class AltaActividadDeportiva extends JInternalFrame{
+public class AltaActividadDeportiva extends JInternalFrame {
 	
 	//Controller
 	private IActividadDeportivaController IADC;
@@ -84,9 +79,7 @@ public class AltaActividadDeportiva extends JInternalFrame{
 	private JLabel lblSeleccionCats;
 	private JList<String> listCats;
 	private JPanel panelCats;
-	private JLabel lblCatsSelected;
 	private JScrollPane scrollPaneCats;
-	//private JScrollPane scrollCats;
 	
 	public AltaActividadDeportiva(IActividadDeportivaController IADC) {
 		setResizable(true);
@@ -97,10 +90,10 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 461, 741);
+		setBounds(100, 100, 461, 694);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 412, 0, 0};
-		gridBagLayout.rowHeights = new int[]{19, 33, 48, 310, 31, 147, 55, 0};
+		gridBagLayout.rowHeights = new int[]{19, 33, 48, 310, 31, 167, 31, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
@@ -391,14 +384,13 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		getContentPane().add(panelCats, gbc_panel_1);
 		GridBagLayout gbl_panelCats = new GridBagLayout();
 		gbl_panelCats.columnWidths = new int[]{403, 0};
-		gbl_panelCats.rowHeights = new int[]{141, 49, 0};
+		gbl_panelCats.rowHeights = new int[]{162, 0};
 		gbl_panelCats.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panelCats.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCats.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panelCats.setLayout(gbl_panelCats);
 		
 		scrollPaneCats = new JScrollPane();
 		GridBagConstraints gbc_scrollPaneCats = new GridBagConstraints();
-		gbc_scrollPaneCats.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPaneCats.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneCats.gridx = 0;
 		gbc_scrollPaneCats.gridy = 0;
@@ -419,17 +411,19 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		gbc_listCats.fill = GridBagConstraints.BOTH;
 		gbc_listCats.gridx = 1;
 		gbc_listCats.gridy = 5;
-		getContentPane().add(listCats, gbc_listCats);
 		scrollPaneCats.setViewportView(listCats);
-		
-		lblCatsSelected = new JLabel("Categorias seleccionadas:");
-		GridBagConstraints gbc_lblCatsSelected = new GridBagConstraints();
-		gbc_lblCatsSelected.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblCatsSelected.gridx = 0;
-		gbc_lblCatsSelected.gridy = 1;
-		panelCats.add(lblCatsSelected, gbc_lblCatsSelected);
-		
-		
+		listCats.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				listModelCategorias.removeAllElements();
+				listCats.setModel(listModelCategorias);
+				for(String x: IADC.obtenerCategorias()) {
+					listModelCategorias.addElement(x);
+				}
+				listCats.setModel(listModelCategorias);
+			}
+		});
+	
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.anchor = GridBagConstraints.EAST;
@@ -544,6 +538,5 @@ public class AltaActividadDeportiva extends JInternalFrame{
 		comboBoxDia.setSelectedIndex(0);
 		comboBoxMes.setSelectedIndex(0);
 		altaAnio.setText("yyyy");
-		listCats.clearSelection();
 	}
 }
