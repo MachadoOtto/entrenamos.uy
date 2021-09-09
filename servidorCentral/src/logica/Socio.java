@@ -38,7 +38,7 @@ public class Socio extends Usuario {
 	} */
 	
 	public Socio(DtSocio datos) {
-		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getFechaNacimiento());
+		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getContrasenia(), datos.getFechaNacimiento(), datos.getImagen());
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
 	}
@@ -57,11 +57,11 @@ public class Socio extends Usuario {
 	}
 	
 	public DtSocio getDt() {
-		DtSocio datos = new DtSocio(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha());
+		DtSocio datos = new DtSocio(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), this.getImagen());
 		return datos;
 	}
-	
-    public DtSocioExt getDtExt() {
+
+	public DtSocioExt getDtExt() {
     	Map<String,Set<String>> x = new HashMap<>();
     	for(ReciboClase rc: reciboClases) {
     		String z = rc.getClase().getAD().getNombre();
@@ -74,7 +74,7 @@ public class Socio extends Usuario {
     			}
     		}
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecha(), x);
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), x, this.getImagen());
     	return datosExt;
     }
 	

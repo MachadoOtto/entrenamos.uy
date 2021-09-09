@@ -33,7 +33,7 @@ public class Profesor extends Usuario {
 	} */
 	
 	public Profesor(DtProfesor datos) {
-		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getFechaNacimiento());
+		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getContrasenia(), datos.getFechaNacimiento(), datos.getImagen());
 		this.setDescripcion(datos.getDescripcion());
 		this.setBiografia(datos.getBiografia());
 		this.setWebsite(datos.getLink());
@@ -92,7 +92,7 @@ public class Profesor extends Usuario {
 	}
 	
 	public DtProfesor getDt() {
-		DtProfesor datos = new DtProfesor(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website);
+		DtProfesor datos = new DtProfesor(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website,imagen);
 		return datos;
 	}
 	
@@ -108,8 +108,8 @@ public class Profesor extends Usuario {
     			}
     		}
     	}
-    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,fechaNacimiento,instituto.getNombre(),
-    			descripcion,biografia,website,x);
+    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,instituto.getNombre(),
+    			descripcion,biografia,website,x,imagen);
     	return datosExt;
     }
     
