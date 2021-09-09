@@ -43,9 +43,7 @@ import excepciones.InstitucionException;
 
 import logica.IActividadDeportivaController;
 import javax.swing.JList;
-import java.awt.event.ComponentListener;
 import java.awt.event.ComponentEvent;
-import javax.swing.border.LineBorder;
 import javax.swing.border.CompoundBorder;
 import java.awt.event.ComponentAdapter;
 
