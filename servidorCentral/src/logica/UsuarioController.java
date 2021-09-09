@@ -91,4 +91,12 @@ public class UsuarioController implements IUsuarioController {
 			user.editarDatos(datoUser);
 		}
 	}
+	
+	public void seguir(String nombre) {
+		//HandlerUsuario.getInstance().findUsuario(nombre);
+	}
+	
+	public void dejarDeSeguir(String nombre) {
+		//HandlerUsuario.getInstance().findUsuario(nombre);
+	}
 }

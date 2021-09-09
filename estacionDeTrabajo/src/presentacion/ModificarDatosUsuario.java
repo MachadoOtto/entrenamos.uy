@@ -106,8 +106,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		 */
 		int columns = 8;
 		int rows = 9;
-		int iframeWidth = 450;
-		int iframeHeight = 625;
+		int iframeWidth = 550;
+		int iframeHeight = 640;
 		int gridWidth = iframeWidth/columns;
 		int gridHeight = iframeHeight/rows;
 		setBounds(100+gridWidth-gridWidth+gridHeight-gridHeight, 25, iframeWidth, iframeHeight); // w,h
@@ -508,7 +508,6 @@ public class ModificarDatosUsuario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(tomarDatos()==0) {
 					clear();
-					setVisible(false);
 				}
 			}
 		});
@@ -573,11 +572,11 @@ public class ModificarDatosUsuario extends JInternalFrame {
             biografiaU = textAreaBiografia.getText().trim();
             websiteU = textFieldWebsite.getText().trim();
             institucionU = textFieldInstitucion.getText().trim();
-			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0),institucionU, descripcionU,biografiaU,websiteU);
+			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, datosUsuarioActual.getContrasenia(),new DtFecha(anioU,mesU,diaU,0,0,0),institucionU, descripcionU,biografiaU,websiteU,datosUsuarioActual.getImagen());
 		}
 		else //Se asume que si no es profesor es socio
 		{
-			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, new DtFecha(anioU,mesU,diaU,0,0,0));
+			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU,datosUsuarioActual.getContrasenia(),new DtFecha(anioU,mesU,diaU,0,0,0),datosUsuarioActual.getImagen());
 		}
 		
 		/*

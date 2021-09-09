@@ -9,14 +9,21 @@
 
 package logica;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import datatypes.DtFecha;
 import datatypes.DtUsuario;
 
 public abstract class Usuario {
 
-    protected String nickname, nombre, apellido, correo;
+    protected String nickname, nombre, apellido, correo, contrasenia;
     
     protected DtFecha fechaNacimiento;
+    
+    protected byte[] imagen;
+    
+    protected Map<String,Usuario> seguidos;
 
     //guille : WHAT?
 //    public Usuario() {
@@ -26,13 +33,28 @@ public abstract class Usuario {
 //        this.setCorreo(new String());
 //        this.setFecha(new DtFecha());
 //    }
-
+    
     public Usuario(String nick, String nombre, String apellido, String correo, DtFecha fecha) {
         this.setNickname(nick);
     	this.setNombre(nombre);
         this.setApellido(apellido);
         this.setCorreo(correo);
         this.setFecha(fecha);
+        
+        //datos no especificados
+        this.contrasenia = "123";
+        this.imagen = null;
+    }
+
+    public Usuario(String nick, String nombre, String apellido, String correo, String contrasenia, DtFecha fecha, byte[] imagen) {
+        this.setNickname(nick);
+    	this.setNombre(nombre);
+        this.setApellido(apellido);
+        this.setCorreo(correo);
+        this.contrasenia = contrasenia;
+        this.setFecha(fecha);
+        this.setImagen(imagen);
+        seguidos = new HashMap<>();
     }
     
     /* Constructor no usado
@@ -64,6 +86,10 @@ public abstract class Usuario {
     	this.fechaNacimiento = fecha;
     }
     
+    private void setImagen(byte[] imagen) {
+    	this.imagen = imagen;
+    }
+    
     public String getNickname() {
     	return nickname;
     }
@@ -80,8 +106,16 @@ public abstract class Usuario {
         return correo;
     }
     
+    public String getContrasenia() {
+    	return contrasenia;
+    }
+    
     public DtFecha getFecha() {
     	return fechaNacimiento;
+    }
+    
+    public byte[] getImagen() {
+    	return imagen;
     }
     
     public abstract boolean esSocio();
