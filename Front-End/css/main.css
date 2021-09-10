@@ -1,0 +1,78 @@
+/*---NAVBAR---*/
+
+#iniciar-sesion:hover {
+    color: #278afa;
+}
+
+.ins-cat {
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    padding: 15px 15px;
+    max-width: 250px;
+}
+
+.ins-cat a {
+    color: #525252;
+}
+
+.actDep img{
+    max-height: 250px;
+    max-width: 250px;
+}
+
+/*---TAMANO PANTALLA---------------------------------------------------------*/
+
+/*---MEDIA PANTALLA LARGE---*/
+
+@media (max-width: 1200) {
+
+}
+
+/*---MEDIA PANTALLA MED---*/
+
+@media (max-width: 992px) {
+    #is {
+        padding-top: 15%;
+    }
+
+    .ins-cat {
+        background-color: #f4f4f4;
+        border-radius: 5px;
+        padding: 15px 15px;
+        max-width: 300px;
+    }
+
+    .actDep img {
+        max-height: 140px;
+    }
+}
+
+/*---MEDIA PANTALLA SM---*/
+
+@media (max-width: 768px) {
+    .ins-cat {
+        background-color: #f4f4f4;
+        border-radius: 5px;
+        padding: 15px 15px;
+        min-width: 138px;
+    }
+
+    .actDep img {
+        max-height: 115px;
+    }
+}
+
+/*---MEDIA PANTALLA EXTRA-SM---*/
+
+@media (max-width: 576px) {
+    .ins-cat {
+        background-color: #f4f4f4;
+        border-radius: 5px;
+        padding: 15px 15px;
+        width: 150px;
+    }
+
+    .actDep img {
+        max-height: 85px;
+    }
+}
