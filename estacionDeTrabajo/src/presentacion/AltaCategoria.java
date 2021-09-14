@@ -30,6 +30,8 @@ import excepciones.CategoriaException;
 import logica.IActividadDeportivaController;
 
 import datatypes.DtCategoria;
+import java.awt.Component;
+import javax.swing.Box;
 
 @SuppressWarnings("serial")
 public class AltaCategoria extends JInternalFrame {
@@ -39,17 +41,14 @@ public class AltaCategoria extends JInternalFrame {
 	/* Componentes graficas */
 	// JLabel:
 	private JLabel lblIngreseNombre;
-	private JLabel lblIngreseDesc;
 	
 	// JTextField:
 	private JTextField campoNombre; // Es unico.
-    private JTextArea campoDescripcion;
 	
 	// JButton:
 	private JButton btnAceptar;
     private JButton btnCancelar;
-    
-    private JScrollPane scrollPane;
+    private Component verticalStrut;
     
     /* Crear frame */
 	public AltaCategoria(IActividadDeportivaController iacc) {
@@ -63,15 +62,22 @@ public class AltaCategoria extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Categoria");
-		setBounds(10, 40, 380, 320);
+		setBounds(10, 40, 380, 286);
 		
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 60, 60, 30, 10 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 0, 0 };
-	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE, 0.0, 0.0 };
+	    gridBagLayout.rowHeights = new int[] { 0, 30, 30, 30, 30, 30, 30, 0, 0 };
+	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
+	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	    getContentPane().setLayout(gridBagLayout);
+        
+        verticalStrut = Box.createVerticalStrut(20);
+        GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+        gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+        gbc_verticalStrut.gridx = 1;
+        gbc_verticalStrut.gridy = 0;
+        getContentPane().add(verticalStrut, gbc_verticalStrut);
         
         // JLabels:
         lblIngreseNombre = new JLabel("Nombre de Categoria:");
@@ -81,7 +87,7 @@ public class AltaCategoria extends JInternalFrame {
         gbc_lblIngreseNombre.fill = GridBagConstraints.BOTH;
         gbc_lblIngreseNombre.insets = new Insets(0, 0, 5, 5);
         gbc_lblIngreseNombre.gridx = 1;
-        gbc_lblIngreseNombre.gridy = 0;
+        gbc_lblIngreseNombre.gridy = 1;
         getContentPane().add(lblIngreseNombre, gbc_lblIngreseNombre);
 
         // JTextField:
@@ -92,32 +98,16 @@ public class AltaCategoria extends JInternalFrame {
         gbc_textFieldNombre.fill = GridBagConstraints.BOTH;
         gbc_textFieldNombre.insets = new Insets(0, 0, 5, 5);
         gbc_textFieldNombre.gridx = 1;
-        gbc_textFieldNombre.gridy = 1;
+        gbc_textFieldNombre.gridy = 2;
         getContentPane().add(campoNombre, gbc_textFieldNombre);
         campoNombre.setColumns(10);
         
-        lblIngreseDesc = new JLabel("Descripcion:");
-        lblIngreseDesc.setHorizontalAlignment(SwingConstants.LEFT);
-        GridBagConstraints gbc_lblIngreseDesc = new GridBagConstraints();
-        gbc_lblIngreseDesc.gridwidth = 5;
-        gbc_lblIngreseDesc.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseDesc.insets = new Insets(0, 0, 5, 5);
-        gbc_lblIngreseDesc.gridx = 1;
-        gbc_lblIngreseDesc.gridy = 2;
-        getContentPane().add(lblIngreseDesc, gbc_lblIngreseDesc);
-        
-        scrollPane = new JScrollPane();
-        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-        gbc_scrollPane.gridheight = 3;
-        gbc_scrollPane.gridwidth = 5;
-        gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-        gbc_scrollPane.fill = GridBagConstraints.BOTH;
-        gbc_scrollPane.gridx = 1;
-        gbc_scrollPane.gridy = 3;
-        getContentPane().add(scrollPane, gbc_scrollPane);
-        
-        campoDescripcion = new JTextArea();
-        scrollPane.setViewportView(campoDescripcion);
+        btnCancelar = new JButton("Limpiar");
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                clear();
+            }
+        });    
         
         // JButton:
         btnAceptar = new JButton("Aceptar");
@@ -131,21 +121,15 @@ public class AltaCategoria extends JInternalFrame {
         gbc_btnAceptar.gridwidth = 2;
         gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
         gbc_btnAceptar.gridx = 3;
-        gbc_btnAceptar.gridy = 6;
+        gbc_btnAceptar.gridy = 4;
         getContentPane().add(btnAceptar, gbc_btnAceptar);
-        
-        btnCancelar = new JButton("Limpiar");
-        btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                clear();
-            }
-        });    
         GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
         gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
         gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
         gbc_btnCancelar.gridx = 5;
-        gbc_btnCancelar.gridy = 6;
+        gbc_btnCancelar.gridy = 4;
         getContentPane().add(btnCancelar, gbc_btnCancelar);
+        
 	}
 	
 	// Metodo de invocacion del Alta de Categoria
@@ -153,7 +137,7 @@ public class AltaCategoria extends JInternalFrame {
         if (checkDatos()) {
         	// Obtengo datos de los controles Swing:
         	String nombre = campoNombre.getText().trim();
-            String desc = campoDescripcion.getText().trim();
+            String desc = "";
 	        try {
 	        	actControl.ingresarCatergoria(new DtCategoria(nombre, desc));
 				JOptionPane.showMessageDialog(this, "La Categoria ha sido registrada de forma exitosa.", 
@@ -169,8 +153,8 @@ public class AltaCategoria extends JInternalFrame {
 	// Realiza el checkeo de la entrada de datos.
     private boolean checkDatos() {
         String nombre = campoNombre.getText().trim();
-        String desc = campoDescripcion.getText().trim();
-        if (nombre.isEmpty() || desc.isEmpty()) {
+        String desc = "";
+        if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios.", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -181,6 +165,6 @@ public class AltaCategoria extends JInternalFrame {
 	// Limpia el JInternalFrame
 	public void clear() {
 		campoNombre.setText("");
-		campoDescripcion.setText("");
+		//campoDescripcion.setText("");
     }
 }
