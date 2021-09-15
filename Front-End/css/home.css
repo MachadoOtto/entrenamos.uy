@@ -49,8 +49,9 @@ h1,h2,h3,h4,h5,h6 {
 .actDepCard img{
     max-width: 250px;
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 10%;
+    object-fit: cover;
 }
 .actDepCard {
     margin-top:2%; 
