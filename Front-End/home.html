@@ -150,14 +150,14 @@
                         <div class="form-floating mb-3">
                             <h5>Que eres?</h5>
                             <div id="socioRadio" class="form-check float-left">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                <label class="form-check-label" for="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="tipoUsuario" id="radioSocio" checked>
+                                <label class="form-check-label" for="radioSocio">
                                 Socio
                                 </label>
                             </div>
                             <div id="profeRadio" class="form-check float-left">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                <label class="form-check-label" for="flexRadioDefault2">
+                                <input class="form-check-input" type="radio" name="tipoUsuario" id="radioProfe">
+                                <label class="form-check-label" for="radioProfe">
                                 Profesor
                                 </label>
                             </div>
@@ -197,15 +197,24 @@
                             <input type="date" class="form-control rounded-4" id="nac" >
                             <label for="nomm">Fecha de nacimiento</label>     
                         </div>
-                        <div class="form-group form-floating mb-3">
+                        <div id="institDiv" class="form-floating mb-3">
+                            <select id="instit" class="form-select" data-live-search="true">
+                                <option data-tokens="empty"></option>
+                                <option data-tokens="bruta">Fuerza Bruta</option>
+                                <option data-tokens="telon">Telón</option>
+                                <option data-tokens="lol">天安門體育俱樂部</option>
+                            </select>
+                            <label for="instit">Institución asociada</label>                               
+                        </div>
+                        <div id="descDiv" class="form-group form-floating mb-3">
                             <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
                             <label for="desc">Descripción</label>     
                         </div>
-                        <div class="form-group form-floating mb-3">
+                        <div id="bioDiv" class="form-group form-floating mb-3">
                             <textarea class="form-control" id="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
                             <label for="desc">Biografía</label>     
                         </div>
-                        <div class="form-floating mb-3">
+                        <div id="webDiv" class="form-floating mb-3">
                             <input type="text" class="form-control rounded-4" id="webs" >
                             <label for="webs">Sitio web</label>
                         </div>
@@ -232,9 +241,24 @@
         bootstrap.Modal.getOrCreateInstance(document.getElementById('inicioSesionModal')).toggle();
         bootstrap.Modal.getOrCreateInstance(document.getElementById('registroModal')).toggle();
     }
+    function registroSocio(){
+        $("#institDiv").hide();
+        $("#descDiv").hide();
+        $("#bioDiv").hide();
+        $("#webDiv").hide();
+    }
+    function registroProfe(){
+        $("#institDiv").show();
+        $("#descDiv").show();
+        $("#bioDiv").show();
+        $("#webDiv").show();
+    }
     $(window).load(function() {
         document.getElementById('regLink').onclick = swapIniRegModals;
         document.getElementById('iniLink').onclick = swapIniRegModals;
+        document.getElementById('radioSocio').addEventListener('input',registroSocio);
+        document.getElementById('radioProfe').addEventListener('input',registroProfe);
+        registroSocio();
     });
     </script>
     </body>
