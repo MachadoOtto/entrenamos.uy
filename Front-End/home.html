@@ -233,33 +233,7 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-    <script src="./javaScript/main.js"></script>
+    <script src="./js/home.js"></script>
 
-    <script> 
-    function swapIniRegModals(){
-        $('.modal').css('overflow-y', 'auto');
-        bootstrap.Modal.getOrCreateInstance(document.getElementById('inicioSesionModal')).toggle();
-        bootstrap.Modal.getOrCreateInstance(document.getElementById('registroModal')).toggle();
-    }
-    function registroSocio(){
-        $("#institDiv").hide();
-        $("#descDiv").hide();
-        $("#bioDiv").hide();
-        $("#webDiv").hide();
-    }
-    function registroProfe(){
-        $("#institDiv").show();
-        $("#descDiv").show();
-        $("#bioDiv").show();
-        $("#webDiv").show();
-    }
-    $(window).load(function() {
-        document.getElementById('regLink').onclick = swapIniRegModals;
-        document.getElementById('iniLink').onclick = swapIniRegModals;
-        document.getElementById('radioSocio').addEventListener('input',registroSocio);
-        document.getElementById('radioProfe').addEventListener('input',registroProfe);
-        registroSocio();
-    });
-    </script>
     </body>
 </html>
