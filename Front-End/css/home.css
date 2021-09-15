@@ -1,3 +1,14 @@
+*{
+    overflow-x: hidden;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    overflow-x: clip;
+}
+#welcome_banner {
+    border-radius: 1em;
+}
+
 /*---NAVBAR---*/
 
 #iniciar-sesion:hover {
@@ -11,15 +22,57 @@
     max-width: 250px;
 }
 
-.ins-cat a {
+.ins-cat {
+    background-color: #e9ecef;
+}
+.ins-cat a{
     color: #525252;
 }
 
-.actDep img{
-    max-height: 250px;
-    max-width: 250px;
+#nombreCompletoDiv{
+    margin-left: 0;
 }
 
+#socioRadio{
+    padding-left: 2em;
+}
+#profeRadio{
+    padding-left: 2em;
+}
+
+#divApellido{
+    flex-grow: 1;
+}
+#divNombre{
+    padding:0;
+}
+.actDepCard img{
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    border-radius: 10%;
+}
+.actDepCard {
+    margin-top:2%; 
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+#searchBar {
+    width: 100%;
+}
+#LogoBlock{
+    font-size: 2vw;
+}
+
+#iniciarSesionBtn{
+    margin-right: 0%;
+    margin-left: 0%;
+}
+
+#iniRegBar{
+    justify-content: right;
+}
 /*---TAMANO PANTALLA---------------------------------------------------------*/
 
 /*---MEDIA PANTALLA LARGE---*/
@@ -29,7 +82,7 @@
 }
 
 /*---MEDIA PANTALLA MED---*/
-
+/*
 @media (max-width: 992px) {
     #is {
         padding-top: 15%;
@@ -46,9 +99,9 @@
         max-height: 140px;
     }
 }
-
+*/
 /*---MEDIA PANTALLA SM---*/
-
+/*
 @media (max-width: 768px) {
     .ins-cat {
         background-color: #f4f4f4;
@@ -61,9 +114,9 @@
         max-height: 115px;
     }
 }
-
+*/
 /*---MEDIA PANTALLA EXTRA-SM---*/
-
+/*
 @media (max-width: 576px) {
     .ins-cat {
         background-color: #f4f4f4;
@@ -76,3 +129,5 @@
         max-height: 85px;
     }
 }
+
+*/

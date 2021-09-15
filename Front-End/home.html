@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Required meta tags -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <title>Entrenamos.uy</title>
+</head>
+<body>
+    <header class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="row container-fluid">
+            <div class="col-3">
+                <a id="LogoBlock" class="navbar-brand text-primary" href="#">
+                    <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                    Entrenamos.uy
+                </a>
+            </div>
+            <div class="col-6">
+                <form id="searchBar" class="d-flex">
+                    <input style="width:100%" class="form-control sm-8" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+                    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+                </form>
+            </div>
+            <div class="col-3">
+                <ul id="iniRegBar" class="navbar">
+                    <li id="iniciarSesionBtn" class="nav-item">
+                        <button type="button" class="btn btn-primary mt-3 ms-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
+                            Iniciar Sesion
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn btn-primary mt-3 ms-3" data-bs-toggle="modal" data-bs-target="#registroModal">
+                            Registrarse
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="row container-fluid">
+        <div class="col-2">
+            <nav class="ins-cat nav flex-column">
+                <h1 class="fs-5">Instituciones</h1>
+                <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+                <a class="nav-link" href="#">Fuerza Bruta</a>
+                <a class="nav-link" href="#">Telon</a>
+                <a class="nav-link" href="#">Olympic</a>
+            </nav>
+            <nav class="ins-cat nav flex-column mt-5">
+                <h1 class="fs-5">Categorias</h1>
+                <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+                <a class="nav-link" href="#">Futbol</a>
+                <a class="nav-link" href="#">Fitness</a>
+                <a class="nav-link" href="#">Gimnasia</a>
+            </nav>
+        </div>
+        <div class="col-8">
+            <div id="welcome_banner" class="row jumbotron jumbotron-fluid">
+                <div class="container-fluid">
+                    <h1>Bienvenido a Entrenamos.uy!</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
+                    Donec non euismod nulla. Vivamus malesuada mattis volutpat. Nam at pellentesque dolor. Quisque tristique turpis faucibus, mattis
+                    neque at, hendrerit massa. Vivamus quis ex rhoncus, tempor risus id, ullamcorper metus. Integer sagittis ut nisi egestas fringilla.
+                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed consectetur eu eros accumsan fermentum. Phasellus ligula enim, semper 
+                    </p>
+                </div>
+            </div>
+            <div class="actDepCard row">
+                <img src="./img/crossFit.jpg" class="img-fluid d-inline col-5">
+                <p class="d-inline col-7 text-start actDepCardText"><b>CrossFit</b> es una técnica de entrenamiento que
+                conecta movimientos de diferentes disciplinas, tales
+                como la halterofilia, el entrenamiento metabólico o
+                el gimnástico. <a href="" class="text-primary">Leer mas</a></p>
+            </div>
+            <div class="actDepCard row">
+                <img class="col-5" src="./img/yogaImg.jpg" class="img-fluid d-inline col-5">
+                <p class="actDepCardText col-7 text-start "><b>Yoga</b> es una practica que conecta el cuerpo,
+                la respiracion y la mente. Esta practica utiliza posturas fisicas, ejercicios de respiracion
+                y meditacion. <a href="" class="text-primary">Leer mas</a></p>
+            </div>
+            <div class="actDepCard row">
+                <img src="./img/futbol11.jpg" class="img-fluid d-inline col-5">
+                <p class="d-inline col-7 text-start actDepCardText"><b>Futbol 11</b> y el deporte en general es una herramienta
+                educativa que brinda un aprendizaje en valores y habilidades blandas que se cohesionan con el 
+                aprendizaje y la practica deportiva. <a href="" class="text-primary">Leer mas</a></p>
+            </div>
+        </div>
+        <div class="col-2">
+            <nav class="ins-cat nav flex-column">
+                <h1 class="fs-5">Información</h1>
+                <a class="nav-link" href="#">Ver Usuarios</a>
+                <a class="nav-link" aria-current="page" href="#">Ver Actividades </a>
+                <a class="nav-link" href="#">Ver Clases</a>
+                <a class="nav-link" href="#">Ver Cuponeras</a>
+            </nav>
+        </div>
+    </div>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+        <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+        <span class="text-muted">Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR</span>
+        </div>
+    </footer>
+    <div class="modal fade" id="inicioSesionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                    <h2 class="fw-bold mb-0">Entrenamos.uy</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-4" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Correo electrónico / Nickname</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-4" id="floatingPassword" placeholder="Password">
+                            <label for="floatingPassword">Contraseña</label>                  
+                        </div>
+                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Iniciar Sesión</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <hr class="my-6">
+                    <div>
+                        <i>Aún no tienes cuenta? </i>
+                        <a id="regLink" href="#">Registrarte Aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                    <h2 class="fw-bold mb-0">Unéte a Entrenamos.uy</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <h5>Que eres?</h5>
+                            <div id="socioRadio" class="form-check float-left">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                Socio
+                                </label>
+                            </div>
+                            <div id="profeRadio" class="form-check float-left">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                Profesor
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" id="nickk" >
+                            <label for="nickk">Nickname</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-4" id="emaill">
+                            <label for="emaill">Correo electrónico</label>                  
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-4" id="pas1">
+                            <label for="pas1">Contraseña</label>                  
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-4" id="pas2">
+                            <label for="pas2">Confirmar Contraseña</label>                  
+                        </div>
+                        <h5>Sobre ti</h5>
+                        <div id="nombreCompletoDiv" class="row form-floating mb-3">
+                            <div id="divNombre" class="col-6 form-check float-left">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control rounded-4" id="nomm" >
+                                    <label for="nomm">Nombre</label>           
+                                </div>      
+                            </div>
+                            <div id="divApellido" class="col-6 form-check float-left">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control rounded-4" id="ape" >
+                                    <label for="ape">Apellido</label>           
+                                </div>                           
+                            </div>             
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control rounded-4" id="nac" >
+                            <label for="nomm">Fecha de nacimiento</label>     
+                        </div>
+                        <div class="form-group form-floating mb-3">
+                            <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                            <label for="desc">Descripción</label>     
+                        </div>
+                        <div class="form-group form-floating mb-3">
+                            <textarea class="form-control" id="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                            <label for="desc">Biografía</label>     
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" id="webs" >
+                            <label for="webs">Sitio web</label>
+                        </div>
+                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Registrarse</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <hr class="my-6">
+                    <div>
+                        <i>Ya tienes cuenta? </i>
+                        <a id="iniLink" href="#">Inicia Sesión Aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="./javaScript/main.js"></script>
+
+    <script> 
+    function swapIniRegModals(){
+        $('.modal').css('overflow-y', 'auto');
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('inicioSesionModal')).toggle();
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('registroModal')).toggle();
+    }
+    $(window).load(function() {
+        document.getElementById('regLink').onclick = swapIniRegModals;
+        document.getElementById('iniLink').onclick = swapIniRegModals;
+    });
+    </script>
+    </body>
+</html>
