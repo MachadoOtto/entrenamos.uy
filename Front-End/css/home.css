@@ -1,32 +1,63 @@
-*{
-    overflow-x: hidden;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    overflow-x: clip;
-}
-#welcome_banner {
-    border-radius: 1em;
-}
-
 /*---NAVBAR---*/
 
-#iniciar-sesion:hover {
-    color: #278afa;
+.btn-ir {
+    margin-right: 85%;
+    width: 120px;
 }
 
-.ins-cat {
-    background-color: #f4f4f4;
-    border-radius: 5px;
-    padding: 15px 15px;
+.navbar-2 {
+    background-color: #f0f0f0;
+    opacity: 0.9;
+}
+
+.container-principal {
+
+}
+
+.row-container {
+    justify-content: center;
+}
+
+.actDep img{
     max-width: 250px;
+    max-height: 150px;
 }
 
-.ins-cat {
-    background-color: #e9ecef;
+.main-section {
+    margin: 0 auto;
+    margin-top: 50%;
 }
-.ins-cat a{
-    color: #525252;
+
+/*---BIENVENIDA---*/
+
+.bienvenida {
+    background: url(../img/wallpaperBg.jpg);
+    background-position: center;
+    background-size: cover;
+    color: #f0f0f0;
+}
+
+.bienvenida p {
+    
+}
+
+/*----------------*/
+
+.nav-info {
+    margin-left: 50%;
+}
+
+/*---FOOTER---*/
+
+.footer {
+    background: #112764;
+    color: #f0f0f0;
+    margin-top: 5%;
+}
+
+.footer-row {
+    padding: 5% 20%;
+    text-align: center;
 }
 
 #nombreCompletoDiv{
@@ -46,89 +77,137 @@ h1,h2,h3,h4,h5,h6 {
 #divNombre{
     padding:0;
 }
-.actDepCard img{
-    max-width: 250px;
-    width: 100%;
-    height: 100%;
-    border-radius: 10%;
-    object-fit: cover;
-}
-.actDepCard {
-    margin-top:2%; 
-    text-align: justify;
-    text-justify: inter-word;
+
+.modal-content {
+    background-color:#ececec;
+    opacity: .95;
+    padding: 0 20;
+    box-shadow: 0px 0px 3px #848484;
 }
 
-#searchBar {
-    width: 100%;
-}
-#LogoBlock{
-    font-size: 2vw;
+.user-img {
+    margin-top: -50px;
+    margin-bottom: 35px;
 }
 
-#iniciarSesionBtn{
-    margin-right: 0%;
-    margin-left: 0%;
+.user-img img {
+    width: 100px;
+    height: 100px;
+    box-shadow: 0px 0px 3px #848484;
+    border-radius: 50%;
 }
 
-#iniRegBar{
-    justify-content: right;
+.form-group input {
+    height: 42px;
+    font-size: 18px;
+    border: 0;
+    padding-left: 54px;
+    border-radius: 5px;
 }
+
+.form-group::before {
+    font-family: "Font Awesome\ 5 Free";
+    position: absolute;
+    left: 28px;
+    font-size: 22px;
+    padding-top: 4px;
+}
+
+.form-group#user-group::before {
+    content: "\f007";
+}
+
+.form-group#contraseña-group::before {
+    content: "\f023";
+}
+
+.main-section a {
+    width: 60%;
+    margin: 5px 0 25px;
+}
+
+.register {
+    padding: 5px 0;
+}
+
+.register a:hover {
+    text-decoration: none;
+    color: #bfc2c6;
+}
+
+.register a {
+    color: whitesmoke;
+    margin: 15px;
+}
+
 /*---TAMANO PANTALLA---------------------------------------------------------*/
+
+/*---MEDIA PANTALLA EXTRA-EXTRA-LARGE---*/
+@media (max-width: 10000) {
+    .nav-info {
+        margin-left: 80% !important;
+    }
+}
+
+/*---MEDIA PANTALLA EXTRA-LARGE---*/
+@media (max-width: 1400) {
+    .nav-info {
+        margin-left: 80% !important;
+    }
+}
 
 /*---MEDIA PANTALLA LARGE---*/
 
 @media (max-width: 1200) {
-
+    .nav-info {
+        margin-left: -12%;
+    }
 }
 
 /*---MEDIA PANTALLA MED---*/
-/*
+
 @media (max-width: 992px) {
-    #is {
-        padding-top: 15%;
+    #btn-registrarse {
+        margin-top: -0.5% !important;
     }
 
-    .ins-cat {
-        background-color: #f4f4f4;
-        border-radius: 5px;
-        padding: 15px 15px;
-        max-width: 300px;
-    }
-
-    .actDep img {
-        max-height: 140px;
+    .nav-info {
+        margin-left: -12%;
     }
 }
-*/
+
 /*---MEDIA PANTALLA SM---*/
-/*
+
 @media (max-width: 768px) {
-    .ins-cat {
-        background-color: #f4f4f4;
-        border-radius: 5px;
-        padding: 15px 15px;
-        min-width: 138px;
+    #btn-registrarse {
+        margin-top: -0.5% !important;
     }
 
-    .actDep img {
-        max-height: 115px;
+    .nav-info {
+        margin-left: -12%;
     }
 }
-*/
+
 /*---MEDIA PANTALLA EXTRA-SM---*/
-/*
+
 @media (max-width: 576px) {
-    .ins-cat {
-        background-color: #f4f4f4;
-        border-radius: 5px;
-        padding: 15px 15px;
-        width: 150px;
+    #btn-registrarse {
+        margin-top: -0.5% !important;
     }
 
-    .actDep img {
-        max-height: 85px;
+    .ins-cat {
+        margin-left: -5% !important;
+    }
+
+    .actdep-panel {
+        margin-left: 5% !important;
+    }
+
+    .actdep-panel img {
+
+    }
+
+    .nav-info {
+        margin-left: -12%;
     }
 }
-
-*/
