@@ -99,4 +99,29 @@ public class UsuarioController implements IUsuarioController {
 	public void dejarDeSeguir(String nombre) {
 		//HandlerUsuario.getInstance().findUsuario(nombre);
 	}
+	
+	public boolean verificarIdentidadNickname(String nick,String pass) {
+		if(getHU().existeNick(nick)) {
+			try {
+				return getHU().findUsuario(nick).getContrasenia() == pass;
+			} catch (UsuarioNoExisteException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	public boolean verificarIdentidadEmail(String email, String pass) {
+		if(getHU().existeCorreo(email)) {
+			try {
+				return getHU().findUsuarioByEmail(email).getContrasenia() == pass;
+			} catch (UsuarioNoExisteException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;	
+	}
+	
+	private HandlerUsuario getHU() {
+		return HandlerUsuario.getInstance();
+	}
 }

@@ -15,6 +15,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.Collection;
@@ -66,7 +67,12 @@ public class HandlerUsuario {
 		}
 		return res;
 	}
-	
+	public Usuario findUsuarioByEmail(String email) throws UsuarioNoExisteException {
+		for(Entry<String, Usuario> x: usuarios.entrySet())
+			if(x.getValue().getCorreo()==email)
+				return x.getValue();
+		throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
+	}
 	public boolean existeNick(String userNick) {
 		return usuarios.containsKey(userNick);
 	}
