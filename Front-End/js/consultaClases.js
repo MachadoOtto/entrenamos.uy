@@ -18,3 +18,16 @@ function colorearBoton( next ) {
   y.focus();
   y.click();
 }
+
+function registroGen(){
+  $("#cupdiv").hide();
+}
+function registroCup(){
+  $("#cupdiv").show();
+}
+
+$(window).load(function() {
+  document.getElementById('radioGen').addEventListener('input',registroGen);
+  document.getElementById('radioCup').addEventListener('input',registroCup);
+  registroGen();
+});
