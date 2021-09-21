@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-
+body {
+	overflow-x: hidden;
+}
 #img-perfil
 {
 	margin-bottom: 10px;
@@ -115,8 +117,6 @@
  	max-height: 375px;
  	overflow-y: scroll;
  }
- 
-
 
 .clase {
 	padding: 10px;
@@ -166,11 +166,13 @@
 
 
 .ins-cat-section{
+	border-radius: 1em;
     background-color: rgba(204 204 204 / 28%);
     padding: 1em 1em 1em 1em;
 }
 
 .extraInfoDiv{
+	border-radius: 1em;
     margin-bottom: 1em;
     margin-left: 1em;
     background-color: rgba(204 204 204 / 28%);
