@@ -1,0 +1,74 @@
+@charset "ISO-8859-1"; 
+ 
+#coco{
+	padding-top: .70rem;
+    padding-bottom: .70rem;
+}
+
+#valido{
+	padding-top: .70rem;
+}
+
+#boto{ 
+	margin: 20px;
+}
+
+#comprar{
+	padding-top: 30px;
+	text-align: center;
+}
+
+#acts{
+	background: #EAEDED;
+}
+
+#cats{
+	background: #EAEDED;
+	margin-top: 20px;
+}
+
+#cat{
+	background: #0288D1;
+	margin:0px;
+	padding-bottom: 0px;
+	padding-top: 5px;
+	color: white;
+	text-align: center;
+}
+
+#act{
+	background: #0288D1;
+	margin: 0px;
+	color: white;
+	text-align: center;
+	padding-bottom: 0px;
+	padding-top: 5px;
+}
+
+.im{
+	margin-top: 5px;
+	margin-left:5px;
+}
+
+#act1{
+	border-bottom: 1px solid black;
+}
+
+.im-ultima{
+	margin-top: 5px;
+	margin-left:5px;
+	margin-bottom: 5px;
+}
+
+#act-ultima{
+	padding-bottom: 5px;
+}
+
+#act2{
+	margin-top: 10px;
+}
+
+#cat2{
+	margin: 0px;
+	padding: 5px;
+}
