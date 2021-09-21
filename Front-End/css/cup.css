@@ -36,13 +36,18 @@
 	text-align: center;
 }
 
-#act{
-	background: #0288D1;
-	margin: 0px;
-	color: white;
-	text-align: center;
-	padding-bottom: 0px;
-	padding-top: 5px;
+.extraInfoDiv{
+	border-radius: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
+
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
 }
 
 .im{
