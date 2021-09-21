@@ -14,18 +14,12 @@ package datatypes;
 public class DtCategoria {
 	
 	private String nombre;
-	private String descripcion;
 	
-	public DtCategoria(String nombre, String descripcion) {
+	public DtCategoria(String nombre) {
 		this.nombre = nombre;
-		this.descripcion = descripcion;
 	}
 	
 	public String getNombre() {
 		return nombre;
-	}
-	
-	public String getDescripcion() {
-		return descripcion;
 	}
 }

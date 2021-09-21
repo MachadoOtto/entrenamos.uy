@@ -16,8 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -137,9 +135,8 @@ public class AltaCategoria extends JInternalFrame {
         if (checkDatos()) {
         	// Obtengo datos de los controles Swing:
         	String nombre = campoNombre.getText().trim();
-            String desc = "";
 	        try {
-	        	actControl.ingresarCatergoria(new DtCategoria(nombre, desc));
+	        	actControl.ingresarCatergoria(new DtCategoria(nombre));
 				JOptionPane.showMessageDialog(this, "La Categoria ha sido registrada de forma exitosa.", 
 						this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
 				clear();
@@ -153,7 +150,6 @@ public class AltaCategoria extends JInternalFrame {
 	// Realiza el checkeo de la entrada de datos.
     private boolean checkDatos() {
         String nombre = campoNombre.getText().trim();
-        String desc = "";
         if (nombre.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios.", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);

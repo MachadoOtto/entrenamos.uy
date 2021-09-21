@@ -16,22 +16,16 @@ import datatypes.DtCategoria;
 public class Categoria {
 	
 	private String nombre;
-	private String descripcion;
 	
-	public Categoria(String nombre, String descripcion) {
+	public Categoria(String nombre) {
 		this.nombre = nombre;
-		this.descripcion = descripcion;
 	}
 	
 	public String getNombre() {
 		return nombre;
 	}
 	
-	public String getDescripcion() {
-		return descripcion;
-	}
-	
 	public DtCategoria getDatos() {
-		return new DtCategoria(getNombre(), getDescripcion());
+		return new DtCategoria(getNombre());
 	}
 }
