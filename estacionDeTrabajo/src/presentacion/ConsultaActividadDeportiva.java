@@ -34,7 +34,7 @@ import java.util.Set;
 import logica.IActividadDeportivaController;
 import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
-
+import datatypes.TEstado;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtFecha;
 
@@ -66,7 +66,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JTextField textFieldMes;
 	private JTextField textFieldAnio;
 	private JPanel panelClasesCuponeras;
-	private JLabel lblEnd;
+	private JLabel lblEnd,estadoLbl;
 	private JScrollPane scrollPane;
 	private JTree tree;
 	private JScrollPane scrollPaneDesc;
@@ -74,6 +74,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JLabel lblNewLabel;
 	private ConsultaDictadoClase refClase;
 	private ConsultaCuponeras refCup;
+	private JLabel estado;
 	
 	public ConsultaActividadDeportiva(IActividadDeportivaController IADC) {
 		
@@ -218,9 +219,9 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		getContentPane().add(panelDatosAD, gbc_panelDatosAD);
 		GridBagLayout gbl_panelDatosAD = new GridBagLayout();
 		gbl_panelDatosAD.columnWidths = new int[]{0, 61, 257, 0, 0};
-		gbl_panelDatosAD.rowHeights = new int[]{54, 98, 38, 31, 0};
+		gbl_panelDatosAD.rowHeights = new int[]{54, 0, 98, 38, 31, 0};
 		gbl_panelDatosAD.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panelDatosAD.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panelDatosAD.rowWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		panelDatosAD.setLayout(gbl_panelDatosAD);
 		
 		lblNombre = new JLabel("Nombre:");
@@ -236,21 +237,37 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		textFieldNombre.setEditable(false);
 		GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
 		gbc_textFieldNombre.gridwidth = 3;
-		gbc_textFieldNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldNombre.insets = new Insets(0, 0, 5, 0);
 		gbc_textFieldNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNombre.gridx = 1;
 		gbc_textFieldNombre.gridy = 0;
 		panelDatosAD.add(textFieldNombre, gbc_textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
+				estadoLbl = new JLabel("Estado:");
+				GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+				gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
+				gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNewLabel_1.gridx = 0;
+				gbc_lblNewLabel_1.gridy = 1;
+				panelDatosAD.add(estadoLbl, gbc_lblNewLabel_1);
+		
+		estado = new JLabel("-");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.gridwidth = 2;
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 1;
+		gbc_label.gridy = 1;
+		panelDatosAD.add(estado, gbc_label);
+		
 		scrollPaneDesc = new JScrollPane();
 		GridBagConstraints gbc_scrollPaneDesc = new GridBagConstraints();
 		gbc_scrollPaneDesc.gridheight = 1;
 		gbc_scrollPaneDesc.gridwidth = 3;
-		gbc_scrollPaneDesc.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPaneDesc.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPaneDesc.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneDesc.gridx = 1;
-		gbc_scrollPaneDesc.gridy = 1;
+		gbc_scrollPaneDesc.gridy = 2;
 		panelDatosAD.add(scrollPaneDesc, gbc_scrollPaneDesc);
 		
 		textFieldDesc = new JTextArea();
@@ -271,7 +288,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_lblDesc.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblDesc.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDesc.gridx = 0;
-		gbc_lblDesc.gridy = 1;
+		gbc_lblDesc.gridy = 2;
 		panelDatosAD.add(lblDesc, gbc_lblDesc);
 		textFieldDesc.setBorder(BorderFactory.createCompoundBorder(border, 
 			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
@@ -282,16 +299,16 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_lblDuracion.anchor = GridBagConstraints.WEST;
 		gbc_lblDuracion.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDuracion.gridx = 0;
-		gbc_lblDuracion.gridy = 2;
+		gbc_lblDuracion.gridy = 3;
 		panelDatosAD.add(lblDuracion, gbc_lblDuracion);
 		
 		panelDurCost = new JPanel();
 		GridBagConstraints gbc_panelDurCost = new GridBagConstraints();
 		gbc_panelDurCost.gridwidth = 3;
-		gbc_panelDurCost.insets = new Insets(0, 0, 5, 5);
+		gbc_panelDurCost.insets = new Insets(0, 0, 5, 0);
 		gbc_panelDurCost.fill = GridBagConstraints.BOTH;
 		gbc_panelDurCost.gridx = 1;
-		gbc_panelDurCost.gridy = 2;
+		gbc_panelDurCost.gridy = 3;
 		panelDatosAD.add(panelDurCost, gbc_panelDurCost);
 		GridBagLayout gbl_panelDurCost = new GridBagLayout();
 		gbl_panelDurCost.columnWidths = new int[]{47, 31, 0, 0, 43, 72, 0};
@@ -350,16 +367,15 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 		gbc_lblFecha.anchor = GridBagConstraints.WEST;
 		gbc_lblFecha.insets = new Insets(0, 0, 0, 5);
 		gbc_lblFecha.gridx = 0;
-		gbc_lblFecha.gridy = 3;
+		gbc_lblFecha.gridy = 4;
 		panelDatosAD.add(lblFecha, gbc_lblFecha);
 		
 		panelFecha = new JPanel();
 		GridBagConstraints gbc_panelFecha = new GridBagConstraints();
 		gbc_panelFecha.gridwidth = 3;
-		gbc_panelFecha.insets = new Insets(0, 0, 0, 5);
 		gbc_panelFecha.fill = GridBagConstraints.BOTH;
 		gbc_panelFecha.gridx = 1;
-		gbc_panelFecha.gridy = 3;
+		gbc_panelFecha.gridy = 4;
 		panelDatosAD.add(panelFecha, gbc_panelFecha);
 		GridBagLayout gbl_panelFecha = new GridBagLayout();
 		gbl_panelFecha.columnWidths = new int[]{46, 123, 65, 38, 0};
@@ -492,6 +508,13 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 			textFieldDia.setText(Integer.toString(fecha.getDia()));
 			textFieldMes.setText(Integer.toString(fecha.getMes()));
 			textFieldAnio.setText(Integer.toString(fecha.getAnio()));
+			estado.setText(actDep.getEstado().toString().toUpperCase());
+			if(actDep.getEstado()==TEstado.ingresada)
+				estado.setForeground(Color.ORANGE);
+			else if (actDep.getEstado()==TEstado.aceptada)
+				estado.setForeground(Color.green);
+			else
+				estado.setForeground(Color.red);
 			
 			tree.setModel(new DefaultTreeModel(
 					new DefaultMutableTreeNode("lol") {

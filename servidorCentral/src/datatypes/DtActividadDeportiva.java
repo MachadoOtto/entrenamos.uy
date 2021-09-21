@@ -12,14 +12,16 @@ public class DtActividadDeportiva {
 	private float costo;
 	private DtFecha fechaRegistro;
 	private Set<String> categorias;
+	private TEstado estado;
 	
-	public DtActividadDeportiva(String nom, String desc, int dur, float cos, DtFecha fech,Set<String> categorias){
+	public DtActividadDeportiva(String nom, String desc, int dur, float cos, DtFecha fech,Set<String> categorias,TEstado e){
 		this.nombre = nom;
 		this.descripcion = desc;
 		this.duracionMinutos = dur;
 		this.costo = cos;
 		this.fechaRegistro = fech;
 		this.categorias = categorias;
+		this.estado = e;
 	}
 	
 	public DtActividadDeportiva(String nom, String desc, int dur, float cos, DtFecha fech) {
@@ -53,6 +55,10 @@ public class DtActividadDeportiva {
 
 	public Set<String> getCategorias() {
 		return categorias;
+	}
+
+	public TEstado getEstado() {
+		return estado;
 	}
 }
 

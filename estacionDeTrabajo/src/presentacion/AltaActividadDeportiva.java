@@ -38,6 +38,7 @@ import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtFecha;
+import datatypes.TEstado;
 import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 
@@ -523,7 +524,7 @@ public class AltaActividadDeportiva extends JInternalFrame {
 	        for (String nombreCat: categoriasList) {
 	        	categoriasSet.add(nombreCat);
 	        }
-	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta,categoriasSet);
+	        DtActividadDeportiva datosAD = new DtActividadDeportiva(nombre,descripcion,duracion,costo,fechaAlta,categoriasSet,TEstado.ingresada);
 	        if (IADC.ingresarDatosActividadDep(nombreInsti, datosAD)) {
 	        	JOptionPane.showMessageDialog(this,"La actividad deportiva ha sido registrada de forma exitosa.", this.getTitle(), 
 	        			JOptionPane.INFORMATION_MESSAGE);
