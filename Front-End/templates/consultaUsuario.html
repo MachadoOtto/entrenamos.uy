@@ -11,8 +11,8 @@
     <!--Los iconos tipo solid de Fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <!--NUESTRO CSS-->
-    <link rel="stylesheet" href="./css/home.css">
-    <link rel="stylesheet" href="./css/consultaUsuario.css">
+    <link rel="stylesheet" href=".././css/home.css">
+    <link rel="stylesheet" href=".././css/consultaUsuario.css">
 
     <title>Entrenamos.uy</title>
   </head>
@@ -100,10 +100,10 @@
 		<div id="user-inferior" class= "row ">
 			<div id="user-navegador" class="row">
 				<nav class="nav nav-pills flex-column flex-sm-row px-1">
-					<a id="user-nav1" onclick="cambioNavegador('user-consultaPerfil')" class="flex-sm-fill text-sm-center nav-link active border-bottom-radius-radius-0" >Perfil</a>
-					<a id="user-nav2" onclick="cambioNavegador('user-consultaClases')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases</a>
-					<a id="user-nav3" onclick="cambioNavegador('user-consultaActividadesDeportivas')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Deportivas</a>
-					<a id="user-nav4" onclick="cambioNavegador('user-consultaCuponeras')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</a>
+					<button id="user-nav1" type="button" onclick="cambioNavegador('user-consultaPerfil','user-nav1')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-radius-0 active" >Perfil</button>
+					<button id="user-nav2" type="button" onclick="cambioNavegador('user-consultaClases','user-nav2')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases</button>
+					<button id="user-nav3" type="button" onclick="cambioNavegador('user-consultaActividadesDeportivas','user-nav3')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Deportivas</button>
+					<button id="user-nav4" type="button" onclick="cambioNavegador('user-consultaCuponeras','user-nav4')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
 				</nav>
 			</div>
 			<div id="user-consultaPerfil" class="col-sm-11 border">
@@ -194,13 +194,13 @@
               </div>
 				</div>
 				<div id= "user-consultaClases" class="col-sm-8 border  card-body">
-					<ul id="listaActividades" class=" py-3">
+					<ul id="listaActividadesClases" class=" py-3 container">
 						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
 			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">La mejor clase</a></li>
 						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
 			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Clase en el 307</a></li>
 						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Mas clase que markarian con traje</a></li>
+			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Demasiada clase</a></li>
 					    <li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
 			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Clase media baja</a></li>
 						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
@@ -210,7 +210,7 @@
 					</ul>
 				</div>
 				<div id= "user-consultaActividadesDeportivas" class="col-sm-8 border">
-					<ul id="listaActividades" class=" py-3">
+					<ul id="listaActividadesActDep" class=" py-3 container">
 						<h2><strong>Actividades ingresadas</strong></h2>
 						<br>
 						<h4 class="consultaAceptadaRechazada"><strong>Aceptadas</strong></h4>
@@ -236,7 +236,7 @@
 					</ul>
 				</div>
 				<div id= "user-consultaCuponeras" class="col-sm-8 border card-body">
-					<ul id="listaActividades" class=" py-3">
+					<ul id="listaActividadesCuponeras" class=" py-3 container">
 						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
 			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Cuponera de la muerte</a></li>
 						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
@@ -413,8 +413,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
     
-	<script type="text/javascript" src="./js/consultaUsuario.js"></script>
-    <script src="./js/home.js"></script>
+	<script type="text/javascript" src=".././js/consultaUsuario.js"></script>
+    <script src=".././js/home.js"></script>
 
     </body>
 </html>

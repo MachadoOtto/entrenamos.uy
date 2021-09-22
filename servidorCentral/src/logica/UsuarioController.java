@@ -92,13 +92,22 @@ public class UsuarioController implements IUsuarioController {
 		}
 	}
 	
-	public void seguir(String nombre) {
-		//HandlerUsuario.getInstance().findUsuario(nombre);
+	public void seguir(String seguidor, String seguido) throws UsuarioNoExisteException {
+		HandlerUsuario hu = HandlerUsuario.getInstance();
+		Usuario seguidorU = hu.findUsuario(seguidor);
+		Usuario seguidoU = hu.findUsuario(seguido);
+		seguidorU.agregarSeguido(seguidoU);
+		seguidoU.agregarSeguidor(seguidorU);
 	}
 	
-	public void dejarDeSeguir(String nombre) {
-		//HandlerUsuario.getInstance().findUsuario(nombre);
+	public void dejarDeSeguir(String seguidor, String seguido) throws UsuarioNoExisteException {
+		HandlerUsuario hu = HandlerUsuario.getInstance();
+		Usuario seguidorU = hu.findUsuario(seguidor);
+		Usuario seguidoU = hu.findUsuario(seguido);
+		seguidorU.removerSeguido(seguidoU);
+		seguidoU.removerSeguidor(seguidorU);
 	}
+	
 	
 	public boolean verificarIdentidadNickname(String nick,String pass) {
 		if(getHU().existeNick(nick)) {

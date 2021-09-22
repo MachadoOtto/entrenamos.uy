@@ -9,8 +9,8 @@ public class DtSocioExt extends DtSocio {
 	
 	private Map<String,Set<String>> x;
 	
-	public DtSocioExt(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, Map<String,Set<String>> clases, byte[] imagen){
-		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen);
+	public DtSocioExt(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, Map<String,Set<String>> clases, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidosCorreo, Set<String> seguidoresNickname, Set<String> seguidoresCorreo ){
+		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen, seguidosNickname, seguidosCorreo, seguidoresNickname, seguidoresCorreo);
 		this.x = clases;
 	}
 	

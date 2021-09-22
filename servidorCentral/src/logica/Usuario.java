@@ -9,7 +9,9 @@
 
 package logica;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import datatypes.DtFecha;
@@ -23,7 +25,10 @@ public abstract class Usuario {
     
     protected byte[] imagen;
     
-    protected Map<String,Usuario> seguidos;
+    protected Map<String,Usuario> seguidosNickname;
+    protected Map<String,Usuario> seguidoresNickname;
+    protected Map<String,Usuario> seguidosCorreo;
+    protected Map<String,Usuario> seguidoresCorreo;
 
     //guille : WHAT?
 //    public Usuario() {
@@ -54,7 +59,10 @@ public abstract class Usuario {
         this.contrasenia = contrasenia;
         this.setFecha(fecha);
         this.setImagen(imagen);
-        seguidos = new HashMap<>();
+        seguidosNickname = new HashMap<>();
+        seguidoresNickname = new HashMap<>();
+        seguidosCorreo = new HashMap<>();
+        seguidoresCorreo = new HashMap<>();
     }
     
     /* Constructor no usado
@@ -118,6 +126,38 @@ public abstract class Usuario {
     	return imagen;
     }
     
+    /*public Map<String,Usuario> getSeguidosNickname() {
+    	return seguidosNickname;
+    }
+    
+    public Map<String,Usuario> getSeguidosCorreo() {
+    	return seguidosCorreo;
+    }
+    
+    public Map<String,Usuario> getSeguidoresNickname() {
+    	return seguidoresNickname;
+    }
+    
+    public Map<String,Usuario> getSeguidoresCorreo() {
+    	return seguidoresCorreo;
+    }*/
+    
+    public boolean sigueACorreo(String x) {
+    	return seguidosCorreo.containsKey(x);
+    }
+    
+    public boolean sigueANickname(String x) {
+    	return seguidosNickname.containsKey(x);
+    }
+    
+    public boolean esSeguidoPorCorreo(String x) {
+    	return seguidoresCorreo.containsKey(x);
+    }
+    
+    public boolean esSeguidoPorNickname(String x) {
+    	return seguidoresNickname.containsKey(x);
+    }
+    
     public abstract boolean esSocio();
 
     public void editarDatos(DtUsuario datos) {
@@ -125,4 +165,25 @@ public abstract class Usuario {
     	this.setApellido(datos.getApellido());
     	this.setFecha(datos.getFechaNacimiento());
     }
+    
+    public void agregarSeguidor(Usuario u) {
+    	seguidoresNickname.put(u.getNickname(), u);
+    	seguidoresCorreo.put(u.getCorreo(), u);
+    }
+    
+    public void agregarSeguido(Usuario u) {
+    	seguidosNickname.put(u.getNickname(), u);
+    	seguidosCorreo.put(u.getCorreo(), u);
+    }
+    
+    public void removerSeguidor(Usuario u) {
+    	seguidoresNickname.remove(u.getNickname());
+    	seguidoresCorreo.remove(u.getCorreo());
+    }
+    
+    public void removerSeguido(Usuario u) {
+    	seguidoresNickname.remove(u.getNickname());
+    	seguidoresCorreo.remove(u.getCorreo());
+    }
+    
 }

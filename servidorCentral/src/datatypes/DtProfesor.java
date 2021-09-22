@@ -1,5 +1,7 @@
 package datatypes;
 
+import java.util.Set;
+
 public class DtProfesor extends DtUsuario{
 
 	private String nombreInstitucion, descripcion, biografia, link;
@@ -12,8 +14,8 @@ public class DtProfesor extends DtUsuario{
 		this.link = link;
 	}
 	
-	public DtProfesor(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, byte[] imagen) {
-		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen);
+	public DtProfesor(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidosCorreo, Set<String> seguidoresNickname, Set<String> seguidoresCorreo) {
+		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen,seguidosNickname,seguidosCorreo,seguidoresNickname,seguidoresCorreo);
 		this.nombreInstitucion = nombreInstitucion;
 		this.descripcion = descripcion;
 		this.biografia = biografia;
