@@ -27,7 +27,8 @@ public interface IUsuarioController {
 	
 	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException;
 	
-	public void seguir(String nombre);
+	public void seguir(String seguidor, String seguido) throws UsuarioNoExisteException ;
 	
-	public void dejarDeSeguir(String nombre);
+	public void dejarDeSeguir(String seguidor, String seguido) throws UsuarioNoExisteException ;
+
 }

@@ -9,8 +9,8 @@ public class DtProfesorExt extends DtProfesor{
 
 	private Map<String,Set<String>> x;
 	
-	public DtProfesorExt (String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, Map<String,Set<String>> actxClase, byte[] imagen) {
-		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, nombreInstitucion, descripcion, biografia, link, imagen); 
+	public DtProfesorExt (String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, Map<String,Set<String>> actxClase, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidosCorreo, Set<String> seguidoresNickname, Set<String> seguidoresCorreo) {
+		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, nombreInstitucion, descripcion, biografia, link, imagen,  seguidosNickname, seguidosCorreo, seguidoresNickname, seguidoresCorreo); 
 		x = actxClase;
 	}
 	
