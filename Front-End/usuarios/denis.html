@@ -11,8 +11,8 @@
     <!--Los iconos tipo solid de Fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <!--NUESTRO CSS-->
-    <link rel="stylesheet" href="./css/home.css">
-    <link rel="stylesheet" href="./css/consultaUsuario.css">
+    <link rel="stylesheet" href=".././css/home.css">
+    <link rel="stylesheet" href=".././css/consultaUsuario.css">
 
     <title>Entrenamos.uy</title>
   </head>
@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="#">
-                <img src="./img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <img src=".././img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,7 +78,7 @@
 			<div class="row ">
 				<div id="user-img-btn" class="col-auto py-4" >
 					<div id="user-imagen" class="">
-						<img alt="Qries" id="img-perfil" src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
+						<img alt="Qries" id="img-perfil" src=".././img/users/denis.jpg"
 			         width="180" height="180">
 					</div>
 					<div id="user-seguir" class="flex-sm-fill text-sm-center nav-link ">
@@ -88,22 +88,21 @@
 					</div>
 				</div>
 				<div id="user-info" class="col-auto py-3">
-					<!-- NO SE COMO SEPARAR NICKNAME DE TIPO USUARIO SIN SALTO DE LINEA -->
-					<p><strong id="user-nickname"> Vasilev06 </strong> <a id="user-type"> (Profesor) </a></p>
-					<p><strong>Nombre: </strong> Andrés <strong>Apellido: </strong> Vasilev </p>
-					<p><strong>Correo: </strong> andres.vasilev@mail.com </p>
+					<p><strong id="user-nickname"> denis </strong> <a id="user-type"> (Profesor) </a></p>
+					<p><strong>Nombre: </strong> Denis <strong>Apellido: </strong> Miguel </p>
+					<p><strong>Correo: </strong> den80@fuerza.com </p>
 					<p><strong>Ultimo ingreso: </strong> 1/1/2001 00:00 </p>
-					<p><strong>Seguidores: </strong> 666 <strong>Seguidos: </strong> 0 </p>
+					<a href=".././consultas/usuarios/denisSeguir.html"> <strong>Seguidores: </strong> 0 <strong>Seguidos: </strong> 9 </a>
 				</div>
 			</div>
 		</div>
 		<div id="user-inferior" class= "row ">
 			<div id="user-navegador" class="row">
 				<nav class="nav nav-pills flex-column flex-sm-row px-1">
-					<a id="user-nav1" onclick="cambioNavegador('user-consultaPerfil')" class="flex-sm-fill text-sm-center nav-link active border-bottom-radius-radius-0" >Perfil</a>
-					<a id="user-nav2" onclick="cambioNavegador('user-consultaClases')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases</a>
-					<a id="user-nav3" onclick="cambioNavegador('user-consultaActividadesDeportivas')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Deportivas</a>
-					<a id="user-nav4" onclick="cambioNavegador('user-consultaCuponeras')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</a>
+					<button id="user-nav1" type="button" onclick="cambioNavegador('user-consultaPerfil','user-nav1')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-radius-0 active" >Perfil</button>
+					<button id="user-nav2" type="button" onclick="cambioNavegador('user-consultaClases','user-nav2')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases</button>
+					<button id="user-nav3" type="button" onclick="cambioNavegador('user-consultaActividadesDeportivas','user-nav3')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Deportivas</button>
+					<button id="user-nav4" type="button" hidden="hidden" onclick="cambioNavegador('user-consultaCuponeras','user-nav4')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
 				</nav>
 			</div>
 			<div id="user-consultaPerfil" class="col-sm-11 border">
@@ -114,7 +113,7 @@
                       <h6 class="mb-0"><strong>Nombre completo</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Andrés Vasilev
+                      Denis Miguel
                     </div>
                   </div>
                   <br>
@@ -123,7 +122,7 @@
                       <h6 class="mb-0"><strong>Correo electrónico:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      andres.vasilev@mail.com
+                      den80@fuerza.com
                     </div>
                   </div>
                   <br>
@@ -132,7 +131,7 @@
                       <h6 class="mb-0"><strong>Fecha de nacimiento:<strong></strong></strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      1/1/2001 00:00
+                      14/6/1980
                     </div>
                   </div>
                   <br>
@@ -141,7 +140,7 @@
                       <h6 class="mb-0"><strong>Institución Asociada:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      El crustáceo cascarudo
+                      Telón
                     </div>
                   </div>
                   <br>
@@ -151,10 +150,7 @@
                       
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.
+                      A Denis le interesan los deportes con pelota, principalmente el voleibol y el handball
                     </div>
                   </div>
                   <br>
@@ -163,13 +159,7 @@
                       <h6 class="mb-0"><strong>Biografía:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-                    Donec non euismod nulla. Vivamus malesuada mattis volutpat.
+                      Denis fue un jugador de voleibol profesional.
                     </div>
                   </div>
                   <br>
@@ -179,7 +169,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                     	<a href="https://google.com">
-                    		https://google.com
+                    		www.denis.com
                     	</a>
                     </div>
                   </div>
@@ -193,62 +183,37 @@
                 </div>
               </div>
 				</div>
-				<div id= "user-consultaClases" class="col-sm-8 border  card-body">
-					<ul id="listaActividades" class=" py-3">
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">La mejor clase</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Clase en el 307</a></li>
-						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Mas clase que markarian con traje</a></li>
-					    <li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Clase media baja</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Clase derivada</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Concepto uml</a></li>
+				<div id= "user-consultaClases" class="col-9 border  card-body">
+					<ul id="listaActividadesClases" class=" py-3 container">
+						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/classes/voleibol.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Voleibol</a></li>
 					</ul>
 				</div>
-				<div id= "user-consultaActividadesDeportivas" class="col-sm-8 border">
-					<ul id="listaActividades" class=" py-3">
+				<div id= "user-consultaActividadesDeportivas" class="col-sm-9 border">
+					<ul id="listaActividadesActDep" class=" py-3 container">
 						<h2><strong>Actividades ingresadas</strong></h2>
 						<br>
 						<h4 class="consultaAceptadaRechazada"><strong>Aceptadas</strong></h4>
 						<br>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">La mejor actividad</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Actividad extracurricular</a></li>
+						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/voleibol.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Voleibol</a></li>
+						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/atletismo.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Atletismo</a></li>
 						<br>
 			         	<h4 class="consultaAceptadaRechazada"><strong>Rechazadas</strong></h4>
 						<br>
-						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Activision</a></li>
+						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src=""
+			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Voleibol II</a></li>
 					    <br>
 					    <h2><strong>Actividades asociadas</strong></h2>
 					    <br>
-					    <li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Actividad paranormal</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">ActDep ActDep ActDep ActDep ActDep ActDep</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Acto 1 escena 5</a></li>
+					    <li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/voleibol.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Voleibol</a></li>
 					</ul>
 				</div>
-				<div id= "user-consultaCuponeras" class="col-sm-8 border card-body">
-					<ul id="listaActividades" class=" py-3">
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Cuponera de la muerte</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Cuphead</a></li>
-						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Cup America</a></li>
-					    <li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Cupon de descuento</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Koopa</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src="https://images.lavoz.com.ar/resizer/DjFdpxretRLHxow4RT09ViShEX0=/1023x682/smart/cloudfront-us-east-1.images.arcpublishing.com/grupoclarin/UEAM3F4BTJF4VGGXXPUMJWRYKU.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Kappa</a></li>
+				<div id= "user-consultaCuponeras" class="col-sm-9 border card-body">
+					<ul id="listaActividadesCuponeras" class=" py-3 container">
+						
 					</ul>
 				</div>
 		</div>
@@ -282,7 +247,7 @@
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                  <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                   <h2 class="fw-bold mb-0">Entrenamos.uy</h2>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
@@ -315,7 +280,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 <h2 class="fw-bold mb-0">Unéte a Entrenamos.uy</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -413,8 +378,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
     
-	<script type="text/javascript" src="./js/consultaUsuario.js"></script>
-    <script src="./js/home.js"></script>
+	<script type="text/javascript" src=".././js/consultaUsuario.js"></script>
+    <script src=".././js/home.js"></script>
 
     </body>
 </html>

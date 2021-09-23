@@ -1,6 +1,6 @@
-function cambioNavegador( next ) {
-	cambiarPerfil( next );
-	colorearBoton( next );
+function cambioNavegador( nextConsulta, nextBoton ) {
+	cambiarPerfil( nextConsulta );
+	colorearBoton( nextBoton );
 }
 
 function cambiarPerfil( next ) {
@@ -18,12 +18,15 @@ function cambiarPerfil( next ) {
 }
 
 function colorearBoton( next ) {
-  var x1 = document.getElementById( "user-consultaPerfil" );
-  var x2 = document.getElementById( "user-consultaClases" );
-  var x3 = document.getElementById( "user-consultaActividadesDeportivas" );
-  var x4 = document.getElementById( "user-consultaCuponeras" );
+  var x1 = document.getElementById( "user-nav1" );
+  var x2 = document.getElementById( "user-nav2" );
+  var x3 = document.getElementById( "user-nav3" );
+  var x4 = document.getElementById( "user-nav4" );
   var y = document.getElementById( next );
   
-  y.focus();
-  y.click();
+  x1.classList.remove('active');
+  x2.classList.remove('active');
+  x3.classList.remove('active');
+  x4.classList.remove('active');
+  y.classList.add('active');
 }

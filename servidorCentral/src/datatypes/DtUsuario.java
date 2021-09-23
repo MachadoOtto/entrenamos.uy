@@ -1,10 +1,17 @@
 package datatypes;
 
+import java.util.Map;
+import java.util.Set;
+
 public class DtUsuario {
 
 	private String nickname, nombre, apellido, email, contrasenia;
 	private DtFecha fechaNacimiento;
 	private byte[] imagen;
+	private Set<String> seguidosNickname;
+	private Set<String> seguidosCorreo;
+	private Set<String> seguidoresNickname;
+	private Set<String> seguidoresCorreo;
 	
 	public DtUsuario (String nickname, String nombre, String apellido, String email, DtFecha fechaNacimiento) {
 		this.nickname = nickname;
@@ -18,8 +25,7 @@ public class DtUsuario {
 		this.imagen = null;
 	}
 
-	
-	public DtUsuario (String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, byte[] imagen) {
+	public DtUsuario (String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidosCorreo, Set<String> seguidoresNickname, Set<String> seguidoresCorreo) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -27,6 +33,10 @@ public class DtUsuario {
 		this.contrasenia = contrasenia;
 		this.fechaNacimiento = fechaNacimiento;
 		this.imagen = imagen;
+		this.seguidosNickname = seguidosNickname;
+		this.seguidosCorreo = seguidosCorreo;
+		this.seguidoresNickname = seguidoresNickname;
+		this.seguidoresCorreo = seguidoresCorreo;
 	}
 	
 	public String getNombre() {
@@ -56,4 +66,20 @@ public class DtUsuario {
 	public byte[] getImagen() {
 		return imagen;
 	}
+	
+	public Set<String> getSeguidosNickname() {
+    	return seguidosNickname;
+    }
+    
+    public Set<String> getSeguidosCorreo() {
+    	return seguidosCorreo;
+    }
+    
+    public Set<String> getSeguidoresNickname() {
+    	return seguidoresNickname;
+    }
+    
+    public Set<String> getSeguidoresCorreo() {
+    	return seguidoresCorreo;
+    }
 }

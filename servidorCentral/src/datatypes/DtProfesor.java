@@ -1,5 +1,7 @@
 package datatypes;
 
+import java.util.Set;
+
 public class DtProfesor extends DtUsuario{
 
 	private String nombreInstitucion, descripcion, biografia, link;
