@@ -5,6 +5,7 @@ import java.util.Set;
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
 import excepciones.ActividadDeportivaException;
+import excepciones.CuponeraInmutableException;
 import excepciones.CuponeraRepetidaException;
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
@@ -38,7 +39,7 @@ public class CuponeraController implements ICuponeraController {
 	}
 		
 	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases) 
-			throws InstitucionException, ActividadDeportivaException {
+			throws InstitucionException, ActividadDeportivaException, CuponeraInmutableException{
 		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),cantidadClases);
 	}
 		

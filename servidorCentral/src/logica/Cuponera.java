@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import datatypes.DtFecha;
+import excepciones.CuponeraInmutableException;
 import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 
@@ -70,7 +71,9 @@ public class Cuponera {
 		return nomnom;
 	}
 	
-	public void addActDep(ActividadDeportiva act, int num) {
+	public void addActDep(ActividadDeportiva act, int num) throws CuponeraInmutableException{
+		if(rc.size()>0)
+			throw new CuponeraInmutableException("No es posible modificar la cuponera dado que ya hay socios que la compraron.");
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
 		cp.add(claCup);
 		cc.addAll(act.getCategorias());

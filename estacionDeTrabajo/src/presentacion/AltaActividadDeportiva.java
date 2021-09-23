@@ -490,7 +490,7 @@ public class AltaActividadDeportiva extends JInternalFrame {
     	    	
         if (nombreInsti.trim().isEmpty() || nombre.trim().isEmpty()|| descripcion.trim().isEmpty()
         		|| textFieldDuracion.getText().trim().isEmpty() || textFieldCosto.getText().trim().isEmpty() || altaAnio.getText().matches("yyyy")
-        		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-") || listCats.isSelectionEmpty()) {
+        		    || comboBoxMes.getSelectedItem().equals("-") || comboBoxDia.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
             return false;
         }
