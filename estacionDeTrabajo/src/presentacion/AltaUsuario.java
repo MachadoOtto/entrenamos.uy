@@ -611,7 +611,11 @@ public class AltaUsuario extends JInternalFrame {
         	JOptionPane.showMessageDialog(this, "Las contraseñas ingresadas son distintas", this.getTitle(), JOptionPane.ERROR_MESSAGE);
         	return false;
         }
-        
+        //Contraseña no segura
+        if (contrasenia1.equals("")) {
+        	JOptionPane.showMessageDialog(this, "La contraseña debe tener por lo menos 1 bit de entropía.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        	return false;
+        }
         return true;
 	}
 }

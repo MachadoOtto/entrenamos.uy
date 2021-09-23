@@ -73,6 +73,18 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				}
 			}
 		}
+		for(String q: x) {
+			try {
+				if(getHI().findInstitucion(ins).getActDep(q).getEstado()!=TEstado.aceptada)
+					x.remove(q);
+			} catch (ActividadDeportivaException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstitucionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return x;
 	}
 	
