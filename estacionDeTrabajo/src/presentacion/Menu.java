@@ -19,6 +19,8 @@ import logica.ICuponeraController;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -31,15 +33,18 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
 import datatypes.DtActividadDeportiva;
+import datatypes.DtCategoria;
 import datatypes.DtClase;
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
+import datatypes.TEstado;
 import datatypes.TReg;
 
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.ActividadDeportivaException;
+import excepciones.CategoriaException;
 import excepciones.ClaseException;
 import excepciones.CuponeraInmutableException;
 import excepciones.CuponeraRepetidaException;
@@ -461,6 +466,7 @@ public class Menu {
 			IADC.altaInstitucion("Olympic", "Gimnasia y Aparatos.","https://www.olympic21.com");
 			
 			// ALTA USUARIOS
+
 			// SOCIOS
 			// Emi71 #EL
 			IUC.ingresarDatosUsuario(new DtSocio("Emi71","Emiliano","Lucas","emi71@gmail.com", "asdfg456", new DtFecha(1971,12,31,0,0,0), null));
@@ -534,26 +540,123 @@ public class Menu {
 			IUC.ingresarDatosUsuario(new DtProfesor("aldo","Aldo","Vivaldi","aldo@outlook.com", "ultraton01", new DtFecha(1952,7,17,0,0,0),
 					"Telón", desc, bio ,"www.sportsaldo.net", null));
 				
+			//LOS SEGUIDOS/SEGUIDORES
+			String[] a = {"Emi71","caro","euge","guille","sergiop","andy","tonyp","m1k4","charly","viktor","denis","clazar","TheBoss","Nelson","lale",
+			              "prisc","dagost","aldo"};
+			IUC.seguir(a[0], a[3]);
+			IUC.seguir(a[1], a[2]);
+			IUC.seguir(a[1], a[3]);
+			IUC.seguir(a[2], a[0]);
+			IUC.seguir(a[2], a[1]);
+			IUC.seguir(a[2], a[7]);
+			IUC.seguir(a[3], a[0]);
+			IUC.seguir(a[3], a[1]);
+			IUC.seguir(a[3], a[2]);
+			IUC.seguir(a[3], a[12]);
+			IUC.seguir(a[4], a[2]);
+			IUC.seguir(a[4], a[5]);
+			IUC.seguir(a[4], a[11]);
+			IUC.seguir(a[5], a[1]);
+			IUC.seguir(a[5], a[6]);
+			IUC.seguir(a[5], a[11]);
+			IUC.seguir(a[6], a[1]);
+			IUC.seguir(a[6], a[7]);
+			IUC.seguir(a[6], a[8]);
+			IUC.seguir(a[7], a[4]);
+			IUC.seguir(a[7], a[6]);
+			IUC.seguir(a[8], a[6]);
+			IUC.seguir(a[8], a[13]);
+			IUC.seguir(a[9], a[6]);
+			IUC.seguir(a[9], a[7]);
+			IUC.seguir(a[9], a[11]);
+			IUC.seguir(a[9], a[14]);
+			IUC.seguir(a[9], a[15]);
+			IUC.seguir(a[10], a[0]);
+			IUC.seguir(a[10], a[1]);
+			IUC.seguir(a[10], a[2]);
+			IUC.seguir(a[10], a[3]);
+			IUC.seguir(a[10], a[4]);
+			IUC.seguir(a[10], a[5]);
+			IUC.seguir(a[10], a[6]);
+			IUC.seguir(a[10], a[7]);
+			IUC.seguir(a[10], a[8]);
+			IUC.seguir(a[11], a[1]);
+			IUC.seguir(a[11], a[2]);
+			IUC.seguir(a[11], a[3]);
+			IUC.seguir(a[11], a[12]);
+			IUC.seguir(a[12], a[3]);
+			IUC.seguir(a[12], a[5]);
+			IUC.seguir(a[12], a[7]);
+			IUC.seguir(a[13], a[0]);
+			IUC.seguir(a[13], a[5]);
+			IUC.seguir(a[13], a[6]);
+			IUC.seguir(a[13], a[14]);
+			IUC.seguir(a[13], a[15]);
+			IUC.seguir(a[13], a[16]);
+			IUC.seguir(a[14], a[8]);
+			IUC.seguir(a[14], a[13]);
+			IUC.seguir(a[15], a[8]);
+			IUC.seguir(a[15], a[13]);
+			IUC.seguir(a[16], a[6]);
+			IUC.seguir(a[16], a[8]);
+			IUC.seguir(a[17], a[5]);
+			IUC.seguir(a[17], a[6]);
+			IUC.seguir(a[17], a[8]);
+			IUC.seguir(a[17], a[14]);
+			IUC.seguir(a[17], a[15]);
+			IUC.seguir(a[17], a[16]);
+			
+			
+			//CATEGORIAS
+			IADC.ingresarCatergoria(new DtCategoria("Al aire libre"));
+			IADC.ingresarCatergoria(new DtCategoria("Deportes"));
+			IADC.ingresarCatergoria(new DtCategoria("Fitness"));
+			IADC.ingresarCatergoria(new DtCategoria("Gimnasia"));
+			
+			//CATEGOIRAS DE LAS ACTDEP
+			Set<String> A1cat = new HashSet<>(); A1cat.add("Fitness");
+			Set<String> A2cat = new HashSet<>(); A2cat.add("Gimnasia"); A2cat.add("Deportes");
+			Set<String> A3cat = new HashSet<>(); A3cat.add("Al aire libre");
+			Set<String> A4cat = new HashSet<>(); A4cat.add("Deportes");
+			Set<String> A5cat = new HashSet<>(); A5cat.add("Deportes");
+			Set<String> A6cat = new HashSet<>(); A6cat.add("Deportes");
+			Set<String> A7cat = new HashSet<>(); A7cat.add("Fitness");
+			Set<String> A8cat = new HashSet<>(); A8cat.add("Gimnasia");
+			Set<String> A9cat = new HashSet<>(); A9cat.add("Deportes"); A9cat.add("Al aire libre");
+			Set<String> A10cat = new HashSet<>();A10cat.add("Gimnasia");
+			
 			// ALTA ACTIVIDAD DEPORTIVA
 	        // Aparatos y pesas #A1
 			IADC.ingresarDatosActividadDep("Fuerza Bruta", new DtActividadDeportiva("Aparatos y pesas",
-					"Clases de aparatos, pesas y calistenia.", 90, 550, new DtFecha(2021,3,31,0,0,0)));
+					"Clases de aparatos, pesas y calistenia.", 90, 550, new DtFecha(2021,3,31,0,0,0), null, TEstado.aceptada, "viktor"));
 			// Voleibol #A2
 			IADC.ingresarDatosActividadDep("Telón", new DtActividadDeportiva("Voleibol",
-					"Voleibol en todas sus formas.", 120, 750, new DtFecha(2021,4,20,0,0,0)));
+					"Voleibol en todas sus formas.", 120, 750, new DtFecha(2021,4,20,0,0,0), null, TEstado.aceptada, "denis"));
 			// Aeróbica #A3
 			IADC.ingresarDatosActividadDep("Instituto Natural", new DtActividadDeportiva("Aeróbica",
-					"Para cuidar el aparato cardiovascular.", 110, 800, new DtFecha(2021,5,30,0,0,0)));
+					"Para cuidar el aparato cardiovascular.", 110, 800, new DtFecha(2021,5,30,0,0,0), null, TEstado.aceptada, "Administrador"));
 			// Kickboxing #A4
 			IADC.ingresarDatosActividadDep("Fuerza Bruta", new DtActividadDeportiva("Kickboxing",
-					"En busca del nuevo campeón de boxeo.", 100, 980, new DtFecha(2021,6,7,0,0,0)));
+					"En busca del nuevo campeón de boxeo.", 100, 980, new DtFecha(2021,6,7,0,0,0), null, TEstado.aceptada, "TheBoss"));
 			// Atletismo #A5
 			IADC.ingresarDatosActividadDep("Telón", new DtActividadDeportiva("Atletismo",
-					"100m , 200m, postas y carreras con obstaculos.", 150, 500, new DtFecha(2021,7,8,0,0,0)));
+					"100m , 200m, postas y carreras con obstaculos.", 150, 500, new DtFecha(2021,7,8,0,0,0), null, TEstado.aceptada, "denis"));
 			// Basquetbol #A6
 			IADC.ingresarDatosActividadDep("Telón", new DtActividadDeportiva("Basquetbol",
-					"Espectáculo conmemorando los 30 años de Violeta.", 80, 450, new DtFecha(2021,7,31,0,0,0)));
-	        
+					"Espectáculo conmemorando los 30 años de Violeta.", 80, 450, new DtFecha(2021,7,31,0,0,0), null, TEstado.aceptada, "Nelson"));
+	        // AparatosII #A7
+			IADC.ingresarDatosActividadDep("Fuerza Bruta", new DtActividadDeportiva("Aparatos II",
+					"Clases de aparatos avanzadas.", 60, 1500, new DtFecha(2021,8,15,0,0,0), null, TEstado.rechazada, "Administrador"));
+			// Pilates #A8
+			IADC.ingresarDatosActividadDep("Instituto Natural", new DtActividadDeportiva("Pilates",
+					"El Método Pilates combina diferentes capacidades físicas.", 45, 600, new DtFecha(2021,8,30,0,0,0), null, TEstado.ingresada, "clazar"));
+			// VoleibolII #A9
+			IADC.ingresarDatosActividadDep("Telón", new DtActividadDeportiva("Voleibol II",
+					"Voleibol avanzado.", 120, 1000, new DtFecha(2021,9,1,0,0,0), null, TEstado.rechazada, "denis"));
+			// BasquetbolII #A10
+			IADC.ingresarDatosActividadDep("Telón", new DtActividadDeportiva("Basquetbol II",
+					"Basequetbol avanzado.", 80, 600, new DtFecha(2021,9,7,0,0,0), null, TEstado.ingresada, "denis"));
+			
 	        // ALTA CLASE
 	        // Calistenia #C1
 	        IDCC.ingresarDatosClase("Fuerza Bruta", "Aparatos y pesas", new DtClase("Calistenia", "viktor", "viktor", 
@@ -623,6 +726,15 @@ public class Menu {
 	        		10, new DtFecha(2021,8,1,0,0,0));
 	        IDC.agregarActividadCuponera("Músculos", "Fuerza Bruta", "Kickboxing", 11);
 	        IDC.agregarActividadCuponera("Músculos", "Fuerza Bruta", "Aparatos y pesas", 12);
+	        
+	        // COMPRA CUPONERAS
+	        IUC.comprarCuponera("Pelota","guille",new DtFecha());
+	        IUC.comprarCuponera("Gimnasia","m1k4",new DtFecha());
+	        IUC.comprarCuponera("Gimnasia","caro",new DtFecha());
+	        IUC.comprarCuponera("Músculos","sergiop",new DtFecha());
+	        IUC.comprarCuponera("Músculos","andy",new DtFecha());
+	        IUC.comprarCuponera("Pelota","Emi71",new DtFecha());
+	        
 	        
 	        // REGISTRO A CLASE
         	// #R1
@@ -787,6 +899,9 @@ public class Menu {
 			JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
         			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
 		} catch (CuponeraInmutableException e) {
+			JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
+	    			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
+		} catch (CategoriaException e) {
 			JOptionPane.showMessageDialog(escritorio, "Ha ocurrido un error durante la carga de casos de prueba: " +
 	    			e.getMessage(), "Info", JOptionPane.ERROR_MESSAGE);
 		}

@@ -10,6 +10,8 @@
 package logica;
 
 import java.util.Set;
+
+import datatypes.DtFecha;
 import datatypes.DtUsuario;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
@@ -31,4 +33,5 @@ public interface IUsuarioController {
 	
 	public void dejarDeSeguir(String seguidor, String seguido) throws UsuarioNoExisteException ;
 
+	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException;
 }

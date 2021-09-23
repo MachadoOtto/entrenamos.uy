@@ -5,15 +5,34 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class DtProfesorExt extends DtProfesor{
+public class DtProfesorExt extends DtUsuarioExt{
 
 	private Map<String,Set<String>> x;
+	private String nombreInstitucion, descripcion, biografia, link;
 	
-	public DtProfesorExt (String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, Map<String,Set<String>> actxClase, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidosCorreo, Set<String> seguidoresNickname, Set<String> seguidoresCorreo) {
-		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, nombreInstitucion, descripcion, biografia, link, imagen,  seguidosNickname, seguidosCorreo, seguidoresNickname, seguidoresCorreo); 
+	public DtProfesorExt (String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, Map<String,Set<String>> actxClase, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidoresNickname) {
+		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento,imagen, seguidosNickname, seguidoresNickname); 
 		x = actxClase;
+		this.nombreInstitucion = nombreInstitucion;
+		this.descripcion = descripcion;
+		this.biografia = biografia;
+		this.link = link;
+	}
+	public String getNombreInstitucion() {
+		return this.nombreInstitucion;
 	}
 	
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+	
+	public String getBiografia() {
+		return this.biografia;
+	}
+	
+	public String getLink() {
+		return this.link;
+	}
 	public Set<String> getActividadesDepAsociadas(){
 		return x.keySet();
 	}

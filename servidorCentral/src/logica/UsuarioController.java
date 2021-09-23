@@ -11,6 +11,7 @@ package logica;
 
 import java.util.Set;
 import datatypes.DtUsuario;
+import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
@@ -104,8 +105,8 @@ public class UsuarioController implements IUsuarioController {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		Usuario seguidorU = hu.findUsuario(seguidor);
 		Usuario seguidoU = hu.findUsuario(seguido);
-		seguidorU.removerSeguido(seguidoU);
-		seguidoU.removerSeguidor(seguidorU);
+		seguidorU.removerSeguido(hu.findUsuario(seguido));
+		seguidoU.removerSeguidor(hu.findUsuario(seguidor));
 	}
 	
 	
@@ -130,7 +131,17 @@ public class UsuarioController implements IUsuarioController {
 		return false;	
 	}
 	
+	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException {
+		ReciboCuponera rc = new ReciboCuponera(fechaCompra, getHC().getCup(cuponera), ((Socio) getHU().findUsuario(socio)));
+		((Socio) getHU().findUsuario(socio)).addReciboCuponera(rc);
+		getHC().getCup(cuponera).addRecibo(rc);
+	}
+	
 	private HandlerUsuario getHU() {
 		return HandlerUsuario.getInstance();
 	}
+	private HandlerCuponera getHC() {
+		return HandlerCuponera.getInstance();
+	}
+
 }

@@ -559,9 +559,9 @@ public class AltaUsuario extends JInternalFrame {
 			 */
 			DtUsuario datosUser;
 			if(tipoU == "Profesor")
-				datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, contrasenia, new DtFecha(anioU,mesU,diaU,0,0,0),institutoU, descripcionU,biografiaU,websiteU,null,new HashSet<>(),new HashSet<>(),new HashSet<>(),new HashSet<>());
+				datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, contrasenia, new DtFecha(anioU,mesU,diaU,0,0,0),institutoU, descripcionU,biografiaU,websiteU,null);
 			else //Se asume que si no es profesor es socio
-				datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, contrasenia, new DtFecha(anioU,mesU,diaU,0,0,0),null,new HashSet<>(),new HashSet<>(),new HashSet<>(),new HashSet<>());
+				datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU, contrasenia, new DtFecha(anioU,mesU,diaU,0,0,0),null);
 			if(controlUsr.ingresarDatosUsuario(datosUser) != 0) {
 				JOptionPane.showMessageDialog(this, "Ya existe un usuario con los datos ingresados.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
 				return 1;

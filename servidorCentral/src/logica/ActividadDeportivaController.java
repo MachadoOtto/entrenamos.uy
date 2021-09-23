@@ -10,7 +10,7 @@ import excepciones.ActividadDeportivaException;
 import excepciones.CategoriaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
-
+import excepciones.UsuarioNoExisteException;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtCategoria;
@@ -52,7 +52,11 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			inst.addActividadDeportiva(datosAD,cat);
+			try {
+				inst.addActividadDeportiva(datosAD,cat,(Profesor)getHU().findUsuario(datosAD.getCreador()));
+			} catch (UsuarioNoExisteException e) {
+				e.printStackTrace();
+			}
 			return true;
 		}
 		return false;

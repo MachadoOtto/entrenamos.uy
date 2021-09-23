@@ -109,7 +109,7 @@ public class Profesor extends Usuario {
     		}
     	}
     	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,instituto.getNombre(),
-    			descripcion,biografia,website,x,imagen);
+    			descripcion,biografia,website,x,imagen,this.getSeguidos().keySet(),this.getSeguidores().keySet());
     	return datosExt;
     }
     

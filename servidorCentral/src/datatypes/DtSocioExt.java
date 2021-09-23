@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-public class DtSocioExt extends DtSocio {
+public class DtSocioExt extends DtUsuarioExt{
 	
 	private Map<String,Set<String>> x;
 	
-	public DtSocioExt(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, Map<String,Set<String>> clases, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidosCorreo, Set<String> seguidoresNickname, Set<String> seguidoresCorreo ){
-		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen, seguidosNickname, seguidosCorreo, seguidoresNickname, seguidoresCorreo);
+	public DtSocioExt(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, Map<String,Set<String>> clases, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidoresNickname){
+		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen, seguidosNickname, seguidoresNickname);
 		this.x = clases;
 	}
 	

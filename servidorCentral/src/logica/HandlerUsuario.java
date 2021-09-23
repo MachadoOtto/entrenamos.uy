@@ -14,6 +14,10 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import datatypes.DtFecha;
+import datatypes.DtProfesor;
+
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.HashSet;
@@ -30,10 +34,20 @@ public class HandlerUsuario {
 	private Map<String, Usuario> usuarios;
 	
 	private Set<String> correos;
+	private Profesor adminProf;
+	private Set<String> nicksProhibidos;
 	
 	private HandlerUsuario() {
 		usuarios = new HashMap<>();
 		correos = new HashSet<>();
+		nicksProhibidos = new HashSet<>();
+		nicksProhibidos.add("admin");
+		nicksProhibidos.add("Admin");
+		nicksProhibidos.add("Administrador");
+		nicksProhibidos.add("administrador");
+		nicksProhibidos.add("Vasílev");
+		nicksProhibidos.add("Jesús");
+		adminProf = new Profesor(new DtProfesor("Administrador", "Administrador", "Administrador","Administrador","Administrador",new DtFecha(),"Administrador","Administrador","Administrador","Administrador", null));
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
@@ -61,8 +75,12 @@ public class HandlerUsuario {
 	}
 	
 	public Usuario findUsuario(String userNick) throws UsuarioNoExisteException {
+		if(userNick=="Administrador")
+			//Devuelve al administrador(profesor)
+			return adminProf;
 		Usuario res = usuarios.get(userNick);
 		if (res == null) {
+			log.info("WARNING: Tried to get non existent user "+userNick);
 			throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
 		}
 		return res;
@@ -73,8 +91,9 @@ public class HandlerUsuario {
 				return x.getValue();
 		throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
 	}
+	
 	public boolean existeNick(String userNick) {
-		return usuarios.containsKey(userNick);
+		return usuarios.containsKey(userNick) || nicksProhibidos.contains(userNick);
 	}
 	
 	public boolean existeCorreo(String userCorreo) {

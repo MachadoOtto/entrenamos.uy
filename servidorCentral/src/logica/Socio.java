@@ -74,7 +74,7 @@ public class Socio extends Usuario {
     			}
     		}
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), x, this.getImagen());
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), x, this.getImagen(),this.getSeguidos().keySet(),this.getSeguidores().keySet());
     	return datosExt;
     }
 	
@@ -122,4 +122,5 @@ public class Socio extends Usuario {
 			throw new ClaseException("Este Usuario ya esta inscripto a esta Clase.");
 		}
 	}
+
 }
