@@ -66,6 +66,11 @@
     justify-content: flex-start;
  }
  
+#user-superior-botones {
+
+  	padding-left: 20px;
+}
+ 
  #img-perfil {
   	border-style: solid;
   	border-width: 2px;
