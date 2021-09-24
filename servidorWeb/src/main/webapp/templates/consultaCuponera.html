@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <!--NUESTRO CSS-->
     <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/cup.css">
 
     <title>Entrenamos.uy</title>
   </head>
@@ -20,7 +21,7 @@
     <!--BARRA DE NAVEGACION-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="home.html">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="#">
                 <img src="./img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
@@ -51,21 +52,7 @@
 
     <!--CUERPO DE LA PAGINA WEB-->
     <div class="container-fluid mt-4">
-
-      <div class="row mb-5 mx-3 mx-md-5">
-        <div class="bienvenida p-5">
-          <div class="texto-bienvenida">
-            <h1>Bienvenido a Entrenamos.uy!</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
-            Donec non euismod nulla. Vivamus malesuada mattis volutpat. Nam at pellentesque dolor. Quisque tristique turpis faucibus, mattis
-            neque at, hendrerit massa. Vivamus quis ex rhoncus, tempor risus id, ullamcorper metus. Integer sagittis ut nisi egestas fringilla.
-            Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed consectetur eu eros accumsan fermentum. Phasellus ligula enim, semper 
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mx-3 mx-md-5">
+	  <div class="row mx-3 mx-md-5">
         <div class="ins-cat col-3">
           <nav class="ins-cat-section nav flex-column">
             <h1 class="fs-5">Instituciones</h1>
@@ -82,34 +69,149 @@
             <a class="nav-link" href="#">Gimnasia</a>
           </nav>
         </div>
-        <div class="actdep-panel col-6 ms-2 ms-sm-1 ms-md-0">
-          <div class="actDep row mb-4">
-            <img src="./img/crossFit.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>CrossFit</b> es una tecnica de entrenamiento que
-            conecta movimientos de diferentes disciplinas, tales
-            como la halterofilia, el entrenamiento metabolico o
-            el gimnastico. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
-          <div class="actDep row mb-4">
-            <img src="./img/yogaImg.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Yoga</b> es una practica que conecta el cuerpo,
-            la respiracion y la mente. Esta practica utiliza posturas fisicas, ejercicios de respiracion
-            y meditacion. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
-          <div class="actDep row mb-4">
-            <img src="./img/futbol11.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Futbol 11</b> y el deporte en general es una herramienta
-            educativa que brinda un aprendizaje en valores y habilidades blandas que se cohesionan con el 
-            aprendizaje y la practica deportiva. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
+        
+        
+        <div id="user-general" class="col-sm-7">
+   	       <div id="nombreCup">
+    	   </div>
+ 	       <div class = "row" >
+  		      	<div class = "col-2" id= "coco" >
+						<img alt="Qries" src="https://scontent.fmvd2-1.fna.fbcdn.net/v/t1.18169-9/1902786_902621433082265_3643431511609119360_n.png?_nc_cat=103&ccb=1-5&_nc_sid=9267fe&_nc_ohc=X813T64SVPYAX9sJClh&_nc_ht=scontent.fmvd2-1.fna&oh=37ecb7a0b2923087969e15a58a04e045&oe=616E66CF"
+			         width="80" height="80">
+        		</div>
+        		<div class = "col-1">
+    	    	</div>
+        		<div class = "col-5" id= "comprar">
+        			<h2><strong> Cuponera</strong> </h2>
+    	    	</div>
+    	    	<div class = "col-3" id= "coco"> 
+					<button type="button" class="btn btn-primary" id="boto">
+			            	Comprar
+			        </button>		   
+    	    	</div>
+          </div>   
+          <div class = "row">
+        	<div class = "col-8"id= "coco"> 
+        	 <div class="card-body">
+        	 	  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0"><strong>Descripcion:</strong></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      rem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
+                    Donec non euismod nulla.
+                    </div>
+                  </div>
+                    
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0" id= "valido"><strong>Valido:</strong></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary" id= "valido">
+                      11/22/3333 - 12/22/3333
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0"><strong>Precio:</strong></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                          $6969
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0"><strong>Descuento:<strong></strong></strong></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      13%
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0"><strong>Fecha de registro::</strong></h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      10/22/3333 00:00
+                    </div>
+                  </div>  
+                        
+        	</div>
+        	
+
+         </div>
+         	<div class = "col-sm-4"id= "coco">
+         	
+         	<div class = "row" id = "acts">
+         		<div class = "row" id = "act">
+         			<h6>Actividades Deportivas</h6>
+         		</div>
+         		<div class = "row">
+         			<div class = "col">
+         				<img class= "im" alt="Qries" src="./img/crossFit.jpg"
+			         width="50" height="50">
+         			</div>
+         			<div class = "col" id = "act2">
+         				Crossfit
+         			</div>
+         			
+         		</div>
+         		<div class = "row" >
+         			<div class = "col" ">
+         				<img class= "im" alt="Qries" src="./img/crossFit.jpg"
+			         width="50" height="50">
+         			</div>
+         			<div class = "col" id= "act2">
+         				Futbol
+         			</div>
+         		
+         		</div>
+         		<div class = "row" id ="act-ultima">
+         			<div class = "col">
+         				<img class= "im" alt="Qries" src="./img/crossFit.jpg"
+			         width="50" height="50">
+         			</div>
+         			<div class = "col" id= "act2">
+         				Volleyball
+         			</div>
+         			
+         		</div>
+         	</div> 
+         	
+         	
+         	<div class = "row" id= "cats">
+         		<div class = "row" id= "cat">
+         			<h6>Categorias</h6>
+         		</div>
+         		<div class = "row" id= "cat2">
+         			Gimnasia
+         		</div>
+         		<div class = "row" id= "cat2">
+         			Al aire libre
+         		</div>
+         		<div class = "row" id= "cat2">
+         			Fuerza
+         		</div>
+         	</div>           	
+         	 	
+       
+        	</div>	 	
+        	
         </div>
-        <div class="col-3 ps-1 ps-sm-2">
+        </div>
+        
+
+
+        <div class="col-2 ps-1 ps-sm-2" id = "der">
           <nav class="nav-info nav flex-column">
             <h1 class="fs-5">Informacion</h1>
-            <a class="nav-link active" aria-current="page" href="usuarios.html">Usuarios</a>
-            <a class="nav-link" href="actividadesDeportivas.html">Actividades</a>
-            <a class="nav-link" href="clases.html">Clases</a>
-            <a class="nav-link" href="cuponeras.html">Cuponeras</a>
+            <a class="nav-link active" aria-current="page" href="#">Usuarios</a>
+            <a class="nav-link" href="#">Actividades</a>
+            <a class="nav-link" href="#">Clases</a>
+            <a class="nav-link" href="#">Cuponeras</a>
           </nav>
         </div>
       </div>
