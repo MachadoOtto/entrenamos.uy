@@ -7,4 +7,7 @@
 /servidorCentral/.project
 /servidorCentral/.classpath
 /servidorCentral/.settings
+/estacionDeTrabajo/bin/
 /Front-End/.vscode
+/servidorWeb/build/
+.directory
