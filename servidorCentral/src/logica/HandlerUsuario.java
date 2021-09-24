@@ -48,7 +48,7 @@ public class HandlerUsuario {
 		nicksProhibidos.add("Vasílev");
 		nicksProhibidos.add("Jesús");
 		adminProf = new Profesor(new DtProfesor("Administrador", "Administrador", "Administrador","Administrador","Administrador",new DtFecha(),"Administrador","Administrador","Administrador","Administrador", null));
-		log = Logger.getLogger(HandlerInstitucion.class.getName());
+		log = Logger.getLogger("LoggerVasileano");
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
 		log.addHandler(handler);
@@ -104,13 +104,13 @@ public class HandlerUsuario {
 		return usuarios.keySet();
 	}
 	
-	public Set<String> obtenerNicknameSocios() {
+	public Set<String> obtenerNicknameSocios(){ 
 		Set<String> resultado = new HashSet<>();
 		Collection<Usuario> userCollection = usuarios.values();
 		Iterator<Usuario> itUser = userCollection.iterator();
 		while (itUser.hasNext()) {
 			Usuario userAux = itUser.next();
-			if (userAux.esSocio()) {
+			if (userAux instanceof Socio) {
 				resultado.add(userAux.getNickname());
 			}
 		}

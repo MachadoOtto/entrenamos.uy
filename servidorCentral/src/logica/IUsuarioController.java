@@ -13,6 +13,8 @@ import java.util.Set;
 
 import datatypes.DtFecha;
 import datatypes.DtUsuario;
+import datatypes.DtUsuarioExt;
+import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
@@ -25,7 +27,8 @@ public interface IUsuarioController {
 	
 	public int ingresarDatosUsuario(DtUsuario datoUser) throws InstitucionException;
 	
-	public DtUsuario seleccionarUsuario(String userNick) throws UsuarioNoExisteException;
+	public DtUsuarioExt seleccionarUsuario(String userNick) throws UsuarioNoExisteException;
+	public DtUsuarioExt seleccionarUsuarioEmail(String userEmail) throws UsuarioNoExisteException;
 	
 	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException;
 	
@@ -33,5 +36,8 @@ public interface IUsuarioController {
 	
 	public void dejarDeSeguir(String seguidor, String seguido) throws UsuarioNoExisteException ;
 
-	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException;
+	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException, CuponeraNoExisteException;
+	
+	public boolean verificarIdentidadEmail(String email, String pass);
+	public boolean verificarIdentidadNickname(String nick,String pass);
 }

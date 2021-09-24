@@ -40,18 +40,6 @@ public abstract class Usuario {
         seguidos = new HashMap<>();
         seguidores = new HashMap<>();
     }
-
-    public Usuario(String nick, String nombre, String apellido, String correo, String contrasenia, DtFecha fecha, byte[] imagen,Map<String,Usuario> following,Map<String,Usuario> followers){
-        this.setNickname(nick);
-    	this.setNombre(nombre);
-        this.setApellido(apellido);
-        this.setCorreo(correo);
-        this.contrasenia = contrasenia;
-        this.setFecha(fecha);
-        this.setImagen(imagen);
-        seguidos = following;
-        seguidores = followers;
-    }
     
     private void setNickname(String nick) {
     	this.nickname = nick;
@@ -120,8 +108,6 @@ public abstract class Usuario {
     public boolean esSeguido(String x) {
     	return seguidores.containsKey(x);
     }
-    
-    public abstract boolean esSocio();
 
     public void editarDatos(DtUsuario datos) {
     	this.setNombre(datos.getNombre());
@@ -142,7 +128,7 @@ public abstract class Usuario {
     }
     
     public void removerSeguido(Usuario u) {
-    	seguidores.remove(u.getNickname());
+    	seguidos.remove(u.getNickname());
     }
     
 }

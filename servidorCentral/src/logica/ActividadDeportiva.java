@@ -39,10 +39,10 @@ public class ActividadDeportiva {
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
 		cats = cat;
 		creador = c;
+		estado = x.getEstado(); 
 		crearHandler();
 	}
 	private void crearHandler() {
-		estado = TEstado.ingresada; 
 		clases = new HashMap<>();
 		clCuponera= new HashMap<>();
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
@@ -71,7 +71,7 @@ public class ActividadDeportiva {
 		log.info("ActDep "+nombre+" event: "+" new clase "+cl.getNombre());
 		return 0;
 	}
-
+/* FUNCIONES LEGACY (NO SE UTILIZAN)
 	public DtActividadDeportiva getDt(){
 		Set<String> c = new HashSet<String>(cats.keySet());
 		DtActividadDeportiva x = new DtActividadDeportiva(nombre, descripcion, duracionMinutos, costo, fechaRegistro,c,estado,creador.getNickname());
@@ -84,9 +84,6 @@ public class ActividadDeportiva {
 	public Profesor getCreador() {
 		return creador;
 	}
-	public Set<String> getNombreClases(){
-		return clases.keySet();		
-	}
 	
 	public Set<DtClase> getDatosClases() {
 		Set<DtClase> resultado = new HashSet<>();
@@ -94,16 +91,11 @@ public class ActividadDeportiva {
 			resultado.add(x.getValue().getDt());
 		return resultado;
 	}
-	
-	/* Migue Watafa: Esto no se usa nunca!!
-	public void modificarDatos(DtActividadDeportiva datosAD) {	
-		nombre = datosAD.getNombre();
-		descripcion = datosAD.getDescripcion();
-		duracionMinutos = datosAD.getDuracionMinutos();
-		costo = datosAD.getCosto();
-		fechaRegistro = datosAD.getFechaRegistro();
-	} */
-	
+*/
+	public Set<String> getNombreClases(){
+		return clases.keySet();		
+	}
+		
 	public Clase findClase(String c) throws ClaseException {	
 		Clase res = clases.get(c);
 		if (res == null) {
@@ -145,5 +137,19 @@ public class ActividadDeportiva {
 		x.addAll(cats.values());
 		return x;
 	}
-
+	public Map <String, ClasesCuponera> getClaseCuponeras(){
+		return clCuponera;
+	}
 }
+
+
+
+
+/* Migue Watafa: Esto no se usa nunca!!
+public void modificarDatos(DtActividadDeportiva datosAD) {	
+	nombre = datosAD.getNombre();
+	descripcion = datosAD.getDescripcion();
+	duracionMinutos = datosAD.getDuracionMinutos();
+	costo = datosAD.getCosto();
+	fechaRegistro = datosAD.getFechaRegistro();
+} */

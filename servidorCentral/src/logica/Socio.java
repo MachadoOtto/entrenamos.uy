@@ -42,11 +42,6 @@ public class Socio extends Usuario {
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
 	}
-
-	//Guille: ...
-	public boolean esSocio() {
-		return true;
-	}
 	
 	public void addReciboCuponera(ReciboCuponera rCup) {
 		reciboCuponeras.add(rCup);
@@ -74,7 +69,11 @@ public class Socio extends Usuario {
     			}
     		}
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), x, this.getImagen(),this.getSeguidos().keySet(),this.getSeguidores().keySet());
+    	Set<String> cupis = new HashSet<>();
+    	for(ReciboCuponera r : reciboCuponeras) {
+    		cupis.add(r.getCuponera().getNombre());
+    	}
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), x, this.getImagen(),this.getSeguidos().keySet(),this.getSeguidores().keySet(),cupis);
     	return datosExt;
     }
 	
@@ -86,7 +85,7 @@ public class Socio extends Usuario {
 		return reciboClases;
 	}
 	
-	public void inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t, DtFecha reg) throws NoExisteCuponeraException, 
+	public void inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t, DtFecha reg,Cuponera c) throws NoExisteCuponeraException, 
 			ClaseException {
 		boolean noEstaInsc = true;
 		for (ReciboClase res: reciboClases) {
@@ -100,27 +99,22 @@ public class Socio extends Usuario {
 				reciboClases.add(nuevoRecibo);
 				cl.addRecibo(nuevoRecibo);	
 			} else {
-				for (ReciboCuponera y: reciboCuponeras) {
-					Cuponera cupActual = y.getCuponera();
-					if (cupActual.tieneActividadDeportiva(actDep)) {
-						int cantidadClases = 0;
-						for (ReciboClase x: reciboClases) {
-							if ((x.getCuponera() == cupActual) && (x.tieneActividadDeportiva(actDep))) {
-								cantidadClases++;
-							}
-						}
-						if (cantidadClases < cupActual.cantidadClases(actDep)) {
-							ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),cl,this,cupActual);
-							reciboClases.add(nuevoRecibo);
-							cl.addRecibo(nuevoRecibo);
-						}
-					}
-				}
-				throw new NoExisteCuponeraException("Este Usuario no presenta Cuponeras validas para esta Clase.");
+				int i=0;
+				for (ReciboClase y: reciboClases)
+					if(y.esTipoCuponera() && y.getCuponera()==c)
+						i++;
+				if(i>=c.cantidadClases(actDep))
+					throw new NoExisteCuponeraException("La cuponera seleccionada no es válida.");
+				ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),cl,this,c);
+				reciboClases.add(nuevoRecibo);
+				cl.addRecibo(nuevoRecibo);
 			}
 		} else {
 			throw new ClaseException("Este Usuario ya esta inscripto a esta Clase.");
 		}
 	}
-
 }
+
+
+
+

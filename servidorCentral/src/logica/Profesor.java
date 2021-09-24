@@ -11,6 +11,8 @@ package logica;
 import datatypes.DtProfesor;
 
 import datatypes.DtProfesorExt;
+import datatypes.TEstado;
+
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
@@ -21,16 +23,7 @@ public class Profesor extends Usuario {
 	private String descripcion, biografia, website;
 	private Institucion instituto;
 	private Map<String, Clase> misClases;
-	
-	/* No se usa constructor
-	public Profesor(String nick, String nombre, String apellido, String mail, DtFecha fecha, String descripcion, String biografia, String website) {
-		super(nick, nombre, apellido, mail, fecha);
-		this.setDescripcion(descripcion);
-		this.setBiografia(biografia);
-		this.setWebsite(website);
-		instituto = null;
-		misClases = new HashMap<>();
-	} */
+	private Map<String, ActividadDeportiva> misActividadesIngresadas;
 	
 	public Profesor(DtProfesor datos) {
 		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getContrasenia(), datos.getFechaNacimiento(), datos.getImagen());
@@ -39,12 +32,9 @@ public class Profesor extends Usuario {
 		this.setWebsite(datos.getLink());
 		instituto = null;
 		misClases = new HashMap<>();
+		misActividadesIngresadas = new HashMap<>();
 	}
-	
-	public boolean esSocio() {
-		return false;
-	}
-	
+		
 	private void setDescripcion(String desc) {
 		this.descripcion = desc;
 	}
@@ -70,7 +60,9 @@ public class Profesor extends Usuario {
 			return true;
 		}
 	}
-	
+	public void addActDep(ActividadDeportiva d) {
+		misActividadesIngresadas.put(d.getNombre(), d);
+	}
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -90,26 +82,29 @@ public class Profesor extends Usuario {
 	public Map<String, Clase> getClasesDictadas() {
 		return misClases;
 	}
-	
+	/* DISABLED OPERATION
 	public DtProfesor getDt() {
 		DtProfesor datos = new DtProfesor(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website,imagen);
 		return datos;
 	}
-	
+	*/
     public DtProfesorExt getDtExt() {
     	Set<String> clasesDictadas = new HashSet<>(misClases.keySet());
+    	Map<String, TEstado> adm = new HashMap<>();
     	Map<String,Set<String>> x = new HashMap<>();
     	for(String aa: instituto.getMiTrabajo(this)) {
     		Set<String> y = new HashSet<>();
     		x.put(aa,y);
     		for(String c: clasesDictadas) {
-    			if(misClases.get(c).tieneActividadDeportiva(aa)) {
+    			if(getClasesDictadas().get(c).tieneActividadDeportiva(aa)) {
     				y.add(c);
     			}
     		}
     	}
-    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,instituto.getNombre(),
-    			descripcion,biografia,website,x,imagen,this.getSeguidos().keySet(),this.getSeguidores().keySet());
+    	for(ActividadDeportiva ad : misActividadesIngresadas.values())
+    		adm.put(ad.getNombre(), ad.getEstado());
+    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,getInstitucion().getNombre(),
+    			getDescripcion(),getBiografia(),getWebsite(),x,imagen,this.getSeguidos().keySet(),this.getSeguidores().keySet(),adm);
     	return datosExt;
     }
     

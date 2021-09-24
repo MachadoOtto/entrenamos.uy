@@ -11,12 +11,13 @@ package logica;
 
 import java.util.Set;
 import datatypes.DtUsuario;
+import datatypes.DtUsuarioExt;
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
-
+import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
@@ -69,7 +70,7 @@ public class UsuarioController implements IUsuarioController {
 	}
 	
 	// Ver la nota ATENCION mas arriba.
-	public DtUsuario seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
+	public DtUsuarioExt seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
 		HandlerUsuario hu = HandlerUsuario.getInstance();
 		Usuario user = hu.findUsuario(userNick);
 		if (user instanceof Socio) {
@@ -80,7 +81,18 @@ public class UsuarioController implements IUsuarioController {
 			return dtExt;
 		}
 	}
-	
+	public DtUsuarioExt seleccionarUsuarioEmail(String userEmail) throws UsuarioNoExisteException{
+		for(String x: getHU().getNicknameUsuarios()) {
+			try {
+				DtUsuarioExt y = seleccionarUsuario(x);
+				if(y.getEmail()==userEmail)
+					return y;
+			}
+			catch (Exception ignore) {}
+		}
+		throw new UsuarioNoExisteException(userEmail);
+	}
+
 	// Ver la nota ATENCION mas arriba.
 	// Precaucion: Esta funcion no edita/ ni reemplaza la Institucion que tiene Profesor asignada.
 	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException {
@@ -101,12 +113,9 @@ public class UsuarioController implements IUsuarioController {
 		seguidoU.agregarSeguidor(seguidorU);
 	}
 	
-	public void dejarDeSeguir(String seguidor, String seguido) throws UsuarioNoExisteException {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		Usuario seguidorU = hu.findUsuario(seguidor);
-		Usuario seguidoU = hu.findUsuario(seguido);
-		seguidorU.removerSeguido(hu.findUsuario(seguido));
-		seguidoU.removerSeguidor(hu.findUsuario(seguidor));
+	public void dejarDeSeguir(String s1, String s2) throws UsuarioNoExisteException {
+		getHU().findUsuario(s1).removerSeguido(getHU().findUsuario(s2));
+		getHU().findUsuario(s2).removerSeguidor(getHU().findUsuario(s1));
 	}
 	
 	
@@ -131,7 +140,7 @@ public class UsuarioController implements IUsuarioController {
 		return false;	
 	}
 	
-	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException {
+	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException,CuponeraNoExisteException{
 		ReciboCuponera rc = new ReciboCuponera(fechaCompra, getHC().getCup(cuponera), ((Socio) getHU().findUsuario(socio)));
 		((Socio) getHU().findUsuario(socio)).addReciboCuponera(rc);
 		getHC().getCup(cuponera).addRecibo(rc);

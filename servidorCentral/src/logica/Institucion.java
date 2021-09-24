@@ -31,7 +31,7 @@ public class Institucion {
     private Map<String, ActividadDeportiva> actsDeps;
     private Set<Profesor> profesores;
 	private Logger log;
-    public Institucion(String n, String u, String d) {
+    public Institucion(String n, String d, String u) {
         this.nombre = n;
         this.URL = u;
         this.descripcion = d;
@@ -132,6 +132,6 @@ public class Institucion {
 	}
 	
 	public DtInstitucion obtenerDatos() {
-		return new DtInstitucion(nombre, descripcion, URL);
+		return new DtInstitucion(nombre, getDescripcion(), getURL());
 	}
 }

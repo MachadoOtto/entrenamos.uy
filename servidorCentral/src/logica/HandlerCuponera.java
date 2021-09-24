@@ -23,7 +23,7 @@ public class HandlerCuponera {
 	private HandlerCuponera(){
 		cuponeras = new HashMap<>();
 		
-		log = Logger.getLogger(HandlerInstitucion.class.getName());
+		log = Logger.getLogger("LoggerVasileano");
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
 		log.addHandler(handler);

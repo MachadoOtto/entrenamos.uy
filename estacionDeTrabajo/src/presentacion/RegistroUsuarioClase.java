@@ -75,6 +75,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
 	// JButton:
 	private JButton btnAceptar;
     private JButton btnLimpiar;
+    private JComboBox<String> boxNombreCup;
     
     /* Crear frame */
 	public RegistroUsuarioClase(IDictadoClaseController idcc) {
@@ -94,7 +95,7 @@ public class RegistroUsuarioClase extends JInternalFrame {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 60, 60, 60, 30, 10 };
 	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
-	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 	    getContentPane().setLayout(gridBagLayout);
         
@@ -148,6 +149,16 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_lblSeleccionTipo.gridx = 1;
         gbc_lblSeleccionTipo.gridy = 8;
         getContentPane().add(lblSeleccionTipo, gbc_lblSeleccionTipo);
+        
+        boxNombreCup = new JComboBox<String>();
+        GridBagConstraints gbc_boxNombreCup = new GridBagConstraints();
+        gbc_boxNombreCup.gridwidth = 2;
+        gbc_boxNombreCup.insets = new Insets(0, 0, 5, 5);
+        gbc_boxNombreCup.fill = GridBagConstraints.HORIZONTAL;
+        gbc_boxNombreCup.gridx = 3;
+        gbc_boxNombreCup.gridy = 9;
+        getContentPane().add(boxNombreCup, gbc_boxNombreCup);
+        boxNombreCup.setEnabled(false);
         
         lblFechaRegistro = new JLabel("Seleccione la Fecha de Registro:");
         lblFechaRegistro.setHorizontalAlignment(SwingConstants.LEFT);
@@ -236,7 +247,9 @@ public class RegistroUsuarioClase extends JInternalFrame {
 	        			boxActividad.setEnabled(false);
 	        		}
 	            	boxActividad.setModel(modelActividad);
-        		} catch (InstitucionException ignore) { }
+        		} catch (InstitucionException e1) { 
+        			e1.printStackTrace();
+        		}
         	}
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
@@ -296,8 +309,36 @@ public class RegistroUsuarioClase extends JInternalFrame {
         gbc_boxSocio.gridx = 1;
         gbc_boxSocio.gridy = 7;
         getContentPane().add(boxSocio, gbc_boxSocio);
+        boxSocio.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		if(boxSocio.getSelectedItem()!="") {
+        			boxTipo.setSelectedItem("-");
+        			boxTipo.setEnabled(true);
+        		}
+        		else {
+        			boxTipo.setEnabled(false);
+        			boxNombreCup.removeAllItems();
+        		}
+        	}
+        });
         
         boxTipo = new JComboBox<>();
+        boxTipo.addItemListener(new ItemListener() {
+        	public void itemStateChanged(ItemEvent e) {
+        		if(boxTipo.getSelectedItem()=="General" || boxTipo.getSelectedItem()=="-")
+        			boxNombreCup.setEnabled(false);
+        		else {
+	    			DefaultComboBoxModel<String> modelCup = new DefaultComboBoxModel<>();
+	    			modelCup.addElement("-");
+	    			if (boxSocio.getSelectedItem()!="")
+		    			for(String x: idcc.getCuponerasSocioClase((String) boxSocio.getSelectedItem(), (String) boxInstitucion.getSelectedItem(),
+		    					                                  (String) boxActividad.getSelectedItem(),(String) boxClase.getSelectedItem()))
+		    				modelCup.addElement(x);
+		    			boxNombreCup.setModel(modelCup);
+		    			boxNombreCup.setEnabled(true);
+        		}
+        	}
+        });
         boxTipo.addItem("-");
         boxTipo.addItem("General");
         boxTipo.addItem("Cuponera");
@@ -370,11 +411,12 @@ public class RegistroUsuarioClase extends JInternalFrame {
             int rMes = boxRMes.getSelectedIndex();
             int rAnio = Integer.parseInt(regAnio.getText());
             DtFecha fecha = new DtFecha(rAnio, rMes, rDia, 0, 0, 0);
-            TReg x = TReg.general;
-            if (boxTipo.getItemAt(tipo) == "Cuponera")
-            	x = TReg.cuponera;
             try {
-            	controlClase.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, nombreSocio, x, fecha);
+
+                if (boxTipo.getItemAt(tipo) == "Cuponera")
+                	controlClase.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, nombreSocio, TReg.cuponera, fecha,(String)boxNombreCup.getSelectedItem());
+                else
+                	controlClase.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, nombreSocio, TReg.general, fecha,null);
             	JOptionPane.showMessageDialog(this, "La inscripcion al Dictado de la Clase ha sido exitosa", 
                 		this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
                 clear();
@@ -413,6 +455,11 @@ public class RegistroUsuarioClase extends JInternalFrame {
             JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(),
                     JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+        if( boxTipo.getSelectedItem()=="Cuponera" && boxNombreCup.getSelectedItem()=="-") {
+            JOptionPane.showMessageDialog(this, "Seleccione una cuponera. O elija tipo de registro General.", this.getTitle(),
+                    JOptionPane.ERROR_MESSAGE);
+            return false;        	
         }
         try {
             Integer.parseInt(campoAnioR);

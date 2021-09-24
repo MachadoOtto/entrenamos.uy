@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import datatypes.DtCuponera;
@@ -60,14 +61,12 @@ public class CuponeraController implements ICuponeraController {
 	}
 	
 	public Set<String> getNombreCuponerasSinRecibos(){
-		
-		 Set<String> ss = getHC().getNombreCuponeras();
-			for(String x: ss ) {
-				Boolean comprada = (getHC().getCup(x).getRc()) != null;
-				if(comprada) {
-					ss.remove(x);
-				}	
-			}
+		Set<String> ss = new HashSet<>();
+		for(String x: getHC().getNombreCuponeras()) {
+			if(getHC().getCup(x).getRc().size()==0)
+				ss.add(x);
+
+		}
 		return ss;
 	}
 }
