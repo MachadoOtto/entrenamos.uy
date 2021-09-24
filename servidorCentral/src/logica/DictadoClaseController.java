@@ -89,7 +89,7 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 	}
 	
-	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
+	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg,String cuponera) 
 			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, 
 			UsuarioNoExisteException, ActividadDeportivaException { 
 		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
@@ -103,13 +103,26 @@ public class DictadoClaseController implements IDictadoClaseController {
 		if (!fechaReg.esMenor(claseSelec.getFechaClase())) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es posterior a la Fecha en la que inicia la Clase seleccionada.");
 		}
-		((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg);
+		if (tipoRegistro==TReg.general)
+			((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg,null);
+		else{
+			((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg,getHC().getCup(cuponera));
+		}
 	}
 	
 	public Set<String> obtenerSocios() {
 		return getHU().obtenerNicknameSocios();
 	}
-
+	@Override
+	public Set<String> getCuponerasSocioClase(String nombreSocio,String nombreInst,String nombreAd,String nombreClase) {
+		Set<String> x = new HashSet<>();
+		try {
+			for(ReciboCuponera r :(((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera()))
+				if(r.getCuponera().getNombresActDep().contains(nombreAd))
+						x.add(r.getCuponera().getNombre());
+		} catch (Exception ignore) {}
+		return x;
+	}
 // Guille: Esta funcion creo que no va.
 //	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
 //		HandlerInstitucion hi = HandlerInstitucion.getInstance();
@@ -121,9 +134,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 	private static HandlerInstitucion getHI() {
 		return  HandlerInstitucion.getInstance();
 	}
-	
+	private static HandlerCuponera getHC() {
+		return  HandlerCuponera.getInstance();
+	}	
 	private static HandlerUsuario getHU() {
 		return  HandlerUsuario.getInstance();
 	}
+
 
 }

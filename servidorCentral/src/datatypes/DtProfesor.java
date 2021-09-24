@@ -13,7 +13,7 @@ public class DtProfesor extends DtUsuario{
 		this.biografia = biografia;
 		this.link = link;
 	}
-	
+	 
 	public String getNombreInstitucion() {
 		return this.nombreInstitucion;
 	}

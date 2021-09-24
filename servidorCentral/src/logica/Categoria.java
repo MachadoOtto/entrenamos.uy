@@ -24,8 +24,5 @@ public class Categoria {
 	public String getNombre() {
 		return nombre;
 	}
-	
-	public DtCategoria getDatos() {
-		return new DtCategoria(getNombre());
-	}
+
 }

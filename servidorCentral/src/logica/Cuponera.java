@@ -109,7 +109,9 @@ public class Cuponera {
 				getFechaFin(), getFechaAlta(), r,r2);
 		return x;
 	}
-
+	public void addRecibo(ReciboCuponera r) {
+		rc.add(r);
+	}
 	public List<ReciboCuponera> getRc() {
 		return rc;
 	}

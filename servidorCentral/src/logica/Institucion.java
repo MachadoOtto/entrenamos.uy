@@ -31,7 +31,7 @@ public class Institucion {
     private Map<String, ActividadDeportiva> actsDeps;
     private Set<Profesor> profesores;
 	private Logger log;
-    public Institucion(String n, String u, String d) {
+    public Institucion(String n, String d, String u) {
         this.nombre = n;
         this.URL = u;
         this.descripcion = d;
@@ -61,8 +61,8 @@ public class Institucion {
 //        actsDeps.put(datosAD.getNombre(),actDep);
 //    }
 
-    public int addActividadDeportiva(DtActividadDeportiva datosAD, Map<String, Categoria> cat) {
-        ActividadDeportiva actDep = new ActividadDeportiva(datosAD,cat);
+    public int addActividadDeportiva(DtActividadDeportiva datosAD, Map<String, Categoria> cat, Profesor creador) {
+        ActividadDeportiva actDep = new ActividadDeportiva(datosAD,cat,creador);
         if (actsDeps.containsKey(datosAD.getNombre()))
         	return 1;
 		actsDeps.put(datosAD.getNombre(), actDep);
@@ -132,6 +132,6 @@ public class Institucion {
 	}
 	
 	public DtInstitucion obtenerDatos() {
-		return new DtInstitucion(nombre, descripcion, URL);
+		return new DtInstitucion(nombre, getDescripcion(), getURL());
 	}
 }

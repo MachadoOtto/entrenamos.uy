@@ -10,7 +10,7 @@ import excepciones.ActividadDeportivaException;
 import excepciones.CategoriaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
-
+import excepciones.UsuarioNoExisteException;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtCategoria;
@@ -52,14 +52,15 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			inst.addActividadDeportiva(datosAD,cat);
+			try {
+				inst.addActividadDeportiva(datosAD,cat,(Profesor)getHU().findUsuario(datosAD.getCreador()));
+				((Profesor) getHU().findUsuario(datosAD.getCreador())).addActDep(inst.getActDep(datosAD.getNombre()));
+			} catch (UsuarioNoExisteException e) {
+				e.printStackTrace();
+			}
 			return true;
 		}
 		return false;
-	}
-	
-	public Set<String> seleccionarInstitucion(String ins) throws InstitucionException {
-		return getHI().findInstitucion(ins).obtenerNombresActDep();
 	}
 	
 	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins) throws InstitucionException {
@@ -73,10 +74,12 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				}
 			}
 		}
+		Set<String> x2 = new HashSet<>();
+		x2.addAll(x);
 		for(String q: x) {
 			try {
 				if(getHI().findInstitucion(ins).getActDep(q).getEstado()!=TEstado.aceptada)
-					x.remove(q);
+					x2.remove(q);
 			} catch (ActividadDeportivaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -85,7 +88,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				e.printStackTrace();
 			}
 		}
-		return x;
+		return x2;
 	}
 	
 	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, 

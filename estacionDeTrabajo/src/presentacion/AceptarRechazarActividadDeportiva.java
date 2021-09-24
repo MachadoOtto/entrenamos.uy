@@ -25,6 +25,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Set;
 
 import javax.swing.JFrame;
@@ -132,6 +134,28 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 				}
 			}
 		});
+        addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseEntered(MouseEvent e) {
+				panel.removeAll();
+				Set<String> ADI = IADC.obtenerActDepIngresadas();
+				if(ADI.size()!=0) {
+					JLabel lblNewLabel = new JLabel("Actividades pendientes de aprobar:");
+					scrollPane.setColumnHeaderView(lblNewLabel);
+					
+					for(String x: ADI) {
+						ARPanel p1 = new ARPanel(x,IADC);
+						panel.add(p1.getPanel());
+						Component hh = Box.createVerticalStrut(5);
+						panel.add(hh);
+						p1.setStruct(hh);
+					}
+				} else {
+					JLabel lblNewLabel = new JLabel("Actualmente no hay actividades deportivas pendientes de aceptar/rechazar.");
+					scrollPane.setColumnHeaderView(lblNewLabel);
+				}
+        	}
+        });
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		setTitle("Aceptar/Rechazar Actividad Deportiva");

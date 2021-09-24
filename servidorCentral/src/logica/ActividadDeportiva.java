@@ -29,27 +29,20 @@ public class ActividadDeportiva {
 	private DtFecha fechaRegistro;
 	private Logger log;
 	private TEstado estado;
-	/* Constructor sin usos
-	public ActividadDeportiva(String nom, String desc, int dur, float costo, DtFecha fec){
-		nombre = nom;
-		descripcion = desc;
-		duracionMinutos = dur;
-		this.costo = costo;
-		fechaRegistro = new DtFecha(fec);
-		crearHandler();
-	} */
+	private Profesor creador;
 	
-	public ActividadDeportiva(DtActividadDeportiva x, Map <String, Categoria> cat) {
+	public ActividadDeportiva(DtActividadDeportiva x, Map <String, Categoria> cat,Profesor c) {
 		nombre=x.getNombre();
 		descripcion=x.getDescripcion();
 		duracionMinutos=x.getDuracionMinutos();
 		costo=x.getCosto();
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
 		cats = cat;
+		creador = c;
+		estado = x.getEstado(); 
 		crearHandler();
 	}
 	private void crearHandler() {
-		estado = TEstado.ingresada; 
 		clases = new HashMap<>();
 		clCuponera= new HashMap<>();
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
@@ -78,19 +71,18 @@ public class ActividadDeportiva {
 		log.info("ActDep "+nombre+" event: "+" new clase "+cl.getNombre());
 		return 0;
 	}
-
+/* FUNCIONES LEGACY (NO SE UTILIZAN)
 	public DtActividadDeportiva getDt(){
 		Set<String> c = new HashSet<String>(cats.keySet());
-		DtActividadDeportiva x = new DtActividadDeportiva(nombre, descripcion, duracionMinutos, costo, fechaRegistro,c,estado);
+		DtActividadDeportiva x = new DtActividadDeportiva(nombre, descripcion, duracionMinutos, costo, fechaRegistro,c,estado,creador.getNickname());
 		return x;
 	}
 	
 	public DtClaseExt getClaseDatos(String c) {
 		return clases.get(c).getDt();
 	}
-	
-	public Set<String> getNombreClases(){
-		return clases.keySet();		
+	public Profesor getCreador() {
+		return creador;
 	}
 	
 	public Set<DtClase> getDatosClases() {
@@ -99,16 +91,11 @@ public class ActividadDeportiva {
 			resultado.add(x.getValue().getDt());
 		return resultado;
 	}
-	
-	/* Migue Watafa: Esto no se usa nunca!!
-	public void modificarDatos(DtActividadDeportiva datosAD) {	
-		nombre = datosAD.getNombre();
-		descripcion = datosAD.getDescripcion();
-		duracionMinutos = datosAD.getDuracionMinutos();
-		costo = datosAD.getCosto();
-		fechaRegistro = datosAD.getFechaRegistro();
-	} */
-	
+*/
+	public Set<String> getNombreClases(){
+		return clases.keySet();		
+	}
+		
 	public Clase findClase(String c) throws ClaseException {	
 		Clase res = clases.get(c);
 		if (res == null) {
@@ -132,7 +119,7 @@ public class ActividadDeportiva {
 		Set<String> q = new HashSet<>(clases.keySet());
 		Set<String> r = new HashSet<>(clCuponera.keySet());
 		DtActividadDeportivaExt x = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
-				getCosto(), getFechaRegistro(),cats.keySet(),q,r,estado);
+				getCosto(), getFechaRegistro(),cats.keySet(),q,r,estado,creador.getNickname());
 		return x;
 	}
 	public TEstado getEstado() {
@@ -150,5 +137,19 @@ public class ActividadDeportiva {
 		x.addAll(cats.values());
 		return x;
 	}
-
+	public Map <String, ClasesCuponera> getClaseCuponeras(){
+		return clCuponera;
+	}
 }
+
+
+
+
+/* Migue Watafa: Esto no se usa nunca!!
+public void modificarDatos(DtActividadDeportiva datosAD) {	
+	nombre = datosAD.getNombre();
+	descripcion = datosAD.getDescripcion();
+	duracionMinutos = datosAD.getDuracionMinutos();
+	costo = datosAD.getCosto();
+	fechaRegistro = datosAD.getFechaRegistro();
+} */

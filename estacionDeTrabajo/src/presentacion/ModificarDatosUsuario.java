@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
 import logica.IUsuarioController; 
+import datatypes.DtProfesorExt;
 import datatypes.DtUsuario;
 import datatypes.DtSocio;
 import datatypes.DtFecha;
@@ -82,7 +83,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private Component verticalStrut;
 	private JTextField textFieldInstitucion;
 	private JTextField textFieldTipoDeUsuario;
-		
+	DefaultComboBoxModel<String> comboModelDia;	
 	public ModificarDatosUsuario(IUsuarioController controlUsr) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
@@ -153,6 +154,19 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					try {
 						datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
 					} catch  (UsuarioNoExisteException ignore) { }
+
+					if ((boxIMes.getSelectedIndex() % 2 == 0) && (boxIMes.getSelectedIndex() < 7) || 
+	        				(boxIMes.getSelectedIndex() % 2 == 1) && (boxIMes.getSelectedIndex() > 8)) {
+	        			if (boxIMes.getSelectedIndex() == 2)
+	        				boxIDia.removeItem("30");
+	        			boxIDia.removeItem("31");
+	        		} else {
+	        			if (comboModelDia.getIndexOf("30") == -1)
+	        				comboModelDia.addElement("30");
+	        			if (comboModelDia.getIndexOf("31") == -1)
+	        				comboModelDia.addElement("31");
+	        		}
+					
 					textFieldNombre.setText(datosUsuarioActual.getNombre());
 					textFieldApellido.setText(datosUsuarioActual.getApellido());
 					textFieldEmail.setText(datosUsuarioActual.getEmail());
@@ -162,9 +176,9 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					inicioAnio.setText(String.valueOf(fechaNacimiento.getAnio()));
 					
 					//El usuario es profesor
-					if(datosUsuarioActual instanceof DtProfesor) {
+					if(datosUsuarioActual instanceof DtProfesorExt) {
 						tipoUsuario = "Profesor";
-						DtProfesor datosProfesorActual = (DtProfesor)datosUsuarioActual;
+						DtProfesorExt datosProfesorActual = (DtProfesorExt)datosUsuarioActual;
 						textFieldInstitucion.setText(datosProfesorActual.getNombreInstitucion());
 						textAreaDescripcion.setText(datosProfesorActual.getDescripcion());
 						textAreaBiografia.setText(datosProfesorActual.getBiografia());
@@ -330,7 +344,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
         		"Setiembre", "Octubre", "Noviembre", "Diciembre" };
         
         // JComboBox:
-        DefaultComboBoxModel<String> comboModelDia = new DefaultComboBoxModel<>();
+        comboModelDia = new DefaultComboBoxModel<>();
         comboModelDia.addElement("-");
         for(int i = 1; i < 32; i++) {
         	comboModelDia.addElement( String.valueOf(i) );
@@ -572,11 +586,11 @@ public class ModificarDatosUsuario extends JInternalFrame {
             biografiaU = textAreaBiografia.getText().trim();
             websiteU = textFieldWebsite.getText().trim();
             institucionU = textFieldInstitucion.getText().trim();
-			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, datosUsuarioActual.getContrasenia(),new DtFecha(anioU,mesU,diaU,0,0,0),institucionU, descripcionU,biografiaU,websiteU,datosUsuarioActual.getImagen(),datosUsuarioActual.getSeguidosCorreo(),datosUsuarioActual.getSeguidosNickname(),datosUsuarioActual.getSeguidoresNickname(),datosUsuarioActual.getSeguidoresCorreo());
+			datosUser = new DtProfesor(nicknameU,nombreU,apellidoU,emailU, datosUsuarioActual.getContrasenia(),new DtFecha(anioU,mesU,diaU,0,0,0),institucionU, descripcionU,biografiaU,websiteU,datosUsuarioActual.getImagen());
 		}
 		else //Se asume que si no es profesor es socio
 		{
-			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU,datosUsuarioActual.getContrasenia(),new DtFecha(anioU,mesU,diaU,0,0,0),datosUsuarioActual.getImagen(),datosUsuarioActual.getSeguidosCorreo(),datosUsuarioActual.getSeguidosNickname(),datosUsuarioActual.getSeguidoresNickname(),datosUsuarioActual.getSeguidoresCorreo());
+			datosUser = new DtSocio(nicknameU,nombreU,apellidoU,emailU,datosUsuarioActual.getContrasenia(),new DtFecha(anioU,mesU,diaU,0,0,0),datosUsuarioActual.getImagen());
 		}
 		
 		/*

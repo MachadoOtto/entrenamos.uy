@@ -40,11 +40,13 @@ public interface IDictadoClaseController {
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws  InstitucionException, FechaInvalidaException,
 			ClaseException, UsuarioNoExisteException, ActividadDeportivaException;
 	
-	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg) 
+	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg,String cuponera) 
 			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, 
 			UsuarioNoExisteException, ActividadDeportivaException;
 
 	public Set<String> obtenerSocios();
+
+	public Set<String> getCuponerasSocioClase(String nombreSocio,String nombreInst,String nombreAd,String nombreClase);
 	
 	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }

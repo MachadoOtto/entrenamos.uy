@@ -94,12 +94,12 @@ public class AgregarActividadDeportivaCuponera extends JInternalFrame {
 		comboBoxCup.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				Set<String> tt = controlDep.getNombreCuponeras();
+				Set<String> tt = controlDep.getNombreCuponerasSinRecibos();
 				if(comboBoxCup.getItemCount()!=tt.size()+1) {
 					String t = (String) comboBoxCup.getSelectedItem();
 					comboBoxCup.removeAllItems();
 					model.addElement("-");
-					for(String x: controlDep.getNombreCuponeras()) {
+					for(String x: controlDep.getNombreCuponerasSinRecibos()) {
 						comboBoxCup.addItem(x);
 					}
 					comboBoxCup.setSelectedItem(t);
