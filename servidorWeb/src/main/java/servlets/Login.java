@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import datatypes.DtUsuario;
-import datatypes.DtSocio;
-import datatypes.DtProfesor;
+import datatypes.DtUsuarioExt;
+import datatypes.DtProfesorExt;
 import excepciones.UsuarioNoExisteException;
 
 import models.EstadoSesion;
@@ -49,39 +47,36 @@ public class Login extends HttpServlet {
 
 		// chequea contraseña
 		try {
-			DtUsuario usr = GestorWeb.getInstance().buscarUsuario(login);
+			DtUsuarioExt usr = GestorWeb.getInstance().buscarUsuario(login);
 			if(!usr.getContrasenia().equals(password)) {
 				nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
+				objSesion.setAttribute("estado_sesion", nuevoEstado);
 				response.sendRedirect("inicios/inicioErroneo/passwordError.html");
 			} else {
 				nuevoEstado = EstadoSesion.LOGIN_CORRECTO;
+				objSesion.setAttribute("estado_sesion", nuevoEstado);
 				// setea el usuario logueado
 				request.getSession().setAttribute("usuario_logueado", usr.getEmail());
-				if (usr instanceof DtProfesor)
+				if (usr instanceof DtProfesorExt)
 					response.sendRedirect("inicios/inicioProfe/homeProfe.html");
 				else
 					response.sendRedirect("inicios/inicioSocio/homeSocio.html");
 			}
 		} catch(UsuarioNoExisteException ex) {
 			nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
+			objSesion.setAttribute("estado_sesion", nuevoEstado);
 			response.sendRedirect("inicios/inicioErroneo/usernameError.html");
 		}
-		
-        objSesion.setAttribute("estado_sesion", nuevoEstado);
-		
-		// redirige a la página correspondiente
-        // dispatcher.forward(request, response);
     } 
     
 	/**
 	 * Devuelve el usuario logueado
 	 * @param request
 	 * @return
-	 * @throws UsuarioNoEncontrado 
+	 * @throws UsuarioNoExisteException 
 	 */
-	static public DtUsuario getUsuarioLogueado(HttpServletRequest request)
-			throws UsuarioNoExisteException
-	{
+	static public DtUsuarioExt getUsuarioLogueado(HttpServletRequest request)
+			throws UsuarioNoExisteException {
 		return GestorWeb.getInstance().buscarUsuario(
 				(String) request.getSession().getAttribute("usuario_logueado")
 			);
