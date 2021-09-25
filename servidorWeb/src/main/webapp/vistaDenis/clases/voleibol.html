@@ -34,17 +34,19 @@
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </form>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
-                <li class="nav-item">
-                  <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
-                    Iniciar Sesion
+              <li>
+               <a href="../usuarios/denis.html"><img id="profilePicCreator" alt="denis" id="img-perfil" src="../img/users/denis.jpg"></img></a>
+               </li>
+           </ul>
+           <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+              <li>
+                 <form id="logout-session" action="../cerrar-sesion" method="POST">
+                  <button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
+                      Cerrar Sesion
                   </button>
-                </li>
-                <li>
-                  <button type="button" id="btn-registrarse" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
-                    Registrarse
-                  </button>
-                </li>
-            </ul>
+                </form>
+              </li>
+           </ul>
             
           </div>
         </div>
