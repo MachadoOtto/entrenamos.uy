@@ -4,21 +4,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!--Los iconos tipo solid de Fontawesome-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-    <!--NUESTRO CSS-->
     <link rel="stylesheet" href="./css/home.css">
-
+	<link rel="stylesheet"  href="./css/consultaActividadDeportiva.css">
     <title>Entrenamos.uy</title>
   </head>
   <body>
     
     <!--BARRA DE NAVEGACION-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="col-12 navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="home.html">
                 <img src="./img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
@@ -32,7 +27,7 @@
                 <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </form>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+            <ul id="nav-iniReg"  class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
                 <li class="nav-item">
                   <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
                     Iniciar Sesion
@@ -55,40 +50,42 @@
       <div class="row mb-5 mx-3 mx-md-5">
         <div class="bienvenida p-5">
           <div class="texto-bienvenida">
-            <h1>Bienvenido a Entrenamos.uy!</h1>
+            <h1 class="h1">Bienvenido a Entrenamos.uy!</h1>
             <p>
-              Es hora de moverse! Entrenamos.uy es la plataforma definitiva para hacer ejercicio sin moverse. Vea actividades deportivas, compre cuponeras e inscribase a clases
+              Entrenamos.uy es la plataforma definitiva para hacer ejercicio sin moverse. Vea actividades deportivas, compre cuponeras e inscribase a clases
               sin tener que despegarse de su pantalla. Gracias a nuestras instituciones afilidadas que proveen profesores experimentados, usted puede recibir la mejor experiencia
-              deportiva que podría llegar a imaginarse. 
+              deportiva que podría llegar a imaginarse. Recuerde registrase para poder disfrutar el sitio al maximo!
             </p>
           </div>
         </div>
       </div>
 
       <div class="row mx-3 mx-md-5">
-        <div class="ins-cat col-3">
+        <div class="ins-cat col-sm-3">
           <nav class="ins-cat-section nav flex-column">
             <h1 class="fs-5">Instituciones</h1>
             <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
             <a class="nav-link" href="#">Fuerza Bruta</a>
-            <a class="nav-link" href="#">Telon</a>
+            <a class="nav-link" href="instituciones/Telón.html">Telón</a>
             <a class="nav-link" href="#">Olympic</a>
           </nav>
           <nav class="ins-cat-section nav flex-column mt-5">
             <h1 class="fs-5">Categorias</h1>
-            <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+            <a class="nav-link active" aria-current="page" href="categorias/Deportes.html">Deportes</a>
             <a class="nav-link" href="#">Futbol</a>
             <a class="nav-link" href="#">Fitness</a>
             <a class="nav-link" href="#">Gimnasia</a>
           </nav>
         </div>
         <div class="actdep-panel col-6 ms-2 ms-sm-1 ms-md-0">
+        	<h2 class="h2">Actividades destacadas:</h2>
+        	<br>
           <div class="actDep row mb-4">
             <img src="./img/crossFit.jpg" class="img-fluid d-inline col-5 col-md-7">
             <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>CrossFit</b> es una tecnica de entrenamiento que
             conecta movimientos de diferentes disciplinas, tales
             como la halterofilia, el entrenamiento metabolico o
-            el gimnastico. <a href="" class="text-primary">Leer mas</a></p>
+            el gimnastico. <a href="#" class="text-primary">Leer mas</a></p>
           </div>
           <div class="actDep row mb-4">
             <img src="./img/yogaImg.jpg" class="img-fluid d-inline col-5 col-md-7">
@@ -104,10 +101,10 @@
           </div>
         </div>
         <div class="col-3 ps-1 ps-sm-2">
-          <nav class="nav-info nav flex-column">
-            <h1 class="fs-5">Informacion</h1>
+          <nav class="extraInfoDiv nav-info nav flex-column">
+            <h1 class="fs-5">Información</h1>
             <a class="nav-link active" aria-current="page" href="usuarios.html">Usuarios</a>
-            <a class="nav-link" href="actividadesDeportivas.html">Actividades</a>
+            <a class="nav-link" href="actividades.html">Actividades</a>
             <a class="nav-link" href="clases.html">Clases</a>
             <a class="nav-link" href="cuponeras.html">Cuponeras</a>
           </nav>
@@ -259,7 +256,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-
     <script src="./js/home.js"></script>
 
     </body>

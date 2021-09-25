@@ -11,17 +11,16 @@
     <!--Los iconos tipo solid de Fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <!--NUESTRO CSS-->
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href=".././css/home.css">
+    <link rel="stylesheet" href=".././css/consultaActividadDeportiva.css">
 
     <title>Entrenamos.uy</title>
   </head>
   <body>
-    
-    <!--BARRA DE NAVEGACION-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!--BARRA DE NAVEGACIÓN-->
         <div class="container-fluid">
-            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="home.html">
-                <img src="./img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../home.html">
+                <img src=".././img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,81 +47,191 @@
           </div>
         </div>
     </nav>
-
-    <!--CUERPO DE LA PAGINA WEB-->
-    <div class="container-fluid mt-4">
-
-      <div class="row mb-5 mx-3 mx-md-5">
-        <div class="bienvenida p-5">
-          <div class="texto-bienvenida">
-            <h1>Bienvenido a Entrenamos.uy!</h1>
-            <p>
-              Es hora de moverse! Entrenamos.uy es la plataforma definitiva para hacer ejercicio sin moverse. Vea actividades deportivas, compre cuponeras e inscribase a clases
-              sin tener que despegarse de su pantalla. Gracias a nuestras instituciones afilidadas que proveen profesores experimentados, usted puede recibir la mejor experiencia
-              deportiva que podría llegar a imaginarse. 
-            </p>
-          </div>
+    <div class="container-fluid mt-4">  <!--CUERPO DE LA PAGINA WEB-->
+        <div class="row mx-3 mx-md-5">
+            <div class="ins-cat col-sm-2">
+                <nav class="ins-cat-section nav flex-column">
+                    <h1 class="fs-5">Instituciones</h1>
+                    <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+                    <a class="nav-link" href="#">Fuerza Bruta</a>
+                    <a class="nav-link" href="#">Telón</a>
+                    <a class="nav-link" href="#">Olympic</a>
+                </nav>
+                <nav class="ins-cat-section nav flex-column mt-5">
+                    <h1 class="fs-5">Categorías</h1>
+                    <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+                    <a class="nav-link" href="#">Deportes</a>
+                    <a class="nav-link" href="#">Fitness</a>
+                    <a class="nav-link" href="#">Gimnasia</a>
+                </nav>
+            </div>  
+            <div class="col-sm-7" id="actd-general" >
+		        <div id="actd-superior" class="row ">
+			        <div class="col-3 py-3">
+					    <div id="mainImgDiv" class="">
+						    <img alt="aparatos+Pesas" id="mainImgDiv" src=".././img/activities/voleibol.jpg">
+					    </div>
+                    </div>
+                	<div class="col-9 py-3">
+				        <div id="user-info" class="row">
+                            <h1>Voleibol</h1>
+				        </div>
+                        <div id="creatorDiv" class="row">
+                            <div class="col-auto">
+                                <h6>Ingresada por:</h6>
+                            </div>
+                            <div class="col-auto">
+                                <img id="actDepCreator" alt="viktor" id="img-perfil" src=".././img/users/denis.jpg">
+                            </div>
+                            <div class="col-auto">
+                                Denis
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		        <div id="actd-inferior" class= "row card-body mb-3">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><strong>Institución Asociada:</strong></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            Telón
+                        </div>
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><strong>Descripción:</strong></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            Voleibol en todas sus formas.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><strong>Duración:</strong></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            120 minutos.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><strong>Costo:</strong></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            750$
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0"><strong>Fecha de Alta:</strong></h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            20/4/2021
+                        </div>
+                    </div>
+		        </div>
+                <br>
+                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
+                    Dar de alta una clase para esta actividad
+                </button>
+            </div>
+            <div class="col-sm-3 ps-1 ps-sm-2">
+                <div class="extraInfoDiv row">
+                    <h5>Clases</h5>
+					<ul id="listaActividades" class=" py-3">
+						<li class="container border card-body elementoLista"> 
+                            <img alt="calistenia"  src=".././img/classes/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
+                            <a class="clase color-blue">Voleibol</a>
+                        </li>
+						<li class="container border card-body elementoLista"> 
+                            <img alt="calistenia"  src=".././img/classes/braza.jpg" class="vertical-align-middle imagenSeleccionable">
+                            <a class="clase color-blue">Braza</a>
+                        </li>
+						<li class="container border card-body elementoLista"> 
+                            <img alt="calistenia"  src=".././img/classes/mariposa.jpg" class="vertical-align-middle imagenSeleccionable">
+                            <a class="clase color-blue">Mariposa</a>
+                        </li>                 
+					</ul>
+                </div>
+                <div class="extraInfoDiv row">
+                    <h5>Cuponeras</h5>
+					<ul id="listaActividades" class=" py-3">
+						<li class="container border card-body elementoLista"> 
+                            <img alt="calistenia"  src=".././img/cups/pelota.gif" class="vertical-align-middle imagenSeleccionable">
+                            <a class="clase color-blue">Pelota</a>
+                        </li>                 
+					</ul>
+                </div>
+                <div class="extraInfoDiv row">
+                    <h5>Categorías</h5>
+					<ul id="listaActividades" class=" py-3">
+						<li class="container border card-body elementoLista"> 
+                            <img alt="calistenia"  src=".././img/categories/deportes.gif" class="vertical-align-middle imagenSeleccionable">
+                            <a class="clase color-blue">Deportes</a>
+                        </li>              
+					</ul>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="row mx-3 mx-md-5">
-        <div class="ins-cat col-3">
-          <nav class="ins-cat-section nav flex-column">
-            <h1 class="fs-5">Instituciones</h1>
-            <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
-            <a class="nav-link" href="#">Fuerza Bruta</a>
-            <a class="nav-link" href="#">Telon</a>
-            <a class="nav-link" href="#">Olympic</a>
-          </nav>
-          <nav class="ins-cat-section nav flex-column mt-5">
-            <h1 class="fs-5">Categorias</h1>
-            <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
-            <a class="nav-link" href="#">Futbol</a>
-            <a class="nav-link" href="#">Fitness</a>
-            <a class="nav-link" href="#">Gimnasia</a>
-          </nav>
-        </div>
-        <div class="actdep-panel col-6 ms-2 ms-sm-1 ms-md-0">
-          <div class="actDep row mb-4">
-            <img src="./img/crossFit.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>CrossFit</b> es una tecnica de entrenamiento que
-            conecta movimientos de diferentes disciplinas, tales
-            como la halterofilia, el entrenamiento metabolico o
-            el gimnastico. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
-          <div class="actDep row mb-4">
-            <img src="./img/yogaImg.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Yoga</b> es una practica que conecta el cuerpo,
-            la respiracion y la mente. Esta practica utiliza posturas fisicas, ejercicios de respiracion
-            y meditacion. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
-          <div class="actDep row mb-4">
-            <img src="./img/futbol11.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Futbol 11</b> y el deporte en general es una herramienta
-            educativa que brinda un aprendizaje en valores y habilidades blandas que se cohesionan con el 
-            aprendizaje y la practica deportiva. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
-        </div>
-        <div class="col-3 ps-1 ps-sm-2">
-          <nav class="nav-info nav flex-column">
-            <h1 class="fs-5">Informacion</h1>
-            <a class="nav-link active" aria-current="page" href="usuarios.html">Usuarios</a>
-            <a class="nav-link" href="actividadesDeportivas.html">Actividades</a>
-            <a class="nav-link" href="clases.html">Clases</a>
-            <a class="nav-link" href="cuponeras.html">Cuponeras</a>
-          </nav>
-        </div>
-      </div>
     </div>
-
-    <!--FOOTER-->
-    <footer class="footer">
+    <footer class="footer"> <!--FOOTER-->
       <div class="footer-row row">
         Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
       </div>
     </footer>
 
-    <!--MODALS-->
+    <!--MODAL ALTA CLASE-->
+    <div class="modal fade" id="altaClaseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                    <h2 class="fw-bold mb-0">Alta de Clase</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control rounded-4" id="floatingInput" placeholder="">
+                            <label for="floatingPassword">Fecha de inicio</label>                  
+                        </div>
+                        <div id="nombreCompletoDiv" class="row form-floating mb-3">
+                            <div id="divNombre" class="col-6 form-check float-left">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control rounded-4" id="nomm" >
+                                    <label for="nomm">Cant. Mínima de inscriptos</label>           
+                                </div>      
+                            </div>
+                            <div id="divApellido" class="col-6 form-check float-left">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control rounded-4" id="ape" >
+                                    <label for="ape">Cant. Máxima de inscriptos</label>           
+                                </div>                           
+                            </div>             
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="">
+                            <label for="floatingInput">URL</label>                  
+                        </div>
+                        <div id="imgPick" class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Imagen</label>
+                        </div>
+                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <hr class="my-6">
+                    <div>
+                        <i>Entrenamos.uy - Alta Dictado de Clase</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--MODAL INICIAR SESION-->
     <div class="modal fade" id="inicioSesionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -162,7 +271,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 <h2 class="fw-bold mb-0">Unéte a Entrenamos.uy</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -259,8 +368,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-
-    <script src="./js/home.js"></script>
+    
+	<script type="text/javascript" src=".././js/consultaActividadDeportiva.js"></script>
+    <script src=".././js/home.js"></script>
 
     </body>
 </html>

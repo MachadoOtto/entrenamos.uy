@@ -1062,7 +1062,17 @@ class TestCasos {
 		Assertions.assertThrows(InstitucionException.class, () -> 
 			{IADC.ingresarDatosActividadDep("InstitutoInexistente", nuevaActividad);});		
 	}
-	
+	@Test
+	void testIUCControl() {
+		assertEquals(IDCC.obtenerUsuarios().contains("viktor"),true);
+		assertEquals(IDCC.obtenerInstituciones().contains("Telón"),true);
+		try {
+			assertEquals(IDCC.obtenerActividades("Fuerza Bruta").contains("Kickboxing"),true);
+			assertEquals(IDCC.obtenerProfesores("Fuerza Bruta").contains("viktor"),true);
+		} catch (InstitucionException e) {
+			e.printStackTrace();
+		}
+	}
 	@Test
 	void testCargaDeClases() {
 		try {
@@ -2334,17 +2344,5 @@ class TestCasos {
 		x=ICC.getNombreCuponerasSinRecibos();
 		assertEquals(y,x);
 	}
-	
-	@Test
-	void testIUCControl() {
-		assertEquals(IDCC.obtenerUsuarios().contains("viktor"),true);
-		assertEquals(IDCC.obtenerInstituciones().contains("Telón"),true);
-		try {
-			assertEquals(IDCC.obtenerActividades("Fuerza Bruta").contains("Kickboxing"),true);
-			assertEquals(IDCC.obtenerProfesores("Fuerza Bruta").contains("viktor"),true);
-		} catch (InstitucionException e) {
-			e.printStackTrace();
-		}
-	}
-	
+		
 }
