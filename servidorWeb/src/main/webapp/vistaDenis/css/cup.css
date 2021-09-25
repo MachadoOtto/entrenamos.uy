@@ -8,7 +8,11 @@
 #valido{
 	padding-top: .70rem;
 }
-
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
 #boto{ 
 	margin: 20px;
 }

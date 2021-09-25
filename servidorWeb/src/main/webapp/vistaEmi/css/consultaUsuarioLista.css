@@ -7,7 +7,11 @@
   transition: 0.3s;
   border: none;
 }
-
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
 .img-de-lista:hover {
 	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
