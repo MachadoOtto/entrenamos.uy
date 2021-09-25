@@ -37,14 +37,16 @@
 
 #profilePicCreator{
     object-fit: cover;
-    width: 100%;
+    width: auto;
     height: 4em;
     margin-bottom: 10px;
     border-style: solid;
     border-width: 2px;
     border-color: silver;
 }
-
+#logout-session{
+ white-space: nowrap;
+}
 /*---BIENVENIDA---*/
 
 .bienvenida {

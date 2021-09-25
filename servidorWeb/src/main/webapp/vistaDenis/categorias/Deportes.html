@@ -11,9 +11,9 @@
     <!--Los iconos tipo solid de Fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <!--NUESTRO CSS-->
-    <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/consultaUsuarioLista.css">
-    <link rel="stylesheet" href="../css/consultaActividadDeportiva.css">
+    <link rel="stylesheet" href=".././css/home.css">
+    <link rel="stylesheet" href=".././css/consultaUsuarioLista.css">
+    <link rel="stylesheet"  href="../css/consultaActividadDeportiva.css">
 
     <title>Entrenamos.uy</title>
   </head>
@@ -22,7 +22,7 @@
     <!--BARRA DE NAVEGACION-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="home.html">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../home.html">
                 <img src="../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
@@ -35,19 +35,17 @@
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </form>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
-              <li>
-               <a href="../usuarios/denis.html"><img id="profilePicCreator" alt="denis" id="img-perfil" src="../img/users/denis.jpg"></img></a>
-               </li>
-           </ul>
-           <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
-              <li>
-                 <form id="logout-session" action="../cerrar-sesion" method="POST">
-                  <button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
-                      Cerrar Sesion
+                <li class="nav-item">
+                  <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
+                    Iniciar Sesion
                   </button>
-                </form>
-              </li>
-           </ul>
+                </li>
+                <li>
+                  <button type="button" id="btn-registrarse" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
+                    Registrarse
+                  </button>
+                </li>
+            </ul>
             
           </div>
         </div>
@@ -61,12 +59,12 @@
             <h1 class="fs-5">Instituciones</h1>
             <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
             <a class="nav-link" href="#">Fuerza Bruta</a>
-            <a class="nav-link" href="#">Telon</a>
+            <a class="nav-link" href="../instituciones/Telón.html">Telón</a>
             <a class="nav-link" href="#">Olympic</a>
           </nav>
           <nav class="ins-cat-section nav flex-column mt-5">
             <h1 class="fs-5">Categorias</h1>
-            <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+            <a class="nav-link active" aria-current="page" href="../categorias/Deportes.html">Deportes</a>
             <a class="nav-link" href="#">Futbol</a>
             <a class="nav-link" href="#">Fitness</a>
             <a class="nav-link" href="#">Gimnasia</a>
@@ -121,7 +119,7 @@
 		<!-- Fin listado usuario -->
 
         <div class="col-2 ps-1 ps-sm-2">
-          <nav class="nav-info extraInfoDiv nav flex-column">
+          <nav class="extraInfoDiv nav-info nav flex-column">
             <h1 class="fs-5">Informacion</h1>
             <a class="nav-link active" aria-current="page" href="usuarios.html">Usuarios</a>
             <a class="nav-link" href="actividadesDeportivas.html">Actividades</a>
