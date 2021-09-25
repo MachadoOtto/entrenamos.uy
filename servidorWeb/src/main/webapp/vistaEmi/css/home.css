@@ -1,5 +1,12 @@
 /*---NAVBAR---*/
 
+#btn-inicio-sesion{
+	white-space: nowrap;
+}
+#nav-inireg{
+	align-items: center;
+}
+
 .btn-ir {
     margin-right: 85%;
     width: 120px;

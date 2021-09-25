@@ -35,7 +35,7 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute("estado_sesion", EstadoSesion.NO_LOGIN);
-        response.sendRedirect("home.html");
+        response.sendRedirect("vistaGuest/home.html");
     }
 	
 	/**

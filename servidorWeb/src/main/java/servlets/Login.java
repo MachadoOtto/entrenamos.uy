@@ -51,21 +51,21 @@ public class Login extends HttpServlet {
 			if(!usr.getContrasenia().equals(password)) {
 				nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
 				objSesion.setAttribute("estado_sesion", nuevoEstado);
-				response.sendRedirect("inicios/inicioErroneo/passwordError.html");
+				response.sendRedirect("inicioErroneo/passwordError.html");
 			} else {
 				nuevoEstado = EstadoSesion.LOGIN_CORRECTO;
 				objSesion.setAttribute("estado_sesion", nuevoEstado);
 				// setea el usuario logueado
 				request.getSession().setAttribute("usuario_logueado", usr.getEmail());
 				if (usr instanceof DtProfesorExt)
-					response.sendRedirect("inicios/inicioProfe/homeProfe.html");
+					response.sendRedirect("vistaDenis/home.html");
 				else
-					response.sendRedirect("inicios/inicioSocio/homeSocio.html");
+					response.sendRedirect("vistaEmi/home.html");
 			}
 		} catch(UsuarioNoExisteException ex) {
 			nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
 			objSesion.setAttribute("estado_sesion", nuevoEstado);
-			response.sendRedirect("inicios/inicioErroneo/usernameError.html");
+			response.sendRedirect("inicioErroneo/usernameError.html");
 		}
     } 
     
