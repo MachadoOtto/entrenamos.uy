@@ -1,14 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/consultaUsuario.css">
-
     <title>Entrenamos.uy</title>
   </head>
   <body>
@@ -28,7 +26,7 @@
                 <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </form>
-            <ul id="nav-iniReg" class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
                 <li class="nav-item">
                   <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
                     Iniciar Sesion
@@ -73,16 +71,16 @@
 			<div class="row ">
 				<div id="user-img-btn" class="col-auto py-4" >
 					<div id="user-imagen" class="">
-						<img alt="Qries" id="img-perfil" src=".././img/users/emi71.webp"
+						<img alt="Qries" id="img-perfil" src=".././img/users/denis.jpg"
 			         width="180" height="180">
 					</div>
 				</div>
 				<div id="user-info" class="col-auto py-3">
-					<p><strong id="user-nickname"> Emi71 </strong> <a id="user-type"><small class="text-muted"> (Socio)</small>  </a></p>
-					<p><strong>Nombre: </strong> Emiliano <strong>Apellido: </strong> Lucas </p>
-					<p><strong>Correo: </strong> emi71@gmail.com </p>
+					<p><strong id="user-nickname"> denis </strong> <small class="text-muted"> (Socio)</small> </p>
+					<p><strong>Nombre: </strong> Denis <strong>Apellido: </strong> Miguel </p>
+					<p><strong>Correo: </strong> den80@fuerza.com </p>
 					<p><strong>Ultimo ingreso: </strong> 1/1/2001 00:00 </p>
-					<strong>Seguidores: </strong> 4 <strong>Seguidos: </strong> 1
+					<strong>Seguidores: </strong> 0 <strong>Seguidos: </strong> 9 
 				</div>
 			</div>
 		</div>
@@ -90,13 +88,14 @@
 			<div id="user-navegador" class="row">
 				<nav class="nav nav-pills flex-column flex-sm-row px-1">
 					<button id="user-nav1" type="button" onclick="cambioNavegador('user-consultaPerfil','user-nav1')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-radius-0 active" >Perfil</button>
-					<button id="user-nav2" type="button" onclick="cambioNavegador('user-consultaClases','user-nav2')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Inscripciones</button>
+					<button id="user-nav2" type="button" onclick="cambioNavegador('user-consultaClases','user-nav2')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases Dictadas</button>
 					<button id="user-nav3" type="button" onclick="cambioNavegador('user-consultaActividadesDeportivas','user-nav3')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Seguidores</button>
 					<button id="user-nav4" type="button" onclick="cambioNavegador('user-consultaCuponeras','user-nav4')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Seguidos</button>
-				<button id="user-nav4" type="button" onclick="cambioNavegador('user-consultaAD','user-nav4')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
+					<button id="user-nav5" type="button" onclick="cambioNavegador('user-consultaAD','user-nav5')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Asociadas</button>
+					<button id="user-nav6" type="button" onclick="cambioNavegador('user-consultaADI','user-nav6')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Actividades Ingresadas</button>
 				</nav>
 			</div>
-			<div id="user-consultaPerfil" class="row border card-body">
+			<div id="user-consultaPerfil" class="col-sm-11 border">
               <div class="mb-3">
                 <div class="card-body">
                   <div class="row">
@@ -104,7 +103,7 @@
                       <h6 class="mb-0"><strong>Nombre completo</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Emiliano Lucas
+                      Denis Miguel
                     </div>
                   </div>
                   <br>
@@ -113,7 +112,7 @@
                       <h6 class="mb-0"><strong>Correo electrónico:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      emi71@gmail.com
+                      den80@fuerza.com
                     </div>
                   </div>
                   <br>
@@ -122,90 +121,145 @@
                       <h6 class="mb-0"><strong>Fecha de nacimiento:<strong></strong></strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      31/12/1971
+                      14/6/1980
                     </div>
                   </div>
-                  <div hidden="hidden" class="row">
+                  <br>
+                  <div class="row">
                     <div class="col-sm-3">
-                        <br>
                       <h6 class="mb-0"><strong>Institución Asociada:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <br>
+                      Telón
                     </div>
                   </div>
-                  <div hidden="hidden" class="row">
+                  <br>
+                  <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0"><strong>Descripción: </strong></h6>
                       
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <br>
+                      A Denis le interesan los deportes con pelota, principalmente el voleibol y el handball
                     </div>
                   </div>
-                  <div hidden="hidden" class="row">
+                  <br>
+                  <div class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0"><strong>Biografía:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <br>
+                      Denis fue un jugador de voleibol profesional.
                     </div>
                   </div>
-                  <div hidden="hidden" class="row">
+                  <br>
+                  <div class="row">
                     <div class="col-sm-3">
-                      <h6 hidden="hidden" class="mb-0"><strong>Website:</strong></h6>
+                      <h6 class="mb-0"><strong>Website:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                     	<a href="https://google.com">
-
+                    		www.denis.com
                     	</a>
                     </div>
                   </div>
+                  	<div class="row">
+	               </div>
                 </div>
               </div>
 				</div>
-				<div id= "user-consultaClases" class="row border card-body">
+				<div id= "user-consultaClases" class="col-9 border  card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-						<li class="list-group-item container border card-body elementoLista"><a href="../clases/voleibol.html" class="link-dark">
+						<li class="list-group-item container border card-body elementoLista"><a href="../clases/voleibol.html"  class="link-dark">
 						 <img alt="Qries"  src=".././img/classes/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b>Voleibol</b><small class="text-muted"> (Voleibol)</small>
-						 </a></li>
-			         	<li class="list-group-item container border card-body elementoLista"> <img alt="Qries"  src="../img/classes/Aerobico+adulto+mayor.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><b>Aeróbico adulto mayor</b><small class="text-muted"> (Aeróbica)</small></li>
-			         	<li class="list-group-item container border card-body elementoLista"> <img alt="Qries"  src="../img/classes/Musculos+para+boxeo.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><b>Músculos para boxeo</b><small class="text-muted"> (Kickboxing)</small></li>
-			         	<li class="list-group-item container border card-body elementoLista"> <img alt="Qries"  src=".././img/classes/m200.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><b>200 M</b><small class="text-muted"> (Atletismo)</small></li>
-			         	<li class=" list-group-item container border card-body elementoLista"> <img alt="Qries"  src=".././img/classes/basquet1.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><b>Basquet I</b><small class="text-muted"> (Basquetbol)</small></li>
-					</ul>
+							<b>Voleibol</b><small class="text-muted"> (Voleibol)</small></a>
+						 </li>
+						</ul>
 				</div>
-				<div id= "user-consultaActividadesDeportivas" class="row border card-body">
+				<div id= "user-consultaActividadesDeportivas" class="col-sm-9 border">
+<<<<<<< HEAD
+						<h5>Denis no tiene seguidores :(</h5>
+=======
+					<ul id="listaActividadesActDep" class=" py-3 container">
+						<h2><strong>Actividades ingresadas</strong></h2>
+						<br>
+						<h4 class="consultaAceptadaRechazada"><strong>Aceptadas</strong></h4>
+						<br>
+						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/voleibol.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Voleibol</a></li>
+						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/atletismo.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Atletismo</a></li>
+						<br>
+			         	<h4 class="consultaAceptadaRechazada"><strong>Rechazadas</strong></h4>
+						<br>
+						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src=".././img/activities/voleibol2.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Voleibol II</a></li>
+					    <br>
+					    <h2><strong>Actividades asociadas</strong></h2>
+					    <br>
+					    <li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/voleibol.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Voleibol</a></li>
+					</ul>
+>>>>>>> Audifono
+				</div>
+				<div id= "user-consultaCuponeras" class="col-sm-9 border card-body">
 					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
 						<li class="list-group-item container border card-body elementoLista">
 						 <img alt="Qries"  src="../img/users/euge.jpg" class="vertical-align-middle imagenSeleccionable">
 							<b><br>Euge</b><small class="text-muted"> (Socio)</small>
 						 </li>	
+						<li class="list-group-item container border card-body elementoLista"><a href="Emi71.html"  class="link-dark">
+						 <img alt="Qries"  src="../img/users/emi71.webp" class="vertical-align-middle imagenSeleccionable">
+							<b><br>Emi71</b><small class="text-muted"> (Socio)</small></a>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/caro.webp" class="vertical-align-middle imagenSeleccionable">
+							<b><br>caro</b><small class="text-muted"> (Socio)</small>
+						 </li>	
 						<li class="list-group-item container border card-body elementoLista">
 						 <img alt="Qries"  src="../img/users/guille.jpg" class="vertical-align-middle imagenSeleccionable">
 							<b><br>guille</b><small class="text-muted"> (Socio)</small>
 						 </li>	
-						<li class="list-group-item container border card-body elementoLista"><a href="denis.html"  class="link-dark">
-						 <img alt="Qries"  src="../img/users/denis.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>denis</b><small class="text-muted"> (Profesor)</small></a>
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/sergiop.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>sergiop</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/andy.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>andy</b><small class="text-muted"> (Socio)</small>
 						 </li>	
 						 						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/nelson.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>Nelson</b><small class="text-muted"> (Profesor)</small>
+						 <img alt="Qries"  src="../img/users/tonyp.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>tonyp</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						 						 						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/m1k4.webp" class="vertical-align-middle imagenSeleccionable">
+							<b><br>m1k4</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						 						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/charly.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>charly</b><small class="text-muted"> (Socio)</small>
 						 </li>	
 					</ul>
 				</div>
-				<div id= "user-consultaCuponeras" class="row border card-body">
-					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
-						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/guille.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>guille</b><small class="text-muted"> (Socio)</small>
-						 </li>	
+				<div id= "user-consultaAD" class="col-sm-9 border card-body">
+					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
+						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/voleibol.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/activities/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Voleibol</b></a>
+						 </li>
+						</ul>
+				</div>
+				<div id= "user-consultaADI" class="col-sm-9 border card-body">
+					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
+						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/voleibol.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/activities/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Voleibol</b></a>
+						 </li>
+						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/atletismo.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/activities/atletismo.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Atletismo</b></a>
+						 </li>
 					</ul>
 				</div>
 		</div>
@@ -367,10 +421,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-    
-	<script type="text/javascript" src="../js/consultaEmi.js"></script>
+	<script type="text/javascript" src="../js/consultaProf.js"></script>
     <script src=".././js/home.js"></script>
 
     </body>
