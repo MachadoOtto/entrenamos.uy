@@ -10,4 +10,6 @@
 /estacionDeTrabajo/bin/
 /Front-End/.vscode
 /servidorWeb/build/
+/servidorWeb/WebContent
+/servidorWeb/bin
 .directory

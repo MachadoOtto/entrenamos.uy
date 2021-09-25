@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-
+body {
+	overflow-x: hidden;
+}
 
 #img-perfil
 {
@@ -113,7 +115,12 @@
  	max-height: 375px;
  	overflow-y: auto;
  }
- 
+ #user-consultaAD{
+ 	display: none;
+ }
+ #user-consultaADI{
+ 	display: none;
+ }
  
   #user-consultaActividadesDeportivas {
   list-style-type: none;
