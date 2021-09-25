@@ -8,7 +8,11 @@ body {
 {
 	margin-bottom: 10px;
 }
-
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
 /*Botones de navegador*/
 
 #user-navegador {
