@@ -1,12 +1,22 @@
 /*---NAVBAR---*/
 
+body {
+	overflow-x: hidden;
+}
+
 #btn-inicio-sesion{
 	white-space: nowrap;
 }
 #nav-inireg{
 	align-items: center;
 }
-
+.extraInfoDiv{
+	border-radius: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
 .btn-ir {
     margin-right: 85%;
     width: 120px;

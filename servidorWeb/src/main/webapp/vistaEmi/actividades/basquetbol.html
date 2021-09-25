@@ -17,10 +17,11 @@
     <title>Entrenamos.uy</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!--BARRA DE NAVEGACIÓN-->
+   <!--BARRA DE NAVEGACION-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../home.html">
-                <img src=".././img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <img src="../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,39 +33,43 @@
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </form>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
-                <li class="nav-item">
-                  <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
-                    Iniciar Sesion
-                  </button>
-                </li>
-                <li>
-                  <button type="button" id="btn-registrarse" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
-                    Registrarse
-                  </button>
-                </li>
+               <li>
+            		<a href="../usuarios/Emi71.html"><img id="profilePicCreator" alt="Emi71" id="img-perfil" src="../img/users/emi71.webp"></img></a>
+           	   </li>
+           	   <li>
+           	   		<a href="../usuarios/Emi71.html" class="nav-link"><b>Emi71</b></a>
+           	   </li>
             </ul>
-            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+               <li>
+                 <form id="logout-session" action="../../cerrar-sesion" method="POST">
+                 	<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
+                   		Cerrar Sesión
+                 	</button>
+                 </form>
+               </li>
+            </ul>
           </div>
         </div>
     </nav>
-    <div class="container-fluid mt-4">  <!--CUERPO DE LA PAGINA WEB-->
+     <div class="container-fluid mt-4">  <!--CUERPO DE LA PAGINA WEB-->
         <div class="row mx-3 mx-md-5">
-            <div class="ins-cat col-sm-2">
-                <nav class="ins-cat-section nav flex-column">
-                    <h1 class="fs-5">Instituciones</h1>
-                    <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
-                    <a class="nav-link" href="#">Fuerza Bruta</a>
-                    <a class="nav-link" href="#">Telón</a>
-                    <a class="nav-link" href="#">Olympic</a>
-                </nav>
-                <nav class="ins-cat-section nav flex-column mt-5">
-                    <h1 class="fs-5">Categorías</h1>
-                    <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
-                    <a class="nav-link" href="#">Deportes</a>
-                    <a class="nav-link" href="#">Fitness</a>
-                    <a class="nav-link" href="#">Gimnasia</a>
-                </nav>
-            </div>  
+        <div class="ins-cat col-2">
+          <nav class="ins-cat-section nav flex-column">
+            <h1 class="fs-5">Instituciones</h1>
+            <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+            <a class="nav-link" href="#">Fuerza Bruta</a>
+            <a class="nav-link" href="../instituciones/Telón.html">Telón</a>
+            <a class="nav-link" href="#">Olympic</a>
+          </nav>
+          <nav class="ins-cat-section nav flex-column mt-5">
+            <h1 class="fs-5">Categorias</h1>
+            <a class="nav-link active" aria-current="page" href="../categorias/Deportes.html">Deportes</a>
+            <a class="nav-link" href="#">Futbol</a>
+            <a class="nav-link" href="#">Fitness</a>
+            <a class="nav-link" href="#">Gimnasia</a>
+          </nav>
+        </div>
             <div class="col-sm-7" id="actd-general" >
 		        <div id="actd-superior" class="row ">
 			        <div class="col-3 py-3">
@@ -130,9 +135,7 @@
                     </div>
 		        </div>
                 <br>
-                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
-                    Dar de alta una clase para esta actividad
-                </button>
+
             </div>
             <div class="col-sm-3 ps-1 ps-sm-2">
                 <div class="extraInfoDiv row">

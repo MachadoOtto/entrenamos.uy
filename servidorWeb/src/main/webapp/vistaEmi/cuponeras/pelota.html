@@ -19,10 +19,11 @@
   <body>
     
     <!--BARRA DE NAVEGACION-->
+   <!--BARRA DE NAVEGACION-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href=".././home.html">
-                <img src=".././img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../home.html">
+                <img src="../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,18 +35,22 @@
                 <button type="submit" class="btn btn-outline-primary">Buscar</button>
             </form>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
-                <li class="nav-item">
-                  <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
-                    Iniciar Sesion
-                  </button>
-                </li>
-                <li>
-                  <button type="button" id="btn-registrarse" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
-                    Registrarse
-                  </button>
-                </li>
+               <li>
+            		<a href="../usuarios/Emi71.html"><img id="profilePicCreator" alt="Emi71" id="img-perfil" src="../img/users/emi71.webp"></img></a>
+           	   </li>
+           	   <li>
+           	   		<a href="../usuarios/Emi71.html" class="nav-link"><b>Emi71</b></a>
+           	   </li>
             </ul>
-            
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+               <li>
+                 <form id="logout-session" action="../../cerrar-sesion" method="POST">
+                 	<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
+                   		Cerrar Sesión
+                 	</button>
+                 </form>
+               </li>
+            </ul>
           </div>
         </div>
     </nav>
