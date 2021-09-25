@@ -139,14 +139,14 @@ public class GestorWeb {
 	 * @return
 	 * @throws Exception 
 	 */
-	public DtUsuarioExt buscarUsuario(String nickEmail) throws UsuarioNoExisteException {
-		DtUsuarioExt res;
-		try {
-			res = fabricaSistema.obtenerIUsuarioController().seleccionarUsuario(nickEmail);
-		} catch (UsuarioNoExisteException e) {
-			res = fabricaSistema.obtenerIUsuarioController().seleccionarUsuarioEmail(nickEmail);
-		}
-		return res;
-	}
-
+	
+    public DtUsuarioExt buscarUsuario(String nickEmail) throws UsuarioNoExisteException {
+        DtUsuarioExt res;
+        try {
+            res = fabricaSistema.obtenerIUsuarioController().seleccionarUsuario(nickEmail);
+        } catch (UsuarioNoExisteException e) {
+            res = fabricaSistema.obtenerIUsuarioController().seleccionarUsuarioEmail(nickEmail);
+        }
+        return res;
+    }
 }
