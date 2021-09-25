@@ -20,16 +20,26 @@
 
 #user-nav1 {
 	border-radius: 6px 7px 0 0 !important;
-	width: 90px;
-	height: auto;
 	border-collapse: separate;
     overflow: hidden;
     perspective: 1px;
 }
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+    margin-right: 1em;
+}
 
+.extraInfoDiv{
+	border-radius: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
 #user-nav2 {
 	border-radius: 6px 7px 0 0 !important;
-	width:  95px;
 	border-collapse: separate;
     overflow: hidden;
     perspective: 1px;
@@ -37,7 +47,6 @@
 
 #user-nav3 {
 	border-radius: 6px 7px 0 0 !important;
-	width: 200px;
 	border-collapse: separate;
     overflow: hidden;
     perspective: 1px;
@@ -45,7 +54,6 @@
 
 #user-nav4 {
 	border-radius: 6px 7px 0 0 !important;
-	width: 120px;
 	border-collapse: separate;
     overflow: hidden;
     perspective: 1px;

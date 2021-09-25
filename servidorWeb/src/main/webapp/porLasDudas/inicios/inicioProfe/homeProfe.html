@@ -20,7 +20,7 @@
     <!--BARRA DE NAVEGACION-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="homeSocio.html">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="homeProfe.html">
                 <img src="../../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 Entrenamos.uy
             </a>
@@ -34,17 +34,16 @@
             </form>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
                <li>
-            		<a href="../../usuarios/Emi71.html"><img id="profilePicCreator" alt="Emi71" id="img-perfil" src="../../img/users/emi71.webp"></img></a>
-           	   </li>
-           	   <li>
-           	   		<a href="../../usuarios/Emi71.html" class="nav-link"><b>Emi71</b></a>
+            		<a href="../../usuarios/denis.html"><img id="profilePicCreator" alt="denis" id="img-perfil" src="../../img/users/denis.jpg"></img></a>
            	   </li>
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
                <li>
-                 <button type="button" id="btn-registrarse" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
-                   Cerrar Sesion
-                 </button>
+               	 <form id="logout-session" action="../../cerrar-sesion" method="POST">
+                 	<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
+                   		Cerrar Sesion
+                 	</button>
+                 </form>
                </li>
             </ul>
           </div>

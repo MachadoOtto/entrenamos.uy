@@ -85,7 +85,7 @@ public class UsuarioController implements IUsuarioController {
 		for(String x: getHU().getNicknameUsuarios()) {
 			try {
 				DtUsuarioExt y = seleccionarUsuario(x);
-				if(y.getEmail()==userEmail)
+				if(y.getEmail().equals(userEmail))
 					return y;
 			}
 			catch (Exception ignore) {}
