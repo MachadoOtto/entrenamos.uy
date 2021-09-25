@@ -11,9 +11,9 @@
     <!--Los iconos tipo solid de Fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <!--NUESTRO CSS-->
-    <link rel="stylesheet" href=".././css/home.css">
-    <link rel="stylesheet" href=".././css/consultaUsuarioLista.css">
-<link rel="stylesheet"  href="./css/consultaActividadDeportiva.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/consultaUsuarioLista.css">
+	<link rel="stylesheet"  href="./css/consultaActividadDeportiva.css">
 
     <title>Entrenamos.uy</title>
   </head>
@@ -77,10 +77,11 @@
         	<div class="cabezal-usuarios py-5 ">
             	<h2><strong>Listado de Clases: </strong></h2>
             </div>
-    		<div class="container">
-			  <div class="container">
-			    <div class="card-columns px-3">
-			      <div class="card img-de-lista">
+            <div class="container-fluid">
+			  <div class="">
+			    <div class="row px-3">
+			    <div class="col-md-3">
+			    	<div class="card img-de-lista">
 			        <a class="hyperlink-img" href="./clases/peso+libre.html">
 			        <img class="card-img-top" src="./img/classes/pesoLibre.jpg" alt="Card image cap">
 			        <div class="card-body">
@@ -107,6 +108,8 @@
 			        </div>
 			        </a>
 			      </div>
+			    </div>
+			    <div class="col-md-3">
 			      <div class="card img-de-lista">
 			        <a class="hyperlink-img" href="#">
 			        <img class="card-img-top" src="./img/classes/basquet2.gif" alt="Card image cap">
@@ -134,7 +137,9 @@
 			        </div>
 			        </a>
 			      </div>
-                  <div class="card img-de-lista">
+			    </div>
+			    <div class="col-md-3">
+			      <div class="card img-de-lista">
 			        <a class="hyperlink-img" href="#">
 			        <img class="card-img-top" src="./img/classes/calistenia.jpg" alt="Card image cap">
 			        <div class="card-body">
@@ -161,7 +166,9 @@
 			        </div>
 			        </a>
 			      </div>
-                  <div class="card img-de-lista">
+			    </div>
+			    <div class="col-md-3">
+			      <div class="card img-de-lista">
 			        <a class="hyperlink-img" href="#">
 			        <img class="card-img-top" src="./img/classes/mariposa.jpg" alt="Card image cap">
 			        <div class="card-body">
@@ -179,6 +186,7 @@
 			        </div>
 			        </a>
 			      </div>
+			    </div>
 			    </div>
 			  </div>
 			</div>
@@ -217,7 +225,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form id="formulario-sesion" action="../iniciar-sesion" method="POST"> 
+                  <form id="formulario-sesion" action="iniciar-sesion" method="POST"> 
                       <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-4" id="floatingInput" name="nick-login" placeholder="name@example.com">
                           <label for="floatingInput">Correo electrónico / Nickname</label>
@@ -343,7 +351,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
-    <script src=".././js/home.js"></script>
+    <script src="./js/home.js"></script>
 
     </body>
 </html>
