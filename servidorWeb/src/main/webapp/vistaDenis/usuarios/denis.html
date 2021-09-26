@@ -4,13 +4,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!--Los iconos tipo solid de Fontawesome-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-    <!--NUESTRO CSS-->
     <link rel="stylesheet" href=".././css/home.css">
     <link rel="stylesheet" href=".././css/consultaUsuario.css">
 
@@ -53,7 +48,7 @@
     </nav>
 
     <!--CUERPO DE LA PAGINA WEB-->
-    <div class="container-fluid mt-4">
+     <div class="container-fluid mt-4">
 
       <div class="row mx-3 mx-md-5">
         <div class="ins-cat col-2">
@@ -61,12 +56,12 @@
             <h1 class="fs-5">Instituciones</h1>
             <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
             <a class="nav-link" href="#">Fuerza Bruta</a>
-            <a class="nav-link" href="#">Telon</a>
+            <a class="nav-link" href="../instituciones/Telón.html">Telón</a>
             <a class="nav-link" href="#">Olympic</a>
           </nav>
           <nav class="ins-cat-section nav flex-column mt-5">
             <h1 class="fs-5">Categorias</h1>
-            <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+            <a class="nav-link active" aria-current="page" href="../categorias/Deportes.html">Deportes</a>
             <a class="nav-link" href="#">Futbol</a>
             <a class="nav-link" href="#">Fitness</a>
             <a class="nav-link" href="#">Gimnasia</a>
@@ -83,18 +78,13 @@
 						<img alt="Qries" id="img-perfil" src=".././img/users/denis.jpg"
 			         width="180" height="180">
 					</div>
-					<div id="user-seguir" class="flex-sm-fill text-sm-center nav-link ">
-						<button type="button" class="btn btn-primary">
-			            	Seguir
-			            </button>
-					</div>
 				</div>
 				<div id="user-info" class="col-auto py-3">
-					<p><strong id="user-nickname"> denis </strong> <a id="user-type"> (Profesor) </a></p>
+					<p><strong id="user-nickname"> denis </strong> <small class="text-muted"> (Profesor)</small> </p>
 					<p><strong>Nombre: </strong> Denis <strong>Apellido: </strong> Miguel </p>
 					<p><strong>Correo: </strong> den80@fuerza.com </p>
 					<p><strong>Ultimo ingreso: </strong> 1/1/2001 00:00 </p>
-					<a href=".././consultas/usuarios/denisSeguir.html"> <strong>Seguidores: </strong> 0 <strong>Seguidos: </strong> 9 </a>
+					<strong>Seguidores: </strong> 0 <strong>Seguidos: </strong> 9 
 				</div>
 			</div>
 		</div>
@@ -102,9 +92,11 @@
 			<div id="user-navegador" class="row">
 				<nav class="nav nav-pills flex-column flex-sm-row px-1">
 					<button id="user-nav1" type="button" onclick="cambioNavegador('user-consultaPerfil','user-nav1')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-radius-0 active" >Perfil</button>
-					<button id="user-nav2" type="button" onclick="cambioNavegador('user-consultaClases','user-nav2')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases</button>
-					<button id="user-nav3" type="button" onclick="cambioNavegador('user-consultaActividadesDeportivas','user-nav3')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Deportivas</button>
-					<button id="user-nav4" type="button" hidden="hidden" onclick="cambioNavegador('user-consultaCuponeras','user-nav4')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
+					<button id="user-nav2" type="button" onclick="cambioNavegador('user-consultaClases','user-nav2')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Clases Dictadas</button>
+					<button id="user-nav3" type="button" onclick="cambioNavegador('user-consultaActividadesDeportivas','user-nav3')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Seguidores</button>
+					<button id="user-nav4" type="button" onclick="cambioNavegador('user-consultaCuponeras','user-nav4')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Seguidos</button>
+					<button id="user-nav5" type="button" onclick="cambioNavegador('user-consultaAD','user-nav5')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Asociadas</button>
+					<button id="user-nav6" type="button" onclick="cambioNavegador('user-consultaADI','user-nav6')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Actividades Ingresadas</button>
 				</nav>
 			</div>
 			<div id="user-consultaPerfil" class="col-sm-11 border">
@@ -176,46 +168,79 @@
                     </div>
                   </div>
                   	<div class="row">
-	                  <div id="user-editar-btn" class="flex-sm-fill text-sm-center nav-link ">
-						<button type="button" class="btn btn-primary">
-				          Editar
-				       </button>
-					 </div>
 	               </div>
                 </div>
               </div>
 				</div>
 				<div id= "user-consultaClases" class="col-9 border  card-body">
-					<ul id="listaActividadesClases" class=" py-3 container">
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/classes/voleibol.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Voleibol</a></li>
-					</ul>
+					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
+						<li class="list-group-item container border card-body elementoLista"><a href="../clases/voleibol.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/classes/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Voleibol</b><small class="text-muted"> (Voleibol)</small></a>
+						 </li>
+						</ul>
 				</div>
 				<div id= "user-consultaActividadesDeportivas" class="col-sm-9 border">
-					<ul id="listaActividadesActDep" class=" py-3 container">
-						<h2><strong>Actividades ingresadas</strong></h2>
-						<br>
-						<h4 class="consultaAceptadaRechazada"><strong>Aceptadas</strong></h4>
-						<br>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/voleibol.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase color-blue">Voleibol</a></li>
-						<li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/atletismo.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase" >Atletismo</a></li>
-						<br>
-			         	<h4 class="consultaAceptadaRechazada"><strong>Rechazadas</strong></h4>
-						<br>
-						<li class="elementoLista container border card-body elementoListaClaseSeleccionable"> <img alt="Qries"  src=""
-			         	class="vertical-align-middle imagenSeleccionable"> <a class="clase">Voleibol II</a></li>
-					    <br>
-					    <h2><strong>Actividades asociadas</strong></h2>
-					    <br>
-					    <li class="container border card-body elementoLista"> <img alt="Qries"  src=".././img/activities/voleibol.jpg"
-			         	class="vertical-align-middle imagenSeleccionable"><a class="clase">Voleibol</a></li>
-					</ul>
+						<h5>Denis no tiene seguidores :(</h5>
 				</div>
 				<div id= "user-consultaCuponeras" class="col-sm-9 border card-body">
-					<ul id="listaActividadesCuponeras" class=" py-3 container">
-						
+					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/euge.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>Euge</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista"><a href="Emi71.html"  class="link-dark">
+						 <img alt="Qries"  src="../img/users/emi71.webp" class="vertical-align-middle imagenSeleccionable">
+							<b><br>Emi71</b><small class="text-muted"> (Socio)</small></a>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/caro.webp" class="vertical-align-middle imagenSeleccionable">
+							<b><br>caro</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/guille.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>guille</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/sergiop.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>sergiop</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/andy.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>andy</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						 						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/tonyp.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>tonyp</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						 						 						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/m1k4.webp" class="vertical-align-middle imagenSeleccionable">
+							<b><br>m1k4</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+						 						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/charly.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>charly</b><small class="text-muted"> (Socio)</small>
+						 </li>	
+					</ul>
+				</div>
+				<div id= "user-consultaAD" class="col-sm-9 border card-body">
+					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
+						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/voleibol.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/activities/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Voleibol</b></a>
+						 </li>
+						</ul>
+				</div>
+				<div id= "user-consultaADI" class="col-sm-9 border card-body">
+					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
+						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/voleibol.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/activities/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Voleibol</b></a>
+						 </li>
+						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/atletismo.html"  class="link-dark">
+						 <img alt="Qries"  src=".././img/activities/atletismo.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b>Atletismo</b></a>
+						 </li>
 					</ul>
 				</div>
 		</div>
@@ -223,12 +248,12 @@
         
         <!-- Fin consulta usuario -->
         
-        <div class="col-2 ps-1 ps-sm-2">
-          <nav class="nav-info extraInfoDiv nav flex-column">
-            <h1 class="fs-5">Informacion</h1>
+        <div class="col-2 ps-1">
+          <nav class="extraInfoDiv nav-info nav flex-column">
+            <h1 class="fs-5">Información</h1>
             <a class="nav-link active" aria-current="page" href="../usuarios.html">Usuarios</a>
             <a class="nav-link" href="../actividades.html">Actividades</a>
-            <a class="nav-link" href="../clases.html">Clases</a>
+            <a class="nav-link" href="../clases.html"> Inscripciones</a>
             <a class="nav-link" href="../cuponeras.html">Cuponeras</a>
           </nav>
         </div>

@@ -1,12 +1,22 @@
 /*---NAVBAR---*/
 
+body {
+	overflow-x: hidden;
+}
+
 #btn-inicio-sesion{
 	white-space: nowrap;
 }
 #nav-inireg{
 	align-items: center;
 }
-
+.extraInfoDiv{
+	border-radius: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
 .btn-ir {
     margin-right: 85%;
     width: 120px;
@@ -37,14 +47,16 @@
 
 #profilePicCreator{
     object-fit: cover;
-    width: 100%;
+    width: auto;
     height: 4em;
     margin-bottom: 10px;
     border-style: solid;
     border-width: 2px;
     border-color: silver;
 }
-
+#logout-session{
+ white-space: nowrap;
+}
 /*---BIENVENIDA---*/
 
 .bienvenida {

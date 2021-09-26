@@ -30,3 +30,13 @@ function colorearBoton( next ) {
   x4.classList.remove('active');
   y.classList.add('active');
 }
+function swappy(){
+	if($("#btnSeguimiento").html()=="Dejar de seguir"){
+		$("#btnSeguimiento").html("Seguir");
+	}else
+	 $("#btnSeguimiento").html("Dejar de seguir");
+}
+
+$(window).load(function() {
+    document.getElementById('btnSeguimiento').onclick = swappy;
+});
