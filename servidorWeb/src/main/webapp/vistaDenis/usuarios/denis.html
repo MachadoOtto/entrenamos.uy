@@ -35,7 +35,7 @@
            </ul>
            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
               <li>
-                 <form id="logout-session" action="../cerrar-sesion" method="POST">
+                 <form id="logout-session" action="../../cerrar-sesion" method="POST">
                   <button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
                       Cerrar Sesion
                   </button>
@@ -77,6 +77,11 @@
 					<div id="user-imagen" class="">
 						<img alt="Qries" id="img-perfil" src=".././img/users/denis.jpg"
 			         width="180" height="180">
+					</div>
+					<div id="user-seguir" class="flex-sm-fill text-sm-center nav-link ">
+						<button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modifModal">>
+			            	Editar Perfil
+			            </button>
 					</div>
 				</div>
 				<div id="user-info" class="col-auto py-3">
@@ -283,6 +288,60 @@
     </footer>
 
     <!--MODALS-->
+    <div class="modal fade" id="modifModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <h2 class="fw-bold mb-0">Modificar datos de Usuario</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                   <h5>Cambiar contraseña</h5>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-4" id="pas1">
+                        <label for="pas1">Contraseña</label>                  
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-4" id="pas2">
+                        <label for="pas2">Confirmar Contraseña</label>                  
+                    </div>
+                    <h5>Sobre ti</h5>
+                    <div id="nombreCompletoDiv" class="row form-floating mb-3">
+                        <div id="divNombre" class="col-6 form-check float-left">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control rounded-4" id="nomm" >
+                                <label for="nomm">Nombre</label>           
+                            </div>      
+                        </div>
+                        <div id="divApellido" class="col-6 form-check float-left">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control rounded-4" id="ape" >
+                                <label for="ape">Apellido</label>           
+                            </div>                           
+                        </div>             
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control rounded-4" id="nac" >
+                        <label for="nomm">Fecha de nacimiento</label>     
+                    </div>
+                  	<div class="mb-3">
+						  <label for="formFile" class="form-label">Cambiar foto de Perfil</label>
+						  <input class="form-control" type="file" id="formFile">
+						</div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <hr class="my-6">
+                <div>
+                    <i>Entrenamos.uy - modificar datos de usuario</i>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
 
     <!--MODAL INICIAR SESION-->
     <div class="modal fade" id="inicioSesionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

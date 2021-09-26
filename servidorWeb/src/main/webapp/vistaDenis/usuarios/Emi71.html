@@ -35,7 +35,7 @@
            </ul>
            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
               <li>
-                 <form id="logout-session" action="../cerrar-sesion" method="POST">
+                 <form id="logout-session" action="../../cerrar-sesion" method="POST">
                   <button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
                       Cerrar Sesion
                   </button>
@@ -88,7 +88,7 @@
 					<p><strong>Nombre: </strong> Emiliano <strong>Apellido: </strong> Lucas </p>
 					<p><strong>Correo: </strong> emi71@gmail.com </p>
 					<p><strong>Ultimo ingreso: </strong> 1/1/2001 00:00 </p>
-					<strong>Seguidores: </strong> 4 <strong>Seguidos: </strong> 
+					<strong>Seguidores: </strong> 4 <strong>Seguidos: </strong>1 
 				</div>
 			</div>
 		</div>
@@ -104,7 +104,7 @@
 					<button id="user-nav6" hidden="hidden" type="button" onclick="cambioNavegador('user-consultaADI','user-nav6')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Actividades Ingresadas</button>
 				</nav>
 			</div>
-			<div id="user-consultaPerfil" class="col-sm-11 border">
+			<div id="user-consultaPerfil" class="row border card-body">
               <div class="mb-3">
                 <div class="card-body">
                   <div class="row">
@@ -112,7 +112,7 @@
                       <h6 class="mb-0"><strong>Nombre completo</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Denis Miguel
+                      Emiliano Lucas
                     </div>
                   </div>
                   <br>
@@ -121,7 +121,7 @@
                       <h6 class="mb-0"><strong>Correo electrónico:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      den80@fuerza.com
+                      emi71@gmail.com
                     </div>
                   </div>
                   <br>
@@ -130,123 +130,90 @@
                       <h6 class="mb-0"><strong>Fecha de nacimiento:<strong></strong></strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      14/6/1980
+                      31/12/1971
                     </div>
                   </div>
-                  <br>
-                  <div class="row">
+                  <div hidden="hidden" class="row">
                     <div class="col-sm-3">
+                        <br>
                       <h6 class="mb-0"><strong>Institución Asociada:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Telón
+                      <br>
                     </div>
                   </div>
-                  <br>
-                  <div class="row">
+                  <div hidden="hidden" class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0"><strong>Descripción: </strong></h6>
                       
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      A Denis le interesan los deportes con pelota, principalmente el voleibol y el handball
+                      <br>
                     </div>
                   </div>
-                  <br>
-                  <div class="row">
+                  <div hidden="hidden" class="row">
                     <div class="col-sm-3">
                       <h6 class="mb-0"><strong>Biografía:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      Denis fue un jugador de voleibol profesional.
+                      <br>
                     </div>
                   </div>
-                  <br>
-                  <div class="row">
+                  <div hidden="hidden" class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0"><strong>Website:</strong></h6>
+                      <h6 hidden="hidden" class="mb-0"><strong>Website:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                     	<a href="https://google.com">
-                    		www.denis.com
+
                     	</a>
                     </div>
                   </div>
-                  	<div class="row">
-                  	
-	               </div>
                 </div>
               </div>
 				</div>
-				<div id= "user-consultaClases" class="col-9 border  card-body">
+				<div id= "user-consultaClases" class="row border card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-						<li class="list-group-item container border card-body elementoLista"><a href="../clases/voleibol.html"  class="link-dark">
+						<li class="list-group-item container border card-body elementoLista"><a href="../clases/voleibol.html" class="link-dark">
 						 <img alt="Qries"  src=".././img/classes/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b>Voleibol</b><small class="text-muted"> (Voleibol)</small></a>
-						 </li>
-						</ul>
+							<b>Voleibol</b><small class="text-muted"> (Voleibol)</small>
+						 </a></li>
+			         	<li class="list-group-item container border card-body elementoLista"> <img alt="Qries"  src="../img/classes/Aerobico+adulto+mayor.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><b>Aeróbico adulto mayor</b><small class="text-muted"> (Aeróbica)</small></li>
+			         	<li class="list-group-item container border card-body elementoLista"> <img alt="Qries"  src="../img/classes/Musculos+para+boxeo.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><b>Músculos para boxeo</b><small class="text-muted"> (Kickboxing)</small></li>
+			         	<li class="list-group-item container border card-body elementoLista"> <img alt="Qries"  src=".././img/classes/m200.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><b>200 M</b><small class="text-muted"> (Atletismo)</small></li>
+			         	<li class=" list-group-item container border card-body elementoLista"> <img alt="Qries"  src=".././img/classes/basquet1.jpg"
+			         	class="vertical-align-middle imagenSeleccionable"><b>Basquet I</b><small class="text-muted"> (Basquetbol)</small></li>
+					</ul>
 				</div>
-				<div id= "user-consultaActividadesDeportivas" class="col-sm-9 border">
-						<h5>Denis no tiene seguidores :(</h5>
-				</div>
-				<div id= "user-consultaCuponeras" class="col-sm-9 border card-body">
+				<div id= "user-consultaActividadesDeportivas" class="row border card-body">
 					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
 						<li class="list-group-item container border card-body elementoLista">
 						 <img alt="Qries"  src="../img/users/euge.jpg" class="vertical-align-middle imagenSeleccionable">
 							<b><br>Euge</b><small class="text-muted"> (Socio)</small>
 						 </li>	
-						<li class="list-group-item container border card-body elementoLista"><a href="Emi71.html"  class="link-dark">
-						 <img alt="Qries"  src="../img/users/emi71.webp" class="vertical-align-middle imagenSeleccionable">
-							<b><br>Emi71</b><small class="text-muted"> (Socio)</small></a>
-						 </li>	
-						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/caro.webp" class="vertical-align-middle imagenSeleccionable">
-							<b><br>caro</b><small class="text-muted"> (Socio)</small>
-						 </li>	
 						<li class="list-group-item container border card-body elementoLista">
 						 <img alt="Qries"  src="../img/users/guille.jpg" class="vertical-align-middle imagenSeleccionable">
 							<b><br>guille</b><small class="text-muted"> (Socio)</small>
 						 </li>	
-						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/sergiop.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>sergiop</b><small class="text-muted"> (Socio)</small>
-						 </li>	
-						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/andy.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>andy</b><small class="text-muted"> (Socio)</small>
+						<li class="list-group-item container border card-body elementoLista"><a href="denis.html"  class="link-dark">
+						 <img alt="Qries"  src="../img/users/denis.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>denis</b><small class="text-muted"> (Profesor)</small></a>
 						 </li>	
 						 						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/tonyp.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>tonyp</b><small class="text-muted"> (Socio)</small>
-						 </li>	
-						 						 						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/m1k4.webp" class="vertical-align-middle imagenSeleccionable">
-							<b><br>m1k4</b><small class="text-muted"> (Socio)</small>
-						 </li>	
-						 						<li class="list-group-item container border card-body elementoLista">
-						 <img alt="Qries"  src="../img/users/charly.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b><br>charly</b><small class="text-muted"> (Socio)</small>
+						 <img alt="Qries"  src="../img/users/nelson.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>Nelson</b><small class="text-muted"> (Profesor)</small>
 						 </li>	
 					</ul>
 				</div>
-				<div id= "user-consultaAD" class="col-sm-9 border card-body">
-					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-						<li class="list-group-item container border card-body elementoLista"><a href="../cuponeras/pelota.html"  class="link-dark">
-						 <img alt="Qries"  src=".././img/cups/pelota.gif" class="vertical-align-middle imagenSeleccionable">
-							<b>Pelota</b></a>
-						 </li>
-						</ul>
-				</div>
-				<div id= "user-consultaADI" class="col-sm-9 border card-body">
-					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/voleibol.html"  class="link-dark">
-						 <img alt="Qries"  src=".././img/activities/voleibol.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b>Voleibol</b></a>
-						 </li>
-						<li class="list-group-item container border card-body elementoLista"><a href="../actividades/atletismo.html"  class="link-dark">
-						 <img alt="Qries"  src=".././img/activities/atletismo.jpg" class="vertical-align-middle imagenSeleccionable">
-							<b>Atletismo</b></a>
-						 </li>
+				<div id= "user-consultaCuponeras" class="row border card-body">
+					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
+						<li class="list-group-item container border card-body elementoLista">
+						 <img alt="Qries"  src="../img/users/guille.jpg" class="vertical-align-middle imagenSeleccionable">
+							<b><br>guille</b><small class="text-muted"> (Socio)</small>
+						 </li>	
 					</ul>
 				</div>
 		</div>
