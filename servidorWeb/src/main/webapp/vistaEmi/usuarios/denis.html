@@ -14,7 +14,6 @@
   <body>
     
     <!--BARRA DE NAVEGACION-->
-   <!--BARRA DE NAVEGACION-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../home.html">
@@ -33,15 +32,12 @@
                <li>
             		<a href="../usuarios/Emi71.html"><img id="profilePicCreator" alt="Emi71" id="img-perfil" src="../img/users/emi71.webp"></img></a>
            	   </li>
-           	   <li>
-           	   		<a href="../usuarios/Emi71.html" class="nav-link"><b>Emi71</b></a>
-           	   </li>
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
                <li>
-                 <form id="logout-session" action="../../cerrar-sesion" method="POST">
+               	 <form id="logout-session" action="../../cerrar-sesion" method="POST">
                  	<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
-                   		Cerrar Sesión
+                   		Cerrar Sesion
                  	</button>
                  </form>
                </li>
@@ -256,108 +252,19 @@
             <h1 class="fs-5">Información</h1>
             <a class="nav-link active" aria-current="page" href="../usuarios.html">Usuarios</a>
             <a class="nav-link" href="../actividades.html">Actividades</a>
-            <a class="nav-link" href="../clases.html"> Inscripciones</a>
+            <a class="nav-link" href="../clases.html"> Clases</a>
             <a class="nav-link" href="../cuponeras.html">Cuponeras</a>
           </nav>
         </div>
       </div>
     </div>
 
-    <!--MODAL REGISTRO-->
-    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
-                <h2 class="fw-bold mb-0">Unéte a Entrenamos.uy</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-floating mb-3">
-                        <h5>Que eres?</h5>
-                        <div id="socioRadio" class="form-check float-left">
-                            <input class="form-check-input" type="radio" name="tipoUsuario" id="radioSocio" checked>
-                            <label class="form-check-label" for="radioSocio">
-                            Socio
-                            </label>
-                        </div>
-                        <div id="profeRadio" class="form-check float-left">
-                            <input class="form-check-input" type="radio" name="tipoUsuario" id="radioProfe">
-                            <label class="form-check-label" for="radioProfe">
-                            Profesor
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-floating mb-3 mt-5">
-                        <input type="text" class="form-control rounded-4" id="nickk" >
-                        <label for="nickk">Nickname</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control rounded-4" id="emaill">
-                        <label for="emaill">Correo electrónico</label>                  
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control rounded-4" id="pas1">
-                        <label for="pas1">Contraseña</label>                  
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control rounded-4" id="pas2">
-                        <label for="pas2">Confirmar Contraseña</label>                  
-                    </div>
-                    <h5>Sobre ti</h5>
-                    <div id="nombreCompletoDiv" class="row form-floating mb-3">
-                        <div id="divNombre" class="col-6 form-check float-left">
-                            <div class="form-floating mb-2">
-                                <input type="text" class="form-control rounded-4" id="nomm" >
-                                <label for="nomm">Nombre</label>           
-                            </div>      
-                        </div>
-                        <div id="divApellido" class="col-6 form-check float-left">
-                            <div class="form-floating mb-2">
-                                <input type="text" class="form-control rounded-4" id="ape" >
-                                <label for="ape">Apellido</label>           
-                            </div>                           
-                        </div>             
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="date" class="form-control rounded-4" id="nac" >
-                        <label for="nomm">Fecha de nacimiento</label>     
-                    </div>
-                    <div id="institDiv" class="form-floating mb-3">
-                        <select id="instit" class="form-select" data-live-search="true">
-                            <option data-tokens="empty"></option>
-                            <option data-tokens="bruta">Fuerza Bruta</option>
-                            <option data-tokens="telon">Telón</option>
-                            <option data-tokens="lol">天安門體育俱樂部</option>
-                        </select>
-                        <label for="instit">Institución asociada</label>                               
-                    </div>
-                    <div id="descDiv" class="form-group form-floating mb-3">
-                        <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
-                        <label for="desc">Descripción</label>     
-                    </div>
-                    <div id="bioDiv" class="form-group form-floating mb-3">
-                        <textarea class="form-control" id="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
-                        <label for="desc">Biografía</label>     
-                    </div>
-                    <div id="webDiv" class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-4" id="webs" >
-                        <label for="webs">Sitio web</label>
-                    </div>
-                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Registrarse</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <hr class="my-6">
-                <div>
-                    <i>Ya tienes cuenta? </i>
-                    <a id="iniLink" href="#">Inicia Sesión Aquí</a>
-                </div>
-            </div>
-        </div>
+	<!--FOOTER-->
+    <footer class="footer">
+      <div class="footer-row row">
+        Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
       </div>
-    </div>
+    </footer>
 
     <!--JAVASCRIPT-->
 
