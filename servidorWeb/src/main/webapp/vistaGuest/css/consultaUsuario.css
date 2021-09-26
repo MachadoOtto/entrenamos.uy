@@ -65,6 +65,20 @@ body {
     perspective: 1px;
 }
 
+#user-nav5 {
+	border-radius: 6px 7px 0 0 !important;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+#user-nav6 {
+	border-radius: 6px 7px 0 0 !important;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
  #user-imagen {
  	display: block;
  	margin: auto;
