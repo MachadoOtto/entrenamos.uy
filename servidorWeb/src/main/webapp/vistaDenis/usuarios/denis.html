@@ -311,25 +311,39 @@
                     <div id="nombreCompletoDiv" class="row form-floating mb-3">
                         <div id="divNombre" class="col-6 form-check float-left">
                             <div class="form-floating mb-2">
-                                <input type="text" class="form-control rounded-4" id="nomm" >
+                                <input type="text" class="form-control rounded-4" id="nomm"  value="Denis">
                                 <label for="nomm">Nombre</label>           
                             </div>      
                         </div>
                         <div id="divApellido" class="col-6 form-check float-left">
                             <div class="form-floating mb-2">
-                                <input type="text" class="form-control rounded-4" id="ape" >
+                                <input type="text" class="form-control rounded-4" id="ape"  value="Miguel">
                                 <label for="ape">Apellido</label>           
                             </div>                           
                         </div>             
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control rounded-4" id="nac" >
+                        <input type="date" class="form-control rounded-4" id="nac"  value="2001-01-01">
                         <label for="nomm">Fecha de nacimiento</label>     
                     </div>
                   	<div class="mb-3">
 						  <label for="formFile" class="form-label">Cambiar foto de Perfil</label>
 						  <input class="form-control" type="file" id="formFile">
 						</div>
+						<div id="modifdescDiv" class="form-group form-floating mb-3">
+                        <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' > A Denis le interesan los deportes con pelota, principalmente el voleibol y el handball
+                        </textarea>
+                        <label for="desc">Descripción</label>     
+                    </div>
+                    <div id="newbioDiv" class="form-group form-floating mb-3">
+                        <textarea class="form-control" id="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' >Denis fue un jugador de voleibol profesional.</textarea>
+                        <label for="desc">Biografía</label>     
+                    </div>
+                    <div id="newwebDiv" class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-4" id="webs"  value="www.denis.com">
+                        <label for="webs">Sitio web</label>
+                    </div>
+                  
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar</button>
                 </form>
             </div>
@@ -348,7 +362,7 @@
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <img src="./img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                  <img src="../img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                   <h2 class="fw-bold mb-0">Entrenamos.uy</h2>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
