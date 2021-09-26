@@ -63,6 +63,14 @@
 
       <div class="row mx-3 mx-md-5">
         <div class="ins-cat col-sm-3">
+        
+          <nav style="margin-bottom: 3em;" class="ins-cat-section nav flex-column">
+            <h1 class="fs-5">Acciones</h1>
+            <button type="button" id="btn-2" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#altaActModal">
+                    Alta Actividad Deportiva
+                  </button>
+          </nav>
+
           <nav class="ins-cat-section nav flex-column">
             <h1 class="fs-5">Instituciones</h1>
             <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
@@ -119,6 +127,66 @@
         Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
       </div>
     </footer>
+
+    <!--MODAL ALTA ACT-->
+    <div class="modal fade" id="altaActModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <img src="img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                    <h2 class="fw-bold mb-0">Alta una Actividad Deportiva</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="">
+                            <label for="floatingInput">Nombre</label>
+                        </div>
+                                            <div id="descDiv" class="form-group form-floating mb-3">
+                        <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                        <label for="desc">Descripción</label>     
+                    </div>
+                        <div id="nombreCompletoDiv" class="row form-floating mb-3">
+                            <div id="divNombre" class="col-6 form-check float-left">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control rounded-4" id="nomm" >
+                                    <label for="nomm">Costo</label>           
+                                </div>      
+                            </div>
+                            <div id="divApellido" class="col-6 form-check float-left">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control rounded-4" id="ape" >
+                                    <label for="ape">Duración</label>           
+                                </div>                           
+                            </div>             
+						<div class="mb-3">
+						  <label for="formFile" class="form-label">Imagen asociada</label>
+						  <input class="form-control" type="file" id="formFile">
+						</div>
+						
+                        <div id="catDiv" class="form-floating mb-3">
+                        <h6>Categorias</h6>
+							<select style="width:inherit" class="cat" multiple aria-label="multiple select example">
+							  <option value="1">Deportes</option>
+							  <option value="2">Futbol</option>
+							  <option value="3">Fitness</option>
+							  <option value="4">Gimnasia</option>
+							</select>                          
+                    </div>
+                        
+                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <hr class="my-6">
+                    <div>
+                        <i>Entrenamos.uy - Alta Actividad Deportiva</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--JAVASCRIPT-->
 
