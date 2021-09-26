@@ -47,12 +47,13 @@ body {
 
 #profilePicCreator{
     object-fit: cover;
-    width: auto;
-    height: 4em;
-    margin-bottom: 10px;
+	width:80px;
+	height:80px;
+	display: block;
+    justify-content: center;
     border-style: solid;
     border-width: 2px;
-    border-color: silver;
+    border-color: #0275d8;
 }
 #logout-session{
  white-space: nowrap;
