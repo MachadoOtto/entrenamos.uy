@@ -12,4 +12,6 @@
 /servidorWeb/build/
 /servidorWeb/WebContent
 /servidorWeb/bin
+/servidorWeb/.pmd
+/servidorWeb/.tomcatplugin
 .directory

@@ -27,7 +27,11 @@ function registroCup(){
 }
 
 $(window).load(function() {
-  document.getElementById('radioGen').addEventListener('input',registroGen);
-  document.getElementById('radioCup').addEventListener('input',registroCup);
-  registroGen();
+	try{
+	  	document.getElementById('radioGen').addEventListener('input',registroGen);
+  		document.getElementById('radioCup').addEventListener('input',registroCup);
+  		registroGen();	
+	} catch (error) {
+		console.error(error)	
+	}
 });
