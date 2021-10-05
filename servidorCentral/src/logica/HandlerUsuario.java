@@ -69,7 +69,7 @@ public class HandlerUsuario {
 		} else {
 			usuarios.put(user.getNickname(), user);
 			correos.add(user.getCorreo());
-			log.info("Usuario "+user.getNombre()+"registered, total: "+usuarios.size());
+			log.info("Usuario "+user.getNickname()+" registered, total: "+usuarios.size());
 			return true;
 		}
 	}

@@ -102,7 +102,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="formulario-registro" action="javascript:registrarse()" data-root="<%=request.getContextPath()%>">
                     <div class="form-floating mb-3">
                         <h5>Que eres?</h5>
                         <div id="socioRadio" class="form-check float-left">
@@ -118,7 +118,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-floating mb-3 mt-5">
+                    <div class="form-floating mb-3">
                         <input type="text" class="form-control rounded-4" id="nickk" >
                         <label for="nickk">Nickname</label>
                     </div>
@@ -167,15 +167,15 @@
                     </div>
                     <div id="bioDiv" class="form-group form-floating mb-3">
                         <textarea class="form-control" id="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
-                        <label for="desc">Biografía</label>     
+                        <label for="desc">Biografía <i style="font-size:0.7rem;"> (opcional)</i></label>     
                     </div>
                     <div id="webDiv" class="form-floating mb-3">
                         <input type="text" class="form-control rounded-4" id="webs" >
-                        <label for="webs">Sitio web</label>
+                        <label for="webs">Sitio web <i style="font-size:0.7rem;"> (opcional)</i></label>
                     </div>
 					<div class="mb-3">
-					  <label for="formFile" class="form-label">Imagen de perfil</label>
-					  <input class="form-control" type="file" id="formFile">
+					  <label for="formFile" class="form-label">Imagen de perfil <i style="font-size:0.7rem;"> (opcional)</i></label>
+					  <input class="form-control" type="file" id="imgPerfil">
 					</div>
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Registrarse</button>
                 </form>
