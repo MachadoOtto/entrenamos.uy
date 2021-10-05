@@ -48,7 +48,7 @@ function iniciarSesion(){
 }
 function registrarse(){
 	/*Verificar Formulario*/
-	if($("#nickk").val() == "" || $("#emailll").val() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
+	if($("#nickk").val() == "" || $("#emaill").val() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
 	 $("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || ($("#radioProfe").is(":checked") && $("#desc").val()=="")){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-registro");
 		return;
@@ -83,14 +83,13 @@ function registrarse(){
 			xhttp.open("POST",$("#formulario-registro").attr("data-root")+"/api/signup")
 			xhttp.send(formData);
 			xhttp.onload = function(){
-				console.log(xhttp.responseText.trim());
 				if(xhttp.responseText.trim()=="OK"){
 					window.location.reload();
 				} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
-					errorMsgForm("Ya existe un usuario con los datos ingresados.","formulario-registr");
+					errorMsgForm("Ya existe un usuario con los datos ingresados.","formulario-registro");
 				}
 				else{
-					errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-registr");
+					errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-registro");
 				}
 			}		
 	   };
@@ -107,15 +106,71 @@ function registrarse(){
 			if(xhttp.responseText.trim()=="OK"){
 				window.location.reload();
 			} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
-				errorMsgForm("Ya existe un usuario con los datos ingresados.","formulario-registr");
+				errorMsgForm("Ya existe un usuario con los datos ingresados.","formulario-registro");
 			}
 			else{
-				errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-registr");
+				errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-registro");
 			}
 		}		
 	}
 }
+function altaAD(){
+	/*Verificar Formulario*/
+	if($("#nombreAD").val() == "" || $("#descAD").val() == "" || $("#costoAD").val() == "" || $("#durAD").val() == ""){
+		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-registro");
+		return;
+	}
+	var formData = new FormData();
+	formData.append("nombreAD",$("#nombreAD").val())
+	formData.append("descAD",$("#descAD").val())
+	formData.append("costoAD",$("#costoAD").val())
+	formData.append("durAD",$("#durAD").val())
+	formData.append("catAD",$("#catAD").val())
 
+	var imgAD = $("#imgAD")[0].files;	
+	if($("#imgAD")[0].files.length>0){
+		var reader = new FileReader();
+	    reader.readAsDataURL(imgAD[0]);
+	   	reader.onload = function () {
+			formData.append("image",reader.result);
+			formData.append("imagename",imgAD[0].name);
+			/*Enviar Formulario*/
+			xhttp = new XMLHttpRequest();
+			xhttp.open("POST",$("#formulario-altaAD").attr("data-root")+"/api/alta_ad")
+			xhttp.send(formData);
+			xhttp.onload = function(){
+				console.log(xhttp.responseText.trim());
+				if(xhttp.responseText.trim()=="OK"){
+					window.location.reload();
+				} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
+					errorMsgForm("Ya existe un actividad deportiva con el mismo nombre.","formulario-altaAD");
+				}
+				else{
+					errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-altaAD");
+				}
+			}		
+	   };
+	   reader.onerror = function (error) {
+	     console.log('Error: ', error);
+	   };
+	}
+	else{
+		/*Enviar Formulario*/
+		xhttp = new XMLHttpRequest();
+		xhttp.open("POST",$("#formulario-altaAD").attr("data-root")+"/api/alta_ad")
+		xhttp.send(formData);
+		xhttp.onload = function(){
+			if(xhttp.responseText.trim()=="OK"){
+				window.location.reload();
+			} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
+				errorMsgForm("Ya existe un actividad deportiva con el mismo nombre.","formulario-altaAD");
+			}
+			else{
+				errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-altaAD");
+			}
+		}		
+	}	
+}
 
 $(window).on('load', function() {
 	try{

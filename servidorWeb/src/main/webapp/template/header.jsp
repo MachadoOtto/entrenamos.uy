@@ -203,36 +203,36 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formulario-altaAD" action="javascript:altaAD()" data-root="<%=request.getContextPath()%>">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-4" id="floatingInput" placeholder="">
+                            <input type="text" class="form-control rounded-4" id="nombreAD" placeholder="">
                             <label for="floatingInput">Nombre</label>
                         </div>
                                             <div id="descDiv" class="form-group form-floating mb-3">
-                        <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                        <textarea class="form-control" id="descAD" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
                         <label for="desc">Descripción</label>     
                     </div>
                         <div id="nombreCompletoDiv" class="row form-floating mb-3">
                             <div id="divNombre" class="col-6 form-check float-left">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control rounded-4" id="nomm" >
+                                    <input type="number" class="form-control rounded-4" id="costoAD" >
                                     <label for="nomm">Costo</label>           
                                 </div>      
                             </div>
                             <div id="divApellido" class="col-6 form-check float-left">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control rounded-4" id="ape" >
-                                    <label for="ape">Duración</label>           
+                                    <input type="number" class="form-control rounded-4" id="durAD" >
+                                    <label for="ape">Duración <i style="font-size:0.7rem;"> (min)</i></label>           
                                 </div>                           
                             </div>           
                          </div>  
 						<div class="mb-3">
-						  <label for="formFile" class="form-label">Imagen asociada</label>
-						  <input class="form-control" type="file" id="formFile">
+						  <label for="formFile" class="form-label">Imagen asociada <i style="font-size:0.7rem;"> (opcional)</i></label>
+						  <input class="form-control" type="file" id="imgAD">
 						</div>
                         <div id="catDiv" class="form-floating mb-3">
-                        <p>Categorías asociadas</p>
-							<select style="width:29em;" class="cat" multiple aria-label="multiple select example">
+                        <p>Categorías asociadas <i style="font-size:0.7rem;"> (opcional)</i></p>
+							<select style="width:29em;" id="catAD" class="cat" multiple aria-label="multiple select example">
 							  <%for(String x: LaFabrica.getInstance().obtenerIActDeportivaController().obtenerCategorias()){ %>
 							  	<option value="<%=x%>"><%=x%></option>
 							  <%} %>
