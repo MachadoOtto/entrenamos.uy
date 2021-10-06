@@ -48,7 +48,7 @@
 					<button type="button" class="btn btn-primary" id="boto">
 			            	Comprar
 			        </button>	
-			        }	   
+			         <% }	%>	   
     	    	</div>
           </div>   
           <div class = "row">
