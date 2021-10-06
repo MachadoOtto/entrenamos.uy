@@ -56,7 +56,7 @@
         	 <div class="card-body">
         	 	  <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0"><strong>Descripción:</strong></h6>
+                      <h6 class="mb-0"><strong>Descripcin:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <% c.getDescripcion(); %>
@@ -65,7 +65,7 @@
                     
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0" id= "valido"><strong>Período de validez:</strong></h6>
+                      <h6 class="mb-0" id= "valido"><strong>Perodo de validez:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary" id= "valido">
                         <% c.getFechaInicio().toFecha(); %> - <% c.getFechaFin().toFecha(); %>
@@ -124,12 +124,12 @@
                         </div>
                         
                     </div>
-                    	}
+                    	<% } %>
                 </div> 
                 
                 
                 <div class = "row extraInfoDiv" id= "cats">
-                    <h3>Categorías</h3>
+                    <h3>Categoras</h3>
                     <%
                     	List<String> cats = c.getCategorias();
                     	for (String x :cats){ 
@@ -142,7 +142,7 @@
                           <%=x%>
                         </div>
                     </div>
-                    }
+                    <% } %>
                 </div>           	
                      
           
