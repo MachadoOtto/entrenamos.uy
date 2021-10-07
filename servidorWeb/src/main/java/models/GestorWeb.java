@@ -21,7 +21,6 @@ import excepciones.UsuarioNoExisteException;
 
 public class GestorWeb {
 	private static GestorWeb instancia;
-	private LaFabrica fabricaSistema;
 	private static IActividadDeportivaController IADC;
 	private static IUsuarioController IUC;
 	private static ICuponeraController ICC;
@@ -469,7 +468,7 @@ public class GestorWeb {
 		}
 	}	
 	
-    public DtUsuarioExt buscarUsuario(String nickEmail) throws UsuarioNoExisteException {
+    public static DtUsuarioExt buscarUsuario(String nickEmail) throws UsuarioNoExisteException {
         DtUsuarioExt res;
         try {
             res = IUC.seleccionarUsuario(nickEmail);
@@ -477,5 +476,19 @@ public class GestorWeb {
             res = IUC.seleccionarUsuarioEmail(nickEmail);
         }
         return res;
+    }
+    
+    //Las siguientes funciones te parmiten escribir menos al invocar funciones del modelo (lógica)
+    public static IActividadDeportivaController getIADC() {
+    	return IADC;
+    }
+    public static IUsuarioController getIUC() {
+    	return IUC;
+    }
+    public static ICuponeraController getICC() {
+    	return ICC;
+    }
+    public static IDictadoClaseController getIDCC() {
+    	return IDCC;
     }
 }

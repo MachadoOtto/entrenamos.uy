@@ -13,7 +13,18 @@ function errorMsgForm(msg,parent){
 		shake("errorMsg"+parent);
 	}
 }
-
+function crearTostada(title,msg){
+	toast = `<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>
+				  <div class='toast-header'>
+				    <strong class="me-auto">${title}</strong>
+				    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				  </div>
+				  <div class="toast-body">
+				    ${msg}
+				  </div>
+				</div>`
+	$("tostadas").append(t)
+}
 function swapIniRegModals(){
     $('.modal').css('overflow-y', 'auto');
     bootstrap.Modal.getOrCreateInstance(document.getElementById('inicioSesionModal')).toggle();
@@ -117,7 +128,7 @@ function registrarse(){
 function altaAD(){
 	/*Verificar Formulario*/
 	if($("#nombreAD").val() == "" || $("#descAD").val() == "" || $("#costoAD").val() == "" || $("#durAD").val() == ""){
-		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-registro");
+		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-altaAD");
 		return;
 	}
 	var formData = new FormData();
@@ -142,6 +153,7 @@ function altaAD(){
 				console.log(xhttp.responseText.trim());
 				if(xhttp.responseText.trim()=="OK"){
 					window.location.reload();
+					crearTostada("Notifiación","Se ha dado de alta la actividad deportiva de manera exitosa.");
 				} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
 					errorMsgForm("Ya existe un actividad deportiva con el mismo nombre.","formulario-altaAD");
 				}
@@ -162,6 +174,7 @@ function altaAD(){
 		xhttp.onload = function(){
 			if(xhttp.responseText.trim()=="OK"){
 				window.location.reload();
+				crearTostada("Notifiación","Se ha dado de alta la actividad deportiva de manera exitosa.");
 			} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
 				errorMsgForm("Ya existe un actividad deportiva con el mismo nombre.","formulario-altaAD");
 			}
