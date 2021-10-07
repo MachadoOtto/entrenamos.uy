@@ -37,6 +37,8 @@ public interface IDictadoClaseController {
 	public DtClaseExt seleccionarClase(String  ins, String actDep, String clase) throws InstitucionException, ClaseException,
 			ActividadDeportivaException;
 	
+	public DtClaseExt buscarClase(String nombreClase) throws ClaseException;
+	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws  InstitucionException, FechaInvalidaException,
 			ClaseException, UsuarioNoExisteException, ActividadDeportivaException;
 	
