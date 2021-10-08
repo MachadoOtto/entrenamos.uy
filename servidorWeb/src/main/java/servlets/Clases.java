@@ -17,7 +17,7 @@ import excepciones.ClaseException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
-@WebServlet ("/api/clases")
+@WebServlet ("/clases")
 public class Clases extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

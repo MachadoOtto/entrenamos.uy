@@ -33,7 +33,7 @@
            			</div>
             		<div class="col-9 py-3">
 				      	<div id="user-info" class="row">
-                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> <a id="user-type" href="<%=request.getContextPath()%>/api/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a></p>
+                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> <a id="user-type" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a></p>
 				      	</div>
               			<div id="creatorDiv" class="row">
                 			<div class="col-auto">
@@ -41,7 +41,7 @@
                 			</div>
               				<div class="col-auto">
                  				<img alt="Qries"  src="<%=request.getContextPath()%>/assets/images/users/<%=datosClase.getNicknameProfesor()%>.jpg" class="vertical-align-middle imagenSeleccionable">
-                 				<a class="clase color-blue" href="<%=request.getContextPath()%>/api/usuarios?nickname=<%=datosClase.getNicknameProfesor()%>"><%=datosClase.getNicknameProfesor()%></a>
+                 				<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosClase.getNicknameProfesor()%>"><%=datosClase.getNicknameProfesor()%></a>
               				</div>
               				<%if (esSocio) { %>
 	              				<div class="col-auto">
@@ -104,7 +104,7 @@
 		      			<%  for(String alumno : nickAlumnos) { %>
 		      				<li class="container border card-body elementoLista">
 				           		<img alt="Default"  src="<%=request.getContextPath()%>/assets/images/users/<%=alumno%>.jpg" class="vertical-align-middle imagenSeleccionable">
-				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/api/usuarios?nickname=<%=alumno%>"><%=alumno%></a>
+				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno%>"><%=alumno%></a>
 				        	</li>
 		      			<%  } %>
 		      		</ul>
