@@ -61,7 +61,7 @@ public class Home extends HttpServlet {
 		processRequest(request, response);
 	}
 	
-	// Devuelve las Actividades Aprobadas.
+	// Devuelve las Actividades aprobadas.
 	private List<DtActividadDeportiva> obtenerActividades() throws ActividadDeportivaException {
 		List<DtActividadDeportiva> lista = new ArrayList<>();
 		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
