@@ -73,11 +73,14 @@ public class DictadoClaseController implements IDictadoClaseController {
 		for (String x: getHI().obtenerInstituciones()) {
 			try {
 				for (String y: getHI().findInstitucion(x).obtenerNombresActDep()) {
-					datosClase = getHI().findInstitucion(x).findActividad(y).findClase(nombreClase).getDt();
+					try {
+						datosClase = getHI().findInstitucion(x).findActividad(y).findClase(nombreClase).getDt();
+						return datosClase;
+					} catch(ClaseException ignore) { }
 				}
 			} catch(InstitucionException ignore) { }
 		}
-		return datosClase;
+		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
 	}
 	
 	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException, FechaInvalidaException,

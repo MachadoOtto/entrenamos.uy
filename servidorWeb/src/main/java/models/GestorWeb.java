@@ -33,11 +33,11 @@ public class GestorWeb {
 	}
 	
 	private GestorWeb() {
-		LaFabrica fabrica = LaFabrica.getInstance();
-		IADC = fabrica.obtenerIActDeportivaController();
-		IUC = fabrica.obtenerIUsuarioController();
-		ICC = fabrica.obtenerICuponeraController();
-		IDCC = fabrica.obtenerIDictadoClaseController();
+		fabricaSistema = LaFabrica.getInstance();
+		IADC = fabricaSistema.obtenerIActDeportivaController();
+		IUC = fabricaSistema.obtenerIUsuarioController();
+		ICC = fabricaSistema.obtenerICuponeraController();
+		IDCC = fabricaSistema.obtenerIDictadoClaseController();
 		cargaDeCasos();
 	}
 
@@ -466,7 +466,7 @@ public class GestorWeb {
 		} catch (Exception e) {
         	e.printStackTrace();
 		}
-	}	
+	}
 	
     public static DtUsuarioExt buscarUsuario(String nickEmail) throws UsuarioNoExisteException {
         DtUsuarioExt res;

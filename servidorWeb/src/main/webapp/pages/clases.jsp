@@ -12,12 +12,16 @@
 <head>
 	<jsp:include page="/template/head.jsp"/>
 	<link rel="stylesheet" 
+		href="<%=request.getContextPath()%>/assets/styles/home.css">
+	<link rel="stylesheet" 
 		href="<%=request.getContextPath()%>/assets/styles/consultaClases.css">
 </head>
 <body>
 	<jsp:include page="/template/header.jsp"/>
 	<div class="container-fluid mt-4">
-		<%  DtClaseExt datosClase = (DtClaseExt) request.getAttribute("clase"); 
+		<%  DtClaseExt datosClase = (DtClaseExt) request.getAttribute("clase");
+			String nombreActividad = (String) request.getAttribute("actividad");
+			boolean esSocio = (boolean) request.getAttribute("esSocio");
 			%>
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
@@ -32,7 +36,7 @@
            			</div>
             		<div class="col-9 py-3">
 				      	<div id="user-info" class="row">
-                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> <a id="user-type"> (ActDep) </a></p>
+                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> <a id="user-type" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a></p>
 				      	</div>
               			<div id="creatorDiv" class="row">
                 			<div class="col-auto">
@@ -42,8 +46,13 @@
                  				<img alt="Qries"  src="<%=request.getContextPath()%>/assets/images/users/<%=datosClase.getNicknameProfesor()%>.jpg" class="vertical-align-middle imagenSeleccionable">
                  				<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosClase.getNicknameProfesor()%>"><%=datosClase.getNicknameProfesor()%></a>
               				</div>
-              				<div class="col-auto">
-              				</div>
+              				<%if (esSocio) { %>
+	              				<div class="col-auto">
+					                <button id="botonInsc" type="button" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#inscModal">
+					                  Inscribirse
+					                </button>
+	              				</div>
+	              			<% } %>
              			</div>
           			</div>
 		      	</div>
@@ -103,10 +112,10 @@
 		      			<%  } %>
 		      		</ul>
 		    	</div>
+		    	<div class="col-3 ps-1 ps-sm-2">
+			    	<jsp:include page="/template/stdRightSection.jsp"/>
+				</div>
 		  	</div>
-		    <div class="col-3 ps-1 ps-sm-2">
-		    	<jsp:include page="/template/stdRightSection.jsp"/>
-			</div>
 		</div>
 	</div>
 	
