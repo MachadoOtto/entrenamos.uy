@@ -1,3 +1,10 @@
+errores = {"e1m":"La combinación Usuario/Contraseña no es correcta.","e1t":"Error al Iniciar Sesión","e1c":"rgb(255 0 0 / 60%)",
+		   "e2m":"Ya existe un usuario con el nickname o correo seleccionado.","e2t":"Error al Registrar Usuario","e2c":"rgb(255 0 0 / 60%)",
+			"e3m":"Se ha registrado su usuario de manera exitosa.","e3t":"Registrar Usuario","e3c":"rgb(86 255 0 / 60%)",
+			"e4m":"El nombre de la actividad deportiva a crear ya existe en el sistema","e4t":"Error al Registrar Actividad Deportiva","e4c":"rgb(255 0 0 / 60%)",
+			"e5m":"Se ha registrado la actividad deportiva exitosamente.","e5t":"Alta de Actividad Deportiva","e5c":"rgb(86 255 0 / 60%)"
+			};
+
 function shake(element){
 	$('#'+element).animate({'margin-left': '+=3px', 'margin-right': '-=3px'},"fast");
 	$('#'+element).animate({'margin-right': '+=3px', 'margin-left': '-=3px'},"fast");
@@ -13,17 +20,24 @@ function errorMsgForm(msg,parent){
 		shake("errorMsg"+parent);
 	}
 }
-function crearTostada(title,msg){
-	toast = `<div class='toast' role='alert' aria-live='assertive' aria-atomic='true'>
+
+tt=0
+function crearTostada(code){
+	title = errores["e"+code+"t"]
+	msg = errores["e"+code+"m"]
+	tt++;
+	toast = `<div id='e${tt}' class='toast' role='alert' data-bs-autohide='false' aria-live='assertive' aria-atomic='true' style="background-color:${errores["e"+code+"c"]};">
 				  <div class='toast-header'>
-				    <strong class="me-auto">${title}</strong>
+				    <strong class="me-auto">${errores["e"+code+"t"]}</strong>
 				    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 				  </div>
 				  <div class="toast-body">
-				    ${msg}
+				    ${errores["e"+code+"m"]}
 				  </div>
-				</div>`
-	$("tostadas").append(t)
+				</div>`;
+	$("#tostadas").append(toast);
+	var bt = new bootstrap.Toast($("#e"+tt));
+	bt.show();
 }
 function swapIniRegModals(){
     $('.modal').css('overflow-y', 'auto');
@@ -42,156 +56,76 @@ function registroProfe(){
     $("#bioDiv").show();
     $("#webDiv").show();
 }
-
-
-function iniciarSesion(){
-	xhttp = new XMLHttpRequest();
-	xhttp.open("POST",$("#formulario-sesion").attr("data-root")+"/api/login")
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send("nick-login="+$("#user").val()+"&pass-login="+$("#pass").val());
-	xhttp.onload = function(){
-		if(xhttp.responseText.trim()=="OK"){
-			window.location.reload();
-		} else if(xhttp.responseText.trim()=="FAIL_PWD" || xhttp.responseText.trim()=="FAIL_USR"){
-			errorMsgForm("La combinación usuario/contraseña es inválida.","formulario-sesion");
-		}
-	}
+function cargarImg(){
+	var imgPerfil = $("#imgPerfil")[0].files;	
+		var reader = new FileReader();
+	    reader.readAsDataURL(imgPerfil[0]);
+	   	reader.onload = function () {
+			$("#imgBlob").val(reader.result)
+			$("#imgName").val(imgPerfil[0].name)			
+	   }	
+	   reader.onerror = function (error) {
+	     console.log('Error when loading image: ', error);
+	   }
 }
-function registrarse(){
+function cargarImgAD(){
+	var imgPerfil = $("#imgAD")[0].files;	
+		var reader = new FileReader();
+	    reader.readAsDataURL(imgPerfil[0]);
+	   	reader.onload = function () {
+			$("#ADimgBlob").val(reader.result)
+			$("#ADimgName").val(imgPerfil[0].name)			
+	   }	
+	   reader.onerror = function (error) {
+	     console.log('Error when loading image: ', error);
+	   }
+}
+function  registrarse(){
 	/*Verificar Formulario*/
 	if($("#nickk").val() == "" || $("#emaill").val() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
 	 $("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || ($("#radioProfe").is(":checked") && $("#desc").val()=="")){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-registro");
-		return;
+		return false;
 	}
 	if($("#pas1").val() != $("#pas2").val()){
 		errorMsgForm("Las contraseñas no coinciden.","formulario-registro");
-		return;
+		return false;
 	}
-	var formData = new FormData();
-	formData.append("nickname",$("#nickk").val())
-	formData.append("email",$("#emaill").val())
-	formData.append("pwd",$("#pas1").val())
-	formData.append("nombre",$("#nomm").val())
-	formData.append("apellido",$("#ape").val())
-	formData.append("nacimiento",$("#nac").val())
-
-	if($("#radioProfe").is(":checked")){
-		formData.append("institucion",$("#instit").val())
-		formData.append("descripcion",$("#desc").val())
-		formData.append("biografia",$("#bio").val())
-		formData.append("website",$("#webs").val())
-	}	
-	var imgPerfil = $("#imgPerfil")[0].files;	
-	if($("#imgPerfil")[0].files.length>0){
-		var reader = new FileReader();
-	    reader.readAsDataURL(imgPerfil[0]);
-	   	reader.onload = function () {
-			formData.append("image",reader.result);
-			formData.append("imagename",imgPerfil[0].name);
-			/*Enviar Formulario*/
-			xhttp = new XMLHttpRequest();
-			xhttp.open("POST",$("#formulario-registro").attr("data-root")+"/api/signup")
-			xhttp.send(formData);
-			xhttp.onload = function(){
-				if(xhttp.responseText.trim()=="OK"){
-					window.location.reload();
-				} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
-					errorMsgForm("Ya existe un usuario con los datos ingresados.","formulario-registro");
-				}
-				else{
-					errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-registro");
-				}
-			}		
-	   };
-	   reader.onerror = function (error) {
-	     console.log('Error: ', error);
-	   };
-	}
-	else{
-		/*Enviar Formulario*/
-		xhttp = new XMLHttpRequest();
-		xhttp.open("POST",$("#formulario-registro").attr("data-root")+"/api/signup")
-		xhttp.send(formData);
-		xhttp.onload = function(){
-			if(xhttp.responseText.trim()=="OK"){
-				window.location.reload();
-			} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
-				errorMsgForm("Ya existe un usuario con los datos ingresados.","formulario-registro");
-			}
-			else{
-				errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-registro");
-			}
-		}		
-	}
+	else
+		return true;
 }
+
 function altaAD(){
 	/*Verificar Formulario*/
 	if($("#nombreAD").val() == "" || $("#descAD").val() == "" || $("#costoAD").val() == "" || $("#durAD").val() == ""){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-altaAD");
-		return;
+		return false;
 	}
-	var formData = new FormData();
-	formData.append("nombreAD",$("#nombreAD").val())
-	formData.append("descAD",$("#descAD").val())
-	formData.append("costoAD",$("#costoAD").val())
-	formData.append("durAD",$("#durAD").val())
-	formData.append("catAD",$("#catAD").val())
-
-	var imgAD = $("#imgAD")[0].files;	
-	if($("#imgAD")[0].files.length>0){
-		var reader = new FileReader();
-	    reader.readAsDataURL(imgAD[0]);
-	   	reader.onload = function () {
-			formData.append("image",reader.result);
-			formData.append("imagename",imgAD[0].name);
-			/*Enviar Formulario*/
-			xhttp = new XMLHttpRequest();
-			xhttp.open("POST",$("#formulario-altaAD").attr("data-root")+"/api/alta_ad")
-			xhttp.send(formData);
-			xhttp.onload = function(){
-				console.log(xhttp.responseText.trim());
-				if(xhttp.responseText.trim()=="OK"){
-					window.location.reload();
-					crearTostada("Notifiación","Se ha dado de alta la actividad deportiva de manera exitosa.");
-				} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
-					errorMsgForm("Ya existe un actividad deportiva con el mismo nombre.","formulario-altaAD");
-				}
-				else{
-					errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-altaAD");
-				}
-			}		
-	   };
-	   reader.onerror = function (error) {
-	     console.log('Error: ', error);
-	   };
-	}
-	else{
-		/*Enviar Formulario*/
-		xhttp = new XMLHttpRequest();
-		xhttp.open("POST",$("#formulario-altaAD").attr("data-root")+"/api/alta_ad")
-		xhttp.send(formData);
-		xhttp.onload = function(){
-			if(xhttp.responseText.trim()=="OK"){
-				window.location.reload();
-				crearTostada("Notifiación","Se ha dado de alta la actividad deportiva de manera exitosa.");
-			} else if(xhttp.responseText.trim()=="FAIL DATA_IN_USE"){
-				errorMsgForm("Ya existe un actividad deportiva con el mismo nombre.","formulario-altaAD");
-			}
-			else{
-				errorMsgForm("Ha ocurrido un error inesperado. Por favor intente nuevamente más tarde.","formulario-altaAD");
-			}
-		}		
-	}	
+	return true;
 }
 
 $(window).on('load', function() {
 	try{
+		$('.miurl').val(window.location.href);
+		ec = $('#tostadas').attr("data-tcode");
+		if(ec!=""){
+			es = ec.split(",");
+			for(let i=0;i<es.length;i++)
+				crearTostada(es[i]);
+		}
 	    document.getElementById('regLink').onclick = swapIniRegModals;
 	    document.getElementById('iniLink').onclick = swapIniRegModals;
 	    document.getElementById('radioSocio').addEventListener('input',registroSocio);
 	    document.getElementById('radioProfe').addEventListener('input',registroProfe);
+		document.getElementById('imgPerfil').addEventListener('input',cargarImg);
 	    registroSocio();		
 	} catch (error){
+		console.log("Handled info0: "+error);
+	}
+	try{
+		document.getElementById('imgAD').addEventListener('input',cargarImgAD);
+	}
+	catch(error){
+		console.log("Handled info: "+error);
 	}
 });

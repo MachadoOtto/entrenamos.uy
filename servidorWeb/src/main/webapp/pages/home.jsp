@@ -30,26 +30,29 @@
         </div>
 
         <div class="actdep-panel col-7 ms-2 ms-sm-1 ms-md-0">
-            <h2 class="h2">Actividades destacadas:</h2>
+            <h1 class="h2">Noticias:</h1>
         	<br>
-          <div class="actDep row mb-4">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/crossFit.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>CrossFit</b> es una tecnica de entrenamiento que
-            conecta movimientos de diferentes disciplinas, tales
-            como la halterofilia, el entrenamiento metabolico o
-            el gimnastico. <a href="" class="text-primary">Leer mas</a></p>
+          <div class="border border-dark row mb-4 p-5 text-dark bg-light rounded-3 ">
+		        <div class="col">
+		        	<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
+		        </div>
+		        <div class="col">
+		        	<h2>A sacudir los huesos!</h2>
+		          	<p>En entrenamos.uy tomamos todas las precauciones necesarias para que los huesos de nuestros clientes se mantengan sanos e integrales.
+		         De ahora en adelante, todas nuestras actividades deportivas son cuidadosamente analizadas y aprobadas como <b>Bone Safe</b>.</p>
+		        </div>
           </div>
-          <div class="actDep row mb-4">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/yogaImg.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Yoga</b> es una practica que conecta el cuerpo,
-            la respiracion y la mente. Esta practica utiliza posturas fisicas, ejercicios de respiracion
-            y meditacion. <a href="" class="text-primary">Leer mas</a></p>
-          </div>
-          <div class="actDep row mb-4">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/futbol11.jpg" class="img-fluid d-inline col-5 col-md-7">
-            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Futbol 11</b> y el deporte en general es una herramienta
-            educativa que brinda un aprendizaje en valores y habilidades blandas que se cohesionan con el 
-            aprendizaje y la practica deportiva. <a href="" class="text-primary">Leer mas</a></p>
+          <div class="border border-dark row mb-4 p-5 text-dark bg-grey rounded-3 ">
+		        <div class="col">
+		        	<img style="height: 16em; border-radius:4em;" src="<%=request.getContextPath()%>/assets/images/users/viktor.jpg">
+		        </div>
+		        <div class="col">
+		        	<h2>Profesor del mes: <b>Viktor</b></h2>
+		          	<p>El equipo directivo de entrenamos.uy con gran placer felicita a <b>Viktor</b> por su larga trayectoria en el sitio.
+		          	 Proveniente de Moscow, Viktor vino a Uruguay a enseñar como levantar unas buenas pesas. Este no conoce los límites, y esto mismo
+		          	 es lo que tanto motiva a sus estudiantes. Conozca más sobre este profesor
+		          	 <a href="<%=request.getContextPath()%>/usuarios?nickname=viktor" class="clase link-dark">visitando su perfil.</a> </p>
+		        </div>
           </div>
         </div>
         <div class="col-3 ps-1 ps-sm-2">

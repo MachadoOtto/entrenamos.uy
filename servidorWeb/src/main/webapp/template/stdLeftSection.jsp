@@ -3,11 +3,11 @@
 <%@ page import="servlets.Login"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
 <%@ page import="datatypes.DtProfesorExt"%>
-<%@ page import="logica.LaFabrica"%>
-<%@ page import="logica.IActividadDeportivaController"%>
-    
-<% if(request.getSession().getAttribute("nickname")!=null){
-	DtUsuarioExt u = Login.getUsuarioLogueado(request);
+<%@ page import="java.util.Set"%>
+<%! @SuppressWarnings("unchecked") %>
+<% 
+DtUsuarioExt u = (DtUsuarioExt)request.getSession().getAttribute("loggedUser");
+if(u!=null){
 	%>
 	<nav style="margin-bottom: 3em;" class="extraInfoDiv ins-cat-section nav flex-column">
 	<h1 class="fs-5">Acciones</h1>
@@ -25,13 +25,17 @@
 
 <nav class="extraInfoDiv ins-cat-section nav flex-column">
   <h1 class="fs-5">Instituciones</h1>
-  <%for(String x: LaFabrica.getInstance().obtenerIActDeportivaController().obtenerInstituciones()){ %>
+  <%
+  Set<String> s = (Set<String>)request.getAttribute("instituciones");
+  for(String x: s){ %>
   	<a class="nav-link" href="<%=request.getContextPath()%>/instituciones?institucion=<%=x%>"><%=x%></a>
   <%} %>
 </nav>
 <nav class="extraInfoDiv ins-cat-section nav flex-column mt-5">
   <h1 class="fs-5">Categorías</h1>
-  <%for(String x: LaFabrica.getInstance().obtenerIActDeportivaController().obtenerCategorias()){ %>
+  <%
+  Set<String> s2 = (Set<String>)request.getAttribute("categorias");
+  for(String x: s2){ %>
   	<a class="nav-link" href="<%=request.getContextPath()%>/categorias?categoria=<%=x%>"><%=x%></a>
   <%} %>
 </nav>

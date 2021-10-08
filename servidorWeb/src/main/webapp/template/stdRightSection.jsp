@@ -7,7 +7,11 @@
 	 <a class="nav-link" href="clases">Clases</a>
 	 <a class="nav-link" href="cuponeras">Cuponeras</a>
 </nav>
-
-<div id="tostadas" class="toast-container position-absolute bottom-0 end-0 p-3">
+<%  String x = "";
+	String q = (String) request.getParameter("e");
+	if(q!=null)
+		x=q;
+%>
+<div id="tostadas" class="toast-container position-absolute bottom-0 end-0 p-3" data-tcode="<%=x%>">
 
 </div>

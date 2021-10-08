@@ -21,14 +21,11 @@ public class Home extends HttpServlet {
     }
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("instituciones", GestorWeb.getIADC().obtenerInstituciones());
-		req.setAttribute("categorias", GestorWeb.getIADC().obtenerCategorias());
-		
 		req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
-	
+
 }

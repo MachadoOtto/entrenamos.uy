@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import datatypes.DtUsuarioExt;
 import excepciones.UsuarioNoExisteException;
 import models.GestorWeb;
-import tools.Parametrizer;
 
-
-@WebServlet ("/login")
+// Servlet login. Obedece el protoclo inicio sesión.
+// Si la combinación tiene exito. El servlet establece como atributo de sesión al usuario.
+@WebServlet ("/api/login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public Login() {
@@ -25,21 +24,28 @@ public class Login extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("nick-login");
-        String r = request.getParameter("miurl");
+        PrintWriter stream = response.getWriter();
         //verificar contraseña
 		try {
-			DtUsuarioExt usr = GestorWeb.buscarUsuario(name);
+			DtUsuarioExt usr = GestorWeb.getInstance().buscarUsuario(name);
 			if(!usr.getContrasenia().equals(request.getParameter("pass-login")))
-				r=Parametrizer.addParam(r, "e", "1");
+				stream.println("FAIL_PWD");
 			else {
-				request.getSession().setAttribute("loggedUser", usr);
-				r=Parametrizer.remParam(r, "e", "1");
+				stream.println("OK"); 
+				request.getSession().setAttribute("nickname", usr.getNickname());
 			}
 		} catch(UsuarioNoExisteException ex) {
-			r=Parametrizer.addParam(r, "e", "1");
+			stream.println("FAIL_USR");
 		}
-		response.sendRedirect(r);
     } 
+    
+	static public DtUsuarioExt getUsuarioLogueado(HttpServletRequest request) {
+		try {
+			return GestorWeb.getInstance().buscarUsuario((String) request.getSession().getAttribute("nickname"));
+		} catch (Exception e){
+			return null;
+		}
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
