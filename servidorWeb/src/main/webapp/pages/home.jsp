@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="datatypes.DtActividadDeportivaExt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +33,7 @@
         <div class="actdep-panel col-7 ms-2 ms-sm-1 ms-md-0">
             <h1 class="h2">Noticias:</h1>
         	<br>
+<<<<<<< Upstream, based on origin/boring
           <div class="border border-dark row mb-4 p-5 text-dark bg-light rounded-3 ">
 		        <div class="col">
 		        	<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
@@ -54,6 +56,18 @@
 		          	 <a href="<%=request.getContextPath()%>/usuarios?nickname=viktor" class="clase link-dark">visitando su perfil.</a> </p>
 		        </div>
           </div>
+=======
+        	<%  for (int i = 1; i < 4; i++) {
+        			DtActividadDeportivaExt datosActividad = (DtActividadDeportivaExt) request.getAttribute("actividad" + i);
+        			if (datosActividad != null) {%>
+		        	<div class="actDep row mb-4">
+			            <img src="<%=request.getContextPath()%>/assets/images/activities/<%=datosActividad.getNombre()%>.jpg" class="img-fluid d-inline col-5 col-md-7">
+			            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b><%=datosActividad.getNombre()%>.</b> <%=datosActividad.getDescripcion()%>
+			            <a href="<%=request.getContextPath()%>/api/actividades?actividad=<%=datosActividad.getNombre()%>" class="text-primary">Leer mas.</a></p>
+		          	</div>
+		    <%  	}
+		    	}%>
+>>>>>>> 8f1113b Piñon Fijo
         </div>
         <div class="col-3 ps-1 ps-sm-2">
            <jsp:include page="/template/stdRightSection.jsp"/>
