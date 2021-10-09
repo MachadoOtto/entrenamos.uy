@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!--Los iconos tipo solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <!--NUESTRO CSS-->
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/consultaUsuarioLista.css">
+    <link rel="stylesheet" href="./css/consultaActividadDeportiva.css">
+
+    <title>Entrenamos.uy</title>
+  </head>
+  <body>
+    
+    <!--BARRA DE NAVEGACION-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="home.html">
+                <img src="../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                Entrenamos.uy
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex me-5 pe-5 container-fluid">
+                <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+                <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+               <li>
+            		<a href="usuarios/denis.html"><img id="profilePicCreator" alt="denis" id="img-perfil" src="img/users/denis.jpg"></img></a>
+           	   </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+               <li>
+               	 <form id="logout-session" action="../cerrar-sesion" method="POST">
+                 	<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
+                   		Cerrar Sesion
+                 	</button>
+                 </form>
+               </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!--CUERPO DE LA PAGINA WEB-->
+    <div class="container-fluid mt-4">
+      <div class="row mx-3 mx-md-5">
+        <div class="ins-cat col-sm-2">
+          <nav class="ins-cat-section nav flex-column">
+            <h1 class="fs-5">Instituciones</h1>
+            <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+            <a class="nav-link" href="#">Fuerza Bruta</a>
+            <a class="nav-link" href="instituciones/Telón.html">Telón</a>
+            <a class="nav-link" href="#">Olympic</a>
+          </nav>
+          <nav class="ins-cat-section nav flex-column mt-5">
+            <h1 class="fs-5">Categorias</h1>
+            <a class="nav-link active" aria-current="page" href="categorias/Deportes.html">Deportes</a>
+            <a class="nav-link" href="#">Futbol</a>
+            <a class="nav-link" href="#">Fitness</a>
+            <a class="nav-link" href="#">Gimnasia</a>
+          </nav>
+        </div>
+        
+		<!-- Comienzo Listado usuario -->
+		
+		<div class="col-md-8">
+        	<div class="cabezal-usuarios py-5 ">
+            	<h2><strong>Listado de Usuarios: </strong></h2>
+            </div>
+    		<div class="container-fluid">
+			  <div class="">
+			    <div class="row px-3">
+			    <div class="col-md-3">
+			    	<div class="card img-de-lista">
+			        <a class="hyperlink-img" href="./usuarios/Emi71.html">
+			        <img class="card-img-top" src="./img/users/emi71.webp" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>Emi71</strong></h5>
+			          <p class="card-text">
+			            Socio/a.
+			          </p>
+			      </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/caro.webp" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>caro</strong></h5>
+			          <p class="card-text">Socio/a.</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/euge.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>euge</strong></h5>
+			          <p class="card-text">Socio/a.</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/guille.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>guille</strong></h5>
+			          <p class="card-text">Socio/a.</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/sergiop.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>sergiop</strong></h5>
+			          <p class="card-text">Socio/a</p>
+			        </div>
+			        </a>
+			      </div>
+			    </div>
+			    <div class="col-md-3">
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/andy.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>andy</strong></h5>
+			          <p class="card-text">Socio/a</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="./usuarios/denis.html">
+			        <img class="card-img-top" src="./img/users/denis.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>denis</strong></h5>
+			          <p class="card-text">A Denis le interesan los deportes con pelota, principalmente el voleibol y el handball</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/m1k4.webp" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>mlk4</strong></h5>
+			          <p class="card-text">Socio/a</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/charly.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>charly</strong></h5>
+			          <p class="card-text">Socio/a</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/viktor.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>viktor</strong></h5>
+			          <p class="card-text">Victor es un apasionado de los músculos. Susclases son organizadas en función de distintos aparatos y pesas con el objetivo de desarrollar músculos</p>
+			        </div>
+			        </a>
+			      </div>
+			    </div>
+			    <div class="col-md-3">
+			    
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/tonyp.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>tonyp</strong></h5>
+			          <p class="card-text">Socio/a</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/clazar.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>clazar</strong></h5>
+			          <p class="card-text">Carlos es un profesor muy divertido cuyas clasesde aeróbica están cargadas de energía</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/theboss.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>TheBoss</strong></h5>
+			          <p class="card-text">Bruno es un ex-boxeardor que busca entrenar afuturos campeones.</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/nelson.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>Nelson</strong></h5>
+			          <p class="card-text">Profesor de natación. Especializado en braza y mariposa.</p>
+			        </div>
+			        </a>
+			      </div>
+			    </div>
+			    <div class="col-md-3">
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/lale.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>lale</strong></h5>
+			          <p class="card-text">Luego de una exitosa carrera como jugadora defutbol profesional. Laura dedica sus clases aenseñar tácticas de futbol</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/iconoUser.png" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>prisc</strong></h5>
+			          <p class="card-text">Laura tiene un gran interés por los deportes olímpicos.</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/dagost.webp" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>dagost</strong></h5>
+			          <p class="card-text">Profesora dedicada y exigente. No acepta un “no puedo” como respuesta</p>
+			        </div>
+			        </a>
+			      </div>
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="#">
+			        <img class="card-img-top" src="./img/users/aldo.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>aldo</strong></h5>
+			          <p class="card-text">Dada su gran estatura Aldo siempre jugó al basquetbol, hoy se dedica a enseñarlo.</p>
+			        </div>
+			        </a>
+			      </div>
+			    </div>
+			    </div>
+			  </div>
+			</div>
+		  </div>
+		
+		<!-- Fin listado usuario -->
+
+        <div class="col-sm-2 ps-1 ps-sm-2">
+          <nav class="extraInfoDiv nav-info nav flex-column">
+            <h1 class="fs-5">Información</h1>
+            <a class="nav-link active" aria-current="page" href="usuarios.html">Usuarios</a>
+            <a class="nav-link" href="actividades.html">Actividades</a>
+            <a class="nav-link" href="clases.html">Clases</a>
+            <a class="nav-link" href="cuponeras.html">Cuponeras</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!--FOOTER-->
+    <footer class="footer">
+      <div class="footer-row row">
+        Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
+      </div>
+    </footer>
+
+    <!--JAVASCRIPT-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="./js/home.js"></script>
+
+    </body>
+</html>

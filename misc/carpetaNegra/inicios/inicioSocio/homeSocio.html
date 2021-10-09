@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!--Los iconos tipo solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <!--NUESTRO CSS-->
+    <link rel="stylesheet" href="../../css/home.css">
+
+    <title>Entrenamos.uy</title>
+  </head>
+  <body>
+    
+    <!--BARRA DE NAVEGACION-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="homeSocio.html">
+                <img src="../../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                Entrenamos.uy
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex me-5 pe-5 container-fluid">
+                <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+                <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+               <li>
+            		<a href="../../usuarios/Emi71.html"><img id="profilePicCreator" alt="Emi71" id="img-perfil" src="../../img/users/emi71.webp"></img></a>
+           	   </li>
+           	   <li>
+           	   		<a href="../../usuarios/Emi71.html" class="nav-link"><b>Emi71</b></a>
+           	   </li>
+            </ul>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+               <li>
+                 <form id="logout-session" action="../../cerrar-sesion" method="POST">
+                 	<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit">
+                   		Cerrar Sesion
+                 	</button>
+                 </form>
+               </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!--CUERPO DE LA PAGINA WEB-->
+    <div class="container-fluid mt-4">
+
+      <div class="row mb-5 mx-3 mx-md-5">
+        <div class="bienvenida p-5">
+          <div class="texto-bienvenida">
+            <h1>Bienvenido a Entrenamos.uy!</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent libero enim, pharetra eu venenatis vitae, suscipit ut mauris.
+            Donec non euismod nulla. Vivamus malesuada mattis volutpat. Nam at pellentesque dolor. Quisque tristique turpis faucibus, mattis
+            neque at, hendrerit massa. Vivamus quis ex rhoncus, tempor risus id, ullamcorper metus. Integer sagittis ut nisi egestas fringilla.
+            Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed consectetur eu eros accumsan fermentum. Phasellus ligula enim, semper 
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mx-3 mx-md-5">
+        <div class="ins-cat col-3">
+          <nav class="ins-cat-section nav flex-column">
+            <h1 class="fs-5">Instituciones</h1>
+            <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+            <a class="nav-link" href="#">Fuerza Bruta</a>
+            <a class="nav-link" href="#">Telon</a>
+            <a class="nav-link" href="#">Olympic</a>
+          </nav>
+          <nav class="ins-cat-section nav flex-column mt-5">
+            <h1 class="fs-5">Categorias</h1>
+            <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+            <a class="nav-link" href="#">Futbol</a>
+            <a class="nav-link" href="#">Fitness</a>
+            <a class="nav-link" href="#">Gimnasia</a>
+          </nav>
+        </div>
+        <div class="actdep-panel col-6 ms-2 ms-sm-1 ms-md-0">
+          <div class="actDep row mb-4">
+            <img src="../../img/crossFit.jpg" class="img-fluid d-inline col-5 col-md-7">
+            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>CrossFit</b> es una tecnica de entrenamiento que
+            conecta movimientos de diferentes disciplinas, tales
+            como la halterofilia, el entrenamiento metabolico o
+            el gimnastico. <a href="" class="text-primary">Leer mas</a></p>
+          </div>
+          <div class="actDep row mb-4">
+            <img src="../../img/yogaImg.jpg" class="img-fluid d-inline col-5 col-md-7">
+            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Yoga</b> es una practica que conecta el cuerpo,
+            la respiracion y la mente. Esta practica utiliza posturas fisicas, ejercicios de respiracion
+            y meditacion. <a href="" class="text-primary">Leer mas</a></p>
+          </div>
+          <div class="actDep row mb-4">
+            <img src="../../img/futbol11.jpg" class="img-fluid d-inline col-5 col-md-7">
+            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b>Futbol 11</b> y el deporte en general es una herramienta
+            educativa que brinda un aprendizaje en valores y habilidades blandas que se cohesionan con el 
+            aprendizaje y la practica deportiva. <a href="" class="text-primary">Leer mas</a></p>
+          </div>
+        </div>
+        <div class="col-3 ps-1 ps-sm-2">
+          <nav class="nav-info nav flex-column">
+            <h1 class="fs-5">Informacion</h1>
+            <a class="nav-link active" aria-current="page" href="../../usuarios.html">Usuarios</a>
+            <a class="nav-link" href="../../actividadesDeportivas.html">Actividades</a>
+            <a class="nav-link" href="../../clases.html">Clases</a>
+            <a class="nav-link" href="../../cuponeras.html">Cuponeras</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!--FOOTER-->
+    <footer class="footer">
+      <div class="footer-row row">
+        Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
+      </div>
+    </footer>
+
+    <!--JAVASCRIPT-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <script src="../../js/home.js"></script>
+
+    </body>
+</html>

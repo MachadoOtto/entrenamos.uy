@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!--Los iconos tipo solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <!--NUESTRO CSS-->
+    <link rel="stylesheet" href="../vistaGuest/css/home.css">
+
+    <title>Entrenamos.uy</title>
+  </head>
+  <body>
+    
+    <!--BARRA DE NAVEGACION-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../vistaGuest/home.html">
+                <img src="../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                Entrenamos.uy
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex me-5 pe-5 container-fluid">
+                <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+                <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            </form>
+          </div>
+        </div>
+    </nav>
+
+    <!--CUERPO DE LA PAGINA WEB-->
+    <div class="container-fluid mt-4">
+
+      <div class="row mx-3 mx-md-5">
+        <div class="ins-cat col-3">
+          <nav class="ins-cat-section nav flex-column">
+            <h1 class="fs-5">Instituciones</h1>
+            <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+            <a class="nav-link" href="#">Fuerza Bruta</a>
+            <a class="nav-link" href="#">Telon</a>
+            <a class="nav-link" href="#">Olympic</a>
+          </nav>
+          <nav class="ins-cat-section nav flex-column mt-5">
+            <h1 class="fs-5">Categorias</h1>
+            <a class="nav-link active" aria-current="page" href="#">Al Aire Libre</a>
+            <a class="nav-link" href="#">Futbol</a>
+            <a class="nav-link" href="#">Fitness</a>
+            <a class="nav-link" href="#">Gimnasia</a>
+          </nav>
+        </div>
+        
+        <div class="actdep-panel col-6 ms-2 ms-sm-1 ms-md-0">
+          <div class="modal-dialog">
+		      <div class="modal-content">
+		          <div class="modal-body">
+		             <h3 class="nav-link"><b>Error: </b> <i>Su usuario/email no existe en el sistema.</i></h3>
+		              	 <form id="formulario-sesion" action="../iniciar-sesion" method="POST"> 
+		                  	  <div></div>
+		                      <div class="form-floating mb-3">
+		                          <input type="text" class="form-control rounded-4" id="floatingInput" name="nick-login" placeholder="name@example.com">
+		                          <label for="floatingInput">Correo electrónico / Nickname</label>
+		                      </div>
+		                      <div class="form-floating mb-3">
+		                          <input type="password" class="form-control rounded-4" id="floatingPassword" name="pass-login" placeholder="Password">
+		                          <label for="floatingPassword">Contraseña</label>                  
+		                      </div>
+		                      <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Iniciar Sesión</button>
+		                  </form>
+		              </div>
+		          </div>
+		      </div>
+        </div>
+        <div class="col-3 ps-1 ps-sm-2">
+          <nav class="nav-info nav flex-column">
+            <h1 class="fs-5">Informacion</h1>
+            <a class="nav-link active" aria-current="page" href="../vistaGuest/usuarios.html">Usuarios</a>
+            <a class="nav-link" href="../vistaGuest/actividadesDeportivas.html">Actividades</a>
+            <a class="nav-link" href="../vistaGuest/clases.html">Clases</a>
+            <a class="nav-link" href="../vistaGuest/cuponeras.html">Cuponeras</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!--FOOTER-->
+    <footer class="footer">
+      <div class="footer-row row">
+        Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
+      </div>
+    </footer>
+
+    <!--JAVASCRIPT-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <script src="../vistaGuest/js/home.js"></script>
+
+    </body>
+</html>

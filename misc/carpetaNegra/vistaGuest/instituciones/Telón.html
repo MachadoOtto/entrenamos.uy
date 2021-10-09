@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!--Los iconos tipo solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <!--NUESTRO CSS-->
+    <link rel="stylesheet" href=".././css/home.css">
+    <link rel="stylesheet" href=".././css/consultaUsuarioLista.css">
+    <link rel="stylesheet"  href="../css/consultaActividadDeportiva.css">
+
+    <title>Entrenamos.uy</title>
+  </head>
+  <body>
+    
+    <!--BARRA DE NAVEGACION-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-2 me-5 mb-2 mt-2 text-primary" href="../home.html">
+                <img src="../img/iconoEntrenamos-uy.png" alt="EUimg" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                Entrenamos.uy
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex me-5 pe-5 container-fluid">
+                <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+                <button type="submit" class="btn btn-outline-primary">Buscar</button>
+            </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
+                <li class="nav-item">
+                  <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
+                    Iniciar Sesion
+                  </button>
+                </li>
+                <li>
+                  <button type="button" id="btn-registrarse" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#registroModal">
+                    Registrarse
+                  </button>
+                </li>
+            </ul>
+            
+          </div>
+        </div>
+    </nav>
+
+    <!--CUERPO DE LA PAGINA WEB-->
+    <div class="container-fluid mt-4">
+	  <div class="row mx-3 mx-md-5">
+        <div class="ins-cat col-2">
+          <nav class="ins-cat-section nav flex-column">
+            <h1 class="fs-5">Instituciones</h1>
+            <a class="nav-link active" aria-current="page" href="#">Instituto Natural</a>
+            <a class="nav-link" href="#">Fuerza Bruta</a>
+            <a class="nav-link" href="Telón.html">Telón</a>
+            <a class="nav-link" href="#">Olympic</a>
+          </nav>
+          <nav class="ins-cat-section nav flex-column mt-5">
+            <h1 class="fs-5">Categorias</h1>
+            <a class="nav-link active" aria-current="page" href="../categorias/Deportes.html">Deportes</a>
+            <a class="nav-link" href="#">Futbol</a>
+            <a class="nav-link" href="#">Fitness</a>
+            <a class="nav-link" href="#">Gimnasia</a>
+          </nav>
+        </div>
+        
+		<!-- Comienzo Listado usuario -->
+		
+		<div class="col-sm-8">
+        	<div class="cabezal-usuarios py-5 ">
+            	<h2><strong>Listado de Actividades Deportivas de Telón: </strong></h2>
+            </div>
+    		<div class="container-fluid">
+			  <div class="">
+			    <div class="row px-3">
+			    <div class="col-md-3">
+			    	<div class="card img-de-lista">
+			        <a class="hyperlink-img" href="../actividades/voleibol.html">
+			        <img class="card-img-top" src="../img/activities/voleibol.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>Voleibol</strong></h5>
+			          <p class="card-text">
+			            Institucion Telon
+			          </p>
+			      </div>
+			        </a>
+			      </div>
+			    </div>
+			    <div class="col-md-3">
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="../actividades/basquetbol.html">
+			        <img class="card-img-top" src="../img/activities/basquetbol.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>Basquetbol</strong></h5>
+			          <p class="card-text">Institucion Telon</p>
+			        </div>
+			        </a>
+			      </div>
+			    </div>
+			    <div class="col-md-3">
+			      <div class="card img-de-lista">
+			        <a class="hyperlink-img" href="../actividades/atletismo.html">
+			        <img class="card-img-top" src="../img/activities/atletismo.jpg" alt="Card image cap">
+			        <div class="card-body">
+			          <h5 class="card-title"><strong>Atletismo</strong></h5>
+			          <p class="card-text">Institucion Telon</p>
+			        </div>
+			        </a>
+			      </div>
+			    </div>
+			    <div class="col-md-3">
+
+			    </div>
+			    </div>
+			  </div>
+			</div>
+		  </div>
+		
+		<!-- Fin listado usuario -->
+
+        <div class="col-sm-2 ps-1 ps-sm-2">
+          <nav class="extraInfoDiv nav-info nav flex-column">
+            <h1 class="fs-5">Información</h1>
+            <a class="nav-link active" aria-current="page" href="../usuarios.html">Usuarios</a>
+            <a class="nav-link" href="../actividades.html">Actividades</a>
+            <a class="nav-link" href="../clases.html">Clases</a>
+            <a class="nav-link" href="../cuponeras.html">Cuponeras</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!--FOOTER-->
+    <footer class="footer">
+      <div class="footer-row row">
+        Vacilator Team - Todos los derechos reservados. Sitio web para el proyecto del Taller de Programación de Facultad de ingeniería - UDELAR
+      </div>
+    </footer>
+
+    <!--MODALS-->
+
+    <!--MODAL INICIAR SESION-->
+    <div class="modal fade" id="inicioSesionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <img src="../img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                  <h2 class="fw-bold mb-0">Entrenamos.uy</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="formulario-sesion" action="../../iniciar-sesion" method="POST"> 
+                      <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-4" id="floatingInput" name="nick-login" placeholder="name@example.com">
+                          <label for="floatingInput">Correo electrónico / Nickname</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                          <input type="password" class="form-control rounded-4" id="floatingPassword" name="pass-login" placeholder="Password">
+                          <label for="floatingPassword">Contraseña</label>                  
+                      </div>
+                      <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Iniciar Sesión</button>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <hr class="my-6">
+                  <div>
+                      <i>Aún no tienes cuenta? </i>
+                      <a id="regLink" href="#">Registrarte Aquí</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!--MODAL REGISTRO-->
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="../img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <h2 class="fw-bold mb-0">Unéte a Entrenamos.uy</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-floating mb-3">
+                        <h5>Que eres?</h5>
+                        <div id="socioRadio" class="form-check float-left">
+                            <input class="form-check-input" type="radio" name="tipoUsuario" id="radioSocio" checked>
+                            <label class="form-check-label" for="radioSocio">
+                            Socio
+                            </label>
+                        </div>
+                        <div id="profeRadio" class="form-check float-left">
+                            <input class="form-check-input" type="radio" name="tipoUsuario" id="radioProfe">
+                            <label class="form-check-label" for="radioProfe">
+                            Profesor
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3 mt-5">
+                        <input type="text" class="form-control rounded-4" id="nickk" >
+                        <label for="nickk">Nickname</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-4" id="emaill">
+                        <label for="emaill">Correo electrónico</label>                  
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-4" id="pas1">
+                        <label for="pas1">Contraseña</label>                  
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-4" id="pas2">
+                        <label for="pas2">Confirmar Contraseña</label>                  
+                    </div>
+                    <h5>Sobre ti</h5>
+                    <div id="nombreCompletoDiv" class="row form-floating mb-3">
+                        <div id="divNombre" class="col-6 form-check float-left">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control rounded-4" id="nomm" >
+                                <label for="nomm">Nombre</label>           
+                            </div>      
+                        </div>
+                        <div id="divApellido" class="col-6 form-check float-left">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control rounded-4" id="ape" >
+                                <label for="ape">Apellido</label>           
+                            </div>                           
+                        </div>             
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control rounded-4" id="nac" >
+                        <label for="nomm">Fecha de nacimiento</label>     
+                    </div>
+                    <div id="institDiv" class="form-floating mb-3">
+                        <select id="instit" class="form-select" data-live-search="true">
+                            <option data-tokens="empty"></option>
+                            <option data-tokens="bruta">Fuerza Bruta</option>
+                            <option data-tokens="telon">Telón</option>
+                            <option data-tokens="lol">天安門體育俱樂部</option>
+                        </select>
+                        <label for="instit">Institución asociada</label>                               
+                    </div>
+                    <div id="descDiv" class="form-group form-floating mb-3">
+                        <textarea class="form-control" id="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                        <label for="desc">Descripción</label>     
+                    </div>
+                    <div id="bioDiv" class="form-group form-floating mb-3">
+                        <textarea class="form-control" id="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                        <label for="desc">Biografía</label>     
+                    </div>
+                    <div id="webDiv" class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-4" id="webs" >
+                        <label for="webs">Sitio web</label>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Registrarse</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <hr class="my-6">
+                <div>
+                    <i>Ya tienes cuenta? </i>
+                    <a id="iniLink" href="#">Inicia Sesión Aquí</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!--JAVASCRIPT-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <script src=".././js/home.js"></script>
+
+    </body>
+</html>
