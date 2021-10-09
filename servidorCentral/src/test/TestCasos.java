@@ -2344,5 +2344,28 @@ class TestCasos {
 		x=ICC.getNombreCuponerasSinRecibos();
 		assertEquals(y,x);
 	}
-		
+	
+	@Test
+	void testBusquedaClaseOk() {
+		DtClase claseOk = new DtClase("Mariposa", "Nelson", "Nelson", 2, 6, "https://telon.com.uy/natacionM", 
+        		new DtFecha(2021,8,10,17,45,0), new DtFecha(2021,4,20,0,0,0));
+		try {
+			DtClaseExt claseABuscar = IDCC.buscarClase("Mariposa");
+			assertEquals(claseABuscar.getNombre(), claseOk.getNombre());
+			assertEquals(claseABuscar.getNicknameProfesor(), claseOk.getNicknameProfesor());
+			assertEquals(claseABuscar.getMinSocios(), claseOk.getMinSocios());
+			assertEquals(claseABuscar.getMaxSocios(), claseOk.getMaxSocios());
+			assertEquals(claseABuscar.getURL(), claseOk.getURL());
+			assertEquals(claseABuscar.getFechaClase().toFechaHora(), claseOk.getFechaClase().toFechaHora());
+			assertEquals(claseABuscar.getFechaRegistro().toFechaHora(), claseOk.getFechaRegistro().toFechaHora());
+		} catch (ClaseException e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	void testFalloBusquedaClase() {
+		Assertions.assertThrows(ClaseException.class, () -> {IDCC.buscarClase("ClaseQueNoExiste");});
+	}
 }

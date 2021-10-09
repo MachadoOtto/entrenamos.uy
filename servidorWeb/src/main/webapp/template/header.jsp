@@ -15,8 +15,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="d-flex me-5 pe-5 container-fluid">
-            <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+        <form class="d-flex me-5 pe-5 container-fluid" action="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes" method="POST">
+            <input class="form-control me-2" type="search" id="campoTexto" name="campoTexto" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
             <button type="submit" class="btn btn-outline-primary">Buscar</button>
         </form>
         
@@ -163,7 +163,7 @@
                     <div id="institDiv" class="form-floating mb-3">
                         <select name="instit" id="instit" class="form-select" data-live-search="true">
 							  <%
-							  Set<String> s = (Set<String>)request.getAttribute("instituciones");
+							  Set<String> s = (Set<String>)request.getAttribute("stdInstituciones");
 							  for(String t: s){ %>
                             <option data-tokens="<%=t%>"><%=t%></option>
                         <% } %>
@@ -246,7 +246,7 @@
                         <p>Categorías asociadas <i style="font-size:0.7rem;"> (opcional)</i></p>
 							<select style="width:29em;" name="catAD" id="catAD" class="cat" multiple aria-label="multiple select example">
 							  <%
-							  Set<String> s = (Set<String>)request.getAttribute("categorias");
+							  Set<String> s = (Set<String>)request.getAttribute("stdCategorias");
 							  for(String x: s){ %>
 							  	<option value="<%=x%>"><%=x%></option>
 							  <%} %>

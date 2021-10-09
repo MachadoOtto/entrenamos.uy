@@ -52,4 +52,8 @@ public class DtProfesorExt extends DtUsuarioExt{
 	public Map<String,Set<String>> getClasesxActividades(){
 		return actDepAsociadas;
 	}
+	
+	public Set<String> getActividadesIngresadas(){
+		return historalActDepIngresadas.keySet();
+	}
 }
