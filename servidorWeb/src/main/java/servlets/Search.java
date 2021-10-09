@@ -2,7 +2,9 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +19,7 @@ import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClase;
+import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 import datatypes.DtUsuario;
 import datatypes.TEstado;
@@ -36,7 +39,22 @@ public class Search extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, 
     		HttpServletResponse response) throws ServletException, IOException {
+    	IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+    	Set<String> categorias = IADC.obtenerCategorias();
+    	Set<String> instituciones = IADC.obtenerInstituciones();
     	String texto = request.getParameter("campoTexto");
+    	Set<String> fltrInstituciones = new HashSet<>();
+    	for (int i = 1; i <= instituciones.size(); i++) {
+    		String filtro = request.getParameter("fltrI" + i);
+    		if (filtro != null)
+    			fltrInstituciones.add(filtro);
+    	}
+    	Set<String> fltrCategorias = new HashSet<>();
+    	for (int i = 1; i <= categorias.size(); i++) {
+    		String filtro = request.getParameter("fltrC" + i);
+    		if (filtro != null)
+    			fltrCategorias.add(filtro);
+    	}
     	if (texto == null)
     		texto = new String();
     	String actividad = request.getParameter("actividades");
@@ -47,9 +65,9 @@ public class Search extends HttpServlet {
     	List<DtClase> listaClases = null;
     	List<DtCuponera> listaCuponeras = null;
     	List<DtUsuario> listaUsuarios = null;
-    	if (actividad.equals("yes")) {
+    	if ((actividad != null) && (actividad.equals("yes"))) {
     		try {
-        		listaActividades = obtenerActividades(texto);
+        		listaActividades = obtenerActividades(texto, fltrInstituciones, fltrCategorias);
     		} catch(ActividadDeportivaException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError", ex);
@@ -57,7 +75,7 @@ public class Search extends HttpServlet {
     			return;
     		}
     	}
-    	if (clase.equals("yes")) {
+    	if ((clase != null) && (clase.equals("yes"))) {
     		try {
         		listaClases = obtenerClases();
     		} catch(ClaseException ex) {
@@ -67,9 +85,9 @@ public class Search extends HttpServlet {
     			return;
     		}
     	}
-    	if (cuponera.equals("yes")) {
+    	if ((cuponera != null) && (cuponera.equals("yes"))) {
     		try {
-        		listaCuponeras = obtenerCuponeras(texto);
+        		listaCuponeras = obtenerCuponeras(texto, fltrInstituciones, fltrCategorias);
     		} catch(NoExisteCuponeraException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError", ex);
@@ -77,7 +95,7 @@ public class Search extends HttpServlet {
     			return;
     		}
     	}
-    	if (usuario.equals("yes")) {
+    	if ((usuario != null) && (usuario.equals("yes"))) {
     		try {
     			listaUsuarios = obtenerUsuarios();
     		} catch(UsuarioNoExisteException ex) {
@@ -88,9 +106,13 @@ public class Search extends HttpServlet {
     		}
     	}
     	request.setAttribute("actividades", listaActividades);
+    	request.setAttribute("categorias", categorias);
     	request.setAttribute("clases", listaClases);
     	request.setAttribute("cuponeras", listaCuponeras);
+    	request.setAttribute("instituciones", instituciones);
     	request.setAttribute("usuarios", listaUsuarios);
+    	request.setAttribute("filtroInsti", fltrInstituciones);
+    	request.setAttribute("filtroCat", fltrCategorias);
     	request.getRequestDispatcher("/pages/search.jsp").forward(request, response);
 	}
     
@@ -102,19 +124,22 @@ public class Search extends HttpServlet {
         processRequest(request, response);
 	}
 	
-	// Devuelve las Actividades Aprobadas que contengan 'texto'.
-	private List<DtActividadDeportiva> obtenerActividades(String texto) throws ActividadDeportivaException {
+	// Devuelve las Actividades Aprobadas que contengan 'texto' y pertenezcan a 'filtros'.
+	private List<DtActividadDeportiva> obtenerActividades(String texto, Set<String> fltrI, Set<String> fltrC) throws ActividadDeportivaException {
 		List<DtActividadDeportiva> lista = new ArrayList<>();
 		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
 		for (String x :	IADC.obtenerInstituciones()) {
-			try {
-				for (String y : IADC.obtenerActividades(x)) {
-					DtActividadDeportiva datosActividad = IADC.getActDepExt(x, y);
-					if ((x.contains(texto)) && (datosActividad.getEstado() == TEstado.aceptada)) {
-						lista.add(datosActividad);
+			if (fltrI.isEmpty() || fltrI.contains(x)) {
+				try {
+					for (String y : IADC.obtenerActividades(x)) {
+						DtActividadDeportiva datosActividad = IADC.getActDepExt(x, y);
+						if ((y.contains(texto)) && (datosActividad.getEstado() == TEstado.aceptada) && 
+								((fltrC == null) || (datosActividad.getCategorias().containsAll(fltrC)))) {
+							lista.add(datosActividad);
+						}
 					}
-				}
-			} catch(InstitucionException ignore) { }
+				} catch(InstitucionException ignore) { }
+			}
 		}
 		return lista;
 	}
@@ -135,13 +160,36 @@ public class Search extends HttpServlet {
 		return lista;
 	}
 	
-	// Devuelven las Cuponeras que contengan 'texto'.
-	private List<DtCuponera> obtenerCuponeras(String texto) throws NoExisteCuponeraException {
+	// Devuelven las Cuponeras que contengan 'texto' y pertenezcan a 'filtros'.
+	private List<DtCuponera> obtenerCuponeras(String texto, Set<String> fltrI, Set<String> fltrC) throws NoExisteCuponeraException {
 		List<DtCuponera> lista = new ArrayList<>();
 		ICuponeraController ICC = LaFabrica.getInstance().obtenerICuponeraController();
+		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
 		for (String x : ICC.getNombreCuponeras()) {
-			if (x.contains(texto))
-				lista.add(ICC.seleccionarCuponera(x));
+			if (x.contains(texto)) {
+				DtCuponera cup = (ICC.seleccionarCuponera(x));
+				if (fltrC.isEmpty() || cup.getCategorias().containsAll(fltrC)) {
+					if (fltrI.isEmpty()) {
+						lista.add(cup);
+					} else {
+						List<DtClasesCuponera> clCup = cup.getContenido();
+						for (DtClasesCuponera y : clCup) {
+							boolean freno = false;
+							for (String z : fltrI) {
+								try {
+									if (IADC.obtenerActividades(z).contains(y.getNombreActividad())) {
+										lista.add(cup);
+										freno = true;
+										break;
+									}
+								} catch(InstitucionException ignore) { }
+							}
+							if (freno)
+								break;
+						}
+					}
+				}
+			}
 		}
 		return lista;
 	}

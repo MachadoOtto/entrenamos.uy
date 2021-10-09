@@ -15,8 +15,8 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="d-flex me-5 pe-5 container-fluid">
-            <input class="form-control me-2" type="search" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+        <form class="d-flex me-5 pe-5 container-fluid" action="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes" method="POST">
+            <input class="form-control me-2" type="search" id="campoTexto" name="campoTexto" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
             <button type="submit" class="btn btn-outline-primary">Buscar</button>
         </form>
         

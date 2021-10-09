@@ -2,10 +2,10 @@
     
 <nav class="extraInfoDiv nav-listados nav-info nav flex-column">
 	 <h1 class="fs-5">Información</h1>
-	 <a class="nav-link" href="usuarios">Usuarios</a>
-	 <a class="nav-link" href="actividadesDeportivas.">Actividades</a>
-	 <a class="nav-link" href="clases">Clases</a>
-	 <a class="nav-link" href="cuponeras">Cuponeras</a>
+	 <a class="nav-link" href="<%=request.getContextPath()%>/search?usuarios=yes">Usuarios</a>
+	 <a class="nav-link" href="<%=request.getContextPath()%>/search?actividades=yes">Actividades</a>
+	 <a class="nav-link" href="<%=request.getContextPath()%>/search?clases=yes">Clases</a>
+	 <a class="nav-link" href="<%=request.getContextPath()%>/search?cuponeras=yes">Cuponeras</a>
 </nav>
 <%  String x = "";
 	String q = (String) request.getParameter("e");
