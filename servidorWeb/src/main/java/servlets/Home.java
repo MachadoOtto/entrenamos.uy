@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.GestorWeb;
+import tools.Parametrizer;
 
 
 
@@ -21,9 +22,7 @@ public class Home extends HttpServlet {
     }
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("instituciones", GestorWeb.getIADC().obtenerInstituciones());
-		req.setAttribute("categorias", GestorWeb.getIADC().obtenerCategorias());
-		
+		Parametrizer.loadStdRequests(req);
 		req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
 	}
 

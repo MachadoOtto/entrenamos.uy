@@ -26,7 +26,7 @@ if(u!=null){
 <nav class="extraInfoDiv ins-cat-section nav flex-column">
   <h1 class="fs-5">Instituciones</h1>
   <%
-  Set<String> s = (Set<String>)request.getAttribute("instituciones");
+  Set<String> s = (Set<String>)request.getAttribute("stdInstituciones");
   for(String x: s){ %>
   	<a class="nav-link" href="<%=request.getContextPath()%>/instituciones?institucion=<%=x%>"><%=x%></a>
   <%} %>
@@ -34,7 +34,7 @@ if(u!=null){
 <nav class="extraInfoDiv ins-cat-section nav flex-column mt-5">
   <h1 class="fs-5">Categorías</h1>
   <%
-  Set<String> s2 = (Set<String>)request.getAttribute("categorias");
+  Set<String> s2 = (Set<String>)request.getAttribute("stdCategorias");
   for(String x: s2){ %>
   	<a class="nav-link" href="<%=request.getContextPath()%>/categorias?categoria=<%=x%>"><%=x%></a>
   <%} %>
