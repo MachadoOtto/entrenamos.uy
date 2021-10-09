@@ -36,7 +36,8 @@
           DtUsuarioExt usrLogged = Login.getUsuarioLogueado(request);
           DtCuponera c = (DtCuponera) request.getAttribute("cuponera");
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
-        	  Set<String> cups = usrLogged.getCuponerasCompradas();
+        	  DtSocioExt usr = getUsuarioLogueado(request);
+        	  Set<String> cups = usr.getCuponerasCompradas();
               for(String x: cups) {
       			if(x != c.getNombre()){
               	cups.remove(x);
