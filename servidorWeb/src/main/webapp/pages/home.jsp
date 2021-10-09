@@ -29,10 +29,10 @@
         <div class="ins-cat col-2">
           <jsp:include page="/template/stdLeftSection.jsp"/>
         </div>
-
         <div class="actdep-panel col-7 ms-2 ms-sm-1 ms-md-0">
             <h2 class="h2">Actividades destacadas:</h2>
         	<br>
+        		<div class="border border-dark row mb-4 p-5 text-dark bg-light rounded-3 ">
         	<%  for (int i = 1; i < 4; i++) {
         			DtActividadDeportivaExt datosActividad = (DtActividadDeportivaExt) request.getAttribute("actividad" + i);
         			if (datosActividad != null) {%>
@@ -43,13 +43,42 @@
 		          	</div>
 		    <%  	}
 		    	}%>
+		    	</div>
+            <h1 class="h2">Noticias:</h1>
+        	<br>
+        		<div class="border border-dark row mb-4 p-5 text-dark bg-light rounded-3 ">
+	        		<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+					  <div class="carousel-inner">
+					    <div class="carousel-item active">
+					      <div class="col">
+				        	<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
+					        </div>
+					        <div class="col">
+					        	<h2>A sacudir los huesos!</h2>
+					          	<p>En entrenamos.uy tomamos todas las precauciones necesarias para que los huesos de nuestros clientes se mantengan sanos e integrales.
+					         De ahora en adelante, todas nuestras actividades deportivas son cuidadosamente analizadas y aprobadas como <b>Bone Safe</b>.</p>
+					        </div>
+					    </div>
+					    <div class="carousel-item">
+					      <div class="col">
+				        	<img style="height: 16em; border-radius:4em;" src="<%=request.getContextPath()%>/assets/images/users/viktor.jpg">
+					        </div>
+					        <div class="col">
+					        	<h2>Profesor del mes: <b>Viktor</b></h2>
+					          	<p>El equipo directivo de entrenamos.uy con gran placer felicita a <b>Viktor</b> por su larga trayectoria en el sitio.
+					          	 Proveniente de Moscow, Viktor vino a Uruguay a enseñar como levantar unas buenas pesas. Este no conoce los límites, y esto mismo
+					          	 es lo que tanto motiva a sus estudiantes. Conozca más sobre este profesor
+					          	 <a href="<%=request.getContextPath()%>/usuarios?nickname=viktor" class="clase link-dark">visitando su perfil.</a> </p>
+					        </div>
+					    </div>
+					  </div>
+					</div>
+				</div>
         </div>
         <div class="col-3 ps-1 ps-sm-2">
            <jsp:include page="/template/stdRightSection.jsp"/>
         </div>
-      </div>
     </div>
-	
 	<jsp:include page="/template/footer.jsp"/>
 </body>
 </html>

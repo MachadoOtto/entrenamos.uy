@@ -77,8 +77,8 @@ public class Parametrizer {
 	}
 
 	public static void loadStdRequests(HttpServletRequest req) {
-		req.setAttribute("instituciones", GestorWeb.getIADC().obtenerInstituciones());
-		req.setAttribute("categorias", GestorWeb.getIADC().obtenerCategorias());
+		req.setAttribute("stdInstituciones", GestorWeb.getIADC().obtenerInstituciones());
+		req.setAttribute("stdCategorias", GestorWeb.getIADC().obtenerCategorias());
 	}
 	
 	

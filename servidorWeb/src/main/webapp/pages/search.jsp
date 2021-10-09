@@ -138,7 +138,7 @@
 				<% } %>		    
 		    </div>
 		    <!-- Fin listado -->
-		    <div class="col-3 ps-1 ps-sm-2">
+		    <div class="col-auto ps-1 ps-sm-2">
 		       	<jsp:include page="/template/stdRightSection.jsp"/>
 		    </div>
 		</div>
@@ -156,7 +156,7 @@
 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	            </div>
 	            <div class="modal-body">
-	                <form id="form-filtro" action="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes" method="POST"> 
+	                <form id="form-filtro" action="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes" method="POST" accept-charset="utf-8"> 
 	                	<h5 class="fw-bold mb-0">Instituciones:</h5>
 	                	<%int counter = 0;
 	                	Set<?> filtro = (Set<?>) request.getAttribute("filtroInsti");

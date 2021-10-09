@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.GestorWeb;
+import tools.Parametrizer;
 import logica.LaFabrica;
 import logica.IActividadDeportivaController;
 import datatypes.DtActividadDeportiva;
@@ -31,8 +32,7 @@ public class Home extends HttpServlet {
     }
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("instituciones", GestorWeb.getIADC().obtenerInstituciones());
-		req.setAttribute("categorias", GestorWeb.getIADC().obtenerCategorias());
+		Parametrizer.loadStdRequests(req);
 		
 		// Agregar Actividades Random a visualizar en el Home (se pasa en el request).
 		List<DtActividadDeportiva> actividadesAprobadas = null;

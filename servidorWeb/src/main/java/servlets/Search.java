@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tools.Parametrizer;
 import logica.LaFabrica;
 import logica.IActividadDeportivaController;
 import logica.ICuponeraController;
@@ -39,6 +40,7 @@ public class Search extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, 
     		HttpServletResponse response) throws ServletException, IOException {
+    	Parametrizer.loadStdRequests(request);
     	IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     	Set<String> categorias = IADC.obtenerCategorias();
     	Set<String> instituciones = IADC.obtenerInstituciones();

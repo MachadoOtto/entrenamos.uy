@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.GestorWeb;
+import tools.Parametrizer;
 import logica.LaFabrica;
 import logica.IDictadoClaseController;
 import datatypes.DtSocioExt;
@@ -27,6 +28,7 @@ public class Clases extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, 
     		HttpServletResponse response) throws ServletException, IOException {
+    	Parametrizer.loadStdRequests(request);
     	String nombreClase = request.getParameter("clase");
 		DtClaseExt datosClase = null;
     	String nombreActividad = null;

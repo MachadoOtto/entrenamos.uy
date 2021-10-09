@@ -33,7 +33,7 @@ public class GestorWeb {
 	}
 	
 	private GestorWeb() {
-		fabricaSistema = LaFabrica.getInstance();
+		LaFabrica fabricaSistema = LaFabrica.getInstance();
 		IADC = fabricaSistema.obtenerIActDeportivaController();
 		IUC = fabricaSistema.obtenerIUsuarioController();
 		ICC = fabricaSistema.obtenerICuponeraController();
