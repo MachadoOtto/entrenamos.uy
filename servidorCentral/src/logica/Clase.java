@@ -17,6 +17,7 @@ public class Clase {
 	private List<ReciboClase> ListReciboClase;
 	private Profesor p;
 	private ActividadDeportiva a;
+	private String imgName;
 	
 	Clase(DtClase d, Profesor p, ActividadDeportiva a){
 		this.a = a;
@@ -28,6 +29,7 @@ public class Clase {
 		this.fechaRegistro = d.getFechaRegistro();
 		this.p = p;
 		this.ListReciboClase = new ArrayList<ReciboClase>();
+		imgName = d.getImgName();
 	}
 	
 	public String getNombre() {

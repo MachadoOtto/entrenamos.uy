@@ -14,7 +14,21 @@ public class DtActividadDeportiva {
 	private Set<String> categorias;
 	private TEstado estado;
 	private String creador;
-	
+	private String imgName;
+	public DtActividadDeportiva(String nom, String desc, int dur, float cos, DtFecha fech,Set<String> categorias,TEstado e,String creador,String imgName) {
+		this.nombre = nom;
+		this.descripcion = desc;
+		this.duracionMinutos = dur;
+		this.costo = cos;
+		this.fechaRegistro = fech;
+		if (categorias==null)
+			this.categorias = new HashSet<>();
+		else
+			this.categorias = categorias;
+		this.estado = e;
+		this.creador = creador;
+		this.imgName = imgName;
+	}
 	public DtActividadDeportiva(String nom, String desc, int dur, float cos, DtFecha fech,Set<String> categorias,TEstado e,String creador){
 		this.nombre = nom;
 		this.descripcion = desc;
@@ -27,6 +41,7 @@ public class DtActividadDeportiva {
 			this.categorias = categorias;
 		this.estado = e;
 		this.creador = creador;
+		imgName = null;
 	}
 	
 	public String getNombre() {
@@ -59,6 +74,10 @@ public class DtActividadDeportiva {
 
 	public String getCreador() {
 		return creador;
+	}
+
+	public String getImgName() {
+		return imgName;
 	}
 }
 

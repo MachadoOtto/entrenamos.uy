@@ -30,6 +30,7 @@ public class ActividadDeportiva {
 	private Logger log;
 	private TEstado estado;
 	private Profesor creador;
+	private String imgName;
 	
 	public ActividadDeportiva(DtActividadDeportiva x, Map <String, Categoria> cat,Profesor c) {
 		nombre=x.getNombre();
@@ -39,6 +40,7 @@ public class ActividadDeportiva {
 		fechaRegistro = new DtFecha(x.getFechaRegistro());
 		cats = cat;
 		creador = c;
+		imgName = x.getImgName();
 		estado = x.getEstado(); 
 		crearHandler();
 	}
