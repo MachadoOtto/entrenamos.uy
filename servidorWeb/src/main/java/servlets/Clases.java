@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,15 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.GestorWeb;
 import tools.Parametrizer;
 import logica.LaFabrica;
 import logica.IDictadoClaseController;
+import datatypes.DtUsuarioExt;
 import datatypes.DtSocioExt;
 import datatypes.DtClaseExt;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
-import excepciones.UsuarioNoExisteException;
 
 @WebServlet ("/clases")
 public class Clases extends HttpServlet {
@@ -32,11 +32,16 @@ public class Clases extends HttpServlet {
     	String nombreClase = request.getParameter("clase");
 		DtClaseExt datosClase = null;
     	String nombreActividad = null;
-    	String nickUser = (String) request.getSession().getAttribute("nickname");
+    	DtUsuarioExt user = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
     	boolean esSocio = false;
+    	Set<String> cuponerasCompradas = null;
 		try {
 			datosClase = buscarClase(nombreClase);
 			nombreActividad = nombreActDeClase(nombreClase);
+			if (user instanceof DtSocioExt) {
+				esSocio = true;
+				cuponerasCompradas = ((DtSocioExt)user).getCuponerasCompradas();
+			}
 		} catch(ClaseException ex) {
 			// la clase no existe
 			request.setAttribute("clase", null);
@@ -44,15 +49,11 @@ public class Clases extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
 			return;
 		}
-		try {
-			if (GestorWeb.getInstance().buscarUsuario(nickUser) instanceof DtSocioExt) {
-				esSocio = true;
-			}
-		} catch(UsuarioNoExisteException ignore) { } 
 		// setea los datos
 		request.setAttribute("clase", datosClase);
 		request.setAttribute("actividad", nombreActividad);
 		request.setAttribute("esSocio", esSocio);
+		request.setAttribute("cupDisponibles", cuponerasCompradas);
 		request.getRequestDispatcher("/pages/clases.jsp").forward(request, response);
 	}
     

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.util.Set"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtFecha"%>
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
 	<link rel="stylesheet" 
 		href="<%=request.getContextPath()%>/assets/styles/home.css">
 	<link rel="stylesheet" 
-		href="<%=request.getContextPath()%>/assets/styles/consultaClases.css">
+		href="<%=request.getContextPath()%>/assets/styles/clases.css">
 </head>
 <body>
 	<jsp:include page="/template/header.jsp"/>
@@ -115,6 +116,55 @@
 		  	</div>
 		</div>
 	</div>
+	
+	<!--MODALS-->
+    <div class="modal fade" id="inscModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <img src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                  <h2 class="fw-bold mb-0">Inscripción a Clase</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form>
+                  	<%Set<?> cupDisponibles = (Set<?>) request.getAttribute("cupDisponibles");%>
+                    <div class="form-floating mb-3">
+                      <h5>Pago Asociado</h5>
+                      <div id="genRadio" class="form-check float-left">
+                          <input class="form-check-input" type="radio" name="tipoCup" id="radioGen" checked>
+                          <label class="form-check-label" for="radioGen">
+                          General
+                          </label>
+                      </div>
+                      <div id="cupRadio" class="form-check float-left">
+                          <input class="form-check-input" type="radio" name="tipoCup" id="radioCup"
+                          	<%if (cupDisponibles.size() == 0) { %> disabled <% } %>>
+                          <label class="form-check-label" for="radioCup">
+                          Cuponera
+                          </label>
+                      </div>
+                    </div>
+                    <div id="cupdiv" class="form-floating mb-3">
+                      <select id="cups" class="form-select" data-live-search="true">
+                      	  <%for (Object x : cupDisponibles) {%>
+                          <option data-tokens="<%=(String)x%>"><%=(String)x%></option>
+                          <% } %>
+                      </select>
+                      <label for="cups">Cuponera a utilizar</label>                               
+                    </div>
+                    <button id="confInscbtn" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar</button>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <hr class="my-6">
+                  <div>
+                      <i>Registro de dictado de clase - entrenamos.uy</i>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>	
 	
 	<jsp:include page="/template/footer.jsp"/>
 </body>
