@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +25,10 @@ public class ComprarCuponera extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	DtFecha f = new DtFecha();
     	try {
-    		IUC.comprarCuponera((String) request.getSession().getAttribute("user"),request.getParameter("cuponera"), getFechaActual());
+    		IUC.comprarCuponera((String) request.getSession().getAttribute("user"),request.getParameter("cuponera"), f);
 		} catch (UsuarioNoExisteException e){
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
 		} catch (CuponeraNoExisteException e){
@@ -42,11 +43,5 @@ public class ComprarCuponera extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
-	}
-
-	public DtFecha getFechaActual() {
-		LocalDateTime ora = LocalDateTime.now();
-		DtFecha actual = new DtFecha(ora.getYear(),ora.getMonthValue(),ora.getDayOfMonth(),ora.getHour(),ora.getMinute(),ora.getSecond());
-		return actual;
 	}
 }
