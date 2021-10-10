@@ -29,6 +29,7 @@ public interface IDictadoClaseController {
 	public Set<String> obtenerInstituciones();
 	
 	public Set<String> obtenerActividades(String ins) throws InstitucionException ;
+	public Set<String> obtenerActividadesAprobadas(String ins) throws InstitucionException;
 	
 	public Set<String> obtenerProfesores(String ins) throws InstitucionException ;
 	

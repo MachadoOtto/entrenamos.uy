@@ -10,6 +10,7 @@
 package logica;
 
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
@@ -20,6 +21,7 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 
 import datatypes.DtFecha;
+import datatypes.TEstado;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
 import datatypes.TReg;
@@ -44,6 +46,16 @@ public class DictadoClaseController implements IDictadoClaseController {
 	
 	public Set<String> obtenerActividades(String ins) throws InstitucionException {
 		return getHI().findInstitucion(ins).obtenerNombresActDep();
+	}
+	
+	public Set<String> obtenerActividadesAprobadas(String ins) throws InstitucionException{
+		Set<String> g = new HashSet<>();
+		for(String x : getHI().findInstitucion(ins).obtenerNombresActDep())
+			try {
+				if(getHI().findInstitucion(ins).getActDep(x).getEstado().equals(TEstado.aceptada))
+					g.add(x);
+			} catch (Exception ex) {}
+		return g;
 	}
 	
 	public Set<String> obtenerProfesores(String ins) throws InstitucionException {

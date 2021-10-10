@@ -33,10 +33,10 @@
         </div>
         <%
           Boolean comprada = false;
-          DtUsuarioExt usrLogged = Login.getUsuarioLogueado(request);
+          DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
           DtCuponera c = (DtCuponera) request.getAttribute("cuponera");
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
-        	  DtSocioExt usr = getUsuarioLogueado(request);
+        	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();
               for(String x: cups) {
       			if(x != c.getNombre()){
@@ -60,7 +60,7 @@
     	    	</div>
     	    	<div class = "col" id= "coco"> 
     	    	<% if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == false)){ %>
-					<button type="button" class="btn btn-primary" id="boto" onclick="location.ref='<%request.getContextPath()%>/comprarcuponera'">
+					<button type="button" class="btn btn-primary" id="boto" onclick="location.ref='<%request.getContextPath();%>/comprarcuponera'">
 			            	Comprar
 			        </button>	
 			      <%}%>

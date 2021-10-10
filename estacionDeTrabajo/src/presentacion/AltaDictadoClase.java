@@ -387,7 +387,7 @@ public class AltaDictadoClase extends JInternalFrame {
 	    			DefaultComboBoxModel<String> modelProfesor = new DefaultComboBoxModel<>();
 	    			modelProfesor.addElement("-");        		
 	    			if (selectIndex > 0) {
-	        			Set<String> actividades = controlClase.obtenerActividades(boxInstitucion.getItemAt(selectIndex));
+	        			Set<String> actividades = controlClase.obtenerActividadesAprobadas(boxInstitucion.getItemAt(selectIndex));
 	                    for (String x: actividades) {
 	                    	modelActividad.addElement(x);
 	                    }
