@@ -60,7 +60,7 @@
     	    	</div>
     	    	<div class = "col" id= "coco"> 
     	    	<% if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == false)){ %>
-					<button type="button" class="btn btn-primary" id="boto" onclick="location.href='<%request.getContextPath()%>/comprarcuponera'">
+					<button type="button" class="btn btn-primary" id="boto" onclick="location.ref='<%request.getContextPath()%>/comprarcuponera'">
 			            	Comprar
 			        </button>	
 			      <%}%>
@@ -132,7 +132,7 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col">
-                            <img class= "im" alt="Qries" src=".././img/activities/<% x.getNombreActividad(); %>.jpg">
+                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<% x.getNombreActividad(); %>.jpg">
                         </div>
                         <div class = "col" id = "act2">
                           <a href=".././actividades/<% x.getNombreActividad(); %>.jsp"> <% x.getNombreActividad(); %>  </a>
@@ -151,7 +151,7 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col">
-                            <img class= "im" alt="Qries" src=".././img/categories/<%=x %>.gif">
+                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/assets/images/categories/<%=x %>.gif">
                         </div>
                         <div class = "col" id= "act2">
                           <%=x %>
