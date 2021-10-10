@@ -60,7 +60,7 @@
     	    	</div>
     	    	<div class = "col" id= "coco"> 
     	    	<% if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == false)){ %>
-					<button type="button" class="btn btn-primary" id="boto">
+					<button type="button" class="btn btn-primary" id="boto" onclick="location.ref='<%request.getContextPath()%>/comprarcuponera'">
 			            	Comprar
 			        </button>	
 			      <%}%>
