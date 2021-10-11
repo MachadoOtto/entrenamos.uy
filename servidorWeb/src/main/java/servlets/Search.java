@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tools.Parametrizer;
+import tools.NameComparator;
+import tools.FechaComparator;
 import logica.LaFabrica;
 import logica.IActividadDeportivaController;
 import logica.ICuponeraController;
@@ -44,6 +47,9 @@ public class Search extends HttpServlet {
     	IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     	Set<String> categorias = IADC.obtenerCategorias();
     	Set<String> instituciones = IADC.obtenerInstituciones();
+    	String orden = request.getParameter("sort");
+    	if (orden == null)
+    		orden = "alfaDesc";
     	String texto = request.getParameter("campoTexto");
     	Set<String> fltrInstituciones = new HashSet<>();
     	for (int i = 1; i <= instituciones.size(); i++) {
@@ -70,6 +76,24 @@ public class Search extends HttpServlet {
     	if ((actividad != null) && (actividad.equals("yes"))) {
     		try {
         		listaActividades = obtenerActividades(texto, fltrInstituciones, fltrCategorias);
+        		switch(orden) {
+        			case "alfaDesc":
+                    	Collections.sort(listaActividades, new NameComparator());
+        				break;
+        			case "alfaAsc":
+                    	Collections.sort(listaActividades, new NameComparator());
+                    	Collections.reverse(listaActividades);
+        				break;
+        			case "fechaDesc":
+                    	Collections.sort(listaActividades, new FechaComparator());
+        				break;
+        			case "fechaAsc":
+                    	Collections.sort(listaActividades, new FechaComparator());
+                    	Collections.reverse(listaActividades);
+        				break;
+        			default:
+        				break;
+        		}
     		} catch(ActividadDeportivaException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError", ex);
@@ -80,6 +104,24 @@ public class Search extends HttpServlet {
     	if ((clase != null) && (clase.equals("yes"))) {
     		try {
         		listaClases = obtenerClases();
+        		switch(orden) {
+	    			case "alfaDesc":
+	                	Collections.sort(listaClases, new NameComparator());
+	    				break;
+	    			case "alfaAsc":
+	                	Collections.sort(listaClases, new NameComparator());
+	                	Collections.reverse(listaClases);
+	    				break;
+	    			case "fechaDesc":
+	                	Collections.sort(listaClases, new FechaComparator());
+	    				break;
+	    			case "fechaAsc":
+	                	Collections.sort(listaClases, new FechaComparator());
+	                	Collections.reverse(listaClases);
+	    				break;
+	    			default:
+	    				break;
+        		}
     		} catch(ClaseException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError", ex);
@@ -90,6 +132,24 @@ public class Search extends HttpServlet {
     	if ((cuponera != null) && (cuponera.equals("yes"))) {
     		try {
         		listaCuponeras = obtenerCuponeras(texto, fltrInstituciones, fltrCategorias);
+        		switch(orden) {
+	    			case "alfaDesc":
+	                	Collections.sort(listaCuponeras, new NameComparator());
+	    				break;
+	    			case "alfaAsc":
+	                	Collections.sort(listaCuponeras, new NameComparator());
+	                	Collections.reverse(listaCuponeras);
+	    				break;
+	    			case "fechaDesc":
+	                	Collections.sort(listaCuponeras, new FechaComparator());
+	    				break;
+	    			case "fechaAsc":
+	                	Collections.sort(listaCuponeras, new FechaComparator());
+	                	Collections.reverse(listaCuponeras);
+	    				break;
+	    			default:
+	    				break;
+        		}
     		} catch(NoExisteCuponeraException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError", ex);
@@ -100,6 +160,17 @@ public class Search extends HttpServlet {
     	if ((usuario != null) && (usuario.equals("yes"))) {
     		try {
     			listaUsuarios = obtenerUsuarios();
+        		switch(orden) {
+	    			case "alfaDesc":
+	                	Collections.sort(listaUsuarios, new NameComparator());
+	    				break;
+	    			case "alfaAsc":
+	                	Collections.sort(listaUsuarios, new NameComparator());
+	                	Collections.reverse(listaUsuarios);
+	    				break;
+	    			default:
+	    				break;
+        		}
     		} catch(UsuarioNoExisteException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError", ex);
@@ -113,6 +184,8 @@ public class Search extends HttpServlet {
     	request.setAttribute("cuponeras", listaCuponeras);
     	request.setAttribute("instituciones", instituciones);
     	request.setAttribute("usuarios", listaUsuarios);
+    	request.setAttribute("searchText", texto);
+    	request.setAttribute("orden", orden);
     	request.setAttribute("filtroInsti", fltrInstituciones);
     	request.setAttribute("filtroCat", fltrCategorias);
     	request.getRequestDispatcher("/pages/search.jsp").forward(request, response);
