@@ -34,9 +34,22 @@
 			listaDeListas.add((List<?>) request.getAttribute("cuponeras"));
 			listaDeListas.add((List<?>) request.getAttribute("usuarios"));
 			
-			// Auxiliares para el filtro:
+			// Guarda el link para la nueva request de los formularios:
+			String link = "/search?campoTexto=" + ((String) request.getAttribute("searchText"));
+			if (request.getAttribute("actividades") != null)
+				link += "&actividades=yes";
+			if (request.getAttribute("clases") != null)
+				link += "&clases=yes";
+			if (request.getAttribute("cuponeras") != null)
+				link += "&cuponeras=yes";
+			if (request.getAttribute("usuarios") != null)
+				link += "&usuarios=yes";
+			
+			// Auxiliares para el orden y filtro:
+			String orden = (String) request.getAttribute("orden");
 			Set<?> listaInstituciones = (Set<?>) request.getAttribute("instituciones");
 			Set<?> listaCategorias = (Set<?>) request.getAttribute("categorias");
+			Set<?> filtro = null;
 			%>
 			
 			<% /* Comienza la magia */ %>
@@ -58,13 +71,31 @@
 				        </div>
 				        <div class="col-md-auto">
 				        	<div id="divOrder" class="mb-auto">
-		                    	<select id="order" class="form-select" data-live-search="true">
-		                    		<option>(seleccione una opcion)</option>
-		                            <option>Alfabeticamente (A-Z a-z)</option>
-		                            <option>Alfabeticamente (z-a Z-A)</option>
-		                            <option>Fecha de registro (descendente)</option>
-		                            <option>Fecha de registro (ascendente)</option>
-		                        </select>
+				        		<%String linkAndFiltro = link;
+				        		  filtro = (Set<?>) request.getAttribute("filtroInsti");
+				        		  int count = 1;
+				        		  for (Object x : filtro) {
+				        			  linkAndFiltro += "&fltrI" + count + "=" + (String)x;
+				        			  count++;
+				        		  }
+				        		  filtro = (Set<?>) request.getAttribute("filtroCat");
+				        		  count = 1;
+				        		  for (Object x : filtro) {
+				        			  linkAndFiltro += "&fltrC" + count + "=" + (String)x;
+				        			  count++;
+				        		  } %>
+				        		<form name="orden" action="<%=request.getContextPath() + linkAndFiltro%>" method="POST">
+			                    	<select id="sort" name="sort" class="form-select" data-live-search="true" onchange="this.form.submit()">
+			                            <option value="alfaDesc" 
+			                            	<%if (orden.equals("alfaDesc")) {%> selected="selected" <% } %>>Alfabeticamente (A-Z a-z)</option>
+			                            <option value="alfaAsc"
+			                            	<%if (orden.equals("alfaAsc")) {%> selected="selected" <% } %>>Alfabeticamente (z-a Z-A)</option>
+			                            <option value="fechaDesc"
+			                            	<%if (orden.equals("fechaDesc")) {%> selected="selected" <% } %>>Fecha de registro (descendente)</option>
+			                            <option value="fechaAsc"
+			                            	<%if (orden.equals("fechaAsc")) {%> selected="selected" <% } %>>Fecha de registro (ascendente)</option>
+			                        </select>
+			                	</form>
 		                    </div>
 				        </div>
 				        <%if ((request.getAttribute("actividades") != null) || (request.getAttribute("cuponeras") != null)) {%>
@@ -156,10 +187,10 @@
 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	            </div>
 	            <div class="modal-body">
-	                <form id="form-filtro" action="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes" method="POST" accept-charset="utf-8"> 
+	                <form id="form-filtro" action="<%=request.getContextPath() + link%>&sort=<%=orden%>" method="POST" accept-charset="utf-8"> 
 	                	<h5 class="fw-bold mb-0">Instituciones:</h5>
 	                	<%int counter = 0;
-	                	Set<?> filtro = (Set<?>) request.getAttribute("filtroInsti");
+	                	filtro = (Set<?>) request.getAttribute("filtroInsti");
 	                	for (Object obj : listaInstituciones) {
 	                		counter++;%>
 	                    <div class="form-check float-left">
