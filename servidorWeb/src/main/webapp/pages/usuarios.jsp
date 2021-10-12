@@ -14,19 +14,16 @@
 
 <!doctype html>
 <html lang="en">
- <!--  
-  <head>
-    <jsp:include page="/template/head.jsp"/>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/usuarios.css">
-    <title>Entrenamos.uy</title>
-  </head>
+<head>
+	<jsp:include page="/template/head.jsp"/>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/usuarios.css">
+	
+</head>
   <body>
     
-    <!--BARRA DE NAVEGACION--
     <jsp:include page="/template/header.jsp"/>
 
-    <!--CUERPO DE LA PAGINA WEB--
+
     <div class="container-fluid mt-4">
 
       <div class="row mx-3 mx-md-5">

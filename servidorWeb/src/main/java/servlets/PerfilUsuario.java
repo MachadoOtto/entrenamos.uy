@@ -37,7 +37,7 @@ public class PerfilUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Parametrizer.loadStdRequests(request);
         try {
-        	DtUsuarioExt usrLogged = IUC.seleccionarUsuario((String) request.getSession().getAttribute("loggedUser"));
+        	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
         	DtUsuarioExt usr = IUC.seleccionarUsuario((String) request.getParameter("nickname"));
         	request.setAttribute("datoUsuario", usr);
         	request.setAttribute("datoUsuarioLogged", usrLogged);
