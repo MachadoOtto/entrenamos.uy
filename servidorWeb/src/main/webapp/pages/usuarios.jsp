@@ -14,6 +14,7 @@
 
 <!doctype html>
 <html lang="en">
+ <!--  
   <head>
     <jsp:include page="/template/head.jsp"/>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
@@ -22,10 +23,10 @@
   </head>
   <body>
     
-    <!--BARRA DE NAVEGACION-->
+    <!--BARRA DE NAVEGACION--
     <jsp:include page="/template/header.jsp"/>
 
-    <!--CUERPO DE LA PAGINA WEB-->
+    <!--CUERPO DE LA PAGINA WEB--
     <div class="container-fluid mt-4">
 
       <div class="row mx-3 mx-md-5">
@@ -34,8 +35,6 @@
         </div>
         
         <!--  Comienzo consulta usuario -->
-        
-
         
         <% DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("datoUsuarioLogged"); %>
         <% DtUsuarioExt usrProfile = (DtUsuarioExt) request.getAttribute("datoUsuario"); %>
@@ -97,7 +96,7 @@
 					<% } %>
 					<button id="nav-seguidores" type="button" onclick="cambioNavegador('user-seguidores','nav-seguidores')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Seguidores</button>
 					<button id="nav-seguidos" type="button" onclick="cambioNavegador('user-seguidos','nav-seguidos')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Seguidos</button>
-					<% if(!(usrProfile instanceof DtProfesorExt) && usrLogged.getNickname() == usrProfile.getNickname()) {	/*Socio mirando su propio perfil*/ %>	
+					<% if(!(usrProfile instanceof DtProfesorExt) && (usrLogged != null) && usrLogged.getNickname() == usrProfile.getNickname()) {	/*Socio mirando su propio perfil*/ %>	
 						<button id="nav-cuponeras" hidden="hidden" type="button" onclick="cambioNavegador('user-cuponeras','nav-cuponeras')" class="flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
 					<% } %>
 					<% if(usrProfile instanceof DtProfesorExt) { %>
@@ -223,7 +222,7 @@
 						 <% } %>
 					</ul>
 				</div>
-				<% if(usrProfile instanceof DtSocioExt && usrProfile.getNickname() == usrLogged.getNickname()) {	/* Socio viendo su propio perfil */ %>
+				<% if(usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname() == usrLogged.getNickname()) {	/* Socio viendo su propio perfil */ %>
 				<div id= "user-cuponeras" class="col-sm-9 border card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
 						<% for( String cup: ((DtSocioExt)usrProfile).getCuponerasCompradas() ) { %>
@@ -249,7 +248,7 @@
 				
 				<% List<?> dtad = (List<?>) request.getAttribute("activiadesIngresadas"); %>
 				
-				<% if(usrProfile.getNickname() == usrLogged.getNickname()) { /* Profesor viendo su perfil*/%>
+				<% if((usrLogged != null) && (usrProfile.getNickname() == usrLogged.getNickname())) { /* Profesor viendo su perfil*/%>
 				<h5>Actividades Aceptadas</h5>
 				<% } %>
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
@@ -263,7 +262,7 @@
 						 <% } %>
 					</ul>
 					<br>
-					<% if(usrProfile.getNickname() == usrLogged.getNickname()) { %>
+					<% if((usrLogged != null) && (usrProfile.getNickname() == usrLogged.getNickname())) { %>
 					<h5>Actividades Ingresadas</h5>
 					  <ul id="listaActividadesClases" class="list-group list-group-horizontal">
 					  	<% for( Object ad: dtad ) { %>
@@ -363,7 +362,6 @@
         </div>
       </div>
     </div>
-	
         <!-- Fin consulta usuario -->
 
         <div class="col-2 ps-1 ps-sm-2">

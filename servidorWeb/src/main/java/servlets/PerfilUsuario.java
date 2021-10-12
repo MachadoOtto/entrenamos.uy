@@ -16,8 +16,10 @@ import datatypes.DtActividadDeportivaExt;
 import datatypes.DtProfesorExt;
 import datatypes.DtUsuarioExt;
 import logica.IActividadDeportivaController;
+import logica.IUsuarioController;
 import logica.LaFabrica;
 import models.GestorWeb;
+import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
 // Si la combinación tiene exito. El servlet establece como atributo de sesión al usuario.
@@ -25,17 +27,20 @@ import models.GestorWeb;
 public class PerfilUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IActividadDeportivaController IADC;
+	private IUsuarioController IUC;
     public PerfilUsuario() {
         super();
+        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
         IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	Parametrizer.loadStdRequests(request);
         try {
-        	//DtUsuarioExt usrLogged = GestorWeb.getInstance().buscarUsuario((String) request.getSession().getAttribute("user"));
-        	DtUsuarioExt usr = GestorWeb.getInstance().buscarUsuario((String) request.getParameter("nickname"));
+        	DtUsuarioExt usrLogged = IUC.seleccionarUsuario((String) request.getSession().getAttribute("loggedUser"));
+        	DtUsuarioExt usr = IUC.seleccionarUsuario((String) request.getParameter("nickname"));
         	request.setAttribute("datoUsuario", usr);
-        	//request.setAttribute("datoUsuarioLogged", usrLogged);
+        	request.setAttribute("datoUsuarioLogged", usrLogged);
         	
         	List<DtActividadDeportivaExt> actIngresadasProfesor = new ArrayList<>();
         	if(usr instanceof DtProfesorExt) {
