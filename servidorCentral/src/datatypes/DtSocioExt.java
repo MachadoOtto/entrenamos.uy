@@ -17,6 +17,7 @@ public class DtSocioExt extends DtUsuarioExt{
 		this.x = clases;
 	}
 	
+	//Ejemplo: {"Voleibol":{"voleibol 2","voleibol 3","braza"},"basquet":{"basquetbol2", "basquetbol3"}}
 	public Map<String,Set<String>> getAguadeUwu(){
 		return x;
 	}
