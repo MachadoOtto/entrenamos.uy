@@ -13,9 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datatypes.DtActividadDeportivaExt;
+import datatypes.DtClaseExt;
+import datatypes.DtCuponera;
 import datatypes.DtProfesorExt;
+import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
 import logica.IActividadDeportivaController;
+import logica.ICuponeraController;
+import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
 import models.GestorWeb;
@@ -28,20 +33,74 @@ public class PerfilUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IActividadDeportivaController IADC;
 	private IUsuarioController IUC;
+	private ICuponeraController ICC;
+	private IDictadoClaseController IDCC;
     public PerfilUsuario() {
         super();
         IUC = LaFabrica.getInstance().obtenerIUsuarioController();
         IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+        ICC = LaFabrica.getInstance().obtenerICuponeraController();
+        IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	Parametrizer.loadStdRequests(request);
         try {
-        	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
-        	DtUsuarioExt usr = IUC.seleccionarUsuario((String) request.getParameter("nickname"));
-        	request.setAttribute("datoUsuario", usr);
-        	request.setAttribute("datoUsuarioLogged", usrLogged);
+        	//Obtención de datos de usuario
+        	String nickname = (String) request.getParameter("nickname");
+        	DtUsuarioExt usr = IUC.seleccionarUsuario(nickname);
         	
+        	//Obtención de clases dictadas (Profesor)
+        	List<DtClaseExt> clasesDictadasProfesor = new ArrayList<>();
+        	if(usr instanceof DtProfesorExt) {
+        		Set<String> clases = ((DtProfesorExt)usr).getClasesDictadas();
+        		for (String x : clases) {
+        			clasesDictadasProfesor.add(IDCC.buscarClase(x));
+        		}
+        	}
+        	
+        	//Obtención de clases a las que se está inscripto (Socio)
+        	List<DtClaseExt> clasesInscriptoSocio = new ArrayList<>();
+        	if(usr instanceof DtSocioExt) {
+        		Set<String> clases = ((DtSocioExt)usr).getClases();
+        		for (String x : clases) {
+        			clasesInscriptoSocio.add(IDCC.buscarClase(x));
+        		}
+        	}
+        	
+        	//Obtención de seguidores
+        	List<DtUsuarioExt> seguidores = new ArrayList<>();
+    		Set<String> seguidoresNick = usr.getSeguidoresNickname();
+    		for (String x : seguidoresNick) {
+    			seguidores.add(IUC.seleccionarUsuario(x));
+        	}
+        	
+    		//Obtención de seguidores
+        	List<DtUsuarioExt> seguidos = new ArrayList<>();
+    		Set<String> seguidosNick = usr.getSeguidosNickname();
+    		for (String x : seguidosNick) {
+    			seguidos.add(IUC.seleccionarUsuario(x));
+        	}
+    		
+    		//Obtención de cuponeras
+        	List<DtCuponera> cuponerasIngresadasSocio = new ArrayList<>();
+        	if(usr instanceof DtSocioExt) {
+        		Set<String> cuponeras = ((DtSocioExt)usr).getCuponerasCompradas();
+        		for (String x : cuponeras) {
+        			cuponerasIngresadasSocio.add(ICC.seleccionarCuponera(x));
+        		}
+        	}
+        	
+        	//Obtención de actividades asociadas
+        	List<DtActividadDeportivaExt> actAsociadasProfesor = new ArrayList<>();
+        	if(usr instanceof DtProfesorExt) {
+        		Set<String> actividades = ((DtProfesorExt)usr).getActividadesDepAsociadas();
+        		for (String x : actividades) {
+        			actAsociadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(), x));
+        		}
+        	}
+        	
+        	//Obtención de actividades ingresadas
         	List<DtActividadDeportivaExt> actIngresadasProfesor = new ArrayList<>();
         	if(usr instanceof DtProfesorExt) {
         		Set<String> actividades = ((DtProfesorExt)usr).getActividadesIngresadas();
@@ -49,7 +108,16 @@ public class PerfilUsuario extends HttpServlet {
         			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(), x));
         		}
         	}
+        	        	
+        	request.setAttribute("datoUsuario", usr);
+        	request.setAttribute("clasesDictadas", clasesDictadasProfesor);
+        	request.setAttribute("clasesInscripto", clasesInscriptoSocio);
+        	request.setAttribute("seguidores", seguidores);
+        	request.setAttribute("seguidos", seguidos);
+        	request.setAttribute("cuponeras", cuponerasIngresadasSocio);
+        	request.setAttribute("actividadesAsociadas", actAsociadasProfesor);
         	request.setAttribute("actividadesIngresadas", actIngresadasProfesor);
+        	
         } catch(Exception e) {
         	e.printStackTrace();
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
@@ -58,6 +126,10 @@ public class PerfilUsuario extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
 	}
 }

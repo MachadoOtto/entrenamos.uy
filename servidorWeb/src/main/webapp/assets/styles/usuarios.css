@@ -24,7 +24,7 @@ body {
     perspective: 1px;
 }
 
-#user-nav1 {
+#nav-perfil {
 	border-radius: 6px 7px 0 0 !important;
 	border-collapse: separate;
     overflow: hidden;
@@ -44,50 +44,14 @@ body {
     background-color: rgba(204 204 204 / 28%);
     padding: 1em 1em 1em 1em;
 }
-#user-nav2 {
+
+.user-nav {
 	border-radius: 6px 7px 0 0 !important;
 	border-collapse: separate;
     overflow: hidden;
     perspective: 1px;
 }
 
-#user-nav3 {
-	border-radius: 6px 7px 0 0 !important;
-	border-collapse: separate;
-    overflow: hidden;
-    perspective: 1px;
-}
-
-#user-nav4 {
-	border-radius: 6px 7px 0 0 !important;
-	border-collapse: separate;
-    overflow: hidden;
-    perspective: 1px;
-}
-
-#user-nav5 {
-	border-radius: 6px 7px 0 0 !important;
-	border-collapse: separate;
-    overflow: hidden;
-    perspective: 1px;
-}
-
-#user-nav6 {
-	border-radius: 6px 7px 0 0 !important;
-	border-collapse: separate;
-    overflow: hidden;
-    perspective: 1px;
-}
-
- #user-imagen {
- 	display: block;
- 	margin: auto;
-	max-width: 100%;
-	display: flex;
- 	justify-content: center;
- 	width: 100%;
- 	height: 75%;
- }
  
  #user-superior {
  	display: flex;
@@ -126,6 +90,9 @@ body {
  	overflow-y: auto;
  }
  
+#user-consultaInscripciones {
+  	display: none;
+}
   #user-consultaClases {
   list-style-type: none;
   	display: none;
@@ -133,9 +100,27 @@ body {
  	max-height: 375px;
  	overflow-y: auto;
  }
+ 
+ #user-seguidores {
+   	display: none;
+ }
+ 
+ #user-seguidos {
+ 	display: none;
+ }
+ 
+ #user-cuponeras {
+ 	display: none;
+ }
+ 
+ #listaActividadesClases {
+ 	display: none;
+ }
+ 
  #user-consultaAD{
  	display: none;
  }
+ 
  #user-consultaADI{
  	display: none;
  }
