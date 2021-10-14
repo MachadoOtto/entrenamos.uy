@@ -4,6 +4,10 @@ body {
 	overflow-x: hidden;
 }
 
+.link-dark {
+	text-decoration: none;
+}
+
 #img-perfil
 {
 	margin-bottom: 10px;
@@ -91,7 +95,11 @@ body {
  }
  
 #user-consultaInscripciones {
-  	display: none;
+  	list-style-type: none;
+  display: none;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: auto;
 }
   #user-consultaClases {
   list-style-type: none;
@@ -102,27 +110,43 @@ body {
  }
  
  #user-seguidores {
-   	display: none;
+   list-style-type: none;
+  display: none;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: auto;
  }
  
  #user-seguidos {
- 	display: none;
+ 	list-style-type: none;
+  display: none;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: auto;
  }
  
  #user-cuponeras {
- 	display: none;
- }
- 
- #listaActividadesClases {
- 	display: none;
+ 	list-style-type: none;
+  display: none;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: auto;
  }
  
  #user-consultaAD{
- 	display: none;
+ 	list-style-type: none;
+  display: none;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: auto;
  }
  
  #user-consultaADI{
- 	display: none;
+ 	list-style-type: none;
+  display: none;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: auto;
  }
  
   #user-consultaActividadesDeportivas {

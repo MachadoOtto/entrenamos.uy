@@ -58,7 +58,7 @@
 							<% } else if(!usrLogged.getSeguidosNickname().contains(usrProfile.getNickname())) { /*No sigue al usuario del perfil*/ %>
 							<div id="user-seguir" class="flex-sm-fill text-sm-center nav-link ">
 								 <a href="<%=request.getContextPath()%>/seguir?nickname=<%=usrProfile.getNickname()%>">
-								  <button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit" >
+								  <button class="btn-ir btn btn-primary" type="submit" >
 					            	Seguir
 					              </button>
 					              </a>
@@ -66,7 +66,7 @@
 							<% } else{ /* Sigue al usuario*/ %>
 							<div id="user-dejarSeguir" class="flex-sm-fill text-sm-center nav-link ">
 								<a href="<%=request.getContextPath()%>/dejarDeSeguir?nickname=<%=usrProfile.getNickname()%>">
-								<button class="btn-ir btn btn-primary mt-3 ms-3 mb-3" type="submit" >
+								<button class="btn btn-primary" type="submit" >
 					            	Dejar de Seguir
 					            </button>
 					            </a>
@@ -212,15 +212,14 @@
 				<div id= "user-consultaInscripciones" class=" border card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
 					
-						<% List<?> clases = (List<?>) request.getAttribute("clasesDictadas"); %>
-					
+						<% List<?> clases = (List<?>) request.getAttribute("clasesInscripto"); %>
 						<% for( Object cl: clases ) { %>
 						<% String imagenClase = (((DtClaseExt)cl).getImgName() != null) ? ((DtClaseExt)cl).getImgName():"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)cl).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/classes/<%=imagenClase%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtClaseExt)cl).getNombre()%></b></a>
-								<% for( Map.Entry<String,Set<String>> xy: (((DtProfesorExt)usrProfile).getClasesxActividades()).entrySet() ) { %>
+								<% for( Map.Entry<String,Set<String>> xy: (((DtSocioExt)usrProfile).getAguadeUwu()).entrySet() ) { %>
 									<% if(xy.getValue().contains(((DtClaseExt)cl).getNombre())) { %>
 										<small class="text-muted">(<%=xy.getKey()%>)</small>
 									<% break; } %>
@@ -236,7 +235,7 @@
 					<% List<?> seguidores = (List<?>) request.getAttribute("seguidores"); %>
 					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
 						<% for( Object u: seguidores ) { %>
-						<% String imagenSeguidor = (((DtUsuarioExt)u).getNombre() != null) ? new String(((DtUsuarioExt)u).getImagen(),"UTF-8"):"default.png"; %>
+						<% String imagenSeguidor = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(),"UTF-8"):"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/users/<%=imagenSeguidor%>" class="vertical-align-middle imagenSeleccionable">
@@ -251,7 +250,7 @@
 					<% List<?> seguidos = (List<?>) request.getAttribute("seguidos"); %>
 					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
 						<% for( Object u: seguidos ) { %>
-						<% String imagenSeguido = (((DtUsuarioExt)u).getNombre() != null) ? new String(((DtUsuarioExt)u).getImagen(),"UTF-8"):"default.png"; %>
+						<% String imagenSeguido = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(),"UTF-8"):"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/users/<%=imagenSeguido%>" class="vertical-align-middle imagenSeleccionable">
@@ -286,7 +285,7 @@
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/activities?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
-								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
+¡								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
 						 <% } %>
 						</ul>
