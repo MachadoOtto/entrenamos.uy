@@ -1,5 +1,5 @@
-var botonActualID = "nav-perfil";
-var cuadroInfoActualID = "";
+var botonActualID = 'nav-perfil';
+var cuadroInfoActualID = 'user-consultaPerfil';
 
 function cambioNavegador( nextConsultaID, nextBotonID ) {
 	cambiarPerfil( nextConsultaID );
@@ -7,21 +7,15 @@ function cambioNavegador( nextConsultaID, nextBotonID ) {
 }
 
 function cambiarPerfil( nextID ) {
-  var x = document.getElementById( cuadroInfoActual );
-  var y = document.getElementById( nextID );
-  
-  x.style.display = "none";
-  y.style.display = "block";
-  
+  document.getElementById( cuadroInfoActualID ).style.display = 'none';
+  document.getElementById( nextID ).style.display = 'block';
+
   cuadroInfoActualID = nextID;
 }
 
 function colorearBoton( nextID ) {
-  var x = document.getElementById( botonActual );
-  var y = document.getElementById( nextID );
-
-  x.classList.remove('active');
-  y.classList.add('active');
+  document.getElementById( botonActualID ).classList.remove('active');
+  document.getElementById( nextID ).classList.add('active');
 
   botonActualID = nextID;
 }

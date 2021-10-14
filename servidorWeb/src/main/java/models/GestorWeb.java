@@ -95,7 +95,7 @@ public class GestorWeb {
 			bio = "El interés por la actividad física llevo a Carlos a dejar su trabajo en un estudio "
 					+ "contable y abrir su propio gimnasio.";
 			IUC.ingresarDatosUsuario(new DtProfesor("clazar","Carlos","Lazaro","claz4r0@hotmail.com", "mkji648", new DtFecha(1953,6,22,0,0,0),
-					"Instituto Natural", desc, bio ,"www.enforma.com", "clazar".getBytes()));
+					"Instituto Natural", desc, bio ,"www.enforma.com", "clazar.jpg".getBytes()));
 			// TheBoss #BS
 			desc = "Bruno es un ex-boxeardor que busca entrenar a futuros campeones.";
 			bio = "Bruno, mejor conocido como Bruce en el ring, compitió como boxeador entre los años 60s y 70s.";
