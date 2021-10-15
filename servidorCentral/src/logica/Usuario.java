@@ -113,6 +113,7 @@ public abstract class Usuario {
     	this.setNombre(datos.getNombre());
     	this.setApellido(datos.getApellido());
     	this.setFecha(datos.getFechaNacimiento());
+    	this.setImagen(datos.getImagen());
     }
     
     public void agregarSeguidor(Usuario u) {

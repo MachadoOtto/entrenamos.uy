@@ -71,7 +71,7 @@ public class Clase {
 			SoloNombres.add(x.getNick());
 		}
 		DtClaseExt x = new DtClaseExt(nombre, p.getNickname(), p.getCorreo(), minSocios, maxSocios, URL, this.getFechaClase(),
-				this.getFechaRegistro(), ListNombres, SoloNombres);
+				this.getFechaRegistro(), ListNombres, SoloNombres,imgName);
 		return x;
 	}
 	

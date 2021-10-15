@@ -46,23 +46,22 @@
             <h1 class="h2">Noticias:</h1>
         	<br>
        		<div class="border border-dark row mb-4 p-5 text-dark bg-light rounded-3 ">
-       			<div id="carouselIndicators" class="carousel slide" data-ride="carousel">
-				  <ol class="carousel-indicators">
-				    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				    <li data-target="#myCarousel" data-slide-to="1"></li>
-				  </ol>
+       			<div id="carouselNoticias" class="carousel carousel-dark slide" data-ride="carousel">
 				  <div class="carousel-inner">
-				    <div class="carousel-item active">
+				    <div class="row carousel-item active">
 				      <div class="col">
 			        	<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
+			        	</div>
 				        <div class="col">
 				        	<h2>A sacudir los huesos!</h2>
 				          	<p>En entrenamos.uy tomamos todas las precauciones necesarias para que los huesos de nuestros clientes se mantengan sanos e integrales.
 				         De ahora en adelante, todas nuestras actividades deportivas son cuidadosamente analizadas y aprobadas como <b>Bone Safe</b>.</p>
 				        </div>
-				      </div>
 				    </div>
 				    <div class="carousel-item">
+				    	<div class="col">
+			        	<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/users/viktor.jpg">
+			        	</div>
 				      <div class="col">
 				        	<h2>Profesor del mes: <b>Viktor</b></h2>
 				          	<p>El equipo directivo de entrenamos.uy con gran placer felicita a <b>Viktor</b> por su larga trayectoria en el sitio.
@@ -72,14 +71,14 @@
 				        </div>
 				    </div>
 				  </div>
-				  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="sr-only">Previous</span>
-				  </a>
-				  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="sr-only">Next</span>
-				  </a>
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselNoticias" data-bs-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-bs-target="#carouselNoticias" data-bs-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					  </button>
 				</div>
         	</div>
         </div>

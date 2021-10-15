@@ -121,7 +121,7 @@ public class ActividadDeportiva {
 		Set<String> q = new HashSet<>(clases.keySet());
 		Set<String> r = new HashSet<>(clCuponera.keySet());
 		DtActividadDeportivaExt x = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
-				getCosto(), getFechaRegistro(),cats.keySet(),q,r,estado,creador.getNickname());
+				getCosto(), getFechaRegistro(),cats.keySet(),q,r,estado,creador.getNickname(),imgName);
 		return x;
 	}
 	public TEstado getEstado() {

@@ -67,7 +67,8 @@ public class Seguir extends HttpServlet {
         	request.setAttribute("actividadesIngresadas", actIngresadasProfesor);
         	request.getSession().setAttribute("loggedUser",usrLogged);
         	request.setAttribute("datoUsuario", usr);
-        	request.getRequestDispatcher("/usuarios?nickname=" + usr.getNickname()).forward(request, response);
+        	//request.getRequestDispatcher("/usuarios?nickname=" + usr.getNickname()).forward(request, response);
+        	response.sendRedirect(request.getContextPath() +"/usuarios?nickname=" + usr.getNickname());
 		} catch (Exception e2) {
 			e2.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");

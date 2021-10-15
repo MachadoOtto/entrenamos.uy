@@ -13,7 +13,12 @@ public class DtClaseExt extends DtClase {
 		this.alumnos = als;
 		this.soloNickAlumnos = soloNickAlumnos;
 	}
-
+	public DtClaseExt(String nom, String nickP,String correoP, int min, int max, String url, DtFecha fechC, DtFecha fechR, 
+			List<String> als, List<String> soloNickAlumnos,String img) {
+		super(nom, nickP,correoP, min, max, url, fechC, fechR,img);
+		this.alumnos = als;
+		this.soloNickAlumnos = soloNickAlumnos;
+	}
 	public List<String> getAlumnos() {
 		return this.alumnos;
 	}

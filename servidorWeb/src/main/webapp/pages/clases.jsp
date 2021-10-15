@@ -3,6 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
 <%@ page import="datatypes.DtClaseExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
 <%@ page import="datatypes.DtFecha"%>
 <!DOCTYPE html>
 
@@ -29,7 +30,7 @@
 		      	<div id="user-superior" class="row ">
             		<div class="col-3 py-3">
 			    		<div id="mainImgDiv" class="">
-				    		<img alt="imagenClase" id="mainImgDiv" src="<%=request.getContextPath()%>/assets/images/classes/<%=datosClase.getNombre()%>.jpg">
+				    		<img alt="imagenClase" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=datosClase.getNombre()%>">
 			    		</div>
            			</div>
             		<div class="col-9 py-3">
@@ -41,7 +42,7 @@
                   				<h4><strong>Dictada por:</strong></h4>
                 			</div>
               				<div class="col-auto">
-                 				<img alt="Qries"  src="<%=request.getContextPath()%>/assets/images/users/<%=datosClase.getNicknameProfesor()%>.jpg" class="vertical-align-middle imagenSeleccionable">
+                 				<img alt="Qries"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=datosClase.getNicknameProfesor()%>" class="vertical-align-middle imagenSeleccionable">
                  				<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosClase.getNicknameProfesor()%>"><%=datosClase.getNicknameProfesor()%></a>
               				</div>
               				<%if (esSocio) { %>
@@ -104,20 +105,19 @@
 		      		<ul id="listaInscriptos" class="py-3">
 		      			<%  for(String alumno : nickAlumnos) { %>
 		      				<li class="container border card-body elementoLista">
-				           		<img alt="Default"  src="<%=request.getContextPath()%>/assets/images/users/<%=alumno%>.jpg" class="vertical-align-middle imagenSeleccionable">
+				           		<img alt="Default"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=alumno%>" class="vertical-align-middle imagenSeleccionable">
 				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno%>"><%=alumno%></a>
 				        	</li>
 		      			<%  } %>
 		      		</ul>
 		    	</div>
-		    	<div class="col-3 ps-1 ps-sm-2">
-			    	<jsp:include page="/template/stdRightSection.jsp"/>
-				</div>
+			    <jsp:include page="/template/stdRightSection.jsp"/>
 		  	</div>
 		</div>
 	</div>
 	
 	<!--MODALS-->
+	<%if(request.getSession().getAttribute("loggedUser") instanceof DtSocioExt){ %>
     <div class="modal fade" id="inscModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
@@ -165,7 +165,7 @@
           </div>
       </div>
     </div>	
-	
+	<%} %>
 	<jsp:include page="/template/footer.jsp"/>
 </body>
 </html>

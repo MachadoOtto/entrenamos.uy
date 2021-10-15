@@ -45,7 +45,7 @@
 			<div class="row ">
 				<div id="user-img-btn" class="col-auto py-4" >
 					<div id="user-imagen" class="">
-						<img id="img-perfil" width="180" height="180" alt="<%=usrProfile.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/users/<%=imagenPerfil%>"></img>
+						<img id="img-perfil" width="180" height="180" alt="<%=usrProfile.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=usrProfile.getNickname()%>"></img>
 					</div>
 					<div>
 						<% if(usrLogged != null) { /*Está logueado*/%>
@@ -285,7 +285,7 @@
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/activities?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
-¡								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
+								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
 						 <% } %>
 						</ul>
@@ -349,12 +349,12 @@
       <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                <img src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                 <h2 class="fw-bold mb-0">Modificar datos de Usuario</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="<%=request.getContextPath()%>/modificarDatosUsuario?nickname=<%=usrProfile.getNickname()%>" method="POST">
+                <form id="formulario-modif" action="<%=request.getContextPath()%>/modificarDatosUsuario?nickname=<%=usrProfile.getNickname()%>" method="POST" onsubmit="return modif()" enctype="multipart/form-data" accept-charset="UTF-8">
                    <h5>Cambiar contraseña</h5>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-4" name="pas1" id="pas1">
@@ -380,7 +380,7 @@
                         </div>             
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="date" class="form-control rounded-4" id="nac" name="nac" value="<%=usrProfile.getFechaNacimiento().toFecha()%>">
+                        <input type="date" class="form-control rounded-4" id="nac" name="nac" value="<%=usrProfile.getFechaNacimiento().toWebFecha()%>">
                         <label for="nac">Fecha de nacimiento</label>     
                     </div>
                   	<div class="mb-3">
@@ -395,11 +395,11 @@
 	                    </div>
 	                    <div id="newbioDiv" class="form-group form-floating mb-3">
 	                        <textarea class="form-control" id="bio" name="bio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ><%=((DtProfesorExt)usrProfile).getBiografia()%></textarea>
-	                        <label for="desc">Biografía</label>     
+	                        <label for="desc">Biografía <i style="font-size:0.7rem;"> (opcional)</i></label>     
 	                    </div>
 	                    <div id="newwebDiv" class="form-floating mb-3">
 	                        <input type="text" class="form-control rounded-4" name="webs" id="webs"  value="<%=((DtProfesorExt)usrProfile).getLink()%>">
-	                        <label for="webs">Sitio web</label>
+	                        <label for="webs">Sitio web <i style="font-size:0.7rem;"> (opcional)</i></label>
 	                    </div>
                   	<% } %>
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" >Confirmar</button>

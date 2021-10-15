@@ -56,30 +56,7 @@ function registroProfe(){
     $("#bioDiv").show();
     $("#webDiv").show();
 }
-function cargarImg(){
-	var imgPerfil = $("#imgPerfil")[0].files;	
-		var reader = new FileReader();
-	    reader.readAsDataURL(imgPerfil[0]);
-	   	reader.onload = function () {
-			$("#imgBlob").val(reader.result)
-			$("#imgName").val(imgPerfil[0].name)			
-	   }	
-	   reader.onerror = function (error) {
-	     console.log('Error when loading image: ', error);
-	   }
-}
-function cargarImgAD(){
-	var imgPerfil = $("#imgAD")[0].files;	
-		var reader = new FileReader();
-	    reader.readAsDataURL(imgPerfil[0]);
-	   	reader.onload = function () {
-			$("#ADimgBlob").val(reader.result)
-			$("#ADimgName").val(imgPerfil[0].name)			
-	   }	
-	   reader.onerror = function (error) {
-	     console.log('Error when loading image: ', error);
-	   }
-}
+
 function  registrarse(){
 	/*Verificar Formulario*/
 	if($("#nickk").val() == "" || $("#emaill").val() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
@@ -117,15 +94,8 @@ $(window).on('load', function() {
 	    document.getElementById('iniLink').onclick = swapIniRegModals;
 	    document.getElementById('radioSocio').addEventListener('input',registroSocio);
 	    document.getElementById('radioProfe').addEventListener('input',registroProfe);
-		document.getElementById('imgPerfil').addEventListener('input',cargarImg);
 	    registroSocio();		
 	} catch (error){
 		console.log("Handled info0: "+error);
-	}
-	try{
-		document.getElementById('imgAD').addEventListener('input',cargarImgAD);
-	}
-	catch(error){
-		console.log("Handled info: "+error);
 	}
 });

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <meta http-equiv="Content-language" content="es" />
+<meta http-equiv="Content-type" content="text/html">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<%=request.getContextPath()%>/assets/images/misc/favicon.ico" rel="icon" type="image/x-icon" />
 <link href="<%=request.getContextPath()%>/assets/images/misc/favicon.ico" rel="shortcut icon" />

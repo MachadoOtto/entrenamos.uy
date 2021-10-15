@@ -3,9 +3,12 @@ package servlets;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
@@ -17,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.swing.JOptionPane;
 
 import org.apache.tomcat.jni.Time;
@@ -45,8 +49,9 @@ public class Signup extends HttpServlet{
     	String r = request.getParameter("miurl");
         try {
         	byte [] bimgn = null;
-        	if(rp(request,"imgName")!=null && !(rp(request,"imgName").equals(""))) {
-        		String [] s = rp(request,"imgName").split("[.]");
+        	if(request.getPart("imgPerfil")!=null && request.getPart("imgPerfil").getSize()>0) {
+        		Part filePart = request.getPart("imgPerfil");
+        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
         		bimgn = (rp(request,"nickk")+"."+ext).getBytes();
         	}
@@ -69,13 +74,13 @@ public class Signup extends HttpServlet{
 	        		return;
 	        	}
 	        }
-	        if(rp(request,"imgName")!=null && !(rp(request,"imgName").equals(""))) {
-        		String [] s = rp(request,"imgName").split("[.]");
+	        if(request.getPart("imgPerfil")!=null && request.getPart("imgPerfil").getSize()>0) {
+	        	Part filePart = request.getPart("imgPerfil");
+	        	InputStream fileContent = filePart.getInputStream();
+        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
 	        	String path = request.getServletContext().getRealPath("/assets/images/users/"+rp(request,"nickk")+"."+ext);
-	            try (FileOutputStream f = new FileOutputStream(path)) {
-	                f.write(Base64.getDecoder().decode(rp(request,"imgBlob").split(",")[1]));
-	            }
+	        	Files.copy(fileContent, Paths.get(path),StandardCopyOption.REPLACE_EXISTING);
 	           //System.out.println( request.getServletContext().getRealPath("/assets/images/users/"+rp(request,"nickk")+"."+ext));
 	        }
 	        r=Parametrizer.remParam(r, "e","1");

@@ -19,3 +19,16 @@ function colorearBoton( nextID ) {
 
   botonActualID = nextID;
 }
+
+function modif() {
+	if($("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || $("#desc").val() == ""){
+		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-modif");
+		return false;
+	}
+	if($("#pas1").val() != $("#pas2").val()){
+		errorMsgForm("Las contraseñas no coinciden.","formulario-modif");
+		return false;
+	}
+	else
+		return true;
+}

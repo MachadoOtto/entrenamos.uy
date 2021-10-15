@@ -146,10 +146,10 @@
 									          	"/usuarios?nickname=" +((DtUsuarioExt)obj).getNickname();
 									          	
 									          	String dirImagen = 
-									          	(obj instanceof DtCuponera)? "/assets/images/cups/" + ((DtCuponera)obj).getNombre() + ".jpg":
-									          	(obj instanceof DtClaseExt)? "/assets/images/classes/" + ((DtClaseExt)obj).getNombre() + ".jpg":
-									          	(obj instanceof DtActividadDeportivaExt)? "/assets/images/activities/" + ((DtActividadDeportivaExt)obj).getNombre() + ".jpg":
-									          	"/assets/images/users/" + ((DtUsuarioExt)obj).getNickname() + ".jpg";%>
+									          	(obj instanceof DtCuponera)? "/api/content?c=cup&id=" +((DtCuponera)obj).getNombre():
+									          	(obj instanceof DtClaseExt)? "/api/content?c=cla&id="+((DtClaseExt)obj).getNombre():
+									          	(obj instanceof DtActividadDeportivaExt)? "/api/content?c=act&id="+((DtActividadDeportivaExt)obj).getNombre():
+									          	"/api/content?c=usu&id=" + (new String(((DtUsuarioExt)obj).getNickname()));%>
 											  	
 									        	<a class="hyperlink-img" href="<%=request.getContextPath() + dirUrl%>">
 								        		<img class="card-img-top" src="<%=request.getContextPath() + dirImagen%>" alt="Card image cap">

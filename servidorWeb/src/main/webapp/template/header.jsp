@@ -45,7 +45,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
                <li id="wtm">
             		<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=u.getNickname()%>"><img id="profilePicCreator" 
-            		onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/assets/images/misc/loading.gif'" alt="<%=u.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/users/<%=f%>"></img></a>
+            		onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/assets/images/misc/loading.gif'" alt="<%=u.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=u.getNickname()%>"></img></a>
            	   </li>
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
@@ -108,7 +108,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="formulario-registro" action="<%=request.getContextPath()%>/signup" method="POST" data-root="<%=request.getContextPath()%>" onsubmit="return registrarse()">
+                <form id="formulario-registro" action="<%=request.getContextPath()%>/signup" method="POST" data-root="<%=request.getContextPath()%>" onsubmit="return registrarse()" accept-charset="UTF-8" enctype="multipart/form-data">
                 
                     <div class="form-floating mb-3">
                         <h5>Que eres?</h5>
@@ -187,8 +187,6 @@
 					  <input class="form-control" type="file" id="imgPerfil" name="imgPerfil">
 					</div>
 					<input style="display: none;" class="form-control miurl" name="miurl" type="text">
-					<input style="display: none;" class="form-control" name="imgBlob" id="imgBlob" type="text">
-					<input style="display: none;" class="form-control" name="imgName" id="imgName" type="text">
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Registrarse</button>
                 </form>
             </div>
@@ -215,7 +213,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formulario-altaAD" action="<%=request.getContextPath()%>/alta_ad" data-root="<%=request.getContextPath()%>" method="post" onsubmit="return altaAD()">
+                    <form id="formulario-altaAD" action="<%=request.getContextPath()%>/alta_ad" data-root="<%=request.getContextPath()%>" method="post" onsubmit="return altaAD()" enctype="multipart/form-data" accept-charset="UTF-8">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control rounded-4" name="nombreAD" id="nombreAD" placeholder="">
                             <label for="floatingInput">Nombre</label>
@@ -253,8 +251,6 @@
 							</select>                          
                     </div>
                         <input style="display: none;" class="form-control miurl" name="miurl" type="text">
-						<input style="display: none;" class="form-control" name="ADimgBlob" id="ADimgBlob" type="text">
-						<input style="display: none;" class="form-control" name="ADimgName" id="ADimgName" type="text">
                         <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
                     </form>
                 </div>

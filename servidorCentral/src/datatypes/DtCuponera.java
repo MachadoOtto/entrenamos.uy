@@ -9,7 +9,7 @@ public class DtCuponera {
 	private DtFecha fechaInicio,fechaFin,fechaAlta;
 	private List<DtClasesCuponera> contenido;
 	private List<String> categorias;
-	
+	private String img;
 	public DtCuponera(String nom, String descr, float desc, float cc, DtFecha fi, DtFecha ff, DtFecha fa, List<DtClasesCuponera> v, List<String> cat){
 		nombre = nom;
 		descripcion = descr;
@@ -20,8 +20,23 @@ public class DtCuponera {
 		costo = cc;
 		contenido = v;
 		categorias=cat;
+		img = null;
 	}
-	
+	public DtCuponera(String nom, String descr, float desc, float cc, DtFecha fi, DtFecha ff, DtFecha fa, List<DtClasesCuponera> v, List<String> cat,String imagen){
+		nombre = nom;
+		descripcion = descr;
+		descuento = desc;
+		fechaInicio = fi;
+		fechaFin = ff;
+		fechaAlta = fa;
+		costo = cc;
+		contenido = v;
+		categorias=cat;
+		img = imagen;
+	}
+	public String getImgName() {
+		return img;
+	}
 	public String getNombre() {
 		return this.nombre;
 	}

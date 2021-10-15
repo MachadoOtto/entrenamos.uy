@@ -34,7 +34,7 @@
         <%
           Boolean comprada = false;
           DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
-          DtCuponera c = (DtCuponera) request.getAttribute("cuponera");
+          DtCuponera c = (DtCuponera) request.getSession().getAttribute("cuponera");
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
         	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();

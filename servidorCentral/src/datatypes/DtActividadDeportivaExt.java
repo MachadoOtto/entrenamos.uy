@@ -10,6 +10,11 @@ public class DtActividadDeportivaExt extends DtActividadDeportiva{
 		cl = clases;
 		cup = cuponeras;
 	}
+	public DtActividadDeportivaExt(String nombre, String desc, int durmin, float costo, DtFecha fechaReg, Set<String> cat, Set<String> clases, Set<String> cuponeras, TEstado e,String creador,String img){
+		super(nombre,desc,durmin,costo,fechaReg,cat,e,creador,img);
+		cl = clases;
+		cup = cuponeras;
+	}
 	public Set<String> getClases(){
 		return cl;
 	}

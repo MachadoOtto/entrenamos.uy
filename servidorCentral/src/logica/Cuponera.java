@@ -10,7 +10,7 @@ import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 
 public class Cuponera {
-	private String nombre,descripcion;
+	private String nombre,descripcion,img;
 	private DtFecha fechaInicio,fechaFin,fechaAlta;
 	private float descuento,costo;
 	
@@ -106,7 +106,7 @@ public class Cuponera {
 			r2.add(c.getNombre());
 		}
 		DtCuponera x = new DtCuponera(getNombre(), getDescripcion(), getDescuento(), getCosto(), getFechaInicio(),
-				getFechaFin(), getFechaAlta(), r,r2);
+				getFechaFin(), getFechaAlta(), r,r2,getImg());
 		return x;
 	}
 	public void addRecibo(ReciboCuponera r) {
@@ -114,5 +114,13 @@ public class Cuponera {
 	}
 	public List<ReciboCuponera> getRc() {
 		return rc;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 }
