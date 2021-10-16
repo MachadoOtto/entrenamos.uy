@@ -90,10 +90,12 @@
 			                            	<%if (orden.equals("alfaDesc")) {%> selected="selected" <% } %>>Alfabeticamente (A-Z a-z)</option>
 			                            <option value="alfaAsc"
 			                            	<%if (orden.equals("alfaAsc")) {%> selected="selected" <% } %>>Alfabeticamente (z-a Z-A)</option>
+			                            <%if (request.getAttribute("usuarios") == null) {%>	
 			                            <option value="fechaDesc"
 			                            	<%if (orden.equals("fechaDesc")) {%> selected="selected" <% } %>>Fecha de registro (descendente)</option>
 			                            <option value="fechaAsc"
 			                            	<%if (orden.equals("fechaAsc")) {%> selected="selected" <% } %>>Fecha de registro (ascendente)</option>
+			                            <% } %>
 			                        </select>
 			                	</form>
 		                    </div>
@@ -150,9 +152,9 @@
 									          	(obj instanceof DtClaseExt)? "/api/content?c=cla&id="+((DtClaseExt)obj).getNombre():
 									          	(obj instanceof DtActividadDeportivaExt)? "/api/content?c=act&id="+((DtActividadDeportivaExt)obj).getNombre():
 									          	"/api/content?c=usu&id=" + (new String(((DtUsuarioExt)obj).getNickname()));%>
-											  	
+									          	
 									        	<a class="hyperlink-img" href="<%=request.getContextPath() + dirUrl%>">
-								        		<img class="card-img-top" src="<%=request.getContextPath() + dirImagen%>" alt="Card image cap">
+								        		<img class="card-img-top" src="<%=request.getContextPath() + dirImagen%>" alt="default">
 								        		<div class="card-body">											  
 										          	<h5 class="card-title"><strong><%=tituloCarta%></strong></h5>
 										          	<p class="card-text"><%=descripcionCarta%></p>
