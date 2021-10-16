@@ -11,7 +11,7 @@ if(u!=null){
 	%>
 	<nav style="margin-bottom: 3em;" class="extraInfoDiv ins-cat-section nav flex-column">
 	<h1 class="fs-5">Acciones</h1>
-       <button type="button" id="btn-myUser" class="btn btn-link" onclick="location.href='<%=request.getContextPath()%>/users?nickname=<%=u.getNickname()%>'">
+       <button type="button" id="btn-myUser" class="btn btn-link" onclick="location.href='<%=request.getContextPath()%>/usuarios?nickname=<%=u.getNickname()%>'">
         	Ir a mi perfil
     	</button>
 	<% if(u instanceof DtProfesorExt){ %>

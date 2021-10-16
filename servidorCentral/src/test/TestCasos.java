@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JOptionPane;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -28,6 +26,7 @@ import datatypes.TReg;
 import datatypes.DtInstitucion;
 import datatypes.DtProfesor;
 import datatypes.DtProfesorExt;
+
 import excepciones.ActividadDeportivaException;
 import excepciones.CategoriaException;
 import excepciones.ClaseException;
@@ -38,12 +37,12 @@ import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
+
 import logica.IActividadDeportivaController;
 import logica.ICuponeraController;
 import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
-import logica.Profesor;
 
 class TestCasos {
 	
@@ -2367,5 +2366,18 @@ class TestCasos {
 	@Test
 	void testFalloBusquedaClase() {
 		Assertions.assertThrows(ClaseException.class, () -> {IDCC.buscarClase("ClaseQueNoExiste");});
+	}
+	
+	@Test
+	void testCuponerasDisponibles() {
+		try {
+			Set<String> cupsDisp = IDCC.getCuponerasDisponibles("guille", "Telón", "Voleibol");
+			assertEquals(cupsDisp.contains("Pelota"), true);
+			assertEquals(cupsDisp.contains("Gimnasia"), false);
+			assertEquals(cupsDisp.contains("Músculos"), false);
+		} catch (Exception e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 }
