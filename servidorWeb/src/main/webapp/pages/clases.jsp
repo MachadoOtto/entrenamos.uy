@@ -20,7 +20,11 @@
 	<div class="container-fluid mt-4">
 		<%  DtClaseExt datosClase = (DtClaseExt) request.getAttribute("clase");
 			String nombreActividad = (String) request.getAttribute("actividad");
+			String nombreInstitucion = (String) request.getAttribute("institucion");
 			boolean esSocio = (boolean) request.getAttribute("esSocio");
+			boolean estaInscripto = (boolean) request.getAttribute("estaInscripto");
+			boolean estaCaducada = (boolean) request.getAttribute("estaCaducada");
+			boolean estaLlena = (boolean) request.getAttribute("estaLlena");
 			%>
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
@@ -47,9 +51,16 @@
               				</div>
               				<%if (esSocio) { %>
 	              				<div class="col-auto">
+	              					<% if (estaInscripto || estaCaducada || estaLlena) {%>
+	              					<button id="botonQueNoSirveXD" type="button" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" disabled>
+					                  <%if (estaInscripto) {%>Estas inscripto<%} else if (estaCaducada) {%>Clase finalizada
+					                  <%} else {%>Clase llena<% } %>
+					                </button>
+	              					<%} else {%>
 					                <button id="botonInsc" type="button" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#inscModal">
 					                  Inscribirse
 					                </button>
+					                <%}%>
 	              				</div>
 	              			<% } %>
              			</div>
@@ -117,7 +128,7 @@
 	</div>
 	
 	<!--MODALS-->
-	<%if(request.getSession().getAttribute("loggedUser") instanceof DtSocioExt){ %>
+	<%if ((!estaCaducada) && (!estaLlena) && (esSocio) && (!estaInscripto)) { %>
     <div class="modal fade" id="inscModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
@@ -127,18 +138,20 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form>
-                  	<%Set<?> cupDisponibles = (Set<?>) request.getAttribute("cupDisponibles");%>
+                  <form id="form-insc" action="<%=request.getContextPath()%>/api/registroClase?clase=<%=datosClase.getNombre()%>&actividad=<%=nombreActividad%>&institucion=<%=nombreInstitucion%>" 
+                  	method="POST">
+                  	<%Set<?> cupDisponibles = (Set<?>) request.getAttribute("cupDisponibles");
+                  	  String precio = (String) request.getAttribute("precio");%>
                     <div class="form-floating mb-3">
                       <h5>Pago Asociado</h5>
                       <div id="genRadio" class="form-check float-left">
-                          <input class="form-check-input" type="radio" name="tipoCup" id="radioGen" checked>
+                          <input class="form-check-input" type="radio" name="tipoInsc" id="radioGen" value="general" checked>
                           <label class="form-check-label" for="radioGen">
-                          General
+                          General ($<%=precio%>)
                           </label>
                       </div>
                       <div id="cupRadio" class="form-check float-left">
-                          <input class="form-check-input" type="radio" name="tipoCup" id="radioCup"
+                          <input class="form-check-input" type="radio" name="tipoInsc" id="radioCup" value="cuponera"
                           	<%if (cupDisponibles.size() == 0) { %> disabled <% } %>>
                           <label class="form-check-label" for="radioCup">
                           Cuponera
@@ -146,9 +159,10 @@
                       </div>
                     </div>
                     <div id="cupdiv" class="form-floating mb-3">
-                      <select id="cups" class="form-select" data-live-search="true">
+                      <select id="cups" name="cups" class="form-select" data-live-search="true"
+                          	<%if (cupDisponibles.size() == 0) { %> disabled <% } %>>
                       	  <%for (Object x : cupDisponibles) {%>
-                          <option data-tokens="<%=(String)x%>"><%=(String)x%></option>
+                          <option value="<%=(String)x%>" data-tokens="<%=(String)x%>"><%=(String)x%></option>
                           <% } %>
                       </select>
                       <label for="cups">Cuponera a utilizar</label>                               

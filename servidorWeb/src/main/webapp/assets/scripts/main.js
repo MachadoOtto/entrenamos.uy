@@ -2,7 +2,8 @@ errores = {"e1m":"La combinación Usuario/Contraseña no es correcta.","e1t":"Er
 		   "e2m":"Ya existe un usuario con el nickname o correo seleccionado.","e2t":"Error al Registrar Usuario","e2c":"rgb(255 0 0 / 60%)",
 			"e3m":"Se ha registrado su usuario de manera exitosa.","e3t":"Registrar Usuario","e3c":"rgb(86 255 0 / 60%)",
 			"e4m":"El nombre de la actividad deportiva a crear ya existe en el sistema","e4t":"Error al Registrar Actividad Deportiva","e4c":"rgb(255 0 0 / 60%)",
-			"e5m":"Se ha registrado la actividad deportiva exitosamente.","e5t":"Alta de Actividad Deportiva","e5c":"rgb(86 255 0 / 60%)"
+			"e5m":"Se ha registrado la actividad deportiva exitosamente.","e5t":"Alta de Actividad Deportiva","e5c":"rgb(86 255 0 / 60%)",
+			"e6m":"Su inscripcion se ha realizado con exito.","e6t":"Inscripcion a Clase","e6c":"rgb(86 255 0 / 60%)"
 			};
 
 function shake(element){
