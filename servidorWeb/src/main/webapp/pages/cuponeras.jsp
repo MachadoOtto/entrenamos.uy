@@ -30,6 +30,8 @@
 	  <div class="row mx-3 mx-md-5">
         <div class="ins-cat col-sm-3">
           <jsp:include page="/template/stdLeftSection.jsp"/>
+        <div class= "row"><br> </div>   
+          <jsp:include page="/template/stdRightSection.jsp"/>
         </div>
         
         <div id="user-general" class="col-sm-6">
@@ -56,7 +58,7 @@
     	   </div>
  	       <div id="supbox" class = "row" >
   		      	<div class = "col" id= "coco" >
-						<img alt="Qries" id="cupImg" src="<%=request.getContextPath()%>/assets/images/cups/<%= c.getNombre() %>.gif">
+						<img alt="Qries" id="cupImg" src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=c.getNombre()%>">
         		</div>
         		<div class = "col" id= "comprar">
         			<h1><%= c.getNombre() %></h1>
@@ -143,8 +145,8 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col">
-                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%= x.getNombreActividad() %>.jpg">
-                        </div>
+                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=x.getNombreActividad()%>">
+                        </div>                                
                         <div class = "col" id = "act2">
                           <a href="<%=request.getContextPath()%>/actividades?actividad=<%= x.getNombreActividad()%>"> <%= x.getNombreActividad() %>  </a>
                         </div>
@@ -162,15 +164,16 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col">
-                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/assets/images/categories/<%=x %>.gif">
+                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cat&id=<%=x%>">
                         </div>
                         <div class = "col" id= "act2">
                           <a href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"> <%=x%>  </a>
                         </div>
                     </div>
                        <%}%>
-                       <jsp:include page="/template/stdRightSection.jsp"/>
-                </div>           	
+                       
+                </div>  
+                         	
                      
           
                </div>
