@@ -40,6 +40,7 @@
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
         	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();
+        	  if(cups == null)
         	  System.out.print("Empieza el caso de uso:" +c.getNombre() + "\n");
         	  System.out.print("Cuponeras:= \n");
               for(String x: cups) {
