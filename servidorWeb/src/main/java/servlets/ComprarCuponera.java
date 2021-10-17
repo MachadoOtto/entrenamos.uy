@@ -12,7 +12,9 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.CuponeraNoExisteException;
 import logica.IUsuarioController;
 import logica.LaFabrica;
+import datatypes.DtCuponera;
 import datatypes.DtFecha;
+import datatypes.DtUsuarioExt;
 
 @WebServlet("/ComprarCuponera")
 public class ComprarCuponera extends HttpServlet {
@@ -25,16 +27,18 @@ public class ComprarCuponera extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
+    	System.out.print((String) request.getParameter("cuponera")+ " ------- "+((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname());
     	DtFecha f = new DtFecha();
     	try {
-    		IUC.comprarCuponera((String) request.getSession().getAttribute("user"),request.getParameter("cuponera"), f);
+    		IUC.comprarCuponera((String) request.getParameter("cuponera"),((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname(), f);
 		} catch (UsuarioNoExisteException e){
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
+			return;
 		} catch (CuponeraNoExisteException e){
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
+			return;
 		}
-    	request.getRequestDispatcher("pages/cuponeras.jsp").forward(request, response);
+    	response.sendRedirect(request.getContextPath()+"/cuponeras?cuponera="+request.getParameter("cuponera"));
     }    
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
