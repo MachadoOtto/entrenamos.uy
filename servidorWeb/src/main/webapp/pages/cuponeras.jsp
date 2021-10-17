@@ -40,7 +40,6 @@
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
         	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();
-        	  if(cups == null)
         	  System.out.print("Empieza el caso de uso:" +c.getNombre() + "\n");
         	  System.out.print("Cuponeras:= \n");
               for(String x: cups) {
@@ -70,6 +69,12 @@
 			            	Comprar
 			        </button>	
 			      <%}%>
+			      <%if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == true)){ %>
+			    	<button type="button" disabled class="btn btn-primary" id="boto" onclick="location.href='<%=request.getContextPath()%>/ComprarCuponera?cuponera=<%=c.getNombre()%>'">
+			            	Comprado
+			        </button>  
+			      <%}%>
+			     
     	    	</div>
           </div>   
           <div class = "row">

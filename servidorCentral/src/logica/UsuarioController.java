@@ -144,8 +144,7 @@ public class UsuarioController implements IUsuarioController {
 		ReciboCuponera rc = new ReciboCuponera(fechaCompra, getHC().getCup(cuponera), ((Socio) getHU().findUsuario(socio)));
 		((Socio) getHU().findUsuario(socio)).addReciboCuponera(rc);
 		getHC().getCup(cuponera).addRecibo(rc);
-		Socio soc =(Socio) getHU().findUsuario(socio);
-		soc.addReciboCuponera(rc);
+		((Socio) getHU().findUsuario(socio)).addReciboCuponera(rc);
 	}
 	
 	private HandlerUsuario getHU() {

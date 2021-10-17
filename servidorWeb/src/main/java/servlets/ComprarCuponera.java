@@ -26,12 +26,19 @@ public class ComprarCuponera extends HttpServlet {
         IUC = LaFabrica.getInstance().obtenerIUsuarioController();
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioNoExisteException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	System.out.print((String) request.getParameter("cuponera")+ " ------- "+((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname());
     	DtFecha f = new DtFecha();
     	try {
     		IUC.comprarCuponera((String) request.getParameter("cuponera"),((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname(), f);
-		} catch (UsuarioNoExisteException e){
+    		DtUsuarioExt usrLogged = IUC.seleccionarUsuario(((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname());
+        
+        	
+        	//Envio de información actualizada
+        	
+        	request.getSession().setAttribute("loggedUser",usrLogged);
+    	
+    	} catch (UsuarioNoExisteException e){
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
 			return;
 		} catch (CuponeraNoExisteException e){
@@ -39,11 +46,7 @@ public class ComprarCuponera extends HttpServlet {
 			return;
 		}
     	
-    	DtUsuarioExt usrLogged = IUC.seleccionarUsuario( ((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname() );
     	
-    	
-    	//Envio de información actualizada
-    	request.getSession().setAttribute("loggedUser",usrLogged);
     	response.sendRedirect(request.getContextPath()+"/cuponeras?cuponera="+request.getParameter("cuponera"));
     }    
 
