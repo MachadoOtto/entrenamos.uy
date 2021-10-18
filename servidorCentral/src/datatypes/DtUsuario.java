@@ -6,13 +6,13 @@ public class DtUsuario {
 	private DtFecha fechaNacimiento;
 	private byte[] imagen;
 	
-	public DtUsuario (String nickname, String nombre, String apellido, String email, String contraseña,DtFecha fechaNacimiento,byte[] imagen) {
+	public DtUsuario (String nickname, String nombre, String apellido, String email, String contrasenia,DtFecha fechaNacimiento,byte[] imagen) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNacimiento = fechaNacimiento;
-		this.contrasenia = contraseña;
+		this.contrasenia = contrasenia;
 		this.imagen = imagen;
 	}
 

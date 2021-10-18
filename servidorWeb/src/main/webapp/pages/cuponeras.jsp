@@ -30,40 +30,53 @@
 	  <div class="row mx-3 mx-md-5">
         <div class="ins-cat col-sm-3">
           <jsp:include page="/template/stdLeftSection.jsp"/>
+        <div class= "row"><br> </div>   
+          <jsp:include page="/template/stdRightSection.jsp"/>
         </div>
+        
+        <div id="user-general" class="col-sm-6">
         <%
           Boolean comprada = false;
           DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
-          DtCuponera c = (DtCuponera) request.getSession().getAttribute("cuponera");
+          DtCuponera c = (DtCuponera) request.getAttribute("cuponera");
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
         	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();
+        	  System.out.print("Empieza el caso de uso:" +c.getNombre() + "\n");
+        	  System.out.print("Cuponeras:= \n");
               for(String x: cups) {
-      			if(x != c.getNombre()){
-              	cups.remove(x);
+            	  
+            	  System.out.print(x+"\n");
+            	  
+      			if(x == c.getNombre()){
+              		comprada= true;
               	}  
          	 }
-             if (cups.size() != 0)
-            	 comprada = true;
           }
         %>
-        
-        <div id="user-general" class="col-sm-6">
    	       <div id="nombreCup">
     	   </div>
  	       <div id="supbox" class = "row" >
   		      	<div class = "col" id= "coco" >
-						<img alt="Qries" id="cupImg" src=".././img/cups/pelota.gif">
+						<img alt="Qries" id="cupImg" src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=c.getNombre()%>">
         		</div>
         		<div class = "col" id= "comprar">
-        			<h1><%  c.getNombre();%></h1>
+        			<h1><%= c.getNombre() %></h1>
     	    	</div>
     	    	<div class = "col" id= "coco"> 
-    	    	<% if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == false)){ %>
-					<button type="button" class="btn btn-primary" id="boto" onclick="location.ref='<%request.getContextPath();%>/comprarcuponera'">
+    	    	<%  Boolean vot = (usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == false); 
+    	          System.out.print("Comprada:= "+ comprada+"\n");
+    	    	if(vot == true){ %>
+					<button type="button" class="btn btn-primary" id="boto" onclick="location.href='<%=request.getContextPath()%>/ComprarCuponera?cuponera=<%=c.getNombre()%>'">
 			            	Comprar
 			        </button>	
 			      <%}%>
+			      <%if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == true)){ %>
+			    	<button type="button" disabled class="btn btn-primary" id="boto" onclick="location.href='<%=request.getContextPath()%>/ComprarCuponera?cuponera=<%=c.getNombre()%>'">
+			            	Comprado
+			        </button>  
+			      <%}%>
+			     
     	    	</div>
           </div>   
           <div class = "row">
@@ -74,7 +87,7 @@
                       <h6 class="mb-0"><strong>Descripción:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                        <% c.getDescripcion(); %>
+                        <%= c.getDescripcion() %>
                     </div>
                   </div>
                     
@@ -83,7 +96,7 @@
                       <h6 class="mb-0" id= "valido"><strong>Período de validez:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary" id= "valido">
-                        <% c.getFechaInicio().toFecha(); %> - <% c.getFechaFin().toFecha(); %>
+                        <%= c.getFechaInicio().toFecha() %> - <%= c.getFechaFin().toFecha() %>
                     </div>
                   </div>
                   <br>
@@ -92,7 +105,7 @@
                       <h6 class="mb-0"><strong>Precio:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                         <% c.getCosto(); %>
+                         <%= c.getCosto() %>
                     </div>
                   </div>
                   <br>
@@ -101,16 +114,16 @@
                       <h6 class="mb-0"><strong>Descuento aplicado:<strong></strong></strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <% c.getDescuento(); %>
+                      <%= c.getDescuento() %>
                     </div>
                   </div>
                   <br>
                   <div class="row">
                     <div class="col-sm-3">
-                      <h6 class="mb-0"><strong>Fecha de registro::</strong></h6>
+                      <h6 class="mb-0"><strong>Fecha de registro:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                        <% c.getFechaAlta().toFecha(); %>
+                        <%= c.getFechaAlta().toFecha() %>
                     </div>
                   </div>  
                         
@@ -132,10 +145,10 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col">
-                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<% x.getNombreActividad(); %>.jpg">
-                        </div>
+                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=x.getNombreActividad()%>">
+                        </div>                                
                         <div class = "col" id = "act2">
-                          <a href=".././actividades/<% x.getNombreActividad(); %>.jsp"> <% x.getNombreActividad(); %>  </a>
+                          <a href="<%=request.getContextPath()%>/actividades?actividad=<%= x.getNombreActividad()%>"> <%= x.getNombreActividad() %>  </a>
                         </div>
                         
                     </div>
@@ -151,14 +164,16 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col">
-                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/assets/images/categories/<%=x %>.gif">
+                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cat&id=<%=x%>">
                         </div>
                         <div class = "col" id= "act2">
-                          <%=x %>
+                          <a href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"> <%=x%>  </a>
                         </div>
                     </div>
                        <%}%>
-                </div>           	
+                       
+                </div>  
+                         	
                      
           
                </div>

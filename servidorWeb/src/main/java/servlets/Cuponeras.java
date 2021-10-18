@@ -20,11 +20,9 @@ import datatypes.DtCuponera;
 public class Cuponeras extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static ICuponeraController ICC;
 	
     public Cuponeras() {
     	super();
-    	ICC = LaFabrica.getInstance().obtenerICuponeraController();
     }
 
     protected void processRequest(HttpServletRequest request, 
@@ -33,13 +31,14 @@ public class Cuponeras extends HttpServlet {
     	String cuponera = request.getParameter("cuponera");
     	DtCuponera DatosCup = null;
     	try {
-    		DatosCup = ICC.seleccionarCuponera(cuponera);
+    		DatosCup = buscarCuponera(cuponera);
 		} catch(NoExisteCuponeraException ex) {
 			request.setAttribute("cuponera", null);
 			response.sendRedirect(request.getContextPath()+"/pages/404.jsp");
+			return;
 		}
     	if(DatosCup != null) {
-        	request.getSession().setAttribute("cuponera", DatosCup);
+    		request.setAttribute("cuponera", DatosCup);
         	request.getRequestDispatcher("/pages/cuponeras.jsp").forward(request, response);
     	}
     }
@@ -48,4 +47,9 @@ public class Cuponeras extends HttpServlet {
 		processRequest(request, response);
 	}
 
+	private DtCuponera buscarCuponera(String cc) throws NoExisteCuponeraException  {
+		DtCuponera cup = LaFabrica.getInstance().obtenerICuponeraController().seleccionarCuponera(cc);
+		return cup;
+	}
+	
 }
