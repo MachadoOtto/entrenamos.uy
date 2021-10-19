@@ -28,6 +28,9 @@ public interface IDictadoClaseController {
 	
 	public Set<String> obtenerInstituciones();
 	
+	//Dada una Actividad Deportiva te devuelve el nombre de la Institucion asociada
+	public String obtenerInstitucionActDep(String actDep) ;
+	
 	public Set<String> obtenerActividades(String ins) throws InstitucionException ;
 	public Set<String> obtenerActividadesAprobadas(String ins) throws InstitucionException;
 	
@@ -50,9 +53,6 @@ public interface IDictadoClaseController {
 	public Set<String> obtenerSocios();
 
 	public Set<String> getCuponerasSocioClase(String nombreSocio,String nombreInst,String nombreAd,String nombreClase);
-	
-	public Set<String> getCuponerasDisponibles(String nombreSocio, String nombreInst, String nombreAd) 
-			throws UsuarioNoExisteException, InstitucionException, ActividadDeportivaException;
 	
 	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }
