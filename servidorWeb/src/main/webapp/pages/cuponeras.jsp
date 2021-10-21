@@ -18,7 +18,6 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
 
     <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/cup.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
     <title>Entrenamos.uy</title>
   </head>

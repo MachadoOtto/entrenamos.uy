@@ -171,7 +171,7 @@
 				<% } %>		    
 		    </div>
 		    <!-- Fin listado -->
-		    <div class="col-auto ps-1 ps-sm-2">
+		    <div class="col-2 ps-1 ps-sm-2">
 		       	<jsp:include page="/template/stdRightSection.jsp"/>
 		    </div>
 		</div>
