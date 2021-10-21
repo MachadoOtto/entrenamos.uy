@@ -17,12 +17,13 @@
 }
 
 .hyperlink-img {
+	text-decoration: none;
 	color: initial;
 }
 
 .hyperlink-img:hover {
 	color: initial;
-	text-decoration:initial;
+	text-decoration: underline;
 }
 
 .card-text {
@@ -44,6 +45,10 @@
 .card-img-top {
 	object-fit: cover;
 	height: 12vw;
+}
+
+.nav-info {
+	margin-left: 0 !important;
 }
 
 #btn-filtro {

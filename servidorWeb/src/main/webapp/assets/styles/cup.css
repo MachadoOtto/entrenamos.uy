@@ -100,8 +100,11 @@
 	width: 100%;
     display: flex;
     align-items: center;
-	background: #eaeded;
-	color: #525252;
+	background: white;
+	border: 1px solid #dee2e6 !important;
+	--bs-gutter-x: 0;
+	
+	/*color: #525252;*/
 	transition: transform 0.25s;
 }
 .elementoLista:hover {

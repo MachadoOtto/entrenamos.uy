@@ -95,32 +95,14 @@ public class ModificarDatosUsuario extends HttpServlet {
         		String ext = s[s.length-1];
 	        	String path = request.getServletContext().getRealPath("/assets/images/users/"+usrLogged.getNickname()+"."+ext);
 	        	Files.copy(fileContent, Paths.get(path),StandardCopyOption.REPLACE_EXISTING);
-	           //System.out.println( request.getServletContext().getRealPath("/assets/images/users/"+rp(request,"nickk")+"."+ext));
 	        }
 
-	        /* Guille: Para que hacer esto cuando tenes un servlet que ya se dedica a hacerlo?
-	        //Obtener datos actualizados para usuarios.jsp
-	        usrLogged = IUC.seleccionarUsuario(usrLogged.getNickname());
 	        
-	        List<DtActividadDeportivaExt> actIngresadasProfesor = new ArrayList<>();
-        	if(usrLogged instanceof DtProfesorExt) {
-        		Set<String> actividades = ((DtProfesorExt)usrLogged).getActividadesIngresadas();
-        		for (String x : actividades) {
-        			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usrLogged).getNombreInstitucion(), x));
-        		}
-        	}
-        	
-        	//Envio de la rial data
-        	request.getSession().setAttribute("loggedUser",usrLogged);
-        	request.setAttribute("datoUsuario", usrLogged);
-        	request.setAttribute("actividadesIngresadas", actIngresadasProfesor);
-        	*/
         } catch(Exception e) {
         	e.printStackTrace();
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
         }
         response.sendRedirect((request.getContextPath()+"/usuarios?nickname=" + usrLogged.getNickname()));
-    	//request.getRequestDispatcher("/usuarios?nickname=" + usrLogged.getNickname()).forward(request, response);
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
