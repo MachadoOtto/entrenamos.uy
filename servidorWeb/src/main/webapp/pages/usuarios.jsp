@@ -283,7 +283,7 @@
 						<% for( Object ad: dtadas ) { %>
 						<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/activities?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
+							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
@@ -302,7 +302,7 @@
 							<% if(((DtActividadDeportivaExt)ad).getEstado() == TEstado.aceptada) { %>
 							<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/activities?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
+							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
@@ -317,7 +317,7 @@
 					  		<% if(((DtActividadDeportivaExt)ad).getEstado() == TEstado.ingresada) { %>
 					  		<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/activities?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
+							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
@@ -331,7 +331,7 @@
 							<% if(((DtActividadDeportivaExt)ad).getEstado() == TEstado.aceptada) { %>
 							<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/activities?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
+							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
@@ -355,7 +355,7 @@
             </div>
             <div class="modal-body">
                 <form id="formulario-modif" action="<%=request.getContextPath()%>/modificarDatosUsuario?nickname=<%=usrProfile.getNickname()%>" method="POST" onsubmit="return modif()" enctype="multipart/form-data" accept-charset="UTF-8">
-                   <h5>Cambiar contraseña</h5>
+                   <h5>Cambiar contraseña <small class="text-muted">(Opcional)</small></h5>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-4" name="pas1" id="pas1">
                         <label for="pas1">Contraseña</label>                  
