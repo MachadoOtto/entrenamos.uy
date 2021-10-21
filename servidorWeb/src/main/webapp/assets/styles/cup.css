@@ -41,6 +41,8 @@
 }
 
 .extraInfoDiv{
+	padding-right: 5px;
+    padding-left: calc(var(--bs-gutter-x) * .5);
 	border-radius: 1em;
     margin-bottom: 1em;
     margin-left: 1em;
@@ -108,5 +110,5 @@
 	transition: transform 0.25s;
 }
 .elementoLista:hover {
-	transform: scale(1.333);
+	transform: scale(1.111);
 }

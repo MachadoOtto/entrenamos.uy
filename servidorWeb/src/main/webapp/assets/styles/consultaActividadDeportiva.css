@@ -171,6 +171,7 @@ body {
 }
 
 .extraInfoDiv{
+	--bs-gutter-x: 1.5rem;
 	border-radius: 1em;
     margin-bottom: 1em;
     margin-left: 1em;
@@ -187,7 +188,7 @@ body {
 	transition: transform 0.25s;
 }
 .elementoLista:hover {
-	transform: scale(1.333);
+	transform: scale(1.111);
 }
 .imagenSeleccionable {
 	border-color: silver;
