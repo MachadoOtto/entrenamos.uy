@@ -3,6 +3,7 @@
 <%@ page import="java.util.Set"%>
 <%@ page import="datatypes.DtActividadDeportivaExt"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
+<%@ page import="datatypes.DtProfesorExt"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtFecha"%>
@@ -22,6 +23,11 @@
 	<div class="container-fluid mt-4">
 		<%  DtActividadDeportivaExt datosActDep = (DtActividadDeportivaExt) request.getAttribute("actDep");
 			boolean esSocio = (boolean) request.getAttribute("esSocio");
+			DtUsuarioExt datosCreador = (DtUsuarioExt) request.getAttribute("datosCreador");
+			String institucion = (String) request.getAttribute("institucion");
+			Set<?> datosClases = (Set<?>) request.getAttribute("datosClases");
+			Set<?> datosCuponeras = (Set<?>) request.getAttribute("datosCuponeras");
+			DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
 			%>
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
@@ -36,15 +42,14 @@
                     </div>
                 	<div class="col-9 py-3">
 				        <div id="user-info" class="row" name="nombreActDep">
-                            <h1><%=datosActDep.getNombre()%> %></h1>
+                            <h1><%=datosActDep.getNombre()%></h1>
 				        </div>
                         <div id="creatorDiv" class="row">
                             <div class="col-auto">
                                 <h6>Ingresada por:</h6>
                             </div>
                             <div class="col-auto">
-                            	<%DtUsuarioExt datosCreador = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());%>
-                                <img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/users/<%=datosCreador.getImgName()%>">
+                                <img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
                             </div>
                             <div class="col-auto">
                                 <%=datosActDep.getCreador()%>
@@ -58,7 +63,7 @@
                             <h6 class="mb-0"><strong>Institución asociada:</strong></h6>
                         </div>
                         <div class="col-sm-9 text-secondary" name="institucionAsociada">
-                            <%=LaFabrica.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre())%>
+                            <%=institucion%>
                         </div>
                         <div class="col-sm-3">
                             <h6 class="mb-0"><strong>Descripción:</strong></h6>
@@ -93,26 +98,20 @@
                     </div>
 		        </div>
                 <br>
-                <%if(!esSocio) { %>
+                <%if(loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion)) { %>
 	                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
 	                    Dar de alta una clase para esta actividad
 	                </button>
-	            <% } else { %>
-	            	<button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary disabled" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
-	                    Dar de alta una clase para esta actividad
-	                </button>
-	            <% } %>
+	            <%} %>
             </div>
             <div class="col-sm-3 ps-1 ps-sm-2">
                 <div class="extraInfoDiv row">
                     <h5>Clases</h5>
 					<ul id="listaActividades" class=" py-3">
-						<%Set<String> clases = datosActDep.getClases();%>
-						<%for(String clase : clases) { %>
+						<%for(Object dtClase : datosClases) { %>
 							<li class="container border card-body elementoLista"> 
-								<%DtClaseExt datosClase = LaFabrica.getInstance().obtenerIDictadoClaseController().buscarClase(clase);%>
-                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/classes/<%=datosClase.getImgName()%>" class="vertical-align-middle imagenSeleccionable">
-                            	<a href="<%=request.getContextPath()%>/clases?nombre=<%=clase%>" class="clase color-blue"><%=clase%></a>
+                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/classes/<%=((DtClaseExt)dtClase).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
                         	</li> 
 						<% } %>              
 					</ul>
@@ -120,12 +119,10 @@
                 <div class="extraInfoDiv row">
                     <h5>Cuponeras</h5>
 					<ul id="listaActividades" class=" py-3">
-						<%Set<String> cuponeras = datosActDep.getCuponeras();%>
-						<%for(String cup : cuponeras) { %>
+						<%for(Object datosCup : datosCuponeras) { %>
 							<li class="container border card-body elementoLista"> 
-								<%DtCuponera datosCup = LaFabrica.getInstance().obtenerICuponeraController().seleccionarCuponera(cup);%>
-                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/cups/<%=datosCup.getImgName()%>" class="vertical-align-middle imagenSeleccionable">
-                            	<a class="clase color-blue"><%=cup%></a>
+                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/cups/<%=((DtCuponera)datosCup).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)datosCup).getNombre()%>" class="clase color-blue"><%=((DtCuponera)datosCup).getNombre()%></a>
                         	</li>
                         <% } %>                
 					</ul>
@@ -136,7 +133,7 @@
 						<%Set<String> categorias = datosActDep.getCategorias();%>
 						<%for(String cat : categorias) { %>
 							<li class="container border card-body elementoLista"> 
-                            	<a class="clase color-blue"><%=cat%></a>
+                            	<a href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=cat%>" class="clase color-blue"><%=cat%></a>
                         	</li>
                         <% } %>               
 					</ul>
@@ -152,12 +149,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <img src=".././img/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                    <img src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
                     <h2 class="fw-bold mb-0">Alta de Clase</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="<%=request.getContextPath()%>/altaClase">
+                    	<input name="nombreActDep" value="<%=datosActDep.getNombre()%>" type="hidden">
+                    	<input name="institucionAsociada" value="<%=institucion%>" type="hidden">                  	
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control rounded-4" name="nombreClase" id="floatingInput" placeholder="">
                             <label for="floatingInput">Nombre</label>

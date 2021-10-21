@@ -39,7 +39,8 @@ public class AltaClase extends HttpServlet{
         IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String r = request.getParameter("miurl");
+    	Parametrizer.loadStdRequests(request);
+    	String r = new String() + request.getContextPath() + "/actividades?actividad=" + rp(request,"nombreActDep");
         try {
         	String imgClase = null;
         	if(rp(request,"img")!=null && !(rp(request,"img").equals(""))) {
@@ -48,12 +49,15 @@ public class AltaClase extends HttpServlet{
         		imgClase = (rp(request,"nombreClase")+"."+ext);
         	}
         	String fechaClase = rp(request,"fechaInicio");
-	        String nombreP = rp(request,"wtm");	
-	        DtUsuarioExt datosP = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(nombreP); 
+	        DtUsuarioExt datosP = ((DtUsuarioExt) request.getSession().getAttribute("loggedUser"));
+	        System.out.print("\n \n" + fechaClase + "\n");
+	        System.out.print(fechaClase.substring(8,10));
 	        if(IDCC.ingresarDatosClase(rp(request,"institucionAsociada"), rp(request,"nombreActDep"), new DtClase(rp(request,"nombreClase"),datosP.getNickname(),datosP.getEmail(),
 	        	Integer.parseInt(rp(request,"cantMin")), Integer.parseInt(rp(request,"cantMax")), rp(request,"url"),
-	        	new DtFecha(Integer.parseInt(fechaClase.substring(0,1)),Integer.parseInt(fechaClase.substring(3,4)),Integer.parseInt(fechaClase.substring(6,7)),0,0,0), new DtFecha(), imgClase))!=0) {
+	        	new DtFecha(Integer.parseInt(fechaClase.substring(0,4)),Integer.parseInt(fechaClase.substring(5,7)),Integer.parseInt(fechaClase.substring(8,10)),0,0,0), new DtFecha(), imgClase))!=0) {
 	        	r=Parametrizer.addParam(r, "e", "2");
+	        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
+				request.getSession().setAttribute("loggedUser", userReload);
 	        	response.sendRedirect(r);
 	        	return;
 	        }
