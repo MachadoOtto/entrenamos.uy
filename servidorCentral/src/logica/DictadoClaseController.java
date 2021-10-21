@@ -184,5 +184,19 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return  HandlerUsuario.getInstance();
 	}
 
-
+	public Set<String> getCuponerasDisponibles(String nombreSocio, String nombreInsti, String nombreAd) 
+			throws UsuarioNoExisteException, InstitucionException, ActividadDeportivaException {
+		Set<String> cupsDisp = new HashSet<>();
+		ActividadDeportiva actDep = getHI().findInstitucion(nombreInsti).getActDep(nombreAd);
+		Set<String> clasesDeAct = ((Socio) getHU().findUsuario(nombreSocio)).getDtExt().getAguadeUwu().get(nombreAd);
+		if (clasesDeAct != null) {
+			int cantidadClases = clasesDeAct.size();
+			for(ReciboCuponera r : (((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera())) {
+				Cuponera cupActual = r.getCuponera();
+				if (cupActual.getNombresActDep().contains(nombreAd) && (cantidadClases < cupActual.cantidadClases(actDep)))
+					cupsDisp.add(cupActual.getNombre());
+			}
+		}
+		return cupsDisp;
+	}
 }

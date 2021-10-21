@@ -54,5 +54,8 @@ public interface IDictadoClaseController {
 
 	public Set<String> getCuponerasSocioClase(String nombreSocio,String nombreInst,String nombreAd,String nombreClase);
 	
+	public Set<String> getCuponerasDisponibles(String nombreSocio, String nombreInst, String nombreAd) 
+			throws UsuarioNoExisteException, InstitucionException, ActividadDeportivaException;
+
 	//public void modificarDatosClase(String ins,String actDep,DtClase datos);
 }
