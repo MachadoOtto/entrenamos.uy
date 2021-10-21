@@ -54,7 +54,7 @@ public class Actividades extends HttpServlet {
 		
 		if(datosActDep != null) {
 			if(datosActDep.getCreador().equals("Administrador")) {
-				datosCreador = new DtUsuarioExt("Administrador",null,null,null,null,null,"admin.png".getBytes(),null,null);
+				datosCreador = new DtUsuarioExt("Administrador",null,null,null,null,null,"Administrador.png".getBytes(),null,null);
 				request.setAttribute("datosCreador", datosCreador);
 			} else {
 				try {
