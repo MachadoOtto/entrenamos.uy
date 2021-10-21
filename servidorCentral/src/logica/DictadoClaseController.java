@@ -56,11 +56,10 @@ public class DictadoClaseController implements IDictadoClaseController {
 				for(String y : obtenerActividades(x)) {
 					if(y.equals(actDep)) {
 						res = x;
-						break;
+						return res;
 					}
 				}
 			} catch(InstitucionException e) {}
-			if(res.equals(x)) break;
 		}
 		return res;
 	}
