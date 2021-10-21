@@ -65,7 +65,7 @@
 				        	<div class="actDep row mb-4">
 					            <img src="<%=request.getContextPath()%>/assets/images/activities/<%=datosActividad.getNombre()%>.jpg" class="img-fluid d-inline col-5 col-md-7">
 					            <p class="d-inline col-12 col-sm-9 col-md-7 text-start"><b><%=datosActividad.getNombre()%>.</b> <%=datosActividad.getDescripcion()%>
-					            <a href="<%=request.getContextPath()%>/api/actividades?actividad=<%=datosActividad.getNombre()%>" class="text-primary">Leer mas.</a></p>
+					            <a href="<%=request.getContextPath()%>/actividades?actividad=<%=datosActividad.getNombre()%>" class="text-primary">Leer mas.</a></p>
 				          	</div>
 				    	<%  }
 				    	}%>
