@@ -10,8 +10,6 @@
 package logica;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -48,6 +46,22 @@ public class DictadoClaseController implements IDictadoClaseController {
 	
 	public Set<String> obtenerActividades(String ins) throws InstitucionException {
 		return getHI().findInstitucion(ins).obtenerNombresActDep();
+	}
+	
+	public String obtenerInstitucionActDep(String actDep) {
+		String res = null;
+		Set<String> instituciones = obtenerInstituciones();
+		for(String x : instituciones) {
+			try {
+				for(String y : obtenerActividades(x)) {
+					if(y.equals(actDep)) {
+						res = x;
+						return res;
+					}
+				}
+			} catch(InstitucionException e) {}
+		}
+		return res;
 	}
 	
 	public Set<String> obtenerActividadesAprobadas(String ins) throws InstitucionException{
@@ -152,23 +166,6 @@ public class DictadoClaseController implements IDictadoClaseController {
 		} catch (Exception ignore) {}
 		return x;
 	}
-	
-	public Set<String> getCuponerasDisponibles(String nombreSocio, String nombreInsti, String nombreAd) 
-			throws UsuarioNoExisteException, InstitucionException, ActividadDeportivaException {
-		Set<String> cupsDisp = new HashSet<>();
-		ActividadDeportiva actDep = getHI().findInstitucion(nombreInsti).getActDep(nombreAd);
-		Set<String> clasesDeAct = ((Socio) getHU().findUsuario(nombreSocio)).getDtExt().getAguadeUwu().get(nombreAd);
-		if (clasesDeAct != null) {
-			int cantidadClases = clasesDeAct.size();
-			for(ReciboCuponera r : (((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera())) {
-				Cuponera cupActual = r.getCuponera();
-				if (cupActual.getNombresActDep().contains(nombreAd) && (cantidadClases < cupActual.cantidadClases(actDep)))
-					cupsDisp.add(cupActual.getNombre());
-			}
-		}
-		return cupsDisp;
-	}
-	
 // Guille: Esta funcion creo que no va.
 //	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
 //		HandlerInstitucion hi = HandlerInstitucion.getInstance();

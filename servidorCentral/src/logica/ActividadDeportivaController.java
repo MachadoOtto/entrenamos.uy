@@ -170,4 +170,15 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		HandlerCategoria hc = HandlerCategoria.getInstance();
 		return hc.getNombreCategorias();
 	}
+
+	public DtActividadDeportivaExt buscarActDep(String nombreActDep) throws ActividadDeportivaException {
+		DtActividadDeportivaExt datosActDep = null;
+		for (String ins : getHI().obtenerInstituciones()) {
+			try {
+				datosActDep = getHI().findInstitucion(ins).getActDep(nombreActDep).getDtExt();
+				return datosActDep;
+			} catch(ActividadDeportivaException | InstitucionException ignore) { }
+		}
+		throw new ActividadDeportivaException("La actividad deportiva " + nombreActDep + " no existe en el Sistema.");
+	}
 }
