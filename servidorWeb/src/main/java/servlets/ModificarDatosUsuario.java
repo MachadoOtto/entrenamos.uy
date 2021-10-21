@@ -102,7 +102,7 @@ public class ModificarDatosUsuario extends HttpServlet {
         	e.printStackTrace();
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
         }
-        response.sendRedirect((request.getContextPath()+"/usuarios?nickname=" + usrLogged.getNickname()));
+        response.sendRedirect((request.getContextPath()+"/usuarios?nickname=" + usrLogged.getNickname() + "&e=7"));
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
