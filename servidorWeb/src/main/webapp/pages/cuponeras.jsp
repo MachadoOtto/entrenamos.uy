@@ -104,7 +104,7 @@
                       <h6 class="mb-0"><strong>Precio:</strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                         <%= c.getCosto() %>
+                         $<%= c.getCosto() %>
                     </div>
                   </div>
                   <br>
@@ -113,7 +113,7 @@
                       <h6 class="mb-0"><strong>Descuento aplicado:<strong></strong></strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <%= c.getDescuento() %>
+                      <%= c.getDescuento() %>%
                     </div>
                   </div>
                   <br>
