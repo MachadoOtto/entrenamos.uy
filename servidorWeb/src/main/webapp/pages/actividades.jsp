@@ -48,12 +48,22 @@
                             <div class="col-auto">
                                 <h6>Ingresada por:</h6>
                             </div>
-                            <div class="col-auto">
-                                <img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
-                            </div>
-                            <div class="col-auto">
-                                <%=datosActDep.getCreador()%>
-                            </div>
+                            <%if(!datosCreador.getNickname().equals("Administrador")) { %>
+                            	<div class="col-auto">
+                                	<img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
+                            	</div>
+                            	<div class="col-auto">
+                                	<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>""><%=datosActDep.getCreador()%></a>
+                            	</div>
+                            <%} else { %>
+                            	<div class="col-auto">
+                                	<img id="actDepCreator" alt="admin" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/users/Administrador.png">
+                            	</div>
+                            	<div class="col-auto">
+                                	<%=datosActDep.getCreador()%>
+                            	</div>
+                            <%} %>
+                  
                         </div>
                     </div>
                 </div>
@@ -77,7 +87,7 @@
                             <h6 class="mb-0"><strong>Duración:</strong></h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <%=datosActDep.getDuracionMinutos()%>
+                            <%=datosActDep.getDuracionMinutos()%> minutos
                         </div>
                     </div>
                     <div class="row">
@@ -85,7 +95,7 @@
                             <h6 class="mb-0"><strong>Costo:</strong></h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <%=datosActDep.getCosto()%>
+                            $<%=datosActDep.getCosto()%>
                         </div>
                     </div>
                     <div class="row">
@@ -109,7 +119,7 @@
                     <h5>Clases</h5>
 					<ul id="listaActividades" class=" py-3">
 						<%for(Object dtClase : datosClases) { %>
-							<li class="container border card-body elementoLista"> 
+							<li class="container border card-body elementoLista" > 
                             	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/classes/<%=((DtClaseExt)dtClase).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
                         	</li> 
@@ -121,7 +131,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for(Object datosCup : datosCuponeras) { %>
 							<li class="container border card-body elementoLista"> 
-                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/cups/<%=((DtCuponera)datosCup).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/assets/images/cups/<%=((DtCuponera)datosCup).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)datosCup).getNombre()%>" class="clase color-blue"><%=((DtCuponera)datosCup).getNombre()%></a>
                         	</li>
                         <% } %>                

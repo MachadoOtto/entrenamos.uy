@@ -2380,4 +2380,31 @@ class TestCasos {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	void testBuscarActDep() {
+		try {
+			DtActividadDeportivaExt datosActDep = IADC.buscarActDep("Voleibol");
+			DtFecha fecha = new DtFecha(2021,4,20,0,0,0);
+			assertEquals(datosActDep.getNombre(),"Voleibol");
+			assertEquals(datosActDep.getDescripcion(),"Voleibol en todas sus formas.");
+			assertEquals(datosActDep.getDuracionMinutos(), 120);
+			assertEquals(datosActDep.getCosto(), 750);
+			assertEquals(datosActDep.getFechaRegistro().toFecha(), fecha.toFecha());
+		} catch(Exception e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	@Test 
+	void testObtenerInstitucionActDep() {
+		try {
+			String institucion = IDCC.obtenerInstitucionActDep("Kickboxing");
+			assertEquals(institucion,"Fuerza Bruta");
+		} catch(Exception e) {
+			fail(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 }
