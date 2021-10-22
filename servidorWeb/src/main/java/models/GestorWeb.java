@@ -216,10 +216,10 @@ public class GestorWeb {
 			// ALTA ACTIVIDAD DEPORTIVA
 	        // Aparatos y pesas #A1
 			IADC.ingresarDatosActividadDep("Fuerza Bruta",  new DtActividadDeportiva("Aparatos y pesas", 
-					"Clases de aparatos,  pesas y calistenia.",  90,  550,  new DtFecha(2021, 3, 31, 0, 0, 0),  A1cat,  TEstado.aceptada,  "viktor", "Aparatos y pesas.jpg"));
+					"Clases de aparatos,  pesas y calistenia.",  90,  550,  new DtFecha(2021, 3, 31, 0, 0, 0),  A1cat,  TEstado.aceptada,  "viktor", "Aparatos y pesas.jpeg"));
 			// Voleibol #A2
 			IADC.ingresarDatosActividadDep("Telón",  new DtActividadDeportiva("Voleibol", 
-					"Voleibol en todas sus formas.",  120,  750,  new DtFecha(2021, 4, 20, 0, 0, 0),  A2cat,  TEstado.aceptada,  "denis", "Voleibol.jpg"));
+					"Voleibol en todas sus formas.",  120,  750,  new DtFecha(2021, 4, 20, 0, 0, 0),  A2cat,  TEstado.aceptada,  "denis", "Voleibol.jpeg"));
 			// Aeróbica #A3
 			IADC.ingresarDatosActividadDep("Instituto Natural",  new DtActividadDeportiva("Aeróbica", 
 					"Para cuidar el aparato cardiovascular.",  110,  800,  new DtFecha(2021, 5, 30, 0, 0, 0),  A3cat,  TEstado.aceptada,  "Administrador", "Aeróbica.jpg"));
@@ -228,7 +228,7 @@ public class GestorWeb {
 					"En busca del nuevo campeón de boxeo.",  100,  980,  new DtFecha(2021, 6, 7, 0, 0, 0),  A4cat,  TEstado.aceptada,  "TheBoss", "Kickboxing.jpg"));
 			// Atletismo #A5
 			IADC.ingresarDatosActividadDep("Telón",  new DtActividadDeportiva("Atletismo", 
-					"100m ,  200m,  postas y carreras con obstaculos.",  150,  500,  new DtFecha(2021, 7, 8, 0, 0, 0),  A5cat,  TEstado.aceptada,  "denis", "Atletismo.jpg"));
+					"100m ,  200m,  postas y carreras con obstaculos.",  150,  500,  new DtFecha(2021, 7, 8, 0, 0, 0),  A5cat,  TEstado.aceptada,  "denis", "Atletismo.webp"));
 			// Basquetbol #A6
 			IADC.ingresarDatosActividadDep("Telón",  new DtActividadDeportiva("Basquetbol", 
 					"Espectáculo conmemorando los 30 años de Violeta.",  80,  450,  new DtFecha(2021, 7, 31, 0, 0, 0),  A6cat,  TEstado.aceptada,  "Nelson", "Basquetbol.jpg"));
@@ -240,7 +240,7 @@ public class GestorWeb {
 					"El Método Pilates combina diferentes capacidades físicas.",  45,  600,  new DtFecha(2021, 8, 30, 0, 0, 0),  A8cat,  TEstado.ingresada,  "clazar"));
 			// VoleibolII #A9
 			IADC.ingresarDatosActividadDep("Telón",  new DtActividadDeportiva("Voleibol II", 
-					"Voleibol avanzado.",  120,  1000,  new DtFecha(2021, 9, 1, 0, 0, 0),  A9cat,  TEstado.rechazada,  "denis"));
+					"Voleibol avanzado.",  120,  1000,  new DtFecha(2021, 9, 1, 0, 0, 0),  A9cat,  TEstado.rechazada,  "denis", "Voleibol II.jpeg"));
 			// BasquetbolII #A10
 			IADC.ingresarDatosActividadDep("Telón",  new DtActividadDeportiva("Basquetbol II", 
 					"Basequetbol avanzado.",  80,  600,  new DtFecha(2021, 9, 7, 0, 0, 0),  A10cat,  TEstado.ingresada,  "denis"));
@@ -248,7 +248,7 @@ public class GestorWeb {
 	        // ALTA CLASE
 	        // Calistenia #C1
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Aparatos y pesas",  new DtClase("Calistenia",  "viktor",  "viktor",  
-	        		1,  5,  "https://www.musculos.com/Calistenia",  new DtFecha(2021, 4, 15, 15, 30, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "Calistenia.jpg"));
+	        		1,  5,  "https://www.musculos.com/Calistenia",  new DtFecha(2021, 4, 15, 15, 30, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "Calistenia.jpeg"));
 	        // Peso libre #C2
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Aparatos y pesas",  new DtClase("Peso libre",  "viktor",  "viktor",  
 	        		1,  5,  "https://www.musculos.com/pesolibre",  new DtFecha(2021, 5, 1, 17, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "PesoLibre.jpg"));
@@ -257,13 +257,13 @@ public class GestorWeb {
 	        		1,  7,  "https://www.musculos.com/aparatos",  new DtFecha(2021, 6, 1, 18, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "Aparatos.jpg"));
 	        // Voleibol #C4
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Voleibol",  "denis",  "denis", 
-	        		10,  21,  "https://telon.com.uy/voley",  new DtFecha(2021, 6, 10, 19, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0), "Voleibol.jpg"));
+	        		10,  21,  "https://telon.com.uy/voley",  new DtFecha(2021, 6, 10, 19, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0), "Voleibol.jpeg"));
 	        // Braza #C5
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Braza",  "Nelson",  "Nelson", 
 	        		2,  6,  "https://telon.com.uy/natacionB",  new DtFecha(2021, 7, 10, 20, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0),  "Braza.jpg"));
 	        // Mariposa #C6
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Mariposa",  "Nelson",  "Nelson", 
-	        		2,  6,  "https://telon.com.uy/natacionM",  new DtFecha(2021, 8, 10, 17, 45, 0),  new DtFecha(2021, 4, 20, 0, 0, 0),  "Mariposa.jpg"));
+	        		2,  6,  "https://telon.com.uy/natacionM",  new DtFecha(2021, 8, 10, 17, 45, 0),  new DtFecha(2021, 4, 20, 0, 0, 0),  "Mariposa.jpeg"));
 	        // Aeróbica niños #C7
 	        IDCC.ingresarDatosClase("Instituto Natural",  "Aeróbica",  new DtClase("Aeróbica niños",  "clazar",  "clazar", 
 	        		5,  10,  "https://www.inatural.com/aeroni",  new DtFecha(2021, 8, 15, 16, 30, 0),  new DtFecha(2021, 5, 30, 0, 0, 0), "Aeróbica niños.webp"));
@@ -278,25 +278,25 @@ public class GestorWeb {
 	        		1,  4,  "https://www.musculos.com/boxeo1",  new DtFecha(2021, 9, 1, 19, 30, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Boxeo I.jpg"));
 	        // Boxeo II #C11
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Kickboxing",  new DtClase("Boxeo II",  "TheBoss",  "TheBoss", 
-	        		2,  2,  "https://www.musculos.com/boxeo2",  new DtFecha(2021, 9, 30, 17, 0, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Boxeo II.webp"));
+	        		2,  2,  "https://www.musculos.com/boxeo2",  new DtFecha(2021, 9, 30, 17, 0, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Boxeo II.jpg"));
 	        // Músculos para boxeo #C12
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Kickboxing",  new DtClase("Músculos para boxeo",  "viktor",  "viktor", 
-	        		1,  5,  "https://www.musculos.com/muscbox",  new DtFecha(2021, 10, 15, 20, 0, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Músculos para boxeo.webp"));
+	        		1,  5,  "https://www.musculos.com/muscbox",  new DtFecha(2021, 10, 15, 20, 0, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Músculos para boxeo.jpg"));
 	        // 100 M #C13
 	        IDCC.ingresarDatosClase("Telón",  "Atletismo",  new DtClase("100 M",  "lale",  "lale", 
 	        		3,  10,  "https://telon.com.uy/100m",  new DtFecha(2021, 9, 25, 19, 0, 0),  new DtFecha(2021, 7, 8, 0, 0, 0), "100 M.jpg"));
 	        // 200 M #C14
 	        IDCC.ingresarDatosClase("Telón",  "Atletismo",  new DtClase("200 M",  "lale",  "lale", 
-	        		3,  10,  "https://telon.com.uy/200m",  new DtFecha(2021, 10, 25, 18, 30, 0),  new DtFecha(2021, 7, 8, 0, 0, 0), "200 M.jpg"));
+	        		3,  10,  "https://telon.com.uy/200m",  new DtFecha(2021, 11, 5, 18, 30, 0),  new DtFecha(2021, 7, 8, 0, 0, 0), "200 M.jpg"));
 	        // Posta #C15
 	        IDCC.ingresarDatosClase("Telón",  "Atletismo",  new DtClase("Posta",  "lale",  "lale", 
 	        		8,  16,  "https://telon.com.uy/posta",  new DtFecha(2021, 11, 25, 17, 45, 0),  new DtFecha(2021, 7, 8, 0, 0, 0),  "Posta.jpg"));
 	        // Basquet I #C16
 	        IDCC.ingresarDatosClase("Telón",  "Basquetbol",  new DtClase("Basquet I",  "aldo",  "aldo", 
-	        		10,  15,  "https://telon.com.uy/bball1",  new DtFecha(2021, 9, 1, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),  "Basquet1.jpg"));
+	        		10,  15,  "https://telon.com.uy/bball1",  new DtFecha(2021, 11, 3, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),  "Basquet1.jpg"));
 	        // Basquet II #C17
 	        IDCC.ingresarDatosClase("Telón",  "Basquetbol",  new DtClase("Basquet II",  "aldo",  "aldo", 
-	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 10, 1, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),  "Basquet2.gif"));
+	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 11, 21, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),  "Basquet2.gif"));
 	        
 	        // CUPONERAS
 	        // Pelota #P1
