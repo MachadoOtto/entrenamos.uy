@@ -25,14 +25,17 @@ public class CuponeraController implements ICuponeraController {
 	}
 	
 	public int ingresarCuponera(String nombre,  String descripcion,  DtFecha inicio,  DtFecha fin,  
-				int descuento,  DtFecha alta) throws CuponeraRepetidaException,  FechaInvalidaException {
+				int descuento,  DtFecha alta, String imagen) throws CuponeraRepetidaException,  FechaInvalidaException {
 		if (!alta.esMenor(inicio)) {
 			throw new FechaInvalidaException("La fecha de alta debe ser anterior a la de inicio.");
 		}
 		if (!inicio.esMenor(fin)) {
 			throw new FechaInvalidaException("La fecha de inicio debe ser anterior a la de finalizacion.");
 		}
-		return getHC().addCuponera(nombre,  descripcion,  inicio,  fin,  descuento,  alta);
+		if (getHC().addCuponera(nombre,  descripcion,  inicio,  fin,  descuento,  alta) == 0) {
+			getHC().getCup(nombre).setImg(imagen);
+		}
+		return 0;
 	}
 	
 	public Set<String> getNombreCuponeras(){
