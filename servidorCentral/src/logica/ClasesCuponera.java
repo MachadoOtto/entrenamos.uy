@@ -2,24 +2,24 @@ package logica;
 
 public class ClasesCuponera {
 	private int cantidadClases;
-	private ActividadDeportiva ad;
-	private Cuponera c;
+	private ActividadDeportiva acDEPS;
+	private Cuponera cupi;
 	
-	ClasesCuponera(int x,Cuponera c, ActividadDeportiva ad){
-		cantidadClases = x;
-		this.c = c;
-		this.ad = ad;
+	ClasesCuponera(int cantClases,Cuponera cupito, ActividadDeportiva actDep){
+		cantidadClases = cantClases;
+		this.cupi = cupito;
+		this.acDEPS = actDep;
 	}
 	public int getCantidadClases() {
 		return cantidadClases;
 	}
 	public String getNombreCuponera() {
-		return c.getNombre();
+		return cupi.getNombre();
 	}
 	public String getNombreActDep() {
-		return ad.getNombre();
+		return acDEPS.getNombre();
 	}
 	public ActividadDeportiva getAd() {
-		return ad;
+		return acDEPS;
 	}
 }

@@ -5,15 +5,15 @@ public class DtFecha {
 
 	private int anio, mes, dia, horas, minutos, segundos;
 	public DtFecha() {
-		LocalDateTime t = LocalDateTime.now();
-		this.anio = t.getYear();
-		this.mes = t.getMonthValue();
-		this.dia = t.getDayOfMonth();
-		this.horas = t.getHour();
-		this.minutos = t.getMinute();
-		this.segundos = t.getSecond();
+		LocalDateTime tiempo = LocalDateTime.now();
+		this.anio = tiempo.getYear();
+		this.mes = tiempo.getMonthValue();
+		this.dia = tiempo.getDayOfMonth();
+		this.horas = tiempo.getHour();
+		this.minutos = tiempo.getMinute();
+		this.segundos = tiempo.getSecond();
 	}
-	public DtFecha (int anio,int mes,int dia,int horas,int minutos,int segundos) {
+	public DtFecha (int anio, int mes, int dia, int horas, int minutos, int segundos) {
 		this.anio = anio;
 		this.mes = mes;
 		this.dia = dia;
@@ -21,13 +21,13 @@ public class DtFecha {
 		this.minutos = minutos;
 		this.segundos = segundos;
 	}
-	public DtFecha (DtFecha q) {
-		this.anio = q.getAnio();
-		this.mes = q.getMes();
-		this.dia = q.getDia();
-		this.horas = q.getHoras();
-		this.minutos = q.getMinutos();
-		this.segundos = q.getSegundos();
+	public DtFecha(DtFecha fecha) {
+		this.anio = fecha.getAnio();
+		this.mes = fecha.getMes();
+		this.dia = fecha.getDia();
+		this.horas = fecha.getHoras();
+		this.minutos = fecha.getMinutos();
+		this.segundos = fecha.getSegundos();
 	}
 	
 	public int getAnio() {
@@ -71,21 +71,21 @@ public class DtFecha {
 	}
 	public String toWebFecha() {
 		String sanio = String.valueOf(anio);
-		String sdia= String.valueOf(dia),smes=String.valueOf(mes);
-		while(sanio.length()<4)
+		String sdia= String.valueOf(dia), smes=String.valueOf(mes);
+		while (sanio.length()<4)
 			sanio="0"+sanio;
-		if(dia<10)
+		if (dia<10)
 			sdia="0"+sdia;
-		if(mes<10)
+		if (mes<10)
 			smes="0"+mes;
 		return sanio + "-" + smes + "-" + sdia;
 	}
 	
 	public boolean esMenor(DtFecha fechaAComp) {
 		long min1, min2 = 0;
-		min1 = minutos + (horas + (dia + (mes + (anio) * 12) * 31) * 24) * 60;
+		min1 = minutos + (horas + (dia + (mes + anio * 12) * 31) * 24) * 60;
 		min2 = fechaAComp.getMinutos() + (fechaAComp.getHoras() + (fechaAComp.getDia() + (fechaAComp.getMes() + 
 				(fechaAComp.getAnio()) * 12) * 31) * 24) * 60;
-		return (min1 <= min2);
+		return min1 <= min2;
 	}
 }

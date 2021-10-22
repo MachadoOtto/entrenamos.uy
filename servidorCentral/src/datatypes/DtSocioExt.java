@@ -7,26 +7,26 @@ import java.util.Map.Entry;
 
 public class DtSocioExt extends DtUsuarioExt{
 	
-	private Map<String,Set<String>> x;
+	private Map<String,Set<String>> clasesDeActividades;
 	private Set<String> cuponerasCompradas;
 	
 	public DtSocioExt(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento,
 					  Map<String,Set<String>> clases, byte[] imagen, Set<String> seguidosNickname, Set<String> seguidoresNickname,Set<String> cuponeras){
 		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen, seguidosNickname, seguidoresNickname);
 		cuponerasCompradas = cuponeras;
-		this.x = clases;
+		this.clasesDeActividades = clases;
 	}
 	
 	//Ejemplo: {"Voleibol":{"voleibol 2","voleibol 3","braza"},"basquet":{"basquetbol2", "basquetbol3"}}
 	public Map<String,Set<String>> getAguadeUwu(){
-		return x;
+		return clasesDeActividades;
 	}
 	
 	public Set<String> getClases(){
-		Set<String> y = new HashSet<>();
-		for(Entry<String, Set<String>> q: x.entrySet())
-			y.addAll(q.getValue());
-		return y;
+		Set<String> res = new HashSet<>();
+		for(Entry<String, Set<String>> clases: clasesDeActividades.entrySet())
+			res.addAll(clases.getValue());
+		return res;
 	}
 
 	public Set<String> getCuponerasCompradas() {

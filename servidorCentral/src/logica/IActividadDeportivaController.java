@@ -38,7 +38,7 @@ public interface IActividadDeportivaController {
 	
 	public DtInstitucion obtenerDatosInstitucion(String inst) throws InstitucionException;
 	
-	public void aprobarActividad(String ad, TEstado ok);
+	public void aprobarActividad(String actividadDeportiva, TEstado estado);
 	
 	public Set<String> obtenerActDepIngresadas();
 	

@@ -3,9 +3,9 @@ package datatypes;
 public class DtClasesCuponera {
 	private String nombreActividad;
 	private int cantidadClases;
-	public DtClasesCuponera(String s, int t) {
-		nombreActividad = s;
-		cantidadClases = t;
+	public DtClasesCuponera(String nombreAct, int cantClase) {
+		nombreActividad = nombreAct;
+		cantidadClases = cantClase;
 	}
 	public String getNombreActividad() {
 		return nombreActividad;

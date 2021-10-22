@@ -10,7 +10,6 @@
 package logica;
 
 import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
@@ -51,27 +50,30 @@ public class DictadoClaseController implements IDictadoClaseController {
 	public String obtenerInstitucionActDep(String actDep) {
 		String res = null;
 		Set<String> instituciones = obtenerInstituciones();
-		for(String x : instituciones) {
+		for (String x : instituciones) {
 			try {
-				for(String y : obtenerActividades(x)) {
-					if(y.equals(actDep)) {
+				for (String y : obtenerActividades(x)) {
+					if (y.equals(actDep)) {
 						res = x;
 						return res;
 					}
 				}
-			} catch(InstitucionException e) {}
+			} catch(InstitucionException ignore){}
 		}
 		return res;
 	}
 	
 	public Set<String> obtenerActividadesAprobadas(String ins) throws InstitucionException{
-		Set<String> g = new HashSet<>();
-		for(String x : getHI().findInstitucion(ins).obtenerNombresActDep())
+		Set<String> res = new HashSet<>();
+		for (String x : getHI().findInstitucion(ins).obtenerNombresActDep()) {
 			try {
-				if(getHI().findInstitucion(ins).getActDep(x).getEstado().equals(TEstado.aceptada))
-					g.add(x);
-			} catch (Exception ex) {}
-		return g;
+				if (getHI().findInstitucion(ins).getActDep(x).getEstado().equals(TEstado.aceptada)) {
+					res.add(x);
+				}
+			} catch (InstitucionException  ignore) {}
+			  catch (ActividadDeportivaException ignore) {}
+		}
+		return res;
 	}
 	
 	public Set<String> obtenerProfesores(String ins) throws InstitucionException {
@@ -104,9 +106,9 @@ public class DictadoClaseController implements IDictadoClaseController {
 					try {
 						datosClase = getHI().findInstitucion(x).findActividad(y).findClase(nombreClase).getDt();
 						return datosClase;
-					} catch(ClaseException ignore) { }
+					} catch(ClaseException ignore) {}
 				}
-			} catch(InstitucionException ignore) { }
+			} catch(InstitucionException ignore) {}
 		}
 		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
 	}
@@ -128,28 +130,30 @@ public class DictadoClaseController implements IDictadoClaseController {
 		if (!actDept.getFechaRegistro().esMenor(datos.getFechaRegistro())) {
 			throw new FechaInvalidaException("La fecha de registro de la clase debe ser posterior a la fecha de registro de la actividad deportiva.");
 		} else {
-			return actDept.addClase(datos,profe);
+			return actDept.addClase(datos, profe);
 		}
 	}
 	
-	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg,String cuponera) 
+	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg, String cuponera) 
 			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, 
 			UsuarioNoExisteException, ActividadDeportivaException { 
-		ActividadDeportiva ad = getHI().findInstitucion(ins).getActDep(actDep);
-		Clase claseSelec = ad.findClase(clase);
+		ActividadDeportiva activity = getHI().findInstitucion(ins).getActDep(actDep);
+		Clase claseSelec = activity.findClase(clase);
 		claseSelec.hayLugar();
-		if(!claseSelec.hayLugar())
+		if (!claseSelec.hayLugar()) {
 			throw new ClaseException("La clase seleccionada esta llena.");
+		}
 		if (!claseSelec.getFechaRegistro().esMenor(fechaReg)) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es anterior a la Fecha en la que se registro la Clase seleccionada.");
 		}
 		if (!fechaReg.esMenor(claseSelec.getFechaClase())) {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es posterior a la Fecha en la que inicia la Clase seleccionada.");
 		}
-		if (tipoRegistro==TReg.general)
-			((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg,null);
-		else{
-			((Socio)getHU().findUsuario(socio)).inscribirSocio(ad, claseSelec, tipoRegistro, fechaReg,getHC().getCup(cuponera));
+		if (tipoRegistro==TReg.general) {
+			((Socio) getHU().findUsuario(socio)).inscribirSocio(activity, claseSelec, tipoRegistro, fechaReg, null);
+		}
+		else {
+			((Socio) getHU().findUsuario(socio)).inscribirSocio(activity, claseSelec, tipoRegistro, fechaReg, getHC().getCup(cuponera));
 		}
 	}
 	
@@ -157,14 +161,15 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return getHU().obtenerNicknameSocios();
 	}
 	@Override
-	public Set<String> getCuponerasSocioClase(String nombreSocio,String nombreInst,String nombreAd,String nombreClase) {
-		Set<String> x = new HashSet<>();
+	public Set<String> getCuponerasSocioClase(String nombreSocio, String nombreInst, String nombreAd, String nombreClase) {
+		Set<String> res = new HashSet<>();
 		try {
-			for(ReciboCuponera r :(((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera()))
-				if(r.getCuponera().getNombresActDep().contains(nombreAd))
-						x.add(r.getCuponera().getNombre());
-		} catch (Exception ignore) {}
-		return x;
+			for (ReciboCuponera r :((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera())
+				if (r.getCuponera().getNombresActDep().contains(nombreAd)) {
+					res.add(r.getCuponera().getNombre());
+				}
+		} catch (UsuarioNoExisteException ignore) {}
+		return res;
 	}
 // Guille: Esta funcion creo que no va.
 //	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
@@ -191,10 +196,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 		Set<String> clasesDeAct = ((Socio) getHU().findUsuario(nombreSocio)).getDtExt().getAguadeUwu().get(nombreAd);
 		if (clasesDeAct != null) {
 			int cantidadClases = clasesDeAct.size();
-			for(ReciboCuponera r : (((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera())) {
+			Socio socioIt = (Socio) getHU().findUsuario(nombreSocio);
+			for (ReciboCuponera r : socioIt.getReciboCuponera()) {
 				Cuponera cupActual = r.getCuponera();
-				if (cupActual.getNombresActDep().contains(nombreAd) && (cantidadClases < cupActual.cantidadClases(actDep)))
+				if (cupActual.getNombresActDep().contains(nombreAd) && cantidadClases < cupActual.cantidadClases(actDep)) {
 					cupsDisp.add(cupActual.getNombre());
+				}
 			}
 		}
 		return cupsDisp;

@@ -1,6 +1,5 @@
 package logica;
 
-import datatypes.DtClaseExt;
 import datatypes.DtClase;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
@@ -19,9 +18,9 @@ import java.util.logging.Logger;
 
 public class ActividadDeportiva {
 	
-	private Map <String, Clase> clases;  // Nombre de clase y clase
-	private Map <String, ClasesCuponera> clCuponera;
-	private Map <String, Categoria> cats;
+	private Map<String, Clase> clases;  // Nombre de clase y clase
+	private Map<String, ClasesCuponera> clCuponera;
+	private Map<String, Categoria> cats;
 	private String nombre;
 	private String descripcion;
 	private int duracionMinutos;
@@ -32,16 +31,16 @@ public class ActividadDeportiva {
 	private Profesor creador;
 	private String imgName;
 	
-	public ActividadDeportiva(DtActividadDeportiva x, Map <String, Categoria> cat,Profesor c) {
-		nombre=x.getNombre();
-		descripcion=x.getDescripcion();
-		duracionMinutos=x.getDuracionMinutos();
-		costo=x.getCosto();
-		fechaRegistro = new DtFecha(x.getFechaRegistro());
+	public ActividadDeportiva(DtActividadDeportiva datosActDep, Map<String, Categoria> cat, Profesor profe) {
+		nombre=datosActDep.getNombre();
+		descripcion=datosActDep.getDescripcion();
+		duracionMinutos=datosActDep.getDuracionMinutos();
+		costo=datosActDep.getCosto();
+		fechaRegistro = new DtFecha(datosActDep.getFechaRegistro());
 		cats = cat;
-		creador = c;
-		imgName = x.getImgName();
-		estado = x.getEstado(); 
+		creador = profe;
+		imgName = datosActDep.getImgName();
+		estado = datosActDep.getEstado(); 
 		crearHandler();
 	}
 	private void crearHandler() {
@@ -56,21 +55,21 @@ public class ActividadDeportiva {
 	public String getNombre() {
 		return nombre;
 	}
-	public int addClasesCup(ClasesCuponera cp) {
-		if(clCuponera.containsKey(cp.getNombreCuponera()))
+	public int addClasesCup(ClasesCuponera claseCup) {
+		if (clCuponera.containsKey(claseCup.getNombreCuponera()))
 			return 1;
-		clCuponera.put(cp.getNombreCuponera(), cp);
-		log.info("ActDep "+nombre+" event: "+" new cup added "+cp.getNombreCuponera());
+		clCuponera.put(claseCup.getNombreCuponera(), claseCup);
+		log.info("ActDep "+nombre+" event: "+" new cup added "+claseCup.getNombreCuponera());
 		return 0;
 	}
 	
-	public int addClase(DtClase cl, Profesor p) {
-		if(clases.containsKey(cl.getNombre()))
+	public int addClase(DtClase clase, Profesor profe) {
+		if (clases.containsKey(clase.getNombre()))
 			return 1;
-		Clase x = new Clase(cl,p,this);
-		clases.put(cl.getNombre(), x);
-		p.addClase(x);
-		log.info("ActDep "+nombre+" event: "+" new clase "+cl.getNombre());
+		Clase aula = new Clase(clase, profe, this);
+		clases.put(clase.getNombre(), aula);
+		profe.addClase(aula);
+		log.info("ActDep "+nombre+" event: "+" new clase "+clase.getNombre());
 		return 0;
 	}
 /* FUNCIONES LEGACY (NO SE UTILIZAN)
@@ -98,48 +97,56 @@ public class ActividadDeportiva {
 		return clases.keySet();		
 	}
 		
-	public Clase findClase(String c) throws ClaseException {	
-		Clase res = clases.get(c);
+	public Clase findClase(String clase) throws ClaseException {
+		Clase res = clases.get(clase);
 		if (res == null) {
 			throw new ClaseException("La Clase seleccionada no pertenece a esta Actividad Deportiva.");
 		}
 		return res;
 	}
 
-	public String getDescripcion() {return descripcion;}
-	public int getDuracionMinutos() {return duracionMinutos;}
-	public float getCosto() {return costo;}
-	public DtFecha getFechaRegistro() {return fechaRegistro;}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public int getDuracionMinutos() {
+		return duracionMinutos;
+	}
+	public float getCosto() {
+		return costo;
+	}
+	public DtFecha getFechaRegistro() {
+		return fechaRegistro;
+	}
 	
 	public boolean participaProfesor(Profesor profe) {
-		for(Map.Entry<String, Clase> x: clases.entrySet())
-			if(x.getValue().getProfesor()==profe)
+		for (Map.Entry<String, Clase> x: clases.entrySet())
+			if (x.getValue().getProfesor()==profe)
 				return true;
         return false;
 	}
 	public DtActividadDeportivaExt getDtExt() {
-		Set<String> q = new HashSet<>(clases.keySet());
-		Set<String> r = new HashSet<>(clCuponera.keySet());
-		DtActividadDeportivaExt x = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
-				getCosto(), getFechaRegistro(),cats.keySet(),q,r,estado,creador.getNickname(),imgName);
-		return x;
+		Set<String> nombresClases = new HashSet<>(clases.keySet());
+		Set<String> nombresClasesCuponeras = new HashSet<>(clCuponera.keySet());
+		DtActividadDeportivaExt actDep = new DtActividadDeportivaExt(getNombre(), getDescripcion(), getDuracionMinutos(), 
+				getCosto(), getFechaRegistro() , cats.keySet(), nombresClases, nombresClasesCuponeras, estado, creador.getNickname(), imgName);
+		return actDep;
 	}
 	public TEstado getEstado() {
 		return estado;
 	}
-	public boolean setEstado(TEstado e) {
-		if(estado==TEstado.ingresada && (e==TEstado.aceptada || e==TEstado.rechazada)) {
-			estado = e;
+	public boolean setEstado(TEstado nuevoEstado) {
+		if (estado==TEstado.ingresada && (nuevoEstado==TEstado.aceptada || nuevoEstado==TEstado.rechazada)) {
+			estado = nuevoEstado;
 			return true;
 		}
 		else return false;
 	}
 	public Set<Categoria> getCategorias() {
-		Set<Categoria> x = new HashSet<>();
-		x.addAll(cats.values());
-		return x;
+		Set<Categoria> res = new HashSet<>();
+		res.addAll(cats.values());
+		return res;
 	}
-	public Map <String, ClasesCuponera> getClaseCuponeras(){
+	public Map<String, ClasesCuponera> getClaseCuponeras() {
 		return clCuponera;
 	}
 }

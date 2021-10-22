@@ -20,12 +20,12 @@ public class ReciboClase {
 //		this.costo = d.costo;
 //	}
 	
-	ReciboClase(DtFecha f,TReg t, float cc, Clase c, Socio s, Cuponera cupon){
-		aSocio = s;
-		aClase = c;
-		fechaInscripcion = f;
-		tipo = t;
-		costo = cc;
+	ReciboClase(DtFecha fecha,TReg tipoRegistro, float precio, Clase aula, Socio individuoAsociadoAlClub, Cuponera cupon){
+		aSocio = individuoAsociadoAlClub;
+		aClase = aula;
+		fechaInscripcion = fecha;
+		tipo = tipoRegistro;
+		costo = precio;
 		cup = cupon;
 	}
 	

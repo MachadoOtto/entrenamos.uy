@@ -174,7 +174,7 @@ body {
 	transition: transform 0.25s;
 }
 .elementoLista:hover {
-	transform: scale(1.333);
+	transform: scale(1.111);
 }
 
 .consultaAceptadaRechazada {

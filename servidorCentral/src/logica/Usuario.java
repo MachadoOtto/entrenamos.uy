@@ -9,16 +9,13 @@
 
 package logica;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import datatypes.DtFecha;
 import datatypes.DtUsuario;
 
-public abstract class Usuario {
+public class Usuario {
 
     protected String nickname, nombre, apellido, correo, contrasenia;
     
@@ -29,7 +26,7 @@ public abstract class Usuario {
     protected Map<String,Usuario> seguidos;
     protected Map<String,Usuario> seguidores;
 
-    public Usuario(String nick, String nombre, String apellido, String correo, String contrasenia, DtFecha fecha, byte[] imagen) {
+    protected Usuario(String nick, String nombre, String apellido, String correo, String contrasenia, DtFecha fecha, byte[] imagen) {
         this.setNickname(nick);
     	this.setNombre(nombre);
         this.setApellido(apellido);
@@ -101,12 +98,12 @@ public abstract class Usuario {
     	return seguidores;
     }
     
-    public boolean sigue(String x) {
-    	return seguidos.containsKey(x);
+    public boolean sigue(String elCosmeFulanito) {
+    	return seguidos.containsKey(elCosmeFulanito);
     }
     
-    public boolean esSeguido(String x) {
-    	return seguidores.containsKey(x);
+    public boolean esSeguido(String elCosmeFulanito) {
+    	return seguidores.containsKey(elCosmeFulanito);
     }
 
     public void editarDatos(DtUsuario datos) {
@@ -116,20 +113,20 @@ public abstract class Usuario {
     	this.setImagen(datos.getImagen());
     }
     
-    public void agregarSeguidor(Usuario u) {
-    	seguidores.put(u.getNickname(), u);
+    public void agregarSeguidor(Usuario manuelitoElUsuario) {
+    	seguidores.put(manuelitoElUsuario.getNickname(), manuelitoElUsuario);
     }
     
-    public void agregarSeguido(Usuario u) {
-    	seguidos.put(u.getNickname(), u);
+    public void agregarSeguido(Usuario robertoCarlos) {
+    	seguidos.put(robertoCarlos.getNickname(), robertoCarlos);
     }
     
-    public void removerSeguidor(Usuario u) {
-    	seguidores.remove(u.getNickname());
+    public void removerSeguidor(Usuario usuarioooooooooo) {
+    	seguidores.remove(usuarioooooooooo.getNickname());
     }
     
-    public void removerSeguido(Usuario u) {
-    	seguidos.remove(u.getNickname());
+    public void removerSeguido(Usuario ricardoFort) {
+    	seguidos.remove(ricardoFort.getNickname());
     }
     
 }

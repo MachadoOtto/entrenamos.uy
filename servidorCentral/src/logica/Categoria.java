@@ -11,8 +11,6 @@
 
 package logica;
 
-import datatypes.DtCategoria;
-
 public class Categoria {
 	
 	private String nombre;

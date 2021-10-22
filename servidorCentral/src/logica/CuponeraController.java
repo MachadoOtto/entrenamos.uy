@@ -44,13 +44,13 @@ public class CuponeraController implements ICuponeraController {
 		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),cantidadClases);
 	}
 		
-	public DtCuponera seleccionarCuponera(String n) throws NoExisteCuponeraException {
-		HandlerCuponera hu = HandlerCuponera.getInstance();
-		Cuponera c = hu.getCup(n);
-		if (c == null) {
+	public DtCuponera seleccionarCuponera(String NOMBRECUPONERAAAA) throws NoExisteCuponeraException {
+		HandlerCuponera handlerCuponera = HandlerCuponera.getInstance();
+		Cuponera cup = handlerCuponera.getCup(NOMBRECUPONERAAAA);
+		if (cup == null) {
 			throw new NoExisteCuponeraException("La cuponera seleccionada no existe en el sistema.");
 		}
-		return c.getDt();
+		return cup.getDt();
 	}
 	
 	private HandlerInstitucion getHI() {
@@ -61,12 +61,12 @@ public class CuponeraController implements ICuponeraController {
 	}
 	
 	public Set<String> getNombreCuponerasSinRecibos(){
-		Set<String> ss = new HashSet<>();
+		Set<String> res = new HashSet<>();
 		for(String x: getHC().getNombreCuponeras()) {
 			if(getHC().getCup(x).getRc().size()==0)
-				ss.add(x);
+				res.add(x);
 
 		}
-		return ss;
+		return res;
 	}
 }

@@ -35,13 +35,13 @@ public class UsuarioController implements IUsuarioController {
 	}
 	
 	public Set<String> obtenerUsuarios() {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		return hu.getNicknameUsuarios();		
+		HandlerUsuario hUsuario = HandlerUsuario.getInstance();
+		return hUsuario.getNicknameUsuarios();		
 	}
 
 	public Set<String> obtenerInstituciones() {
-		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-		return hi.obtenerInstituciones();
+		HandlerInstitucion handlerInstitucion = HandlerInstitucion.getInstance();
+		return handlerInstitucion.obtenerInstituciones();
 	}
 	
 	/* ATENCION: Para el que venga a editar esto luego, tengan cuidado al editar lugares donde se usa el 'instanceof' o de la
@@ -50,18 +50,18 @@ public class UsuarioController implements IUsuarioController {
 	
 	// Retorna 0 si se logro ingresar/crear el Usuario de forma exitosa, retorna 1 en otro caso.
 	public int ingresarDatosUsuario(DtUsuario datoUser) throws InstitucionException {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		if (hu.existeNick(datoUser.getNickname()) || hu.existeCorreo(datoUser.getEmail())) {
+		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
+		if (handlerUsuario.existeNick(datoUser.getNickname()) || handlerUsuario.existeCorreo(datoUser.getEmail())) {
 			return 1;
 		} else {
 			if (datoUser instanceof DtSocio) {
 				Socio newSocio = new Socio(((DtSocio)datoUser));
-				hu.addUser(newSocio);
+				handlerUsuario.addUser(newSocio);
 			} else {
 				Profesor newProfesor = new Profesor(((DtProfesor)datoUser));
-				hu.addUser(newProfesor);
-				HandlerInstitucion hi = HandlerInstitucion.getInstance();
-				Institucion instituto = hi.findInstitucion(((DtProfesor)datoUser).getNombreInstitucion());
+				handlerUsuario.addUser(newProfesor);
+				HandlerInstitucion handlerInstitucion = HandlerInstitucion.getInstance();
+				Institucion instituto = handlerInstitucion.findInstitucion(((DtProfesor)datoUser).getNombreInstitucion());
 				newProfesor.setInstitucion(instituto);
 				instituto.addProfesor(newProfesor);
 			}
@@ -71,8 +71,8 @@ public class UsuarioController implements IUsuarioController {
 	
 	// Ver la nota ATENCION mas arriba.
 	public DtUsuarioExt seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		Usuario user = hu.findUsuario(userNick);
+		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
+		Usuario user = handlerUsuario.findUsuario(userNick);
 		if (user instanceof Socio) {
 			DtSocioExt dtExt = ((Socio)user).getDtExt();
 			return dtExt;
@@ -82,11 +82,11 @@ public class UsuarioController implements IUsuarioController {
 		}
 	}
 	public DtUsuarioExt seleccionarUsuarioEmail(String userEmail) throws UsuarioNoExisteException{
-		for(String x: getHU().getNicknameUsuarios()) {
+		for(String nombreUsuariox: getHU().getNicknameUsuarios()) {
 			try {
-				DtUsuarioExt y = seleccionarUsuario(x);
-				if(y.getEmail().equals(userEmail))
-					return y;
+				DtUsuarioExt datoU = seleccionarUsuario(nombreUsuariox);
+				if(datoU.getEmail().equals(userEmail))
+					return datoU;
 			}
 			catch (Exception ignore) {}
 		}
@@ -96,8 +96,8 @@ public class UsuarioController implements IUsuarioController {
 	// Ver la nota ATENCION mas arriba.
 	// Precaucion: Esta funcion no edita/ ni reemplaza la Institucion que tiene Profesor asignada.
 	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		Usuario user = hu.findUsuario(userNick);
+		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
+		Usuario user = handlerUsuario.findUsuario(userNick);
 		if (user instanceof Profesor) {
 			((Profesor)user).editarDatos(((DtProfesor)datoUser));
 		} else {
@@ -106,16 +106,16 @@ public class UsuarioController implements IUsuarioController {
 	}
 	
 	public void seguir(String seguidor, String seguido) throws UsuarioNoExisteException {
-		HandlerUsuario hu = HandlerUsuario.getInstance();
-		Usuario seguidorU = hu.findUsuario(seguidor);
-		Usuario seguidoU = hu.findUsuario(seguido);
+		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
+		Usuario seguidorU = handlerUsuario.findUsuario(seguidor);
+		Usuario seguidoU = handlerUsuario.findUsuario(seguido);
 		seguidorU.agregarSeguido(seguidoU);
 		seguidoU.agregarSeguidor(seguidorU);
 	}
 	
-	public void dejarDeSeguir(String s1, String s2) throws UsuarioNoExisteException {
-		getHU().findUsuario(s1).removerSeguido(getHU().findUsuario(s2));
-		getHU().findUsuario(s2).removerSeguidor(getHU().findUsuario(s1));
+	public void dejarDeSeguir(String user1, String user2) throws UsuarioNoExisteException {
+		getHU().findUsuario(user1).removerSeguido(getHU().findUsuario(user2));
+		getHU().findUsuario(user2).removerSeguidor(getHU().findUsuario(user1));
 	}
 	
 	
@@ -141,10 +141,10 @@ public class UsuarioController implements IUsuarioController {
 	}
 	
 	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException,CuponeraNoExisteException{
-		ReciboCuponera rc = new ReciboCuponera(fechaCompra, getHC().getCup(cuponera), ((Socio) getHU().findUsuario(socio)));
-		((Socio) getHU().findUsuario(socio)).addReciboCuponera(rc);
-		getHC().getCup(cuponera).addRecibo(rc);
-		((Socio) getHU().findUsuario(socio)).addReciboCuponera(rc);
+		ReciboCuponera reciboClase = new ReciboCuponera(fechaCompra, getHC().getCup(cuponera), ((Socio) getHU().findUsuario(socio)));
+		((Socio) getHU().findUsuario(socio)).addReciboCuponera(reciboClase);
+		getHC().getCup(cuponera).addRecibo(reciboClase);
+		((Socio) getHU().findUsuario(socio)).addReciboCuponera(reciboClase);
 	}
 	
 	private HandlerUsuario getHU() {

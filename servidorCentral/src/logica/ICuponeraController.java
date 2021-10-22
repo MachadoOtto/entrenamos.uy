@@ -18,10 +18,10 @@ public interface ICuponeraController {
 	
 	public Set<String> getNombreCuponeras();
 	
-	public void agregarActividadCuponera(String nombre, String instituto,String actividadDeportiva, int cantidadClases) 
+	public void agregarActividadCuponera(String nombre, String instituto, String actividadDeportiva, int cantidadClases) 
 			throws InstitucionException, ActividadDeportivaException, CuponeraInmutableException;
 	
-	public DtCuponera seleccionarCuponera(String n) throws NoExisteCuponeraException;
+	public DtCuponera seleccionarCuponera(String nombre) throws NoExisteCuponeraException;
 	
 	public Set<String> getNombreCuponerasSinRecibos();
 }
