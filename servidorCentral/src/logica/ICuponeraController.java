@@ -14,7 +14,7 @@ import excepciones.NoExisteCuponeraException;
 public interface ICuponeraController {
 	
 	public int ingresarCuponera(String nombre,  String descripcion,  DtFecha inicio,  DtFecha fin,  
-			int descuento,  DtFecha alta) throws CuponeraRepetidaException,  FechaInvalidaException;
+			int descuento,  DtFecha alta, String imagen) throws CuponeraRepetidaException,  FechaInvalidaException;
 	
 	public Set<String> getNombreCuponeras();
 	

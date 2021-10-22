@@ -301,17 +301,17 @@ public class GestorWeb {
 	        // CUPONERAS
 	        // Pelota #P1
 	        ICC.ingresarCuponera("Pelota",  "Deportes con pelota.",  new DtFecha(2021, 5, 1, 0, 0, 0),  new DtFecha(2021, 7, 31, 23, 59, 59),  
-	        		20,  new DtFecha(2021, 4, 30, 0, 0, 0));
+	        		20,  new DtFecha(2021, 4, 30, 0, 0, 0), "Pelota.webp");
 	        ICC.agregarActividadCuponera("Pelota",  "Telón",  "Voleibol",  7);
 	        ICC.agregarActividadCuponera("Pelota",  "Telón",  "Basquetbol",  18);
 	        // Gimnasia #P2
 	        ICC.ingresarCuponera("Gimnasia",  "Aeróbica y aparatos.",  new DtFecha(2021, 8, 1, 0, 0, 0),  new DtFecha(2021, 9, 30, 23, 59, 59),  
-	        		30,  new DtFecha(2021, 7, 15, 0, 0, 0));
+	        		30,  new DtFecha(2021, 7, 15, 0, 0, 0), "Gimnasia.jpg");
 	        ICC.agregarActividadCuponera("Gimnasia",  "Instituto Natural",  "Aeróbica",  2);
 	        ICC.agregarActividadCuponera("Gimnasia",  "Fuerza Bruta",  "Aparatos y pesas",  8);
 	        // Músculos #P2
 	        ICC.ingresarCuponera("Músculos",  "Pesas.",  new DtFecha(2021, 8, 15, 0, 0, 0),  new DtFecha(2021, 11, 15, 23, 59, 59),  
-	        		10,  new DtFecha(2021, 8, 1, 0, 0, 0));
+	        		10,  new DtFecha(2021, 8, 1, 0, 0, 0), "Músculos.jpeg");
 	        ICC.agregarActividadCuponera("Músculos",  "Fuerza Bruta",  "Kickboxing",  11);
 	        ICC.agregarActividadCuponera("Músculos",  "Fuerza Bruta",  "Aparatos y pesas",  12);
 	        
