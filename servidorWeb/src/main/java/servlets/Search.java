@@ -210,8 +210,9 @@ public class Search extends HttpServlet {
 				try {
 					for (String y : IADC.obtenerActividades(x)) {
 						DtActividadDeportiva datosActividad = IADC.getActDepExt(x,  y);
-						if ((y.contains(texto)) && (datosActividad.getEstado() == TEstado.aceptada) && 
-								((fltrC == null) || (datosActividad.getCategorias().containsAll(fltrC)))) {
+						if (((datosActividad.getNombre().contains(texto)) || (datosActividad.getDescripcion().contains(texto))) && 
+								(datosActividad.getEstado() == TEstado.aceptada) && ((fltrC == null) || 
+								(datosActividad.getCategorias().containsAll(fltrC)))) {
 							lista.add(datosActividad);
 						}
 					}
@@ -243,8 +244,8 @@ public class Search extends HttpServlet {
 		ICuponeraController ICC = LaFabrica.getInstance().obtenerICuponeraController();
 		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
 		for (String x : ICC.getNombreCuponeras()) {
-			if (x.contains(texto)) {
-				DtCuponera cup = (ICC.seleccionarCuponera(x));
+			DtCuponera cup = (ICC.seleccionarCuponera(x));
+			if (cup.getNombre().contains(texto) || cup.getDescripcion().contains(texto)) {
 				if (fltrC.isEmpty() || cup.getCategorias().containsAll(fltrC)) {
 					if (fltrI.isEmpty()) {
 						lista.add(cup);
