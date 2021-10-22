@@ -27,6 +27,8 @@ public class Cuponeras extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, 
     		HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
     	String cuponera = request.getParameter("cuponera");
     	DtCuponera DatosCup = null;

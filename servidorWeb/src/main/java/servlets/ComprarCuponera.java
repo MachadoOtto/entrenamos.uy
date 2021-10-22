@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,8 @@ public class ComprarCuponera extends HttpServlet {
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	System.out.print((String) request.getParameter("cuponera")+ " ------- "+((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname());
     	DtFecha f = new DtFecha();
     	try {
@@ -47,7 +50,7 @@ public class ComprarCuponera extends HttpServlet {
 		}
     	
     	
-    	response.sendRedirect(request.getContextPath()+"/cuponeras?cuponera="+request.getParameter("cuponera"));
+    	response.sendRedirect(request.getContextPath()+"/cuponeras?cuponera="+ URLEncoder.encode(request.getParameter("cuponera"),"utf-8"));
     }    
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

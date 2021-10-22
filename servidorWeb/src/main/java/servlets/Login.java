@@ -24,6 +24,8 @@ public class Login extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
         String name = request.getParameter("nick-login");
         String r = request.getParameter("miurl");
         //verificar contraseña

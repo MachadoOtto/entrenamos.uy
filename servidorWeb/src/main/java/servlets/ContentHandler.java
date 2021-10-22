@@ -44,7 +44,8 @@ public class ContentHandler extends HttpServlet {
          IDCC = GestorWeb.getIDCC();
     }
 
-	private void serveContent(HttpServletRequest request, HttpServletResponse response) {
+	private void serveContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
 		String c=request.getParameter("c"); //c=clase de imagen (usuario,actividad,etc.).
 		String cc=null;
 		String id=request.getParameter("id");

@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Base64;
@@ -39,8 +40,10 @@ public class AltaClase extends HttpServlet{
         IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
-    	String r = new String() + request.getContextPath() + "/actividades?actividad=" + rp(request,"nombreActDep");
+    	String r = new String() + request.getContextPath() + "/actividades?actividad=" + URLEncoder.encode(rp(request,"nombreActDep"),"utf-8");
         try {
         	String imgClase = null;
         	if(rp(request,"img")!=null && !(rp(request,"img").equals(""))) {

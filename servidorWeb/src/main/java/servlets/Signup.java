@@ -48,6 +48,8 @@ public class Signup extends HttpServlet{
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	String r = request.getParameter("miurl");
         try {
+        	request.setCharacterEncoding("utf-8");
+        	response.setCharacterEncoding("utf-8");
         	byte [] bimgn = null;
         	if(request.getPart("imgPerfil")!=null && request.getPart("imgPerfil").getSize()>0) {
         		Part filePart = request.getPart("imgPerfil");
@@ -95,6 +97,8 @@ public class Signup extends HttpServlet{
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
         processRequest(request, response);
 	}
 	private String rp(HttpServletRequest request,String param) {

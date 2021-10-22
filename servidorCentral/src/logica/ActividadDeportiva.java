@@ -145,8 +145,6 @@ public class ActividadDeportiva {
 }
 
 
-
-
 /* Migue Watafa: Esto no se usa nunca!!
 public void modificarDatos(DtActividadDeportiva datosAD) {	
 	nombre = datosAD.getNombre();
@@ -155,3 +153,5 @@ public void modificarDatos(DtActividadDeportiva datosAD) {
 	costo = datosAD.getCosto();
 	fechaRegistro = datosAD.getFechaRegistro();
 } */
+
+/*

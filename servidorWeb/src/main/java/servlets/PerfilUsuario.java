@@ -44,6 +44,8 @@ public class PerfilUsuario extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
         try {
         	//Obtención de datos de usuario
@@ -121,6 +123,7 @@ public class PerfilUsuario extends HttpServlet {
         } catch(Exception e) {
         	e.printStackTrace();
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
+        	return;
         }
         request.getRequestDispatcher("pages/usuarios.jsp").forward(request, response);
     }

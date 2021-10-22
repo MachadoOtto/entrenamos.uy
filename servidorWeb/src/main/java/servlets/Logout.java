@@ -18,6 +18,8 @@ public class Logout extends HttpServlet {
         super();
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
         request.getSession().setAttribute("loggedUser", null);
         response.sendRedirect(request.getContextPath()+"/home");
     }

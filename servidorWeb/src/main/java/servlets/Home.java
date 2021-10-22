@@ -32,6 +32,8 @@ public class Home extends HttpServlet {
     }
 
 	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	req.setCharacterEncoding("utf-8");
+    	resp.setCharacterEncoding("utf-8");
 		Parametrizer.loadStdRequests(req);
 		
 		// Agregar Actividades Random a visualizar en el Home (se pasa en el request).

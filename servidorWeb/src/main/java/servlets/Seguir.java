@@ -45,6 +45,8 @@ public class Seguir extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioNoExisteException, InstitucionException, ActividadDeportivaException {
     	DtUsuarioExt usr = null;
     	try {
+        	request.setCharacterEncoding("utf-8");
+        	response.setCharacterEncoding("utf-8");
     		String nombreUsrProfile = (String) request.getParameter("nickname");
         	usr = IUC.seleccionarUsuario(nombreUsrProfile);
         	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");

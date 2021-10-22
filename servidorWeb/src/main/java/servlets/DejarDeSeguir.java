@@ -43,6 +43,8 @@ public class DejarDeSeguir extends HttpServlet {
     } 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioNoExisteException, InstitucionException, ActividadDeportivaException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
     	DtUsuarioExt usr = null;
     	try {

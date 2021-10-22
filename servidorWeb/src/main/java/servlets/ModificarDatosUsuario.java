@@ -48,6 +48,8 @@ public class ModificarDatosUsuario extends HttpServlet {
     } 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
     	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
         try {

@@ -32,6 +32,8 @@ public class Actividades extends HttpServlet {
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
     	String nombreActDep = request.getParameter("actividad");
 		DtActividadDeportivaExt datosActDep = null;

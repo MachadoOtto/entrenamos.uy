@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import datatypes.DtActividadDeportiva;
+import datatypes.DtActividadDeportivaExt;
 import datatypes.DtCategoria;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;

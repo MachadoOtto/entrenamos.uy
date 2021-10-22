@@ -41,6 +41,8 @@ public class AltaAD extends HttpServlet {
         IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     }
     protected void processRequest(HttpServletRequest r, HttpServletResponse response) throws ServletException, IOException {
+    	r.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
     	String ru = r.getParameter("miurl");
         DtProfesorExt p = (DtProfesorExt) r.getSession().getAttribute("loggedUser");
         Set<String> cats = new HashSet<>();
