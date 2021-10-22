@@ -24,8 +24,8 @@ public class RegistroClase extends HttpServlet {
         super();
     }
     
-    protected void processRequest(HttpServletRequest request, 
-    		HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  
+    		HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
@@ -41,15 +41,15 @@ public class RegistroClase extends HttpServlet {
 		try {
 	    	if ((nombreClase != null) && (nombreActividad != null) && (nombreInstitucion != null) && (user != null)) {
 		    	if (tipoInsc.equals("general")) {
-		    		IDCC.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, user.getNickname(), 
-		    				TReg.general, new DtFecha(), null);
+		    		IDCC.inscribirSocio(nombreInstitucion,  nombreActividad,  nombreClase,  user.getNickname(),  
+		    				TReg.general,  new DtFecha(),  null);
 		    	} else if ((tipoInsc.equals("cuponera")) && (cuponera != null)) {
-		    		IDCC.inscribirSocio(nombreInstitucion, nombreActividad, nombreClase, user.getNickname(), 
-		    				TReg.cuponera, new DtFecha(), cuponera);
+		    		IDCC.inscribirSocio(nombreInstitucion,  nombreActividad,  nombreClase,  user.getNickname(),  
+		    				TReg.cuponera,  new DtFecha(),  cuponera);
 		    	}
 	    	}
 			DtUsuarioExt userReload = IUC.seleccionarUsuario(user.getNickname());
-			request.getSession().setAttribute("loggedUser", userReload);
+			request.getSession().setAttribute("loggedUser",  userReload);
 			link += "&e=6";
 		} catch(Exception ex) {
 			// error al implementar la logica
@@ -61,11 +61,11 @@ public class RegistroClase extends HttpServlet {
 		response.sendRedirect(link);
 	}
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+    protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
     
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 }

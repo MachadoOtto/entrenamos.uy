@@ -28,8 +28,8 @@ function registroCup(){
 
 $(window).load(function() {
 	try{
-	  	document.getElementById('radioGen').addEventListener('input',registroGen);
-  		document.getElementById('radioCup').addEventListener('input',registroCup);
+	  	document.getElementById('radioGen').addEventListener('input', registroGen);
+  		document.getElementById('radioCup').addEventListener('input', registroCup);
   		registroGen();	
 	} catch (error) {
 		console.error(error)	

@@ -6,7 +6,7 @@ public class ReciboCuponera {
 	private Cuponera cuponera;
 	private Socio socio;
 	
-	ReciboCuponera(DtFecha compra, Cuponera cupi, Socio socio){
+	ReciboCuponera(DtFecha compra,  Cuponera cupi,  Socio socio){
 		this.cuponera = cupi;
 		this.socio = socio;
 		fechaCompra = new DtFecha(compra);

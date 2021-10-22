@@ -16,8 +16,8 @@
           <div class="texto-bienvenida">
             <h1>Bienvenido a Entrenamos.uy!</h1>
             <p>
-              Es hora de moverse! Entrenamos.uy es la plataforma definitiva para hacer ejercicio sin moverse. Vea actividades deportivas, compre cuponeras e inscribase a clases
-              sin tener que despegarse de su pantalla. Gracias a nuestras instituciones afilidadas que proveen profesores experimentados, usted puede recibir la mejor experiencia
+              Es hora de moverse! Entrenamos.uy es la plataforma definitiva para hacer ejercicio sin moverse. Vea actividades deportivas,  compre cuponeras e inscribase a clases
+              sin tener que despegarse de su pantalla. Gracias a nuestras instituciones afilidadas que proveen profesores experimentados,  usted puede recibir la mejor experiencia
               deportiva que podría llegar a imaginarse. 
             </p>
           </div>
@@ -41,7 +41,7 @@
 				        <div class="col">
 				        	<h2>A sacudir los huesos!</h2>
 				          	<p>En entrenamos.uy tomamos todas las precauciones necesarias para que los huesos de nuestros clientes se mantengan sanos e integrales.
-				         De ahora en adelante, todas nuestras actividades deportivas son cuidadosamente analizadas y aprobadas como <b>Bone Safe</b>.</p>
+				         De ahora en adelante,  todas nuestras actividades deportivas son cuidadosamente analizadas y aprobadas como <b>Bone Safe</b>.</p>
 				        </div>
 				    </div>
 				    <div class="carousel-item">
@@ -51,7 +51,7 @@
 				        <div class="col">
 				        	<h2>Profesor del mes: <b>Viktor</b></h2>
 				          	<p>El equipo directivo de entrenamos.uy con gran placer felicita a <b>Viktor</b> por su larga trayectoria en el sitio.
-				          	 Proveniente de Moscow, Viktor vino a Uruguay a enseñar como levantar unas buenas pesas. Este no conoce los límites, y esto mismo
+				          	 Proveniente de Moscow,  Viktor vino a Uruguay a enseñar como levantar unas buenas pesas. Este no conoce los límites,  y esto mismo
 				          	 es lo que tanto motiva a sus estudiantes. Conozca más sobre este profesor
 				          	 <a href="<%=request.getContextPath()%>/usuarios?nickname=viktor" class="clase link-dark">visitando su perfil.</a> </p>
 				        </div>

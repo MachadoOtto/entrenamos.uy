@@ -12,7 +12,7 @@ public class ReciboClase {
 	private Cuponera cup;
 	
 	//
-//	ReciboClase(DtReciboClase d,Clase c,Socio s){
+//	ReciboClase(DtReciboClase d, Clase c, Socio s){
 //		aClase = c;
 //		aSocio = s;
 //		this.fechaInscripcion = d.fechaInscripcion;
@@ -20,7 +20,7 @@ public class ReciboClase {
 //		this.costo = d.costo;
 //	}
 	
-	ReciboClase(DtFecha fecha,TReg tipoRegistro, float precio, Clase aula, Socio individuoAsociadoAlClub, Cuponera cupon){
+	ReciboClase(DtFecha fecha,  TReg tipoRegistro,  float precio,  Clase aula,  Socio individuoAsociadoAlClub,  Cuponera cupon){
 		aSocio = individuoAsociadoAlClub;
 		aClase = aula;
 		fechaInscripcion = fecha;

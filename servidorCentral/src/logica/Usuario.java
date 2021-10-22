@@ -17,16 +17,16 @@ import datatypes.DtUsuario;
 
 public class Usuario {
 
-    protected String nickname, nombre, apellido, correo, contrasenia;
+    private String nickname,  nombre,  apellido,  correo,  contrasenia;
     
-    protected DtFecha fechaNacimiento;
+    private DtFecha fechaNacimiento;
     
-    protected byte[] imagen;
+    private byte[] imagen;
     
-    protected Map<String,Usuario> seguidos;
-    protected Map<String,Usuario> seguidores;
+    private Map<String,  Usuario> seguidos;
+    private Map<String,  Usuario> seguidores;
 
-    protected Usuario(String nick, String nombre, String apellido, String correo, String contrasenia, DtFecha fecha, byte[] imagen) {
+    protected Usuario(String nick,  String nombre,  String apellido,  String correo,  String contrasenia,  DtFecha fecha,  byte[] imagen) {
         this.setNickname(nick);
     	this.setNombre(nombre);
         this.setApellido(apellido);
@@ -90,11 +90,11 @@ public class Usuario {
     	return imagen;
     }
     
-    public Map<String,Usuario> getSeguidos() {
+    public Map<String,  Usuario> getSeguidos() {
     	return seguidos;
     }
     
-    public Map<String,Usuario> getSeguidores() {
+    public Map<String,  Usuario> getSeguidores() {
     	return seguidores;
     }
     
@@ -114,11 +114,11 @@ public class Usuario {
     }
     
     public void agregarSeguidor(Usuario manuelitoElUsuario) {
-    	seguidores.put(manuelitoElUsuario.getNickname(), manuelitoElUsuario);
+    	seguidores.put(manuelitoElUsuario.getNickname(),  manuelitoElUsuario);
     }
     
     public void agregarSeguido(Usuario robertoCarlos) {
-    	seguidos.put(robertoCarlos.getNickname(), robertoCarlos);
+    	seguidos.put(robertoCarlos.getNickname(),  robertoCarlos);
     }
     
     public void removerSeguidor(Usuario usuarioooooooooo) {

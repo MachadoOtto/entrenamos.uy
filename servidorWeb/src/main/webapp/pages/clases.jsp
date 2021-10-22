@@ -114,7 +114,7 @@
 		    		<%  List<String> nickAlumnos = datosClase.getNickAlumnos();%>
 		      		<h5>Usuarios Inscriptos (<%=nickAlumnos.size()%>)</h5>
 		      		<ul id="listaInscriptos" class="py-3">
-		      			<%  for(String alumno : nickAlumnos) { %>
+		      			<%  for (String alumno : nickAlumnos) { %>
 		      				<li class="container border card-body elementoLista">
 				           		<img alt="Default"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=alumno%>" class="vertical-align-middle imagenSeleccionable">
 				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno%>"><%=alumno%></a>

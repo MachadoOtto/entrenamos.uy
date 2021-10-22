@@ -58,7 +58,9 @@ public class DictadoClaseController implements IDictadoClaseController {
 						return res;
 					}
 				}
-			} catch(InstitucionException ignore){}
+			} catch(InstitucionException ignore){
+				;
+			}
 		}
 		return res;
 	}
@@ -70,8 +72,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 				if (getHI().findInstitucion(ins).getActDep(x).getEstado().equals(TEstado.aceptada)) {
 					res.add(x);
 				}
-			} catch (InstitucionException  ignore) {}
-			  catch (ActividadDeportivaException ignore) {}
+			} catch (InstitucionException  ignore) {
+				;
+			}
+			  catch (ActividadDeportivaException ignore) {
+				  ;
+			  }
 		}
 		return res;
 	}
@@ -84,11 +90,11 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return nickP;
 	}
 	
-	public Set<String> obtenerClases(String ins, String actDep) throws InstitucionException {
+	public Set<String> obtenerClases(String ins,  String actDep) throws InstitucionException {
 		return getHI().findInstitucion(ins).findActividad(actDep).getNombreClases();
 	}
 	
-	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, ClaseException,
+	public DtClaseExt seleccionarClase(String inst,  String actDep,  String clase) throws InstitucionException,  ClaseException, 
 			ActividadDeportivaException {
 		Clase classFind = getHI().findInstitucion(inst).getActDep(actDep).findClase(clase);
 		if (classFind != null) {
@@ -106,15 +112,19 @@ public class DictadoClaseController implements IDictadoClaseController {
 					try {
 						datosClase = getHI().findInstitucion(x).findActividad(y).findClase(nombreClase).getDt();
 						return datosClase;
-					} catch(ClaseException ignore) {}
+					} catch(ClaseException ignore) {
+						;
+					}
 				}
-			} catch(InstitucionException ignore) {}
+			} catch(InstitucionException ignore) {
+				;
+			}
 		}
 		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
 	}
 	
-	public int ingresarDatosClase(String ins, String actDep, DtClase datos) throws InstitucionException, FechaInvalidaException,
-			ClaseException, UsuarioNoExisteException, ActividadDeportivaException {
+	public int ingresarDatosClase(String ins,  String actDep,  DtClase datos) throws InstitucionException,  FechaInvalidaException, 
+			ClaseException,  UsuarioNoExisteException,  ActividadDeportivaException {
 		for (String x: getHI().obtenerInstituciones()) {
 			for (String y: getHI().findInstitucion(x).obtenerNombresActDep()) {
 				if (getHI().findInstitucion(x).findActividad(y).getNombreClases().contains(datos.getNombre())) {
@@ -130,13 +140,13 @@ public class DictadoClaseController implements IDictadoClaseController {
 		if (!actDept.getFechaRegistro().esMenor(datos.getFechaRegistro())) {
 			throw new FechaInvalidaException("La fecha de registro de la clase debe ser posterior a la fecha de registro de la actividad deportiva.");
 		} else {
-			return actDept.addClase(datos, profe);
+			return actDept.addClase(datos,  profe);
 		}
 	}
 	
-	public void inscribirSocio(String ins, String actDep, String clase, String socio, TReg tipoRegistro, DtFecha fechaReg, String cuponera) 
-			throws  ClaseException, FechaInvalidaException, NoExisteCuponeraException, InstitucionException, 
-			UsuarioNoExisteException, ActividadDeportivaException { 
+	public void inscribirSocio(String ins,  String actDep,  String clase,  String socio,  TReg tipoRegistro,  DtFecha fechaReg,  String cuponera) 
+			throws  ClaseException,  FechaInvalidaException,  NoExisteCuponeraException,  InstitucionException,  
+			UsuarioNoExisteException,  ActividadDeportivaException { 
 		ActividadDeportiva activity = getHI().findInstitucion(ins).getActDep(actDep);
 		Clase claseSelec = activity.findClase(clase);
 		claseSelec.hayLugar();
@@ -150,10 +160,10 @@ public class DictadoClaseController implements IDictadoClaseController {
 			throw new FechaInvalidaException("La Fecha de Inscripcion es posterior a la Fecha en la que inicia la Clase seleccionada.");
 		}
 		if (tipoRegistro==TReg.general) {
-			((Socio) getHU().findUsuario(socio)).inscribirSocio(activity, claseSelec, tipoRegistro, fechaReg, null);
+			((Socio) getHU().findUsuario(socio)).inscribirSocio(activity,  claseSelec,  tipoRegistro,  fechaReg,  null);
 		}
 		else {
-			((Socio) getHU().findUsuario(socio)).inscribirSocio(activity, claseSelec, tipoRegistro, fechaReg, getHC().getCup(cuponera));
+			((Socio) getHU().findUsuario(socio)).inscribirSocio(activity,  claseSelec,  tipoRegistro,  fechaReg,  getHC().getCup(cuponera));
 		}
 	}
 	
@@ -161,18 +171,20 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return getHU().obtenerNicknameSocios();
 	}
 	@Override
-	public Set<String> getCuponerasSocioClase(String nombreSocio, String nombreInst, String nombreAd, String nombreClase) {
+	public Set<String> getCuponerasSocioClase(String nombreSocio,  String nombreInst,  String nombreAd,  String nombreClase) {
 		Set<String> res = new HashSet<>();
 		try {
 			for (ReciboCuponera r :((Socio) getHU().findUsuario(nombreSocio)).getReciboCuponera())
 				if (r.getCuponera().getNombresActDep().contains(nombreAd)) {
 					res.add(r.getCuponera().getNombre());
 				}
-		} catch (UsuarioNoExisteException ignore) {}
+		} catch (UsuarioNoExisteException ignore) {
+			;
+		}
 		return res;
 	}
 // Guille: Esta funcion creo que no va.
-//	public void modificarDatosClase(String ins, String actDep,DtClase datos) {
+//	public void modificarDatosClase(String ins,  String actDep, DtClase datos) {
 //		HandlerInstitucion hi = HandlerInstitucion.getInstance();
 //		Institucion i = hi.findInstitucion(ins);
 //		ActividadDeportiva actDept = i.getActDep(actDep);
@@ -189,8 +201,8 @@ public class DictadoClaseController implements IDictadoClaseController {
 		return  HandlerUsuario.getInstance();
 	}
 
-	public Set<String> getCuponerasDisponibles(String nombreSocio, String nombreInsti, String nombreAd) 
-			throws UsuarioNoExisteException, InstitucionException, ActividadDeportivaException {
+	public Set<String> getCuponerasDisponibles(String nombreSocio,  String nombreInsti,  String nombreAd) 
+			throws UsuarioNoExisteException,  InstitucionException,  ActividadDeportivaException {
 		Set<String> cupsDisp = new HashSet<>();
 		ActividadDeportiva actDep = getHI().findInstitucion(nombreInsti).getActDep(nombreAd);
 		Set<String> clasesDeAct = ((Socio) getHU().findUsuario(nombreSocio)).getDtExt().getAguadeUwu().get(nombreAd);

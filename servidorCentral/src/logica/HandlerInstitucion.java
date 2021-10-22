@@ -24,7 +24,7 @@ public class HandlerInstitucion {
 	
 	private static HandlerInstitucion instance = null;
 	private Logger log;
-	private Map<String, Institucion> instituciones;
+	private Map<String,  Institucion> instituciones;
 	
 	private HandlerInstitucion() {
 		instituciones = new HashMap<>();
@@ -51,15 +51,15 @@ public class HandlerInstitucion {
 
 	public Set<String> obtenerInstituciones() { 
 		Set<String> nombreInstituciones = new HashSet<>();
-		for(Map.Entry<String, Institucion> x: instituciones.entrySet())
+		for (Map.Entry<String,  Institucion> x: instituciones.entrySet())
 			nombreInstituciones.add(x.getKey());
 		return nombreInstituciones; 
 	}
 
 	public int addInstitucion(Institucion ins) {
 		if (!existeInstitucion(ins.getNombre())) {
-			instituciones.put(ins.getNombre(), ins);
-			log.info("Institucion "+ins.getNombre()+"registered, total: "+instituciones.size());
+			instituciones.put(ins.getNombre(),  ins);
+			log.info("Institucion "+ins.getNombre()+"registered,  total: "+instituciones.size());
 			return 0;
 		}
 		return 1;

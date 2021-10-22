@@ -37,7 +37,7 @@
 									audio.play()
 					}
 					var x = document.getElementById("ohno");
-					ohno.addEventListener("click",play);
+					ohno.addEventListener("click", play);
 				</script>
 	<script>
 		function play(){
@@ -45,7 +45,7 @@
 						audio.play()
 		}
 		var x = document.getElementById("ohno");
-		ohno.addEventListener("click",play);
+		ohno.addEventListener("click", play);
 	</script>
 </body>
 </html>

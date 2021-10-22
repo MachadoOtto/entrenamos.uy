@@ -43,7 +43,7 @@ public class PerfilUsuario extends HttpServlet {
         IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
     }
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
@@ -54,7 +54,7 @@ public class PerfilUsuario extends HttpServlet {
         	
         	//Obtención de clases dictadas (Profesor)
         	List<DtClaseExt> clasesDictadasProfesor = new ArrayList<>();
-        	if(usr instanceof DtProfesorExt) {
+        	if (usr instanceof DtProfesorExt) {
         		Set<String> clases = ((DtProfesorExt)usr).getClasesDictadas();
         		for (String x : clases) {
         			clasesDictadasProfesor.add(IDCC.buscarClase(x));
@@ -63,7 +63,7 @@ public class PerfilUsuario extends HttpServlet {
         	
         	//Obtención de clases a las que se está inscripto (Socio)
         	List<DtClaseExt> clasesInscriptoSocio = new ArrayList<>();
-        	if(usr instanceof DtSocioExt) {
+        	if (usr instanceof DtSocioExt) {
         		Set<String> clases = ((DtSocioExt)usr).getClases();
         		for (String x : clases) {
         			clasesInscriptoSocio.add(IDCC.buscarClase(x));
@@ -86,7 +86,7 @@ public class PerfilUsuario extends HttpServlet {
     		
     		//Obtención de cuponeras
         	List<DtCuponera> cuponerasIngresadasSocio = new ArrayList<>();
-        	if(usr instanceof DtSocioExt) {
+        	if (usr instanceof DtSocioExt) {
         		Set<String> cuponeras = ((DtSocioExt)usr).getCuponerasCompradas();
         		for (String x : cuponeras) {
         			cuponerasIngresadasSocio.add(ICC.seleccionarCuponera(x));
@@ -95,44 +95,44 @@ public class PerfilUsuario extends HttpServlet {
         	
         	//Obtención de actividades asociadas
         	List<DtActividadDeportivaExt> actAsociadasProfesor = new ArrayList<>();
-        	if(usr instanceof DtProfesorExt) {
+        	if (usr instanceof DtProfesorExt) {
         		Set<String> actividades = ((DtProfesorExt)usr).getActividadesDepAsociadas();
         		for (String x : actividades) {
-        			actAsociadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(), x));
+        			actAsociadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(),  x));
         		}
         	}
         	
         	//Obtención de actividades ingresadas
         	List<DtActividadDeportivaExt> actIngresadasProfesor = new ArrayList<>();
-        	if(usr instanceof DtProfesorExt) {
+        	if (usr instanceof DtProfesorExt) {
         		Set<String> actividades = ((DtProfesorExt)usr).getActividadesIngresadas();
         		for (String x : actividades) {
-        			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(), x));
+        			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(),  x));
         		}
         	}
         	        	
-        	request.setAttribute("datoUsuario", usr);
-        	request.setAttribute("clasesDictadas", clasesDictadasProfesor);
-        	request.setAttribute("clasesInscripto", clasesInscriptoSocio);
-        	request.setAttribute("seguidores", seguidores);
-        	request.setAttribute("seguidos", seguidos);
-        	request.setAttribute("cuponeras", cuponerasIngresadasSocio);
-        	request.setAttribute("actividadesAsociadas", actAsociadasProfesor);
-        	request.setAttribute("actividadesIngresadas", actIngresadasProfesor);
+        	request.setAttribute("datoUsuario",  usr);
+        	request.setAttribute("clasesDictadas",  clasesDictadasProfesor);
+        	request.setAttribute("clasesInscripto",  clasesInscriptoSocio);
+        	request.setAttribute("seguidores",  seguidores);
+        	request.setAttribute("seguidos",  seguidos);
+        	request.setAttribute("cuponeras",  cuponerasIngresadasSocio);
+        	request.setAttribute("actividadesAsociadas",  actAsociadasProfesor);
+        	request.setAttribute("actividadesIngresadas",  actIngresadasProfesor);
         	
         } catch(Exception e) {
         	e.printStackTrace();
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
         	return;
         }
-        request.getRequestDispatcher("pages/usuarios.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/usuarios.jsp").forward(request,  response);
     }
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 }

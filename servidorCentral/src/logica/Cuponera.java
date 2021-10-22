@@ -10,18 +10,18 @@ import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
 
 public class Cuponera {
-	private String nombre,descripcion,img;
-	private DtFecha fechaInicio,fechaFin,fechaAlta;
-	private float descuento,costo;
+	private String nombre,  descripcion,  img;
+	private DtFecha fechaInicio,  fechaFin,  fechaAlta;
+	private float descuento,  costo;
 	
 	private List<ClasesCuponera> clasesCuphead;
 	private List<ReciboCuponera> recibosCuponardos;
 	private Set<Categoria> categorias;
 	
-	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin, DtFecha fechaAlta){
+	Cuponera(String nombre,  String descripcion,  int descuento,  DtFecha fechaInicio,  DtFecha fechaFin,  DtFecha fechaAlta){
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.descuento = (float)descuento;
+		this.descuento = (float) descuento;
 		this.fechaInicio = new DtFecha(fechaInicio);
 		this.fechaFin = new DtFecha(fechaFin);
 		this.fechaAlta = new DtFecha(fechaAlta);
@@ -65,16 +65,16 @@ public class Cuponera {
 	
 	public List<String> getNombresActDep(){
 		List<String> nomnom = new ArrayList<>();
-		for(ClasesCuponera cc: clasesCuphead) {
+		for (ClasesCuponera cc: clasesCuphead) {
 			nomnom.add(cc.getNombreActDep());
 		}
 		return nomnom;
 	}
 	
-	public void addActDep(ActividadDeportiva act, int num) throws CuponeraInmutableException{
-		if(recibosCuponardos.size()>0)
+	public void addActDep(ActividadDeportiva act,  int num) throws CuponeraInmutableException{
+		if (recibosCuponardos.size()>0)
 			throw new CuponeraInmutableException("No es posible modificar la cuponera dado que ya hay socios que la compraron.");
-		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
+		ClasesCuponera claCup = new ClasesCuponera(num,  this,  act);
 		clasesCuphead.add(claCup);
 		categorias.addAll(act.getCategorias());
 		act.addClasesCup(claCup);
@@ -82,15 +82,15 @@ public class Cuponera {
 	}
 	
 	public int cantidadClases(ActividadDeportiva actDep) {
-		for(ClasesCuponera cc: clasesCuphead) {
-			if(cc.getNombreActDep() == actDep.getNombre())
+		for (ClasesCuponera cc: clasesCuphead) {
+			if (cc.getNombreActDep() == actDep.getNombre())
 				return cc.getCantidadClases();
 		}
 		return 0;
 	}
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
-		for(ClasesCuponera cc: clasesCuphead) {
-			if(cc.getNombreActDep() == actDep.getNombre())
+		for (ClasesCuponera cc: clasesCuphead) {
+			if (cc.getNombreActDep() == actDep.getNombre())
 				return true;
 		}
 		return false;
@@ -98,15 +98,15 @@ public class Cuponera {
 	public DtCuponera getDt() {
 		List<DtClasesCuponera> datosClases = new ArrayList<>();
 		List<String> nombresCat = new ArrayList<>();
-		for(ClasesCuponera cc: clasesCuphead) {
-			DtClasesCuponera datosClaseCuponera = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
+		for (ClasesCuponera cc: clasesCuphead) {
+			DtClasesCuponera datosClaseCuponera = new DtClasesCuponera(cc.getNombreActDep(),  cc.getCantidadClases());
 			datosClases.add(datosClaseCuponera);
 		}
-		for(Categoria c: categorias) {
+		for (Categoria c: categorias) {
 			nombresCat.add(c.getNombre());
 		}
-		DtCuponera datosCup = new DtCuponera(getNombre(), getDescripcion(), getDescuento(), getCosto(), getFechaInicio(),
-				getFechaFin(), getFechaAlta(), datosClases,nombresCat,getImg());
+		DtCuponera datosCup = new DtCuponera(getNombre(),  getDescripcion(),  getDescuento(),  getCosto(),  getFechaInicio(), 
+				getFechaFin(),  getFechaAlta(),  datosClases,  nombresCat,  getImg());
 		return datosCup;
 	}
 	public void addRecibo(ReciboCuponera reciboCup) {

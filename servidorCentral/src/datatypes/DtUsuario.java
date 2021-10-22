@@ -2,11 +2,11 @@ package datatypes;
 
 public class DtUsuario {
 
-	private String nickname, nombre, apellido, email, contrasenia;
+	private String nickname,   nombre,   apellido,   email,   contrasenia;
 	private DtFecha fechaNacimiento;
 	private byte[] imagen;
 	
-	public DtUsuario (String nickname, String nombre, String apellido, String email, String contrasenia,DtFecha fechaNacimiento,byte[] imagen) {
+	public DtUsuario(String nickname,   String nombre,   String apellido,   String email,   String contrasenia,  DtFecha fechaNacimiento,  byte[] imagen) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;

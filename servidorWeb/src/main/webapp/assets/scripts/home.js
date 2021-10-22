@@ -1,5 +1,5 @@
 function swapIniRegModals(){
-    $('.modal').css('overflow-y', 'auto');
+    $('.modal').css('overflow-y',  'auto');
     bootstrap.Modal.getOrCreateInstance(document.getElementById('inicioSesionModal')).toggle();
     bootstrap.Modal.getOrCreateInstance(document.getElementById('registroModal')).toggle();
 }
@@ -18,7 +18,7 @@ function registroProfe(){
 $(window).load(function() {
     document.getElementById('regLink').onclick = swapIniRegModals;
     document.getElementById('iniLink').onclick = swapIniRegModals;
-    document.getElementById('radioSocio').addEventListener('input',registroSocio);
-    document.getElementById('radioProfe').addEventListener('input',registroProfe);
+    document.getElementById('radioSocio').addEventListener('input', registroSocio);
+    document.getElementById('radioProfe').addEventListener('input', registroProfe);
     registroSocio();
 });

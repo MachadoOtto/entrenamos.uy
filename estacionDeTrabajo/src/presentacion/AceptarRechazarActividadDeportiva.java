@@ -44,55 +44,55 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 		private JButton accept;
 		private JButton reject;
 		private String ad;
-		ARPanel(String a,IActividadDeportivaController IADC){
+		ARPanel(String a, IActividadDeportivaController IADC){
 			ad = a;
 			p = new JPanel();
-			p.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+			p.setBorder(new LineBorder(new Color(0,  0,  0),  1,  true));
 			GridBagLayout pg = new GridBagLayout();
-			pg.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-			pg.rowHeights = new int[]{0, 0, 0};
-			pg.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-			pg.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			pg.columnWidths = new int[]{0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+			pg.rowHeights = new int[]{0,  0,  0};
+			pg.columnWeights = new double[]{0.0,  1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  Double.MIN_VALUE};
+			pg.rowWeights = new double[]{0.0,  0.0,  Double.MIN_VALUE};
 			p.setLayout(pg);
 			
 			Component horizontalStrut = Box.createHorizontalStrut(20);
 			GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
-			gbc_horizontalStrut.insets = new Insets(0, 0, 0, 5);
+			gbc_horizontalStrut.insets = new Insets(0,  0,  0,  5);
 			gbc_horizontalStrut.gridx = 0;
 			gbc_horizontalStrut.gridy = 1;
-			p.add(horizontalStrut, gbc_horizontalStrut);
+			p.add(horizontalStrut,  gbc_horizontalStrut);
 			
 			n = new JLabel(ad);
 			GridBagConstraints ng = new GridBagConstraints();
 			ng.anchor = GridBagConstraints.WEST;
-			ng.insets = new Insets(0, 0, 0, 5);
+			ng.insets = new Insets(0,  0,  0,  5);
 			ng.gridx = 1;
 			ng.gridy = 1;
-			p.add(n, ng);
+			p.add(n,  ng);
 			
 			accept = new JButton("Aceptar");
 			GridBagConstraints acceptg = new GridBagConstraints();
-			acceptg.insets = new Insets(0, 0, 0, 5);
+			acceptg.insets = new Insets(0,  0,  0,  5);
 			acceptg.gridx = 6;
 			acceptg.gridy = 1;
-			p.add(accept, acceptg);
+			p.add(accept,  acceptg);
 			
 			reject = new JButton("Rechazar");
 			GridBagConstraints rejectg = new GridBagConstraints();
-			rejectg.insets = new Insets(0, 0, 0, 5);
+			rejectg.insets = new Insets(0,  0,  0,  5);
 			rejectg.gridx = 7;
 			rejectg.gridy = 1;
-			p.add(reject, rejectg);
+			p.add(reject,  rejectg);
 			
 			accept.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					IADC.aprobarActividad(ad, TEstado.aceptada);
+					IADC.aprobarActividad(ad,  TEstado.aceptada);
 					destruir();			
 				}
 			});
 			reject.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					IADC.aprobarActividad(ad, TEstado.rechazada);
+					IADC.aprobarActividad(ad,  TEstado.rechazada);
 					destruir();
 				}
 			});
@@ -117,12 +117,12 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 			public void componentShown(ComponentEvent e) {
 				panel.removeAll();
 				Set<String> ADI = IADC.obtenerActDepIngresadas();
-				if(ADI.size()!=0) {
+				if (ADI.size()!=0) {
 					JLabel lblNewLabel = new JLabel("Actividades pendientes de aprobar:");
 					scrollPane.setColumnHeaderView(lblNewLabel);
 					
-					for(String x: ADI) {
-						ARPanel p1 = new ARPanel(x,IADC);
+					for (String x: ADI) {
+						ARPanel p1 = new ARPanel(x, IADC);
 						panel.add(p1.getPanel());
 						Component hh = Box.createVerticalStrut(5);
 						panel.add(hh);
@@ -139,12 +139,12 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
         	public void mouseEntered(MouseEvent e) {
 				panel.removeAll();
 				Set<String> ADI = IADC.obtenerActDepIngresadas();
-				if(ADI.size()!=0) {
+				if (ADI.size()!=0) {
 					JLabel lblNewLabel = new JLabel("Actividades pendientes de aprobar:");
 					scrollPane.setColumnHeaderView(lblNewLabel);
 					
-					for(String x: ADI) {
-						ARPanel p1 = new ARPanel(x,IADC);
+					for (String x: ADI) {
+						ARPanel p1 = new ARPanel(x, IADC);
 						panel.add(p1.getPanel());
 						Component hh = Box.createVerticalStrut(5);
 						panel.add(hh);
@@ -163,7 +163,7 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 		setClosable(true);
 		setMaximizable(true);
 		setIconifiable(true);
-		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		getContentPane().setLayout(new BoxLayout(getContentPane(),  BoxLayout.X_AXIS));
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -178,15 +178,15 @@ public class AceptarRechazarActividadDeportiva extends JInternalFrame{
 			}
 		});
 		scrollPane.setViewportView(panel);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new BoxLayout(panel,  BoxLayout.Y_AXIS));
 		
 		Set<String> ADI = IADC.obtenerActDepIngresadas();
-		if(ADI.size()!=0) {
+		if (ADI.size()!=0) {
 			JLabel lblNewLabel = new JLabel("Actividades pendientes de aprobar:");
 			scrollPane.setColumnHeaderView(lblNewLabel);
 			
-			for(String x: ADI) {
-				ARPanel p1 = new ARPanel(x,IADC);
+			for (String x: ADI) {
+				ARPanel p1 = new ARPanel(x, IADC);
 				panel.add(p1.getPanel());
 				Component hh = Box.createVerticalStrut(5);
 				panel.add(hh);

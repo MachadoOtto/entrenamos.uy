@@ -7,14 +7,14 @@
 <%! @SuppressWarnings("unchecked") %>
 <% 
 DtUsuarioExt u = (DtUsuarioExt)request.getSession().getAttribute("loggedUser");
-if(u!=null){
+if (u!=null){
 	%>
 	<nav style="margin-bottom: 3em;" class="extraInfoDiv ins-cat-section nav flex-column">
 	<h1 class="fs-5">Acciones</h1>
        <button type="button" id="btn-myUser" class="btn btn-link" onclick="location.href='<%=request.getContextPath()%>/usuarios?nickname=<%=u.getNickname()%>'">
         	Ir a mi perfil
     	</button>
-	<% if(u instanceof DtProfesorExt){ %>
+	<% if (u instanceof DtProfesorExt){ %>
 	   <button type="button" id="btn-altaActDep" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#altaActModal">
             Alta Actividad Deportiva
       </button>
@@ -27,7 +27,7 @@ if(u!=null){
   <h1 class="fs-5">Instituciones</h1>
   <%
   Set<String> s = (Set<String>)request.getAttribute("stdInstituciones");
-  for(String x: s){ %>
+  for (String x: s){ %>
   	<a class="nav-link" href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrI1=<%=x%>"><%=x%></a>
   <%} %>
 </nav>
@@ -35,7 +35,7 @@ if(u!=null){
   <h1 class="fs-5">Categorías</h1>
   <%
   Set<String> s2 = (Set<String>)request.getAttribute("stdCategorias");
-  for(String x: s2){ %>
+  for (String x: s2){ %>
   	<a class="nav-link" href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"><%=x%></a>
   <%} %>
 </nav>

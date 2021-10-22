@@ -77,14 +77,14 @@ public class ConsultaDictadoClase extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Consulta de Dictado de Clase");
-		setBounds(10, 40, 392, 418);
+		setBounds(10,  40,  392,  418);
 		
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
-	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 30, 30, 10 };
-	    gridBagLayout.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30 };
-	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
+	    gridBagLayout.columnWidths = new int[] { 30,  60,  60,  30,  30,  10 };
+	    gridBagLayout.rowHeights = new int[] { 30,  30,  30,  30,  30,  30,  30,  30,  30,  30,  30,  30 };
+	    gridBagLayout.columnWeights = new double[] { 0.0,  1.0,  1.0,  1.0,  1.0,  Double.MIN_VALUE };
+	    gridBagLayout.rowWeights = new double[] { 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  1.0,  0.0,  0.0,  0.0,  0.0 };
 	    getContentPane().setLayout(gridBagLayout);
         
         // JLabels:
@@ -93,30 +93,30 @@ public class ConsultaDictadoClase extends JInternalFrame {
         GridBagConstraints gbc_lblSeleccionInstitucion = new GridBagConstraints();
         gbc_lblSeleccionInstitucion.gridwidth = 2;
         gbc_lblSeleccionInstitucion.fill = GridBagConstraints.BOTH;
-        gbc_lblSeleccionInstitucion.insets = new Insets(0, 0, 5, 5);
+        gbc_lblSeleccionInstitucion.insets = new Insets(0,  0,  5,  5);
         gbc_lblSeleccionInstitucion.gridx = 1;
         gbc_lblSeleccionInstitucion.gridy = 0;
-        getContentPane().add(lblSeleccionInstitucion, gbc_lblSeleccionInstitucion);
+        getContentPane().add(lblSeleccionInstitucion,  gbc_lblSeleccionInstitucion);
         
         lblSeleccionActividad = new JLabel("Seleccione Actividad Deportiva:");
         lblSeleccionActividad.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc_lblSeleccionActividad = new GridBagConstraints();
         gbc_lblSeleccionActividad.gridwidth = 2;
         gbc_lblSeleccionActividad.fill = GridBagConstraints.BOTH;
-        gbc_lblSeleccionActividad.insets = new Insets(0, 0, 5, 5);
+        gbc_lblSeleccionActividad.insets = new Insets(0,  0,  5,  5);
         gbc_lblSeleccionActividad.gridx = 1;
         gbc_lblSeleccionActividad.gridy = 2;
-        getContentPane().add(lblSeleccionActividad, gbc_lblSeleccionActividad);
+        getContentPane().add(lblSeleccionActividad,  gbc_lblSeleccionActividad);
         
         lblSeleccionClase = new JLabel("Seleccione Clase:");
         lblSeleccionClase.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc_lblSeleccionClase = new GridBagConstraints();
         gbc_lblSeleccionClase.gridwidth = 2;
         gbc_lblSeleccionClase.fill = GridBagConstraints.BOTH;
-        gbc_lblSeleccionClase.insets = new Insets(0, 0, 5, 5);
+        gbc_lblSeleccionClase.insets = new Insets(0,  0,  5,  5);
         gbc_lblSeleccionClase.gridx = 1;
         gbc_lblSeleccionClase.gridy = 4;
-        getContentPane().add(lblSeleccionClase, gbc_lblSeleccionClase);
+        getContentPane().add(lblSeleccionClase,  gbc_lblSeleccionClase);
         
         // JComboBox:
         boxInstitucion = new JComboBox<>();
@@ -128,11 +128,11 @@ public class ConsultaDictadoClase extends JInternalFrame {
 			}
 			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
 				Set<String> tt = controlClase.obtenerInstituciones();
-				if(boxInstitucion.getItemCount()!=tt.size()+1) {
+				if (boxInstitucion.getItemCount()!=tt.size()+1) {
 					String t = (String) boxInstitucion.getSelectedItem();
 					boxInstitucion.removeAllItems();
 					boxInstitucion.addItem("-");
-					for(String x: controlClase.obtenerInstituciones()) {
+					for (String x: controlClase.obtenerInstituciones()) {
 						boxInstitucion.addItem(x);
 					}
 					boxInstitucion.setSelectedItem(t);
@@ -170,11 +170,11 @@ public class ConsultaDictadoClase extends JInternalFrame {
         });
         GridBagConstraints gbc_boxInstitucion = new GridBagConstraints();
         gbc_boxInstitucion.gridwidth = 3;
-        gbc_boxInstitucion.insets = new Insets(0, 0, 5, 0);
+        gbc_boxInstitucion.insets = new Insets(0,  0,  5,  0);
         gbc_boxInstitucion.fill = GridBagConstraints.HORIZONTAL;
         gbc_boxInstitucion.gridx = 1;
         gbc_boxInstitucion.gridy = 1;
-        getContentPane().add(boxInstitucion, gbc_boxInstitucion);
+        getContentPane().add(boxInstitucion,  gbc_boxInstitucion);
         
         boxActividad = new JComboBox<>();
         boxActividad.setEnabled(false);
@@ -186,7 +186,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	    			DefaultComboBoxModel<String> modelClase = new DefaultComboBoxModel<>();
 	    			modelClase.addElement("-");
 	    			if (selectIndex > 0) {
-	        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()), 
+	        			Set<String> clases = controlClase.obtenerClases(boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex()),  
 	        					boxActividad.getItemAt(selectIndex));
 	                    for (String x: clases) {
 	                    	modelClase.addElement(x);
@@ -210,24 +210,24 @@ public class ConsultaDictadoClase extends JInternalFrame {
         });
         GridBagConstraints gbc_boxActividad = new GridBagConstraints();
         gbc_boxActividad.gridwidth = 3;
-        gbc_boxActividad.insets = new Insets(0, 0, 5, 0);
+        gbc_boxActividad.insets = new Insets(0,  0,  5,  0);
         gbc_boxActividad.fill = GridBagConstraints.HORIZONTAL;
         gbc_boxActividad.gridx = 1;
         gbc_boxActividad.gridy = 3;
-        getContentPane().add(boxActividad, gbc_boxActividad);
+        getContentPane().add(boxActividad,  gbc_boxActividad);
         
         boxClase = new JComboBox<>();
         GridBagConstraints gbc_boxClase = new GridBagConstraints();
         gbc_boxClase.gridwidth = 3;
-        gbc_boxClase.insets = new Insets(0, 0, 5, 0);
+        gbc_boxClase.insets = new Insets(0,  0,  5,  0);
         gbc_boxClase.fill = GridBagConstraints.HORIZONTAL;
         gbc_boxClase.gridx = 1;
         gbc_boxClase.gridy = 5;
-        getContentPane().add(boxClase, gbc_boxClase);
+        getContentPane().add(boxClase,  gbc_boxClase);
         boxClase.setEnabled(false);
         boxClase.addItemListener(new ItemListener() {
         	public void itemStateChanged(ItemEvent e) {
-        		if(boxClase.getSelectedIndex() > 0 && boxInstitucion.getSelectedIndex()>0 && boxActividad.getSelectedIndex()>0) {
+        		if (boxClase.getSelectedIndex() > 0 && boxInstitucion.getSelectedIndex()>0 && boxActividad.getSelectedIndex()>0) {
         			desplegarClase();
         		}
         		else {
@@ -247,20 +247,20 @@ public class ConsultaDictadoClase extends JInternalFrame {
         lblInformacin.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc_lblInformacin = new GridBagConstraints();
         gbc_lblInformacin.anchor = GridBagConstraints.WEST;
-        gbc_lblInformacin.insets = new Insets(0, 0, 5, 5);
+        gbc_lblInformacin.insets = new Insets(0,  0,  5,  5);
         gbc_lblInformacin.gridx = 1;
         gbc_lblInformacin.gridy = 6;
-        getContentPane().add(lblInformacin, gbc_lblInformacin);
+        getContentPane().add(lblInformacin,  gbc_lblInformacin);
         
         scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 4;
 		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(0,  0,  5,  5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 7;
-		add(scrollPane, gbc_scrollPane);
+		add(scrollPane,  gbc_scrollPane);
         
         treeCuponera = new JTree();
         scrollPane.setViewportView(treeCuponera);
@@ -276,15 +276,15 @@ public class ConsultaDictadoClase extends JInternalFrame {
 				}
 			));
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
-		treeCuponera.setBorder(BorderFactory.createCompoundBorder(border, 
-			      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+		treeCuponera.setBorder(BorderFactory.createCompoundBorder(border,  
+			      BorderFactory.createEmptyBorder(10,  10,  10,  10)));
         GridBagConstraints gbc_treeCuponera = new GridBagConstraints();
         gbc_treeCuponera.gridwidth = 3;
         gbc_treeCuponera.gridheight = 4;
         gbc_treeCuponera.fill = GridBagConstraints.BOTH;
         gbc_treeCuponera.gridx = 1;
         gbc_treeCuponera.gridy = 7;
-        //getContentPane().add(treeCuponera, gbc_treeCuponera);
+        //getContentPane().add(treeCuponera,  gbc_treeCuponera);
 	}
 
 	// Cargar Datos al JComboBox
@@ -293,7 +293,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
         DefaultComboBoxModel<String> model;
         model = new DefaultComboBoxModel<>();
         model.addElement("-");
-        for(String x: controlClase.obtenerInstituciones()) {
+        for (String x: controlClase.obtenerInstituciones()) {
             model.addElement(x);
         }
         boxInstitucion.setModel(model);
@@ -304,7 +304,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	        String nombreInstitucion = boxInstitucion.getItemAt(boxInstitucion.getSelectedIndex());
 	        String nombreActividad = boxActividad.getItemAt(boxActividad.getSelectedIndex());
 	        String nombreClase = boxClase.getItemAt(boxClase.getSelectedIndex());
-	        DtClaseExt x = controlClase.seleccionarClase(nombreInstitucion, nombreActividad, nombreClase);
+	        DtClaseExt x = controlClase.seleccionarClase(nombreInstitucion,  nombreActividad,  nombreClase);
 	        
 			treeCuponera.setModel(new DefaultTreeModel(
 					new DefaultMutableTreeNode("Cuponera \""+x.getNombre()+"\"") {
@@ -320,10 +320,10 @@ public class ConsultaDictadoClase extends JInternalFrame {
 							add(new DefaultMutableTreeNode("Fecha de registro: "+x.getFechaRegistro().toFecha()));
 							
 							DefaultMutableTreeNode nodoA = new DefaultMutableTreeNode("Socios inscriptos");
-							for(String v: x.getAlumnos()) {
+							for (String v: x.getAlumnos()) {
 								nodoA.add(new DefaultMutableTreeNode(v));
 							}
-							if(nodoA.getChildCount()==0) {
+							if (nodoA.getChildCount()==0) {
 								nodoA.add(new DefaultMutableTreeNode("No hay socios inscriptos a esta clase."));
 							}
 							add(nodoA);
@@ -331,11 +331,11 @@ public class ConsultaDictadoClase extends JInternalFrame {
 					}
 				));
     	} catch (InstitucionException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this,  e.getMessage(),  getTitle(),  JOptionPane.ERROR_MESSAGE);
 		}  catch (ClaseException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this,  e.getMessage(),  getTitle(),  JOptionPane.ERROR_MESSAGE);
 		} catch (ActividadDeportivaException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);		
+			JOptionPane.showMessageDialog(this,  e.getMessage(),  getTitle(),  JOptionPane.ERROR_MESSAGE);		
 		}
     }
     
@@ -349,20 +349,20 @@ public class ConsultaDictadoClase extends JInternalFrame {
         boxClase.setEnabled(false);
     }
 
-	public void refEntry(String act, String cla) {
+	public void refEntry(String act,  String cla) {
 		try {
 	        DefaultComboBoxModel<String> model;
 	        String institf=null;
 	        model = new DefaultComboBoxModel<>();
 	        model.addElement("-");
-	        for(String x: controlClase.obtenerInstituciones()) {
+	        for (String x: controlClase.obtenerInstituciones()) {
 	            model.addElement(x);
-	            for(String y: controlClase.obtenerActividades(x)) {
-	            	if(y.equals(act)) {
+	            for (String y: controlClase.obtenerActividades(x)) {
+	            	if (y.equals(act)) {
 	            		institf = x;
 	            	}
 	            }
-	            if(institf != null)
+	            if (institf != null)
 	            	break;
 	        }
 	        boxInstitucion.setModel(model);
@@ -376,7 +376,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 	        boxActividad.setEnabled(true);
 	        boxActividad.setModel(modelActividad);
 	        boxActividad.getModel().setSelectedItem(act);
-			Set<String> clases = controlClase.obtenerClases(institf, act);
+			Set<String> clases = controlClase.obtenerClases(institf,  act);
 			DefaultComboBoxModel<String> modelClases = new DefaultComboBoxModel<>();
 			modelClases.addElement("-");
 	        for (String x: clases) {
@@ -392,7 +392,7 @@ public class ConsultaDictadoClase extends JInternalFrame {
 				this.setVisible(true);
 			}
 		} catch (InstitucionException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this,  e.getMessage(),  getTitle(),  JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

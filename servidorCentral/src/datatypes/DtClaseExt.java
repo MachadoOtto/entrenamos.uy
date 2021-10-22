@@ -7,15 +7,15 @@ public class DtClaseExt extends DtClase {
 	private List<String> alumnos;
 	private List<String> soloNickAlumnos;
 	
-	public DtClaseExt(String nom, String nickP,String correoP, int min, int max, String url, DtFecha fechC, DtFecha fechR, 
-			List<String> als, List<String> soloNickAlumnos) {
-		super(nom, nickP,correoP, min, max, url, fechC, fechR);
+	public DtClaseExt(String nom,   String nickP,  String correoP,   int min,   int max,   String url,   DtFecha fechC,   DtFecha fechR,   
+			List<String> als,   List<String> soloNickAlumnos) {
+		super(nom,   nickP,  correoP,   min,   max,   url,   fechC,   fechR);
 		this.alumnos = als;
 		this.soloNickAlumnos = soloNickAlumnos;
 	}
-	public DtClaseExt(String nom, String nickP,String correoP, int min, int max, String url, DtFecha fechC, DtFecha fechR, 
-			List<String> als, List<String> soloNickAlumnos,String img) {
-		super(nom, nickP,correoP, min, max, url, fechC, fechR,img);
+	public DtClaseExt(String nom,   String nickP,  String correoP,   int min,   int max,   String url,   DtFecha fechC,   DtFecha fechR,   
+			List<String> als,   List<String> soloNickAlumnos,  String img) {
+		super(nom,   nickP,  correoP,   min,   max,   url,   fechC,   fechR,  img);
 		this.alumnos = als;
 		this.soloNickAlumnos = soloNickAlumnos;
 	}

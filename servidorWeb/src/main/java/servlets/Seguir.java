@@ -42,7 +42,7 @@ public class Seguir extends HttpServlet {
         IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     } 
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UsuarioNoExisteException, InstitucionException, ActividadDeportivaException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException,  UsuarioNoExisteException,  InstitucionException,  ActividadDeportivaException {
     	DtUsuarioExt usr = null;
     	try {
         	request.setCharacterEncoding("utf-8");
@@ -52,24 +52,24 @@ public class Seguir extends HttpServlet {
         	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
     		
         	//Caso de uso
-        	IUC.seguir(usrLogged.getNickname(),nombreUsrProfile);
+        	IUC.seguir(usrLogged.getNickname(), nombreUsrProfile);
     		
         	//Actualización y obtención de datos
     		List<DtActividadDeportivaExt> actIngresadasProfesor = new ArrayList<>();
-        	if(usr instanceof DtProfesorExt) {
+        	if (usr instanceof DtProfesorExt) {
         		Set<String> actividades = ((DtProfesorExt)usr).getActividadesIngresadas();
         		for (String x : actividades) {
-        			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(), x));
+        			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(),  x));
         		}
         	}
         	usrLogged = IUC.seleccionarUsuario(usrLogged.getNickname());
         	usr = IUC.seleccionarUsuario(usr.getNickname());
         	
         	//Envio de información actualizada
-        	request.setAttribute("actividadesIngresadas", actIngresadasProfesor);
-        	request.getSession().setAttribute("loggedUser",usrLogged);
-        	request.setAttribute("datoUsuario", usr);
-        	//request.getRequestDispatcher("/usuarios?nickname=" + usr.getNickname()).forward(request, response);
+        	request.setAttribute("actividadesIngresadas",  actIngresadasProfesor);
+        	request.getSession().setAttribute("loggedUser", usrLogged);
+        	request.setAttribute("datoUsuario",  usr);
+        	//request.getRequestDispatcher("/usuarios?nickname=" + usr.getNickname()).forward(request,  response);
         	response.sendRedirect(request.getContextPath() +"/usuarios?nickname=" + usr.getNickname());
 		} catch (Exception e2) {
 			e2.printStackTrace();
@@ -78,9 +78,9 @@ public class Seguir extends HttpServlet {
 		}
     }
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
         try {
-			processRequest(request, response);
+			processRequest(request,  response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/400.jsp");
@@ -88,9 +88,9 @@ public class Seguir extends HttpServlet {
 		}
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
 		try {
-			processRequest(request, response);
+			processRequest(request,  response);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/400.jsp");

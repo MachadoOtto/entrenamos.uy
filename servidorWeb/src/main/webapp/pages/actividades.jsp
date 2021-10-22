@@ -48,7 +48,7 @@
                             <div class="col-auto">
                                 <h6>Ingresada por:</h6>
                             </div>
-                            <%if(!datosCreador.getNickname().equals("Administrador")) { %>
+                            <%if (!datosCreador.getNickname().equals("Administrador")) { %>
                             	<div class="col-auto">
                                 	<img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
                             	</div>
@@ -108,7 +108,7 @@
                     </div>
 		        </div>
                 <br>
-                <%if(loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion)) { %>
+                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion)) { %>
 	                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
 	                    Dar de alta una clase para esta actividad
 	                </button>
@@ -118,7 +118,7 @@
                 <div class="extraInfoDiv row">
                     <h5>Clases</h5>
 					<ul id="listaActividades" class=" py-3">
-						<%for(Object dtClase : datosClases) { %>
+						<%for (Object dtClase : datosClases) { %>
 							<li class="container border card-body elementoLista" > 
                             	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/classes/<%=((DtClaseExt)dtClase).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
@@ -129,7 +129,7 @@
                 <div class="extraInfoDiv row">
                     <h5>Cuponeras</h5>
 					<ul id="listaActividades" class=" py-3">
-						<%for(Object datosCup : datosCuponeras) { %>
+						<%for (Object datosCup : datosCuponeras) { %>
 							<li class="container border card-body elementoLista"> 
                             	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/assets/images/cups/<%=((DtCuponera)datosCup).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)datosCup).getNombre()%>" class="clase color-blue"><%=((DtCuponera)datosCup).getNombre()%></a>
@@ -141,7 +141,7 @@
                     <h5>Categorías</h5>
 					<ul id="listaActividades" class=" py-3">
 						<%Set<String> categorias = datosActDep.getCategorias();%>
-						<%for(String cat : categorias) { %>
+						<%for (String cat : categorias) { %>
 							<li class="container border card-body elementoLista"> 
                             	<a href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=cat%>" class="clase color-blue"><%=cat%></a>
                         	</li>

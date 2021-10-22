@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 
 public class DtFecha {
 
-	private int anio, mes, dia, horas, minutos, segundos;
+	private int anio,  mes,  dia,  horas,  minutos,  segundos;
 	public DtFecha() {
 		LocalDateTime tiempo = LocalDateTime.now();
 		this.anio = tiempo.getYear();
@@ -13,7 +13,7 @@ public class DtFecha {
 		this.minutos = tiempo.getMinute();
 		this.segundos = tiempo.getSecond();
 	}
-	public DtFecha (int anio, int mes, int dia, int horas, int minutos, int segundos) {
+	public DtFecha(int anio,  int mes,  int dia,  int horas,  int minutos,  int segundos) {
 		this.anio = anio;
 		this.mes = mes;
 		this.dia = dia;
@@ -71,7 +71,7 @@ public class DtFecha {
 	}
 	public String toWebFecha() {
 		String sanio = String.valueOf(anio);
-		String sdia= String.valueOf(dia), smes=String.valueOf(mes);
+		String sdia= String.valueOf(dia),  smes=String.valueOf(mes);
 		while (sanio.length()<4)
 			sanio="0"+sanio;
 		if (dia<10)
@@ -82,7 +82,7 @@ public class DtFecha {
 	}
 	
 	public boolean esMenor(DtFecha fechaAComp) {
-		long min1, min2 = 0;
+		long min1,  min2 = 0;
 		min1 = minutos + (horas + (dia + (mes + anio * 12) * 31) * 24) * 60;
 		min2 = fechaAComp.getMinutos() + (fechaAComp.getHoras() + (fechaAComp.getDia() + (fechaAComp.getMes() + 
 				(fechaAComp.getAnio()) * 12) * 31) * 24) * 60;

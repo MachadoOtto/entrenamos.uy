@@ -27,19 +27,19 @@ public class ComprarCuponera extends HttpServlet {
         IUC = LaFabrica.getInstance().obtenerIUsuarioController();
     }
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	System.out.print((String) request.getParameter("cuponera")+ " ------- "+((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname());
     	DtFecha f = new DtFecha();
     	try {
-    		IUC.comprarCuponera((String) request.getParameter("cuponera"),((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname(), f);
+    		IUC.comprarCuponera((String) request.getParameter("cuponera"), ((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname(),  f);
     		DtUsuarioExt usrLogged = IUC.seleccionarUsuario(((DtUsuarioExt) request.getSession().getAttribute("loggedUser")).getNickname());
         
         	
         	//Envio de información actualizada
         	
-        	request.getSession().setAttribute("loggedUser",usrLogged);
+        	request.getSession().setAttribute("loggedUser", usrLogged);
     	
     	} catch (UsuarioNoExisteException e){
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
@@ -50,14 +50,14 @@ public class ComprarCuponera extends HttpServlet {
 		}
     	
     	
-    	response.sendRedirect(request.getContextPath()+"/cuponeras?cuponera="+ URLEncoder.encode(request.getParameter("cuponera"),"utf-8"));
+    	response.sendRedirect(request.getContextPath()+"/cuponeras?cuponera="+ URLEncoder.encode(request.getParameter("cuponera"), "utf-8"));
     }    
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
 }

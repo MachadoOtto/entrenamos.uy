@@ -8,7 +8,7 @@ import datatypes.DtUsuario;
 
 public class NameComparator implements Comparator<Object> {
     @Override
-    public int compare(Object o1, Object o2) {
+    public int compare(Object o1,  Object o2) {
     	if ((o1 instanceof DtActividadDeportiva) && (o2 instanceof DtActividadDeportiva)) {
     		return ((DtActividadDeportiva)o1).getNombre().compareTo(((DtActividadDeportiva)o2).getNombre());
     	}

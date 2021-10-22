@@ -35,7 +35,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	public Set<String> obtenerActividades(String ins) throws InstitucionException {
 		return getHI().findInstitucion(ins).obtenerNombresActDep();
 	}
-	public Boolean ingresarDatosActividadDep(String nombreInsti, DtActividadDeportiva datosAD) throws InstitucionException,
+	public Boolean ingresarDatosActividadDep(String nombreInsti,  DtActividadDeportiva datosAD) throws InstitucionException, 
 			ActividadDeportivaException{
 		Institucion inst = getHI().findInstitucion(nombreInsti);
 		for (String x : getHI().obtenerInstituciones()) {
@@ -44,16 +44,16 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			}
 		}
 		if (!inst.existeActDep(datosAD.getNombre())) {
-			Map<String, Categoria> cat = new HashMap<>();
+			Map<String,  Categoria> cat = new HashMap<>();
 			for (String x: datosAD.getCategorias())
 				try {
-					cat.put(x, getHCAT().findCategoria(x));
+					cat.put(x,  getHCAT().findCategoria(x));
 				} catch (CategoriaException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			try {
-				inst.addActividadDeportiva(datosAD, cat, (Profesor) getHU().findUsuario(datosAD.getCreador()));
+				inst.addActividadDeportiva(datosAD,  cat,  (Profesor) getHU().findUsuario(datosAD.getCreador()));
 				((Profesor) getHU().findUsuario(datosAD.getCreador())).addActDep(inst.getActDep(datosAD.getNombre()));
 			} catch (UsuarioNoExisteException e) {
 				e.printStackTrace();
@@ -63,7 +63,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return false;
 	}
 	
-	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins) throws InstitucionException {
+	public Set<String> obtenerDeltaInstituciones(String nombreCup,  String ins) throws InstitucionException {
 		Set<String> actividadesDeportivas = new HashSet<>();
 		for (String y: getHI().findInstitucion(ins).getActsDeps().keySet()) {
 			actividadesDeportivas.add(y);
@@ -91,8 +91,8 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return res;
 	}
 	
-	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, 
-			ActividadDeportivaException, ClaseException {
+	public DtClaseExt seleccionarClase(String inst,  String actDep,  String clase) throws InstitucionException,  
+			ActividadDeportivaException,  ClaseException {
 		return getHI().findInstitucion(inst).getActDep(actDep).findClase(clase).getDt();
 	}
 	
@@ -100,7 +100,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return getHU().obtenerNicknameSocios(); 
 	}
 	
-	public DtActividadDeportivaExt getActDepExt(String ins, String actDep) throws InstitucionException, 
+	public DtActividadDeportivaExt getActDepExt(String ins,  String actDep) throws InstitucionException,  
 			ActividadDeportivaException {
 		return getHI().findInstitucion(ins).getActDep(actDep).getDtExt();
 	}
@@ -118,9 +118,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return  HandlerCategoria.getInstance();
 	}
 	
-	public int altaInstitucion(String nombre, String descripcion, String URL) {
+	public int altaInstitucion(String nombre,  String descripcion,  String URL) {
 		if (!getHI().existeInstitucion(nombre)){
-			Institucion fing = new Institucion(nombre, descripcion, URL);
+			Institucion fing = new Institucion(nombre,  descripcion,  URL);
 			getHI().addInstitucion(fing);
 			return 0;
 		}
@@ -136,7 +136,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		Set<String> res = new HashSet<>();
 		for (String i: getHI().obtenerInstituciones()) {
 			try {
-				for (Entry<String, ActividadDeportiva> actividades: getHI().findInstitucion(i).getActsDeps().entrySet()) {
+				for (Entry<String,  ActividadDeportiva> actividades: getHI().findInstitucion(i).getActsDeps().entrySet()) {
 					if (actividades.getValue().getEstado() == TEstado.ingresada) {
 						res.add(new String(actividades.getKey()));
 					}
@@ -149,7 +149,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		return res;
 	}
 	
-	public void aprobarActividad(String actDep, TEstado estado) {
+	public void aprobarActividad(String actDep,  TEstado estado) {
 		for (String i: getHI().obtenerInstituciones()) {
 			 try {
 				if (getHI().findInstitucion(i).getActsDeps().containsKey(actDep)) {
@@ -177,7 +177,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			try {
 				datosActDep = getHI().findInstitucion(ins).getActDep(nombreActDep).getDtExt();
 				return datosActDep;
-			} catch(ActividadDeportivaException | InstitucionException ignore) { }
+			} catch(ActividadDeportivaException | InstitucionException ignore) {
+				;
+			}
 		}
 		throw new ActividadDeportivaException("La actividad deportiva " + nombreActDep + " no existe en el Sistema.");
 	}

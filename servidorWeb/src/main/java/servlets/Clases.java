@@ -28,8 +28,8 @@ public class Clases extends HttpServlet {
         super();
     }
     
-    protected void processRequest(HttpServletRequest request, 
-    		HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  
+    		HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
@@ -58,44 +58,44 @@ public class Clases extends HttpServlet {
 				esSocio = true;
 				if (!((DtSocioExt)user).getClases().contains(nombreClase)) {
 					estaInscripto = false;
-					precio = Float.toString(IADC.getActDepExt(nombreInstitucion, nombreActividad).getCosto());
-					cuponerasCompradas = IDCC.getCuponerasDisponibles(user.getNickname(), nombreInstitucion, nombreActividad);
+					precio = Float.toString(IADC.getActDepExt(nombreInstitucion,  nombreActividad).getCosto());
+					cuponerasCompradas = IDCC.getCuponerasDisponibles(user.getNickname(),  nombreInstitucion,  nombreActividad);
 				}
 			}
 		} catch(ClaseException ex) {
 			// la clase no existe
 			ex.printStackTrace();
-			request.setAttribute("clase", null);
-			request.setAttribute("actividad", null);
+			request.setAttribute("clase",  null);
+			request.setAttribute("actividad",  null);
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
 			return;
 		} catch(Exception ex) {
 			// error al implementar la logica
 			ex.printStackTrace();
-			request.setAttribute("clase", null);
-			request.setAttribute("actividad", null);
+			request.setAttribute("clase",  null);
+			request.setAttribute("actividad",  null);
 			response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
 			return;
 		}
 		// setea los datos
-		request.setAttribute("clase", datosClase);
-		request.setAttribute("actividad", nombreActividad);
-		request.setAttribute("institucion", nombreInstitucion);
-		request.setAttribute("esSocio", esSocio);
-		request.setAttribute("estaInscripto", estaInscripto);
-		request.setAttribute("cupDisponibles", cuponerasCompradas);
-		request.setAttribute("precio", precio);
-		request.setAttribute("estaCaducada", inscCaducada);
-		request.setAttribute("estaLlena", estaLlena);
-		request.getRequestDispatcher("/pages/clases.jsp").forward(request, response);
+		request.setAttribute("clase",  datosClase);
+		request.setAttribute("actividad",  nombreActividad);
+		request.setAttribute("institucion",  nombreInstitucion);
+		request.setAttribute("esSocio",  esSocio);
+		request.setAttribute("estaInscripto",  estaInscripto);
+		request.setAttribute("cupDisponibles",  cuponerasCompradas);
+		request.setAttribute("precio",  precio);
+		request.setAttribute("estaCaducada",  inscCaducada);
+		request.setAttribute("estaLlena",  estaLlena);
+		request.getRequestDispatcher("/pages/clases.jsp").forward(request,  response);
 	}
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+    protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
     
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 	
 	/* buscarClase es una funcion nueva que busca una Clase solo por su
@@ -111,7 +111,7 @@ public class Clases extends HttpServlet {
 		for (String x: IDCC.obtenerInstituciones()) {
 			try {
 				for (String y: IDCC.obtenerActividades(x)) {
-					if (IDCC.obtenerClases(x, y).contains(nombreClase)) {
+					if (IDCC.obtenerClases(x,  y).contains(nombreClase)) {
 						nombreActividad = y;
 						return nombreActividad;
 					}

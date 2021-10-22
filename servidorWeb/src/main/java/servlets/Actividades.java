@@ -31,7 +31,7 @@ public class Actividades extends HttpServlet {
         super();
     }
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
@@ -48,20 +48,20 @@ public class Actividades extends HttpServlet {
 			datosActDep = buscarActDep(nombreActDep);
 			institucion = LaFabrica.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
-			request.setAttribute("nombreActDep", null);
-			request.setAttribute("institucion", null);
+			request.setAttribute("nombreActDep",  null);
+			request.setAttribute("institucion",  null);
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
 			return;
 		}
 		
-		if(datosActDep != null) {
-			if(datosActDep.getCreador().equals("Administrador")) {
-				datosCreador = new DtUsuarioExt("Administrador",null,null,null,null,null,"Administrador.png".getBytes(),null,null);
-				request.setAttribute("datosCreador", datosCreador);
+		if (datosActDep != null) {
+			if (datosActDep.getCreador().equals("Administrador")) {
+				datosCreador = new DtUsuarioExt("Administrador", null, null, null, null, null, "Administrador.png".getBytes(), null, null);
+				request.setAttribute("datosCreador",  datosCreador);
 			} else {
 				try {
 					datosCreador = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());
-					request.setAttribute("datosCreador", datosCreador);
+					request.setAttribute("datosCreador",  datosCreador);
 				} catch(UsuarioNoExisteException ignore) { }
 			}
 		}
@@ -75,37 +75,37 @@ public class Actividades extends HttpServlet {
 		//Set de DtClaseExt
 		try {
 			Set<String> clases = datosActDep.getClases();
-			for(String clase : clases) { 
+			for (String clase : clases) { 
 				datosClases.add(LaFabrica.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
 			}
 		} catch(ClaseException e) {
-			request.setAttribute("datosClases", null);
+			request.setAttribute("datosClases",  null);
 		}
 		
 		//Set de DtCuponera
 		try {
 			Set<String> cuponeras = datosActDep.getCuponeras();
-			for(String cup : cuponeras) {
+			for (String cup : cuponeras) {
 				datosCuponeras.add(LaFabrica.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
 			}
 		} catch(Exception e) {
-			request.setAttribute("datosCuponeras", null);
+			request.setAttribute("datosCuponeras",  null);
 		}
 		
-		request.setAttribute("actDep", datosActDep);
-		request.setAttribute("institucion", institucion);
-		request.setAttribute("esSocio", esSocio);
-		request.setAttribute("datosClases", datosClases);
-		request.setAttribute("datosCuponeras", datosCuponeras);
-		request.getRequestDispatcher("pages/actividades.jsp").forward(request, response);
+		request.setAttribute("actDep",  datosActDep);
+		request.setAttribute("institucion",  institucion);
+		request.setAttribute("esSocio",  esSocio);
+		request.setAttribute("datosClases",  datosClases);
+		request.setAttribute("datosCuponeras",  datosCuponeras);
+		request.getRequestDispatcher("pages/actividades.jsp").forward(request,  response);
 	}
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+    protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
     
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 	
 	private DtActividadDeportivaExt buscarActDep(String nombreActDep) throws ActividadDeportivaException {

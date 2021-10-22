@@ -17,13 +17,13 @@ public class Logout extends HttpServlet {
     public Logout() {
         super();
     }
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
-        request.getSession().setAttribute("loggedUser", null);
+        request.getSession().setAttribute("loggedUser",  null);
         response.sendRedirect(request.getContextPath()+"/home");
     }
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 }

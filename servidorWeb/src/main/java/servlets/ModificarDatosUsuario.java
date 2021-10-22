@@ -47,7 +47,7 @@ public class ModificarDatosUsuario extends HttpServlet {
         IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     } 
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
@@ -55,7 +55,7 @@ public class ModificarDatosUsuario extends HttpServlet {
         try {
         	//Imagen
         	byte [] bimgn = null;
-        	if(request.getPart("formFile")!=null && request.getPart("formFile").getSize()>0) {
+        	if (request.getPart("formFile")!=null && request.getPart("formFile").getSize()>0) {
         		Part filePart = request.getPart("formFile");
         		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
@@ -63,40 +63,40 @@ public class ModificarDatosUsuario extends HttpServlet {
         	}
         	else bimgn = usrLogged.getImagen();
         	//Fecha
-        	String[] d = rp(request,"nac").split("-");
+        	String[] d = rp(request, "nac").split("-");
         	
         	//Contraseña (opcional)
         	String passwordNueva = usrLogged.getContrasenia();
-        	if(rp(request,"pas1")!=null && rp(request,"pas1").length()>0) {
+        	if (rp(request, "pas1")!=null && rp(request, "pas1").length()>0) {
             	String password1 = new String();
             	String password2 = new String();
-            	password1 = (String) rp(request,"pas1");
-            	password2 = (String) rp(request,"pas2");
-            	if( password1 == password2 ) {
+            	password1 = (String) rp(request, "pas1");
+            	password2 = (String) rp(request, "pas2");
+            	if ( password1 == password2 ) {
             		passwordNueva = password1;
             	}
         	}
         	        	
         	//Caso de uso
-	        if(usrLogged instanceof DtSocioExt) {
-	        	IUC.editarDatosBasicos(usrLogged.getNickname(),new DtSocio(usrLogged.getNickname(),rp(request,"nomm"),rp(request,"ape"),
-	        			usrLogged.getEmail(),passwordNueva,new DtFecha(Integer.parseInt(d[0]),Integer.parseInt(d[1]),Integer.parseInt(d[2]),0,0,0), bimgn));
+	        if (usrLogged instanceof DtSocioExt) {
+	        	IUC.editarDatosBasicos(usrLogged.getNickname(), new DtSocio(usrLogged.getNickname(), rp(request, "nomm"), rp(request, "ape"), 
+	        			usrLogged.getEmail(), passwordNueva, new DtFecha(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0),  bimgn));
 	        }
 	        else {
-	        	IUC.editarDatosBasicos(usrLogged.getNickname(),new DtProfesor(usrLogged.getNickname(),rp(request,"nomm"),rp(request,"ape"),
-	        			usrLogged.getEmail(), passwordNueva, new DtFecha(Integer.parseInt(d[0]),Integer.parseInt(d[1]),Integer.parseInt(d[2]),0,0,0),
-	        			((DtProfesorExt)usrLogged).getNombreInstitucion(), rp(request,"desc"), rp(request,"bio") ,rp(request,"webs"),
+	        	IUC.editarDatosBasicos(usrLogged.getNickname(), new DtProfesor(usrLogged.getNickname(), rp(request, "nomm"), rp(request, "ape"), 
+	        			usrLogged.getEmail(),  passwordNueva,  new DtFecha(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0), 
+	        			((DtProfesorExt)usrLogged).getNombreInstitucion(),  rp(request, "desc"),  rp(request, "bio") , rp(request, "webs"), 
 	        			bimgn));
 	        }
 	        
 	        //Actualización de imagen
-	        if(request.getPart("formFile")!=null && request.getPart("formFile").getSize()>0) {
+	        if (request.getPart("formFile")!=null && request.getPart("formFile").getSize()>0) {
 	        	Part filePart = request.getPart("formFile");
 	        	InputStream fileContent = filePart.getInputStream();
         		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
 	        	String path = request.getServletContext().getRealPath("/assets/images/users/"+usrLogged.getNickname()+"."+ext);
-	        	Files.copy(fileContent, Paths.get(path),StandardCopyOption.REPLACE_EXISTING);
+	        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
 	        }
 
 	        
@@ -107,15 +107,15 @@ public class ModificarDatosUsuario extends HttpServlet {
         response.sendRedirect((request.getContextPath()+"/usuarios?nickname=" + usrLogged.getNickname() + "&e=7"));
     }
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
     
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 	
-	private String rp(HttpServletRequest request,String param) {
+	private String rp(HttpServletRequest request, String param) {
 		return request.getParameter(param);
 	}
 

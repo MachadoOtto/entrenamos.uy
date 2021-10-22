@@ -30,14 +30,14 @@ public interface IUsuarioController {
 	public DtUsuarioExt seleccionarUsuario(String userNick) throws UsuarioNoExisteException;
 	public DtUsuarioExt seleccionarUsuarioEmail(String userEmail) throws UsuarioNoExisteException;
 	
-	public void editarDatosBasicos(String userNick, DtUsuario datoUser) throws UsuarioNoExisteException;
+	public void editarDatosBasicos(String userNick,  DtUsuario datoUser) throws UsuarioNoExisteException;
 	
-	public void seguir(String seguidor, String seguido) throws UsuarioNoExisteException ;
+	public void seguir(String seguidor,  String seguido) throws UsuarioNoExisteException ;
 	
-	public void dejarDeSeguir(String seguidor, String seguido) throws UsuarioNoExisteException ;
+	public void dejarDeSeguir(String seguidor,  String seguido) throws UsuarioNoExisteException ;
 
-	public void comprarCuponera(String cuponera, String socio,DtFecha fechaCompra) throws UsuarioNoExisteException, CuponeraNoExisteException;
+	public void comprarCuponera(String cuponera,  String socio,  DtFecha fechaCompra) throws UsuarioNoExisteException,  CuponeraNoExisteException;
 	
-	public boolean verificarIdentidadEmail(String email, String pass);
-	public boolean verificarIdentidadNickname(String nick,String pass);
+	public boolean verificarIdentidadEmail(String email,  String pass);
+	public boolean verificarIdentidadNickname(String nick,  String pass);
 }

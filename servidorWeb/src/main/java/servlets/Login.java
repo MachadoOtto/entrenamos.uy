@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
         super();
     }
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
         String name = request.getParameter("nick-login");
@@ -31,20 +31,20 @@ public class Login extends HttpServlet {
         //verificar contraseña
 		try {
 			DtUsuarioExt usr = GestorWeb.buscarUsuario(name);
-			if(!usr.getContrasenia().equals(request.getParameter("pass-login")))
-				r=Parametrizer.addParam(r, "e", "1");
+			if (!usr.getContrasenia().equals(request.getParameter("pass-login")))
+				r=Parametrizer.addParam(r,  "e",  "1");
 			else {
-				request.getSession().setAttribute("loggedUser", usr);
-				r=Parametrizer.remParam(r, "e", "1");
+				request.getSession().setAttribute("loggedUser",  usr);
+				r=Parametrizer.remParam(r,  "e",  "1");
 			}
 		} catch(UsuarioNoExisteException ex) {
-			r=Parametrizer.addParam(r, "e", "1");
+			r=Parametrizer.addParam(r,  "e",  "1");
 		}
 		response.sendRedirect(r);
     } 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+        processRequest(request,  response);
 	}
 
 }

@@ -43,11 +43,11 @@
         	  Set<String> cups = usr.getCuponerasCompradas();
         	  System.out.print("Empieza el caso de uso:" +c.getNombre() + "\n");
         	  System.out.print("Cuponeras:= \n");
-              for(String x: cups) {
+              for (String x: cups) {
             	  
             	  System.out.print(x+"\n");
             	  
-      			if(x == c.getNombre()){
+      			if (x == c.getNombre()){
               		comprada= true;
               	}  
          	 }
@@ -65,12 +65,12 @@
     	    	<div class = "col" id= "coco"> 
     	    	<%  Boolean vot = (usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == false); 
     	          System.out.print("Comprada:= "+ comprada+"\n");
-    	    	if(vot == true){ %>
+    	    	if (vot == true){ %>
 					<button type="button" class="btn btn-primary" id="boto" onclick="location.href='<%=request.getContextPath()%>/ComprarCuponera?cuponera=<%=c.getNombre()%>'">
 			            	Comprar
 			        </button>	
 			      <%}%>
-			      <%if((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == true)){ %>
+			      <%if ((usrLogged != null) && (usrLogged instanceof DtSocioExt) && (comprada == true)){ %>
 			    	<button type="button" disabled class="btn btn-primary" id="boto" onclick="location.href='<%=request.getContextPath()%>/ComprarCuponera?cuponera=<%=c.getNombre()%>'">
 			            	Comprado
 			        </button>  

@@ -2,10 +2,10 @@ package datatypes;
 
 public class DtProfesor extends DtUsuario{
 
-	private String nombreInstitucion, descripcion, biografia, link;
+	private String nombreInstitucion,  descripcion,  biografia,  link;
 		
-	public DtProfesor(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, String nombreInstitucion, String descripcion, String biografia, String link, byte[] imagen) {
-		super(nickname, nombre, apellido, email, contrasenia, fechaNacimiento, imagen);
+	public DtProfesor(String nickname,  String nombre,  String apellido,  String email,  String contrasenia,  DtFecha fechaNacimiento,  String nombreInstitucion,  String descripcion,  String biografia,  String link,  byte[] imagen) {
+		super(nickname,  nombre,  apellido,  email,  contrasenia,  fechaNacimiento,  imagen);
 		this.nombreInstitucion = nombreInstitucion;
 		this.descripcion = descripcion;
 		this.biografia = biografia;

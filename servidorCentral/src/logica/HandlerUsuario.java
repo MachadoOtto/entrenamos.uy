@@ -31,7 +31,7 @@ public class HandlerUsuario {
 	
 	private static HandlerUsuario instancia = null;
 	private Logger log;
-	private Map<String, Usuario> usuarios;
+	private Map<String,  Usuario> usuarios;
 	
 	private Set<String> correos;
 	private Profesor adminProf;
@@ -47,7 +47,7 @@ public class HandlerUsuario {
 		nicksProhibidos.add("administrador");
 		nicksProhibidos.add("Vasílev");
 		nicksProhibidos.add("Jesús");
-		adminProf = new Profesor(new DtProfesor("Administrador", "Administrador", "Administrador","Administrador","Administrador",new DtFecha(),"Administrador","Administrador","Administrador","Administrador", null));
+		adminProf = new Profesor(new DtProfesor("Administrador",  "Administrador",  "Administrador", "Administrador", "Administrador", new DtFecha(), "Administrador", "Administrador", "Administrador", "Administrador",  null));
 		log = Logger.getLogger("LoggerVasileano");
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
@@ -61,21 +61,21 @@ public class HandlerUsuario {
 		return instancia;
 	}
 	
-	/* Retorna true si la accion de añadir el Usuario se realiza de forma exitosa, false en otro caso (ya existe un usuario
+	/* Retorna true si la accion de añadir el Usuario se realiza de forma exitosa,  false en otro caso (ya existe un usuario
 		con ese nickname o correo.*/
 	public boolean addUser(Usuario user) {
 		if (existeNick(user.getNickname()) || existeCorreo(user.getCorreo())) {
 			return false;
 		} else {
-			usuarios.put(user.getNickname(), user);
+			usuarios.put(user.getNickname(),  user);
 			correos.add(user.getCorreo());
-			log.info("Usuario "+user.getNickname()+" registered, total: "+usuarios.size());
+			log.info("Usuario "+user.getNickname()+" registered,  total: "+usuarios.size());
 			return true;
 		}
 	}
 	
 	public Usuario findUsuario(String userNick) throws UsuarioNoExisteException {
-		if(userNick=="Administrador")
+		if (userNick=="Administrador")
 			//Devuelve al administrador(profesor)
 			return adminProf;
 		Usuario res = usuarios.get(userNick);
@@ -86,8 +86,8 @@ public class HandlerUsuario {
 		return res;
 	}
 	public Usuario findUsuarioByEmail(String email) throws UsuarioNoExisteException {
-		for(Entry<String, Usuario> x: usuarios.entrySet())
-			if(x.getValue().getCorreo()==email)
+		for (Entry<String,  Usuario> x: usuarios.entrySet())
+			if (x.getValue().getCorreo()==email)
 				return x.getValue();
 		throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");
 	}

@@ -25,8 +25,8 @@ public class Cuponeras extends HttpServlet {
     	super();
     }
 
-    protected void processRequest(HttpServletRequest request, 
-    		HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,  
+    		HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
@@ -35,18 +35,18 @@ public class Cuponeras extends HttpServlet {
     	try {
     		DatosCup = buscarCuponera(cuponera);
 		} catch(NoExisteCuponeraException ex) {
-			request.setAttribute("cuponera", null);
+			request.setAttribute("cuponera",  null);
 			response.sendRedirect(request.getContextPath()+"/pages/404.jsp");
 			return;
 		}
-    	if(DatosCup != null) {
-    		request.setAttribute("cuponera", DatosCup);
-        	request.getRequestDispatcher("/pages/cuponeras.jsp").forward(request, response);
+    	if (DatosCup != null) {
+    		request.setAttribute("cuponera",  DatosCup);
+        	request.getRequestDispatcher("/pages/cuponeras.jsp").forward(request,  response);
     	}
     }
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
 
 	private DtCuponera buscarCuponera(String cc) throws NoExisteCuponeraException  {

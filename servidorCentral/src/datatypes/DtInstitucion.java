@@ -6,7 +6,7 @@ public class DtInstitucion {
 	private String descripcion;
 	private String url;
 	
-	public DtInstitucion(String nom, String desc, String web){
+	public DtInstitucion(String nom,  String desc,  String web){
 		this.nombre = nom;
 		this.descripcion = desc;
 		this.url = web;

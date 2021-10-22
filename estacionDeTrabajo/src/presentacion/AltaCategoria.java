@@ -60,22 +60,22 @@ public class AltaCategoria extends JInternalFrame {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
 		setTitle("Alta de Categoria");
-		setBounds(10, 40, 380, 286);
+		setBounds(10,  40,  380,  286);
 		
 		// GridLayout:
 		GridBagLayout gridBagLayout = new GridBagLayout();
-	    gridBagLayout.columnWidths = new int[] { 30, 60, 60, 60, 60, 30, 10 };
-	    gridBagLayout.rowHeights = new int[] { 0, 30, 30, 30, 30, 30, 30, 0, 0 };
-	    gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE };
-	    gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	    gridBagLayout.columnWidths = new int[] { 30,  60,  60,  60,  60,  30,  10 };
+	    gridBagLayout.rowHeights = new int[] { 0,  30,  30,  30,  30,  30,  30,  0,  0 };
+	    gridBagLayout.columnWeights = new double[] { 0.0,  1.0,  1.0,  1.0,  0.0,  Double.MIN_VALUE };
+	    gridBagLayout.rowWeights = new double[] { 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0 };
 	    getContentPane().setLayout(gridBagLayout);
         
         verticalStrut = Box.createVerticalStrut(20);
         GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-        gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+        gbc_verticalStrut.insets = new Insets(0,  0,  5,  5);
         gbc_verticalStrut.gridx = 1;
         gbc_verticalStrut.gridy = 0;
-        getContentPane().add(verticalStrut, gbc_verticalStrut);
+        getContentPane().add(verticalStrut,  gbc_verticalStrut);
         
         // JLabels:
         lblIngreseNombre = new JLabel("Nombre de Categoria:");
@@ -83,10 +83,10 @@ public class AltaCategoria extends JInternalFrame {
         GridBagConstraints gbc_lblIngreseNombre = new GridBagConstraints();
         gbc_lblIngreseNombre.gridwidth = 5;
         gbc_lblIngreseNombre.fill = GridBagConstraints.BOTH;
-        gbc_lblIngreseNombre.insets = new Insets(0, 0, 5, 5);
+        gbc_lblIngreseNombre.insets = new Insets(0,  0,  5,  5);
         gbc_lblIngreseNombre.gridx = 1;
         gbc_lblIngreseNombre.gridy = 1;
-        getContentPane().add(lblIngreseNombre, gbc_lblIngreseNombre);
+        getContentPane().add(lblIngreseNombre,  gbc_lblIngreseNombre);
 
         // JTextField:
         campoNombre = new JTextField();
@@ -94,10 +94,10 @@ public class AltaCategoria extends JInternalFrame {
         GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
         gbc_textFieldNombre.gridwidth = 5;
         gbc_textFieldNombre.fill = GridBagConstraints.BOTH;
-        gbc_textFieldNombre.insets = new Insets(0, 0, 5, 5);
+        gbc_textFieldNombre.insets = new Insets(0,  0,  5,  5);
         gbc_textFieldNombre.gridx = 1;
         gbc_textFieldNombre.gridy = 2;
-        getContentPane().add(campoNombre, gbc_textFieldNombre);
+        getContentPane().add(campoNombre,  gbc_textFieldNombre);
         campoNombre.setColumns(10);
         
         btnCancelar = new JButton("Limpiar");
@@ -117,16 +117,16 @@ public class AltaCategoria extends JInternalFrame {
         GridBagConstraints gbc_btnAceptar = new GridBagConstraints();
         gbc_btnAceptar.anchor = GridBagConstraints.EAST;
         gbc_btnAceptar.gridwidth = 2;
-        gbc_btnAceptar.insets = new Insets(0, 0, 5, 5);
+        gbc_btnAceptar.insets = new Insets(0,  0,  5,  5);
         gbc_btnAceptar.gridx = 3;
         gbc_btnAceptar.gridy = 4;
-        getContentPane().add(btnAceptar, gbc_btnAceptar);
+        getContentPane().add(btnAceptar,  gbc_btnAceptar);
         GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-        gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
+        gbc_btnCancelar.insets = new Insets(0,  0,  5,  5);
         gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
         gbc_btnCancelar.gridx = 5;
         gbc_btnCancelar.gridy = 4;
-        getContentPane().add(btnCancelar, gbc_btnCancelar);
+        getContentPane().add(btnCancelar,  gbc_btnCancelar);
         
 	}
 	
@@ -137,12 +137,12 @@ public class AltaCategoria extends JInternalFrame {
         	String nombre = campoNombre.getText().trim();
 	        try {
 	        	actControl.ingresarCatergoria(new DtCategoria(nombre));
-				JOptionPane.showMessageDialog(this, "La Categoria ha sido registrada de forma exitosa.", 
-						this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this,  "La Categoria ha sido registrada de forma exitosa.",  
+						this.getTitle(),  JOptionPane.INFORMATION_MESSAGE);
 				clear();
                 setVisible(false);
 	        } catch (CategoriaException e) {
-	        	JOptionPane.showMessageDialog(this, e.getMessage(), getTitle(), JOptionPane.ERROR_MESSAGE);
+	        	JOptionPane.showMessageDialog(this,  e.getMessage(),  getTitle(),  JOptionPane.ERROR_MESSAGE);
             }    
         }
     }
@@ -151,7 +151,7 @@ public class AltaCategoria extends JInternalFrame {
     private boolean checkDatos() {
         String nombre = campoNombre.getText().trim();
         if (nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No puede haber campos vacios.", this.getTitle(),
+            JOptionPane.showMessageDialog(this,  "No puede haber campos vacios.",  this.getTitle(), 
                     JOptionPane.ERROR_MESSAGE);
             return false;
         }

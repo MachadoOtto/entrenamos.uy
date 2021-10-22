@@ -19,7 +19,7 @@ public class Clase {
 	private ActividadDeportiva actDep;
 	private String imgName;
 	
-	Clase(DtClase datoClase, Profesor profe, ActividadDeportiva actDep){
+	Clase(DtClase datoClase,  Profesor profe,  ActividadDeportiva actDep){
 		this.actDep = actDep;
 		this.nombre = datoClase.getNombre();
 		this.fechaClase = datoClase.getFechaClase();
@@ -70,8 +70,8 @@ public class Clase {
 			ListNombres.add(x.getNickCorreoSocio());
 			SoloNombres.add(x.getNick());
 		}
-		DtClaseExt claseDatos = new DtClaseExt(nombre, vasilev.getNickname(), vasilev.getCorreo(), minSocios, maxSocios, url, this.getFechaClase(),
-				this.getFechaRegistro(), ListNombres, SoloNombres, imgName);
+		DtClaseExt claseDatos = new DtClaseExt(nombre,  vasilev.getNickname(),  vasilev.getCorreo(),  minSocios,  maxSocios,  url,  this.getFechaClase(), 
+				this.getFechaRegistro(),  ListNombres,  SoloNombres,  imgName);
 		return claseDatos;
 	}
 	

@@ -26,14 +26,14 @@ import java.util.HashMap;
 
 public class Institucion {
     private String nombre;
-    private String URL;
+    private String urlw;
     private String descripcion;
-    private Map<String, ActividadDeportiva> actsDeps;
+    private Map<String,   ActividadDeportiva> actsDeps;
     private Set<Profesor> profesores;
 	private Logger log;
-    public Institucion(String nombre, String descripcion, String url) {
+    public Institucion(String nombre,   String descripcion,   String url) {
         this.nombre = nombre;
-        this.URL = url;
+        this.urlw = url;
         this.descripcion = descripcion;
         this.actsDeps = new HashMap<>();
         this.profesores = new HashSet<>();
@@ -44,12 +44,24 @@ public class Institucion {
 		log.addHandler(handler);
     }
 
-    public String getNombre() {return nombre;}
-    public String getURL() {return URL;}
-    public String getDescripcion() {return this.descripcion;}
-    public Map<String, ActividadDeportiva> getActsDeps() {return this.actsDeps;}
-    public Set<Profesor> getProfesores() {return profesores;}  
-    public ActividadDeportiva findActividad(String actDepNombre) {return actsDeps.get(actDepNombre);}
+    public String getNombre() {
+    	return nombre;
+    }
+    public String getURL() {
+    	return urlw;
+    }
+    public String getDescripcion() {
+    	return this.descripcion;
+    }
+    public Map<String,   ActividadDeportiva> getActsDeps(){ 
+    	return this.actsDeps;
+    }
+    public Set<Profesor> getProfesores() {
+    	return profesores;
+    }  
+    public ActividadDeportiva findActividad(String actDepNombre) {
+    	return actsDeps.get(actDepNombre);
+    }
 
     public void addProfesor(Profesor profe) {
     	profesores.add(profe);
@@ -58,14 +70,14 @@ public class Institucion {
     
 //    public void nuevaActDep(DtActividadDeportiva datosAD) {
 //        ActividadDeportiva actDep = new ActividadDeportiva(datosAD);
-//        actsDeps.put(datosAD.getNombre(),actDep);
+//        actsDeps.put(datosAD.getNombre(),  actDep);
 //    }
 
-    public int addActividadDeportiva(DtActividadDeportiva datosAD, Map<String, Categoria> cat, Profesor creador) {
-        ActividadDeportiva actDep = new ActividadDeportiva(datosAD,cat,creador);
+    public int addActividadDeportiva(DtActividadDeportiva datosAD,   Map<String,   Categoria> cat,   Profesor creador) {
+        ActividadDeportiva actDep = new ActividadDeportiva(datosAD,  cat,  creador);
         if (actsDeps.containsKey(datosAD.getNombre()))
         	return 1;
-		actsDeps.put(datosAD.getNombre(), actDep);
+		actsDeps.put(datosAD.getNombre(),   actDep);
     	log.info("Institucion "+nombre+" event: "+" new actDep "+actDep.getNombre());
 		return 0;
     }
@@ -83,7 +95,7 @@ public class Institucion {
 //        return actDept.getNombreClases();
 //    }
 
-//    public DtClaseExt obtenerDtClase(String actDep,String clase) {
+//    public DtClaseExt obtenerDtClase(String actDep,  String clase) {
 //        ActividadDeportiva actDept = actsDeps.get(actDep);
 //        return actDept.getClaseDatos(clase);
 //    }
@@ -101,28 +113,28 @@ public class Institucion {
     	return res;
     }
 
-//    public void addClase(String actDep,DtClase datosClase,Profesor pp){
+//    public void addClase(String actDep,  DtClase datosClase,  Profesor pp){
 //        //ActividadDeportiva actDept = actsDeps.get(actDep);
-//        //int cod = actDept.addClase(datosClase,pp);
+//        //int cod = actDept.addClase(datosClase,  pp);
 //    }
 
-//    public Clase findClase(String actDep, String clase) {
+//    public Clase findClase(String actDep,   String clase) {
 //        ActividadDeportiva actDept = actsDeps.get(actDep);
 //        return actDept.findClase(clase);
 //    }
 
     public Set<String> getMiTrabajo(Profesor profe) {
         Set<String> nombreActsDepsProfe = new HashSet<>();
-		for(Map.Entry<String, ActividadDeportiva> x: actsDeps.entrySet())
-			if(x.getValue().participaProfesor(profe))
+		for (Map.Entry<String,   ActividadDeportiva> x: actsDeps.entrySet())
+			if (x.getValue().participaProfesor(profe))
 				nombreActsDepsProfe.add(x.getKey());
         return nombreActsDepsProfe;
     }
 
 	public Profesor getProfesor(String nick) throws UsuarioNoExisteException {
 		Profesor res = null;
-		for(Profesor x: profesores)
-			if(x.getNickname().equals(nick)) {
+		for (Profesor x: profesores)
+			if (x.getNickname().equals(nick)) {
 				res = x;
 			}
 		if (res == null) {
@@ -132,6 +144,6 @@ public class Institucion {
 	}
 	
 	public DtInstitucion obtenerDatos() {
-		return new DtInstitucion(nombre, getDescripcion(), getURL());
+		return new DtInstitucion(nombre,   getDescripcion(),   getURL());
 	}
 }

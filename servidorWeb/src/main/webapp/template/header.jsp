@@ -16,11 +16,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <form class="d-flex me-5 pe-5 container-fluid" action="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes" method="POST">
-            <input class="form-control me-2" type="search" id="campoTexto" name="campoTexto" placeholder="Actividades Deportivas, Cuponeras" aria-label="Search">
+            <input class="form-control me-2" type="search" id="campoTexto" name="campoTexto" placeholder="Actividades Deportivas,  Cuponeras" aria-label="Search">
             <button type="submit" class="btn btn-outline-primary">Buscar</button>
         </form>
         
-        <% if(request.getSession().getAttribute("loggedUser")==null){ %>
+        <% if (request.getSession().getAttribute("loggedUser")==null){ %>
         <ul id="nav-iniReg"  class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
             <li class="nav-item">
               <button type="button" id="btn-inicio-sesion" class="btn-ir btn btn-primary mt-3 ms-3 mb-3" data-bs-toggle="modal" data-bs-target="#inicioSesionModal">
@@ -38,8 +38,8 @@
         <% } else { 
         	DtUsuarioExt u = (DtUsuarioExt)request.getSession().getAttribute("loggedUser");
         	String f = "default.png";
-        	if(u.getImagen()!=null)
-        		f = new String(u.getImagen(),"UTF-8");
+        	if (u.getImagen()!=null)
+        		f = new String(u.getImagen(), "UTF-8");
         		
         %>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex text-right">
@@ -62,7 +62,7 @@
     </div>
 </nav>
 
-<% if(request.getSession().getAttribute("loggedUser")==null){ %>
+<% if (request.getSession().getAttribute("loggedUser")==null){ %>
 
     <!--MODAL INICIAR SESION-->
     <div class="modal fade" id="inicioSesionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -164,7 +164,7 @@
                         <select name="instit" id="instit" class="form-select" data-live-search="true">
 							  <%
 							  Set<String> s = (Set<String>)request.getAttribute("stdInstituciones");
-							  for(String t: s){ %>
+							  for (String t: s){ %>
                             <option data-tokens="<%=t%>"><%=t%></option>
                         <% } %>
                         </select>
@@ -203,7 +203,7 @@
     
 <% } else{
 	DtUsuarioExt u = (DtUsuarioExt)request.getSession().getAttribute("loggedUser");
-	if(u instanceof DtProfesorExt){ %>
+	if (u instanceof DtProfesorExt){ %>
     <div class="modal fade" id="altaActModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -245,7 +245,7 @@
 							<select style="width:29em;" name="catAD" id="catAD" class="cat" multiple aria-label="multiple select example">
 							  <%
 							  Set<String> s = (Set<String>)request.getAttribute("stdCategorias");
-							  for(String x: s){ %>
+							  for (String x: s){ %>
 							  	<option value="<%=x%>"><%=x%></option>
 							  <%} %>
 							</select>                          

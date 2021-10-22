@@ -10,21 +10,22 @@
 Checkstile solicitado para el curso de TPROG
 -->
 <module name="Checker">
+  <property name="charset" value="UTF-8"/>
   <property name="severity" value="warning"/>
   <module name="TreeWalker">
     <module name="AvoidStarImport">
       <property name="severity" value="warning"/>
     </module>
-    <module name="EmptyCatchBlock"/>
-    <module name="GenericWhitespace"/>
-    <module name="IllegalCatch"/>
-    <module name="LeftCurly"/>
-    <module name="MemberName"/>
-    <module name="MethodName"/>
-    <module name="MethodParamPad"/>
-    <module name="UnnecessaryParentheses"/>
-    <module name="UnusedImports"/>
-    <module name="VisibilityModifier"/>
-    <module name="WhitespaceAfter"/>
+    <module name="EmptyCatchBlock"></module>
+    <module name="GenericWhitespace"></module>
+    <module name="IllegalCatch"></module>
+    <module name="LeftCurly"></module>
+    <module name="MemberName"></module>
+    <module name="MethodName"></module>
+    <module name="MethodParamPad"></module>
+    <module name="UnnecessaryParentheses"></module>
+    <module name="UnusedImports"></module>
+    <module name="VisibilityModifier"></module>
+    <module name="WhitespaceAfter"></module>
   </module>
 </module>

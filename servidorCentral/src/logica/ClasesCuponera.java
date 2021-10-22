@@ -5,7 +5,7 @@ public class ClasesCuponera {
 	private ActividadDeportiva acDEPS;
 	private Cuponera cupi;
 	
-	ClasesCuponera(int cantClases,Cuponera cupito, ActividadDeportiva actDep){
+	ClasesCuponera(int cantClases,  Cuponera cupito,  ActividadDeportiva actDep){
 		cantidadClases = cantClases;
 		this.cupi = cupito;
 		this.acDEPS = actDep;

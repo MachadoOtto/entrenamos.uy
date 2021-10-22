@@ -1,7 +1,7 @@
 var botonActualID = 'nav-perfil';
 var cuadroInfoActualID = 'user-consultaPerfil';
 
-function cambioNavegador( nextConsultaID, nextBotonID ) {
+function cambioNavegador( nextConsultaID,  nextBotonID ) {
 	cambiarPerfil( nextConsultaID );
 	colorearBoton( nextBotonID );
 }
@@ -21,12 +21,12 @@ function colorearBoton( nextID ) {
 }
 
 function modif() {
-	if($("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || $("#desc").val() == ""){
-		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.","formulario-modif");
+	if ($("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || $("#desc").val() == ""){
+		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-modif");
 		return false;
 	}
-	if($("#pas1").val() != $("#pas2").val()){
-		errorMsgForm("Las contraseñas no coinciden.","formulario-modif");
+	if ($("#pas1").val() != $("#pas2").val()){
+		errorMsgForm("Las contraseñas no coinciden.", "formulario-modif");
 		return false;
 	}
 	else

@@ -18,7 +18,7 @@ import excepciones.CategoriaException;
 public class HandlerCategoria {
 	
 	private static HandlerCategoria instancia = null;
-	private Map<String, Categoria> categorias;
+	private Map<String,  Categoria> categorias;
 	
 	private HandlerCategoria() {
 		categorias = new HashMap<>();
@@ -35,7 +35,7 @@ public class HandlerCategoria {
 		if (categorias.containsKey(cat.getNombre())) {
 			throw new CategoriaException("Ya existe una Categoria en el Sistema con ese nombre.");
 		} else {
-			categorias.put(cat.getNombre(), cat);
+			categorias.put(cat.getNombre(),  cat);
 		}
 	}
 	

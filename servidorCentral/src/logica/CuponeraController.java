@@ -24,24 +24,24 @@ public class CuponeraController implements ICuponeraController {
 		return instance;
 	}
 	
-	public int ingresarCuponera(String nombre, String descripcion, DtFecha inicio, DtFecha fin, 
-				int descuento, DtFecha alta) throws CuponeraRepetidaException, FechaInvalidaException {
+	public int ingresarCuponera(String nombre,  String descripcion,  DtFecha inicio,  DtFecha fin,  
+				int descuento,  DtFecha alta) throws CuponeraRepetidaException,  FechaInvalidaException {
 		if (!alta.esMenor(inicio)) {
 			throw new FechaInvalidaException("La fecha de alta debe ser anterior a la de inicio.");
 		}
 		if (!inicio.esMenor(fin)) {
 			throw new FechaInvalidaException("La fecha de inicio debe ser anterior a la de finalizacion.");
 		}
-		return getHC().addCuponera(nombre, descripcion, inicio, fin, descuento, alta);
+		return getHC().addCuponera(nombre,  descripcion,  inicio,  fin,  descuento,  alta);
 	}
 	
 	public Set<String> getNombreCuponeras(){
 		return getHC().getNombreCuponeras();
 	}
 		
-	public void agregarActividadCuponera(String nombreCuponera, String institucion, String actividadDeportiva, int cantidadClases) 
-			throws InstitucionException, ActividadDeportivaException, CuponeraInmutableException{
-		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),cantidadClases);
+	public void agregarActividadCuponera(String nombreCuponera,  String institucion,  String actividadDeportiva,  int cantidadClases) 
+			throws InstitucionException,  ActividadDeportivaException,  CuponeraInmutableException{
+		getHC().getCup(nombreCuponera).addActDep(getHI().findInstitucion(institucion).getActDep(actividadDeportiva),  cantidadClases);
 	}
 		
 	public DtCuponera seleccionarCuponera(String NOMBRECUPONERAAAA) throws NoExisteCuponeraException {
@@ -62,8 +62,8 @@ public class CuponeraController implements ICuponeraController {
 	
 	public Set<String> getNombreCuponerasSinRecibos(){
 		Set<String> res = new HashSet<>();
-		for(String x: getHC().getNombreCuponeras()) {
-			if(getHC().getCup(x).getRc().size()==0)
+		for (String x: getHC().getNombreCuponeras()) {
+			if (getHC().getCup(x).getRc().size()==0)
 				res.add(x);
 
 		}

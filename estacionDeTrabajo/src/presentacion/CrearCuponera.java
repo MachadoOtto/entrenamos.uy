@@ -68,35 +68,35 @@ public class CrearCuponera extends JInternalFrame {
 		setMaximizable(true);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setClosable(true);
-		setBounds(100, 100, 427, 446);
+		setBounds(100,  100,  427,  446);
 		setTitle("Crear cuponera de actividades deportivas");
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0,  0,  0};
+		gridBagLayout.rowHeights = new int[]{0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		gridBagLayout.columnWeights = new double[]{0.0,  1.0,  0.0};
+		gridBagLayout.rowWeights = new double[]{0.0,  0.0,  0.0,  0.0,  1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		//Modelos
         DefaultComboBoxModel<String> comboModelDia = new DefaultComboBoxModel<>();
         comboModelDia.addElement("-");
-        for(int i = 1; i < 32; i++) {
+        for (int i = 1; i < 32; i++) {
         	comboModelDia.addElement( String.valueOf(i) );
         }
         DefaultComboBoxModel<String> comboModelDia2 = new DefaultComboBoxModel<>();
         comboModelDia2.addElement("-");
-        for(int i = 1; i < 32; i++) {
+        for (int i = 1; i < 32; i++) {
         	comboModelDia2.addElement( String.valueOf(i) );
         }
         
         DefaultComboBoxModel<String> comboModelDia3 = new DefaultComboBoxModel<>();
         comboModelDia3.addElement("-");
-        for(int i = 1; i < 32; i++) {
+        for (int i = 1; i < 32; i++) {
         	comboModelDia3.addElement( String.valueOf(i) );
         }
         // Arrays auxiliares para Fecha y Hora:
-        String[] meses = new String[] { "-", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
-        		"Setiembre", "Octubre", "Noviembre", "Diciembre" };
+        String[] meses = new String[] { "-",  "Enero",  "Febrero",  "Marzo",  "Abril",  "Mayo",  "Junio",  "Julio",  "Agosto", 
+        		"Setiembre",  "Octubre",  "Noviembre",  "Diciembre" };
         
         DefaultComboBoxModel<String> comboModelMes = new DefaultComboBoxModel<>(meses);		
         DefaultComboBoxModel<String> comboModelMes2 = new DefaultComboBoxModel<>(meses);		
@@ -104,48 +104,48 @@ public class CrearCuponera extends JInternalFrame {
 		
 		verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
-		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.insets = new Insets(0,  0,  5,  5);
 		gbc_verticalStrut.gridx = 1;
 		gbc_verticalStrut.gridy = 0;
-		getContentPane().add(verticalStrut, gbc_verticalStrut);
+		getContentPane().add(verticalStrut,  gbc_verticalStrut);
         
 		JLabel lblNewLabel = new JLabel("Nombre\r\n\t");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel.gridwidth = 4;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel.insets = new Insets(0,  0,  5,  0);
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 1;
-		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		getContentPane().add(lblNewLabel,  gbc_lblNewLabel);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 3;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.insets = new Insets(0,  0,  5,  5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 1;
 		gbc_textField.gridy = 2;
-		getContentPane().add(textField, gbc_textField);
+		getContentPane().add(textField,  gbc_textField);
 		
 		JLabel lblNewLabel_1 = new JLabel("Descripcion");
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_1.gridwidth = 4;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_1.insets = new Insets(0,  0,  5,  0);
 		gbc_lblNewLabel_1.gridx = 1;
 		gbc_lblNewLabel_1.gridy = 3;
-		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
+		getContentPane().add(lblNewLabel_1,  gbc_lblNewLabel_1);
 		
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridheight = 2;
 		gbc_scrollPane.gridwidth = 3;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.insets = new Insets(0,  0,  5,  5);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 4;
-		add(scrollPane, gbc_scrollPane);
+		add(scrollPane,  gbc_scrollPane);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
@@ -154,46 +154,46 @@ public class CrearCuponera extends JInternalFrame {
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.gridheight = 2;
 		gbc_textArea.gridwidth = 3;
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.insets = new Insets(0,  0,  5,  5);
 		gbc_textArea.fill = GridBagConstraints.BOTH;
 		gbc_textArea.gridx = 1;
 		gbc_textArea.gridy = 4;
 		Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
-		textArea.setBorder(BorderFactory.createCompoundBorder(border, 
-		      BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-		//getContentPane().add(textArea, gbc_textArea);
+		textArea.setBorder(BorderFactory.createCompoundBorder(border,  
+		      BorderFactory.createEmptyBorder(10,  10,  10,  10)));
+		//getContentPane().add(textArea,  gbc_textArea);
         
         JLabel lblNewLabel_2 = new JLabel("Fecha de inicio");
         GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
         gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
         gbc_lblNewLabel_2.gridwidth = 2;
-        gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
+        gbc_lblNewLabel_2.insets = new Insets(0,  0,  5,  5);
         gbc_lblNewLabel_2.gridx = 1;
         gbc_lblNewLabel_2.gridy = 6;
-        getContentPane().add(lblNewLabel_2, gbc_lblNewLabel_2);
+        getContentPane().add(lblNewLabel_2,  gbc_lblNewLabel_2);
         
         labelAclaracionFecha2 = new JLabel("(dd/mm/aaaa)");
         GridBagConstraints gbc_labelAclaracionFecha2 = new GridBagConstraints();
-        gbc_labelAclaracionFecha2.insets = new Insets(0, 0, 5, 5);
+        gbc_labelAclaracionFecha2.insets = new Insets(0,  0,  5,  5);
         gbc_labelAclaracionFecha2.gridx = 3;
         gbc_labelAclaracionFecha2.gridy = 6;
-        getContentPane().add(labelAclaracionFecha2, gbc_labelAclaracionFecha2);
+        getContentPane().add(labelAclaracionFecha2,  gbc_labelAclaracionFecha2);
         
         boxIDia = new JComboBox<>(comboModelDia);        
         GridBagConstraints gbc_boxIDia = new GridBagConstraints();
         gbc_boxIDia.fill = GridBagConstraints.HORIZONTAL;
-        gbc_boxIDia.insets = new Insets(0, 0, 5, 5);
+        gbc_boxIDia.insets = new Insets(0,  0,  5,  5);
         gbc_boxIDia.gridx = 1;
         gbc_boxIDia.gridy = 7;
-        getContentPane().add(boxIDia, gbc_boxIDia);
+        getContentPane().add(boxIDia,  gbc_boxIDia);
         
         DiaAlta = new JComboBox<>(comboModelDia3);
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox.insets = new Insets(0,  0,  5,  5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 11;
-		getContentPane().add(DiaAlta, gbc_comboBox);
+		getContentPane().add(DiaAlta,  gbc_comboBox);
         
         boxIMes = new JComboBox<>(comboModelMes);
         boxIMes.addItemListener(new ItemListener() {
@@ -212,11 +212,11 @@ public class CrearCuponera extends JInternalFrame {
         	}
         });
         GridBagConstraints gbc_boxIMes = new GridBagConstraints();
-        gbc_boxIMes.insets = new Insets(0, 0, 5, 5);
+        gbc_boxIMes.insets = new Insets(0,  0,  5,  5);
         gbc_boxIMes.fill = GridBagConstraints.BOTH;
         gbc_boxIMes.gridx = 2;
         gbc_boxIMes.gridy = 7;
-        getContentPane().add(boxIMes, gbc_boxIMes);
+        getContentPane().add(boxIMes,  gbc_boxIMes);
 		
 		MesAlta = new JComboBox<>(comboModelMes3);
         MesAlta.addItemListener(new ItemListener() {
@@ -235,58 +235,58 @@ public class CrearCuponera extends JInternalFrame {
         	}
         });
 		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBox_1.insets = new Insets(0,  0,  5,  5);
 		gbc_comboBox_1.fill = GridBagConstraints.BOTH;
 		gbc_comboBox_1.gridx = 2;
 		gbc_comboBox_1.gridy = 11;
-		getContentPane().add(MesAlta, gbc_comboBox_1);
+		getContentPane().add(MesAlta,  gbc_comboBox_1);
 
 		inicioAnio = new JTextField();
 		inicioAnio.setText("yyyy");
 		inicioAnio.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(inicioAnio.getText().equals("yyyy"))
+				if (inicioAnio.getText().equals("yyyy"))
 					inicioAnio.setText("");
 			}
 		});
 		GridBagConstraints gbc_inicioAnio = new GridBagConstraints();
 		gbc_inicioAnio.gridwidth = 1;
 		gbc_inicioAnio.fill = GridBagConstraints.BOTH;
-		gbc_inicioAnio.insets = new Insets(0, 0, 5, 5);
+		gbc_inicioAnio.insets = new Insets(0,  0,  5,  5);
 		gbc_inicioAnio.gridx = 3;
 		gbc_inicioAnio.gridy = 7;
-		getContentPane().add(inicioAnio, gbc_inicioAnio);
+		getContentPane().add(inicioAnio,  gbc_inicioAnio);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Fecha de fin\r\n");
 		GridBagConstraints gbc_lblNewLabel_2_1 = new GridBagConstraints();
 		gbc_lblNewLabel_2_1.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_2_1.gridwidth = 2;
-		gbc_lblNewLabel_2_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_2_1.insets = new Insets(0,  0,  5,  5);
 		gbc_lblNewLabel_2_1.gridx = 1;
 		gbc_lblNewLabel_2_1.gridy = 8;
-		getContentPane().add(lblNewLabel_2_1, gbc_lblNewLabel_2_1);
+		getContentPane().add(lblNewLabel_2_1,  gbc_lblNewLabel_2_1);
 		
         // JComboBox:
         
 		labelAclaracionFecha = new JLabel("(dd/mm/aaaa)");
 		GridBagConstraints gbc_labelAclaracionFecha = new GridBagConstraints();
-		gbc_labelAclaracionFecha.insets = new Insets(0, 0, 5, 5);
+		gbc_labelAclaracionFecha.insets = new Insets(0,  0,  5,  5);
 		gbc_labelAclaracionFecha.gridx = 3;
 		gbc_labelAclaracionFecha.gridy = 8;
-		getContentPane().add(labelAclaracionFecha, gbc_labelAclaracionFecha);
+		getContentPane().add(labelAclaracionFecha,  gbc_labelAclaracionFecha);
 		
 		boxIDia2 = new JComboBox<>(comboModelDia2);        
 		GridBagConstraints gbc_boxIDia2 = new GridBagConstraints();
-		gbc_boxIDia2.insets = new Insets(0, 0, 5, 5);
+		gbc_boxIDia2.insets = new Insets(0,  0,  5,  5);
 		gbc_boxIDia2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_boxIDia2.gridx = 1;
 		gbc_boxIDia2.gridy = 9;
-		getContentPane().add(boxIDia2, gbc_boxIDia2);
+		getContentPane().add(boxIDia2,  gbc_boxIDia2);
 		
         boxIMes2 = new JComboBox<>(comboModelMes2);
         GridBagConstraints gbc_boxIMes2 = new GridBagConstraints();
-        gbc_boxIMes2.insets = new Insets(0, 0, 5, 5);
+        gbc_boxIMes2.insets = new Insets(0,  0,  5,  5);
         gbc_boxIMes2.fill = GridBagConstraints.BOTH;
         gbc_boxIMes2.gridx = 2;
         gbc_boxIMes2.gridy = 9;
@@ -305,7 +305,7 @@ public class CrearCuponera extends JInternalFrame {
         		}
         	}
         });
-        getContentPane().add(boxIMes2, gbc_boxIMes2);
+        getContentPane().add(boxIMes2,  gbc_boxIMes2);
 		
         
         inicioAnio2 = new JTextField();
@@ -313,50 +313,50 @@ public class CrearCuponera extends JInternalFrame {
 		inicioAnio2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(inicioAnio2.getText().equals("yyyy"))
+				if (inicioAnio2.getText().equals("yyyy"))
 					inicioAnio2.setText("");
 			}
 		});
         GridBagConstraints gbc_inicioAnio2 = new GridBagConstraints();
         gbc_inicioAnio2.gridwidth = 1;
         gbc_inicioAnio2.fill = GridBagConstraints.BOTH;
-        gbc_inicioAnio2.insets = new Insets(0, 0, 5, 5);
+        gbc_inicioAnio2.insets = new Insets(0,  0,  5,  5);
         gbc_inicioAnio2.gridx = 3;
         gbc_inicioAnio2.gridy = 9;
-        getContentPane().add(inicioAnio2, gbc_inicioAnio2);
+        getContentPane().add(inicioAnio2,  gbc_inicioAnio2);
 		
 		lblNewLabel_3 = new JLabel("Fecha de alta\t\t");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_3.gridwidth = 2;
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_3.insets = new Insets(0,  0,  5,  5);
 		gbc_lblNewLabel_3.gridx = 1;
 		gbc_lblNewLabel_3.gridy = 10;
-		getContentPane().add(lblNewLabel_3, gbc_lblNewLabel_3);
+		getContentPane().add(lblNewLabel_3,  gbc_lblNewLabel_3);
 		
 		lblNewLabel_5 = new JLabel("(dd/mm/aaaa)");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
-		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_5.insets = new Insets(0,  0,  5,  5);
 		gbc_lblNewLabel_5.gridx = 3;
 		gbc_lblNewLabel_5.gridy = 10;
-		getContentPane().add(lblNewLabel_5, gbc_lblNewLabel_5);
+		getContentPane().add(lblNewLabel_5,  gbc_lblNewLabel_5);
 		
 		AnioAlta = new JTextField();
 		AnioAlta.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(AnioAlta.getText().equals("yyyy"))
+				if (AnioAlta.getText().equals("yyyy"))
 					AnioAlta.setText("");
 			}
 		});
 		AnioAlta.setText("yyyy");
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_1.insets = new Insets(0,  0,  5,  5);
 		gbc_textField_1.fill = GridBagConstraints.BOTH;
 		gbc_textField_1.gridx = 3;
 		gbc_textField_1.gridy = 11;
-		getContentPane().add(AnioAlta, gbc_textField_1);
+		getContentPane().add(AnioAlta,  gbc_textField_1);
 		AnioAlta.setColumns(10);
 		
 		JLabel desculab = new JLabel("Descuento: 0%");
@@ -364,17 +364,17 @@ public class CrearCuponera extends JInternalFrame {
 		gbc_desculab.gridheight = 2;
 		gbc_desculab.anchor = GridBagConstraints.WEST;
 		gbc_desculab.gridwidth = 2;
-		gbc_desculab.insets = new Insets(0, 0, 5, 5);
+		gbc_desculab.insets = new Insets(0,  0,  5,  5);
 		gbc_desculab.gridx = 1;
 		gbc_desculab.gridy = 12;
-		getContentPane().add(desculab, gbc_desculab);
+		getContentPane().add(desculab,  gbc_desculab);
 		
 		horizontalStrut = Box.createHorizontalStrut(20);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
-		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut.insets = new Insets(0,  0,  5,  5);
 		gbc_horizontalStrut.gridx = 0;
 		gbc_horizontalStrut.gridy = 13;
-		getContentPane().add(horizontalStrut, gbc_horizontalStrut);
+		getContentPane().add(horizontalStrut,  gbc_horizontalStrut);
 		
 		slider = new JSlider();
 		slider.setValue(0);
@@ -389,10 +389,10 @@ public class CrearCuponera extends JInternalFrame {
 		gbc_slider.gridwidth = 3;
 		gbc_slider.fill = GridBagConstraints.BOTH;
 		gbc_slider.gridheight = 2;
-		gbc_slider.insets = new Insets(0, 0, 5, 5);
+		gbc_slider.insets = new Insets(0,  0,  5,  5);
 		gbc_slider.gridx = 1;
 		gbc_slider.gridy = 14;
-		getContentPane().add(slider, gbc_slider);
+		getContentPane().add(slider,  gbc_slider);
 		
 		btnNewButton_1 = new JButton("Aceptar");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -403,10 +403,10 @@ public class CrearCuponera extends JInternalFrame {
 		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_1.insets = new Insets(0,  0,  5,  5);
 		gbc_btnNewButton_1.gridx = 2;
 		gbc_btnNewButton_1.gridy = 16;
-		getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
+		getContentPane().add(btnNewButton_1,  gbc_btnNewButton_1);
 		
 		btnNewButton = new JButton("Limpiar");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -417,24 +417,24 @@ public class CrearCuponera extends JInternalFrame {
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton.insets = new Insets(0,  0,  5,  5);
 		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 16;
-		getContentPane().add(btnNewButton, gbc_btnNewButton);
+		getContentPane().add(btnNewButton,  gbc_btnNewButton);
 		
 		verticalStrut_2 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_2 = new GridBagConstraints();
-		gbc_verticalStrut_2.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_2.insets = new Insets(0,  0,  5,  5);
 		gbc_verticalStrut_2.gridx = 2;
 		gbc_verticalStrut_2.gridy = 17;
-		getContentPane().add(verticalStrut_2, gbc_verticalStrut_2);
+		getContentPane().add(verticalStrut_2,  gbc_verticalStrut_2);
 		
 		verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
-		gbc_verticalStrut_1.insets = new Insets(0, 0, 0, 5);
+		gbc_verticalStrut_1.insets = new Insets(0,  0,  0,  5);
 		gbc_verticalStrut_1.gridx = 3;
 		gbc_verticalStrut_1.gridy = 19;
-		getContentPane().add(verticalStrut_1, gbc_verticalStrut_1);
+		getContentPane().add(verticalStrut_1,  gbc_verticalStrut_1);
 		
 	}
 	public void clear() {
@@ -454,7 +454,7 @@ public class CrearCuponera extends JInternalFrame {
     }
 	
 	private void tomarDatos(ICuponeraController dep) {
-		if(!checkFormulario())
+		if (!checkFormulario())
 			return;
 		
 		String nombreU;
@@ -481,25 +481,25 @@ public class CrearCuponera extends JInternalFrame {
         int mesA = this.MesAlta.getSelectedIndex();
         int anioA = Integer.parseInt(AnioAlta.getText().trim());
    
-        DtFecha FInicio = new DtFecha(anio, mes, dia, 0, 0, 0);
-        DtFecha  FFinal = new DtFecha(anio2, mes2, dia2, 0, 0, 0);
-        DtFecha alta = new DtFecha(anioA, mesA, diaA, 0, 0, 0);
+        DtFecha FInicio = new DtFecha(anio,  mes,  dia,  0,  0,  0);
+        DtFecha  FFinal = new DtFecha(anio2,  mes2,  dia2,  0,  0,  0);
+        DtFecha alta = new DtFecha(anioA,  mesA,  diaA,  0,  0,  0);
 
 		if (!alta.esMenor(FInicio)) {
-        	JOptionPane.showMessageDialog(this, "La fecha de registro debe ser anterior o igual a la fecha de "
-        			+ "inicio de la clase", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(this,  "La fecha de registro debe ser anterior o igual a la fecha de "
+        			+ "inicio de la clase",  this.getTitle(),  JOptionPane.ERROR_MESSAGE);
         } else if (FFinal.esMenor(FInicio)) {
-        	JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior a la fecha final de la clase", 
-        			this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(this,  "La fecha de inicio debe ser anterior a la fecha final de la clase",  
+        			this.getTitle(),  JOptionPane.ERROR_MESSAGE);
         } else {
         	try {
-	        	dep.ingresarCuponera(nombreU, descripcion, FInicio, FFinal, desc, alta);
-	    		JOptionPane.showMessageDialog(this, "La cuponera ha sido creada con exito.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);  
+	        	dep.ingresarCuponera(nombreU,  descripcion,  FInicio,  FFinal,  desc,  alta);
+	    		JOptionPane.showMessageDialog(this,  "La cuponera ha sido creada con exito.",  this.getTitle(),  JOptionPane.INFORMATION_MESSAGE);  
 				clear();
         	} catch (CuponeraRepetidaException e) {
-        		JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        		JOptionPane.showMessageDialog(this,  e.getMessage(),  this.getTitle(),  JOptionPane.ERROR_MESSAGE);
         	} catch (FechaInvalidaException e) {
-        		JOptionPane.showMessageDialog(this, e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+        		JOptionPane.showMessageDialog(this,  e.getMessage(),  this.getTitle(),  JOptionPane.ERROR_MESSAGE);
 			}
         }
 	}
@@ -520,7 +520,7 @@ public class CrearCuponera extends JInternalFrame {
 		String descripcion = this.textArea.getText();
 		if (nombreU.isEmpty() || anio3.equals("yyyy")|| anio3.isEmpty()  || anio.equals("yyyy") || anio.isEmpty() || anio2.equals("yyyy")  ||
 			anio2.isEmpty() || dia == 0 || mes == 0 || dia2 == 0 || mes2 == 0 || dia3==0 ||mes3==0 || descripcion.isEmpty()) {
-			JOptionPane.showMessageDialog(this, "No puede haber campos vacios", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this,  "No puede haber campos vacios",  this.getTitle(),  JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		//Numeros no son numeros
@@ -529,7 +529,7 @@ public class CrearCuponera extends JInternalFrame {
 			Integer.parseInt(anio3);
 			Integer.parseInt(anio);
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this, "La fecha ingresada debe ser un numero.", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this,  "La fecha ingresada debe ser un numero.",  this.getTitle(),  JOptionPane.ERROR_MESSAGE);
 			return false;
 		}	
 		return true;       

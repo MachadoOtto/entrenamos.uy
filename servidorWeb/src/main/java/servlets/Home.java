@@ -31,7 +31,7 @@ public class Home extends HttpServlet {
         GestorWeb.getInstance();
     }
 
-	private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	private void processRequest(HttpServletRequest req,  HttpServletResponse resp) throws ServletException,  IOException {
     	req.setCharacterEncoding("utf-8");
     	resp.setCharacterEncoding("utf-8");
 		Parametrizer.loadStdRequests(req);
@@ -42,7 +42,7 @@ public class Home extends HttpServlet {
 			actividadesAprobadas = obtenerActividades();
 		} catch(ActividadDeportivaException ex) {
 			ex.printStackTrace();
-			req.setAttribute("contxError", ex);
+			req.setAttribute("contxError",  ex);
 			resp.sendRedirect(req.getContextPath() + "/pages/500.jsp");
 			return;
 		}
@@ -53,14 +53,14 @@ public class Home extends HttpServlet {
 		}
 		int contador = 1;
 		for (Integer x : numerosRandom) {
-			req.setAttribute("actividad" + contador, actividadesAprobadas.get(x));
+			req.setAttribute("actividad" + contador,  actividadesAprobadas.get(x));
 			contador++;
 		}
-		req.getRequestDispatcher("/pages/home.jsp").forward(req, resp);
+		req.getRequestDispatcher("/pages/home.jsp").forward(req,  resp);
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		processRequest(request, response);
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		processRequest(request,  response);
 	}
 	
 	// Devuelve las Actividades aprobadas.
@@ -70,7 +70,7 @@ public class Home extends HttpServlet {
 		for (String x :	IADC.obtenerInstituciones()) {
 			try {
 				for (String y : IADC.obtenerActividades(x)) {
-					DtActividadDeportiva datosActividad = IADC.getActDepExt(x, y);
+					DtActividadDeportiva datosActividad = IADC.getActDepExt(x,  y);
 					if (datosActividad.getEstado() == TEstado.aceptada) {
 						lista.add(datosActividad);
 					}

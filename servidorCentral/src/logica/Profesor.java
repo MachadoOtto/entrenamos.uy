@@ -1,13 +1,5 @@
-﻿/* Taller de Programacion 2021 - INCO/FING/UDELAR
- * Integrantes:
- *      Alexis Baladon (5.574.612-4) - alexis.baladon@fing.edu.uy
- *      Guillermo Toyos (5.139.879-9) - guillermo.toyos@fing.edu.uy
- *      Jorge Machado (4.876.616-9) - jorge.machado.ottonelli@fing.edu.uy
- *      Juan Jose Mangado (5.535.227-0) - juan.mangado@fing.edu.uy
- *      Mathias Ramilo (5.665.788-5) - mathias.ramilo@fing.edu.uy
- */
-
 package logica;
+
 import datatypes.DtProfesor;
 
 import datatypes.DtProfesorExt;
@@ -20,13 +12,13 @@ import java.util.HashSet;
 
 public class Profesor extends Usuario {
 	
-	private String descripcion, biografia, website;
+	private String descripcion,  biografia,  website;
 	private Institucion instituto;
-	private Map<String, Clase> misClases;
-	private Map<String, ActividadDeportiva> misActividadesIngresadas;
+	private Map<String,  Clase> misClases;
+	private Map<String,  ActividadDeportiva> misActividadesIngresadas;
 	
 	public Profesor(DtProfesor datos) {
-		super(datos.getNickname(), datos.getNombre(), datos.getApellido(), datos.getEmail(), datos.getContrasenia(), datos.getFechaNacimiento(), datos.getImagen());
+		super(datos.getNickname(),  datos.getNombre(),  datos.getApellido(),  datos.getEmail(),  datos.getContrasenia(),  datos.getFechaNacimiento(),  datos.getImagen());
 		this.setDescripcion(datos.getDescripcion());
 		this.setBiografia(datos.getBiografia());
 		this.setWebsite(datos.getLink());
@@ -56,12 +48,12 @@ public class Profesor extends Usuario {
 		if (misClases.containsKey(cl.getNombre())) {
 			return false;
 		} else {
-			misClases.put(cl.getNombre(), cl);
+			misClases.put(cl.getNombre(),  cl);
 			return true;
 		}
 	}
 	public void addActDep(ActividadDeportiva d) {
-		misActividadesIngresadas.put(d.getNombre(), d);
+		misActividadesIngresadas.put(d.getNombre(),  d);
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -79,32 +71,32 @@ public class Profesor extends Usuario {
 		return instituto;
 	}
 	
-	public Map<String, Clase> getClasesDictadas() {
+	public Map<String,  Clase> getClasesDictadas() {
 		return misClases;
 	}
 	/* DISABLED OPERATION
 	public DtProfesor getDt() {
-		DtProfesor datos = new DtProfesor(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,instituto.getNombre(),descripcion,biografia,website,imagen);
+		DtProfesor datos = new DtProfesor(nickname, nombre, apellido, correo, contrasenia, fechaNacimiento, instituto.getNombre(), descripcion, biografia, website, imagen);
 		return datos;
 	}
 	*/
     public DtProfesorExt getDtExt() {
     	Set<String> clasesDictadas = new HashSet<>(misClases.keySet());
-    	Map<String, TEstado> adm = new HashMap<>();
-    	Map<String,Set<String>> x = new HashMap<>();
-    	for(String aa: instituto.getMiTrabajo(this)) {
+    	Map<String,  TEstado> adm = new HashMap<>();
+    	Map<String, Set<String>> x = new HashMap<>();
+    	for (String aa: instituto.getMiTrabajo(this)) {
     		Set<String> y = new HashSet<>();
-    		x.put(aa,y);
-    		for(String c: clasesDictadas) {
-    			if(getClasesDictadas().get(c).tieneActividadDeportiva(aa)) {
+    		x.put(aa, y);
+    		for (String c: clasesDictadas) {
+    			if (getClasesDictadas().get(c).tieneActividadDeportiva(aa)) {
     				y.add(c);
     			}
     		}
     	}
-    	for(ActividadDeportiva ad : misActividadesIngresadas.values())
-    		adm.put(ad.getNombre(), ad.getEstado());
-    	DtProfesorExt datosExt = new DtProfesorExt(nickname,nombre,apellido,correo,contrasenia,fechaNacimiento,getInstitucion().getNombre(),
-    			getDescripcion(),getBiografia(),getWebsite(),x,imagen,this.getSeguidos().keySet(),this.getSeguidores().keySet(),adm);
+    	for (ActividadDeportiva ad : misActividadesIngresadas.values())
+    		adm.put(ad.getNombre(),  ad.getEstado());
+    	DtProfesorExt datosExt = new DtProfesorExt(getNickname(), getNombre(), getApellido(), getCorreo(), getContrasenia(), getFecha(), getInstitucion().getNombre(), 
+    			getDescripcion(), getBiografia(), getWebsite(), x, getImagen(), this.getSeguidos().keySet(), this.getSeguidores().keySet(), adm);
     	return datosExt;
     }
     

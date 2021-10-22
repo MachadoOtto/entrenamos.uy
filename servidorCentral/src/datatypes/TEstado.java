@@ -1,3 +1,3 @@
 package datatypes;
 
-public enum TEstado {ingresada,aceptada,rechazada}
+public enum TEstado {ingresada,  aceptada,  rechazada}

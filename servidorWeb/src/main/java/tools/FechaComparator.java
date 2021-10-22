@@ -8,7 +8,7 @@ import datatypes.DtFecha;
 
 public class FechaComparator implements Comparator<Object> {
     @Override
-    public int compare(Object o1, Object o2) {
+    public int compare(Object o1,  Object o2) {
     	if ((o1 instanceof DtActividadDeportiva) && (o2 instanceof DtActividadDeportiva)) {
     		DtFecha fecha1 = ((DtActividadDeportiva)o1).getFechaRegistro();
     		DtFecha fecha2 = ((DtActividadDeportiva)o2).getFechaRegistro();

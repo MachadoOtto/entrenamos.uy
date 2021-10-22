@@ -13,13 +13,13 @@ import excepciones.NoExisteCuponeraException;
 
 public interface ICuponeraController {
 	
-	public int ingresarCuponera(String nombre, String descripcion, DtFecha inicio, DtFecha fin, 
-			int descuento, DtFecha alta) throws CuponeraRepetidaException, FechaInvalidaException;
+	public int ingresarCuponera(String nombre,  String descripcion,  DtFecha inicio,  DtFecha fin,  
+			int descuento,  DtFecha alta) throws CuponeraRepetidaException,  FechaInvalidaException;
 	
 	public Set<String> getNombreCuponeras();
 	
-	public void agregarActividadCuponera(String nombre, String instituto, String actividadDeportiva, int cantidadClases) 
-			throws InstitucionException, ActividadDeportivaException, CuponeraInmutableException;
+	public void agregarActividadCuponera(String nombre,  String instituto,  String actividadDeportiva,  int cantidadClases) 
+			throws InstitucionException,  ActividadDeportivaException,  CuponeraInmutableException;
 	
 	public DtCuponera seleccionarCuponera(String nombre) throws NoExisteCuponeraException;
 	

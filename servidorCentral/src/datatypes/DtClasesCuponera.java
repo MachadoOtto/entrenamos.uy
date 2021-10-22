@@ -3,7 +3,7 @@ package datatypes;
 public class DtClasesCuponera {
 	private String nombreActividad;
 	private int cantidadClases;
-	public DtClasesCuponera(String nombreAct, int cantClase) {
+	public DtClasesCuponera(String nombreAct,  int cantClase) {
 		nombreActividad = nombreAct;
 		cantidadClases = cantClase;
 	}
