@@ -24,7 +24,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	private ActividadDeportivaController() {}
 	
 	public static ActividadDeportivaController getInstance(){
-		if(instance == null)
+		if (instance == null)
 			instance = new ActividadDeportivaController();
 		return instance;
 	}	
@@ -44,8 +44,8 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			}
 		}
 		if (!inst.existeActDep(datosAD.getNombre())) {
-			Map<String,Categoria> cat = new HashMap<>();
-			for(String x: datosAD.getCategorias())
+			Map<String, Categoria> cat = new HashMap<>();
+			for (String x: datosAD.getCategorias())
 				try {
 					cat.put(x, getHCAT().findCategoria(x));
 				} catch (CategoriaException e) {
@@ -53,7 +53,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 					e.printStackTrace();
 				}
 			try {
-				inst.addActividadDeportiva(datosAD,cat,(Profesor)getHU().findUsuario(datosAD.getCreador()));
+				inst.addActividadDeportiva(datosAD, cat, (Profesor) getHU().findUsuario(datosAD.getCreador()));
 				((Profesor) getHU().findUsuario(datosAD.getCreador())).addActDep(inst.getActDep(datosAD.getNombre()));
 			} catch (UsuarioNoExisteException e) {
 				e.printStackTrace();
@@ -64,22 +64,22 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 	
 	public Set<String> obtenerDeltaInstituciones(String nombreCup, String ins) throws InstitucionException {
-		Set<String> x = new HashSet<>();
-		for(String y: getHI().findInstitucion(ins).getActsDeps().keySet()) {
-			x.add(y);
-			for(String z: getHC().getCup(nombreCup).getNombresActDep()) {
-				if(y.equals(z)) {
-					x.remove(y);
+		Set<String> actividadesDeportivas = new HashSet<>();
+		for (String y: getHI().findInstitucion(ins).getActsDeps().keySet()) {
+			actividadesDeportivas.add(y);
+			for (String z: getHC().getCup(nombreCup).getNombresActDep()) {
+				if (y.equals(z)) {
+					actividadesDeportivas.remove(y);
 					break;
 				}
 			}
 		}
-		Set<String> x2 = new HashSet<>();
-		x2.addAll(x);
-		for(String q: x) {
+		Set<String> res = new HashSet<>();
+		res.addAll(actividadesDeportivas);
+		for (String q: actividadesDeportivas) {
 			try {
-				if(getHI().findInstitucion(ins).getActDep(q).getEstado()!=TEstado.aceptada)
-					x2.remove(q);
+				if (getHI().findInstitucion(ins).getActDep(q).getEstado()!=TEstado.aceptada)
+					res.remove(q);
 			} catch (ActividadDeportivaException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -88,7 +88,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				e.printStackTrace();
 			}
 		}
-		return x2;
+		return res;
 	}
 	
 	public DtClaseExt seleccionarClase(String inst, String actDep, String clase) throws InstitucionException, 
@@ -119,9 +119,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 	
 	public int altaInstitucion(String nombre, String descripcion, String URL) {
-		if(!getHI().existeInstitucion(nombre)){
-			Institucion i = new Institucion(nombre,descripcion,URL);
-			getHI().addInstitucion(i);
+		if (!getHI().existeInstitucion(nombre)){
+			Institucion fing = new Institucion(nombre, descripcion, URL);
+			getHI().addInstitucion(fing);
 			return 0;
 		}
 		return 1;
@@ -133,12 +133,12 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 	
 	public Set<String> obtenerActDepIngresadas(){
-		Set<String> r = new HashSet<>();
-		for(String i: getHI().obtenerInstituciones()) {
+		Set<String> res = new HashSet<>();
+		for (String i: getHI().obtenerInstituciones()) {
 			try {
-				for(Entry<String, ActividadDeportiva> a: getHI().findInstitucion(i).getActsDeps().entrySet()) {
-					if(a.getValue().getEstado() == TEstado.ingresada) {
-						r.add(new String(a.getKey()));
+				for (Entry<String, ActividadDeportiva> actividades: getHI().findInstitucion(i).getActsDeps().entrySet()) {
+					if (actividades.getValue().getEstado() == TEstado.ingresada) {
+						res.add(new String(actividades.getKey()));
 					}
 				}
 			} catch (InstitucionException e) {
@@ -146,14 +146,14 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				e.printStackTrace();
 			}
 		}
-		return r;
+		return res;
 	}
 	
-	public void aprobarActividad(String ad, TEstado ok) {
-		for(String i: getHI().obtenerInstituciones()) {
+	public void aprobarActividad(String actDep, TEstado estado) {
+		for (String i: getHI().obtenerInstituciones()) {
 			 try {
-				if(getHI().findInstitucion(i).getActsDeps().containsKey(ad)) {
-					 getHI().findInstitucion(i).getActsDeps().get(ad).setEstado(ok);
+				if (getHI().findInstitucion(i).getActsDeps().containsKey(actDep)) {
+					 getHI().findInstitucion(i).getActsDeps().get(actDep).setEstado(estado);
 					 break;
 				 }
 			} catch (InstitucionException e) {
@@ -167,8 +167,8 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 	}
 
 	public Set<String> obtenerCategorias() {
-		HandlerCategoria hc = HandlerCategoria.getInstance();
-		return hc.getNombreCategorias();
+		HandlerCategoria handlerCategoria = HandlerCategoria.getInstance();
+		return handlerCategoria.getNombreCategorias();
 	}
 
 	public DtActividadDeportivaExt buscarActDep(String nombreActDep) throws ActividadDeportivaException {

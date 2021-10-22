@@ -4,33 +4,33 @@ import java.util.List;
 
 public class DtCuponera {
 
-	private String nombre,descripcion;
-	private float descuento,costo;
-	private DtFecha fechaInicio,fechaFin,fechaAlta;
+	private String nombre, descripcion;
+	private float descuento, costo;
+	private DtFecha fechaInicio, fechaFin, fechaAlta;
 	private List<DtClasesCuponera> contenido;
 	private List<String> categorias;
 	private String img;
-	public DtCuponera(String nom, String descr, float desc, float cc, DtFecha fi, DtFecha ff, DtFecha fa, List<DtClasesCuponera> v, List<String> cat){
+	public DtCuponera(String nom, String descr, float desc, float precio, DtFecha diaDeComienzo, DtFecha horaDelRelojEnLaQueFinaliza, DtFecha fechaBaja, List<DtClasesCuponera> content, List<String> cat){
 		nombre = nom;
 		descripcion = descr;
 		descuento = desc;
-		fechaInicio = fi;
-		fechaFin = ff;
-		fechaAlta = fa;
-		costo = cc;
-		contenido = v;
+		fechaInicio = diaDeComienzo;
+		fechaFin = horaDelRelojEnLaQueFinaliza;
+		fechaAlta = fechaBaja;
+		costo = precio;
+		contenido = content;
 		categorias=cat;
 		img = null;
 	}
-	public DtCuponera(String nom, String descr, float desc, float cc, DtFecha fi, DtFecha ff, DtFecha fa, List<DtClasesCuponera> v, List<String> cat,String imagen){
+	public DtCuponera(String nom, String descr, float desc, float precio, DtFecha fechaIni, DtFecha fechaFini, DtFecha fechaAltaini, List<DtClasesCuponera> content, List<String> cat, String imagen){
 		nombre = nom;
 		descripcion = descr;
 		descuento = desc;
-		fechaInicio = fi;
-		fechaFin = ff;
-		fechaAlta = fa;
-		costo = cc;
-		contenido = v;
+		fechaInicio = fechaIni;
+		fechaFin = fechaFini;
+		fechaAlta = fechaAltaini;
+		costo = precio;
+		contenido = content;
 		categorias=cat;
 		img = imagen;
 	}

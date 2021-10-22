@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd>
-    <useProjectRuleSet>false</useProjectRuleSet>
-    <ruleSetFile>.ruleset</ruleSetFile>
-    <excludePatterns/>
-    <includePatterns/>
-    <rules>
-        <rule>
-            <name>AbstractClassWithoutAbstractMethod</name>
-            <ruleset>Best Practices</ruleset>
-        </rule>
-        <rule>
-            <name>LooseCoupling</name>
-            <ruleset>Best Practices</ruleset>
-        </rule>
-        <rule>
-            <name>UnusedPrivateField</name>
-            <ruleset>Best Practices</ruleset>
-        </rule>
-        <rule>
-            <name>PackageCase</name>
-            <ruleset>Code Style</ruleset>
-        </rule>
-        <rule>
-            <name>ShortVariable</name>
-            <ruleset>Code Style</ruleset>
-        </rule>
-    </rules>
+    <useProjectRuleSet>true</useProjectRuleSet>
+    <ruleSetFile>/home/vagrant/git/tpgr31/servidorCentral/.pmd</ruleSetFile>
     <includeDerivedFiles>false</includeDerivedFiles>
     <violationsAsErrors>true</violationsAsErrors>
     <fullBuildEnabled>true</fullBuildEnabled>

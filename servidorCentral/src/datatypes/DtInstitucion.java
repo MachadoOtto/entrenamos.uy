@@ -4,12 +4,12 @@ public class DtInstitucion {
 
 	private String nombre;
 	private String descripcion;
-	private String URL;
+	private String url;
 	
 	public DtInstitucion(String nom, String desc, String web){
 		this.nombre = nom;
 		this.descripcion = desc;
-		this.URL = web;
+		this.url = web;
 	}
 	
 	public String getNombre() {
@@ -21,6 +21,6 @@ public class DtInstitucion {
 	}
 	
 	public String getURL() {
-		return this.URL;
+		return this.url;
 	}
 }

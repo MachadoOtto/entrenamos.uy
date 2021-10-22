@@ -57,23 +57,23 @@ public class Socio extends Usuario {
 	}
 
 	public DtSocioExt getDtExt() {
-    	Map<String,Set<String>> x = new HashMap<>();
-    	for(ReciboClase rc: reciboClases) {
-    		String z = rc.getClase().getAD().getNombre();
-    		if(!x.containsKey(z)) {
-    			Set<String> y = new HashSet<>();
-    			x.put(z,y);
+    	Map<String,Set<String>> clasesDeActividades = new HashMap<>();
+    	for(ReciboClase reciboClase: reciboClases) {
+    		String nombreClase = reciboClase.getClase().getAD().getNombre();
+    		if(!clasesDeActividades.containsKey(nombreClase)) {
+    			Set<String> nombreClases = new HashSet<>();
+    			clasesDeActividades.put(nombreClase,nombreClases);
     			for(ReciboClase rc2: reciboClases) {
-    				if(rc2.getClase().getAD().getNombre().equals(z))
-    					y.add(rc2.getClase().getNombre());
+    				if(rc2.getClase().getAD().getNombre().equals(nombreClase))
+    					nombreClases.add(rc2.getClase().getNombre());
     			}
     		}
     	}
     	Set<String> cupis = new HashSet<>();
-    	for(ReciboCuponera r : reciboCuponeras) {
-    		cupis.add(r.getCuponera().getNombre());
+    	for(ReciboCuponera recibo : reciboCuponeras) {
+    		cupis.add(recibo.getCuponera().getNombre());
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), x, this.getImagen(),this.getSeguidos().keySet(),this.getSeguidores().keySet(),cupis);
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getContrasenia(), this.getFecha(), clasesDeActividades, this.getImagen(),this.getSeguidos().keySet(),this.getSeguidores().keySet(),cupis);
     	return datosExt;
     }
 	
@@ -85,29 +85,29 @@ public class Socio extends Usuario {
 		return reciboClases;
 	}
 	
-	public void inscribirSocio(ActividadDeportiva actDep, Clase cl, TReg t, DtFecha reg,Cuponera c) throws NoExisteCuponeraException, 
+	public void inscribirSocio(ActividadDeportiva actDep, Clase clase, TReg tipoCuponera, DtFecha reg,Cuponera cupi) throws NoExisteCuponeraException, 
 			ClaseException {
 		boolean noEstaInsc = true;
 		for (ReciboClase res: reciboClases) {
-			if (res.getNombreClase() == cl.getNombre()) {
+			if (res.getNombreClase() == clase.getNombre()) {
 				noEstaInsc = false;
 			}
 		} 
 		if (noEstaInsc) {
-			if(t.equals(TReg.general)) {
-				ReciboClase nuevoRecibo = new ReciboClase(reg, TReg.general, actDep.getCosto(), cl, this, null);
+			if(tipoCuponera.equals(TReg.general)) {
+				ReciboClase nuevoRecibo = new ReciboClase(reg, TReg.general, actDep.getCosto(), clase, this, null);
 				reciboClases.add(nuevoRecibo);
-				cl.addRecibo(nuevoRecibo);	
+				clase.addRecibo(nuevoRecibo);	
 			} else {
-				int i=0;
-				for (ReciboClase y: reciboClases)
-					if(y.esTipoCuponera() && y.getCuponera()==c)
-						i++;
-				if(i>=c.cantidadClases(actDep))
+				int iteradorMagico=0;
+				for (ReciboClase reciboCl: reciboClases)
+					if(reciboCl.esTipoCuponera() && reciboCl.getCuponera()==cupi)
+						iteradorMagico++;
+				if(iteradorMagico>=cupi.cantidadClases(actDep))
 					throw new NoExisteCuponeraException("La cuponera seleccionada no es válida.");
-				ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),cl,this,c);
+				ReciboClase nuevoRecibo = new ReciboClase(reg,TReg.cuponera,actDep.getCosto(),clase,this,cupi);
 				reciboClases.add(nuevoRecibo);
-				cl.addRecibo(nuevoRecibo);
+				clase.addRecibo(nuevoRecibo);
 			}
 		} else {
 			throw new ClaseException("Este Usuario ya esta inscripto a esta Clase.");

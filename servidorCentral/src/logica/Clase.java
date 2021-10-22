@@ -12,29 +12,29 @@ public class Clase {
 	private DtFecha fechaClase;
 	private int minSocios;
 	private int maxSocios;
-	private String URL;
+	private String url;
 	private DtFecha fechaRegistro;
-	private List<ReciboClase> ListReciboClase;
-	private Profesor p;
-	private ActividadDeportiva a;
+	private List<ReciboClase> listaReciboClase;
+	private Profesor vasilev;
+	private ActividadDeportiva actDep;
 	private String imgName;
 	
-	Clase(DtClase d, Profesor p, ActividadDeportiva a){
-		this.a = a;
-		this.nombre = d.getNombre();
-		this.fechaClase = d.getFechaClase();
-		this.minSocios = d.getMinSocios();
-		this.maxSocios = d.getMaxSocios();
-		this.URL = d.getURL();
-		this.fechaRegistro = d.getFechaRegistro();
-		this.p = p;
-		this.ListReciboClase = new ArrayList<ReciboClase>();
-		imgName = d.getImgName();
+	Clase(DtClase datoClase, Profesor profe, ActividadDeportiva actDep){
+		this.actDep = actDep;
+		this.nombre = datoClase.getNombre();
+		this.fechaClase = datoClase.getFechaClase();
+		this.minSocios = datoClase.getMinSocios();
+		this.maxSocios = datoClase.getMaxSocios();
+		this.url = datoClase.getURL();
+		this.fechaRegistro = datoClase.getFechaRegistro();
+		this.vasilev = profe;
+		this.listaReciboClase = new ArrayList<ReciboClase>();
+		imgName = datoClase.getImgName();
 	}
 	
 	public String getNombre() {
-		String s = nombre;
-		return s;
+		String res = nombre;
+		return res;
 	}
 	
 	public DtFecha getFechaClase() {
@@ -51,11 +51,11 @@ public class Clase {
 	}
 	
 	public Profesor getProfesor() {
-		return p;
+		return vasilev;
 	}
 	
 	public String getURL() {
-		return URL;
+		return url;
 	}
 	
 	public DtFecha getFechaRegistro() {
@@ -66,33 +66,33 @@ public class Clase {
 	public DtClaseExt getDt() {
 		List<String> SoloNombres = new ArrayList<>();
 		List<String> ListNombres = new ArrayList<>();
-		for(ReciboClase x: ListReciboClase) {
+		for (ReciboClase x: listaReciboClase) {
 			ListNombres.add(x.getNickCorreoSocio());
 			SoloNombres.add(x.getNick());
 		}
-		DtClaseExt x = new DtClaseExt(nombre, p.getNickname(), p.getCorreo(), minSocios, maxSocios, URL, this.getFechaClase(),
-				this.getFechaRegistro(), ListNombres, SoloNombres,imgName);
-		return x;
+		DtClaseExt claseDatos = new DtClaseExt(nombre, vasilev.getNickname(), vasilev.getCorreo(), minSocios, maxSocios, url, this.getFechaClase(),
+				this.getFechaRegistro(), ListNombres, SoloNombres, imgName);
+		return claseDatos;
 	}
 	
 	public boolean hayLugar() {
-		return ListReciboClase.size() < maxSocios;
+		return listaReciboClase.size() < maxSocios;
 	}
 	
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
-		return actDep == a;
+		return this.actDep == actDep;
 	}
 	
-	public void addRecibo(ReciboClase rc) {
-		ListReciboClase.add(rc);
+	public void addRecibo(ReciboClase recibo) {
+		listaReciboClase.add(recibo);
 	}
 	
-	public boolean tieneActividadDeportiva(String aa) {
-		return a.getNombre().equals(aa);
+	public boolean tieneActividadDeportiva(String activity) {
+		return actDep.getNombre().equals(activity);
 	}
 	
 	public ActividadDeportiva getAD() {
-		return a;
+		return actDep;
 	}
 	
 }

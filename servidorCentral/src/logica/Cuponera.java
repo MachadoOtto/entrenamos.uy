@@ -14,9 +14,9 @@ public class Cuponera {
 	private DtFecha fechaInicio,fechaFin,fechaAlta;
 	private float descuento,costo;
 	
-	private List<ClasesCuponera> cp;
-	private List<ReciboCuponera> rc;
-	private Set<Categoria> cc;
+	private List<ClasesCuponera> clasesCuphead;
+	private List<ReciboCuponera> recibosCuponardos;
+	private Set<Categoria> categorias;
 	
 	Cuponera(String nombre, String descripcion, int descuento, DtFecha fechaInicio, DtFecha fechaFin, DtFecha fechaAlta){
 		this.nombre = nombre;
@@ -26,9 +26,9 @@ public class Cuponera {
 		this.fechaFin = new DtFecha(fechaFin);
 		this.fechaAlta = new DtFecha(fechaAlta);
 		
-		cp = new ArrayList<>();
-		rc = new ArrayList<>();
-		cc = new HashSet<>();
+		clasesCuphead = new ArrayList<>();
+		recibosCuponardos = new ArrayList<>();
+		categorias = new HashSet<>();
 		costo = 0;
 	}
 	
@@ -41,18 +41,18 @@ public class Cuponera {
 	}
 	
 	public DtFecha getFechaInicio() {
-		DtFecha d = new DtFecha(fechaInicio);
-		return d;
+		DtFecha fecha = new DtFecha(fechaInicio);
+		return fecha;
 	}
 	
 	public DtFecha getFechaFin() {
-		DtFecha d = new DtFecha(fechaFin);
-		return d;
+		DtFecha fecha = new DtFecha(fechaFin);
+		return fecha;
 	}
 	
 	public DtFecha getFechaAlta() {
-		DtFecha d = new DtFecha(fechaAlta);
-		return d;
+		DtFecha fecha = new DtFecha(fechaAlta);
+		return fecha;
 	}
 	
 	public float getDescuento() {
@@ -65,55 +65,55 @@ public class Cuponera {
 	
 	public List<String> getNombresActDep(){
 		List<String> nomnom = new ArrayList<>();
-		for(ClasesCuponera cc: cp) {
+		for(ClasesCuponera cc: clasesCuphead) {
 			nomnom.add(cc.getNombreActDep());
 		}
 		return nomnom;
 	}
 	
 	public void addActDep(ActividadDeportiva act, int num) throws CuponeraInmutableException{
-		if(rc.size()>0)
+		if(recibosCuponardos.size()>0)
 			throw new CuponeraInmutableException("No es posible modificar la cuponera dado que ya hay socios que la compraron.");
 		ClasesCuponera claCup = new ClasesCuponera(num,this,act);
-		cp.add(claCup);
-		cc.addAll(act.getCategorias());
+		clasesCuphead.add(claCup);
+		categorias.addAll(act.getCategorias());
 		act.addClasesCup(claCup);
 		costo = costo + (1 - descuento/100)*act.getCosto()*num;
 	}
 	
 	public int cantidadClases(ActividadDeportiva actDep) {
-		for(ClasesCuponera cc: cp) {
+		for(ClasesCuponera cc: clasesCuphead) {
 			if(cc.getNombreActDep() == actDep.getNombre())
 				return cc.getCantidadClases();
 		}
 		return 0;
 	}
-	public boolean tieneActividadDeportiva(ActividadDeportiva n) {
-		for(ClasesCuponera cc: cp) {
-			if(cc.getNombreActDep() == n.getNombre())
+	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
+		for(ClasesCuponera cc: clasesCuphead) {
+			if(cc.getNombreActDep() == actDep.getNombre())
 				return true;
 		}
 		return false;
 	}
 	public DtCuponera getDt() {
-		List<DtClasesCuponera> r = new ArrayList<>();
-		List<String> r2 = new ArrayList<>();
-		for(ClasesCuponera cc: cp) {
-			DtClasesCuponera rr = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
-			r.add(rr);
+		List<DtClasesCuponera> datosClases = new ArrayList<>();
+		List<String> nombresCat = new ArrayList<>();
+		for(ClasesCuponera cc: clasesCuphead) {
+			DtClasesCuponera datosClaseCuponera = new DtClasesCuponera(cc.getNombreActDep(),cc.getCantidadClases());
+			datosClases.add(datosClaseCuponera);
 		}
-		for(Categoria c: cc) {
-			r2.add(c.getNombre());
+		for(Categoria c: categorias) {
+			nombresCat.add(c.getNombre());
 		}
-		DtCuponera x = new DtCuponera(getNombre(), getDescripcion(), getDescuento(), getCosto(), getFechaInicio(),
-				getFechaFin(), getFechaAlta(), r,r2,getImg());
-		return x;
+		DtCuponera datosCup = new DtCuponera(getNombre(), getDescripcion(), getDescuento(), getCosto(), getFechaInicio(),
+				getFechaFin(), getFechaAlta(), datosClases,nombresCat,getImg());
+		return datosCup;
 	}
-	public void addRecibo(ReciboCuponera r) {
-		rc.add(r);
+	public void addRecibo(ReciboCuponera reciboCup) {
+		recibosCuponardos.add(reciboCup);
 	}
 	public List<ReciboCuponera> getRc() {
-		return rc;
+		return recibosCuponardos;
 	}
 
 	public String getImg() {

@@ -1,7 +1,5 @@
 package datatypes;
 
-import java.util.Set;
-
 public class DtSocio extends DtUsuario {
 
 	public DtSocio(String nickname, String nombre, String apellido, String email, String contrasenia, DtFecha fechaNacimiento, byte[] imagen) {

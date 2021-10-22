@@ -58,8 +58,8 @@ public class HandlerCuponera {
 	}
 	
 	public Set<String> getNombreCuponeras() {
-		Set<String> r = new HashSet<String>(cuponeras.keySet());
-		return r;
+		Set<String> res = new HashSet<String>(cuponeras.keySet());
+		return res;
 	}
 	
 	public DtCuponera getDtCuponera(String nombreCuponera){

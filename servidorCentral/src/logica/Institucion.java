@@ -31,10 +31,10 @@ public class Institucion {
     private Map<String, ActividadDeportiva> actsDeps;
     private Set<Profesor> profesores;
 	private Logger log;
-    public Institucion(String n, String d, String u) {
-        this.nombre = n;
-        this.URL = u;
-        this.descripcion = d;
+    public Institucion(String nombre, String descripcion, String url) {
+        this.nombre = nombre;
+        this.URL = url;
+        this.descripcion = descripcion;
         this.actsDeps = new HashMap<>();
         this.profesores = new HashSet<>();
         
