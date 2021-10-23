@@ -147,7 +147,7 @@
                             <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=x.getNombreActividad()%>">
                         </div>                                
                         <div class = "col" id = "act2">
-                          <a href="<%=request.getContextPath()%>/actividades?actividad=<%= x.getNombreActividad()%>"> <%= x.getNombreActividad() %>  </a>
+                          <a class="link-dark" href="<%=request.getContextPath()%>/actividades?actividad=<%= x.getNombreActividad()%>"> <%= x.getNombreActividad() %> / <%=x.getCantidadClases() %><%if (x.getCantidadClases()>1){ %> clases<%}else{ %> clase<%} %>  </a>
                         </div>
                         
                     </div>
@@ -162,11 +162,8 @@
                     	for (String x :cats){ 
                     %>
                     <div class = "row card-body elementoLista">
-                        <div class = "col">
-                            <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cat&id=<%=x%>">
-                        </div>
                         <div class = "col" id= "act2">
-                          <a href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"> <%=x%>  </a>
+                          <a class="link-dark" href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"> <%=x%>  </a>
                         </div>
                     </div>
                        <%}%>

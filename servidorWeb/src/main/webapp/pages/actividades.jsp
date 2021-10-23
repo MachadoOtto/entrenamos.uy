@@ -7,6 +7,7 @@
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtFecha"%>
+<%@ page import="datatypes.TEstado"%>
 <%@ page import="logica.LaFabrica"%>
 <!DOCTYPE html>
 
@@ -32,12 +33,13 @@
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
           		<jsp:include page="/template/stdLeftSection.jsp"/>
+          		<jsp:include page="/template/stdRightSection.jsp"/>
         	</div>
         	<div class="col-sm-7" id="actd-general" >
 		        <div id="actd-superior" class="row ">
 			        <div class="col-3 py-3">
 					    <div id="mainImgDiv" class="">
-						    <img alt="aparatos+Pesas" id="mainImgDiv" src="<%=request.getContextPath()%>/assets/images/activities/<%=datosActDep.getImgName()%>">
+						    <img alt="aparatos+Pesas" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=datosActDep.getNombre()%>">
 					    </div>
                     </div>
                 	<div class="col-9 py-3">
@@ -48,25 +50,19 @@
                             <div class="col-auto">
                                 <h6>Ingresada por:</h6>
                             </div>
-                            <%if (!datosCreador.getNickname().equals("Administrador")) { %>
                             	<div class="col-auto">
                                 	<img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
                             	</div>
                             	<div class="col-auto">
-                                	<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>""><%=datosActDep.getCreador()%></a>
-                            	</div>
-                            <%} else { %>
-                            	<div class="col-auto">
-                                	<img id="actDepCreator" alt="admin" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/users/Administrador.png">
-                            	</div>
-                            	<div class="col-auto">
-                                	<%=datosActDep.getCreador()%>
-                            	</div>
-                            <%} %>
-                  
+                            		<%if (!datosCreador.getNickname().equals("Administrador")) { %>
+                                		<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>""><%=datosActDep.getCreador()%></a>
+                                	<%} else { %>
+                                		<%=datosActDep.getCreador()%>
+                                	<%} %>
+                                </div>
+                              </div>
                         </div>
                     </div>
-                </div>
 		        <div id="actd-inferior" class= "row card-body mb-3">
                     <div class="row">
                         <div class="col-sm-3">
@@ -106,9 +102,18 @@
                             <%=datosActDep.getFechaRegistro().toFecha()%>
                         </div>
                     </div>
+                    <%if (datosActDep.getEstado()==TEstado.rechazada) {%>
+					<div class="alert alert-danger" role="alert">
+					  Esta actividad fue <b>RECHAZADA</b>. Si usted es el autor de dicha actividad, contacte con nuestro asesor para obtener más información.
+					</div>
+					<%} else if(datosActDep.getEstado()==TEstado.ingresada) {%>
+					<div class="alert alert-warning" role="alert">
+					  Esta actividad está en estado <b>INGRESADA</b>. Pongase en contacto con un asesor para obtener más información.
+					</div>
+					<%} %>
 		        </div>
                 <br>
-                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion)) { %>
+                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion) && datosActDep.getEstado()==TEstado.aceptada) { %>
 	                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
 	                    Dar de alta una clase para esta actividad
 	                </button>
@@ -120,7 +125,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for (Object dtClase : datosClases) { %>
 							<li class="container border card-body elementoLista" > 
-                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/classes/<%=((DtClaseExt)dtClase).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
                         	</li> 
 						<% } %>              
@@ -131,7 +136,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for (Object datosCup : datosCuponeras) { %>
 							<li class="container border card-body elementoLista"> 
-                            	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/assets/images/cups/<%=((DtCuponera)datosCup).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)datosCup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)datosCup).getNombre()%>" class="clase color-blue"><%=((DtCuponera)datosCup).getNombre()%></a>
                         	</li>
                         <% } %>                
@@ -153,6 +158,7 @@
 	</div>
 	
 	<jsp:include page="/template/footer.jsp"/>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/scripts/consultaActividadDeportiva.js"></script>
 	
 	<!--MODAL ALTA CLASE-->
     <div class="modal fade" id="altaClaseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -164,38 +170,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="<%=request.getContextPath()%>/altaClase">
+                    <form method="POST" id="formulario-clase" action="<%=request.getContextPath()%>/altaClase" onsubmit="return altaCL()" enctype="multipart/form-data" accept-charset="UTF-8">
                     	<input name="nombreActDep" value="<%=datosActDep.getNombre()%>" type="hidden">
                     	<input name="institucionAsociada" value="<%=institucion%>" type="hidden">                  	
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-4" name="nombreClase" id="floatingInput" placeholder="">
-                            <label for="floatingInput">Nombre</label>
+                            <input type="text" class="form-control rounded-4" name="nombreClase" id="nomclase" placeholder="">
+                            <label for="nomclase">Nombre</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control rounded-4" name="fechaInicio" id="floatingInput" placeholder="">
-                            <label for="floatingPassword">Fecha de inicio</label>                  
+                            <input type="date" class="form-control rounded-4" name="fechaInicio" id="fechaIni" placeholder="">
+                            <label for="fechaIni">Fecha de inicio</label>                  
                         </div>
+                        <h6>Cupos de Inscripción</h6>
                         <div id="nombreCompletoDiv" class="row form-floating mb-3">
                             <div id="divNombre" class="col-6 form-check float-left">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control rounded-4" name="cantMin" id="nomm" >
-                                    <label for="nomm">Cant. Mínima de inscriptos</label>           
+                                    <input type="number" class="form-control rounded-4" name="cantMin" id="minax" >
+                                    <label for="minax">Mín</label>           
                                 </div>      
                             </div>
                             <div id="divApellido" class="col-6 form-check float-left">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control rounded-4" name="cantMax" id="ape" >
-                                    <label for="ape">Cant. Máxima de inscriptos</label>           
+                                    <input type="number" class="form-control rounded-4" name="cantMax" id="asd" >
+                                    <label for="asd">Máx</label>           
                                 </div>                           
                             </div>             
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-4" name="url" id="floatingInput" placeholder="">
-                            <label for="floatingInput">URL</label>                  
+                            <input type="text" class="form-control rounded-4" name="url" id="urlin" placeholder="">
+                            <label for="urlin">URL</label>                  
                         </div>
-                        <div id="imgPick" class="custom-file">
-                            <input type="file" class="custom-file-input" name="img" id="customFile">
-                            <label class="custom-file-label" for="customFile">Imagen</label>
+                        <div id="imgPick" class="mb-3">
+                            <input type="file" class="form-control" name="img" id="customFil2e">
+                  
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
                     </form>

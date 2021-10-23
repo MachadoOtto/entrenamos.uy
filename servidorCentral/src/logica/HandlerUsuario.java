@@ -47,7 +47,8 @@ public class HandlerUsuario {
 		nicksProhibidos.add("administrador");
 		nicksProhibidos.add("Vasílev");
 		nicksProhibidos.add("Jesús");
-		adminProf = new Profesor(new DtProfesor("Administrador",  "Administrador",  "Administrador", "Administrador", "Administrador", new DtFecha(), "Administrador", "Administrador", "Administrador", "Administrador",  null));
+		adminProf = new Profesor(new DtProfesor("Administrador",  "Administrador",  "Administrador", "Administrador", "Administrador", new DtFecha(), "INCO", "Administrador", "Administrador", "Administrador",  "Administrador.png".getBytes()));
+		adminProf.setInstitucion(HandlerInstitucion.getInstance().construirINCO());
 		log = Logger.getLogger("LoggerVasileano");
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
@@ -75,7 +76,7 @@ public class HandlerUsuario {
 	}
 	
 	public Usuario findUsuario(String userNick) throws UsuarioNoExisteException {
-		if (userNick=="Administrador")
+		if (userNick != null && userNick.equals("Administrador"))
 			//Devuelve al administrador(profesor)
 			return adminProf;
 		Usuario res = usuarios.get(userNick);

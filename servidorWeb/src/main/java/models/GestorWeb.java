@@ -83,7 +83,7 @@ public class GestorWeb {
 					+ "aparatos y pesas con el objetivo de desarrollar músculos.";
 			bio = "Victor nació en Moscow en 1977. En el año 2005 emigró a Uruguay luego de quedar "
 					+ "encantado con el país en un viaje turístico.";
-			IUC.ingresarDatosUsuario(new DtProfesor("viktor", "Victor", "Perez", "vperez@fuerza.com",  "lkj34df",  new DtFecha(1997, 1, 1, 0, 0, 0), 
+			IUC.ingresarDatosUsuario(new DtProfesor("viktor", "Victor", "Perez", "vperez@fuerza.com",  "lkj34df",  new DtFecha(1977, 1, 1, 0, 0, 0), 
 					"Fuerza Bruta",  desc,  bio , "www.vikgym.com",  "viktor.jpg".getBytes()));
 			// denis #DM
 			desc = "A Denis le interesan los deportes con pelota,  principalmente el voleibol y el handball.";
@@ -251,10 +251,10 @@ public class GestorWeb {
 	        		1,  5,  "https://www.musculos.com/Calistenia",  new DtFecha(2021, 4, 15, 15, 30, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "Calistenia.jpeg"));
 	        // Peso libre #C2
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Aparatos y pesas",  new DtClase("Peso libre",  "viktor",  "viktor",  
-	        		1,  5,  "https://www.musculos.com/pesolibre",  new DtFecha(2021, 5, 1, 17, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "PesoLibre.jpg"));
+	        		1,  5,  "https://www.musculos.com/pesolibre",  new DtFecha(2021, 5, 1, 17, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0)));
 	        // Aparatos #C3
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Aparatos y pesas",  new DtClase("Aparatos",  "viktor",  "viktor",  
-	        		1,  7,  "https://www.musculos.com/aparatos",  new DtFecha(2021, 6, 1, 18, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),  "Aparatos.jpg"));
+	        		1,  7,  "https://www.musculos.com/aparatos",  new DtFecha(2021, 6, 1, 18, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0)));
 	        // Voleibol #C4
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Voleibol",  "denis",  "denis", 
 	        		10,  21,  "https://telon.com.uy/voley",  new DtFecha(2021, 6, 10, 19, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0), "Voleibol.jpeg"));
@@ -266,13 +266,13 @@ public class GestorWeb {
 	        		2,  6,  "https://telon.com.uy/natacionM",  new DtFecha(2021, 8, 10, 17, 45, 0),  new DtFecha(2021, 4, 20, 0, 0, 0),  "Mariposa.jpeg"));
 	        // Aeróbica niños #C7
 	        IDCC.ingresarDatosClase("Instituto Natural",  "Aeróbica",  new DtClase("Aeróbica niños",  "clazar",  "clazar", 
-	        		5,  10,  "https://www.inatural.com/aeroni",  new DtFecha(2021, 8, 15, 16, 30, 0),  new DtFecha(2021, 5, 30, 0, 0, 0), "Aeróbica niños.webp"));
+	        		5,  10,  "https://www.inatural.com/aeroni",  new DtFecha(2021, 8, 15, 16, 30, 0),  new DtFecha(2021, 5, 30, 0, 0, 0)));
 	        // Aeróbico adulto mayor #C8
 	        IDCC.ingresarDatosClase("Instituto Natural",  "Aeróbica",  new DtClase("Aeróbico adulto mayor",  "clazar",  "clazar", 
-	        		5,  12,  "https://www.inatural.com/aeroam",  new DtFecha(2021, 8, 31, 19, 30, 0),  new DtFecha(2021, 5, 30, 0, 0, 0),  "Aeróbico adulto mayor.jpg"));
+	        		5,  12,  "https://www.inatural.com/aeroam",  new DtFecha(2021, 8, 31, 19, 30, 0),  new DtFecha(2021, 5, 30, 0, 0, 0)));
 	        // Aeróbico #C9
 	        IDCC.ingresarDatosClase("Instituto Natural",  "Aeróbica",  new DtClase("Aeróbica",  "clazar",  "clazar", 
-	        		5,  20,  "https://www.inatural.com/aerogral",  new DtFecha(2021, 9, 30, 20, 0, 0),  new DtFecha(2021, 5, 30, 0, 0, 0), "Aeróbica.gif"));
+	        		5,  20,  "https://www.inatural.com/aerogral",  new DtFecha(2021, 9, 30, 20, 0, 0),  new DtFecha(2021, 5, 30, 0, 0, 0)));
 	        // Boxeo I #C10
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Kickboxing",  new DtClase("Boxeo I",  "TheBoss",  "TheBoss", 
 	        		1,  4,  "https://www.musculos.com/boxeo1",  new DtFecha(2021, 9, 1, 19, 30, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Boxeo I.jpg"));
@@ -293,10 +293,10 @@ public class GestorWeb {
 	        		8,  16,  "https://telon.com.uy/posta",  new DtFecha(2021, 11, 25, 17, 45, 0),  new DtFecha(2021, 7, 8, 0, 0, 0),  "Posta.jpg"));
 	        // Basquet I #C16
 	        IDCC.ingresarDatosClase("Telón",  "Basquetbol",  new DtClase("Basquet I",  "aldo",  "aldo", 
-	        		10,  15,  "https://telon.com.uy/bball1",  new DtFecha(2021, 11, 3, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),  "Basquet1.jpg"));
+	        		10,  15,  "https://telon.com.uy/bball1",  new DtFecha(2021, 11, 3, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0)));
 	        // Basquet II #C17
 	        IDCC.ingresarDatosClase("Telón",  "Basquetbol",  new DtClase("Basquet II",  "aldo",  "aldo", 
-	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 11, 21, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),  "Basquet2.gif"));
+	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 11, 21, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0)));
 	        
 	        // CUPONERAS
 	        // Pelota #P1

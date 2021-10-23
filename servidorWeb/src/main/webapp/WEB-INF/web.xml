@@ -12,4 +12,8 @@
     <error-code>500</error-code>
     <location>/pages/500.jsp</location>
   </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/pages/403.jsp</location>
+  </error-page>
 </web-app>

@@ -194,7 +194,7 @@
 						<% String imagenClase = (((DtClaseExt)cl).getImgName() != null) ? ((DtClaseExt)cl).getImgName():"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)cl).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/classes/<%=imagenClase%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)cl).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtClaseExt)cl).getNombre()%></b></a>
 								<% for ( Map.Entry<String, Set<String>> xy: (((DtProfesorExt)usrProfile).getClasesxActividades()).entrySet() ) { %>
 									<% if (xy.getValue().contains(((DtClaseExt)cl).getNombre())) { %>
@@ -217,7 +217,7 @@
 						<% String imagenClase = (((DtClaseExt)cl).getImgName() != null) ? ((DtClaseExt)cl).getImgName():"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)cl).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/classes/<%=imagenClase%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)cl).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtClaseExt)cl).getNombre()%></b></a>
 								<% for ( Map.Entry<String, Set<String>> xy: (((DtSocioExt)usrProfile).getAguadeUwu()).entrySet() ) { %>
 									<% if (xy.getValue().contains(((DtClaseExt)cl).getNombre())) { %>
@@ -238,7 +238,7 @@
 						<% String imagenSeguidor = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(), "UTF-8"):"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/users/<%=imagenSeguidor%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=((DtUsuarioExt)u).getNickname()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtUsuarioExt)u).getNickname()%></b></a>
 							 </li>
 						 <% } %>
@@ -253,7 +253,7 @@
 						<% String imagenSeguido = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(), "UTF-8"):"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/users/<%=imagenSeguido%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=((DtUsuarioExt)u).getNickname()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtUsuarioExt)u).getNickname()%></b></a>
 							 </li>
 						 <% } %>
@@ -268,7 +268,7 @@
 						<% String imagenCup = (((DtCuponera)cup).getNombre() != null) ? ((DtCuponera)cup).getNombre():"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)cup).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/cups/<%=imagenCup%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)cup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtCuponera)cup).getNombre()%></b></a>
 							 </li>
 						 <% } %>
@@ -284,7 +284,7 @@
 						<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
 						 <% } %>
@@ -303,7 +303,7 @@
 							<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
 							<% } %>
@@ -318,7 +318,7 @@
 					  		<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
 							<% } %>
@@ -328,11 +328,11 @@
 					<h5>Actividades Rechazadas</h5>
 					  <ul id="listaActividadesClases" class="list-group list-group-horizontal">
 					  	<% for ( Object ad: dtad ) { %>
-							<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.aceptada) { %>
+							<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.rechazada) { %>
 							<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/activities/<%=imagenAct%>" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
 								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
 							 </li>
 							 <% } %>

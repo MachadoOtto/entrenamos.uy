@@ -24,6 +24,7 @@ public class HandlerInstitucion {
 	
 	private static HandlerInstitucion instance = null;
 	private Logger log;
+	private Institucion inco = null;
 	private Map<String,  Institucion> instituciones;
 	
 	private HandlerInstitucion() {
@@ -42,6 +43,8 @@ public class HandlerInstitucion {
 	}
 	
 	public Institucion findInstitucion(String nombreIns) throws InstitucionException {
+		if (nombreIns != null && nombreIns.equals("INCO") && inco != null)
+			return inco;
 		Institucion res = instituciones.get(nombreIns);
 		if (res != null)
 			return instituciones.get(nombreIns);
@@ -67,5 +70,10 @@ public class HandlerInstitucion {
 
 	public boolean existeInstitucion(String nombre) {
 		return instituciones.containsKey(nombre);
+	}
+	
+	public Institucion construirINCO() {
+		inco = new Institucion("INCO", "Instituto de computación", "https://www.fing.edu.uy/es/inco");
+		return inco;
 	}
 }	

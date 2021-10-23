@@ -74,6 +74,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 	private JLabel lblNewLabel;
 	private ConsultaDictadoClase refClase;
 	private ConsultaCuponeras refCup;
+	private ConsultaUsuario refUsu;
 	private JLabel estado;
 	
 	public ConsultaActividadDeportiva(IActividadDeportivaController IADC) {
@@ -485,6 +486,10 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 					 //Ref CU. Consulta Clases
 					 refClase.refEntry((String)comboBoxActDep.getSelectedItem(),  (String) node.getUserObject());
 				 }
+				 if (dad != null && dad.getUserObject().equals("Ingresada Por") && !(((String)node.getUserObject()).equals("Administrador"))) {
+					 //Ref CU. Consulta Usuario
+					 refUsu.refEntry((String) node.getUserObject());
+				 }
 			}
 		};
 		tree.addTreeSelectionListener(lst);
@@ -522,6 +527,7 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 							DefaultMutableTreeNode nodoCl = new DefaultMutableTreeNode("Clases");
 							DefaultMutableTreeNode nodoCup = new DefaultMutableTreeNode("Cuponeras");
 							DefaultMutableTreeNode nodoCats = new DefaultMutableTreeNode("Categorias");
+							DefaultMutableTreeNode nodoCrea = new DefaultMutableTreeNode("Ingresada Por");
 							for (String x: actDep.getClases()) {
 								nodoCl.add(new DefaultMutableTreeNode(x));
 							}
@@ -531,9 +537,11 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 							for (String x: actDep.getCategorias()) {
 								nodoCats.add(new DefaultMutableTreeNode(x));
 							}
+							nodoCrea.add(new DefaultMutableTreeNode(actDep.getCreador()));
 							add(nodoCl);
 							add(nodoCup);
 							add(nodoCats);
+							add(nodoCrea);
 						}
 					}
 				));
@@ -555,9 +563,10 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
         comboBoxIns.setModel(modelInstituciones);
     }
 	
-    public void setRef(ConsultaDictadoClase Refcdc, ConsultaCuponeras Refcc) {
+    public void setRef(ConsultaDictadoClase Refcdc, ConsultaCuponeras Refcc, ConsultaUsuario RefUsuu) {
     	refClase = Refcdc;
     	refCup = Refcc;
+    	refUsu = RefUsuu;
     }
     
 	public void clear() {

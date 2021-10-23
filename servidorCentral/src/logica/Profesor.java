@@ -44,16 +44,16 @@ public class Profesor extends Usuario {
 	}
 	
 	// Devuelve true si la Clase 'cl' se añade con exito al conjunto de Clases asociadas al Profesor.
-	public boolean addClase(Clase cl) {
-		if (misClases.containsKey(cl.getNombre())) {
+	public boolean addClase(Clase clasdf) {
+		if (misClases.containsKey(clasdf.getNombre())) {
 			return false;
 		} else {
-			misClases.put(cl.getNombre(),  cl);
+			misClases.put(clasdf.getNombre(),  clasdf);
 			return true;
 		}
 	}
-	public void addActDep(ActividadDeportiva d) {
-		misActividadesIngresadas.put(d.getNombre(),  d);
+	public void addActDep(ActividadDeportiva dasdf) {
+		misActividadesIngresadas.put(dasdf.getNombre(),  dasdf);
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -83,20 +83,21 @@ public class Profesor extends Usuario {
     public DtProfesorExt getDtExt() {
     	Set<String> clasesDictadas = new HashSet<>(misClases.keySet());
     	Map<String,  TEstado> adm = new HashMap<>();
-    	Map<String, Set<String>> x = new HashMap<>();
-    	for (String aa: instituto.getMiTrabajo(this)) {
-    		Set<String> y = new HashSet<>();
-    		x.put(aa, y);
-    		for (String c: clasesDictadas) {
-    			if (getClasesDictadas().get(c).tieneActividadDeportiva(aa)) {
-    				y.add(c);
-    			}
-    		}
-    	}
+    	Map<String, Set<String>> xargs = new HashMap<>();
+    	if (instituto != null)
+	    	for (String aa: instituto.getMiTrabajo(this)) {
+	    		Set<String> yqwerty = new HashSet<>();
+	    		xargs.put(aa, yqwerty);
+	    		for (String c: clasesDictadas) {
+	    			if (getClasesDictadas().get(c).tieneActividadDeportiva(aa)) {
+	    				yqwerty.add(c);
+	    			}
+	    		}
+	    	}
     	for (ActividadDeportiva ad : misActividadesIngresadas.values())
     		adm.put(ad.getNombre(),  ad.getEstado());
     	DtProfesorExt datosExt = new DtProfesorExt(getNickname(), getNombre(), getApellido(), getCorreo(), getContrasenia(), getFecha(), getInstitucion().getNombre(), 
-    			getDescripcion(), getBiografia(), getWebsite(), x, getImagen(), this.getSeguidos().keySet(), this.getSeguidores().keySet(), adm);
+    			getDescripcion(), getBiografia(), getWebsite(), xargs, getImagen(), this.getSeguidos().keySet(), this.getSeguidores().keySet(), adm);
     	return datosExt;
     }
     

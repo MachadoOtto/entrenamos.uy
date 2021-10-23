@@ -183,7 +183,7 @@ public class Menu {
 		escritorio.add(altaCat);
 		
 		//Se relacionan los Frames de consultas
-		consActDep.setRef(consultaClass, consultaCup);
+		consActDep.setRef(consultaClass, consultaCup, consultaUsu);
 		consultaCup.setRef(consActDep);
 		consultaUsu.setRef(consultaClass, consActDep);
 	}
@@ -496,7 +496,7 @@ public class Menu {
 					+ "aparatos y pesas con el objetivo de desarrollar músculos.";
 			bio = "Victor nació en Moscow en 1977. En el año 2005 emigró a Uruguay luego de quedar "
 					+ "encantado con el país en un viaje turístico.";
-			IUC.ingresarDatosUsuario(new DtProfesor("viktor", "Victor", "Perez", "vperez@fuerza.com",  "lkj34df",  new DtFecha(1997, 1, 1, 0, 0, 0), 
+			IUC.ingresarDatosUsuario(new DtProfesor("viktor", "Victor", "Perez", "vperez@fuerza.com",  "lkj34df",  new DtFecha(1977, 1, 1, 0, 0, 0), 
 					"Fuerza Bruta",  desc,  bio , "www.vikgym.com",  "viktor.jpg".getBytes()));
 			// denis #DM
 			desc = "A Denis le interesan los deportes con pelota,  principalmente el voleibol y el handball.";
