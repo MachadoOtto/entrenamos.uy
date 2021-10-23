@@ -33,6 +33,7 @@
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
           		<jsp:include page="/template/stdLeftSection.jsp"/>
+          		<jsp:include page="/template/stdRightSection.jsp"/>
         	</div>
         	<div class="col-sm-7" id="actd-general" >
 		        <div id="actd-superior" class="row ">
@@ -157,6 +158,7 @@
 	</div>
 	
 	<jsp:include page="/template/footer.jsp"/>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/scripts/consultaActividadDeportiva.js"></script>
 	
 	<!--MODAL ALTA CLASE-->
     <div class="modal fade" id="altaClaseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -168,38 +170,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="<%=request.getContextPath()%>/altaClase">
+                    <form method="POST" id="formulario-clase" action="<%=request.getContextPath()%>/altaClase" onsubmit="return altaCL()" enctype="multipart/form-data" accept-charset="UTF-8">
                     	<input name="nombreActDep" value="<%=datosActDep.getNombre()%>" type="hidden">
                     	<input name="institucionAsociada" value="<%=institucion%>" type="hidden">                  	
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-4" name="nombreClase" id="floatingInput" placeholder="">
-                            <label for="floatingInput">Nombre</label>
+                            <input type="text" class="form-control rounded-4" name="nombreClase" id="nomclase" placeholder="">
+                            <label for="nomclase">Nombre</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control rounded-4" name="fechaInicio" id="floatingInput" placeholder="">
-                            <label for="floatingPassword">Fecha de inicio</label>                  
+                            <input type="date" class="form-control rounded-4" name="fechaInicio" id="fechaIni" placeholder="">
+                            <label for="fechaIni">Fecha de inicio</label>                  
                         </div>
+                        <h6>Cupos de Inscripción</h6>
                         <div id="nombreCompletoDiv" class="row form-floating mb-3">
                             <div id="divNombre" class="col-6 form-check float-left">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control rounded-4" name="cantMin" id="nomm" >
-                                    <label for="nomm">Cant. Mínima de inscriptos</label>           
+                                    <input type="number" class="form-control rounded-4" name="cantMin" id="minax" >
+                                    <label for="minax">Mín</label>           
                                 </div>      
                             </div>
                             <div id="divApellido" class="col-6 form-check float-left">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control rounded-4" name="cantMax" id="ape" >
-                                    <label for="ape">Cant. Máxima de inscriptos</label>           
+                                    <input type="number" class="form-control rounded-4" name="cantMax" id="asd" >
+                                    <label for="asd">Máx</label>           
                                 </div>                           
                             </div>             
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-4" name="url" id="floatingInput" placeholder="">
-                            <label for="floatingInput">URL</label>                  
+                            <input type="text" class="form-control rounded-4" name="url" id="urlin" placeholder="">
+                            <label for="urlin">URL</label>                  
                         </div>
-                        <div id="imgPick" class="custom-file">
-                            <input type="file" class="custom-file-input" name="img" id="customFile">
-                            <label class="custom-file-label" for="customFile">Imagen</label>
+                        <div id="imgPick" class="mb-3">
+                            <input type="file" class="form-control" name="img" id="customFil2e">
+                  
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
                     </form>

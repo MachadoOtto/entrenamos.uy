@@ -3,10 +3,13 @@ package servlets;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
@@ -18,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.swing.JOptionPane;
 
 import org.apache.tomcat.jni.Time;
@@ -46,37 +50,36 @@ public class AltaClase extends HttpServlet{
     	String r = new String() + request.getContextPath() + "/actividades?actividad=" + URLEncoder.encode(rp(request, "nombreActDep"), "utf-8");
         try {
         	String imgClase = null;
-        	if (rp(request, "img")!=null && !(rp(request, "img").equals(""))) {
-        		String [] s = rp(request, "img").split("[.]");
+            if (request.getPart("img")!=null && request.getPart("img").getSize()>0) {
+            	Part filePart = request.getPart("img");
+        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
-        		imgClase = (rp(request, "nombreClase")+"."+ext);
-        	}
-        	String fechaClase = rp(request, "fechaInicio");
+        		imgClase=rp(request, "nombreClase")+"."+ext;
+            }
+        	String fechaClase = rp(request, "fechaInicio");        	
 	        DtUsuarioExt datosP = ((DtUsuarioExt) request.getSession().getAttribute("loggedUser"));
-	        System.out.print("\n \n" + fechaClase + "\n");
-	        System.out.print(fechaClase.substring(8, 10));
+
 	        if (IDCC.ingresarDatosClase(rp(request, "institucionAsociada"),  rp(request, "nombreActDep"),  new DtClase(rp(request, "nombreClase"), datosP.getNickname(), datosP.getEmail(), 
 	        	Integer.parseInt(rp(request, "cantMin")),  Integer.parseInt(rp(request, "cantMax")),  rp(request, "url"), 
 	        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)), 0, 0, 0),  new DtFecha(),  imgClase))!=0) {
-	        	r=Parametrizer.addParam(r,  "e",  "2");
+	        	r=Parametrizer.addParam(r,  "e",  "8");
 	        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
 				request.getSession().setAttribute("loggedUser",  userReload);
 	        	response.sendRedirect(r);
 	        	return;
-	        }
-	        if (rp(request, "imgClase")!=null && !(rp(request, "imgClase").equals(""))) {
-        		String [] s = rp(request, "imgClase").split("[.]");
+	        }	        
+    		if (request.getPart("img")!=null && request.getPart("img").getSize()>0) {
+	        	Part filePart = request.getPart("img");
+	        	InputStream fileContent = filePart.getInputStream();
+        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
-	        	String path = request.getServletContext().getRealPath("/assets/images/classes/"+rp(request, "nickk")+"."+ext);
-	            try (FileOutputStream f = new FileOutputStream(path)) {
-	                f.write(Base64.getDecoder().decode(rp(request, "imgBlob").split(", ")[1]));
-	            }
-	           //System.out.println(request.getServletContext().getRealPath("/assets/images/users/"+rp(request, "nickk")+"."+ext));
+	        	String path = request.getServletContext().getRealPath("/assets/images/classes/"+imgClase);
+	        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
+	           System.out.println( request.getServletContext().getRealPath("/assets/images/users/"+imgClase));
 	        }
-	        r=Parametrizer.remParam(r,  "e", "1");
-	        r=Parametrizer.remParam(r,  "e", "2");
-	        r=Parametrizer.addParam(r,  "e",  "3");
-	        request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
+	        r=Parametrizer.remParam(r,  "e", "8");
+	        r=Parametrizer.addParam(r,  "e",  "9");
+	        //Guille: Por que haces esto??? request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
         } catch(Exception e) {
         	e.printStackTrace();
         	r=Parametrizer.addParam(r,  "e",  "2");

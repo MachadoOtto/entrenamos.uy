@@ -91,7 +91,6 @@ public class Actividades extends HttpServlet {
 		} catch(Exception e) {
 			request.setAttribute("datosCuponeras",  null);
 		}
-		
 		request.setAttribute("actDep",  datosActDep);
 		request.setAttribute("institucion",  institucion);
 		request.setAttribute("esSocio",  esSocio);

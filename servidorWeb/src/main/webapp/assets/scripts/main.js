@@ -4,7 +4,9 @@ errores = {"e1m":"La combinación Usuario/Contraseña no es correcta.", "e1t":"E
 			"e4m":"El nombre de la actividad deportiva a crear ya existe en el sistema", "e4t":"Error al Registrar Actividad Deportiva", "e4c":"rgb(255 0 0 / 60%)", 
 			"e5m":"Se ha registrado la actividad deportiva exitosamente.", "e5t":"Alta de Actividad Deportiva", "e5c":"rgb(86 255 0 / 60%)", 
 			"e6m":"Su inscripcion se ha realizado con exito.", "e6t":"Inscripcion a Clase", "e6c":"rgb(86 255 0 / 60%)", 
-			"e7m":"Su informacion se ha modificado con exito.", "e7t":"Editar Perfil", "e7c":"rgb(86 255 0 / 60%)"
+			"e7m":"Su informacion se ha modificado con exito.", "e7t":"Editar Perfil", "e7c":"rgb(86 255 0 / 60%)",
+			"e8m":"Ya existe una clase con ese nombre ingresada en el sistema.", "e8t":"Alta Dictado Clase", "e8c":"rgb(255 0 0 / 60%)",
+			"e9m":"Se ha registrado la clase de manera exitosa.", "e9t":"Alta Dictado Clase", "e9c":"rgb(86 255 0 / 60%)"
 			};
 
 function shake(element){
@@ -98,6 +100,6 @@ $(window).on('load',  function() {
 	    document.getElementById('radioProfe').addEventListener('input', registroProfe);
 	    registroSocio();		
 	} catch (error){
-		console.log("Handled info0: "+error);
+		console.error(error);
 	}
 });

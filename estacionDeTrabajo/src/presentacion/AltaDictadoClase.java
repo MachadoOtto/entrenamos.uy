@@ -527,13 +527,13 @@ public class AltaDictadoClase extends JInternalFrame {
             DtFecha fechaRegistro = new DtFecha(rAnio,  rMes,  rDia,  0,  0,  0);
             DtClase datos = new DtClase(nombre,  nombreProfesor, nombreProfesor, socioMin,  socioMax,  urlWeb,  fechaClase,  fechaRegistro);
             if (!fechaRegistro.esMenor(fechaClase)) {
-            	JOptionPane.showMessageDialog(this,  "La fecha de registro debe ser anterior a la fecha de inicio de la clase",  
+            	JOptionPane.showMessageDialog(this,  "La fecha de registro debe ser anterior a la fecha de inicio de la clase.",  
             			"Alta Dictado de Clase",  JOptionPane.ERROR_MESSAGE);
             }
             else {
 	            try {
 	            	if (controlClase.ingresarDatosClase(nombreInstitucion,  nombreActividad,  datos) == 0) {
-		            	JOptionPane.showMessageDialog(this,  "El Dictado de la Clase se ha dado de alta con Ã©xito",  
+		            	JOptionPane.showMessageDialog(this,  "El Dictado de la Clase se ha dado de alta con éxito.",  
 		            			"Alta Dictado de Clase",  JOptionPane.INFORMATION_MESSAGE);
 		                clear();
 	            	} else {
