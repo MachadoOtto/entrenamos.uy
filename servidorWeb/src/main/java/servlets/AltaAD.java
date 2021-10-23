@@ -46,9 +46,10 @@ public class AltaAD extends HttpServlet {
     	String ru = r.getParameter("miurl");
         DtProfesorExt p = (DtProfesorExt) r.getSession().getAttribute("loggedUser");
         Set<String> cats = new HashSet<>();
-        for (String c: rp(r, "catAD").split("[, ]")) {
-        	cats.add(c);
-        }
+        if (rp(r, "catAD") != null)
+	        for (String c: rp(r, "catAD").split("[, ]")) {
+	        	cats.add(c);
+	        }
         String filename=null;
         if (r.getPart("imgAD")!=null && r.getPart("imgAD").getSize()>0) {
         	Part filePart = r.getPart("imgAD");

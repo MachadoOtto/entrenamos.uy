@@ -7,6 +7,7 @@
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtFecha"%>
+<%@ page import="datatypes.TEstado"%>
 <%@ page import="logica.LaFabrica"%>
 <!DOCTYPE html>
 
@@ -37,7 +38,7 @@
 		        <div id="actd-superior" class="row ">
 			        <div class="col-3 py-3">
 					    <div id="mainImgDiv" class="">
-						    <img alt="aparatos+Pesas" id="mainImgDiv" src="<%=request.getContextPath()%>/assets/images/activities/<%=datosActDep.getImgName()%>">
+						    <img alt="aparatos+Pesas" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=datosActDep.getNombre()%>">
 					    </div>
                     </div>
                 	<div class="col-9 py-3">
@@ -48,25 +49,19 @@
                             <div class="col-auto">
                                 <h6>Ingresada por:</h6>
                             </div>
-                            <%if (!datosCreador.getNickname().equals("Administrador")) { %>
                             	<div class="col-auto">
                                 	<img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
                             	</div>
                             	<div class="col-auto">
-                                	<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>""><%=datosActDep.getCreador()%></a>
-                            	</div>
-                            <%} else { %>
-                            	<div class="col-auto">
-                                	<img id="actDepCreator" alt="admin" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/users/Administrador.png">
-                            	</div>
-                            	<div class="col-auto">
-                                	<%=datosActDep.getCreador()%>
-                            	</div>
-                            <%} %>
-                  
+                            		<%if (!datosCreador.getNickname().equals("Administrador")) { %>
+                                		<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>""><%=datosActDep.getCreador()%></a>
+                                	<%} else { %>
+                                		<%=datosActDep.getCreador()%>
+                                	<%} %>
+                                </div>
+                              </div>
                         </div>
                     </div>
-                </div>
 		        <div id="actd-inferior" class= "row card-body mb-3">
                     <div class="row">
                         <div class="col-sm-3">
@@ -106,9 +101,18 @@
                             <%=datosActDep.getFechaRegistro().toFecha()%>
                         </div>
                     </div>
+                    <%if (datosActDep.getEstado()==TEstado.rechazada) {%>
+					<div class="alert alert-danger" role="alert">
+					  Esta actividad fue <b>RECHAZADA</b>. Si usted es el autor de dicha actividad, contacte con nuestro asesor para obtener más información.
+					</div>
+					<%} else if(datosActDep.getEstado()==TEstado.ingresada) {%>
+					<div class="alert alert-warning" role="alert">
+					  Esta actividad está en estado <b>INGRESADA</b>. Pongase en contacto con un asesor para obtener más información.
+					</div>
+					<%} %>
 		        </div>
                 <br>
-                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion)) { %>
+                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion) && datosActDep.getEstado()==TEstado.aceptada) { %>
 	                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
 	                    Dar de alta una clase para esta actividad
 	                </button>
@@ -120,7 +124,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for (Object dtClase : datosClases) { %>
 							<li class="container border card-body elementoLista" > 
-                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/assets/images/classes/<%=((DtClaseExt)dtClase).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
                         	</li> 
 						<% } %>              
@@ -131,7 +135,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for (Object datosCup : datosCuponeras) { %>
 							<li class="container border card-body elementoLista"> 
-                            	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/assets/images/cups/<%=((DtCuponera)datosCup).getImgName()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)datosCup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)datosCup).getNombre()%>" class="clase color-blue"><%=((DtCuponera)datosCup).getNombre()%></a>
                         	</li>
                         <% } %>                

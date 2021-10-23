@@ -328,7 +328,7 @@
 					<h5>Actividades Rechazadas</h5>
 					  <ul id="listaActividadesClases" class="list-group list-group-horizontal">
 					  	<% for ( Object ad: dtad ) { %>
-							<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.aceptada) { %>
+							<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.rechazada) { %>
 							<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
 							<li class="list-group-item container border card-body elementoLista">
 							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">

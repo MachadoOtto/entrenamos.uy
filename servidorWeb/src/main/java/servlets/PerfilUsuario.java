@@ -50,6 +50,10 @@ public class PerfilUsuario extends HttpServlet {
         try {
         	//Obtención de datos de usuario
         	String nickname = (String) request.getParameter("nickname");
+        	if (nickname.equals("Administrador")) {
+            	response.sendRedirect(request.getContextPath() + "/pages/403.jsp");
+            	return;
+        	}
         	DtUsuarioExt usr = IUC.seleccionarUsuario(nickname);
         	
         	//Obtención de clases dictadas (Profesor)
@@ -97,7 +101,7 @@ public class PerfilUsuario extends HttpServlet {
         	List<DtActividadDeportivaExt> actAsociadasProfesor = new ArrayList<>();
         	if (usr instanceof DtProfesorExt) {
         		Set<String> actividades = ((DtProfesorExt)usr).getActividadesDepAsociadas();
-        		for (String x : actividades) {
+        		for (String x : actividades) {	
         			actAsociadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(),  x));
         		}
         	}
