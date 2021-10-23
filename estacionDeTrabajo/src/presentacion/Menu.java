@@ -183,7 +183,7 @@ public class Menu {
 		escritorio.add(altaCat);
 		
 		//Se relacionan los Frames de consultas
-		consActDep.setRef(consultaClass, consultaCup);
+		consActDep.setRef(consultaClass, consultaCup, consultaUsu);
 		consultaCup.setRef(consActDep);
 		consultaUsu.setRef(consultaClass, consActDep);
 	}
