@@ -68,9 +68,12 @@ body {
 }
  
  #img-perfil {
-  	border-style: solid;
-  	border-width: 2px;
-  	border-color: silver;
+ 	object-fit: cover;
+    justify-content: center;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #0275d8;
  }
  
 #user-seguir {
@@ -182,10 +185,14 @@ body {
  /*                         */
 
 .imagenSeleccionable {
-	border-color: silver;
-	border-width: 2px;
-	width: 100px;
-	height: 100px;
+	object-fit: cover;
+	width:80px;
+	height:80px;
+	display: block;
+    justify-content: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0275d8;
 }
 
 .clase {

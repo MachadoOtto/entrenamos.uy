@@ -63,8 +63,6 @@ public class AltaClase extends HttpServlet{
 	        	Integer.parseInt(rp(request, "cantMin")),  Integer.parseInt(rp(request, "cantMax")),  rp(request, "url"), 
 	        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)), 				   Integer.parseInt(rp(request, "hora")), Integer.parseInt(rp(request, "minutos")), 0),  new DtFecha(),  imgClase))!=0) {
 	        	r=Parametrizer.addParam(r,  "e",  "8");
-	        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
-				request.getSession().setAttribute("loggedUser",  userReload);
 	        	response.sendRedirect(r);
 	        	return;
 	        }	        
@@ -79,7 +77,8 @@ public class AltaClase extends HttpServlet{
 	        }
 	        r=Parametrizer.remParam(r,  "e", "8");
 	        r=Parametrizer.addParam(r,  "e",  "9");
-	        request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
+        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
+			request.getSession().setAttribute("loggedUser",  userReload);
         } catch(Exception e) {
         	e.printStackTrace();
         	r=Parametrizer.addParam(r,  "e",  "8");
