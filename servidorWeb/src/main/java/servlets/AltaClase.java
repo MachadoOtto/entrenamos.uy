@@ -79,7 +79,7 @@ public class AltaClase extends HttpServlet{
 	        }
 	        r=Parametrizer.remParam(r,  "e", "8");
 	        r=Parametrizer.addParam(r,  "e",  "9");
-	        //Guille: Por que haces esto??? request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
+	        request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
         } catch(Exception e) {
         	e.printStackTrace();
         	r=Parametrizer.addParam(r,  "e",  "8");

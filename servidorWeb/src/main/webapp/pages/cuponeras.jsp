@@ -41,12 +41,7 @@
           if (usrLogged != null && usrLogged instanceof DtSocioExt){
         	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();
-        	  System.out.print("Empieza el caso de uso:" +c.getNombre() + "\n");
-        	  System.out.print("Cuponeras:= \n");
               for (String x: cups) {
-            	  
-            	  System.out.print(x+"\n");
-            	  
       			if (x == c.getNombre()){
               		comprada= true;
               	}  
@@ -147,7 +142,7 @@
                             <img class= "im" alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=x.getNombreActividad()%>">
                         </div>                                
                         <div class = "col" id = "act2">
-                          <a class="link-dark" href="<%=request.getContextPath()%>/actividades?actividad=<%= x.getNombreActividad()%>"> <%= x.getNombreActividad() %> / <%=x.getCantidadClases() %><%if (x.getCantidadClases()>1){ %> clases<%}else{ %> clase<%} %>  </a>
+                          <a href="<%=request.getContextPath()%>/actividades?actividad=<%= x.getNombreActividad()%>"> <%= x.getNombreActividad() %> / <%=x.getCantidadClases() %><%if (x.getCantidadClases()>1){ %> clases<%}else{ %> clase<%} %>  </a>
                         </div>
                         
                     </div>
@@ -163,7 +158,7 @@
                     %>
                     <div class = "row card-body elementoLista">
                         <div class = "col" id= "act2">
-                          <a class="link-dark" href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"> <%=x%>  </a>
+                          <a href="<%=request.getContextPath()%>/search?actividades=yes&cuponeras=yes&fltrC1=<%=x%>"> <%=x%>  </a>
                         </div>
                     </div>
                        <%}%>
