@@ -88,10 +88,10 @@ public class Search extends HttpServlet {
         				break;
         			case "fechaDesc":
                     	Collections.sort(listaActividades,  new FechaComparator());
+                    	Collections.reverse(listaActividades);
         				break;
         			case "fechaAsc":
                     	Collections.sort(listaActividades,  new FechaComparator());
-                    	Collections.reverse(listaActividades);
         				break;
         			default:
         				break;
@@ -116,10 +116,10 @@ public class Search extends HttpServlet {
 	    				break;
 	    			case "fechaDesc":
 	                	Collections.sort(listaClases,  new FechaComparator());
+	                	Collections.reverse(listaClases);
 	    				break;
 	    			case "fechaAsc":
 	                	Collections.sort(listaClases,  new FechaComparator());
-	                	Collections.reverse(listaClases);
 	    				break;
 	    			default:
 	    				break;
@@ -144,10 +144,10 @@ public class Search extends HttpServlet {
 	    				break;
 	    			case "fechaDesc":
 	                	Collections.sort(listaCuponeras,  new FechaComparator());
+	                	Collections.reverse(listaCuponeras);
 	    				break;
 	    			case "fechaAsc":
 	                	Collections.sort(listaCuponeras,  new FechaComparator());
-	                	Collections.reverse(listaCuponeras);
 	    				break;
 	    			default:
 	    				break;
