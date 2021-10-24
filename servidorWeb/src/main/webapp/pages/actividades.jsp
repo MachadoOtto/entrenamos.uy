@@ -200,6 +200,7 @@
                             <input type="text" class="form-control rounded-4" name="url" id="urlin" placeholder="">
                             <label for="urlin">URL</label>                  
                         </div>
+                        <h6>Imagen asociada <i style="font-size:0.7rem;"> (opcional)</i></h6>
                         <div id="imgPick" class="mb-3">
                             <input type="file" class="form-control" name="img" id="customFil2e">
                   

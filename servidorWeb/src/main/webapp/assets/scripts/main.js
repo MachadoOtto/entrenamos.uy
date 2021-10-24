@@ -82,6 +82,14 @@ function altaAD(){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-altaAD");
 		return false;
 	}
+	if(parseInt($("#costoAD").val())<0){
+		errorMsgForm("Los usurios no pueden recibir dinero al realizar una actividad.", "formulario-altaAD");
+		return false;
+	}
+	if(parseInt($("#durAD").val())<0){
+		errorMsgForm("No es posible instanciar actividades que alteren la linea temporal.", "formulario-altaAD");
+		return false;
+	}
 	return true;
 }
 

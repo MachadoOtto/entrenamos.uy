@@ -66,11 +66,13 @@ public class ContentHandler extends HttpServlet {
 			cc = "classes";
 		}
 		else if (c.equals("act")) {
+			boolean fnghfn = false;
 			for (String i: IADC.obtenerInstituciones())
 				try {
 					idf = IADC.getActDepExt(i,  id).getImgName();
+					fnghfn = true;
 				} catch(Exception e){}
-			if (idf==null) {r404(request, response);return;}
+			if (idf==null && !fnghfn) {r404(request, response);return;}
 			cc = "activities";
 		}
 		else if (c.equals("cup")) {

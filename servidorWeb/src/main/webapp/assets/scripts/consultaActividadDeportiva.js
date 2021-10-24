@@ -4,7 +4,7 @@ function altaCL(){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-clase");
 		return false;
 	}
-	if ($("#minax").val() > $("#asd").val()){
+	if (parseInt($("#minax").val()) > parseInt($("#asd").val())){
 		errorMsgForm("La cantidad máxima de cupos debe ser mayor a la mínima", "formulario-clase");
 		return false;
 	}
