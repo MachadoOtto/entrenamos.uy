@@ -45,7 +45,7 @@
 			<div class="row ">
 				<div id="user-img-btn" class="col-auto py-4" >
 					<div id="user-imagen" class="">
-						<img id="img-perfil" width="180" height="180" alt="<%=usrProfile.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=usrProfile.getNickname()%>"></img>
+						<img id="img-perfil" width="180" height="180" alt="<%=usrProfile.getNickname()%>" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=usrProfile.getNickname()%>"></img>
 					</div>
 					<div>
 						<% if (usrLogged != null) { /*Está logueado*/%>
