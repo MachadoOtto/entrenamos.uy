@@ -67,8 +67,8 @@ public class Signup extends HttpServlet{
 	        	}
 	        }
 	        else {
-	        	if (IUC.ingresarDatosUsuario(new DtProfesor(rp(request, "nickname"), rp(request, "nombre"), rp(request, "apellido"), 
-	        			rp(request, "email"),  rp(request, "pwd"),  new DtFecha(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0), 
+	        	if (IUC.ingresarDatosUsuario(new DtProfesor(rp(request, "nickk"), rp(request, "nomm"), rp(request, "ape"), 
+	        			rp(request, "emaill"),  rp(request, "pas1"),  new DtFecha(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0), 
 	        			rp(request, "instit"),  rp(request, "descRU"),  rp(request, "bioRU") , rp(request, "websRU"), 
 	        			bimgn))!=0) {
 	        		r=Parametrizer.addParam(r,  "e",  "2");
