@@ -26,7 +26,7 @@ function registroCup(){
   $("#cupdiv").show();
 }
 
-$(window).load(function() {
+$(window).on('load',function() {
 	try{
 	  	document.getElementById('radioGen').addEventListener('input', registroGen);
   		document.getElementById('radioCup').addEventListener('input', registroCup);

@@ -1,6 +1,6 @@
 function altaCL(){
 	/*Verificar Formulario*/
-	if ($("#nomclase").val() == "" || $("#fechaIni").val() == "" || $("#urlin").val() == ""){
+	if ($("#nomclase").val() == "" || $("#fechaIni").val() == "" || $("#urlin").val() == "" || $("#horaInicio").val() == "-" || $("#minutosInicio").val() == "-"){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-clase");
 		return false;
 	}

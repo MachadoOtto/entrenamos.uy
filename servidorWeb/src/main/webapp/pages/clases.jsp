@@ -181,5 +181,6 @@
     </div>	
 	<%} %>
 	<jsp:include page="/template/footer.jsp"/>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/scripts/clases.js"></script>
 </body>
 </html>

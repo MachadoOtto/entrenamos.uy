@@ -185,7 +185,7 @@
                             <div id="divNombre" class="col-6 form-check float-left">
                             	<div id="institDiv" class="form-floating mb-2 pe-2">
 			                        <select name="hora" id="horaInicio" class="form-select" data-live-search="true">
-										     <option selected>Hora Inicio</option>
+										     <option selected>-</option>
 											 <%for(int i = 0; i<24; i++) { %>
 										         <option value="<%=i%>"><%=i%></option>
 										    <%} %>
@@ -196,7 +196,7 @@
                             <div id="divNombre" class="col-6 form-check float-left">
                             	<div id="institDiv" class="form-floating mb-2 me-2 pe-1 ms-2">
 			                        <select name="minutos" id="minutosInicio" class="form-select" data-live-search="true">
-										     <option selected>Minutos Inicio</option>
+										     <option selected>-</option>
 											 <%for(int i = 0; i<60; i++) { %>
 										         <option value="<%=i%>"><%=i%></option>
 										    <%} %>
