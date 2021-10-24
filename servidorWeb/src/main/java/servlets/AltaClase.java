@@ -82,7 +82,7 @@ public class AltaClase extends HttpServlet{
 	        //Guille: Por que haces esto??? request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
         } catch(Exception e) {
         	e.printStackTrace();
-        	r=Parametrizer.addParam(r,  "e",  "2");
+        	r=Parametrizer.addParam(r,  "e",  "8");
         }
         response.sendRedirect(r);
     }
