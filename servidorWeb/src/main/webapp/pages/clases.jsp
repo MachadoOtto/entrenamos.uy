@@ -47,6 +47,8 @@
                 			</div>
               				<div class="col-auto">
                  				<img alt="Qries"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=datosClase.getNicknameProfesor()%>" class="vertical-align-middle imagenSeleccionable">
+                 			</div>
+                 			<div class="col-auto">
                  				<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosClase.getNicknameProfesor()%>"><%=datosClase.getNicknameProfesor()%></a>
               				</div>
               				<%if (esSocio) { %>

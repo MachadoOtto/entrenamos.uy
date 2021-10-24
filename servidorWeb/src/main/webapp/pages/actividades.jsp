@@ -39,23 +39,23 @@
 		        <div id="actd-superior" class="row ">
 			        <div class="col-3 py-3">
 					    <div id="mainImgDiv" class="">
-						    <img alt="aparatos+Pesas" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=datosActDep.getNombre()%>">
+						    <img alt="imagenActividad" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=datosActDep.getNombre()%>">
 					    </div>
                     </div>
                 	<div class="col-9 py-3">
 				        <div id="user-info" class="row" name="nombreActDep">
-                            <h1><%=datosActDep.getNombre()%></h1>
+                            <p><strong id="user-nickname"><%=datosActDep.getNombre()%></strong></p>
 				        </div>
                         <div id="creatorDiv" class="row">
                             <div class="col-auto">
-                                <h6>Ingresada por:</h6>
+                                <h4><strong>Ingresada por:</strong></h4>
                             </div>
                             	<div class="col-auto">
-                                	<img id="actDepCreator" alt="viktor" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
+                                	<img id="actDepCreator" alt="imagenUsuario" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
                             	</div>
                             	<div class="col-auto">
                             		<%if (!datosCreador.getNickname().equals("Administrador")) { %>
-                                		<a href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>""><%=datosActDep.getCreador()%></a>
+                                		<a id="user-type" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>"><%=datosActDep.getCreador()%></a>
                                 	<%} else { %>
                                 		<%=datosActDep.getCreador()%>
                                 	<%} %>
@@ -125,7 +125,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for (Object dtClase : datosClases) { %>
 							<li class="container border card-body elementoLista" > 
-                            	<img alt="calistenia"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="imagenClases"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
                         	</li> 
 						<% } %>              
@@ -136,7 +136,7 @@
 					<ul id="listaActividades" class=" py-3">
 						<%for (Object datosCup : datosCuponeras) { %>
 							<li class="container border card-body elementoLista"> 
-                            	<img alt="imgCuponera"  src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)datosCup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
+                            	<img alt="imagenCuponera"  src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)datosCup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                             	<a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)datosCup).getNombre()%>" class="clase color-blue"><%=((DtCuponera)datosCup).getNombre()%></a>
                         	</li>
                         <% } %>                
