@@ -205,15 +205,15 @@ public class DictadoClaseController implements IDictadoClaseController {
 			throws UsuarioNoExisteException,  InstitucionException,  ActividadDeportivaException {
 		Set<String> cupsDisp = new HashSet<>();
 		ActividadDeportiva actDep = getHI().findInstitucion(nombreInsti).getActDep(nombreAd);
-		Set<String> clasesDeAct = ((Socio) getHU().findUsuario(nombreSocio)).getDtExt().getAguadeUwu().get(nombreAd);
-		if (clasesDeAct != null) {
-			int cantidadClases = clasesDeAct.size();
-			Socio socioIt = (Socio) getHU().findUsuario(nombreSocio);
-			for (ReciboCuponera r : socioIt.getReciboCuponera()) {
-				Cuponera cupActual = r.getCuponera();
-				if (cupActual.getNombresActDep().contains(nombreAd) && cantidadClases < cupActual.cantidadClases(actDep)) {
-					cupsDisp.add(cupActual.getNombre());
-				}
+		Socio socioIt = (Socio) getHU().findUsuario(nombreSocio);
+		for (ReciboCuponera r : socioIt.getReciboCuponera()) {
+			int iteradorMagico = 0;
+			Cuponera cupActual = r.getCuponera();
+			for (ReciboClase reciboCl: socioIt.getReciboClase())
+				if (reciboCl.esTipoCuponera() && reciboCl.getCuponera() == cupActual)
+					iteradorMagico++;
+			if (cupActual.getNombresActDep().contains(nombreAd) && iteradorMagico < cupActual.cantidadClases(actDep)) {
+				cupsDisp.add(cupActual.getNombre());
 			}
 		}
 		return cupsDisp;
