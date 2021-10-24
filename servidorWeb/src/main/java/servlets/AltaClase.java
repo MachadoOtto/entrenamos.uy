@@ -61,7 +61,7 @@ public class AltaClase extends HttpServlet{
 
 	        if (IDCC.ingresarDatosClase(rp(request, "institucionAsociada"),  rp(request, "nombreActDep"),  new DtClase(rp(request, "nombreClase"), datosP.getNickname(), datosP.getEmail(), 
 	        	Integer.parseInt(rp(request, "cantMin")),  Integer.parseInt(rp(request, "cantMax")),  rp(request, "url"), 
-	        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)), 0, 0, 0),  new DtFecha(),  imgClase))!=0) {
+	        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)), 				   Integer.parseInt(rp(request, "hora")), Integer.parseInt(rp(request, "minutos")), 0),  new DtFecha(),  imgClase))!=0) {
 	        	r=Parametrizer.addParam(r,  "e",  "8");
 	        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
 				request.getSession().setAttribute("loggedUser",  userReload);

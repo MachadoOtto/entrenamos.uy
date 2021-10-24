@@ -181,6 +181,30 @@
                             <input type="date" class="form-control rounded-4" name="fechaInicio" id="fechaIni" placeholder="">
                             <label for="fechaIni">Fecha de inicio</label>                  
                         </div>
+                        <div id="nombreCompletoDiv" class="row form-floating mb-3">
+                            <div id="divNombre" class="col-6 form-check float-left">
+                            	<div id="institDiv" class="form-floating mb-2 pe-2">
+			                        <select name="hora" id="horaInicio" class="form-select" data-live-search="true">
+										     <option selected>Hora Inicio</option>
+											 <%for(int i = 0; i<24; i++) { %>
+										         <option value="<%=i%>"><%=i%></option>
+										    <%} %>
+			                        </select>
+			                        <label for="horaInicio">Hora Inicio</label>                            
+			                    </div>
+                            </div>
+                            <div id="divNombre" class="col-6 form-check float-left">
+                            	<div id="institDiv" class="form-floating mb-2 me-2 pe-1 ms-2">
+			                        <select name="minutos" id="minutosInicio" class="form-select" data-live-search="true">
+										     <option selected>Minutos Inicio</option>
+											 <%for(int i = 0; i<60; i++) { %>
+										         <option value="<%=i%>"><%=i%></option>
+										    <%} %>
+			                        </select>
+			                        <label for="minutosInicio">Minutos Inicio</label>                               
+			                    </div>
+                            </div>           
+                        </div>
                         <h6>Cupos de Inscripción</h6>
                         <div id="nombreCompletoDiv" class="row form-floating mb-3">
                             <div id="divNombre" class="col-6 form-check float-left">
