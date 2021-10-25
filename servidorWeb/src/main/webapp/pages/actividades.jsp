@@ -226,7 +226,7 @@
                         </div>
                         <h6>Imagen asociada <i style="font-size:0.7rem;"> (opcional)</i></h6>
                         <div id="imgPick" class="mb-3">
-                            <input type="file" class="form-control" name="img" id="customFil2e">
+                            <input type="file" class="form-control" name="img" id="customFil2e" accept=".jpg, .jpeg, .png, .webp, .gif, .tiff">
                   
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
