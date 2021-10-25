@@ -35,7 +35,7 @@
        			<div id="carouselNoticias" class="carousel carousel-dark slide" data-ride="carousel">
 				  <div class="carousel-inner">
 				    <div class="row carousel-item active">
-				      	<div  class="col">
+				      	<div style="align-items: center;" class="col">
 			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
 			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
 			        	</div>
