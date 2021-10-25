@@ -103,11 +103,11 @@
                         </div>
                     </div>
                     <%if (datosActDep.getEstado()==TEstado.rechazada) {%>
-					<div class="alert alert-danger" role="alert">
+					<div class="alert alert-danger mt-4" role="alert">
 					  Esta actividad fue <b>RECHAZADA</b>. Si usted es el autor de dicha actividad, contacte con nuestro asesor para obtener más información.
 					</div>
 					<%} else if(datosActDep.getEstado()==TEstado.ingresada) {%>
-					<div class="alert alert-warning" role="alert">
+					<div class="alert alert-warning mt-4" role="alert">
 					  Esta actividad está en estado <b>INGRESADA</b>. Pongase en contacto con un asesor para obtener más información.
 					</div>
 					<%} %>
