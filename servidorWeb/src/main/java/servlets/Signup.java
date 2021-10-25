@@ -1,18 +1,10 @@
 package servlets;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -21,16 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.JOptionPane;
-
-import org.apache.tomcat.jni.Time;
 
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
-import datatypes.DtUsuarioExt;
-import excepciones.InstitucionException;
-import excepciones.UsuarioNoExisteException;
 import models.GestorWeb;
 import tools.Parametrizer;
 import logica.IUsuarioController;

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.GestorWeb;
 import tools.Parametrizer;
 import logica.LaFabrica;
 import datatypes.DtSocioExt;
@@ -20,7 +19,6 @@ import datatypes.DtClaseExt;
 import datatypes.DtCuponera;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
-import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
 @WebServlet ("/actividades")

@@ -109,6 +109,7 @@ public class Usuario {
     public void editarDatos(DtUsuario datos) {
     	this.setNombre(datos.getNombre());
     	this.setApellido(datos.getApellido());
+    	this.contrasenia = datos.getContrasenia();
     	this.setFecha(datos.getFechaNacimiento());
     	this.setImagen(datos.getImagen());
     }

@@ -1,16 +1,10 @@
 package servlets;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,17 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import datatypes.DtActividadDeportivaExt;
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
 import datatypes.DtProfesorExt;
 import datatypes.DtUsuarioExt;
-import logica.IActividadDeportivaController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
-import models.GestorWeb;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
@@ -40,11 +31,9 @@ import tools.Parametrizer;
 public class ModificarDatosUsuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IUsuarioController IUC;
-	private IActividadDeportivaController IADC;
     public ModificarDatosUsuario() {
         super();
         IUC = LaFabrica.getInstance().obtenerIUsuarioController();
-        IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
     } 
 
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
@@ -72,7 +61,7 @@ public class ModificarDatosUsuario extends HttpServlet {
             	String password2 = new String();
             	password1 = (String) rp(request, "pas1");
             	password2 = (String) rp(request, "pas2");
-            	if ( password1 == password2 ) {
+            	if ( password1.equals(password2) ) {
             		passwordNueva = password1;
             	}
         	}

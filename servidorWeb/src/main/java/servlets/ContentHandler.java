@@ -1,20 +1,15 @@
 package servlets;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
@@ -22,7 +17,6 @@ import logica.IActividadDeportivaController;
 import logica.ICuponeraController;
 import logica.IDictadoClaseController;
 import logica.IUsuarioController;
-import logica.LaFabrica;
 import models.GestorWeb;
 
 /**

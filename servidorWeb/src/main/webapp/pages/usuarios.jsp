@@ -389,7 +389,7 @@
 					</div>
 					<% if (usrProfile instanceof DtProfesorExt) { %>
 						<div id="modifdescDiv" class="form-group form-floating mb-3">
-	                        <textarea class="form-control" id="desc" name="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' > <%=((DtProfesorExt)usrProfile).getDescripcion()%>
+	                        <textarea class="form-control" id="desc" name="desc" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ><%=((DtProfesorExt)usrProfile).getDescripcion()%>
 	                        </textarea>
 	                        <label for="desc">Descripción</label>     
 	                    </div>

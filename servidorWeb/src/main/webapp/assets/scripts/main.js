@@ -63,22 +63,32 @@ function registroProfe(){
 
 function  registrarse(){
 	/*Verificar Formulario*/
-	if ($("#nickk").val() == "" || $("#emaill").val() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
-	 $("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || ($("#radioProfe").is(":checked") && $("#desc").val()=="")){
+	if ($("#nickk").val().trim() == "" || $("#emaill").val().trim() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
+	 $("#nomm").val().trim() == "" || $("#ape").val().trim() == "" || $("#nac").val() == "" || ($("#radioProfe").is(":checked") && $("#desc").val().trim()=="")){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-registro");
 		return false;
 	}
 	if ($("#pas1").val() != $("#pas2").val()){
 		errorMsgForm("Las contraseñas no coinciden.", "formulario-registro");
 		return false;
+	} 
+	if ((new Date($("#nac").val())) > (new Date())){
+		errorMsgForm("No es posible nacer en el futuro.", "formulario-registro");
+		return false;
 	}
-	else
+	else {
+		$("#nickk").val($("#nickk").val().trim());
+		$("#emaill").val($("#emaill").val().trim());
+		$("#nomm").val($("#nomm").val().trim());
+		$("#ape").val($("#ape").val().trim());
+		$("#desc").val($("#desc").val().trim());
 		return true;
+	}	
 }
 
 function altaAD(){
 	/*Verificar Formulario*/
-	if ($("#nombreAD").val() == "" || $("#descAD").val() == "" || $("#costoAD").val() == "" || $("#durAD").val() == ""){
+	if ($("#nombreAD").val().trim() == "" || $("#descAD").val().trim() == "" || $("#costoAD").val() == "" || $("#durAD").val() == ""){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-altaAD");
 		return false;
 	}
@@ -89,8 +99,11 @@ function altaAD(){
 	if(parseInt($("#durAD").val())<0){
 		errorMsgForm("No es posible instanciar actividades que alteren la linea temporal.", "formulario-altaAD");
 		return false;
-	}
-	return true;
+	} else {
+		$("#nombreAD").val($("#nombreAD").val().trim());
+		$("#descAD").val($("#descAD").val().trim());
+		return true;
+	}	
 }
 
 $(window).on('load',  function() {
