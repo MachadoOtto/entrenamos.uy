@@ -184,7 +184,7 @@
                     </div>
 					<div class="mb-3">
 					  <label for="formFile" class="form-label">Imagen de perfil <i style="font-size:0.7rem;"> (opcional)</i></label>
-					  <input class="form-control" type="file" id="imgPerfil" name="imgPerfil">
+					  <input class="form-control" type="file" id="imgPerfil" name="imgPerfil" accept=".jpg, .jpeg, .png, .webp, .gif, .tiff">
 					</div>
 					<input style="display: none;" class="form-control miurl" name="miurl" type="text">
                     <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Registrarse</button>
@@ -238,7 +238,7 @@
                          </div>  
 						<div class="mb-3">
 						  <label for="formFile" class="form-label">Imagen asociada <i style="font-size:0.7rem;"> (opcional)</i></label>
-						  <input class="form-control" type="file" name="imgAD" id="imgAD">
+						  <input class="form-control" type="file" name="imgAD" id="imgAD" accept=".jpg, .jpeg, .png, .webp, .gif, .tiff">
 						</div>
                         <div id="catDiv" class="form-floating mb-3">
                         <p>Categorías asociadas <i style="font-size:0.7rem;"> (opcional)</i></p>

@@ -385,7 +385,7 @@
                     </div>
                   	<div class="mb-3">
 						  <label for="formFile" class="form-label">Cambiar foto de Perfil</label>
-						  <input class="form-control" type="file" name="formFile" id="formFile">
+						  <input class="form-control" type="file" name="formFile" id="formFile" accept=".jpg, .jpeg, .png, .webp, .gif, .tiff">
 					</div>
 					<% if (usrProfile instanceof DtProfesorExt) { %>
 						<div id="modifdescDiv" class="form-group form-floating mb-3">
