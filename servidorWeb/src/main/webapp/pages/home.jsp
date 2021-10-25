@@ -36,8 +36,8 @@
 				  <div class="carousel-inner">
 				    <div class="row carousel-item active">
 				      	<div  class="col">
-			        		<img style="height: 16em; margin-left: 100px; margin-right: 40px;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
-			        		<img style="height: 16em; margin-left: 40px; margin-right: 100px;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
+			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
+			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
 			        	</div>
 				        <div class="col">
 				        	<h2>A sacudir los huesos!</h2>
