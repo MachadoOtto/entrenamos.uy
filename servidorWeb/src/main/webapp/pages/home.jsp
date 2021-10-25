@@ -31,7 +31,7 @@
         <div class="actdep-panel col-7 ms-2 ms-sm-1 ms-md-0">
             <h1 class="h2">Noticias:</h1>
         	<br>
-       		<div class="border border-dark row mb-4 p-5 text-dark bg-light rounded-3 ">
+       		<div class="border border-dark row ms-1 mb-4 p-5 text-dark bg-light rounded-3 ">
        			<div id="carouselNoticias" class="carousel carousel-dark slide" data-ride="carousel">
 				  <div class="carousel-inner">
 				    <div class="row carousel-item active">
