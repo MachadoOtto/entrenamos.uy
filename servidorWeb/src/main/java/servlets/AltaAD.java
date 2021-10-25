@@ -1,13 +1,10 @@
 package servlets;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,17 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.JOptionPane;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
-import datatypes.DtUsuarioExt;
 import datatypes.TEstado;
 import excepciones.ActividadDeportivaException;
 import logica.IActividadDeportivaController;
 import logica.LaFabrica;
-import models.GestorWeb;
 import tools.Parametrizer;
 
 @MultipartConfig

@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +22,6 @@ import logica.ICuponeraController;
 import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
-import models.GestorWeb;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.

@@ -1,6 +1,6 @@
 function altaCL(){
 	/*Verificar Formulario*/
-	if ($("#nomclase").val() == "" || $("#fechaIni").val() == "" || $("#urlin").val() == "" || $("#horaInicio").val() == "-" || $("#minutosInicio").val() == "-"){
+	if ($("#nomclase").val().trim() == "" || $("#fechaIni").val() == "" || $("#urlin").val() == "" || $("#horaInicio").val() == "-" || $("#minutosInicio").val() == "-"){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-clase");
 		return false;
 	}
@@ -12,7 +12,9 @@ function altaCL(){
 		errorMsgForm("No es posible dictar clases en el pasado. ", "formulario-clase");
 		return false;
 	}
-	else
+	else {
+		$("#nomclase").val($("#nomclase").val().trim());
 		return true;
+	}
 }
 

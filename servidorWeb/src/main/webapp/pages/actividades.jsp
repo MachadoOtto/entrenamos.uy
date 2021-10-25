@@ -43,7 +43,7 @@
 					    </div>
                     </div>
                 	<div class="col-9 py-3">
-				        <div id="user-info" class="row" name="nombreActDep">
+				        <div id="user-info" class="row">
                             <p><strong id="user-nickname"><%=datosActDep.getNombre()%></strong></p>
 				        </div>
                         <div id="creatorDiv" class="row">
@@ -68,7 +68,7 @@
                         <div class="col-sm-3">
                             <h6 class="mb-0"><strong>Institución asociada:</strong></h6>
                         </div>
-                        <div class="col-sm-9 text-secondary" name="institucionAsociada">
+                        <div class="col-sm-9 text-secondary">
                             <%=institucion%>
                         </div>
                         <div class="col-sm-3">

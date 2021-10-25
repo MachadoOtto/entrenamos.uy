@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,10 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import excepciones.ClaseException;
 import logica.LaFabrica;
 import tools.Parametrizer;
-import logica.ICuponeraController;
 import excepciones.NoExisteCuponeraException;
 import datatypes.DtCuponera;
 

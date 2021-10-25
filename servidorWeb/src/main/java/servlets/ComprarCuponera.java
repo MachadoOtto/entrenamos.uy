@@ -13,7 +13,6 @@ import excepciones.UsuarioNoExisteException;
 import excepciones.CuponeraNoExisteException;
 import logica.IUsuarioController;
 import logica.LaFabrica;
-import datatypes.DtCuponera;
 import datatypes.DtFecha;
 import datatypes.DtUsuarioExt;
 

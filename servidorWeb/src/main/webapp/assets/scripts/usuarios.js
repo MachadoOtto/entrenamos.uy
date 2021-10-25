@@ -21,7 +21,7 @@ function colorearBoton( nextID ) {
 }
 
 function modif() {
-	if ($("#nomm").val() == "" || $("#ape").val() == "" || $("#nac").val() == "" || $("#desc").val() == ""){
+	if ($("#nomm").val().trim() == "" || $("#ape").val().trim() == "" || $("#nac").val() == "" || $("#desc").val().trim() == ""){
 		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-modif");
 		return false;
 	}
@@ -29,6 +29,14 @@ function modif() {
 		errorMsgForm("Las contraseñas no coinciden.", "formulario-modif");
 		return false;
 	}
-	else
+	if ((new Date($("#nac").val())) > (new Date())){
+		errorMsgForm("No es posible nacer en el futuro.", "formulario-modif");
+		return false;
+	}
+	else {
+		$("#nomm").val($("#nomm").val().trim());
+		$("#ape").val($("#ape").val().trim());
+		$("#desc").val($("#desc").val().trim());
 		return true;
+	}	
 }

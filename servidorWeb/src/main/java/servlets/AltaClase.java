@@ -1,19 +1,11 @@
 package servlets;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -22,14 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.swing.JOptionPane;
-
-import org.apache.tomcat.jni.Time;
 
 import datatypes.DtFecha;
 import datatypes.DtClase;
 import datatypes.DtUsuarioExt;
-import models.GestorWeb;
 import tools.Parametrizer;
 import logica.IDictadoClaseController;
 import logica.LaFabrica;
@@ -69,8 +57,6 @@ public class AltaClase extends HttpServlet{
     		if (request.getPart("img")!=null && request.getPart("img").getSize()>0) {
 	        	Part filePart = request.getPart("img");
 	        	InputStream fileContent = filePart.getInputStream();
-        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
-        		String ext = s[s.length-1];
 	        	String path = request.getServletContext().getRealPath("/assets/images/classes/"+imgClase);
 	        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
 	           System.out.println( request.getServletContext().getRealPath("/assets/images/users/"+imgClase));

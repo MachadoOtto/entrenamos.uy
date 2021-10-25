@@ -1,10 +1,7 @@
 package servlets;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -15,10 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datatypes.DtActividadDeportivaExt;
-import datatypes.DtFecha;
-import datatypes.DtProfesor;
 import datatypes.DtProfesorExt;
-import datatypes.DtSocio;
 import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
@@ -26,7 +20,6 @@ import excepciones.UsuarioNoExisteException;
 import logica.IActividadDeportivaController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
-import models.GestorWeb;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
