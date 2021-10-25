@@ -35,9 +35,9 @@
        			<div id="carouselNoticias" class="carousel carousel-dark slide" data-ride="carousel">
 				  <div class="carousel-inner">
 				    <div class="row carousel-item active">
-				      	<div style="align-items: center;" class="col">
-			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
-			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
+				      	<div  class="col">
+			        		<img style="height: 16em; margin-left: 100px; margin-right: 40px;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
+			        		<img style="height: 16em; margin-left: 40px; margin-right: 100px;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
 			        	</div>
 				        <div class="col">
 				        	<h2>A sacudir los huesos!</h2>
@@ -47,14 +47,14 @@
 				    </div>
 				    <div class="carousel-item">
 				    	<div class="col">
-			        		<img style="height: 16em;" src="<%=request.getContextPath()%>/assets/images/users/viktor.jpg">
+			        		<img style="height: 16em; display: block; margin-left: auto; margin-right: auto;" src="<%=request.getContextPath()%>/assets/images/misc/empleadoMes.png">
 			        	</div>
 				        <div class="col">
 				        	<h2>Profesor del mes: <b>Viktor</b></h2>
 				          	<p>El equipo directivo de entrenamos.uy con gran placer felicita a <b>Viktor</b> por su larga trayectoria en el sitio.
 				          	 Proveniente de Moscow,  Viktor vino a Uruguay a enseñar como levantar unas buenas pesas. Este no conoce los límites,  y esto mismo
 				          	 es lo que tanto motiva a sus estudiantes. Conozca más sobre este profesor
-				          	 <a href="<%=request.getContextPath()%>/usuarios?nickname=viktor" class="clase link-dark">visitando su perfil.</a> </p>
+				          	 <a href="<%=request.getContextPath()%>/usuarios?nickname=viktor" class="clase">visitando su perfil.</a> </p>
 				        </div>
 				     </div>
 				     <div class="carousel-item">
