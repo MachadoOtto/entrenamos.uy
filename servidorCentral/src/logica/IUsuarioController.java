@@ -14,6 +14,7 @@ import java.util.Set;
 import datatypes.DtFecha;
 import datatypes.DtUsuario;
 import datatypes.DtUsuarioExt;
+import excepciones.ClaseException;
 import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
@@ -40,4 +41,7 @@ public interface IUsuarioController {
 	
 	public boolean verificarIdentidadEmail(String email,  String pass);
 	public boolean verificarIdentidadNickname(String nick,  String pass);
+	
+	public void favoritearActividad(String nick, String ins, String actDep) throws UsuarioNoExisteException, InstitucionException;
+	public void valorarProfesor(String nickSocio, String ins, String actDep, String cla, int valor) throws UsuarioNoExisteException, ClaseException, InstitucionException;
 }

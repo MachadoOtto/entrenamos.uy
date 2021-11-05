@@ -72,27 +72,7 @@ public class ActividadDeportiva {
 		log.info("ActDep "+nombre+" event: "+" new clase "+clase.getNombre());
 		return 0;
 	}
-/* FUNCIONES LEGACY (NO SE UTILIZAN)
-	public DtActividadDeportiva getDt(){
-		Set<String> c = new HashSet<String>(cats.keySet());
-		DtActividadDeportiva x = new DtActividadDeportiva(nombre,  descripcion,  duracionMinutos,  costo,  fechaRegistro, c, estado, creador.getNickname());
-		return x;
-	}
-	
-	public DtClaseExt getClaseDatos(String c) {
-		return clases.get(c).getDt();
-	}
-	public Profesor getCreador() {
-		return creador;
-	}
-	
-	public Set<DtClase> getDatosClases() {
-		Set<DtClase> resultado = new HashSet<>();
-		for (Map.Entry<String,  Clase> x: clases.entrySet())
-			resultado.add(x.getValue().getDt());
-		return resultado;
-	}
-*/
+
 	public Set<String> getNombreClases(){
 		return clases.keySet();		
 	}
@@ -161,3 +141,24 @@ public void modificarDatos(DtActividadDeportiva datosAD) {
 	fechaRegistro = datosAD.getFechaRegistro();
 } */
 
+/* FUNCIONES LEGACY (NO SE UTILIZAN)
+public DtActividadDeportiva getDt(){
+	Set<String> c = new HashSet<String>(cats.keySet());
+	DtActividadDeportiva x = new DtActividadDeportiva(nombre,  descripcion,  duracionMinutos,  costo,  fechaRegistro, c, estado, creador.getNickname());
+	return x;
+}
+
+public DtClaseExt getClaseDatos(String c) {
+	return clases.get(c).getDt();
+}
+public Profesor getCreador() {
+	return creador;
+}
+
+public Set<DtClase> getDatosClases() {
+	Set<DtClase> resultado = new HashSet<>();
+	for (Map.Entry<String,  Clase> x: clases.entrySet())
+		resultado.add(x.getValue().getDt());
+	return resultado;
+}
+*/

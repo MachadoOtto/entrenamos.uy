@@ -3,7 +3,8 @@ package datatypes;
 public class DtProfesor extends DtUsuario{
 
 	private String nombreInstitucion,  descripcion,  biografia,  link;
-		
+	private float valoracion;
+	
 	public DtProfesor(String nickname,  String nombre,  String apellido,  String email,  String contrasenia,  DtFecha fechaNacimiento,  String nombreInstitucion,  String descripcion,  String biografia,  String link,  byte[] imagen) {
 		super(nickname,  nombre,  apellido,  email,  contrasenia,  fechaNacimiento,  imagen);
 		this.nombreInstitucion = nombreInstitucion;
@@ -11,7 +12,11 @@ public class DtProfesor extends DtUsuario{
 		this.biografia = biografia;
 		this.link = link;
 	}
-	 
+	public DtProfesor(String nickname,  String nombre,  String apellido,  String email,  String contrasenia,  DtFecha fechaNacimiento,  String nombreInstitucion,  String descripcion,  String biografia,  String link,  byte[] imagen, float valoracion) {
+		this(nickname,  nombre,  apellido,  email,  contrasenia,  fechaNacimiento, nombreInstitucion, descripcion, biografia, link, imagen);
+		this.valoracion = valoracion;
+	}
+	
 	public String getNombreInstitucion() {
 		return this.nombreInstitucion;
 	}
@@ -26,5 +31,9 @@ public class DtProfesor extends DtUsuario{
 	
 	public String getLink() {
 		return this.link;
+	}
+
+	public float getValoracion() {
+		return valoracion;
 	}
 }

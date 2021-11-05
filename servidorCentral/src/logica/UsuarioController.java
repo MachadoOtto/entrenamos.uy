@@ -17,6 +17,7 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
+import excepciones.ClaseException;
 import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
@@ -154,6 +155,19 @@ public class UsuarioController implements IUsuarioController {
 	}
 	private HandlerCuponera getHC() {
 		return HandlerCuponera.getInstance();
+	}
+	private HandlerInstitucion getHI() {
+		return HandlerInstitucion.getInstance();
+	}
+	
+	@Override
+	public void favoritearActividad(String nick, String ins, String actDep) throws UsuarioNoExisteException, InstitucionException{
+		((Socio) getHU().findUsuario(nick)).changeFavoritos(getHI().findInstitucion(ins).findActividad(actDep));
+	}
+
+	@Override
+	public void valorarProfesor(String nickSocio, String ins, String actDep, String cla, int valor) throws UsuarioNoExisteException, ClaseException, InstitucionException {
+		((Socio) getHU().findUsuario(nickSocio)).valorarProfesor(getHI().findInstitucion(ins).findActividad(actDep).findClase(cla), valor);
 	}
 
 }

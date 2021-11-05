@@ -1,11 +1,13 @@
 package datatypes;
 import java.util.List;
+import java.util.Map;
 
 
 public class DtClaseExt extends DtClase {
 	
 	private List<String> alumnos;
 	private List<String> soloNickAlumnos;
+	private Map<String, Integer> calificaciones;
 	
 	public DtClaseExt(String nom,   String nickP,  String correoP,   int min,   int max,   String url,   DtFecha fechC,   DtFecha fechR,   
 			List<String> als,   List<String> soloNickAlumnos) {
@@ -46,5 +48,8 @@ public class DtClaseExt extends DtClase {
 			}
 		}
 		return res;
+	}
+	public Map<String, Integer> getCalificaciones() {
+		return calificaciones;
 	}
 }

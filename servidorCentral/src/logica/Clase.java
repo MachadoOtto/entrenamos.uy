@@ -3,9 +3,12 @@ package logica;
 import datatypes.DtClaseExt;
 import datatypes.DtClase;
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Clase {
 	private String nombre;
@@ -17,7 +20,9 @@ public class Clase {
 	private List<ReciboClase> listaReciboClase;
 	private Profesor vasilev;
 	private ActividadDeportiva actDep;
-	private String imgName;
+	private String imgName, urlVideo;
+	private Map<String, Calificacion> calificaciones;
+	private Premio prize = null;
 	
 	Clase(DtClase datoClase,  Profesor profe,  ActividadDeportiva actDep){
 		this.actDep = actDep;
@@ -29,9 +34,13 @@ public class Clase {
 		this.fechaRegistro = datoClase.getFechaRegistro();
 		this.vasilev = profe;
 		this.listaReciboClase = new ArrayList<ReciboClase>();
-		imgName = datoClase.getImgName();
+		this.calificaciones = new HashMap<>();
+		this.urlVideo = datoClase.getUrlVideo();
+		this.imgName = datoClase.getImgName();
+		if (datoClase.getPremio() != null)
+			prize = new Premio(this, datoClase.getPremio().getDescripcion(), datoClase.getPremio().getCantidad());
 	}
-	
+
 	public String getNombre() {
 		String res = nombre;
 		return res;
@@ -82,9 +91,15 @@ public class Clase {
 	public boolean tieneActividadDeportiva(ActividadDeportiva actDep) {
 		return this.actDep == actDep;
 	}
+	public List<ReciboClase> getRecibo(){
+		return listaReciboClase;
+	}
 	
 	public void addRecibo(ReciboClase recibo) {
 		listaReciboClase.add(recibo);
+	}
+	public void addCalifiacion(String socioNick, Calificacion calif) {
+		calificaciones.put(socioNick, calif);
 	}
 	
 	public boolean tieneActividadDeportiva(String activity) {
@@ -93,6 +108,21 @@ public class Clase {
 	
 	public ActividadDeportiva getAD() {
 		return actDep;
+	}
+
+	public String getUrlVideo() {
+		return urlVideo;
+	}
+	public Map<String, Calificacion> getCalificaciones(){
+		return calificaciones;
+	}
+	
+	public void setUrlVideo(String urlVideo) {
+		this.urlVideo = urlVideo;
+	}
+
+	public Premio getPrize() {
+		return prize;
 	}
 	
 }

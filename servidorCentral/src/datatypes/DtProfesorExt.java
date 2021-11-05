@@ -10,11 +10,12 @@ public class DtProfesorExt extends DtUsuarioExt{
 	private Map<String,  TEstado> historalActDepIngresadas;
 	private Map<String,  Set<String>> actDepAsociadas;
 	private String nombreInstitucion,  descripcion,  biografia,  link;
+	private float valoracion;
 	
 	public DtProfesorExt(String nickname,  String nombre,  String apellido,  String email,  String contrasenia, 
 						  DtFecha fechaNacimiento,  String nombreInstitucion,  String descripcion,  String biografia, 
-						  String link,  Map<String,  Set<String>> actxClase,  byte[] imagen,  Set<String> seguidosNickname, 
-						  Set<String> seguidoresNickname,  Map<String,  TEstado> actividades) {
+						  String link,  Map<String,  Set<String>> actxClase,  byte[] imagen, Set<String> seguidosNickname, 
+						  Set<String> seguidoresNickname,  Map<String,  TEstado> actividades, float valoracion) {
 		super(nickname,  nombre,  apellido,  email,  contrasenia,  fechaNacimiento,  imagen,  seguidosNickname,  seguidoresNickname); 
 		actDepAsociadas = actxClase;
 		this.nombreInstitucion = nombreInstitucion;
@@ -22,6 +23,7 @@ public class DtProfesorExt extends DtUsuarioExt{
 		this.biografia = biografia;
 		this.link = link;
 		this.historalActDepIngresadas = actividades;
+		this.valoracion = valoracion;
 	}
 	public String getNombreInstitucion() {
 		return this.nombreInstitucion;
@@ -55,5 +57,8 @@ public class DtProfesorExt extends DtUsuarioExt{
 	
 	public Set<String> getActividadesIngresadas(){
 		return historalActDepIngresadas.keySet();
+	}
+	public float getValoracion() {
+		return valoracion;
 	}
 }

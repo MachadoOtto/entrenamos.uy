@@ -49,6 +49,9 @@ public class DtFecha {
 	public int getMinutos() {
 		return this.minutos;
 	}
+	public void setMinutos(int min) {
+		minutos = min;
+	}
 	
 	public int getSegundos() {
 		return this.segundos;
@@ -88,4 +91,5 @@ public class DtFecha {
 				(fechaAComp.getAnio()) * 12) * 31) * 24) * 60;
 		return min1 <= min2;
 	}
+
 }

@@ -11,6 +11,7 @@ package logica;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.LinkedList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.ClaseException;
 
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
 import datatypes.TReg;
@@ -27,20 +29,17 @@ import datatypes.TReg;
 public class Socio extends Usuario {
 	
 	private List<ReciboCuponera> reciboCuponeras;
-	
 	private List<ReciboClase> reciboClases;
+	private List<ActividadDeportiva> favoritos;
 	
-	/* Constructor no usado
-	public Socio(String nickname,   String nombre,   String apellido,   String correo,   DtFecha fecha) {
-		super(nickname,   nombre,   apellido,   correo,   fecha);
-		reciboCuponeras = new LinkedList<>();
-		reciboClases = new LinkedList<>();
-	} */
+	private Map<String, Calificacion> calificaciones;
+	private Map<String, Premio> premios;
 	
 	public Socio(DtSocio datos) {
 		super(datos.getNickname(),   datos.getNombre(),   datos.getApellido(),   datos.getEmail(),   datos.getContrasenia(),   datos.getFechaNacimiento(),   datos.getImagen());
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
+		favoritos = new LinkedList<>();
 	}
 	
 	public void addReciboCuponera(ReciboCuponera rCup) {
@@ -73,7 +72,20 @@ public class Socio extends Usuario {
     	for (ReciboCuponera recibo : reciboCuponeras) {
     		cupis.add(recibo.getCuponera().getNombre());
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),   this.getContrasenia(),   this.getFecha(),   clasesDeActividades,   this.getImagen(),  this.getSeguidos().keySet(),  this.getSeguidores().keySet(),  cupis);
+    	Set<String> favs = new HashSet<>();
+    	for (ActividadDeportiva x : favoritos) {
+    		favs.add(x.getNombre());
+    	}
+    	Map<String, DtPremio> prem = new HashMap<>();
+    	for (Entry<String, Premio> x : premios.entrySet()) {
+    		List<String> winwin = new LinkedList<>();
+    		Set<Socio> winwinwin = new HashSet<>();
+    		for (Socio y: winwinwin) {
+    			winwin.add(y.getNickname());
+    		}
+    		prem.put(x.getKey(), new DtPremio(x.getValue().getDescription(), x.getValue().getCantidad(), winwin));
+    	}
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),   this.getContrasenia(),   this.getFecha(),   clasesDeActividades,   this.getImagen(),  this.getSeguidos().keySet(),  this.getSeguidores().keySet(), cupis, favs, prem);
     	return datosExt;
     }
 	
@@ -113,8 +125,38 @@ public class Socio extends Usuario {
 			throw new ClaseException("Este Usuario ya esta inscripto a esta Clase.");
 		}
 	}
+
+	public Map<String, Calificacion> getCalificaciones() {
+		return calificaciones;
+	}
+
+	public Map<String, Premio> getPremios() {
+		return premios;
+	}
+
+	public List<ActividadDeportiva> getFavoritos() {
+		return favoritos;
+	}
+
+	public void changeFavoritos(ActividadDeportiva favfav) {
+		if (favoritos.contains(favfav))
+			favoritos.remove(favfav);
+		else
+			favoritos.add(favfav);
+	}
+	
+	public void valorarProfesor(Clase clasee, int valor) {
+		Calificacion calif = new Calificacion(clasee, this, valor);
+		calificaciones.put(clasee.getProfesor().getNickname(), calif);
+		clasee.addCalifiacion(getNickname(), calif);
+	}
 }
 
 
 
-
+/* Constructor deprecado
+public Socio(String nickname,   String nombre,   String apellido,   String correo,   DtFecha fecha) {
+	super(nickname,   nombre,   apellido,   correo,   fecha);
+	reciboCuponeras = new LinkedList<>();
+	reciboClases = new LinkedList<>();
+} */
