@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
@@ -24,6 +26,7 @@ import datatypes.DtFecha;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuario;
+import datatypes.DtUsuarioExt;
 import datatypes.TEstado;
 import datatypes.TReg;
 import datatypes.DtInstitucion;
@@ -2517,14 +2520,14 @@ public class TestCasos {
 			fail(e.getMessage());
 		}
 	}
-	/*
+	
 	@Test 
-    void testConsultaClase2() {
+    void testConsultaClase2() throws ClaseException, InstitucionException, FechaInvalidaException, UsuarioNoExisteException, ActividadDeportivaException {
          IDCC.ingresarDatosClase("Fuerza Bruta",   "Kickboxing",   new DtClase("Boxeaciones",   "TheBoss",   "TheBoss",   
-                    1,   4,   "https://www.musculos.com/boxeo1",   new DtFecha(2021,   9,   1,   19,   30,   0),   new DtFecha(2021,   6,   7,   0,   0,   0),null, "https://www.youtube.com/watch?v=HC7CiSQR2vE"), new DtPremio("semejante premiardo",3,null));
+                    1,   4,   "https://www.musculos.com/boxeo1",   new DtFecha(2021,   9,   1,   19,   30,   0),   new DtFecha(2021,   6,   7,   0,   0,   0),null, "https://www.youtube.com/watch?v=HC7CiSQR2vE", new DtPremio("semejante premiardo",3,null)));
         
-        String URL = IDCC.buscarClase("Boxeaciones").getURL();
-        assertEquals(URL,   "https://www.youtube.com/watch?v=HC7CiSQR2vE");
+        DtClaseExt URL = IDCC.buscarClase("Boxeaciones");
+        assertEquals(URL.getURL(),   "https://www.youtube.com/watch?v=HC7CiSQR2vE");
         
         String desc = IDCC.buscarClase("Boxeaciones").getPremio().getDescripcion();
         assertEquals(desc,   "semejante premiardo");
@@ -2535,36 +2538,40 @@ public class TestCasos {
         List<String> wins = IDCC.buscarClase("Boxeaciones").getPremio().getGanadores();
         assertEquals(wins,null);
     }
-      /*  
+        
     @Test 
-    void testVerPremios() {
+    void testVerPremios() throws InstitucionException, ClaseException, ActividadDeportivaException, FechaInvalidaException, NoExisteCuponeraException, UsuarioNoExisteException {
         
         IDCC.ingresarDatosClase("Fuerza Bruta",   "Aparatos y pesas",   new DtClase("PPsas",   "viktor",   "viktor",   
-                1,   5,   "https://www.musculos.com/Calistenia",   new DtFecha(2021,   4,   15,   15,   30,   0),   new DtFecha(2021,   3,   31,   0,   0,   0), null, "https://www.youtube.com/watch?v=HC7CiSQR2vE"), new DtPremio("semejante premiardo",1,null));
+                1,   5,   "https://www.musculos.com/Calistenia",   new DtFecha(2021,   4,   15,   15,   30,   0),   new DtFecha(2021,   3,   31,   0,   0,   0), null, "https://www.youtube.com/watch?v=HC7CiSQR2vE", new DtPremio("semejante premiardo",1,null)));
 
         IDCC.inscribirSocio("Fuerza Bruta",   "Kickboxing",   "PPsas",   "caro",   TReg.general,   
                 new DtFecha(2021,   4,   9,   0,   0,   0),   null);
         
-        List<String> wins = IDCC.sortearPremios("Fuerza Bruta", "Aparatos y pesas", "PPsas");
-        List<String> premio = new HashList<>();
+        Set<String> wins = IDCC.sortearPremios("Fuerza Bruta", "Aparatos y pesas", "PPsas");
+        Set<String> premio = new HashSet<>();
         premio.add("caro");
         assertEquals(wins,   premio);
     }    
     
+    
     @Test 
-    void testFinalizarAct() {
-        finalizarActividad("Pilates");
+    void testFinalizarAct() throws InstitucionException, ActividadDeportivaException {
+        IADC.finalizarActividad("Pilates");
         TEstado est = IADC.getActDepExt("Instituto natural", "Pilates").getEstado();
         assertEquals(est, TEstado.finalizada);
     }
     
     @Test 
-    void testConsultaUsu2() {
-        Clase datosClase = getHI().findInstitucion("Fuerza Bruta").findActividad("Kickboxing").findClase("Boxeo II");
-        valorarProfesor(datosClase, 2); 
-        assertEquals(datosClase.getProfesor().getValoracion(),   2);
-        valorarProfesor(datosClase, 4); 
-        assertEquals(datosClase.getProfesor().getValoracion(),   3);
+    void testConsultaUsu2() throws UsuarioNoExisteException {
+    	
+        IADC.finalizarActividad("Atletismo");
+        DtSocioExt socio = (DtSocioExt) IUC.seleccionarUsuario("caro");
+        Set<String> clase = new HashSet<>();
+        clase.add("Posta");
+        Map<String, Set<String>> fins = new HashMap<>();
+        fins.put("Atletismo", clase);
+        assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
+        
     }
-    */
 }
