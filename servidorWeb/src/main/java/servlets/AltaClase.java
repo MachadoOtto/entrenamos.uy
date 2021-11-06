@@ -19,8 +19,8 @@ import datatypes.DtFecha;
 import datatypes.DtClase;
 import datatypes.DtUsuarioExt;
 import tools.Parametrizer;
-import logica.IDictadoClaseController;
-import logica.LaFabrica;
+import models.IDictadoClaseController;
+import models.LaFabricaWS;
 
 @MultipartConfig
 @WebServlet ("/altaClase")
@@ -29,7 +29,7 @@ public class AltaClase extends HttpServlet{
 	private IDictadoClaseController IDCC;
     public AltaClase() {
         super();
-        IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+        IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
     }
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
@@ -63,7 +63,7 @@ public class AltaClase extends HttpServlet{
 	        }
 	        r=Parametrizer.remParam(r,  "e", "8");
 	        r=Parametrizer.addParam(r,  "e",  "9");
-        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
+        	DtUsuarioExt userReload = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
 			request.getSession().setAttribute("loggedUser",  userReload);
         } catch(Exception e) {
         	e.printStackTrace();

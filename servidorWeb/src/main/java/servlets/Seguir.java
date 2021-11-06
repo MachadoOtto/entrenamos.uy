@@ -17,9 +17,9 @@ import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
-import logica.IActividadDeportivaController;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IActividadDeportivaController;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 
 // Servlet login. Obedece el protoclo inicio sesión.
 // Si la combinación tiene exito. El servlet establece como atributo de sesión al usuario.
@@ -30,8 +30,8 @@ public class Seguir extends HttpServlet {
 	private IActividadDeportivaController IADC;
     public Seguir() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
-        IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
+        IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
     } 
     
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException,  UsuarioNoExisteException,  InstitucionException,  ActividadDeportivaException {

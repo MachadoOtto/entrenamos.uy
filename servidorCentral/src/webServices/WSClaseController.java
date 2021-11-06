@@ -10,6 +10,8 @@ import javax.xml.ws.Endpoint;
 import datatypes.DtFecha;
 import datatypes.TReg;
 import datatypesWS.DtClaseWS;
+import datatypesWS.DtFechaWS;
+import datatypesWS.TRegWS;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.FechaInvalidaException;
@@ -81,10 +83,10 @@ public class WSClaseController {
 		return IDCC.ingresarDatosClase(ins, actDep, datos.adapt());
 	}
 	
-	public void inscribirSocio(String ins,  String actDep,  String clase,  String socio,  TReg tipoRegistro,  DtFecha fechaReg, String cuponera) 
+	public void inscribirSocio(String ins,  String actDep,  String clase,  String socio,  TRegWS tipoRegistro,  DtFechaWS fechaReg, String cuponera) 
 			throws  ClaseException,  FechaInvalidaException,  NoExisteCuponeraException,  InstitucionException,  
 			UsuarioNoExisteException,  ActividadDeportivaException{
-		IDCC.inscribirSocio(ins, actDep, clase, socio, tipoRegistro, fechaReg, cuponera);
+		IDCC.inscribirSocio(ins, actDep, clase, socio, TReg.values()[tipoRegistro.ordinal()], fechaReg.adapt(), cuponera);
 	}
 
 	public String[] obtenerSocios() {

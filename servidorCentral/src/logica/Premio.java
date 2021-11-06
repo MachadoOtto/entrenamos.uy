@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import datatypes.DtFecha;
 import datatypes.DtPremio;
 
 public class Premio {
@@ -14,6 +15,7 @@ public class Premio {
 	private Clase classroom;
 	private boolean realizado = false;
 	private Set<Socio> winners = null;
+	private DtFecha fechaSorteo = new DtFecha(0,0,0,0,0,0);
 	
 	Premio(Clase  classss ,  String  desc,  int  cant){
 		description = desc;
@@ -49,6 +51,7 @@ public class Premio {
 			winners.add(lista.get(pick));
 			lista.remove(pick);
 		}
+		fechaSorteo = new DtFecha();
 		realizado = true;
 		return winners;
 	}
@@ -61,6 +64,14 @@ public class Premio {
 		List<String> nomwin = new ArrayList<>();
 		for(Socio x: winners)
 			nomwin.add(x.getNickname());
-		return new DtPremio(description,cantidad,nomwin);
+		return new DtPremio(description,cantidad,nomwin,fechaSorteo);
+	}
+
+	public DtFecha getFechaSorteo() {
+		return fechaSorteo;
+	}
+
+	public void setFechaSorteo(DtFecha fechaSorteo) {
+		this.fechaSorteo = fechaSorteo;
 	}
 }

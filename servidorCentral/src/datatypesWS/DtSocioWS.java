@@ -26,7 +26,7 @@ public class DtSocioWS extends DtUsuarioWS{
 	private String[] cuponerasCompradas;
 	private String[] actividadesFavoritas;
 	private String[] premiosHead;
-	private DtPremio[] premiosData;
+	private DtPremioWS[] premiosData;
 	
 	
 	public DtSocioWS() {
@@ -50,10 +50,10 @@ public class DtSocioWS extends DtUsuarioWS{
 		}
 		i=0;
 		premiosHead = new String[d.getPremios().size()];
-		premiosData = new DtPremio[d.getPremios().size()];
+		premiosData = new DtPremioWS[d.getPremios().size()];
 		for(Entry<String, DtPremio> x: d.getPremios().entrySet()) {
 			premiosHead[i] = x.getKey();
-			premiosData[i++] = x.getValue();
+			premiosData[i++] = new DtPremioWS(x.getValue());
 		}
 		cuponerasCompradas = d.getCuponerasCompradas().toArray(new String[0]);
 		actividadesFavoritas = d.getActividadesFavoritas().toArray(new String[0]);
@@ -71,11 +71,11 @@ public class DtSocioWS extends DtUsuarioWS{
 		}
 		Map<String,  DtPremio> premios = new HashMap<>();
 		for(int i=0; i<premiosHead.length; i++) {
-			premios.put(premiosHead[i], premiosData[i]);
+			premios.put(premiosHead[i], premiosData[i].adapt());
 		}
 		
 		return new DtSocioExt(this.getNickname(),this.getNombre(),this.getApellido(),this.getEmail(),
-				this.getContrasenia(), this.getFechaNacimiento(), clasesDeActividades, this.getImagen(),
+				this.getContrasenia(), this.getFechaNacimiento().adapt(), clasesDeActividades, this.getImagen(),
 				new HashSet<String>(Arrays.asList(this.getSeguidosNickname())), new HashSet<String>(Arrays.asList(this.getSeguidoresNickname())),
 				new HashSet<String>(Arrays.asList(cuponerasCompradas)), new HashSet<String>(Arrays.asList(actividadesFavoritas)), premios, clasesDeActividadesFinalizadas);
 	}
@@ -147,11 +147,11 @@ public class DtSocioWS extends DtUsuarioWS{
 		this.premiosHead = premiosHead;
 	}
 
-	public DtPremio[] getPremiosData() {
+	public DtPremioWS[] getPremiosData() {
 		return premiosData;
 	}
 
-	public void setPremiosData(DtPremio[] premiosData) {
+	public void setPremiosData(DtPremioWS[] premiosData) {
 		this.premiosData = premiosData;
 	}
 

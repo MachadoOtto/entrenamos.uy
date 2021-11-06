@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import logica.LaFabrica;
+import models.LaFabricaWS;
 import tools.Parametrizer;
 import excepciones.NoExisteCuponeraException;
 import datatypes.DtCuponera;
@@ -47,7 +47,7 @@ public class Cuponeras extends HttpServlet {
 	}
 
 	private DtCuponera buscarCuponera(String cc) throws NoExisteCuponeraException  {
-		DtCuponera cup = LaFabrica.getInstance().obtenerICuponeraController().seleccionarCuponera(cc);
+		DtCuponera cup = LaFabricaWS.getInstance().obtenerICuponeraController().seleccionarCuponera(cc);
 		return cup;
 	}
 	

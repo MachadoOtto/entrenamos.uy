@@ -20,8 +20,8 @@ import datatypes.DtSocio;
 import datatypes.DtSocioExt;
 import datatypes.DtProfesorExt;
 import datatypes.DtUsuarioExt;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
@@ -33,7 +33,7 @@ public class ModificarDatosUsuario extends HttpServlet {
 	private IUsuarioController IUC;
     public ModificarDatosUsuario() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     } 
 
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {

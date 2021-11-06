@@ -10,6 +10,7 @@ import javax.xml.ws.Endpoint;
 import datatypes.DtInstitucion;
 import datatypesWS.DtActividadWS;
 import datatypesWS.DtClaseWS;
+import datatypesWS.DtInstitucionWS;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
@@ -72,8 +73,8 @@ public class WSActividadController {
 	public int altaInstitucion(String nombre,  String descripcion,  String URL);
 	*/
 	
-	public DtInstitucion obtenerDatosInstitucion(String inst) throws InstitucionException{
-		return IADC.obtenerDatosInstitucion(inst);
+	public DtInstitucionWS obtenerDatosInstitucion(String inst) throws InstitucionException{
+		return new DtInstitucionWS(IADC.obtenerDatosInstitucion(inst));
 	}
 	
 	/* OPERACION DESACTIVADA

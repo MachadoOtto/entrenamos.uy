@@ -17,11 +17,11 @@ import datatypes.DtCuponera;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
-import logica.IActividadDeportivaController;
-import logica.ICuponeraController;
-import logica.IDictadoClaseController;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IActividadDeportivaController;
+import models.ICuponeraController;
+import models.IDictadoClaseController;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
@@ -35,10 +35,10 @@ public class PerfilUsuario extends HttpServlet {
 	private IDictadoClaseController IDCC;
     public PerfilUsuario() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
-        IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
-        ICC = LaFabrica.getInstance().obtenerICuponeraController();
-        IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
+        //IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
+        //ICC = LaFabricaWS.getInstance().obtenerICuponeraController();
+        //IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
     }
     
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {

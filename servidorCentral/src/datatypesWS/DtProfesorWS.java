@@ -17,7 +17,7 @@ import datatypes.TEstado;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class DtProfesorWS extends DtUsuarioWS{
 	private String [] historalActDepIngresadasNombre;
-	private TEstado [] historalActDepIngresadasEstado;
+	private TEstadoWS [] historalActDepIngresadasEstado;
 	private String [] actDepAsociadasHead;
 	private String [][] actDepAsociadasData;
 	private String nombreInstitucion,  descripcion,  biografia,  link;
@@ -37,10 +37,10 @@ public class DtProfesorWS extends DtUsuarioWS{
 		}
 		i=0;
 		historalActDepIngresadasNombre = new String[d.getHistoralActDepIngresadas().size()];
-		historalActDepIngresadasEstado = new TEstado[d.getHistoralActDepIngresadas().size()];
+		historalActDepIngresadasEstado = new TEstadoWS[d.getHistoralActDepIngresadas().size()];
 		for(Entry<String, TEstado> x: d.getHistoralActDepIngresadas().entrySet()) {
 			historalActDepIngresadasNombre[i] = x.getKey();
-			historalActDepIngresadasEstado[i++] = x.getValue();
+			historalActDepIngresadasEstado[i++] = TEstadoWS.values()[x.getValue().ordinal()];
 		}
 		this.setNombreInstitucion(d.getNombreInstitucion());
 		this.setDescripcion(d.getDescripcion());
@@ -56,10 +56,10 @@ public class DtProfesorWS extends DtUsuarioWS{
 		}
 		Map<String,  TEstado> historalActDepIngresadas = new HashMap<>();
 		for(int i=0; i<historalActDepIngresadasNombre.length; i++) {
-			historalActDepIngresadas.put(historalActDepIngresadasNombre[i], historalActDepIngresadasEstado[i]);
+			historalActDepIngresadas.put(historalActDepIngresadasNombre[i], TEstado.values()[historalActDepIngresadasEstado[i].ordinal()]);
 		}
 		return new DtProfesorExt(this.getNickname(),this.getNombre(),this.getApellido(),this.getEmail(),
-				this.getContrasenia(), this.getFechaNacimiento(), nombreInstitucion, descripcion, biografia, 
+				this.getContrasenia(), this.getFechaNacimiento().adapt(), nombreInstitucion, descripcion, biografia, 
 				link, actDepAsociadas, this.getImagen(),new HashSet<String>(Arrays.asList(this.getSeguidosNickname())),
 				new HashSet<String>(Arrays.asList(this.getSeguidoresNickname())), historalActDepIngresadas, valoracion);
 	}
@@ -69,10 +69,10 @@ public class DtProfesorWS extends DtUsuarioWS{
 	public void setHistoralActDepIngresadasNombre(String [] historalActDepIngresadasNombre) {
 		this.historalActDepIngresadasNombre = historalActDepIngresadasNombre;
 	}
-	public TEstado [] getHistoralActDepIngresadasEstado() {
+	public TEstadoWS [] getHistoralActDepIngresadasEstado() {
 		return historalActDepIngresadasEstado;
 	}
-	public void setHistoralActDepIngresadasEstado(TEstado [] historalActDepIngresadasEstado) {
+	public void setHistoralActDepIngresadasEstado(TEstadoWS [] historalActDepIngresadasEstado) {
 		this.historalActDepIngresadasEstado = historalActDepIngresadasEstado;
 	}
 	public String [] getActDepAsociadasHead() {

@@ -16,8 +16,7 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-@SuppressWarnings("serial")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class DtCategoria implements Serializable {
 	
 	private String nombre;

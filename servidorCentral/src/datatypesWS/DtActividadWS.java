@@ -21,8 +21,8 @@ public class DtActividadWS implements Serializable {
 	private String nombre, descripcion, creador, imgName;
 	private int duracionMinutos;
 	private float costo;
-	private DtFecha fechaRegistro;
-	private TEstado estado;
+	private DtFechaWS fechaRegistro;
+	private TEstadoWS estado;
 	
 	public DtActividadWS() {}
 	public DtActividadWS(DtActividadDeportivaExt d) {
@@ -35,12 +35,12 @@ public class DtActividadWS implements Serializable {
 		this.setCosto(d.getCosto());
 		this.setDuracionMinutos(d.getDuracionMinutos());
 		this.setImgName(d.getImgName());
-		this.setFechaRegistro(d.getFechaRegistro());
-		this.setEstado(d.getEstado());
+		this.setFechaRegistro(new DtFechaWS(d.getFechaRegistro()));
+		this.setEstado(TEstadoWS.values()[d.getEstado().ordinal()]);
 	}
 	public DtActividadDeportivaExt adapt() {
-		return new DtActividadDeportivaExt(nombre,descripcion,duracionMinutos,costo,fechaRegistro,
-		new HashSet<>(Arrays.asList(categorias)),new HashSet<>(Arrays.asList(clases)),new HashSet<>(Arrays.asList(cup)),estado,creador);
+		return new DtActividadDeportivaExt(nombre,descripcion,duracionMinutos,costo,fechaRegistro.adapt(),
+		new HashSet<>(Arrays.asList(categorias)),new HashSet<>(Arrays.asList(clases)),new HashSet<>(Arrays.asList(cup)),TEstado.values()[estado.ordinal()],creador);
 	}
 	public String[] getClases() {
 		return clases;
@@ -74,19 +74,19 @@ public class DtActividadWS implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public TEstado getEstado() {
+	public TEstadoWS getEstado() {
 		return estado;
 	}
 
-	public void setEstado(TEstado estado) {
+	public void setEstado(TEstadoWS estado) {
 		this.estado = estado;
 	}
 
-	public DtFecha getFechaRegistro() {
+	public DtFechaWS getFechaRegistro() {
 		return fechaRegistro;
 	}
 
-	public void setFechaRegistro(DtFecha fechaRegistro) {
+	public void setFechaRegistro(DtFechaWS fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 

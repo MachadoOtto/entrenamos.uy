@@ -19,8 +19,8 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import models.GestorWeb;
 import tools.Parametrizer;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 
 @MultipartConfig
 @WebServlet ("/signup")
@@ -29,7 +29,7 @@ public class Signup extends HttpServlet{
 	private IUsuarioController IUC;
     public Signup() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     }
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	String r = request.getParameter("miurl");

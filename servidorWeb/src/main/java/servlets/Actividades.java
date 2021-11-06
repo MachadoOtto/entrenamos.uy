@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tools.Parametrizer;
-import logica.LaFabrica;
+import models.LaFabricaWS;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
 import datatypes.DtActividadDeportivaExt;
@@ -44,7 +44,7 @@ public class Actividades extends HttpServlet {
     	
 		try {
 			datosActDep = buscarActDep(nombreActDep);
-			institucion = LaFabrica.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
+			institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
 			request.setAttribute("nombreActDep",  null);
 			request.setAttribute("institucion",  null);
@@ -58,14 +58,14 @@ public class Actividades extends HttpServlet {
 				request.setAttribute("datosCreador",  datosCreador);
 			} else {
 				try {
-					datosCreador = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());
+					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());
 					request.setAttribute("datosCreador",  datosCreador);
 				} catch(UsuarioNoExisteException ignore) { }
 			}
 		}
 		
 		try {
-			if (LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(nickUser) instanceof DtSocioExt) {
+			if (LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(nickUser) instanceof DtSocioExt) {
 				esSocio = true;
 			}
 		} catch(UsuarioNoExisteException ignore) { } 
@@ -74,7 +74,7 @@ public class Actividades extends HttpServlet {
 		try {
 			Set<String> clases = datosActDep.getClases();
 			for (String clase : clases) { 
-				datosClases.add(LaFabrica.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
+				datosClases.add(LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
 			}
 		} catch(ClaseException e) {
 			request.setAttribute("datosClases",  null);
@@ -84,7 +84,7 @@ public class Actividades extends HttpServlet {
 		try {
 			Set<String> cuponeras = datosActDep.getCuponeras();
 			for (String cup : cuponeras) {
-				datosCuponeras.add(LaFabrica.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
+				datosCuponeras.add(LaFabricaWS.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
 			}
 		} catch(Exception e) {
 			request.setAttribute("datosCuponeras",  null);
@@ -106,7 +106,7 @@ public class Actividades extends HttpServlet {
 	}
 	
 	private DtActividadDeportivaExt buscarActDep(String nombreActDep) throws ActividadDeportivaException {
-    	DtActividadDeportivaExt datosActDep = LaFabrica.getInstance().obtenerIActDeportivaController().buscarActDep(nombreActDep);
+    	DtActividadDeportivaExt datosActDep = LaFabricaWS.getInstance().obtenerIActDeportivaController().buscarActDep(nombreActDep);
     	return datosActDep;
     }
 }

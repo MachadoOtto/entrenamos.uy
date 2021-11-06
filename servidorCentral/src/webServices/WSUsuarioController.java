@@ -15,6 +15,8 @@ import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
+import datatypesWS.DtCapsula;
+import datatypesWS.DtFechaWS;
 import datatypesWS.DtProfesorWS;
 import datatypesWS.DtSocioWS;
 import datatypesWS.DtUsuarioWS;
@@ -46,25 +48,25 @@ public class WSUsuarioController {
     }
 
     @WebMethod
-	public String[] obtenerInstituciones(){
+	public DtCapsula<String[]> obtenerInstituciones(){
     	Set<String> r = IUC.obtenerInstituciones();
     	String [] x = new String[r.size()];
     	int i=0;
     	for(String s : r) {
     		x[i++]=s;
     	}
-    	return x;
+    	return new DtCapsula<String[]>(x);
 	}
     
     @WebMethod
-    public String[] obtenerUsuarios() {
+    public DtCapsula<String[]> obtenerUsuarios() {
     	Set<String> r = IUC.obtenerUsuarios();
     	String [] x = new String[r.size()];
     	int i=0;
     	for(String s : r) {
     		x[i++]=s;
     	}
-    	return x;
+    	return new DtCapsula<String[]>(x);
     }
 
     @WebMethod
@@ -106,8 +108,8 @@ public class WSUsuarioController {
 	}
 
     @WebMethod
-	public void comprarCuponera(String cuponera,  String socio,  DtFecha fechaCompra) throws UsuarioNoExisteException,  CuponeraNoExisteException{
-		IUC.comprarCuponera(cuponera, socio, fechaCompra);
+	public void comprarCuponera(String cuponera,  String socio,  DtFechaWS fechaCompra) throws UsuarioNoExisteException,  CuponeraNoExisteException{
+		IUC.comprarCuponera(cuponera, socio, fechaCompra.adapt());
 	}
 	
     @WebMethod

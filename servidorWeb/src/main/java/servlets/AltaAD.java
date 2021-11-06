@@ -21,8 +21,8 @@ import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.TEstado;
 import excepciones.ActividadDeportivaException;
-import logica.IActividadDeportivaController;
-import logica.LaFabrica;
+import models.IActividadDeportivaController;
+import models.LaFabricaWS;
 import tools.Parametrizer;
 
 @MultipartConfig
@@ -32,7 +32,7 @@ public class AltaAD extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public AltaAD() {
         super();
-        IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+        IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
     }
     protected void processRequest(HttpServletRequest r,  HttpServletResponse response) throws ServletException,  IOException {
     	r.setCharacterEncoding("utf-8");

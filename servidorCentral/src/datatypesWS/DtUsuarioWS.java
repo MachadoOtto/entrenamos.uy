@@ -9,7 +9,7 @@ import datatypes.DtUsuarioExt;
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class DtUsuarioWS {
 	private String nickname,   nombre,   apellido,   email,   contrasenia;
-	private DtFecha fechaNacimiento;
+	private DtFechaWS fechaNacimiento;
 	private byte[] imagen;
 	private String[] seguidosNickname;
 	private String[] seguidoresNickname;
@@ -20,7 +20,7 @@ public abstract class DtUsuarioWS {
 		this.setNombre(d.getNombre());
 		this.setApellido(d.getApellido());
 		this.setEmail(d.getEmail());
-		this.setFechaNacimiento(d.getFechaNacimiento());
+		this.setFechaNacimiento(new DtFechaWS(d.getFechaNacimiento()));
 		this.setContrasenia(d.getContrasenia());
 		this.setImagen(d.getImagen());
 		this.setSeguidoresNickname(d.getSeguidoresNickname().toArray(new String[0]));
@@ -34,10 +34,10 @@ public abstract class DtUsuarioWS {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-	public DtFecha getFechaNacimiento() {
+	public DtFechaWS getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(DtFecha fechaNacimiento) {
+	public void setFechaNacimiento(DtFechaWS fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public String getNickname() {

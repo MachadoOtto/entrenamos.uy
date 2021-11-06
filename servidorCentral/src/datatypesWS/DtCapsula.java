@@ -13,8 +13,10 @@ import datatypes.DtSocioExt;
 
 @SuppressWarnings("serial")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({String.class})
+@XmlRootElement()
 public class DtCapsula<Content> implements Serializable{
-	
+
 	private Content contenido;
 	public DtCapsula() {}
 	public DtCapsula(Content contenido) {

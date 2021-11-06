@@ -15,11 +15,8 @@ public class DtClaseWS {
 
 	private String nombre,  correoProfesor,  nicknameProfesor,  urlwebsite,  imgName=null, urlVideo=null;
 	private int minSocios,  maxSocios;
-	private DtFecha fechaClase,  fechaRegistro;	
+	private DtFechaWS fechaClase,  fechaRegistro;	
 	private DtPremioWS premio=null;
-	//private List<String> alumnos;
-	//private List<String> soloNickAlumnos;
-	//private Map<String, Integer> calificaciones;
 	private String[] alumnos;
 	private String[] soloNickAlumnos;
 	private String[] calificacionesHead;
@@ -44,8 +41,8 @@ public class DtClaseWS {
 		this.setUrlVideo(c.getUrlVideo());
 		this.setMinSocios(c.getMinSocios());
 		this.setMaxSocios(c.getMaxSocios());
-		this.setFechaClase(c.getFechaClase());
-		this.setFechaRegistro(c.getFechaRegistro());
+		this.setFechaClase(new DtFechaWS(c.getFechaClase()));
+		this.setFechaRegistro(new DtFechaWS(c.getFechaRegistro()));
 		if (c.getPremio()!=null)
 			this.setPremio(new DtPremioWS(c.getPremio()));
 	}
@@ -56,7 +53,7 @@ public class DtClaseWS {
 		for(int i=0; i<calificacionesHead.length; i++) {
 			calificaciones.put(calificacionesHead[i], calificacionesData[i]);
 		}
-		return new DtClaseExt(this.getNombre(),this.getNicknameProfesor(),this.getCorreoProfesor(), minSocios, maxSocios,urlwebsite, fechaClase, fechaRegistro,   
+		return new DtClaseExt(this.getNombre(),this.getNicknameProfesor(),this.getCorreoProfesor(), minSocios, maxSocios,urlwebsite, fechaClase.adapt(), fechaRegistro.adapt(),   
 				als,sna,imgName,urlVideo, premio.adapt(), calificaciones);
 	}
 	public String getNombre() {
@@ -107,16 +104,16 @@ public class DtClaseWS {
 	public void setMaxSocios(int maxSocios) {
 		this.maxSocios = maxSocios;
 	}
-	public DtFecha getFechaRegistro() {
+	public DtFechaWS getFechaRegistro() {
 		return fechaRegistro;
 	}
-	public void setFechaRegistro(DtFecha fechaRegistro) {
+	public void setFechaRegistro(DtFechaWS fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
-	public DtFecha getFechaClase() {
+	public DtFechaWS getFechaClase() {
 		return fechaClase;
 	}
-	public void setFechaClase(DtFecha fechaClase) {
+	public void setFechaClase(DtFechaWS fechaClase) {
 		this.fechaClase = fechaClase;
 	}
 	public DtPremioWS getPremio() {

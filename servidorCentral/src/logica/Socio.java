@@ -98,7 +98,7 @@ public class Socio extends Usuario {
     		for (Socio y: winwinwin) {
     			winwin.add(y.getNickname());
     		}
-    		prem.put(x.getKey(), new DtPremio(x.getValue().getDescription(), x.getValue().getCantidad(), winwin));
+    		prem.put(x.getKey(), new DtPremio(x.getValue().getDescription(), x.getValue().getCantidad(), winwin,x.getValue().getFechaSorteo()));
     	}
     	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),
     			this.getContrasenia(),   this.getFecha(),   clasesDeActividadesAceptadas,   this.getImagen(),  this.getSeguidos().keySet(),

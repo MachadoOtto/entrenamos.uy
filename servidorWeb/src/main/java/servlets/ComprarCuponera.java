@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import excepciones.UsuarioNoExisteException;
 import excepciones.CuponeraNoExisteException;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 import datatypes.DtFecha;
 import datatypes.DtUsuarioExt;
 
@@ -23,7 +23,7 @@ public class ComprarCuponera extends HttpServlet {
 	
     public ComprarCuponera() {
     	super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     }
 
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {

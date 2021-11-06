@@ -11,7 +11,7 @@ import datatypes.DtFecha;
 public class DtCuponeraWS {
 	private String nombre,  descripcion;
 	private float descuento,  costo;
-	private DtFecha fechaInicio,  fechaFin,  fechaAlta;
+	private DtFechaWS fechaInicio,  fechaFin,  fechaAlta;
 	private DtClasesCuponeraWS [] contenido;
 	private String [] categorias;
 	private String img;
@@ -22,9 +22,9 @@ public class DtCuponeraWS {
 		this.setDescripcion(c.getDescripcion());
 		this.setDescuento(c.getDescuento());
 		this.setCosto(c.getCosto());
-		this.setFechaInicio(c.getFechaInicio());
-		this.setFechaFin(c.getFechaFin());
-		this.setFechaAlta(c.getFechaAlta());
+		this.setFechaInicio(new DtFechaWS(c.getFechaInicio()));
+		this.setFechaFin(new DtFechaWS(c.getFechaFin()));
+		this.setFechaAlta(new DtFechaWS(c.getFechaAlta()));
 		contenido = new DtClasesCuponeraWS[c.getContenido().size()];
 		int i=0;
 		for(DtClasesCuponera x: c.getContenido()) {
@@ -38,7 +38,7 @@ public class DtCuponeraWS {
 		for(int i = 0; i<contenido.length; i++)
 			cont.add(contenido[i].adapt());
 		List<String> cat = Arrays.asList(categorias);
-		return new DtCuponera(nombre, descripcion, descuento,  costo, fechaInicio,  fechaFin,  fechaAlta, cont,cat,img);
+		return new DtCuponera(nombre, descripcion, descuento,  costo, fechaInicio.adapt(),  fechaFin.adapt(),  fechaAlta.adapt(), cont,cat,img);
 	}
 	public String getImg() {
 		return img;
@@ -58,22 +58,22 @@ public class DtCuponeraWS {
 	public void setContenido(DtClasesCuponeraWS [] contenido) {
 		this.contenido = contenido;
 	}
-	public DtFecha getFechaFin() {
+	public DtFechaWS getFechaFin() {
 		return fechaFin;
 	}
-	public void setFechaFin(DtFecha fechaFin) {
+	public void setFechaFin(DtFechaWS fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	public DtFecha getFechaAlta() {
+	public DtFechaWS getFechaAlta() {
 		return fechaAlta;
 	}
-	public void setFechaAlta(DtFecha fechaAlta) {
+	public void setFechaAlta(DtFechaWS fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
-	public DtFecha getFechaInicio() {
+	public DtFechaWS getFechaInicio() {
 		return fechaInicio;
 	}
-	public void setFechaInicio(DtFecha fechaInicio) {
+	public void setFechaInicio(DtFechaWS fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 	public float getDescuento() {

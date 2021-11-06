@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import excepciones.ClaseException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
-import logica.IActividadDeportivaController;
-import logica.ICuponeraController;
-import logica.IDictadoClaseController;
-import logica.IUsuarioController;
+import models.IActividadDeportivaController;
+import models.ICuponeraController;
+import models.IDictadoClaseController;
+import models.IUsuarioController;
 import models.GestorWeb;
 
 /**

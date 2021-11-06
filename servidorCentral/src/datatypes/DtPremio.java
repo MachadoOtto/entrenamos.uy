@@ -9,11 +9,12 @@ public class DtPremio {
 	private String descripcion;
 	private int cantidad;
 	private List<String> ganadores = null;
-	
-	public DtPremio(String descripcionm, int cantidadd, List<String> ganadoress){
+	private DtFecha fechaSorteo;
+	public DtPremio(String descripcionm, int cantidadd, List<String> ganadoress, DtFecha fechaSorteoo){
 		descripcion = descripcionm;
 		cantidad = cantidadd;
 		ganadores = ganadoress;
+		fechaSorteo = fechaSorteoo;
 	}
 
 	public int getCantidad() {
@@ -26,5 +27,13 @@ public class DtPremio {
 
 	public List<String> getGanadores() {
 		return ganadores;
+	}
+
+	public DtFecha getFechaSorteo() {
+		return fechaSorteo;
+	}
+
+	public void setFechaSorteo(DtFecha fechaSorteo) {
+		this.fechaSorteo = fechaSorteo;
 	}
 }
