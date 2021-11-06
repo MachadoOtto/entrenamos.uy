@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import datatypes.DtPremio;
+
 public class Premio {
 	private String description;
 	private int cantidad;
@@ -50,8 +52,15 @@ public class Premio {
 		realizado = true;
 		return winners;
 	}
-
+	
 	public Set<Socio> getWinners() {
 		return winners;
+	}
+	
+	public DtPremio getDt() {
+		List<String> nomwin = new ArrayList<>();
+		for(Socio x: winners)
+			nomwin.add(x.getNickname());
+		return new DtPremio(description,cantidad,nomwin);
 	}
 }

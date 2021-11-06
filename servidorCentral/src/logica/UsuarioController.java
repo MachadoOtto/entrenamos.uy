@@ -168,6 +168,6 @@ public class UsuarioController implements IUsuarioController {
 	@Override
 	public void valorarProfesor(String nickSocio, String ins, String actDep, String cla, int valor) throws UsuarioNoExisteException, ClaseException, InstitucionException {
 		((Socio) getHU().findUsuario(nickSocio)).valorarProfesor(getHI().findInstitucion(ins).findActividad(actDep).findClase(cla), valor);
-	}
+	} 
 
 }

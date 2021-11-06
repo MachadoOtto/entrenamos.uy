@@ -2,6 +2,9 @@ package datatypes;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DtPremio {
 	private String descripcion;
 	private int cantidad;

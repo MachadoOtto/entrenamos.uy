@@ -2,6 +2,8 @@ package datatypes;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
 public class DtClaseExt extends DtClase {
 	
@@ -21,6 +23,13 @@ public class DtClaseExt extends DtClase {
 		this.alumnos = als;
 		this.soloNickAlumnos = soloNickAlumnos;
 	}
+	public DtClaseExt(String nom,   String nickP,  String correoP,   int min,   int max,   String url,   DtFecha fechC,   DtFecha fechR,   
+			List<String> als,   List<String> soloNickAlumnos,  String img, String urlVideo,DtPremio prize,Map<String, Integer> calificaciones) {
+		super(nom,   nickP,  correoP,   min,   max,   url,   fechC,   fechR,  img,urlVideo,prize);
+		this.alumnos = als;
+		this.soloNickAlumnos = soloNickAlumnos;
+		this.calificaciones = calificaciones;
+	}	
 	public List<String> getAlumnos() {
 		return this.alumnos;
 	}

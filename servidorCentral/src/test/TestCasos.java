@@ -47,7 +47,7 @@ import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
 
-class TestCasos {
+public class TestCasos {
 	
 	private static IActividadDeportivaController IADC;
 	private static IUsuarioController IUC;
@@ -2475,4 +2475,46 @@ class TestCasos {
 		String institucion = IDCC.obtenerInstitucionActDep("Kickboxing");
 		assertEquals(institucion,   "Fuerza Bruta");
 	}
+	
+	@Test
+	void valorarProfesor() {
+		try {
+			IUC.valorarProfesor("caro", "Fuerza Bruta", "Aparatos y pesas", "Calistenia", 5);
+			IUC.valorarProfesor("sergiop", "Fuerza Bruta", "Aparatos y pesas", "Calistenia", 2);
+			IUC.valorarProfesor("Emi71", "Fuerza Bruta", "Kickboxing", "Músculos para boxeo", 4);
+			IUC.valorarProfesor("caro", "Fuerza Bruta", "Kickboxing", "Músculos para boxeo", 2);
+			
+			DtProfesorExt dtp = (DtProfesorExt) IUC.seleccionarUsuario("viktor");
+			assertEquals(dtp.getValoracion(), 3.25);
+			//Editar valoración
+			IUC.valorarProfesor("caro", "Fuerza Bruta", "Aparatos y pesas", "Calistenia", 1);
+			dtp = (DtProfesorExt) IUC.seleccionarUsuario("viktor");
+			assertEquals(dtp.getValoracion(), 2.25);
+		} catch(Exception e) { 
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	} 
+	
+	@Test
+	void favoritearActividad() {
+		try {
+			IUC.favoritearActividad("caro", "Telón", "Basquetbol");
+			IUC.favoritearActividad("caro", "Telón", "Voleibol");
+			
+			DtSocioExt dts = (DtSocioExt) IUC.seleccionarUsuario("caro");
+			Set<String> p1 = new HashSet<>();
+			p1.add("Basquetbol");
+			p1.add("Voleibol");
+			assertEquals(dts.getActividadesFavoritas(),p1);
+			IUC.favoritearActividad("caro", "Telón", "Voleibol");
+			dts = (DtSocioExt) IUC.seleccionarUsuario("caro");
+			p1.remove("Voleibol");
+			assertEquals(dts.getActividadesFavoritas(),p1);
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	
 }

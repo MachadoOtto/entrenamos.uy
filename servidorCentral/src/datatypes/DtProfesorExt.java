@@ -3,6 +3,10 @@ package datatypes;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 import java.util.Set;
 
 public class DtProfesorExt extends DtUsuarioExt{
@@ -57,6 +61,9 @@ public class DtProfesorExt extends DtUsuarioExt{
 	
 	public Set<String> getActividadesIngresadas(){
 		return historalActDepIngresadas.keySet();
+	}
+	public Map<String,  TEstado> getHistoralActDepIngresadas(){
+		return historalActDepIngresadas;
 	}
 	public float getValoracion() {
 		return valoracion;

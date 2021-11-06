@@ -24,6 +24,7 @@ import datatypes.DtFecha;
 import datatypes.DtPremio;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
+import datatypes.TEstado;
 import datatypes.TReg;
 
 public class Socio extends Usuario {
@@ -40,6 +41,8 @@ public class Socio extends Usuario {
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
 		favoritos = new LinkedList<>();
+		premios = new HashMap<>();
+		calificaciones = new HashMap<>();
 	}
 	
 	public void addReciboCuponera(ReciboCuponera rCup) {
@@ -56,14 +59,26 @@ public class Socio extends Usuario {
 	}
 
 	public DtSocioExt getDtExt() {
-    	Map<String,  Set<String>> clasesDeActividades = new HashMap<>();
+    	Map<String,  Set<String>> clasesDeActividadesAceptadas = new HashMap<>();
     	for (ReciboClase reciboClase: reciboClases) {
-    		String nombreClase = reciboClase.getClase().getAD().getNombre();
-    		if (!clasesDeActividades.containsKey(nombreClase)) {
+    		String nombreAD = reciboClase.getClase().getAD().getNombre();
+    		if (!clasesDeActividadesAceptadas.containsKey(nombreAD)) {
     			Set<String> nombreClases = new HashSet<>();
-    			clasesDeActividades.put(nombreClase,  nombreClases);
+    			clasesDeActividadesAceptadas.put(nombreAD,  nombreClases);
     			for (ReciboClase rc2: reciboClases) {
-    				if (rc2.getClase().getAD().getNombre().equals(nombreClase))
+    				if (rc2.getClase().getAD().getNombre().equals(nombreAD) && rc2.getClase().getAD().getEstado().equals(TEstado.aceptada))
+    					nombreClases.add(rc2.getClase().getNombre());
+    			}
+    		}
+    	}
+    	Map<String,  Set<String>> clasesDeActividadesFinalizadas = new HashMap<>();
+    	for (ReciboClase reciboClase: reciboClases) {
+    		String nombreAD = reciboClase.getClase().getAD().getNombre();
+    		if (!clasesDeActividadesAceptadas.containsKey(nombreAD)) {
+    			Set<String> nombreClases = new HashSet<>();
+    			clasesDeActividadesAceptadas.put(nombreAD,  nombreClases);
+    			for (ReciboClase rc2: reciboClases) {
+    				if (rc2.getClase().getAD().getNombre().equals(nombreAD) && rc2.getClase().getAD().getEstado().equals(TEstado.finalizada))
     					nombreClases.add(rc2.getClase().getNombre());
     			}
     		}
@@ -85,7 +100,9 @@ public class Socio extends Usuario {
     		}
     		prem.put(x.getKey(), new DtPremio(x.getValue().getDescription(), x.getValue().getCantidad(), winwin));
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),   this.getContrasenia(),   this.getFecha(),   clasesDeActividades,   this.getImagen(),  this.getSeguidos().keySet(),  this.getSeguidores().keySet(), cupis, favs, prem);
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),
+    			this.getContrasenia(),   this.getFecha(),   clasesDeActividadesAceptadas,   this.getImagen(),  this.getSeguidos().keySet(),
+    			this.getSeguidores().keySet(), cupis, favs, prem,clasesDeActividadesFinalizadas);
     	return datosExt;
     }
 	
@@ -133,7 +150,9 @@ public class Socio extends Usuario {
 	public Map<String, Premio> getPremios() {
 		return premios;
 	}
-
+	public void addPremio(Premio premiopremio) {
+		premios.put(premiopremio.getClass().getName(), premiopremio);
+	}
 	public List<ActividadDeportiva> getFavoritos() {
 		return favoritos;
 	}

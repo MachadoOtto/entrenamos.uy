@@ -104,12 +104,17 @@ public class Profesor extends Usuario {
     }
     public float getValoracion() {
     	float awksejlfls = 0;
+    	int count=0;
     	for (Entry<String, Clase> x : misClases.entrySet()) {
     		for (Entry<String, Calificacion> y : x.getValue().getCalificaciones().entrySet()) {
     			awksejlfls += y.getValue().getValor() + 0.0;
+    			count+=1;
     		}
     	}
-    	return awksejlfls;
+    	if(count>0)
+    		return awksejlfls/count;
+    	else
+    		return 0;
     }
 }
 

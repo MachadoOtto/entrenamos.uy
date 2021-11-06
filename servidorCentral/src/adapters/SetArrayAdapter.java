@@ -12,7 +12,9 @@ public class SetArrayAdapter<T> {
 		for (T x : set)
 			items.add(x);
 	}
-	
+	public ArrayList<T> getItems() {
+		return items;
+	}
 	public Set<T> rebuild(){
 		Set<T> fenix = new HashSet<T>();
 		for (T x: items)

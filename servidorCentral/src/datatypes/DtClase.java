@@ -1,5 +1,9 @@
 package datatypes;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+
 public class DtClase{
 
 	private String nombre,  correoProfesor,  nicknameProfesor,  urlwebsite,  imgName=null, urlVideo=null;
@@ -18,15 +22,15 @@ public class DtClase{
 		fechaRegistro = fechR;
 	}
 	public DtClase(String nom,  String nickP,  String emailP,  int min,  int max,  String url,  DtFecha fechC,  DtFecha fechR,  String img) {
-		this(nom, emailP, nickP, min, max, url, fechC, fechR);
+		this(nom, nickP, emailP, min, max, url, fechC, fechR);
 		imgName = img;
 	}	
 	public DtClase(String nom,  String nickP,  String emailP,  int min,  int max,  String url,  DtFecha fechC,  DtFecha fechR,  String img, String uURLVideo) {
-		this(nom, emailP, nickP, min, max, url, fechC, fechR, img);
+		this(nom, nickP, emailP, min, max, url, fechC, fechR, img);
 		urlVideo = uURLVideo;
 	}
 	public DtClase(String nom,  String nickP,  String emailP,  int min,  int max,  String url,  DtFecha fechC,  DtFecha fechR,  String img, String uURLVideo, DtPremio prize) {
-		this(nom, emailP, nickP, min, max, url, fechC, fechR, img, uURLVideo);
+		this(nom, nickP, emailP, min, max, url, fechC, fechR, img, uURLVideo);
 		premio = prize;
 	}
 	

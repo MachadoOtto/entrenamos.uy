@@ -184,14 +184,7 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 		return res;
 	}
-// Guille: Esta funcion creo que no va.
-//	public void modificarDatosClase(String ins,  String actDep, DtClase datos) {
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion i = hi.findInstitucion(ins);
-//		ActividadDeportiva actDept = i.getActDep(actDep);
-//		Clase clase = actDept.findClase(datos.getNombre());
-//		clase.modificarDatosClase(datos);
-//	}
+
 	private static HandlerInstitucion getHI() {
 		return  HandlerInstitucion.getInstance();
 	}
@@ -226,7 +219,7 @@ public class DictadoClaseController implements IDictadoClaseController {
 		Clase leclase = getHI().findInstitucion(ins).getActDep(actDep).findClase(clase);
 		if (leclase != null) {
 			DtFecha fechaf = new DtFecha();
-			fechaf.setMinutos(fechaf.getMinutos()+leclase.getAD().getDuracionMinutos());
+			fechaf.setMinutos(fechaf.getMinutos()-leclase.getAD().getDuracionMinutos());
 			if (leclase.getFechaClase().esMenor(fechaf)) {
 				List<ReciboClase> recibos = leclase.getRecibo();
 				Set<Socio> ssss = new HashSet<>();
@@ -235,8 +228,10 @@ public class DictadoClaseController implements IDictadoClaseController {
 				}
 				ssss = leclase.getPrize().realizarSorteo(ssss);
 				Set<String> result = new HashSet<>();
-				for (Socio x: ssss)
+				for (Socio x: ssss) {
 					result.add(x.getNickname());
+					x.addPremio(leclase.getPrize());
+				}
 				return result;
 			}
 			else
@@ -246,3 +241,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 	}
 }
+
+//Guille: Esta funcion creo que no va.
+//	public void modificarDatosClase(String ins,  String actDep, DtClase datos) {
+//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+//		Institucion i = hi.findInstitucion(ins);
+//		ActividadDeportiva actDept = i.getActDep(actDep);
+//		Clase clase = actDept.findClase(datos.getNombre());
+//		clase.modificarDatosClase(datos);
+//	}

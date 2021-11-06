@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class Clase {
 	private String nombre;
@@ -79,8 +81,13 @@ public class Clase {
 			ListNombres.add(x.getNickCorreoSocio());
 			SoloNombres.add(x.getNick());
 		}
+		Map<String, Integer> calif = new HashMap<>();
+		for(Entry<String, Calificacion> x: calificaciones.entrySet()) {
+			calif.put(x.getKey(), x.getValue().getValor());
+		}
 		DtClaseExt claseDatos = new DtClaseExt(nombre,  vasilev.getNickname(),  vasilev.getCorreo(),  minSocios,  maxSocios,  url,  this.getFechaClase(), 
-				this.getFechaRegistro(),  ListNombres,  SoloNombres,  imgName);
+				this.getFechaRegistro(),  ListNombres,  SoloNombres,  imgName,
+				getUrlVideo(),getPrize().getDt(),calif);
 		return claseDatos;
 	}
 	
