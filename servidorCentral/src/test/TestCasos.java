@@ -2517,4 +2517,52 @@ public class TestCasos {
 		}
 	}
 	
+	@Test 
+    void testConsultaClase2() {
+         IDCC.ingresarDatosClase("Fuerza Bruta",   "Kickboxing",   new DtClase("Boxeaciones",   "TheBoss",   "TheBoss",   
+                    1,   4,   "https://www.musculos.com/boxeo1",   new DtFecha(2021,   9,   1,   19,   30,   0),   new DtFecha(2021,   6,   7,   0,   0,   0),null, "https://www.youtube.com/watch?v=HC7CiSQR2vE"), new DtPremio("semejante premiardo",3,null));
+        
+        String URL = IDCC.buscarClase("Boxeaciones").getURL();
+        assertEquals(URL,   "https://www.youtube.com/watch?v=HC7CiSQR2vE");
+        
+        String desc = IDCC.buscarClase("Boxeaciones").getPremio().getDescripcion();
+        assertEquals(desc,   "semejante premiardo");
+        
+        int cant = IDCC.buscarClase("Boxeaciones").getPremio().getCantidad();
+        assertEquals(cant,3);
+        
+        List<String> wins = IDCC.buscarClase("Boxeaciones").getPremio().getGanadores();
+        assertEquals(wins,null);
+    }
+        
+    @Test 
+    void testVerPremios() {
+        
+        IDCC.ingresarDatosClase("Fuerza Bruta",   "Aparatos y pesas",   new DtClase("PPsas",   "viktor",   "viktor",   
+                1,   5,   "https://www.musculos.com/Calistenia",   new DtFecha(2021,   4,   15,   15,   30,   0),   new DtFecha(2021,   3,   31,   0,   0,   0), null, "https://www.youtube.com/watch?v=HC7CiSQR2vE"), new DtPremio("semejante premiardo",1,null));
+
+        IDCC.inscribirSocio("Fuerza Bruta",   "Kickboxing",   "PPsas",   "caro",   TReg.general,   
+                new DtFecha(2021,   4,   9,   0,   0,   0),   null);
+        
+        List<String> wins = IDCC.sortearPremios("Fuerza Bruta", "Aparatos y pesas", "PPsas");
+        List<String> premio = new HashList<>();
+        premio.add("caro");
+        assertEquals(wins,   premio);
+    }    
+    
+    @Test 
+    void testFinalizarAct() {
+        finalizarActividad("Pilates");
+        TEstado est = IADC.getActDepExt("Instituto natural", "Pilates").getEstado();
+        assertEquals(est, TEstado.finalizada);
+    }
+    
+    @Test 
+    void testConsultaUsu2() {
+        Clase datosClase = getHI().findInstitucion("Fuerza Bruta").findActividad("Kickboxing").findClase("Boxeo II");
+        valorarProfesor(datosClase, 2); 
+        assertEquals(datosClase.getProfesor().getValoracion(),   2);
+        valorarProfesor(datosClase, 4); 
+        assertEquals(datosClase.getProfesor().getValoracion(),   3);
+    }
 }
