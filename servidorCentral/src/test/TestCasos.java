@@ -2525,11 +2525,17 @@ public class TestCasos {
          IDCC.ingresarDatosClase("Fuerza Bruta",   "Kickboxing",   new DtClase("Boxeaciones",   "TheBoss",   "TheBoss",   
                     1,   4,   "https://www.musculos.com/boxeo1",   new DtFecha(2021,   9,   1,   19,   30,   0),   new DtFecha(2021,   6,   7,   0,   0,   0),null, "https://www.youtube.com/watch?v=HC7CiSQR2vE"), new DtPremio("semejante premiardo",3,null));
         
-         DtClaseExt classe =  new DtClase("Boxeaciones",   "TheBoss",   "TheBoss",   
-                 1,   4,   "https://www.musculos.com/boxeo1",   new DtFecha(2021,   9,   1,   19,   30,   0),   new DtFecha(2021,   6,   7,   0,   0,   0),null, "https://www.youtube.com/watch?v=HC7CiSQR2vE", new DtPremio("semejante premiardo",3,null));
-                 
-        DtClaseExt res = IDCC.buscarClase("Boxeaciones");
-        assertEquals(res, classe);
+        DtClaseExt URL = IDCC.buscarClase("Boxeaciones");
+        assertEquals(URL.getURL(),   "https://www.youtube.com/watch?v=HC7CiSQR2vE");
+        
+        String desc = IDCC.buscarClase("Boxeaciones").getPremio().getDescripcion();
+        assertEquals(desc,   "semejante premiardo");
+        
+        int cant = IDCC.buscarClase("Boxeaciones").getPremio().getCantidad();
+        assertEquals(cant,3);
+        
+        List<String> wins = IDCC.buscarClase("Boxeaciones").getPremio().getGanadores();
+        assertEquals(wins,null);
     }
         
     @Test 
@@ -2547,13 +2553,12 @@ public class TestCasos {
         assertEquals(wins,   premio);
     }    
     
+    
     @Test 
     void testFinalizarAct() {
         finalizarActividad("Pilates");
-        DtActividadDeportivaExt actividad = IADC.getActDepExt("Instituto natural", "Pilates");
-        DtActividadDeportivaExt actividad2 = new DtActividadDeportiva("Pilates",   
-				"El Método Pilates combina diferentes capacidades físicas.",   45,   600,   new DtFecha(2021,   8,   30,   0,   0,   0),   A8cat,   TEstado.finalizada,   "clazar");
-        assertEquals(actividad, actividad2);
+        TEstado est = IADC.getActDepExt("Instituto natural", "Pilates").getEstado();
+        assertEquals(est, TEstado.finalizada);
     }
     
     @Test 
@@ -2568,5 +2573,4 @@ public class TestCasos {
         assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
         
     }
-    
 }
