@@ -75,20 +75,23 @@ public class Menu {
 	private AgregarActividadDeportivaCuponera aggCup;
 	private AceptarRechazarActividadDeportiva acceptActDep;
 	private AltaCategoria altaCat;
+	
+	/* DEPRECTED MAIN.
 	//Run program!
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Menu window = new Menu();
-					window.menuPrincipal.setVisible(true);
+					window.getMenuPrincipal().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	*/
+	
 	//Create main frame.
 	public Menu() {
 		iniciar();
@@ -190,20 +193,20 @@ public class Menu {
 	
 	private void iniciar() {
         // Se crea el Frame con las dimensiones indicadas:
-		menuPrincipal = new JFrame();
-		menuPrincipal.setTitle("Entrenamos.uy");
-		menuPrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		menuPrincipal.setBounds(100,  100,  1200,  850);
-		menuPrincipal.setResizable(true);
-		menuPrincipal.setIconImage(new ImageIcon(getClass().getResource("/workstation/iconoEntrenamos-uy.png")).getImage());
+		setMenuPrincipal(new JFrame());
+		getMenuPrincipal().setTitle("Entrenamos.uy");
+		getMenuPrincipal().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		getMenuPrincipal().setBounds(100,  100,  1200,  850);
+		getMenuPrincipal().setResizable(true);
+		getMenuPrincipal().setIconImage(new ImageIcon(getClass().getResource("/workstation/iconoEntrenamos-uy.png")).getImage());
 		
 		escritorio = new JDesktopPane();
 		escritorio.setBackground(new Color(174,  182,  191));
-		menuPrincipal.getContentPane().add(escritorio);
+		getMenuPrincipal().getContentPane().add(escritorio);
 		
 		// Crear la Barra del Menu:
 		JMenuBar menuBar = new JMenuBar();
-		menuPrincipal.setJMenuBar(menuBar);
+		getMenuPrincipal().setJMenuBar(menuBar);
 		
 		JMenu menuInicio = new JMenu("Inicio\r\n");
 		menuBar.add(menuInicio);
@@ -227,7 +230,7 @@ public class Menu {
 		menuInicio.add(itemSalir);
 		itemSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				menuPrincipal.dispose();
+				getMenuPrincipal().dispose();
 			}
 		});
 		JMenu menuRegistro = new JMenu("Registros");
@@ -456,6 +459,10 @@ public class Menu {
 	
 	private void cargarDatosPrueba() {
 		try {
+			if(IADC.obtenerInstituciones().size()>0) {
+	        	JOptionPane.showMessageDialog(escritorio, "Los datos de prueba solo pueden cargarse con el sistema en blanco",  "Info",  JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			// ALTA INSTITUCIONES
 			// Instituto Natural #IN
 			IADC.altaInstitucion("Instituto Natural",  "Clases de gimnasia,  aeróbica,  spinning y yoga.", "https://www.inatural.com");
@@ -910,4 +917,12 @@ public class Menu {
 	    			e.getMessage(),  "Info",  JOptionPane.ERROR_MESSAGE);
 		}
     }
+
+	public JFrame getMenuPrincipal() {
+		return menuPrincipal;
+	}
+
+	public void setMenuPrincipal(JFrame menuPrincipal) {
+		this.menuPrincipal = menuPrincipal;
+	}
 }

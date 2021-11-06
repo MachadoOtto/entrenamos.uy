@@ -46,7 +46,8 @@ public class DtClaseWS {
 		this.setMaxSocios(c.getMaxSocios());
 		this.setFechaClase(c.getFechaClase());
 		this.setFechaRegistro(c.getFechaRegistro());
-		this.setPremio(new DtPremioWS(c.getPremio()));
+		if (c.getPremio()!=null)
+			this.setPremio(new DtPremioWS(c.getPremio()));
 	}
 	public DtClaseExt adapt() {
 		List<String> als = Arrays.asList(alumnos);

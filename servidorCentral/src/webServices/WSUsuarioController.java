@@ -4,8 +4,6 @@ package webServices;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.jws.WebMethod;
@@ -13,15 +11,10 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.ws.Endpoint;
 
-import adapters.MapArrayAdapter;
-import adapters.SetArrayAdapter;
 import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
-import datatypes.DtSocio;
 import datatypes.DtSocioExt;
-import datatypes.DtUsuario;
 import datatypes.DtUsuarioExt;
-import datatypesWS.DtCapsula;
 import datatypesWS.DtProfesorWS;
 import datatypesWS.DtSocioWS;
 import datatypesWS.DtUsuarioWS;
@@ -29,9 +22,6 @@ import excepciones.ClaseException;
 import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
-import logica.IActividadDeportivaController;
-import logica.ICuponeraController;
-import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
 
@@ -41,9 +31,6 @@ public class WSUsuarioController {
 
 	private Endpoint endpoint = null;
 	private LaFabrica factory = LaFabrica.getInstance();
-	private IActividadDeportivaController IADC = factory.obtenerIActDeportivaController();
-	private ICuponeraController ICC = factory.obtenerICuponeraController();
-	private IDictadoClaseController IDCC = factory.obtenerIDictadoClaseController();
 	private IUsuarioController IUC = factory.obtenerIUsuarioController();
 	
 	public WSUsuarioController(){}

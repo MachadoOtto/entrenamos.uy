@@ -85,9 +85,12 @@ public class Clase {
 		for(Entry<String, Calificacion> x: calificaciones.entrySet()) {
 			calif.put(x.getKey(), x.getValue().getValor());
 		}
+		DtPremio dorado = null;
+		if(getPrize()!=null)
+			dorado = getPrize().getDt();
 		DtClaseExt claseDatos = new DtClaseExt(nombre,  vasilev.getNickname(),  vasilev.getCorreo(),  minSocios,  maxSocios,  url,  this.getFechaClase(), 
 				this.getFechaRegistro(),  ListNombres,  SoloNombres,  imgName,
-				getUrlVideo(),getPrize().getDt(),calif);
+				getUrlVideo(),dorado,calif);
 		return claseDatos;
 	}
 	

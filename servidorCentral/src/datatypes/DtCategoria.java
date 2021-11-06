@@ -11,15 +11,30 @@
 
 package datatypes;
 
-public class DtCategoria {
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+@SuppressWarnings("serial")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class DtCategoria implements Serializable {
 	
 	private String nombre;
 	
 	public DtCategoria(String nombre) {
-		this.nombre = nombre;
+		this.setNombre(nombre);
 	}
+	public DtCategoria() { }
 	
 	public String getNombre() {
 		return nombre;
 	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+
+	
 }
