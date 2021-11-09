@@ -247,7 +247,6 @@
                </div>
               </div>
 				</div>
-				<% } %>
 				<% if (usrProfile instanceof DtProfesorExt) {	/*Clases dictadas*/ %>
 				<div id= "user-consultaClases" class=" border card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
