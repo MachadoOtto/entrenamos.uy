@@ -136,6 +136,14 @@ body {
  	overflow-y: auto;
  }
  
+  #user-clasesFinalizadas {
+  display: none;
+ }
+ 
+ #user-premios {
+  display: none;
+ }
+ 
  #user-consultaAD{
  	list-style-type: none;
   display: none;
@@ -183,6 +191,108 @@ body {
 }
  
  /*                         */
+
+/*	Estrellas	*/
+  
+#estrellitas-exterior::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: grey;
+}
+
+#estrellitas-exterior {
+  position: relative;
+  display: inline-block;
+  /*padding: 0 0 0 0 !important;
+  text-align: center;*/
+  font-size: 30px;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+}
+
+#estrellitas-interior::before {  
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f8ce0b;	/* amarillo estrella */
+  /*font-size: 60px;
+  background: -webkit-linear-gradient(right, #eee 10%, #ffe234 100%);
+  background-clip: content-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-family: Times;
+  line-height: 1;*/
+}
+
+#estrellitas-interior {
+  /*text-align: center;*/
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  left: 0.75 rem;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0%;
+}
+
+#user-rating {
+  padding-top: 10%;
+  font-size: 65px;
+  text-align: center;
+}
+
+#estrellitas-cantEstrellas {
+  text-align: right;
+  padding-top: 7.55%;
+}
+
+#estrellitas-barras {
+  padding-top: 7%;
+}
+
+#estrellitas-puntajes {
+  text-align: left;
+  padding-top: 7.5%;
+}
+
+#estrellitas-votos {
+  text-align: center;
+}
+
+.puntaje {
+  font-size: 17.5px;
+  line-height: 27.5px ;
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+}
+
+.porcentajes {
+  position: absolute;
+  text-align: center;
+  line-height: 20px; /* line-height should be equal to bar height */
+  overflow: hidden;
+  color: black;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+.progress {
+  position:relative;
+}
+
+.progress {
+	height: 17.5px;
+	margin-top: 10px;
+}
+
+#user-infoRating {
+  margin-right: 10%;
+}
+/*                         */
 
 .imagenSeleccionable {
 	object-fit: cover;
