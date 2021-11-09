@@ -1,3 +1,33 @@
+/* ESTRELLITAS */
+
+
+/*porcentajeEstrellal = (estrellas*16) + "%";
+  document.getElementById('estrellitas-interior' ).style.width = porcentajeEstrellal;
+*/
+function cargarEstrellitas() {
+  estrellas = 4.5;
+  puntajes = [7,4,7,10,2];
+
+  porcentajeEstrellal = (estrellas*2.125) + "rem";
+  document.getElementById('estrellitas-interior').style.width = porcentajeEstrellal;
+  
+  for (let i = 0; i < 5; i++) {
+	porcentajeBarra = (puntajes[i]*16) + "%";
+    document.getElementById('estrellitas-puntaje' + (i+1)).style.width = porcentajeBarra;
+  }
+}
+/*
+function estrellato( idEstrellal ) {
+  var colorEstrellas = '#eee';
+  var estrellismo = 50;
+console.log('-webkit-linear-gradient(right,' + colorEstrellas + ' ' + estrellismo.toString +'%, #ffe234 100%)');
+  document.getElementById( idEstrellal ).style.background = '-webkit-linear-gradient(right,' + colorEstrellas + ' ' + estrellismo.toString +'%, #ffe234 100%)';
+}*/
+
+
+/* BOTONES */
+
+
 var botonActualID = 'nav-perfil';
 var cuadroInfoActualID = 'user-consultaPerfil';
 
@@ -19,6 +49,9 @@ function colorearBoton( nextID ) {
 
   botonActualID = nextID;
 }
+
+
+/* VERIFICACION DE DATOS */
 
 function modif() {
 	if ($("#nomm").val().trim() == "" || $("#ape").val().trim() == "" || $("#nac").val() == "" || $("#desc").val().trim() == ""){
