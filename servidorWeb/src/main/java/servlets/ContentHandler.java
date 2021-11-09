@@ -2,33 +2,41 @@ package servlets;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import excepciones.ClaseException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 import models.IActividadDeportivaController;
+import models.IContentController;
 import models.ICuponeraController;
 import models.IDictadoClaseController;
 import models.IUsuarioController;
 import models.GestorWeb;
-
+import org.apache.commons.io.IOUtils;
 /**
  * Servlet implementation class ContentHandler
  */
+@MultipartConfig
 @WebServlet("/api/content")
 public class ContentHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private IUsuarioController IUC;
-    private IActividadDeportivaController IADC;
-    private ICuponeraController ICC;
-    private IDictadoClaseController IDCC;
+    private static IUsuarioController IUC;
+    private static IActividadDeportivaController IADC;
+    private static ICuponeraController ICC;
+    private static IDictadoClaseController IDCC;
+    private static IContentController ICOC;
     
     public ContentHandler() {
         super();
@@ -36,9 +44,10 @@ public class ContentHandler extends HttpServlet {
          IADC = GestorWeb.getIADC();
          ICC = GestorWeb.getICC();
          IDCC = GestorWeb.getIDCC();
+         ICOC = GestorWeb.getICOC();
     }
 
-	private void serveContent(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+	private void getContent(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
 		String c=request.getParameter("c"); //c=clase de imagen (usuario, actividad, etc.).
 		String cc=null;
@@ -79,26 +88,44 @@ public class ContentHandler extends HttpServlet {
 			idf="default.png";
 		}
 		//---
-		PrintWriter stream;
-		int s=0;
-		
-		try {
-			stream = response.getWriter();
-			try(FileInputStream inputStream = new FileInputStream(request.getServletContext().getRealPath("/assets/images/"+cc+"/"+idf))) {     
-				for (int ch; (ch = inputStream.read()) != -1; ) {
-				    stream.write(ch);
-				    s++;
+		if(idf!="default.png") {
+			ServletOutputStream stream = response.getOutputStream();
+			byte [] i = ICOC.get(c, idf);
+			stream.write(i);
+			response.setHeader("cache-control",  "max-age=5");
+			response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
+			response.setContentLength(i.length);
+		} else {
+			try {
+				PrintWriter stream = response.getWriter();
+				int s=0;
+				try(FileInputStream inputStream = new FileInputStream(request.getServletContext().getRealPath("/assets/images/default/"+c+"_default.png"))) {     
+					for (int ch; (ch = inputStream.read()) != -1; ) {
+					    stream.write(ch);
+					    s++;
+					}
+					response.setHeader("cache-control",  "max-age=5");
+					response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
+					response.setContentLength(s);
 				}
-				response.setHeader("cache-control",  "max-age=5");
-				response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
-				response.setContentLength(s);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		//---
 	}
-	
+	public static void postContent(HttpServletRequest request,  HttpServletResponse response) throws IOException, ServletException {
+		if(request.getAttribute("attribute_asset_transfer")!=null) {
+        	Part filePart = (Part) request.getAttribute("attribute_asset_transfer");
+        	InputStream fileContent = filePart.getInputStream();
+			ICOC.post((String)request.getAttribute("type"), (String) request.getAttribute("id"), IOUtils.toByteArray(fileContent));
+		}
+		else if (request.getPart("img")!=null && request.getPart("img").getSize()>0) {
+        	Part filePart = request.getPart("img");
+        	InputStream fileContent = filePart.getInputStream();
+			ICOC.post(request.getParameter("type"), request.getParameter("id"), IOUtils.toByteArray(fileContent));
+        }
+	}
+
 	private void r404(HttpServletRequest request,  HttpServletResponse response) {
 		try {
 			response.sendRedirect(request.getContextPath()+"/pages/404.jsp");
@@ -108,12 +135,11 @@ public class ContentHandler extends HttpServlet {
 		}
 	}
 	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
-		serveContent(request, response);
+		getContent(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
-		// TODO Auto-generated method stub
-		doGet(request,  response);
+		postContent(request, response);
 	}
 
 }

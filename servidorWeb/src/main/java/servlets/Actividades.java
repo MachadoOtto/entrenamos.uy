@@ -17,8 +17,10 @@ import datatypes.DtUsuarioExt;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.DtCuponera;
+import datatypes.DtFecha;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
+import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
 @WebServlet ("/actividades")
@@ -37,6 +39,7 @@ public class Actividades extends HttpServlet {
 		DtActividadDeportivaExt datosActDep = null;
     	String nickUser = (String) request.getSession().getAttribute("nickname");
     	boolean esSocio = false;
+    	boolean finalizable = false;
     	DtUsuarioExt datosCreador = null;
     	String institucion = null;
     	Set<DtClaseExt> datosClases = new HashSet<>();
@@ -62,10 +65,24 @@ public class Actividades extends HttpServlet {
 					request.setAttribute("datosCreador",  datosCreador);
 				} catch(UsuarioNoExisteException ignore) { }
 			}
+			
+			//Esto verifica que todas las clases de dicha actividad hayan finalizado para saber si es "finalizable".
+			boolean f1 = true;
+			for(String x: datosActDep.getClases()) {
+				try {
+					DtClaseExt cl = LaFabricaWS.getInstance().obtenerIActDeportivaController().seleccionarClase(institucion, datosActDep.getNombre(), x);
+					f1 = cl.getFechaClase().esMenor(new DtFecha());
+				} catch (InstitucionException | ActividadDeportivaException | ClaseException e) {
+					e.printStackTrace();
+					response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
+				}
+			}
+			finalizable = f1;
+			request.setAttribute("finalizable", finalizable);
 		}
 		
 		try {
-			if (LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(nickUser) instanceof DtSocioExt) {
+			if (nickUser!=null && LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(nickUser) instanceof DtSocioExt) {
 				esSocio = true;
 			}
 		} catch(UsuarioNoExisteException ignore) { } 

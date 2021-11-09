@@ -86,6 +86,7 @@ public class WSClaseController {
 	public void inscribirSocio(String ins,  String actDep,  String clase,  String socio,  TRegWS tipoRegistro,  DtFechaWS fechaReg, String cuponera) 
 			throws  ClaseException,  FechaInvalidaException,  NoExisteCuponeraException,  InstitucionException,  
 			UsuarioNoExisteException,  ActividadDeportivaException{
+		cuponera = ((cuponera=="") ? null : cuponera);
 		IDCC.inscribirSocio(ins, actDep, clase, socio, TReg.values()[tipoRegistro.ordinal()], fechaReg.adapt(), cuponera);
 	}
 

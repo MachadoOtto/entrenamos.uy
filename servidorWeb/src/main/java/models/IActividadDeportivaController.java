@@ -34,17 +34,20 @@ public interface IActividadDeportivaController {
 	public DtActividadDeportivaExt getActDepExt(String ins,  String actDep) throws InstitucionException,  
 			ActividadDeportivaException;	
 	
-	public int altaInstitucion(String nombre,  String descripcion,  String URL);
+	// WEB SERVICE DISABLED OPERATION
+	//public int altaInstitucion(String nombre,  String descripcion,  String URL);
 	
 	public DtInstitucion obtenerDatosInstitucion(String inst) throws InstitucionException;
 	
-	public void aprobarActividad(String actividadDeportiva,  TEstado estado);
+	// WEB SERVICE DISABLED OPERATION
+	// public void aprobarActividad(String actividadDeportiva,  TEstado estado);
 	
 	public void finalizarActividad(String actividadDeportiva);
 	
 	public Set<String> obtenerActDepIngresadas();
 	
-	public void ingresarCatergoria(DtCategoria datos) throws CategoriaException;
+	//// WEB SERVICE DISABLED OPERATION
+	//public void ingresarCatergoria(DtCategoria datos) throws CategoriaException;
 
 	public Set<String> obtenerCategorias();
 

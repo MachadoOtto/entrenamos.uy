@@ -92,4 +92,7 @@ public class DtFecha {
 		return min1 <= min2;
 	}
 
+	public boolean equals(DtFecha f) {
+		return anio==f.getAnio() && mes==f.getMes() && dia==f.getDia() && horas==f.getHoras() && minutos==f.getMinutos() && segundos==f.getSegundos();
+	}
 }

@@ -2,6 +2,7 @@ package main;
 
 import webServices.WSActividadController;
 import webServices.WSClaseController;
+import webServices.WSContentController;
 import webServices.WSCuponeraController;
 import webServices.WSUsuarioController;
 import workstation.Menu;
@@ -43,11 +44,13 @@ public class Main {
         WSActividadController servicio2 = new WSActividadController();
         WSCuponeraController servicio3 = new WSCuponeraController();
         WSClaseController servicio4 = new WSClaseController();
+        WSContentController servicio5 = new WSContentController();
         servicio1.publicar();
         servicio2.publicar();
         servicio3.publicar();
         servicio4.publicar();
-        System.out.println("WEB SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!");
+        servicio5.publicar();
+        System.out.println("ALL WEB SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!");
         System.out.println("Initializing workstation...");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

@@ -3,6 +3,7 @@ package tools;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -11,18 +12,25 @@ import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
+import datatypes.DtClasesCuponera;
+import datatypes.DtCuponera;
 import datatypes.DtFecha;
+import datatypes.DtInstitucion;
 import datatypes.DtPremio;
 import datatypes.DtProfesor;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuario;
+import datatypes.DtUsuarioExt;
 import datatypes.TEstado;
 import net.java.dev.jaxb.array.StringArray;
 import webservices.DtActividadWS;
 import webservices.DtClaseWS;
+import webservices.DtClasesCuponeraWS;
+import webservices.DtCuponeraWS;
 import webservices.DtFechaWS;
+import webservices.DtInstitucionWS;
 import webservices.DtPremioWS;
 import webservices.DtProfesorWS;
 import webservices.DtSocioWS;
@@ -72,7 +80,7 @@ public class Cnv {
 					StringArray e = new StringArray();
 					for(String m: n.getValue())
 						e.getItem().add(m);
-					x.getClasesDeActividadesData().add(e);
+					x.getClasesDeActividadesFinalizadasData().add(e);
 				}
 				for(String n: ((DtSocioExt) d).getCuponerasCompradas())
 					x.getCuponerasCompradas().add(n);
@@ -148,6 +156,7 @@ public class Cnv {
 			for(int i=0; i< ((DtSocioWS) d).getPremiosHead().size(); i++) {
 				premios.put(((DtSocioWS) d).getPremiosHead().get(i), Cnv.premio(((DtSocioWS) d).getPremiosData().get(i)));
 			}
+
 			return new DtSocioExt(d.getNickname(), d.getNombre(), d.getApellido(), d.getEmail(),
 					d.getContrasenia(), Cnv.fecha(d.getFechaNacimiento()), clasesDeActividades, d.getImagen(), seguidos, seguidores,
 					cuponeras, actividadesFavoritas, premios, clasesDeActividadesFinalizadas);
@@ -173,27 +182,42 @@ public class Cnv {
 					d.getContrasenia(), Cnv.fecha(d.getFechaNacimiento()), ((DtProfesorWS) d).getNombreInstitucion(), ((DtProfesorWS) d).getDescripcion(),
 					((DtProfesorWS) d).getBiografia(), ((DtProfesorWS) d).getLink(), actDepAsociadas, d.getImagen(), seguidos, seguidores, historalActDepIngresadas, ((DtProfesorWS) d).getValoracion());
 		}
-		else
-			return null;
+		else {
+			Set<String> seguidores = new HashSet<>();
+			for(String n: d.getSeguidoresNickname()) {
+				seguidores.add(n);
+			}
+			Set<String> seguidos = new HashSet<>();
+			for(String n: d.getSeguidosNickname()) {
+				seguidos.add(n);
+			}
+			return new DtUsuarioExt(d.getNickname(), d.getNombre(), d.getApellido(), d.getEmail(),
+					d.getContrasenia(), Cnv.fecha(d.getFechaNacimiento()), d.getImagen(), seguidos, seguidores);
+		}
 	}
 	
 	public static DtPremio premio(DtPremioWS p) {
-		return new DtPremio(p.getDescripcion(),p.getCantidad(),p.getGanadores(),Cnv.fecha(p.getFechaSorteo()));
+		if(p!=null)
+			return new DtPremio(p.getDescripcion(),p.getCantidad(),p.getGanadores(),Cnv.fecha(p.getFechaSorteo()));
+		else return null;
 	}
 	
 	public static DtPremioWS premio(DtPremio p) {
+		if(p==null)
+			return null;
 		DtPremioWS x = new DtPremioWS();
 		x.setDescripcion(p.getDescripcion());
 		x.setCantidad(p.getCantidad());
-		x.setFechaSorteo(Cnv.fecha(p.getFechaSorteo()));
-		x.getGanadores().addAll(p.getGanadores());
+		x.setFechaSorteo((p.getFechaSorteo()==null) ? Cnv.fecha(new DtFecha(0,0,0,0,0,0)) : Cnv.fecha(p.getFechaSorteo()));
+		if(p.getGanadores()!=null)
+			x.getGanadores().addAll(p.getGanadores());
 		return x;
 	}
 	
 	public static DtActividadDeportiva actividad(DtActividadWS d) {
 		return new DtActividadDeportivaExt(d.getNombre(), d.getDescripcion(), d.getDuracionMinutos(), d.getCosto(),
 				Cnv.fecha(d.getFechaRegistro()), new HashSet<String>(d.getCategorias()), new HashSet<String>(d.getClases()),
-				new HashSet<String>(d.getCup()), TEstado.values()[d.getEstado().ordinal()], d.getCreador(), d.getImgName());
+				new HashSet<String>(d.getCup()), TEstado.values()[d.getEstado().ordinal()], d.getCreador(), d.getImgName(),d.getFavoritos());
 	}
 	public static DtActividadWS actividad(DtActividadDeportiva d) {
 		DtActividadWS x = new DtActividadWS();
@@ -207,6 +231,7 @@ public class Cnv {
 		x.setCreador(d.getCreador());
 		x.setImgName(d.getImgName());
 		if(d instanceof DtActividadDeportivaExt) {
+			x.setFavoritos(((DtActividadDeportivaExt) d).getFavoritos());
 			x.getClases().addAll(((DtActividadDeportivaExt) d).getClases());
 			x.getCup().addAll(((DtActividadDeportivaExt) d).getCuponeras());
 		}
@@ -243,6 +268,48 @@ public class Cnv {
 				x.getCalificacionesData().add(n.getValue());
 			}
 		}
+		return x;
+	}
+	public static DtInstitucion institucion(DtInstitucionWS i) {
+		return new DtInstitucion(i.getNombre(),i.getDescripcion(),i.getUrl());
+	}
+	public static DtInstitucionWS institucion(DtInstitucion i) {
+		DtInstitucionWS x = new DtInstitucionWS();
+		x.setNombre(i.getNombre());
+		x.setDescripcion(i.getDescripcion());
+		x.setUrl(i.getUrl());
+		return x;
+	}
+	
+	public static DtCuponera cuponera(DtCuponeraWS c) {
+		List<DtClasesCuponera> cups = new ArrayList<>();
+		for(DtClasesCuponeraWS y : c.getContenido()) {
+			cups.add(Cnv.clasesCuponera(y));
+		}
+		return new DtCuponera(c.getNombre(), c.getDescripcion(), c.getDescuento(), c.getCosto(),
+				Cnv.fecha(c.getFechaInicio()), Cnv.fecha(c.getFechaFin()), Cnv.fecha(c.getFechaAlta()),
+				cups, new ArrayList<String>(c.getCategorias()), c.getImg());
+	}
+	public static DtCuponeraWS cuponera(DtCuponera c) {
+		DtCuponeraWS x = new DtCuponeraWS();
+		x.setNombre(c.getNombre());
+		x.setDescripcion(x.getDescripcion());
+		x.setDescuento(c.getDescuento());
+		x.setCosto(c.getCosto());
+		x.setFechaAlta(Cnv.fecha(c.getFechaAlta()));
+		x.setFechaInicio(Cnv.fecha(c.getFechaInicio()));
+		x.setFechaFin(Cnv.fecha(c.getFechaFin()));
+		for(DtClasesCuponera y : c.getContenido())
+			x.getContenido().add(Cnv.clasesCuponera(y));
+		return x;
+	}
+	public static DtClasesCuponera clasesCuponera(DtClasesCuponeraWS c) {
+		return new DtClasesCuponera(c.getNombreActividad(),c.getCantidadClases());
+	}
+	public static DtClasesCuponeraWS clasesCuponera(DtClasesCuponera c) {
+		DtClasesCuponeraWS x = new DtClasesCuponeraWS();
+		x.setNombreActividad(c.getNombreActividad());
+		x.setCantidadClases(c.getCantidadClases());
 		return x;
 	}
 }

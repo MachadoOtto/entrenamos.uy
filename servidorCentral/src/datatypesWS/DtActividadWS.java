@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 import datatypes.DtActividadDeportivaExt;
-import datatypes.DtFecha;
 import datatypes.TEstado;
 
 @SuppressWarnings("serial")
@@ -23,6 +22,7 @@ public class DtActividadWS implements Serializable {
 	private float costo;
 	private DtFechaWS fechaRegistro;
 	private TEstadoWS estado;
+	private int favoritos;
 	
 	public DtActividadWS() {}
 	public DtActividadWS(DtActividadDeportivaExt d) {
@@ -37,10 +37,17 @@ public class DtActividadWS implements Serializable {
 		this.setImgName(d.getImgName());
 		this.setFechaRegistro(new DtFechaWS(d.getFechaRegistro()));
 		this.setEstado(TEstadoWS.values()[d.getEstado().ordinal()]);
+		this.setFavoritos(d.getFavoritos());
 	}
 	public DtActividadDeportivaExt adapt() {
+		if(categorias==null)
+			categorias = new String[0];
+		if(clases==null)
+			clases = new String[0];
+		if(cup==null)
+			cup = new String[0];
 		return new DtActividadDeportivaExt(nombre,descripcion,duracionMinutos,costo,fechaRegistro.adapt(),
-		new HashSet<>(Arrays.asList(categorias)),new HashSet<>(Arrays.asList(clases)),new HashSet<>(Arrays.asList(cup)),TEstado.values()[estado.ordinal()],creador);
+		new HashSet<>(Arrays.asList(categorias)),new HashSet<>(Arrays.asList(clases)),new HashSet<>(Arrays.asList(cup)),TEstado.values()[estado.ordinal()],creador,imgName,favoritos);
 	}
 	public String[] getClases() {
 		return clases;
@@ -128,6 +135,12 @@ public class DtActividadWS implements Serializable {
 
 	public void setImgName(String imgName) {
 		this.imgName = imgName;
+	}
+	public int getFavoritos() {
+		return favoritos;
+	}
+	public void setFavoritos(int favoritos) {
+		this.favoritos = favoritos;
 	}
 	
 }

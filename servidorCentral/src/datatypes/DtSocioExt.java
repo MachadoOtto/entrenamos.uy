@@ -5,9 +5,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
 public class DtSocioExt extends DtUsuarioExt{
 	
 	private Map<String,  Set<String>> clasesDeActividades;
@@ -53,5 +50,9 @@ public class DtSocioExt extends DtUsuarioExt{
 
 	public Map<String, Set<String>> getClasesDeActividadesFinalizadas() {
 		return clasesDeActividadesFinalizadas;
+	}
+	
+	public DtSocio downgrade() {
+		return new DtSocio(this.getNickname(), this.getNombre(), this.getApellido(), this.getEmail(), this.getContrasenia(), this.getFechaNacimiento(), this.getImagen());
 	}
 }

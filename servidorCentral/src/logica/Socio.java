@@ -71,18 +71,32 @@ public class Socio extends Usuario {
     			}
     		}
     	}
+    	Map<String,  Set<String>> clasesDeActividadesAceptadasLimpiarSetsVacios = new HashMap<>();
+    	for(Entry<String, Set<String>> x : clasesDeActividadesAceptadas.entrySet()) {
+    		if(x.getValue().size()>0)
+    			clasesDeActividadesAceptadasLimpiarSetsVacios.put(x.getKey(), x.getValue());
+    	}
+    	clasesDeActividadesAceptadas = clasesDeActividadesAceptadasLimpiarSetsVacios;
+    	
     	Map<String,  Set<String>> clasesDeActividadesFinalizadas = new HashMap<>();
-    	for (ReciboClase reciboClase: reciboClases) {
+    	for (ReciboClase reciboClase: reciboClases) {  
     		String nombreAD = reciboClase.getClase().getAD().getNombre();
-    		if (!clasesDeActividadesAceptadas.containsKey(nombreAD)) {
+    		if (!clasesDeActividadesFinalizadas.containsKey(nombreAD)) {
     			Set<String> nombreClases = new HashSet<>();
-    			clasesDeActividadesAceptadas.put(nombreAD,  nombreClases);
+    			clasesDeActividadesFinalizadas.put(nombreAD,  nombreClases);
     			for (ReciboClase rc2: reciboClases) {
     				if (rc2.getClase().getAD().getNombre().equals(nombreAD) && rc2.getClase().getAD().getEstado().equals(TEstado.finalizada))
     					nombreClases.add(rc2.getClase().getNombre());
     			}
     		}
     	}
+    	Map<String,  Set<String>> clasesDeActividadesFinalizadasLimpiarSetsVacios = new HashMap<>();
+    	for(Entry<String, Set<String>> x : clasesDeActividadesFinalizadas.entrySet()) {
+    		if(x.getValue().size()>0)
+    			clasesDeActividadesFinalizadasLimpiarSetsVacios.put(x.getKey(), x.getValue());
+    	}
+    	clasesDeActividadesFinalizadas = clasesDeActividadesFinalizadasLimpiarSetsVacios;
+    	
     	Set<String> cupis = new HashSet<>();
     	for (ReciboCuponera recibo : reciboCuponeras) {
     		cupis.add(recibo.getCuponera().getNombre());
@@ -93,13 +107,9 @@ public class Socio extends Usuario {
     	}
     	Map<String, DtPremio> prem = new HashMap<>();
     	for (Entry<String, Premio> x : premios.entrySet()) {
-    		List<String> winwin = new LinkedList<>();
-    		Set<Socio> winwinwin = new HashSet<>();
-    		for (Socio y: winwinwin) {
-    			winwin.add(y.getNickname());
-    		}
-    		prem.put(x.getKey(), new DtPremio(x.getValue().getDescription(), x.getValue().getCantidad(), winwin,x.getValue().getFechaSorteo()));
+    		prem.put(x.getKey(), x.getValue().getDt());
     	}
+    	
     	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),
     			this.getContrasenia(),   this.getFecha(),   clasesDeActividadesAceptadas,   this.getImagen(),  this.getSeguidos().keySet(),
     			this.getSeguidores().keySet(), cupis, favs, prem,clasesDeActividadesFinalizadas);
@@ -151,7 +161,7 @@ public class Socio extends Usuario {
 		return premios;
 	}
 	public void addPremio(Premio premiopremio) {
-		premios.put(premiopremio.getClass().getName(), premiopremio);
+		premios.put(premiopremio.getClase().getNombre(), premiopremio);
 	}
 	public List<ActividadDeportiva> getFavoritos() {
 		return favoritos;

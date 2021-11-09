@@ -24,16 +24,18 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _ActividadDeportivaException_QNAME = new QName("http://webServices/", "ActividadDeportivaException");
-	private final static QName _FechaInvalidaException_QNAME = new QName("http://webServices/", "FechaInvalidaException");
+    private final static QName _IOException_QNAME = new QName("http://webServices/", "IOException");
 	private final static QName _CuponeraNoExisteException_QNAME = new QName("http://webServices/", "CuponeraNoExisteException");
-    private final static QName _ClaseException_QNAME = new QName("http://webServices/", "ClaseException");
+	private final static QName _NoExisteCuponeraException_QNAME = new QName("http://webServices/", "NoExisteCuponeraException");
+	private final static QName _ActividadDeportivaException_QNAME = new QName("http://webServices/", "ActividadDeportivaException");
+    private final static QName _FechaInvalidaException_QNAME = new QName("http://webServices/", "FechaInvalidaException");
+	private final static QName _ClaseException_QNAME = new QName("http://webServices/", "ClaseException");
     private final static QName _InstitucionException_QNAME = new QName("http://webServices/", "InstitucionException");
+
     private final static QName _UsuarioNoExisteException_QNAME = new QName("http://webServices/", "UsuarioNoExisteException");
-    private final static QName _NoExisteCuponeraException_QNAME = new QName("http://webServices/", "NoExisteCuponeraException");
 	private final static QName _DtCapsula_QNAME = new QName("http://webServices/", "dtCapsula");
 
-    /**
+	/**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: webservices
      * 
      */
@@ -41,6 +43,23 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
+    }
+
+	/**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
+     * 
+     */
+//    @XmlElementDecl(namespace = "http://webServices/", name = "IOException")
+    public JAXBElement<IOException> createIOException(IOException value) {
+        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
+    }
+
+	/**
      * Create an instance of {@link DtCapsula }
      * 
      */
@@ -48,7 +67,7 @@ public class ObjectFactory {
         return new DtCapsula();
     }
 
-    /**
+	/**
      * Create an instance of {@link UsuarioNoExisteException }
      * 
      */
@@ -56,7 +75,7 @@ public class ObjectFactory {
         return new UsuarioNoExisteException();
     }
 
-    /**
+	/**
      * Create an instance of {@link NoExisteCuponeraException }
      * 
      */
@@ -89,6 +108,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CuponeraNoExisteException }
+     * 
+     */
+    public CuponeraNoExisteException createCuponeraNoExisteException() {
+        return new CuponeraNoExisteException();
+    }
+
+	/**
      * Create an instance of {@link ActividadDeportivaException }
      * 
      */
@@ -96,7 +123,7 @@ public class ObjectFactory {
         return new ActividadDeportivaException();
     }
 
-	/**
+    /**
      * Create an instance of {@link FechaInvalidaException }
      * 
      */
@@ -105,14 +132,6 @@ public class ObjectFactory {
     }
 
 	/**
-     * Create an instance of {@link CuponeraNoExisteException }
-     * 
-     */
-    public CuponeraNoExisteException createCuponeraNoExisteException() {
-        return new CuponeraNoExisteException();
-    }
-
-    /**
      * Create an instance of {@link ClaseException }
      * 
      */
@@ -121,11 +140,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DtInstitucion }
+     * Create an instance of {@link DtProfesorWS }
      * 
      */
-    public DtInstitucion createDtInstitucion() {
-        return new DtInstitucion();
+    public DtProfesorWS createDtProfesorWS() {
+        return new DtProfesorWS();
     }
 
 	/**
@@ -136,20 +155,12 @@ public class ObjectFactory {
         return new DtActividadWS();
     }
 
-	/**
+    /**
      * Create an instance of {@link DtClaseWS }
      * 
      */
     public DtClaseWS createDtClaseWS() {
         return new DtClaseWS();
-    }
-
-	/**
-     * Create an instance of {@link DtProfesorWS }
-     * 
-     */
-    public DtProfesorWS createDtProfesorWS() {
-        return new DtProfesorWS();
     }
 
     /**
@@ -161,6 +172,16 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link NoExisteCuponeraException }{@code >}}
+     * 
+     */
+////    @XmlElementDecl(namespace = "http://webServices/", name = "NoExisteCuponeraException")
+//    @XmlElementDecl(namespace = "http://webServices/", name = "NoExisteCuponeraException")
+	public JAXBElement<NoExisteCuponeraException> createNoExisteCuponeraException(NoExisteCuponeraException value) {
+        return new JAXBElement<NoExisteCuponeraException>(_NoExisteCuponeraException_QNAME, NoExisteCuponeraException.class, null, value);
+    }
+
+	/**
      * Create an instance of {@link DtPremioWS }
      * 
      */
@@ -169,15 +190,44 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ActividadDeportivaException }{@code >}}
+     * Create an instance of {@link DtSocioWS }
      * 
      */
-//    @XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
-    public JAXBElement<ActividadDeportivaException> createActividadDeportivaException(ActividadDeportivaException value) {
-        return new JAXBElement<ActividadDeportivaException>(_ActividadDeportivaException_QNAME, ActividadDeportivaException.class, null, value);
+    public DtSocioWS createDtSocioWS() {
+        return new DtSocioWS();
     }
 
 	/**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CuponeraNoExisteException }{@code >}}
+     * 
+     */
+////    @XmlElementDecl(namespace = "http://webServices/", name = "CuponeraNoExisteException")
+//    @XmlElementDecl(namespace = "http://webServices/", name = "CuponeraNoExisteException")
+	public JAXBElement<CuponeraNoExisteException> createCuponeraNoExisteException(CuponeraNoExisteException value) {
+        return new JAXBElement<CuponeraNoExisteException>(_CuponeraNoExisteException_QNAME, CuponeraNoExisteException.class, null, value);
+    }
+
+	/**
+     * Create an instance of {@link DtInstitucionWS }
+     * 
+     */
+    public DtInstitucionWS createDtInstitucionWS() {
+        return new DtInstitucionWS();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ActividadDeportivaException }{@code >}}
+     * 
+     */
+//////    @XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
+////    @XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
+//	@XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
+	@XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
+	public JAXBElement<ActividadDeportivaException> createActividadDeportivaException(ActividadDeportivaException value) {
+        return new JAXBElement<ActividadDeportivaException>(_ActividadDeportivaException_QNAME, ActividadDeportivaException.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FechaInvalidaException }{@code >}}
      * 
      */
@@ -187,28 +237,13 @@ public class ObjectFactory {
     }
 
 	/**
-     * Create an instance of {@link DtSocioWS }
-     * 
-     */
-    public DtSocioWS createDtSocioWS() {
-        return new DtSocioWS();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link CuponeraNoExisteException }{@code >}}
-     * 
-     */
-//    @XmlElementDecl(namespace = "http://webServices/", name = "CuponeraNoExisteException")
-    public JAXBElement<CuponeraNoExisteException> createCuponeraNoExisteException(CuponeraNoExisteException value) {
-        return new JAXBElement<CuponeraNoExisteException>(_CuponeraNoExisteException_QNAME, CuponeraNoExisteException.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ClaseException }{@code >}}
      * 
      */
+////    @XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
 //    @XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
-    public JAXBElement<ClaseException> createClaseException(ClaseException value) {
+	@XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
+	public JAXBElement<ClaseException> createClaseException(ClaseException value) {
         return new JAXBElement<ClaseException>(_ClaseException_QNAME, ClaseException.class, null, value);
     }
 
@@ -216,12 +251,14 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link InstitucionException }{@code >}}
      * 
      */
+////    @XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
 //    @XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
-    public JAXBElement<InstitucionException> createInstitucionException(InstitucionException value) {
+	@XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
+	public JAXBElement<InstitucionException> createInstitucionException(InstitucionException value) {
         return new JAXBElement<InstitucionException>(_InstitucionException_QNAME, InstitucionException.class, null, value);
     }
 
-    /**
+	/**
      * Create an instance of {@link JAXBElement }{@code <}{@link UsuarioNoExisteException }{@code >}}
      * 
      */
@@ -231,21 +268,13 @@ public class ObjectFactory {
         return new JAXBElement<UsuarioNoExisteException>(_UsuarioNoExisteException_QNAME, UsuarioNoExisteException.class, null, value);
     }
 
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link NoExisteCuponeraException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://webServices/", name = "NoExisteCuponeraException")
-    public JAXBElement<NoExisteCuponeraException> createNoExisteCuponeraException(NoExisteCuponeraException value) {
-        return new JAXBElement<NoExisteCuponeraException>(_NoExisteCuponeraException_QNAME, NoExisteCuponeraException.class, null, value);
-    }
-
 	/**
      * Create an instance of {@link JAXBElement }{@code <}{@link DtCapsula }{@code >}}
      * 
      */
+////    @XmlElementDecl(namespace = "http://webServices/", name = "dtCapsula")
 //    @XmlElementDecl(namespace = "http://webServices/", name = "dtCapsula")
-    public JAXBElement<DtCapsula> createDtCapsula(DtCapsula value) {
+	public JAXBElement<DtCapsula> createDtCapsula(DtCapsula value) {
         return new JAXBElement<DtCapsula>(_DtCapsula_QNAME, DtCapsula.class, null, value);
     }
 

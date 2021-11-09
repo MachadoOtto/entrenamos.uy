@@ -9,7 +9,8 @@ public class GestorWeb {
 	private static IUsuarioController IUC;
 	private static ICuponeraController ICC;
 	private static IDictadoClaseController IDCC;
-
+	private static IContentController ICOC;
+	
 	public static GestorWeb getInstance() {
 		if (instancia == null)
 			instancia = new GestorWeb();
@@ -22,6 +23,7 @@ public class GestorWeb {
 		IUC = fabricaSistema.obtenerIUsuarioController();
 		ICC = fabricaSistema.obtenerICuponeraController();
 		IDCC = fabricaSistema.obtenerIDictadoClaseController();
+		ICOC = fabricaSistema.obtenerIContentController();
 	}
 
     public static DtUsuarioExt buscarUsuario(String nickEmail) throws UsuarioNoExisteException {
@@ -47,4 +49,8 @@ public class GestorWeb {
     public static IDictadoClaseController getIDCC() {
     	return IDCC;
     }
+
+	public static IContentController getICOC() {
+		return ICOC;
+	}
 }

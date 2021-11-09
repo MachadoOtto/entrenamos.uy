@@ -6,7 +6,7 @@ import java.util.List;
 
 import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
-import datatypes.DtFecha;
+
 
 public class DtCuponeraWS {
 	private String nombre,  descripcion;
@@ -35,9 +35,14 @@ public class DtCuponeraWS {
 	}
 	public DtCuponera adapt() {
 		List<DtClasesCuponera> cont = new ArrayList<>();
-		for(int i = 0; i<contenido.length; i++)
+		for(int i = 0; contenido!=null && i<contenido.length; i++)
 			cont.add(contenido[i].adapt());
-		List<String> cat = Arrays.asList(categorias);
+		List<String> cat;
+		if(categorias!=null)
+			cat = Arrays.asList(categorias);
+		else
+			cat = new ArrayList<>();
+		
 		return new DtCuponera(nombre, descripcion, descuento,  costo, fechaInicio.adapt(),  fechaFin.adapt(),  fechaAlta.adapt(), cont,cat,img);
 	}
 	public String getImg() {

@@ -3,7 +3,6 @@ package datatypesWS;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import datatypes.DtFecha;
 import datatypes.DtUsuarioExt;
 
 @XmlAccessorType(XmlAccessType.FIELD)

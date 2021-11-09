@@ -4,6 +4,8 @@
 <%@ page import="java.util.Set"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtSocioExt"%>
+<%@ page import="datatypes.DtProfesorExt"%>
+<%@ page import="datatypes.DtUsuarioExt"%>
 <%@ page import="datatypes.DtFecha"%>
 <!DOCTYPE html>
 
@@ -25,6 +27,7 @@
 			boolean estaInscripto = (boolean) request.getAttribute("estaInscripto");
 			boolean estaCaducada = (boolean) request.getAttribute("estaCaducada");
 			boolean estaLlena = (boolean) request.getAttribute("estaLlena");
+			DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
 			%>
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
@@ -109,6 +112,47 @@
 	                		<%=datosClase.getFechaRegistro().toFecha()%>
 	              		</div>
 	            	</div>
+	            	<%if (datosClase.getPremio()!=null){ %>
+	            	<div class="mt-4">
+	            	<h5>Premio</h5>
+	            	<div class="row">
+	              		<div class="col-sm-3">
+	                  		<h6 class="mb-0"><strong>Descripción:</strong></h6>
+	              		</div>
+	              		<div class="col-sm-9 text-secondary">
+	                		<%=datosClase.getPremio().getDescripcion()%>
+	              		</div>
+	            	</div>
+	            	<div class="row">
+	              		<div class="col-sm-3">
+	                  		<h6 class="mb-0"><strong>Cantidad:</strong></h6>
+	              		</div>
+	              		<div class="col-sm-9 text-secondary">
+	                		<%=datosClase.getPremio().getCantidad()%>
+	              		</div>
+	            	</div>
+	            	<div class="row">
+	            		<%if (datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0))){ %>
+	                  		<h6 class="mt-2"><strong style="color: blue;" >El sorteo aún no se ha realizado!</strong></h6>
+	            		<% }else{ %>
+	              		<div class="col-sm-3">
+	                  		<h6 class="mb-0"><strong>Fecha sorteo:</strong></h6>
+	              		</div>
+	              		<div class="col-sm-9 text-secondary">
+	                		<%=datosClase.getPremio().getFechaSorteo().toFechaHora()%>
+	              		</div>
+	              		<%} %>
+	            	</div>
+	            	</div>
+	            	<%} %>
+	            	
+	                <%if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) &&
+	                		datosClase.getFechaClase().esMenor(new DtFecha()) && (datosClase.getPremio().getFechaSorteo()==null || datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0)))) { %>
+	                	<br>
+		                <button class="w-100 mb-2 btn btn-outline-primary btn-lg rounded-4  mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#sorteoModal" >
+		                   Realizar Sorteo
+		                </button>
+		            <%} %>
 				</div>
 			</div>
 		    <div class="col-sm-3 ps-1 ps-sm-3">
@@ -120,6 +164,9 @@
 		      				<li class="container border card-body elementoLista">
 				           		<img alt="Default"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=alumno%>" class="vertical-align-middle imagenSeleccionable">
 				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno%>"><%=alumno%></a>
+				           		<% if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) && datosClase.getPremio().getGanadores()!=null && datosClase.getPremio().getGanadores().contains(alumno)) { %>
+				        		<img alt="ganador"  src="<%=request.getContextPath()%>/assets/images/misc/winner64.png" class="">
+				        		<%} %>
 				        	</li>
 		      			<%  } %>
 		      		</ul>
@@ -182,6 +229,35 @@
       </div>
     </div>	
 	<%} %>
+	
+    <div class="modal fade" id="sorteoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <img src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                  <h2 class="fw-bold mb-0">Inscripción a Clase</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <h3>Confirmar Sorteo 🎫 </h3>
+                  <p>¿Está seguro que desea realizar el sorteo con los socios inscriptos a esta clase? Esto solo se puede realizar una vez.</p>
+				 <a href='<%=request.getContextPath()%>/realizarSorteo?cla=<%=datosClase.getNombre()%>' >
+				  <button class="btn-ir btn btn-primary" type="submit" >
+	            	Confirmar
+	              </button>
+	              </a>
+              </div>
+              <div class="modal-footer">
+                  <hr class="my-6">
+                  <div>
+                      <i>Sortear Premios Socios en clases dictadas - entrenamos.uy</i>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>	
+    
+    
 	<jsp:include page="/template/footer.jsp"/>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/assets/scripts/clases.js"></script>
 </body>

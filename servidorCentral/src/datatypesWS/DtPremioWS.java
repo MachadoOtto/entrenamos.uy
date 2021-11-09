@@ -25,7 +25,10 @@ public class DtPremioWS {
 		this.setFechaSorteo(new DtFechaWS(p.getFechaSorteo()));
 	}
 	public DtPremio adapt() {
-		return new DtPremio(this.getDescripcion(),this.getCantidad(),new ArrayList<>(Arrays.asList(ganadores)),fechaSorteo.adapt());
+		if (ganadores!=null)
+			return new DtPremio(this.getDescripcion(),this.getCantidad(),new ArrayList<>(Arrays.asList(ganadores)),fechaSorteo.adapt());
+		else
+			return new DtPremio(this.getDescripcion(),this.getCantidad(),new ArrayList<>(Arrays.asList()),fechaSorteo.adapt());
 	}
 	public String[] getGanadores() {
 		return ganadores;

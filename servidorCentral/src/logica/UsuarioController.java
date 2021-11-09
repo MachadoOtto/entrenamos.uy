@@ -55,6 +55,10 @@ public class UsuarioController implements IUsuarioController {
 		if (handlerUsuario.existeNick(datoUser.getNickname()) || handlerUsuario.existeCorreo(datoUser.getEmail())) {
 			return 1;
 		} else {
+			if (datoUser instanceof DtSocioExt)
+				datoUser = ((DtSocioExt) datoUser).downgrade();
+			else if (datoUser instanceof DtProfesorExt)
+				datoUser = ((DtProfesorExt) datoUser).downgrade();
 			if (datoUser instanceof DtSocio) {
 				Socio newSocio = new Socio((DtSocio) datoUser);
 				handlerUsuario.addUser(newSocio);
@@ -102,7 +106,10 @@ public class UsuarioController implements IUsuarioController {
 		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
 		Usuario user = handlerUsuario.findUsuario(userNick);
 		if (user instanceof Profesor) {
-			((Profesor) user).editarDatos((DtProfesor) datoUser);
+			if(datoUser instanceof DtProfesorExt)
+				((Profesor) user).editarDatos(((DtProfesorExt) datoUser).downgrade());
+			else
+				((Profesor) user).editarDatos((DtProfesor) datoUser);
 		} else {
 			user.editarDatos(datoUser);
 		}
@@ -163,6 +170,7 @@ public class UsuarioController implements IUsuarioController {
 	@Override
 	public void favoritearActividad(String nick, String ins, String actDep) throws UsuarioNoExisteException, InstitucionException{
 		((Socio) getHU().findUsuario(nick)).changeFavoritos(getHI().findInstitucion(ins).findActividad(actDep));
+		getHI().findInstitucion(ins).findActividad(actDep).changeFavoritos(((Socio) getHU().findUsuario(nick)));
 	}
 
 	@Override

@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.TEstado;
 
@@ -51,13 +50,17 @@ public class DtProfesorWS extends DtUsuarioWS{
 	@Override
 	public DtProfesorExt adapt() {
 		Map<String,  Set<String>> actDepAsociadas = new HashMap<>();
-		for(int i=0; i<actDepAsociadasHead.length; i++) {
+		for(int i=0;actDepAsociadasHead!=null && i<actDepAsociadasHead.length; i++) {
 			actDepAsociadas.put(actDepAsociadasHead[i], new HashSet<>(Arrays.asList(actDepAsociadasData[i])));
 		}
 		Map<String,  TEstado> historalActDepIngresadas = new HashMap<>();
-		for(int i=0; i<historalActDepIngresadasNombre.length; i++) {
+		for(int i=0;historalActDepIngresadasNombre!=null && i<historalActDepIngresadasNombre.length; i++) {
 			historalActDepIngresadas.put(historalActDepIngresadasNombre[i], TEstado.values()[historalActDepIngresadasEstado[i].ordinal()]);
 		}
+		if (this.getSeguidosNickname()==null)
+			this.setSeguidosNickname(new String [0]);
+		if (this.getSeguidoresNickname()==null)
+			this.setSeguidoresNickname(new String [0]);
 		return new DtProfesorExt(this.getNickname(),this.getNombre(),this.getApellido(),this.getEmail(),
 				this.getContrasenia(), this.getFechaNacimiento().adapt(), nombreInstitucion, descripcion, biografia, 
 				link, actDepAsociadas, this.getImagen(),new HashSet<String>(Arrays.asList(this.getSeguidosNickname())),

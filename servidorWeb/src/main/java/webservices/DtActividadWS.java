@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="costo" type="{http://www.w3.org/2001/XMLSchema}float"/>
  *         &lt;element name="fechaRegistro" type="{http://webServices/}dtFechaWS" minOccurs="0"/>
  *         &lt;element name="estado" type="{http://webServices/}tEstadoWS" minOccurs="0"/>
+ *         &lt;element name="favoritos" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -50,7 +51,8 @@ import javax.xml.bind.annotation.XmlType;
     "duracionMinutos",
     "costo",
     "fechaRegistro",
-    "estado"
+    "estado",
+    "favoritos"
 })
 public class DtActividadWS {
 
@@ -69,7 +71,9 @@ public class DtActividadWS {
     protected DtFechaWS fechaRegistro;
     protected TEstadoWS estado;
 
-    /**
+    protected int favoritos;
+
+	/**
      * Gets the value of the clases property.
      * 
      * <p>
@@ -330,6 +334,22 @@ public class DtActividadWS {
      */
     public void setEstado(TEstadoWS value) {
         this.estado = value;
+    }
+
+	/**
+     * Gets the value of the favoritos property.
+     * 
+     */
+    public int getFavoritos() {
+        return favoritos;
+    }
+
+	/**
+     * Sets the value of the favoritos property.
+     * 
+     */
+    public void setFavoritos(int value) {
+        this.favoritos = value;
     }
 
 }

@@ -21,6 +21,7 @@ public class ActividadDeportiva {
 	private Map<String,  Clase> clases;  // Nombre de clase y clase
 	private Map<String,  ClasesCuponera> clCuponera;
 	private Map<String,  Categoria> cats;
+	private Set<Socio> favoritos;
 	private String nombre;
 	private String descripcion;
 	private int duracionMinutos;
@@ -46,6 +47,7 @@ public class ActividadDeportiva {
 	private void crearHandler() {
 		clases = new HashMap<>();
 		clCuponera= new HashMap<>();
+		favoritos = new HashSet<>();
 		log = Logger.getLogger(HandlerInstitucion.class.getName());
 		log.setLevel(Level.INFO);
 		Handler handler = new ConsoleHandler();
@@ -108,19 +110,26 @@ public class ActividadDeportiva {
 		Set<String> nombresClases = new HashSet<>(clases.keySet());
 		Set<String> nombresClasesCuponeras = new HashSet<>(clCuponera.keySet());
 		DtActividadDeportivaExt actDep = new DtActividadDeportivaExt(getNombre(),  getDescripcion(),  getDuracionMinutos(),  
-				getCosto(),  getFechaRegistro() ,  cats.keySet(),  nombresClases,  nombresClasesCuponeras,  estado,  creador.getNickname(),  imgName);
+				getCosto(),  getFechaRegistro() ,  cats.keySet(),  nombresClases,  nombresClasesCuponeras,  estado,  creador.getNickname(),  imgName,favoritos.size());
 		return actDep;
 	}
 	public TEstado getEstado() {
 		return estado;
 	}
+	
 	public boolean setEstado(TEstado nuevoEstado) {
 		if (estado==TEstado.ingresada && (nuevoEstado==TEstado.aceptada || nuevoEstado==TEstado.rechazada)) {
 			estado = nuevoEstado;
 			return true;
 		}
-		else return false;
+		else if (estado==TEstado.aceptada && nuevoEstado==TEstado.finalizada) {
+			estado = nuevoEstado;
+			return true;
+		}
+		else 
+			return false;
 	}
+	
 	public Set<Categoria> getCategorias() {
 		Set<Categoria> res = new HashSet<>();
 		res.addAll(cats.values());
@@ -128,6 +137,18 @@ public class ActividadDeportiva {
 	}
 	public Map<String,  ClasesCuponera> getClaseCuponeras() {
 		return clCuponera;
+	}
+	public Set<Socio> getFavoritos() {
+		return favoritos;
+	}
+	public void setFavoritos(Set<Socio> favoritos) {
+		this.favoritos = favoritos;
+	}
+	public void changeFavoritos(Socio user) {
+		if (favoritos.contains(user))
+			favoritos.remove(user);
+		else
+			favoritos.add(user);
 	}
 }
 

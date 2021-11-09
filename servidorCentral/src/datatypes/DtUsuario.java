@@ -1,9 +1,5 @@
 package datatypes;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
-
 public class DtUsuario {
 
 	private String nickname,   nombre,   apellido,   email,   contrasenia;

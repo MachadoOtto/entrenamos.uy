@@ -2,9 +2,6 @@ package datatypes;
 
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
 public class DtUsuarioExt extends DtUsuario{
 	private Set<String> seguidosNickname;
 	private Set<String> seguidoresNickname;

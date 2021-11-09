@@ -2,7 +2,9 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletException;
@@ -36,9 +38,9 @@ public class PerfilUsuario extends HttpServlet {
     public PerfilUsuario() {
         super();
         IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
-        //IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
-        //ICC = LaFabricaWS.getInstance().obtenerICuponeraController();
-        //IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
+        IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
+        ICC = LaFabricaWS.getInstance().obtenerICuponeraController();
+        IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
     }
     
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
@@ -71,6 +73,12 @@ public class PerfilUsuario extends HttpServlet {
         			clasesInscriptoSocio.add(IDCC.buscarClase(x));
         		}
         	}
+        	//Obtención de clases a las que está inscripto pero finalizó su actdep 
+        	Map<String,Set<String>> clasesFinalizadas = new HashMap<>();
+        	if( usr instanceof DtSocioExt) {
+        		clasesFinalizadas = ((DtSocioExt) usr).getClasesDeActividadesFinalizadas();
+        	}
+        	
         	
         	//Obtención de seguidores
         	List<DtUsuarioExt> seguidores = new ArrayList<>();
@@ -121,6 +129,7 @@ public class PerfilUsuario extends HttpServlet {
         	request.setAttribute("cuponeras",  cuponerasIngresadasSocio);
         	request.setAttribute("actividadesAsociadas",  actAsociadasProfesor);
         	request.setAttribute("actividadesIngresadas",  actIngresadasProfesor);
+        	request.setAttribute("clasesFinalizadas",  clasesFinalizadas);
         	
         } catch(Exception e) {
         	e.printStackTrace();

@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 
 import java.util.Set;
 
@@ -67,5 +65,10 @@ public class DtProfesorExt extends DtUsuarioExt{
 	}
 	public float getValoracion() {
 		return valoracion;
+	}
+	public DtProfesor downgrade() {
+		return new DtProfesor(this.getNickname(), this.getNombre(), this.getApellido(), this.getEmail(),
+				this.getContrasenia(), this.getFechaNacimiento(), this.getNombreInstitucion(), this.getDescripcion(),
+				this.getBiografia(), this.getLink(), this.getImagen(), this.getValoracion());
 	}
 }

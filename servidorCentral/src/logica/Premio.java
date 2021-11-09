@@ -14,7 +14,7 @@ public class Premio {
 	private int cantidad;
 	private Clase classroom;
 	private boolean realizado = false;
-	private Set<Socio> winners = null;
+	private Set<Socio> winners = new HashSet<>();
 	private DtFecha fechaSorteo = new DtFecha(0,0,0,0,0,0);
 	
 	Premio(Clase  classss ,  String  desc,  int  cant){
@@ -43,7 +43,6 @@ public class Premio {
 		if (realizado)
 			return winners;
 		List<Socio> lista = new ArrayList<>();
-		Set<Socio> winners = new HashSet<>();
 		lista.addAll(inscriptos);
 		Random rand = new Random();
 		for (int i=0; i<cantidad && lista.size()>0; i++) {

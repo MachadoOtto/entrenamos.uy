@@ -518,6 +518,8 @@ public class ConsultaActividadDeportiva extends JInternalFrame {
 				estado.setForeground(Color.ORANGE);
 			else if (actDep.getEstado()==TEstado.aceptada)
 				estado.setForeground(Color.green);
+			else if (actDep.getEstado()==TEstado.finalizada)
+				estado.setForeground(Color.blue);
 			else
 				estado.setForeground(Color.red);
 			

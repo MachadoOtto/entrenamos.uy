@@ -2,8 +2,6 @@ package datatypes;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 
 public class DtClaseExt extends DtClase {
 	

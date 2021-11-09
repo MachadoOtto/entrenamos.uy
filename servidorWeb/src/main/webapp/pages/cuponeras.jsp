@@ -42,7 +42,7 @@
         	  DtSocioExt usr = (DtSocioExt)usrLogged;
         	  Set<String> cups = usr.getCuponerasCompradas();
               for (String x: cups) {
-      			if (x == c.getNombre()){
+      			if (x.equals(c.getNombre())){
               		comprada= true;
               	}  
          	 }

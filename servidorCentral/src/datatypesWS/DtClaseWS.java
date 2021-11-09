@@ -1,15 +1,14 @@
 package datatypesWS;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import java.util.Map.Entry;
 
 import datatypes.DtClaseExt;
-import datatypes.DtFecha;
-import datatypes.DtPremio;
 
 public class DtClaseWS {
 
@@ -47,14 +46,21 @@ public class DtClaseWS {
 			this.setPremio(new DtPremioWS(c.getPremio()));
 	}
 	public DtClaseExt adapt() {
-		List<String> als = Arrays.asList(alumnos);
-		List<String> sna = Arrays.asList(soloNickAlumnos);
+		List<String> als,sna;
+		if (alumnos!=null)
+			als = Arrays.asList(alumnos);
+		else
+			als = new ArrayList<>();
+		if (soloNickAlumnos!=null)
+			sna = Arrays.asList(soloNickAlumnos);
+		else
+			sna = new ArrayList<>();
 		Map<String,  Integer> calificaciones = new HashMap<>();
-		for(int i=0; i<calificacionesHead.length; i++) {
+		for(int i=0; calificacionesHead!=null && i<calificacionesHead.length; i++) {
 			calificaciones.put(calificacionesHead[i], calificacionesData[i]);
 		}
 		return new DtClaseExt(this.getNombre(),this.getNicknameProfesor(),this.getCorreoProfesor(), minSocios, maxSocios,urlwebsite, fechaClase.adapt(), fechaRegistro.adapt(),   
-				als,sna,imgName,urlVideo, premio.adapt(), calificaciones);
+				als,sna,imgName,urlVideo, ((premio==null) ? null : premio.adapt()), calificaciones);
 	}
 	public String getNombre() {
 		return nombre;

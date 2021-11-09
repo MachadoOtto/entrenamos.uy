@@ -61,12 +61,12 @@ public class AltaAD extends HttpServlet {
 	    		ru=Parametrizer.addParam(ru,  "e",  "5");
 	    		if (r.getPart("imgAD")!=null && r.getPart("imgAD").getSize()>0) {
 		        	Part filePart = r.getPart("imgAD");
-		        	InputStream fileContent = filePart.getInputStream();
 	        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
 	        		String ext = s[s.length-1];
-		        	String path = r.getServletContext().getRealPath("/assets/images/activities/"+rp(r, "nombreAD")+"."+ext);
-		        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
-		           //System.out.println( r.getServletContext().getRealPath("/assets/images/users/"+rp(r, "nombreAD")+"."+ext));
+		        	r.setAttribute("type", "act");
+		        	r.setAttribute("id", rp(r, "nombreAD")+"."+ext);
+		        	r.setAttribute("attribute_asset_transfer", filePart);
+		        	ContentHandler.postContent(r,response);
 		        }
 			} else {
 				ru=Parametrizer.remParam(ru,  "e",  "5");
