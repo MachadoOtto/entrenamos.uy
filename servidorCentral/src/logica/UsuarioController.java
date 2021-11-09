@@ -17,6 +17,7 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
+import excepciones.ClaseException;
 import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
@@ -54,6 +55,10 @@ public class UsuarioController implements IUsuarioController {
 		if (handlerUsuario.existeNick(datoUser.getNickname()) || handlerUsuario.existeCorreo(datoUser.getEmail())) {
 			return 1;
 		} else {
+			if (datoUser instanceof DtSocioExt)
+				datoUser = ((DtSocioExt) datoUser).downgrade();
+			else if (datoUser instanceof DtProfesorExt)
+				datoUser = ((DtProfesorExt) datoUser).downgrade();
 			if (datoUser instanceof DtSocio) {
 				Socio newSocio = new Socio((DtSocio) datoUser);
 				handlerUsuario.addUser(newSocio);
@@ -101,7 +106,10 @@ public class UsuarioController implements IUsuarioController {
 		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
 		Usuario user = handlerUsuario.findUsuario(userNick);
 		if (user instanceof Profesor) {
-			((Profesor) user).editarDatos((DtProfesor) datoUser);
+			if(datoUser instanceof DtProfesorExt)
+				((Profesor) user).editarDatos(((DtProfesorExt) datoUser).downgrade());
+			else
+				((Profesor) user).editarDatos((DtProfesor) datoUser);
 		} else {
 			user.editarDatos(datoUser);
 		}
@@ -155,5 +163,19 @@ public class UsuarioController implements IUsuarioController {
 	private HandlerCuponera getHC() {
 		return HandlerCuponera.getInstance();
 	}
+	private HandlerInstitucion getHI() {
+		return HandlerInstitucion.getInstance();
+	}
+	
+	@Override
+	public void favoritearActividad(String nick, String ins, String actDep) throws UsuarioNoExisteException, InstitucionException{
+		((Socio) getHU().findUsuario(nick)).changeFavoritos(getHI().findInstitucion(ins).findActividad(actDep));
+		getHI().findInstitucion(ins).findActividad(actDep).changeFavoritos(((Socio) getHU().findUsuario(nick)));
+	}
+
+	@Override
+	public void valorarProfesor(String nickSocio, String ins, String actDep, String cla, int valor) throws UsuarioNoExisteException, ClaseException, InstitucionException {
+		((Socio) getHU().findUsuario(nickSocio)).valorarProfesor(getHI().findInstitucion(ins).findActividad(actDep).findClase(cla), valor);
+	} 
 
 }

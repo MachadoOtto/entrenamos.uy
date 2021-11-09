@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import tools.Parametrizer;
 import tools.NameComparator;
 import tools.FechaComparator;
-import logica.LaFabrica;
-import logica.IActividadDeportivaController;
-import logica.ICuponeraController;
-import logica.IDictadoClaseController;
-import logica.IUsuarioController;
+import models.LaFabricaWS;
+import models.IActividadDeportivaController;
+import models.ICuponeraController;
+import models.IDictadoClaseController;
+import models.IUsuarioController;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClase;
 import datatypes.DtClasesCuponera;
@@ -46,7 +46,7 @@ public class Search extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
-    	IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+    	IActividadDeportivaController IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
     	Set<String> categorias = IADC.obtenerCategorias();
     	Set<String> instituciones = IADC.obtenerInstituciones();
     	String orden = request.getParameter("sort");
@@ -204,7 +204,7 @@ public class Search extends HttpServlet {
 	// Devuelve las Actividades Aprobadas que contengan 'texto' y pertenezcan a 'filtros'.
 	private List<DtActividadDeportiva> obtenerActividades(String texto,  Set<String> fltrI,  Set<String> fltrC) throws ActividadDeportivaException {
 		List<DtActividadDeportiva> lista = new ArrayList<>();
-		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+		IActividadDeportivaController IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
 		for (String x :	IADC.obtenerInstituciones()) {
 			if (fltrI.isEmpty() || fltrI.contains(x)) {
 				try {
@@ -224,7 +224,7 @@ public class Search extends HttpServlet {
 	
 	private List<DtClase> obtenerClases() throws ClaseException {
 		List<DtClase> lista = new ArrayList<>();
-		IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+		IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
 		for (String x : IDCC.obtenerInstituciones()) {
 			try {
 				for (String y : IDCC.obtenerActividades(x)) {
@@ -241,8 +241,8 @@ public class Search extends HttpServlet {
 	// Devuelven las Cuponeras que contengan 'texto' y pertenezcan a 'filtros'.
 	private List<DtCuponera> obtenerCuponeras(String texto,  Set<String> fltrI,  Set<String> fltrC) throws NoExisteCuponeraException {
 		List<DtCuponera> lista = new ArrayList<>();
-		ICuponeraController ICC = LaFabrica.getInstance().obtenerICuponeraController();
-		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+		ICuponeraController ICC = LaFabricaWS.getInstance().obtenerICuponeraController();
+		IActividadDeportivaController IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
 		for (String x : ICC.getNombreCuponeras()) {
 			DtCuponera cup = (ICC.seleccionarCuponera(x));
 			if (cup.getNombre().contains(texto) || cup.getDescripcion().contains(texto)) {
@@ -274,7 +274,7 @@ public class Search extends HttpServlet {
 	
 	private List<DtUsuario> obtenerUsuarios() throws UsuarioNoExisteException {
 		List<DtUsuario> lista = new ArrayList<>();
-		IUsuarioController IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+		IUsuarioController IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
 		for (String x : IUC.obtenerUsuarios()) {
 			lista.add(IUC.seleccionarUsuario(x));
 		}

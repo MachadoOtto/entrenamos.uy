@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tools.Parametrizer;
-import logica.LaFabrica;
-import logica.IDictadoClaseController;
-import logica.IUsuarioController;
+import models.LaFabricaWS;
+import models.IDictadoClaseController;
+import models.IUsuarioController;
 import datatypes.DtUsuarioExt;
 import datatypes.TReg;
 import datatypes.DtFecha;
@@ -29,8 +29,8 @@ public class RegistroClase extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
-    	IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
-    	IUsuarioController IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+    	IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
+    	IUsuarioController IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     	String nombreClase = request.getParameter("clase");
     	String nombreActividad = request.getParameter("actividad");
     	String nombreInstitucion = request.getParameter("institucion");    	

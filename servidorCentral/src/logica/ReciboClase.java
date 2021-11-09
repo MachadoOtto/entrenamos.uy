@@ -66,4 +66,7 @@ public class ReciboClase {
 	public Clase getClase() {
 		return aClase;
 	}
+	public Socio getSocio() {
+		return aSocio;
+	}
 }

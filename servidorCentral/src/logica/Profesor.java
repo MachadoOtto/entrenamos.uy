@@ -7,6 +7,7 @@ import datatypes.TEstado;
 
 import java.util.Set;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -74,12 +75,7 @@ public class Profesor extends Usuario {
 	public Map<String,  Clase> getClasesDictadas() {
 		return misClases;
 	}
-	/* DISABLED OPERATION
-	public DtProfesor getDt() {
-		DtProfesor datos = new DtProfesor(nickname, nombre, apellido, correo, contrasenia, fechaNacimiento, instituto.getNombre(), descripcion, biografia, website, imagen);
-		return datos;
-	}
-	*/
+
     public DtProfesorExt getDtExt() {
     	Set<String> clasesDictadas = new HashSet<>(misClases.keySet());
     	Map<String,  TEstado> adm = new HashMap<>();
@@ -97,14 +93,35 @@ public class Profesor extends Usuario {
     	for (ActividadDeportiva ad : misActividadesIngresadas.values())
     		adm.put(ad.getNombre(),  ad.getEstado());
     	DtProfesorExt datosExt = new DtProfesorExt(getNickname(), getNombre(), getApellido(), getCorreo(), getContrasenia(), getFecha(), getInstitucion().getNombre(), 
-    			getDescripcion(), getBiografia(), getWebsite(), xargs, getImagen(), this.getSeguidos().keySet(), this.getSeguidores().keySet(), adm);
+    			getDescripcion(), getBiografia(), getWebsite(), xargs, getImagen(), this.getSeguidos().keySet(), this.getSeguidores().keySet(), adm, getValoracion());
     	return datosExt;
     }
-    
     public void editarDatos(DtProfesor datos) {
     	super.editarDatos(datos);
     	this.setDescripcion(datos.getDescripcion());
     	this.setBiografia(datos.getBiografia());
     	this.setWebsite(datos.getLink());
     }
+    public float getValoracion() {
+    	float awksejlfls = 0;
+    	int count=0;
+    	for (Entry<String, Clase> x : misClases.entrySet()) {
+    		for (Entry<String, Calificacion> y : x.getValue().getCalificaciones().entrySet()) {
+    			awksejlfls += y.getValue().getValor() + 0.0;
+    			count+=1;
+    		}
+    	}
+    	if(count>0)
+    		return awksejlfls/count;
+    	else
+    		return 0;
+    }
 }
+
+
+/* DISABLED OPERATION
+public DtProfesor getDt() {
+	DtProfesor datos = new DtProfesor(nickname, nombre, apellido, correo, contrasenia, fechaNacimiento, instituto.getNombre(), descripcion, biografia, website, imagen);
+	return datos;
+}
+*/

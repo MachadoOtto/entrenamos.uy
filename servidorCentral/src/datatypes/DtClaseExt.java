@@ -1,11 +1,13 @@
 package datatypes;
 import java.util.List;
+import java.util.Map;
 
 
 public class DtClaseExt extends DtClase {
 	
 	private List<String> alumnos;
 	private List<String> soloNickAlumnos;
+	private Map<String, Integer> calificaciones;
 	
 	public DtClaseExt(String nom,   String nickP,  String correoP,   int min,   int max,   String url,   DtFecha fechC,   DtFecha fechR,   
 			List<String> als,   List<String> soloNickAlumnos) {
@@ -19,6 +21,13 @@ public class DtClaseExt extends DtClase {
 		this.alumnos = als;
 		this.soloNickAlumnos = soloNickAlumnos;
 	}
+	public DtClaseExt(String nom,   String nickP,  String correoP,   int min,   int max,   String url,   DtFecha fechC,   DtFecha fechR,   
+			List<String> als,   List<String> soloNickAlumnos,  String img, String urlVideo,DtPremio prize,Map<String, Integer> calificaciones) {
+		super(nom,   nickP,  correoP,   min,   max,   url,   fechC,   fechR,  img,urlVideo,prize);
+		this.alumnos = als;
+		this.soloNickAlumnos = soloNickAlumnos;
+		this.calificaciones = calificaciones;
+	}	
 	public List<String> getAlumnos() {
 		return this.alumnos;
 	}
@@ -46,5 +55,8 @@ public class DtClaseExt extends DtClase {
 			}
 		}
 		return res;
+	}
+	public Map<String, Integer> getCalificaciones() {
+		return calificaciones;
 	}
 }

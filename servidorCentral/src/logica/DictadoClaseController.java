@@ -10,6 +10,7 @@
 package logica;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import excepciones.ActividadDeportivaException;
@@ -183,14 +184,7 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 		return res;
 	}
-// Guille: Esta funcion creo que no va.
-//	public void modificarDatosClase(String ins,  String actDep, DtClase datos) {
-//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
-//		Institucion i = hi.findInstitucion(ins);
-//		ActividadDeportiva actDept = i.getActDep(actDep);
-//		Clase clase = actDept.findClase(datos.getNombre());
-//		clase.modificarDatosClase(datos);
-//	}
+
 	private static HandlerInstitucion getHI() {
 		return  HandlerInstitucion.getInstance();
 	}
@@ -218,4 +212,41 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 		return cupsDisp;
 	}
+	
+	@Override
+	public Set<String> sortearPremios(String ins, String actDep, String clase)
+			throws InstitucionException, ClaseException, ActividadDeportivaException {
+		Clase leclase = getHI().findInstitucion(ins).getActDep(actDep).findClase(clase);
+		if (leclase != null) {
+			DtFecha fechaf = new DtFecha();
+			fechaf.setMinutos(fechaf.getMinutos()-leclase.getAD().getDuracionMinutos());
+			if (leclase.getFechaClase().esMenor(fechaf)) {
+				List<ReciboClase> recibos = leclase.getRecibo();
+				Set<Socio> ssss = new HashSet<>();
+				for (ReciboClase x: recibos) {
+					ssss.add(x.getSocio());
+				}
+				ssss = leclase.getPrize().realizarSorteo(ssss);
+				Set<String> result = new HashSet<>();
+				for (Socio x: ssss) {
+					result.add(x.getNickname());
+					x.addPremio(leclase.getPrize());
+				}
+				return result;
+			}
+			else
+				throw new ClaseException("No se puede realizar sorteos de clases no finalizadas.");
+		} else {
+			throw new ClaseException("La clase seleccionada no pertenece a esta ActividadDeportiva o Institucion.");
+		}
+	}
 }
+
+//Guille: Esta funcion creo que no va.
+//	public void modificarDatosClase(String ins,  String actDep, DtClase datos) {
+//		HandlerInstitucion hi = HandlerInstitucion.getInstance();
+//		Institucion i = hi.findInstitucion(ins);
+//		ActividadDeportiva actDept = i.getActDep(actDep);
+//		Clase clase = actDept.findClase(datos.getNombre());
+//		clase.modificarDatosClase(datos);
+//	}

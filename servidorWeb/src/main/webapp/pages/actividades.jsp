@@ -4,11 +4,11 @@
 <%@ page import="datatypes.DtActividadDeportivaExt"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
 <%@ page import="datatypes.DtProfesorExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtFecha"%>
 <%@ page import="datatypes.TEstado"%>
-<%@ page import="logica.LaFabrica"%>
 <!DOCTYPE html>
 
 <html>
@@ -24,6 +24,7 @@
 	<div class="container-fluid mt-4">
 		<%  DtActividadDeportivaExt datosActDep = (DtActividadDeportivaExt) request.getAttribute("actDep");
 			boolean esSocio = (boolean) request.getAttribute("esSocio");
+			boolean finalizable = (boolean) request.getAttribute("finalizable");
 			DtUsuarioExt datosCreador = (DtUsuarioExt) request.getAttribute("datosCreador");
 			String institucion = (String) request.getAttribute("institucion");
 			Set<?> datosClases = (Set<?>) request.getAttribute("datosClases");
@@ -44,7 +45,19 @@
                     </div>
                 	<div class="col-9 py-3">
 				        <div id="user-info" class="row">
-                            <p><strong id="user-nickname"><%=datosActDep.getNombre()%></strong></p>
+				        	<div class="col sm-4">
+				        		<p><strong id="user-nickname"><%=datosActDep.getNombre()%></strong></p>
+				        	</div>
+				        	<div class="col mt-4 sm-8">
+				        		<% if(loggedUser instanceof DtSocioExt) {%>
+				        		<a href="<%=request.getContextPath()%>/favoritear?usu=<%=loggedUser.getNickname()%>&act=<%=datosActDep.getNombre()%>">
+				        		<% if(((DtSocioExt) loggedUser).getActividadesFavoritas().contains(datosActDep.getNombre())) {%>
+				        		<button id="favorite" style="background-color: #ed2553; border-color: #ed2553;" class="btn btn-primary"><i class="fa-heart fas"></i><span class="text"> Desmarcar como Favorita</span>&nbsp;<span class="nobold">(<span class="count"><%=datosActDep.getFavoritos()%></span>)</span></button>
+				        		<% }else{%>
+								<button id="favorite"  style="background-color: #ed2553; border-color: #ed2553;" class="btn btn-primary"><i class="fa-heart far"></i><span class="text"> Marcar como Favorita</span>&nbsp;<span class="nobold">(<span class="count"><%=datosActDep.getFavoritos()%></span>)</span></button>
+				        		<% }}%>
+				        		</a>
+				        	</div>
 				        </div>
                         <div id="creatorDiv" class="row">
                             <div class="col-auto">
@@ -110,12 +123,24 @@
 					<div class="alert alert-warning mt-4" role="alert">
 					  Esta actividad está en estado <b>INGRESADA</b>. Pongase en contacto con un asesor para obtener más información.
 					</div>
+					<%} else if(datosActDep.getEstado()==TEstado.finalizada) {%>
+					<div class="alert alert-info mt-4" role="alert">
+					  Esta actividad ha sido <b>FINALIZADA</b>.
+					</div>
 					<%} %>
 		        </div>
                 <br>
-                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion) && datosActDep.getEstado()==TEstado.aceptada) { %>
+                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNombreInstitucion().equals(institucion) &&
+                		datosActDep.getEstado()==TEstado.aceptada) { %>
 	                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#altaClaseModal" >
 	                    Dar de alta una clase para esta actividad
+	                </button>
+	            <%} %>
+                <%if (loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosCreador.getNickname()) &&
+                		datosActDep.getEstado()==TEstado.aceptada && finalizable) { %>
+                	<br>
+	                <button class="w-100 mb-2 btn btn-outline-danger btn-lg rounded-4  mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#finalizarActividadModal" >
+	                    Finalizar Actividad
 	                </button>
 	            <%} %>
             </div>
@@ -224,10 +249,23 @@
                             <input type="text" class="form-control rounded-4" name="url" id="urlin" placeholder="">
                             <label for="urlin">URL</label>                  
                         </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control rounded-4" name="urlVideo" id="urlVideo" placeholder="">
+                            <label for="urlVideo">URL Video <i style="font-size:0.7rem;"> (opcional)</i></label>                  
+                        </div>
                         <h6>Imagen asociada <i style="font-size:0.7rem;"> (opcional)</i></h6>
                         <div id="imgPick" class="mb-3">
                             <input type="file" class="form-control" name="img" id="customFil2e" accept=".jpg, .jpeg, .png, .webp, .gif, .tiff">
                   
+                        </div>
+                        <h6>Premio <i style="font-size:0.7rem;"> (opcional)</i></h6>
+	                    <div id="descPremioDiv" class="form-group form-floating mb-3">
+	                        <textarea class="form-control" id="descPremio" name="descPremio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+	                        <label for="desc">Descripción</label>     
+	                    </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control rounded-4" name="cantPremios" id="cantPremios" placeholder="">
+                            <label for="cantPremios">Cantidad de premios a sortear</label>                  
                         </div>
                         <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
                     </form>
@@ -242,5 +280,35 @@
         </div>
     </div>
 	
+	<% if (finalizable){ %>
+    <div class="modal fade" id="finalizarActividadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <img src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="EntrenamosUYLogo" width="40" height="30" class="d-inline-block align-text-top img-fluid me-2 ms-2 mb-3">
+                  <h2 class="fw-bold mb-0">Inscripción a Clase</h2>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <h3>Por favor confirme ⚠ </h3>
+                  <p>¿Está seguro que desea finalizar está actividad? Una vez finalizada ya no podrá crear nuevas clases de esta actividad.</p>
+				 <a href='<%=request.getContextPath()%>/finalizarActividad?act=<%=datosActDep.getNombre()%>' >
+				  <button class="btn-ir btn btn-primary" type="submit" >
+	            	Confirmar
+	              </button>
+	              </a>
+              </div>
+              <div class="modal-footer">
+                  <hr class="my-6">
+                  <div>
+                      <i>Finalizar Actividad - entrenamos.uy</i>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>	
+	
+	
+	<%} %>
 </body>
 </html>

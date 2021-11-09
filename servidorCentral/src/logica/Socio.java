@@ -11,6 +11,7 @@ package logica;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.LinkedList;
 import java.util.HashMap;
@@ -20,27 +21,28 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.ClaseException;
 
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 import datatypes.DtSocio;
 import datatypes.DtSocioExt;
+import datatypes.TEstado;
 import datatypes.TReg;
 
 public class Socio extends Usuario {
 	
 	private List<ReciboCuponera> reciboCuponeras;
-	
 	private List<ReciboClase> reciboClases;
+	private List<ActividadDeportiva> favoritos;
 	
-	/* Constructor no usado
-	public Socio(String nickname,   String nombre,   String apellido,   String correo,   DtFecha fecha) {
-		super(nickname,   nombre,   apellido,   correo,   fecha);
-		reciboCuponeras = new LinkedList<>();
-		reciboClases = new LinkedList<>();
-	} */
+	private Map<String, Calificacion> calificaciones;
+	private Map<String, Premio> premios;
 	
 	public Socio(DtSocio datos) {
 		super(datos.getNickname(),   datos.getNombre(),   datos.getApellido(),   datos.getEmail(),   datos.getContrasenia(),   datos.getFechaNacimiento(),   datos.getImagen());
 		reciboCuponeras = new LinkedList<>();
 		reciboClases = new LinkedList<>();
+		favoritos = new LinkedList<>();
+		premios = new HashMap<>();
+		calificaciones = new HashMap<>();
 	}
 	
 	public void addReciboCuponera(ReciboCuponera rCup) {
@@ -57,23 +59,60 @@ public class Socio extends Usuario {
 	}
 
 	public DtSocioExt getDtExt() {
-    	Map<String,  Set<String>> clasesDeActividades = new HashMap<>();
+    	Map<String,  Set<String>> clasesDeActividadesAceptadas = new HashMap<>();
     	for (ReciboClase reciboClase: reciboClases) {
-    		String nombreClase = reciboClase.getClase().getAD().getNombre();
-    		if (!clasesDeActividades.containsKey(nombreClase)) {
+    		String nombreAD = reciboClase.getClase().getAD().getNombre();
+    		if (!clasesDeActividadesAceptadas.containsKey(nombreAD)) {
     			Set<String> nombreClases = new HashSet<>();
-    			clasesDeActividades.put(nombreClase,  nombreClases);
+    			clasesDeActividadesAceptadas.put(nombreAD,  nombreClases);
     			for (ReciboClase rc2: reciboClases) {
-    				if (rc2.getClase().getAD().getNombre().equals(nombreClase))
+    				if (rc2.getClase().getAD().getNombre().equals(nombreAD) && rc2.getClase().getAD().getEstado().equals(TEstado.aceptada))
     					nombreClases.add(rc2.getClase().getNombre());
     			}
     		}
     	}
+    	Map<String,  Set<String>> clasesDeActividadesAceptadasLimpiarSetsVacios = new HashMap<>();
+    	for(Entry<String, Set<String>> x : clasesDeActividadesAceptadas.entrySet()) {
+    		if(x.getValue().size()>0)
+    			clasesDeActividadesAceptadasLimpiarSetsVacios.put(x.getKey(), x.getValue());
+    	}
+    	clasesDeActividadesAceptadas = clasesDeActividadesAceptadasLimpiarSetsVacios;
+    	
+    	Map<String,  Set<String>> clasesDeActividadesFinalizadas = new HashMap<>();
+    	for (ReciboClase reciboClase: reciboClases) {  
+    		String nombreAD = reciboClase.getClase().getAD().getNombre();
+    		if (!clasesDeActividadesFinalizadas.containsKey(nombreAD)) {
+    			Set<String> nombreClases = new HashSet<>();
+    			clasesDeActividadesFinalizadas.put(nombreAD,  nombreClases);
+    			for (ReciboClase rc2: reciboClases) {
+    				if (rc2.getClase().getAD().getNombre().equals(nombreAD) && rc2.getClase().getAD().getEstado().equals(TEstado.finalizada))
+    					nombreClases.add(rc2.getClase().getNombre());
+    			}
+    		}
+    	}
+    	Map<String,  Set<String>> clasesDeActividadesFinalizadasLimpiarSetsVacios = new HashMap<>();
+    	for(Entry<String, Set<String>> x : clasesDeActividadesFinalizadas.entrySet()) {
+    		if(x.getValue().size()>0)
+    			clasesDeActividadesFinalizadasLimpiarSetsVacios.put(x.getKey(), x.getValue());
+    	}
+    	clasesDeActividadesFinalizadas = clasesDeActividadesFinalizadasLimpiarSetsVacios;
+    	
     	Set<String> cupis = new HashSet<>();
     	for (ReciboCuponera recibo : reciboCuponeras) {
     		cupis.add(recibo.getCuponera().getNombre());
     	}
-    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),   this.getContrasenia(),   this.getFecha(),   clasesDeActividades,   this.getImagen(),  this.getSeguidos().keySet(),  this.getSeguidores().keySet(),  cupis);
+    	Set<String> favs = new HashSet<>();
+    	for (ActividadDeportiva x : favoritos) {
+    		favs.add(x.getNombre());
+    	}
+    	Map<String, DtPremio> prem = new HashMap<>();
+    	for (Entry<String, Premio> x : premios.entrySet()) {
+    		prem.put(x.getKey(), x.getValue().getDt());
+    	}
+    	
+    	DtSocioExt datosExt = new DtSocioExt(this.getNickname(),   this.getNombre(),   this.getApellido(),   this.getCorreo(),
+    			this.getContrasenia(),   this.getFecha(),   clasesDeActividadesAceptadas,   this.getImagen(),  this.getSeguidos().keySet(),
+    			this.getSeguidores().keySet(), cupis, favs, prem,clasesDeActividadesFinalizadas);
     	return datosExt;
     }
 	
@@ -113,8 +152,40 @@ public class Socio extends Usuario {
 			throw new ClaseException("Este Usuario ya esta inscripto a esta Clase.");
 		}
 	}
+
+	public Map<String, Calificacion> getCalificaciones() {
+		return calificaciones;
+	}
+
+	public Map<String, Premio> getPremios() {
+		return premios;
+	}
+	public void addPremio(Premio premiopremio) {
+		premios.put(premiopremio.getClase().getNombre(), premiopremio);
+	}
+	public List<ActividadDeportiva> getFavoritos() {
+		return favoritos;
+	}
+
+	public void changeFavoritos(ActividadDeportiva favfav) {
+		if (favoritos.contains(favfav))
+			favoritos.remove(favfav);
+		else
+			favoritos.add(favfav);
+	}
+	
+	public void valorarProfesor(Clase clasee, int valor) {
+		Calificacion calif = new Calificacion(clasee, this, valor);
+		calificaciones.put(clasee.getProfesor().getNickname(), calif);
+		clasee.addCalifiacion(getNickname(), calif);
+	}
 }
 
 
 
-
+/* Constructor deprecado
+public Socio(String nickname,   String nombre,   String apellido,   String correo,   DtFecha fecha) {
+	super(nickname,   nombre,   apellido,   correo,   fecha);
+	reciboCuponeras = new LinkedList<>();
+	reciboClases = new LinkedList<>();
+} */

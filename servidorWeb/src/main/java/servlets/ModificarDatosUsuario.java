@@ -20,8 +20,8 @@ import datatypes.DtSocio;
 import datatypes.DtSocioExt;
 import datatypes.DtProfesorExt;
 import datatypes.DtUsuarioExt;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
@@ -33,7 +33,7 @@ public class ModificarDatosUsuario extends HttpServlet {
 	private IUsuarioController IUC;
     public ModificarDatosUsuario() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     } 
 
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
@@ -79,19 +79,21 @@ public class ModificarDatosUsuario extends HttpServlet {
 	        }
 	        
 	        //Actualización de imagen
-	        if (request.getPart("formFile")!=null && request.getPart("formFile").getSize()>0) {
+	        if (request.getPart("formFile")!=null && request.getPart("formFile").getSize()>0) {	        	
 	        	Part filePart = request.getPart("formFile");
-	        	InputStream fileContent = filePart.getInputStream();
         		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
-	        	String path = request.getServletContext().getRealPath("/assets/images/users/"+usrLogged.getNickname()+"."+ext);
-	        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
+	        	request.setAttribute("type", "usu");
+	        	request.setAttribute("id", usrLogged.getNickname()+"."+ext);
+	        	request.setAttribute("attribute_asset_transfer", filePart);
+	        	ContentHandler.postContent(request,response);
 	        }
 
 	        
         } catch(Exception e) {
         	e.printStackTrace();
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
+        	return;
         }
         response.sendRedirect((request.getContextPath()+"/usuarios?nickname=" + usrLogged.getNickname() + "&e=7"));
     }

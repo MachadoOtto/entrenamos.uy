@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,11 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 import datatypes.DtClase;
 import datatypes.DtUsuarioExt;
 import tools.Parametrizer;
-import logica.IDictadoClaseController;
-import logica.LaFabrica;
+import models.IDictadoClaseController;
+import models.LaFabricaWS;
 
 @MultipartConfig
 @WebServlet ("/altaClase")
@@ -29,7 +31,7 @@ public class AltaClase extends HttpServlet{
 	private IDictadoClaseController IDCC;
     public AltaClase() {
         super();
-        IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+        IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
     }
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
@@ -49,21 +51,25 @@ public class AltaClase extends HttpServlet{
 
 	        if (IDCC.ingresarDatosClase(rp(request, "institucionAsociada"),  rp(request, "nombreActDep"),  new DtClase(rp(request, "nombreClase"), datosP.getNickname(), datosP.getEmail(), 
 	        	Integer.parseInt(rp(request, "cantMin")),  Integer.parseInt(rp(request, "cantMax")),  rp(request, "url"), 
-	        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)), 				   Integer.parseInt(rp(request, "hora")), Integer.parseInt(rp(request, "minutos")), 0),  new DtFecha(),  imgClase))!=0) {
+	        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)),
+	        		Integer.parseInt(rp(request, "hora")), Integer.parseInt(rp(request, "minutos")), 0),  new DtFecha(),  imgClase,
+	        	rp(request,"urlVideo"), new DtPremio(rp(request,"descPremio"),Integer.parseInt(rp(request,"cantPremios")), null, null)))!=0) {
 	        	r=Parametrizer.addParam(r,  "e",  "8");
 	        	response.sendRedirect(r);
 	        	return;
 	        }	        
     		if (request.getPart("img")!=null && request.getPart("img").getSize()>0) {
 	        	Part filePart = request.getPart("img");
-	        	InputStream fileContent = filePart.getInputStream();
-	        	String path = request.getServletContext().getRealPath("/assets/images/classes/"+imgClase);
-	        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
-	           System.out.println( request.getServletContext().getRealPath("/assets/images/users/"+imgClase));
+        		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
+        		String ext = s[s.length-1];
+        		request.setAttribute("type", "cla");
+        		request.setAttribute("id", rp(request, "nombreClase")+"."+ext);
+        		request.setAttribute("attribute_asset_transfer", filePart);
+	        	ContentHandler.postContent(request,response);
 	        }
 	        r=Parametrizer.remParam(r,  "e", "8");
 	        r=Parametrizer.addParam(r,  "e",  "9");
-        	DtUsuarioExt userReload = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
+        	DtUsuarioExt userReload = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
 			request.getSession().setAttribute("loggedUser",  userReload);
         } catch(Exception e) {
         	e.printStackTrace();

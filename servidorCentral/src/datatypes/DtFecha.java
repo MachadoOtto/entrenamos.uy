@@ -1,5 +1,5 @@
 package datatypes;
-import java.time.LocalDateTime;    
+import java.time.LocalDateTime;
 
 public class DtFecha {
 
@@ -49,6 +49,9 @@ public class DtFecha {
 	public int getMinutos() {
 		return this.minutos;
 	}
+	public void setMinutos(int min) {
+		minutos = min;
+	}
 	
 	public int getSegundos() {
 		return this.segundos;
@@ -87,5 +90,9 @@ public class DtFecha {
 		min2 = fechaAComp.getMinutos() + (fechaAComp.getHoras() + (fechaAComp.getDia() + (fechaAComp.getMes() + 
 				(fechaAComp.getAnio()) * 12) * 31) * 24) * 60;
 		return min1 <= min2;
+	}
+
+	public boolean equals(DtFecha f) {
+		return anio==f.getAnio() && mes==f.getMes() && dia==f.getDia() && horas==f.getHoras() && minutos==f.getMinutos() && segundos==f.getSegundos();
 	}
 }

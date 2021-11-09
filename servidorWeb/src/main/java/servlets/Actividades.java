@@ -11,14 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tools.Parametrizer;
-import logica.LaFabrica;
+import models.LaFabricaWS;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.DtCuponera;
+import datatypes.DtFecha;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
+import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 
 @WebServlet ("/actividades")
@@ -37,6 +39,7 @@ public class Actividades extends HttpServlet {
 		DtActividadDeportivaExt datosActDep = null;
     	String nickUser = (String) request.getSession().getAttribute("nickname");
     	boolean esSocio = false;
+    	boolean finalizable = false;
     	DtUsuarioExt datosCreador = null;
     	String institucion = null;
     	Set<DtClaseExt> datosClases = new HashSet<>();
@@ -44,7 +47,7 @@ public class Actividades extends HttpServlet {
     	
 		try {
 			datosActDep = buscarActDep(nombreActDep);
-			institucion = LaFabrica.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
+			institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
 			request.setAttribute("nombreActDep",  null);
 			request.setAttribute("institucion",  null);
@@ -58,14 +61,28 @@ public class Actividades extends HttpServlet {
 				request.setAttribute("datosCreador",  datosCreador);
 			} else {
 				try {
-					datosCreador = LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());
+					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());
 					request.setAttribute("datosCreador",  datosCreador);
 				} catch(UsuarioNoExisteException ignore) { }
 			}
+			
+			//Esto verifica que todas las clases de dicha actividad hayan finalizado para saber si es "finalizable".
+			boolean f1 = true;
+			for(String x: datosActDep.getClases()) {
+				try {
+					DtClaseExt cl = LaFabricaWS.getInstance().obtenerIActDeportivaController().seleccionarClase(institucion, datosActDep.getNombre(), x);
+					f1 = cl.getFechaClase().esMenor(new DtFecha());
+				} catch (InstitucionException | ActividadDeportivaException | ClaseException e) {
+					e.printStackTrace();
+					response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
+				}
+			}
+			finalizable = f1;
+			request.setAttribute("finalizable", finalizable);
 		}
 		
 		try {
-			if (LaFabrica.getInstance().obtenerIUsuarioController().seleccionarUsuario(nickUser) instanceof DtSocioExt) {
+			if (nickUser!=null && LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(nickUser) instanceof DtSocioExt) {
 				esSocio = true;
 			}
 		} catch(UsuarioNoExisteException ignore) { } 
@@ -74,7 +91,7 @@ public class Actividades extends HttpServlet {
 		try {
 			Set<String> clases = datosActDep.getClases();
 			for (String clase : clases) { 
-				datosClases.add(LaFabrica.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
+				datosClases.add(LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
 			}
 		} catch(ClaseException e) {
 			request.setAttribute("datosClases",  null);
@@ -84,7 +101,7 @@ public class Actividades extends HttpServlet {
 		try {
 			Set<String> cuponeras = datosActDep.getCuponeras();
 			for (String cup : cuponeras) {
-				datosCuponeras.add(LaFabrica.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
+				datosCuponeras.add(LaFabricaWS.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
 			}
 		} catch(Exception e) {
 			request.setAttribute("datosCuponeras",  null);
@@ -106,7 +123,7 @@ public class Actividades extends HttpServlet {
 	}
 	
 	private DtActividadDeportivaExt buscarActDep(String nombreActDep) throws ActividadDeportivaException {
-    	DtActividadDeportivaExt datosActDep = LaFabrica.getInstance().obtenerIActDeportivaController().buscarActDep(nombreActDep);
+    	DtActividadDeportivaExt datosActDep = LaFabricaWS.getInstance().obtenerIActDeportivaController().buscarActDep(nombreActDep);
     	return datosActDep;
     }
 }

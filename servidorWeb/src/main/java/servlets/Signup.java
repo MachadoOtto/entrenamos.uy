@@ -19,8 +19,8 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import models.GestorWeb;
 import tools.Parametrizer;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 
 @MultipartConfig
 @WebServlet ("/signup")
@@ -29,7 +29,7 @@ public class Signup extends HttpServlet{
 	private IUsuarioController IUC;
     public Signup() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     }
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	String r = request.getParameter("miurl");
@@ -64,12 +64,12 @@ public class Signup extends HttpServlet{
 	        }
 	        if (request.getPart("imgPerfil")!=null && request.getPart("imgPerfil").getSize()>0) {
 	        	Part filePart = request.getPart("imgPerfil");
-	        	InputStream fileContent = filePart.getInputStream();
         		String [] s = Paths.get(filePart.getSubmittedFileName()).getFileName().toString().split("[.]");
         		String ext = s[s.length-1];
-	        	String path = request.getServletContext().getRealPath("/assets/images/users/"+rp(request, "nickk")+"."+ext);
-	        	Files.copy(fileContent,  Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
-	           //System.out.println( request.getServletContext().getRealPath("/assets/images/users/"+rp(request, "nickk")+"."+ext));
+	        	request.setAttribute("type", "usu");
+	        	request.setAttribute("id", rp(request, "nickk")+"."+ext);
+	        	request.setAttribute("attribute_asset_transfer", filePart);
+	        	ContentHandler.postContent(request,response);
 	        }
 	        r=Parametrizer.remParam(r,  "e", "1");
 	        r=Parametrizer.remParam(r,  "e", "2");

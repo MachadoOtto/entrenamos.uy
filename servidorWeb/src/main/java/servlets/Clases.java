@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tools.Parametrizer;
-import logica.LaFabrica;
-import logica.IActividadDeportivaController;
-import logica.IDictadoClaseController;
+import models.LaFabricaWS;
+import models.IActividadDeportivaController;
+import models.IDictadoClaseController;
 import datatypes.DtUsuarioExt;
 import datatypes.DtSocioExt;
 import datatypes.DtClaseExt;
@@ -33,8 +33,8 @@ public class Clases extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
-    	IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
-    	IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+    	IActividadDeportivaController IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
+    	IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
     	String nombreClase = request.getParameter("clase");
 		DtClaseExt datosClase = null;
     	String nombreActividad = null;
@@ -101,13 +101,13 @@ public class Clases extends HttpServlet {
 	/* buscarClase es una funcion nueva que busca una Clase solo por su
 	 nombre sin necesidad de conocer la Institucion o la ActDeportiva */
 	private DtClaseExt buscarClase(String nombreClase) throws ClaseException {
-    	DtClaseExt datosClase = LaFabrica.getInstance().obtenerIDictadoClaseController().buscarClase(nombreClase);
+    	DtClaseExt datosClase = LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(nombreClase);
     	return datosClase;
     }
     
     private String nombreActDeClase(String nombreClase) {
     	String nombreActividad = null;
-    	IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+    	IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
 		for (String x: IDCC.obtenerInstituciones()) {
 			try {
 				for (String y: IDCC.obtenerActividades(x)) {
@@ -123,7 +123,7 @@ public class Clases extends HttpServlet {
     
     private String nombreInstiDeAct(String nombreActividad) {
     	String nombreInsti = null;
-    	IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+    	IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
 		for (String x: IDCC.obtenerInstituciones()) {
 			try {
 				if (IDCC.obtenerActividades(x).contains(nombreActividad)) {

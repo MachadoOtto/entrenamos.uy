@@ -40,6 +40,8 @@ public interface IActividadDeportivaController {
 	
 	public void aprobarActividad(String actividadDeportiva,  TEstado estado);
 	
+	public void finalizarActividad(String actividadDeportiva);
+	
 	public Set<String> obtenerActDepIngresadas();
 	
 	public void ingresarCatergoria(DtCategoria datos) throws CategoriaException;

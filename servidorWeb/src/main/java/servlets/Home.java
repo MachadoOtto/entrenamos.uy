@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.GestorWeb;
 import tools.Parametrizer;
-import logica.LaFabrica;
-import logica.IActividadDeportivaController;
+import models.LaFabricaWS;
+import models.IActividadDeportivaController;
 import datatypes.DtActividadDeportiva;
 import datatypes.TEstado;
 import excepciones.ActividadDeportivaException;
@@ -66,7 +66,7 @@ public class Home extends HttpServlet {
 	// Devuelve las Actividades aprobadas.
 	private List<DtActividadDeportiva> obtenerActividades() throws ActividadDeportivaException {
 		List<DtActividadDeportiva> lista = new ArrayList<>();
-		IActividadDeportivaController IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+		IActividadDeportivaController IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
 		for (String x :	IADC.obtenerInstituciones()) {
 			try {
 				for (String y : IADC.obtenerActividades(x)) {

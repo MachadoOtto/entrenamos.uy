@@ -3,10 +3,13 @@ package test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
@@ -27,6 +30,7 @@ import datatypes.DtUsuario;
 import datatypes.TEstado;
 import datatypes.TReg;
 import datatypes.DtInstitucion;
+import datatypes.DtPremio;
 import datatypes.DtProfesor;
 import datatypes.DtProfesorExt;
 
@@ -47,7 +51,7 @@ import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
 
-class TestCasos {
+public class TestCasos {
 	
 	private static IActividadDeportivaController IADC;
 	private static IUsuarioController IUC;
@@ -2475,4 +2479,135 @@ class TestCasos {
 		String institucion = IDCC.obtenerInstitucionActDep("Kickboxing");
 		assertEquals(institucion,   "Fuerza Bruta");
 	}
+	
+	@Test
+	void valorarProfesor() {
+		try {
+			IUC.valorarProfesor("caro", "Fuerza Bruta", "Aparatos y pesas", "Calistenia", 5);
+			IUC.valorarProfesor("sergiop", "Fuerza Bruta", "Aparatos y pesas", "Calistenia", 2);
+			IUC.valorarProfesor("Emi71", "Fuerza Bruta", "Kickboxing", "Músculos para boxeo", 4);
+			IUC.valorarProfesor("caro", "Fuerza Bruta", "Kickboxing", "Músculos para boxeo", 2);
+			
+			DtProfesorExt dtp = (DtProfesorExt) IUC.seleccionarUsuario("viktor");
+			assertEquals(dtp.getValoracion(), 3.25);
+			//Editar valoración
+			IUC.valorarProfesor("caro", "Fuerza Bruta", "Aparatos y pesas", "Calistenia", 1);
+			dtp = (DtProfesorExt) IUC.seleccionarUsuario("viktor");
+			assertEquals(dtp.getValoracion(), 2.25);
+		} catch(Exception e) { 
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	} 
+	
+	@Test
+	void favoritearActividad() {
+		try {
+			IUC.favoritearActividad("caro", "Telón", "Basquetbol");
+			IUC.favoritearActividad("caro", "Telón", "Voleibol");
+			
+			DtSocioExt dts = (DtSocioExt) IUC.seleccionarUsuario("caro");
+			Set<String> p1 = new HashSet<>();
+			p1.add("Basquetbol");
+			p1.add("Voleibol");
+			assertEquals(dts.getActividadesFavoritas(),p1);
+			IUC.favoritearActividad("caro", "Telón", "Voleibol");
+			dts = (DtSocioExt) IUC.seleccionarUsuario("caro");
+			p1.remove("Voleibol");
+			assertEquals(dts.getActividadesFavoritas(),p1);
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	
+	@Test 
+    void testConsultaClase2() throws ClaseException, InstitucionException, FechaInvalidaException, UsuarioNoExisteException, ActividadDeportivaException {
+         IDCC.ingresarDatosClase("Fuerza Bruta",   "Kickboxing",   new DtClase("Boxeaciones",   "TheBoss",   "TheBoss",   
+                    1,   4,   "https://www.musculos.com/boxeo1",   new DtFecha(2021,   9,   1,   19,   30,   0),
+                    new DtFecha(2021,   6,   7,   0,   0,   0),null, "https://www.youtube.com/watch?v=HC7CiSQR2vE",
+                    new DtPremio("semejante premiardo",3,null,new DtFecha(2021,4,31,0,0,0))));
+        
+        DtClaseExt URL = IDCC.buscarClase("Boxeaciones");
+        assertEquals(URL.getUrlVideo(),   "https://www.youtube.com/watch?v=HC7CiSQR2vE");
+        
+        String desc = IDCC.buscarClase("Boxeaciones").getPremio().getDescripcion();
+        assertEquals(desc,   "semejante premiardo");
+        
+        int cant = IDCC.buscarClase("Boxeaciones").getPremio().getCantidad();
+        assertEquals(cant,3);
+        
+        List<String> wins = IDCC.buscarClase("Boxeaciones").getPremio().getGanadores();
+        assertEquals(wins,new ArrayList<>());
+    }
+        
+    @Test 
+    void testVerPremios() throws InstitucionException, ClaseException, ActividadDeportivaException, FechaInvalidaException, NoExisteCuponeraException, UsuarioNoExisteException {
+        
+        IDCC.ingresarDatosClase("Fuerza Bruta",   "Aparatos y pesas",   new DtClase("PPsas",   "viktor",   "viktor",   
+                1,   5,   "https://www.musculos.com/Calistenia",   new DtFecha(2021,   4,   15,   15,   30,   0),
+                new DtFecha(2021,   3,   31,   0,   0,   0), null, "https://www.youtube.com/watch?v=HC7CiSQR2vE",
+                new DtPremio("semejante premiardo",1,null, new DtFecha(2021,4,31,0,0,0))));
+
+        IDCC.inscribirSocio("Fuerza Bruta",   "Aparatos y pesas",   "PPsas",   "caro",   TReg.general,   
+                new DtFecha(2021,   4,   9,   0,   0,   0),   null);
+        
+        Set<String> wins = IDCC.sortearPremios("Fuerza Bruta", "Aparatos y pesas", "PPsas");
+        Set<String> premio = new HashSet<>();
+        premio.add("caro");
+        assertEquals(wins,   premio);
+        
+        
+
+        DtClaseExt ppsas = IDCC.seleccionarClase("Fuerza Bruta",   "Aparatos y pesas", "PPsas");
+        List<String> w = new ArrayList<>();
+        w.add("caro");
+        assertEquals(w, ppsas.getPremio().getGanadores());
+        
+        
+        DtSocioExt caro = (DtSocioExt) IUC.seleccionarUsuario("caro");
+        Map<String, DtPremio> premios = caro.getPremios();
+        for(Entry<String, DtPremio> x: premios.entrySet()) {
+        	System.out.println(x.getKey());
+        }
+        DtPremio pcla = premios.get("PPsas");
+        assertEquals(pcla.getCantidad(),ppsas.getPremio().getCantidad()); 	 
+        assertEquals(pcla.getDescripcion(),ppsas.getPremio().getDescripcion());
+        assertEquals(pcla.getFechaSorteo(),ppsas.getPremio().getFechaSorteo());
+        for(String x: pcla.getGanadores())
+        	System.out.print(x);
+        for(String x: ppsas.getPremio().getGanadores())
+        	System.out.print(x);
+        assertEquals(pcla.getGanadores(),ppsas.getPremio().getGanadores());
+
+    }    
+     
+    @Test 
+    void testFinalizarAct() throws InstitucionException, ActividadDeportivaException {
+    	try {
+			DtFecha fecha = new DtFecha(2020,   1,   1,   0,   0,   0);
+			DtActividadDeportiva nuevaActividad = new DtActividadDeportiva("NuevaActividadAFinalizar",   "Desc",   1,   10,   fecha,   null,   TEstado.aceptada,   "Administrador");
+			assertEquals(IADC.ingresarDatosActividadDep("Fuerza Bruta",   nuevaActividad),   true);
+	        IDCC.ingresarDatosClase("Fuerza Bruta",   "NuevaActividadAFinalizar",   new DtClase("PPsas67",   "viktor",   "viktor",   
+	                1,   5,   "https://www.musculos.com/Calistenia",   new DtFecha(2021,   4,   15,   15,   30,   0),
+	                new DtFecha(2021,   3,   31,   0,   0,   0), null, "https://www.youtube.com/watch?v=HC7CiSQR2vE",
+	                new DtPremio("semejante premiardo",1,null, new DtFecha(2021,4,31,0,0,0))));
+	        IDCC.inscribirSocio("Fuerza Bruta",   "NuevaActividadAFinalizar",   "PPsas67",   "caro",   TReg.general,   
+	                new DtFecha(2021,   4,   9,   0,   0,   0),   null);
+			IADC.finalizarActividad("NuevaActividadAFinalizar");
+	    	TEstado est = IADC.getActDepExt("Fuerza Bruta", "NuevaActividadAFinalizar").getEstado();
+	    	assertEquals(est, TEstado.finalizada);
+	    	
+	        DtSocioExt socio = (DtSocioExt) IUC.seleccionarUsuario("caro");
+	        Set<String> clase = new HashSet<>();
+	        clase.add("PPsas67");
+	        Map<String, Set<String>> fins = new HashMap<>();
+	        fins.put("NuevaActividadAFinalizar", clase);
+	        assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		fail(e.getMessage());
+    	}
+    }
+
 }

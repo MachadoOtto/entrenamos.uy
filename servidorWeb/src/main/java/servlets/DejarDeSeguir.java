@@ -17,9 +17,9 @@ import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
-import logica.IActividadDeportivaController;
-import logica.IUsuarioController;
-import logica.LaFabrica;
+import models.IActividadDeportivaController;
+import models.IUsuarioController;
+import models.LaFabricaWS;
 import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
@@ -31,8 +31,8 @@ public class DejarDeSeguir extends HttpServlet {
 	private IActividadDeportivaController IADC;
     public DejarDeSeguir() {
         super();
-        IUC = LaFabrica.getInstance().obtenerIUsuarioController();
-        IADC = LaFabrica.getInstance().obtenerIActDeportivaController();
+        IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
+        IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
     } 
     
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException,  UsuarioNoExisteException,  InstitucionException,  ActividadDeportivaException {

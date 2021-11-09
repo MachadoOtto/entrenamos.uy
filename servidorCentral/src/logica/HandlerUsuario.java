@@ -47,7 +47,7 @@ public class HandlerUsuario {
 		nicksProhibidos.add("administrador");
 		nicksProhibidos.add("Vasílev");
 		nicksProhibidos.add("Jesús");
-		adminProf = new Profesor(new DtProfesor("Administrador",  "Administrador",  "Administrador", "Administrador", "Administrador", new DtFecha(), "INCO", "Administrador", "Administrador", "Administrador",  "Administrador.png".getBytes()));
+		adminProf = new Profesor(new DtProfesor("Administrador",  "Administrador",  "Administrador", "Administrador", "Administrador", new DtFecha(), "INCO", "Administrador", "Administrador", "Administrador",  "Administrador.png".getBytes(), 5));
 		adminProf.setInstitucion(HandlerInstitucion.getInstance().construirINCO());
 		log = Logger.getLogger("LoggerVasileano");
 		log.setLevel(Level.INFO);

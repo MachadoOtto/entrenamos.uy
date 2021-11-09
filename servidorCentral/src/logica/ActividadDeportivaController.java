@@ -183,4 +183,19 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 		}
 		throw new ActividadDeportivaException("La actividad deportiva " + nombreActDep + " no existe en el Sistema.");
 	}
+
+	@Override
+	public void finalizarActividad(String actDep) {
+		for (String i: getHI().obtenerInstituciones()) {
+			 try {
+				if (getHI().findInstitucion(i).getActsDeps().containsKey(actDep)) {
+					 getHI().findInstitucion(i).getActsDeps().get(actDep).setEstado(TEstado.finalizada);
+					 break;
+				 }
+			} catch (InstitucionException e) {
+				e.printStackTrace();
+			}
+		}
+		//AQUI VA LA PARTE DE PERSISTENCIA!!!
+	}
 }
