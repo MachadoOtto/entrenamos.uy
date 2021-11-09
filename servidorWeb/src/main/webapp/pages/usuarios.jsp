@@ -152,8 +152,6 @@
 			<div id="user-navegador" class="row">
 				<nav class="nav nav-pills flex-column flex-sm-row">
 					<button id="nav-perfil" type="button" onclick="cambioNavegador('user-consultaPerfil', 'nav-perfil')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-radius-0 active" >Perfil</button>
-					<button id="nav-seguidores" type="button" onclick="cambioNavegador('user-seguidores', 'nav-seguidores')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Seguidores</button>
-					<button id="nav-seguidos" type="button" onclick="cambioNavegador('user-seguidos', 'nav-seguidos')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Seguidos</button>
 					<% if (usrProfile instanceof DtSocioExt) {%>
 						<button id="nav-inscripciones" type="button" onclick="cambioNavegador('user-consultaInscripciones', 'nav-inscripciones')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Inscripciones</button>
 					<% } else { %>
@@ -249,35 +247,6 @@
                </div>
               </div>
 				</div>
-				<div id= "user-seguidores" class=" border card-body">
-				<% {  //Truco para que no se guarde la lista en memoria%>
-					<% List<?> seguidores = (List<?>) request.getAttribute("seguidores"); %>
-					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
-						<% for ( Object u: seguidores ) { %>
-						<% String imagenSeguidor = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(), "UTF-8"):"default.png"; %>
-						<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=((DtUsuarioExt)u).getNickname()%>" class="vertical-align-middle imagenSeleccionable">
-								<b><%=((DtUsuarioExt)u).getNickname()%></b></a>
-							 </li>
-						 <% } %>
-					</ul>
-				<% } %>
-				</div>
-				<div id= "user-seguidos" class=" border card-body" >
-				<% {  //Truco para que no se guarde la lista en memoria%>
-					<% List<?> seguidos = (List<?>) request.getAttribute("seguidos"); %>
-					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
-						<% for ( Object u: seguidos ) { %>
-						<% String imagenSeguido = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(), "UTF-8"):"default.png"; %>
-						<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=((DtUsuarioExt)u).getNickname()%>" class="vertical-align-middle imagenSeleccionable">
-								<b><%=((DtUsuarioExt)u).getNickname()%></b></a>
-							 </li>
-						 <% } %>
-					</ul>
-				</div>
 				<% } %>
 				<% if (usrProfile instanceof DtProfesorExt) {	/*Clases dictadas*/ %>
 				<div id= "user-consultaClases" class=" border card-body">
@@ -320,6 +289,7 @@
 								<% } %>
 							 </li>
 						 <% } %>
+						 
 					</ul>
 					<% if (usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname().equals(usrLogged.getNickname())) {	/* Socio viendo su propio perfil */ %>
 					<br>
@@ -340,24 +310,37 @@
 					<%} %>
 				</div>
 				<% }%>
-				
-				<% if (usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname() == usrLogged.getNickname()) {	/* Socio viendo su propio perfil */ %>
-				<% { %>
-				<% List<?> cups = (List<?>) request.getAttribute("cuponeras"); %>
-				<div id= "user-clasesFinalizadas" class="col-sm-9 border card-body">
-					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-						<% for ( Object cup: cups ) { %>
-						<% String imagenCup = (((DtCuponera)cup).getNombre() != null) ? ((DtCuponera)cup).getNombre():"default.png"; %>
+				<div id= "user-seguidores" class=" border card-body">
+				<% {  //Truco para que no se guarde la lista en memoria%>
+					<% List<?> seguidores = (List<?>) request.getAttribute("seguidores"); %>
+					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
+						<% for ( Object u: seguidores ) { %>
+						<% String imagenSeguidor = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(), "UTF-8"):"default.png"; %>
 						<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)cup).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)cup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
-								<b><%=((DtCuponera)cup).getNombre()%></b></a>
+							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=((DtUsuarioExt)u).getNickname()%>" class="vertical-align-middle imagenSeleccionable">
+								<b><%=((DtUsuarioExt)u).getNickname()%></b></a>
 							 </li>
 						 <% } %>
-						</ul>
+					</ul>
+				<% } %>
+				</div>
+				<div id= "user-seguidos" class=" border card-body" >
+				<% {  //Truco para que no se guarde la lista en memoria%>
+					<% List<?> seguidos = (List<?>) request.getAttribute("seguidos"); %>
+					<ul id="listaActividadesActDep" class="list-group list-group-horizontal-sm">
+						<% for ( Object u: seguidos ) { %>
+						<% String imagenSeguido = (((DtUsuarioExt)u).getImagen() != null) ? new String(((DtUsuarioExt)u).getImagen(), "UTF-8"):"default.png"; %>
+						<li class="list-group-item container border card-body elementoLista">
+							 <a href="<%=request.getContextPath()%>/usuarios?nickname=<%=((DtUsuarioExt)u).getNickname()%>" class="link-dark">
+							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=((DtUsuarioExt)u).getNickname()%>" class="vertical-align-middle imagenSeleccionable">
+								<b><%=((DtUsuarioExt)u).getNickname()%></b></a>
+							 </li>
+						 <% } %>
+					</ul>
 				</div>
 				<% } %>
-				<% { %>
+				<% if (usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname().equals(usrLogged.getNickname())) {	/* Socio viendo su propio perfil */ %>
 				<% List<?> cups = (List<?>) request.getAttribute("cuponeras"); %>
 				<div id= "user-cuponeras" class="col-sm-9 border card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
@@ -371,22 +354,6 @@
 						 <% } %>
 						</ul>
 				</div>
-				<% } %>
-				<% if (usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname().equals(usrLogged.getNickname())) {	/* Socio viendo su propio perfil */ %>
-				<% List<?> cups = (List<?>) request.getAttribute("cuponeras"); %>
-				<div id= "user-premios" class="col-sm-9 border card-body">
-					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-						<% for ( Object cup: cups ) { %>
-						<% String imagenCup = (((DtCuponera)cup).getNombre() != null) ? ((DtCuponera)cup).getNombre():"default.png"; %>
-						<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/cuponeras?cuponera=<%=((DtCuponera)cup).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)cup).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
-								<b><%=((DtCuponera)cup).getNombre()%></b></a>
-							 </li>
-						 <% } %>
-						</ul>
-				</div>
-				<% } %>
 				<% } else if (usrProfile instanceof DtProfesorExt) {%>
 				
 				<% List<?> dtadas = (List<?>) request.getAttribute("actividadesAsociadas"); %>
@@ -461,20 +428,6 @@
 							 <% } %>
 						 <% } %>
 					  </ul>
-					<br>
-					<h5>Actividades Finalizadas</h5>
-					  <ul id="listaActividadesClases" class="list-group list-group-horizontal">
-					  	<% for ( Object ad: dtad ) { %>
-							<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.rechazada) { %>
-							<% String imagenAct = (((DtActividadDeportivaExt)ad).getImgName() != null) ? ((DtActividadDeportivaExt)ad).getImgName():"default.png"; %>
-							<li class="list-group-item container border card-body elementoLista">
-							 <a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
-								<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b></a>
-							 </li>
-							 <% } %>
-						 <% } %>
-					  </ul>  
 					<% } %>
 				</div>
 				<% } %>
