@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
+<%@ page import="java.util.Map"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtSocioExt"%>
 <%@ page import="datatypes.DtProfesorExt"%>
@@ -16,6 +17,8 @@
 		href="<%=request.getContextPath()%>/assets/styles/home.css">
 	<link rel="stylesheet" 
 		href="<%=request.getContextPath()%>/assets/styles/clases.css">
+	<link rel="stylesheet" 
+		href="<%=request.getContextPath()%>/assets/styles/stars.css">
 </head>
 <body>
 	<jsp:include page="/template/header.jsp"/>
@@ -58,7 +61,7 @@
 	              				<div class="col-auto">
 	              					<% if (estaInscripto || estaCaducada || estaLlena) {%>
 	              					<button id="botonQueNoSirveXD" type="button" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" disabled>
-					                  <%if (estaInscripto) {%>Estas inscripto<%} else if (estaCaducada) {%>Clase finalizada
+					                  <%if (estaInscripto) {%>Inscripto<%} else if (estaCaducada) {%>Clase finalizada
 					                  <%} else {%>Clase llena<% } %>
 					                </button>
 	              					<%} else {%>
@@ -112,6 +115,23 @@
 	                		<%=datosClase.getFechaRegistro().toFecha()%>
 	              		</div>
 	            	</div>
+	            	<%if (datosClase.getFechaClase().esMenor(new DtFecha())){ 
+		            	int s=0,n=0;
+		            	for(Map.Entry<String,Integer> x: datosClase.getCalificaciones().entrySet()){
+		            		n++;
+		            		s=s+x.getValue();
+		            	}
+		            	float promedio= (n>0)? s/n : 0;
+		            	%>
+	            	<div class="row">
+	              		<div class="col-sm-3">
+	                  		<h6 class="mb-0"><strong>Valoración promedio:</strong></h6>
+	              		</div>
+	              		<div class="col-sm-9 text-secondary">
+	                		<%=String.valueOf(promedio)%>   (<%=datosClase.getCalificaciones().size() %> valoraci<%=(datosClase.getCalificaciones().size()>1) ? "ones":"ón" %>)
+	              		</div>
+	            	</div>
+	            	<%} %>
 	            	<%if (datosClase.getPremio()!=null){ %>
 	            	<div class="mt-4">
 	            	<h5>Premio</h5>
@@ -152,6 +172,34 @@
 		                <button class="w-100 mb-2 btn btn-outline-primary btn-lg rounded-4  mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#sorteoModal" >
 		                   Realizar Sorteo
 		                </button>
+		            <%} %>
+		            <%if (loggedUser instanceof DtSocioExt && estaInscripto && datosClase.getFechaClase().esMenor(new DtFecha())) {
+		            	String valLink = request.getContextPath()+"/valorar?usu="+loggedUser.getNickname()+"&ins="+nombreInstitucion+"&act="+nombreActividad+"&cla="+datosClase.getNombre();%>
+						<div class="mt-3" data-valoracion="<%=(datosClase.getCalificaciones().containsKey(loggedUser.getNickname())) ? datosClase.getCalificaciones().get(loggedUser.getNickname()): "-1" %>" id="Valoraciones">
+							<h6><strong>Su valoración de <%=datosClase.getNicknameProfesor()%> en esta clase: </strong></h6>
+						    <div class="rating-group">
+						        <input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
+						        
+						        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+						        <input onclick="location.href='<%=valLink%>&val=1';" class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
+						        
+						        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+						       
+						        <input onclick="location.href='<%=valLink%>&val=2';" class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
+						       
+						        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+						       
+						        <input onclick="location.href='<%=valLink%>&val=3';" class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
+						      
+						        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+						    
+						        <input onclick="location.href='<%=valLink%>&val=4';" class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
+						 
+						        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+
+						        <input onclick="location.href='<%=valLink%>&val=5';" class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
+						    </div>
+						</div>
 		            <%} %>
 				</div>
 			</div>

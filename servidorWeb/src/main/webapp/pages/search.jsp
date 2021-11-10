@@ -8,6 +8,7 @@
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtActividadDeportivaExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
 
 <!doctype html>
 <html lang="en">
@@ -158,6 +159,14 @@
 								        		<div class="card-body">											  
 										          	<h5 class="card-title"><strong><%=tituloCarta%></strong></h5>
 										          	<p class="card-text"><%=descripcionCarta%></p>
+										          	<% if(obj instanceof DtActividadDeportivaExt && request.getSession().getAttribute("loggedUser") instanceof DtSocioExt){ 
+										          			DtSocioExt ss = (DtSocioExt) request.getSession().getAttribute("loggedUser");
+										          			if(ss.getActividadesFavoritas().contains(tituloCarta)){ %>
+				        											<button style="background-color: #ed2553; border-color: #ed2553;" class="btn btn-primary"><i class="fa-heart fa"></i><span class="text"></span>&nbsp;<span class="nobold">(<span class="count"><%=((DtActividadDeportivaExt)obj).getFavoritos()%></span>)</span></button>
+										          			<%} else{%>
+																	<button id="favorite"  style="background-color: #ed2553; border-color: #ed2553;" class="btn btn-primary"><i class="fa-heart far"></i><span class="text"></span>&nbsp;<span class="nobold">(<span class="count"><%=((DtActividadDeportivaExt)obj).getFavoritos()%></span>)</span></button>
+										          			<%} %>
+										          	<%}%>
 										     	</div>
 												</a>
 											</div>

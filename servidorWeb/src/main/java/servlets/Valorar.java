@@ -20,13 +20,13 @@ import tools.Parametrizer;
 
 // Servlet login. Obedece el protoclo inicio sesión.
 // Si la combinación tiene exito. El servlet establece como atributo de sesión al usuario.
-@WebServlet ("/favoritear")
-public class Favoritear extends HttpServlet {
+@WebServlet ("/valorar")
+public class Valorar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IUsuarioController IUC;
 	private IActividadDeportivaController IADC;
 	private IDictadoClaseController IDCC;
-    public Favoritear() {
+    public Valorar() {
         super();
         IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
         IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
@@ -40,15 +40,17 @@ public class Favoritear extends HttpServlet {
     	try {
     		String usu = (String) request.getParameter("usu");
     		String act = (String) request.getParameter("act");
+    		String ins = (String) request.getParameter("ins");
+    		String cla = (String) request.getParameter("cla");
+    		int val = Integer.parseInt((String) request.getParameter("val"));
         	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
     		if(!(usu.equals(usrLogged.getNickname()))) {
     				response.sendRedirect(request.getContextPath() + "/pages/403.jsp");
     				return;
     		}
-    		String ins = IDCC.obtenerInstitucionActDep(act);
-        	IUC.favoritearActividad(usu, ins, act);
+        	IUC.valorarProfesor(usu, ins, act, cla, val);
         	request.getSession().setAttribute("loggedUser",IUC.seleccionarUsuario(usrLogged.getNickname()));
-        	response.sendRedirect(request.getContextPath() +"/actividades?actividad=" + act);
+        	response.sendRedirect(request.getContextPath() +"/clases?clase=" + cla);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
@@ -59,10 +61,5 @@ public class Favoritear extends HttpServlet {
 	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
 		processRequest(request,  response);
 	}
-	
-	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
-		processRequest(request,  response);
-	}
-
 
 }

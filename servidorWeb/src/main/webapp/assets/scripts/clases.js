@@ -34,4 +34,10 @@ $(window).on('load',function() {
 	} catch (error) {
 		console.error(error)	
 	}
+	try{
+		if(parseInt($("#Valoraciones").attr("data-valoracion"))>0)
+			$("#rating3-"+$("#Valoraciones").attr("data-valoracion")).prop("checked", true);
+	} catch(error){
+		console.error(error)
+	}
 });
