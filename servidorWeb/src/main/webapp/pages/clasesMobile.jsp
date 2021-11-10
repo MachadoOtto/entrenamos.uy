@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
+<%@ page import="java.util.Map"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
 <%@ page import="datatypes.DtFecha"%>
@@ -68,19 +69,41 @@
     <%  } %>    
 </div>
 
-<div class="row pt-4 pb-4" id="section-cuponeras">
+<%if (datosClase.getCalificaciones().size() > 0) {
+	  int s=0,n=0;
+      for(Map.Entry<String,Integer> x: datosClase.getCalificaciones().entrySet()){
+       		n++;
+       		s=s+x.getValue();
+      }
+      float promedio = (n>0)? s/n : 0;
+    %>
+  <div class="row pt-4 pb-4" id="section-cuponeras">
     <div class="row mb-2">
         <h3><i class="far fa-chart-bar"></i> Valoraciones</h3>
     </div>
+    <div class="row pt-1 ">
+   		<h6 class="mb-0"><strong>Valoración promedio:</strong></h6>
+		<div class="col-sm-9 text-secondary">
+			<div class="Stars col" style="--rating: <%=String.valueOf(promedio)%> ;" aria-label=" <%=String.valueOf(promedio)%>">
+			</div>
+			<div class="col">
+	 		<%=String.valueOf(promedio)%>   (<%=datosClase.getCalificaciones().size() %> valoraci<%=(datosClase.getCalificaciones().size()>1) ? "ones":"ón"%>)
+			</div>
+		</div>
+	</div>
     <hr style="width:88%; height: 2px;">
-    <div class="row">
-        <h5>andy (4)</h5>
-    </div>
-    <hr style="width: 70%">
-      <div class="row">
-          <h5>tonyp (5)</h5>
-      </div>
+    <%contador = 0;
+      for(Map.Entry<String,Integer> x: datosClase.getCalificaciones().entrySet()) {
+      	contador++;%>
+	    <div class="row">
+	        <h5><%=x.getKey()%> (<%=x.getValue()%>)</h5>
+	    </div>
+    	<%if (contador < datosClase.getCalificaciones().size()) {%>
+    		<hr style="width: 70%">
+		<% } %>
+	<% } %>
   </div>
+<% } %>
 
   <div id="section-sponsors" class="row pt-5 pb-5">
     <div class="row text-center">
