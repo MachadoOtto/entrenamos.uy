@@ -1,19 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
 <%@ page import="java.util.Set"%>
 <%@ page import="datatypes.DtActividadDeportivaExt"%>
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtFecha"%>
+
 <jsp:include page="/template/headerMobile.jsp"/>
-<%  DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");%>
+<%  DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
+if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
    <div id="section-socio" class="row mt-4 mb-3">
        <p class="bienvenida-socio mt-3"><i class="fas fa-user-circle"></i> Bienvenido <b><%=loggedUser.getNickname()%></b></p>
    </div>
 <%  DtActividadDeportivaExt datosActDep = (DtActividadDeportivaExt) request.getAttribute("actDep");
-	boolean esSocio = (boolean) request.getAttribute("esSocio");
-	boolean finalizable = (boolean) request.getAttribute("finalizable");
 	DtUsuarioExt datosCreador = (DtUsuarioExt) request.getAttribute("datosCreador");
 	String institucion = (String) request.getAttribute("institucion");
 	Set<?> datosClases = (Set<?>) request.getAttribute("datosClases");
@@ -33,6 +34,9 @@
            <p><i class="fas fa-clipboard-list"></i> Ficha Informativa</p>
        </div>
        <hr style="width: 73%; height: 2px;">
+      <div class="row">
+          <p><i class="fas fa-school"></i> Ingresada por: <%=datosCreador.getNickname()%></p>
+      </div>
       <div class="row">
           <p><i class="fas fa-school"></i> Institucion: <%=institucion%></p>
       </div>
@@ -122,4 +126,4 @@
     </div>
 </div>
 <jsp:include page="/template/footerMobile.jsp"/>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<% } %>
