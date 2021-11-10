@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class Seguir extends HttpServlet {
         	request.getSession().setAttribute("loggedUser", usrLogged);
         	request.setAttribute("datoUsuario",  usr);
         	//request.getRequestDispatcher("/usuarios?nickname=" + usr.getNickname()).forward(request,  response);
-        	response.sendRedirect(request.getContextPath() +"/usuarios?nickname=" + usr.getNickname());
+        	response.sendRedirect(request.getContextPath() +"/usuarios?nickname=" + URLEncoder.encode(usr.getNickname(),"utf-8"));
 		} catch (Exception e2) {
 			e2.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -49,7 +50,7 @@ public class RealizarSorteo extends HttpServlet {
 						e.printStackTrace();
 						return;
 					}
-					response.sendRedirect(request.getContextPath() +"/clases?clase=" + claname);
+					response.sendRedirect(request.getContextPath() +"/clases?clase=" + URLEncoder.encode(claname,"utf-8"));
 					return;
 				}
 			}

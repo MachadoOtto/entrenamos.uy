@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -95,7 +96,7 @@ public class ModificarDatosUsuario extends HttpServlet {
         	response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
         	return;
         }
-        response.sendRedirect((request.getContextPath()+"/usuarios?nickname=" + usrLogged.getNickname() + "&e=7"));
+        response.sendRedirect(request.getContextPath()+"/usuarios?nickname=" + URLEncoder.encode( usrLogged.getNickname(),"utf-8")+ "&e=7");
     }
     
     protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -50,7 +51,7 @@ public class Valorar extends HttpServlet {
     		}
         	IUC.valorarProfesor(usu, ins, act, cla, val);
         	request.getSession().setAttribute("loggedUser",IUC.seleccionarUsuario(usrLogged.getNickname()));
-        	response.sendRedirect(request.getContextPath() +"/clases?clase=" + cla);
+        	response.sendRedirect(request.getContextPath() +"/clases?clase=" +URLEncoder.encode( cla,"utf-8"));
 		} catch (Exception e2) {
 			e2.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -48,7 +49,7 @@ public class Favoritear extends HttpServlet {
     		String ins = IDCC.obtenerInstitucionActDep(act);
         	IUC.favoritearActividad(usu, ins, act);
         	request.getSession().setAttribute("loggedUser",IUC.seleccionarUsuario(usrLogged.getNickname()));
-        	response.sendRedirect(request.getContextPath() +"/actividades?actividad=" + act);
+        	response.sendRedirect(request.getContextPath() +"/actividades?actividad=" +URLEncoder.encode(act,"utf-8"));
 		} catch (Exception e2) {
 			e2.printStackTrace();
 			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");

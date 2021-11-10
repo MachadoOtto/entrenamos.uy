@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class FinalizarActividad extends HttpServlet {
 			} catch (UsuarioNoExisteException e) {
 				e.printStackTrace();
 			}
-    		response.sendRedirect(request.getContextPath() +"/actividades?actividad=" + actname);
+    		response.sendRedirect(request.getContextPath() +"/actividades?actividad=" +URLEncoder.encode( actname,"utf-8"));
     		return;
     }
     
