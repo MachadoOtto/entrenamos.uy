@@ -128,7 +128,11 @@
 	                  		<h6 class="mb-0"><strong>Valoración promedio:</strong></h6>
 	              		</div>
 	              		<div class="col-sm-9 text-secondary">
-	                		<%=String.valueOf(promedio)%>   (<%=datosClase.getCalificaciones().size() %> valoraci<%=(datosClase.getCalificaciones().size()>1) ? "ones":"ón" %>)
+	              			<div class="Stars col" style="--rating: <%=String.valueOf(promedio)%> ;" aria-label=" <%=String.valueOf(promedio)%>">
+	              			</div>
+	              			<div class="col">
+	                		<%=String.valueOf(promedio)%>   (<%=datosClase.getCalificaciones().size() %> valoraci<%=(datosClase.getCalificaciones().size()>1) ? "ones":"ón"%>)
+	              		</div>
 	              		</div>
 	            	</div>
 	            	<%} %>
