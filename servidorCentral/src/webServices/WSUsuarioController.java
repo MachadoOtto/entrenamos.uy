@@ -4,6 +4,10 @@ package webServices;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.jws.WebMethod;
@@ -39,7 +43,16 @@ public class WSUsuarioController {
 	
     @WebMethod(exclude = true)
     public void publicar(){
-    	endpoint = Endpoint.publish("http://localhost:9129/entrenamosuy/usuarioController", this);
+    	Properties prp = new Properties();
+    	try(InputStream s = getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
+        	//try(FileInputStream s = new FileInputStream("META-INF/entrenamosuy.properties")){
+        		//getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")
+    		
+    		prp.load(s);
+    	} catch (IOException e) {
+			e.printStackTrace();
+		} 
+    	endpoint = Endpoint.publish("http://"+prp.getProperty("hostIP")+":"+prp.getProperty("hostPort")+prp.getProperty("usuarioController_ServiceName"), this);
     }
     
     @WebMethod(exclude = true)

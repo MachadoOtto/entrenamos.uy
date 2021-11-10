@@ -1,40 +1,42 @@
 package models;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
-import datatypes.DtCategoria;
+
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
 import datatypes.DtCuponera;
 import datatypes.DtFecha;
 import datatypes.DtInstitucion;
-import datatypes.DtSocio;
+
 import datatypes.DtUsuario;
 import datatypes.DtUsuarioExt;
-import datatypes.TEstado;
+
 import datatypes.TReg;
 import excepciones.ActividadDeportivaException;
-import excepciones.CategoriaException;
+
 import excepciones.ClaseException;
-import excepciones.CuponeraInmutableException;
+
 import excepciones.CuponeraNoExisteException;
-import excepciones.CuponeraRepetidaException;
+
 import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 import net.java.dev.jaxb.array.StringArray;
+import servlets.ConfigListener;
+import servlets.Login;
 import webservices.ActividadDeportivaException_Exception;
 import webservices.ClaseException_Exception;
 import webservices.CuponeraNoExisteException_Exception;
-import webservices.DtFechaWS;
-import webservices.DtSocioWS;
-import webservices.DtUsuarioWS;
+
 import webservices.FechaInvalidaException_Exception;
 import webservices.IOException_Exception;
 import webservices.InstitucionException_Exception;
@@ -44,10 +46,21 @@ import webservices.UsuarioNoExisteException_Exception;
 import tools.Cnv;
 
 public class LaFabricaWS {
+	//private String USUARIOCONTROLLERURL = (new Login()).getServletContext().getInitParameter("webServiceUsuarioController");
+
 	public class UsuarioController implements IUsuarioController {
-		webservices.WSUsuarioControllerService service = new webservices.WSUsuarioControllerService();
-		webservices.WSUsuarioController port = service.getWSUsuarioControllerPort();
-		
+		webservices.WSUsuarioControllerService service;
+		webservices.WSUsuarioController port;
+
+		public UsuarioController() {
+		    try {
+		    	service = new webservices.WSUsuarioControllerService(new URL(ConfigListener.usuarioController));
+		    } catch (MalformedURLException ex) {
+		        throw new RuntimeException(ex);
+		    }
+		    port = service.getWSUsuarioControllerPort();
+		}
+
 		@Override
 		public void comprarCuponera(String cuponera,  String socio,  DtFecha fechaCompra)
 				throws UsuarioNoExisteException, CuponeraNoExisteException {
@@ -173,6 +186,15 @@ public class LaFabricaWS {
 		webservices.WSActividadControllerService service = new webservices.WSActividadControllerService();
 		webservices.WSActividadController port = service.getWSActividadControllerPort();
 		
+		public ActividadDeportivaController() {
+		    try {
+		    	service = new webservices.WSActividadControllerService(new URL(ConfigListener.actividadController));
+		    } catch (MalformedURLException ex) {
+		        throw new RuntimeException(ex);
+		    }
+		    port = service.getWSActividadControllerPort();
+		}
+		
 		@Override
 		public Set<String> obtenerInstituciones() {
 			Set<String> x = new HashSet<>();
@@ -288,6 +310,15 @@ public class LaFabricaWS {
 	public class DictadoClaseController implements IDictadoClaseController{
 		webservices.WSClaseControllerService service = new webservices.WSClaseControllerService();
 		webservices.WSClaseController port = service.getWSClaseControllerPort();
+		
+		public DictadoClaseController() {
+		    try {
+		    	service = new webservices.WSClaseControllerService(new URL(ConfigListener.claseController));
+		    } catch (MalformedURLException ex) {
+		        throw new RuntimeException(ex);
+		    }
+		    port = service.getWSClaseControllerPort();
+		}
 		
 		@Override
 		public Set<String> obtenerUsuarios() {
@@ -468,7 +499,15 @@ public class LaFabricaWS {
 		webservices.WSCuponeraControllerService service = new webservices.WSCuponeraControllerService();
 		webservices.WSCuponeraController port = service.getWSCuponeraControllerPort();
 
-
+		public CuponeraController() {
+		    try {
+		    	service = new webservices.WSCuponeraControllerService(new URL(ConfigListener.cuponeraController));
+		    } catch (MalformedURLException ex) {
+		        throw new RuntimeException(ex);
+		    }
+		    port = service.getWSCuponeraControllerPort();
+		}
+		
 		@Override
 		public Set<String> getNombreCuponeras() {
 			Set<String> x = new HashSet<>();
@@ -496,6 +535,17 @@ public class LaFabricaWS {
 	public class ContentController implements IContentController{
 		webservices.WSContentControllerService service = new webservices.WSContentControllerService();
 		webservices.WSContentController port = service.getWSContentControllerPort();
+		
+		public ContentController() {
+		    try {
+		    	service = new webservices.WSContentControllerService(new URL(ConfigListener.contentController));
+		    } catch (MalformedURLException ex) {
+		        throw new RuntimeException(ex);
+		    }
+		    port = service.getWSContentControllerPort();
+		}
+		
+		
 		@Override
 		public byte[] get(String type, String id) throws IOException{
 			try {

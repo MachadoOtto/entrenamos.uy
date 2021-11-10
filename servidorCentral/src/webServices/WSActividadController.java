@@ -1,5 +1,11 @@
 package webServices;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
@@ -29,7 +35,13 @@ public class WSActividadController {
 	
     @WebMethod(exclude = true)
     public void publicar(){
-    	endpoint = Endpoint.publish("http://localhost:9129/entrenamosuy/actividadController", this);
+    	Properties prp = new Properties();
+    	try(InputStream s = getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
+    		prp.load(s);
+    	} catch (IOException e) {
+			e.printStackTrace();
+		} 
+    	endpoint = Endpoint.publish("http://"+prp.getProperty("hostIP")+":"+prp.getProperty("hostPort")+prp.getProperty("actividadController_ServiceName"), this);
     }
     
     @WebMethod(exclude = true)
