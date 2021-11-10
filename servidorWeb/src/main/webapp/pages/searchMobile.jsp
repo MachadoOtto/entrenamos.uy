@@ -79,9 +79,9 @@
         </div>
         <%if (encabezado.equals("Clases")) { %>
         <div id="filtrarActividades" class="row filtrar pt-2 pb-4">
+        <%if ((((Set<?>)request.getAttribute("filtroInsti")).size() > 0) || (((Set<?>)request.getAttribute("filtroCat")).size() > 0)) {%>
           <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
-            <%if (listaActividades == null) {%> disabled <% } %>>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-align-justify"></i> Actividades Deportivas
             </button>
             <ul class="dropdown-menu">
@@ -90,13 +90,14 @@
             <% } %>
             </ul>
           </div>
+        <% } %>
         </div>
         <% } %>
        	
         <div id="infoActDep" class="row">
         	<% String textoInfo = nombreFltr;
         	String fltrAct = (String) request.getAttribute("filtroAct");
-        	if (encabezado.equals("Clases") && (fltrAct != null)) {
+        	if (encabezado.equals("Clases") && (!fltrAct.isEmpty())) {
         		 textoInfo += " y Actividad " + fltrAct;
         	}%>
             <p><i class="fas fa-info-circle"></i> Listado de <%=encabezado%> <%=textoInfo%></p>

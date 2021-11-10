@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/homeMobile.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/loginMobile.css">
-	<script src="https://kit.fontawesome.com/ba45a4bf02.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="desktopDiv">
