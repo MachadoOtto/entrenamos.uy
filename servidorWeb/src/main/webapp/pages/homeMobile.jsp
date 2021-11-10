@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
+
 <jsp:include page="/template/headerMobile.jsp"/>
 <%DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser"); 
-  String f = "default.png";
-  if (loggedUser.getImagen()!=null)
-  	f = new String(loggedUser.getImagen(), "UTF-8");%>
+  if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {
+	String f = "default.png";
+  	if (loggedUser.getImagen()!=null)
+  		f = new String(loggedUser.getImagen(), "UTF-8");
+  	%>
 <div id="section-socio" class="row mt-4 mb-3">
 	  <img id="img-perfil" onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/assets/images/misc/loading.gif'" alt="<%=loggedUser.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=loggedUser.getNickname()%>">
     <p class="bienvenida-socio mt-3">Bienvenido <%=loggedUser.getNickname()%> a la plataforma movil de Entrenamos.uy</p>
@@ -96,4 +100,4 @@
     </div>
 </div>
 <jsp:include page="/template/footerMobile.jsp"/>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<% } %>

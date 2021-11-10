@@ -10,4 +10,3 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
     <script src="<%=request.getContextPath()%>/assets/scripts/main.js"></script>
-    

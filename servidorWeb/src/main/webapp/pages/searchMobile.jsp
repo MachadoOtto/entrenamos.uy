@@ -6,10 +6,13 @@
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtActividadDeportivaExt"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
 <%@ page import="datatypes.DtFecha"%>
+
 	<jsp:include page="/template/headerMobile.jsp"/>
-    <%DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");%>
-	<div id="section-socio" class="row mt-4 mb-3">
+    <%DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
+    if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
+    <div id="section-socio" class="row mt-4 mb-3">
 	    <p class="bienvenida-socio mt-3"><i class="fas fa-user-circle"></i> Bienvenido <b><%=loggedUser.getNickname()%></b></p>
 	</div>
 	
@@ -23,11 +26,10 @@
 	if (request.getAttribute("actividades") != null) {
 		link += "actividades=yes";
 		encabezado = "Actividades Deportivas";
-	}
-	if (request.getAttribute("clases") != null) {
-		link += "&clases=yes";
-		encabezado = "Clases";
-	}
+		if (request.getAttribute("clases") != null) {
+			link += "&clases=yes";
+			encabezado = "Clases";
+		}
 	
 	// Auxiliares para el orden y filtro:
 	String orden = (String) request.getAttribute("orden");
@@ -77,9 +79,9 @@
         </div>
         <%if (encabezado.equals("Clases")) { %>
         <div id="filtrarActividades" class="row filtrar pt-2 pb-4">
+        <%if ((((Set<?>)request.getAttribute("filtroInsti")).size() > 0) || (((Set<?>)request.getAttribute("filtroCat")).size() > 0)) {%>
           <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
-            <%if (listaActividades == null) {%> disabled <% } %>>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fas fa-align-justify"></i> Actividades Deportivas
             </button>
             <ul class="dropdown-menu">
@@ -88,13 +90,14 @@
             <% } %>
             </ul>
           </div>
+        <% } %>
         </div>
         <% } %>
        	
         <div id="infoActDep" class="row">
         	<% String textoInfo = nombreFltr;
         	String fltrAct = (String) request.getAttribute("filtroAct");
-        	if (encabezado.equals("Clases") && (fltrAct != null)) {
+        	if (encabezado.equals("Clases") && (!fltrAct.isEmpty())) {
         		 textoInfo += " y Actividad " + fltrAct;
         	}%>
             <p><i class="fas fa-info-circle"></i> Listado de <%=encabezado%> <%=textoInfo%></p>
@@ -150,5 +153,6 @@
         </div>
     </div>
 </div>
-  <jsp:include page="/template/footerMobile.jsp"/>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<jsp:include page="/template/footerMobile.jsp"/>
+<% } //End If ActividadesDeportivas == yes (necesario para saber que se usaran las listas)
+} //End If es DtSocioExt%>

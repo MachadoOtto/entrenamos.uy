@@ -10,7 +10,6 @@
 		href="<%=request.getContextPath()%>/assets/styles/clases.css">
 	<link rel="stylesheet" 
 		href="<%=request.getContextPath()%>/assets/styles/stars.css">
-	<script src="https://kit.fontawesome.com/ba45a4bf02.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/clasesMobile.css">
 </head>
 <body>

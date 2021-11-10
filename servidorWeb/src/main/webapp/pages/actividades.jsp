@@ -9,7 +9,6 @@
 		href="<%=request.getContextPath()%>/assets/styles/home.css">
 	<link rel="stylesheet" 
 		href="<%=request.getContextPath()%>/assets/styles/consultaActividadDeportiva.css">
-	<script src="https://kit.fontawesome.com/ba45a4bf02.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/actividadesMobile.css">
 </head>
 <body>

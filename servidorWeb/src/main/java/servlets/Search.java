@@ -233,7 +233,7 @@ public class Search extends HttpServlet {
 			if (fltrI.isEmpty() || fltrI.contains(x)) {
 				try {
 					for (String y : IDCC.obtenerActividades(x)) {
-						if (fltrA.isEmpty() || fltrA.equals(x)) {
+						if (fltrA.isEmpty() || fltrA.equals(y)) {
 							for (String z : IDCC.obtenerClases(x,  y)) {
 								lista.add(IDCC.seleccionarClase(x,  y,  z));
 							}
