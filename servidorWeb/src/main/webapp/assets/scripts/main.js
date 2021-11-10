@@ -61,6 +61,15 @@ function registroProfe(){
     $("#webDiv").show();
 }
 
+function login(){
+	/*Verificar Formulario*/
+	if ($("#pass").val().trim() == "" || $("#user").val().trim() == ""){
+		errorMsgForm("Existen campos obligatorios vacíos/sin seleccionar.", "formulario-sesion");
+		return false;
+	}
+	return true;
+}
+
 function  registrarse(){
 	/*Verificar Formulario*/
 	if ($("#nickk").val().trim() == "" || $("#emaill").val().trim() == "" || $("#pas1").val() == "" || $("#pas2").val() == "" ||
@@ -76,15 +85,18 @@ function  registrarse(){
 		errorMsgForm("No es posible nacer en el futuro.", "formulario-registro");
 		return false;
 	}
-	else {
+	else{
 		$("#nickk").val($("#nickk").val().trim());
 		$("#emaill").val($("#emaill").val().trim());
 		$("#nomm").val($("#nomm").val().trim());
 		$("#ape").val($("#ape").val().trim());
 		$("#desc").val($("#desc").val().trim());
 		return true;
-	}	
+	}
 }
+
+
+
 
 function altaAD(){
 	/*Verificar Formulario*/
@@ -123,4 +135,31 @@ $(window).on('load',  function() {
 	} catch (error){
 		console.error(error);
 	}
+	try{
+		$("#formulario-registro").submit(function(e) {
+		    // Stop the form submitting
+		    e.preventDefault();
+			/*Validación nick e email*/
+			xhttp = new XMLHttpRequest();
+			xhttp.open("GET",$("#formulario-registro").attr("data-root")+"/signup?nick="+$("#nickk").val().trim()+"&email="+$("#emaill").val().trim());
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send();
+			xhttp.onload = function(){
+				if(xhttp.responseText.trim()=="OK"){
+					$("#nickk").val($("#nickk").val().trim());
+					$("#emaill").val($("#emaill").val().trim());
+					$("#nomm").val($("#nomm").val().trim());
+					$("#ape").val($("#ape").val().trim());
+					$("#desc").val($("#desc").val().trim());
+					e.currentTarget.submit();
+				}
+				else if(xhttp.responseText.trim()=="BAD_NICK")
+					errorMsgForm("El nickname seleccionado no se encuentra disponible.","formulario-registro");
+				else if(xhttp.responseText.trim()=="BAD_MAIL")
+					errorMsgForm("El email ingresado no se encuentra disponible.","formulario-registro");
+				else
+					errorMsgForm("El nickname e email ingresados no se encuentran disponibles.","formulario-registro");
+			}
+		});		
+	}catch(error){console(error)}
 });

@@ -74,7 +74,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form id="formulario-sesion" action="<%=request.getContextPath()%>/login" method="POST" data-root="<%=request.getContextPath()%>"> 
+                  <form id="formulario-sesion" action="<%=request.getContextPath()%>/login" method="POST" onsubmit="return login()" data-root="<%=request.getContextPath()%>"> 
                       <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-4" id="user" name="nick-login" placeholder="name@example.com">
                           <label for="user">Correo electrónico / Nickname</label>

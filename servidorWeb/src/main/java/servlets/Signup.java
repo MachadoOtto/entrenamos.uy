@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -17,6 +18,8 @@ import javax.servlet.http.Part;
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
+import datatypes.DtUsuario;
+import excepciones.UsuarioNoExisteException;
 import models.GestorWeb;
 import tools.Parametrizer;
 import models.IUsuarioController;
@@ -81,11 +84,42 @@ public class Signup extends HttpServlet{
         }
         response.sendRedirect(r);
     }
-    
+    protected void validator(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
+        String nick = request.getParameter("nick");
+        String email = request.getParameter("email");
+        PrintWriter stream = response.getWriter();
+        if(nick==null || email==null) {
+        	stream.println("BAD_FORMAT");
+        	return;
+        }
+        DtUsuario dn,de;
+        try {
+			 dn = IUC.seleccionarUsuario(nick);
+		} catch (UsuarioNoExisteException e) {
+			dn = null;
+		}
+        try {
+        	de = IUC.seleccionarUsuarioEmail(email);
+		} catch (UsuarioNoExisteException e1) {
+			de = null;
+		}
+        if(dn!=null)
+        	stream.println("BAD_NICK");
+        if(de!=null)
+        	stream.println("BAD_MAIL");
+        if(de==null && dn==null)
+        	stream.println("OK");
+        return;
+    } 
 	protected void doPost(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
         processRequest(request,  response);
+	}
+	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {
+		validator(request,response);
 	}
 	private String rp(HttpServletRequest request, String param) {
 		return request.getParameter(param);
