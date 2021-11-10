@@ -12,10 +12,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul id="acs" class="navbar-nav me-auto mt-2 mb-1 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="actDepsMovil.html"><i class="fas fa-volleyball-ball"></i> Actividades Deportivas</a>
+            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/search?actividades=yes"><i class="fas fa-volleyball-ball"></i> Actividades Deportivas</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="clasesMovil.html"><i class="fas fa-book"></i> Clases</a>
+            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/search?actividades=yes&clases=yes"><i class="fas fa-book"></i> Clases</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/api/logout"><i class="fas fa-arrow-alt-circle-left"></i> Salir</a>
