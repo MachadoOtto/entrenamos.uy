@@ -71,6 +71,9 @@ public class Search extends HttpServlet {
     	String clase = request.getParameter("clases");
     	String cuponera = request.getParameter("cuponeras");
     	String usuario = request.getParameter("usuarios");
+    	String filtroAct = request.getParameter("fltrA");
+    	if (filtroAct == null)
+    		filtroAct = new String();
     	List<DtActividadDeportiva> listaActividades = null;
     	List<DtClase> listaClases = null;
     	List<DtCuponera> listaCuponeras = null;
@@ -105,7 +108,7 @@ public class Search extends HttpServlet {
     	}
     	if ((clase != null) && (clase.equals("yes"))) {
     		try {
-        		listaClases = obtenerClases();
+        		listaClases = obtenerClases(fltrInstituciones, filtroAct);
         		switch(orden) {
 	    			case "alfaDesc":
 	                	Collections.sort(listaClases,  new NameComparator());
@@ -190,6 +193,7 @@ public class Search extends HttpServlet {
     	request.setAttribute("orden",  orden);
     	request.setAttribute("filtroInsti",  fltrInstituciones);
     	request.setAttribute("filtroCat",  fltrCategorias);
+    	request.setAttribute("filtroAct", filtroAct);
     	request.getRequestDispatcher("/pages/search.jsp").forward(request,  response);
 	}
     
@@ -222,18 +226,22 @@ public class Search extends HttpServlet {
 		return lista;
 	}
 	
-	private List<DtClase> obtenerClases() throws ClaseException {
+	private List<DtClase> obtenerClases(Set<String> fltrI, String fltrA) throws ClaseException {
 		List<DtClase> lista = new ArrayList<>();
 		IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
 		for (String x : IDCC.obtenerInstituciones()) {
-			try {
-				for (String y : IDCC.obtenerActividades(x)) {
-					for (String z : IDCC.obtenerClases(x,  y)) {
-						lista.add(IDCC.seleccionarClase(x,  y,  z));
+			if (fltrI.isEmpty() || fltrI.contains(x)) {
+				try {
+					for (String y : IDCC.obtenerActividades(x)) {
+						if (fltrA.isEmpty() || fltrA.equals(x)) {
+							for (String z : IDCC.obtenerClases(x,  y)) {
+								lista.add(IDCC.seleccionarClase(x,  y,  z));
+							}
+						}
 					}
-				}
-			} catch(InstitucionException ignore) {
-			} catch (ActividadDeportivaException ignore) { }
+				} catch(InstitucionException ignore) {
+				} catch (ActividadDeportivaException ignore) { }
+			}
 		}
 		return lista;
 	}

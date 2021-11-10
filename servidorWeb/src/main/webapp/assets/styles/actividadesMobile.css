@@ -103,6 +103,7 @@
 
 .imagProfMobile {
 	background: white;
+    object-fit: cover;
 }
 
 /*--- Footer ---*/
