@@ -1,0 +1,153 @@
+#img-EUY {
+    width: 40px;
+}
+
+#acs {
+    
+}
+
+#section-socio {
+    justify-content: center;
+    padding-top: 10%;
+    padding-bottom: 15%;
+}
+
+#img-perfil {
+    width: 150px;
+    border-radius: 75px;
+    object-fit: cover;
+    box-shadow: 0px 0px 3px #0d6efd;
+}
+
+.bienvenida-socio {
+    text-align: center;
+}
+
+#section-titular {
+    background-color: #111111;
+    color: #f0f0f0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    padding-top: 5%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+#section-actDeps {
+    background-color: #111111;
+}
+
+#section-actDeps img {
+    width: 150px;
+    padding: 25% 0%;
+}
+
+#texto-actDeps {
+    color: #f0f0f0;
+    padding: 12% 0%;
+    text-align: start;
+}
+
+#section-clases {
+    background-color: #111111;
+}
+
+#section-clases img {
+    width: 110px;
+    padding: 25% 0%;
+}
+
+#texto-clases {
+    color: #f0f0f0;
+    padding: 10% 0%;
+    padding-right: 2%;
+    text-align: end;
+}
+
+#section-institucion {
+    background-color: #111111;
+}
+
+#section-institucion img {
+    width: 150px;
+    padding: 20% 0%;
+}
+
+#texto-institucion {
+    color: #f0f0f0;
+    padding: 12% 0%;
+}
+
+#titular-pdm {
+    background-color: #f1f1f1;
+    color: #161616;
+    text-align: center;
+}
+
+#img-pdm {
+    background-color: #f1f1f1;
+    justify-content: center;
+}
+
+#img-pdm img {
+    width: 300px;
+    margin: auto;
+}
+
+#img-pdm h1 {
+    text-align: center;
+}
+
+#img-pdm p {
+    text-align: justify;
+}
+
+#section-bs {
+    background-color: #231f20;
+    color: #f0f0f0;
+}
+
+#section-bs h1 {
+    text-align: center;
+}
+
+#section-bs img {
+    width: 250px;
+    margin: auto;
+}
+
+#section-bs p {
+    text-align: justify;
+}
+
+#section-sponsors {
+    background-color: #f0f0f0;
+    justify-content: center;
+    padding-bottom: 20% !important;
+}
+
+#section-sponsors img {
+    width: 150px;
+    height: 95px;
+    margin: auto;
+}
+
+.footerMobile {
+    background: #112764;
+    color: #f0f0f0;
+    width: auto;
+    justify-content: center;
+    text-align: center;
+}
+
+.footerMobile-row {
+    padding-top: 15%;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-bottom: 5%;
+    text-align: center;
+}
+
+.footerMobile p {
+    font-size: 90%;
+}
