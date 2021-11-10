@@ -45,6 +45,9 @@ public class WSUsuarioController {
     public void publicar(){
     	Properties prp = new Properties();
     	try(InputStream s = getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
+        	//try(FileInputStream s = new FileInputStream("META-INF/entrenamosuy.properties")){
+        		//getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")
+    		
     		prp.load(s);
     	} catch (IOException e) {
 			e.printStackTrace();
