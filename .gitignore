@@ -7,6 +7,8 @@
 /servidorCentral/.project
 /servidorCentral/.classpath
 /servidorCentral/.settings
+/servidorCentral/build
+/servidorCentral/xlib
 /estacionDeTrabajo/bin/
 /Front-End/.vscode
 /servidorWeb/build/
@@ -14,4 +16,5 @@
 /servidorWeb/bin
 /servidorWeb/.pmd
 /servidorWeb/.tomcatplugin
+/servidorWeb/build
 .directory
