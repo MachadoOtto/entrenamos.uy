@@ -34,11 +34,11 @@ public class ConfigListener implements ServletContextListener {
     	contentController = ctx.getInitParameter("contentControllerURL");
     	cuponeraController = ctx.getInitParameter("cuponeraControllerURL");
     	logthreshold = ctx.getInitParameter("logthreshold");
-    	cargarConfig();
+    	cargarConfig(sce);
     }
 
     
-    public static void cargarConfig() {
+    public static void cargarConfig(ServletContextEvent sce) {
     	String home = System.getProperty("user.home");
     	File cfgfolder = new File(home + "/.entrenamosUy");
     	Properties config = new Properties();
@@ -48,7 +48,7 @@ public class ConfigListener implements ServletContextListener {
     	config.setProperty("contentControllerURL", contentController);
     	config.setProperty("cuponeraControllerURL", cuponeraController);
     	config.setProperty("logthreshold", logthreshold);
-    	
+    	System.out.println("th"+logthreshold);
     	if(cfgfolder.mkdir()) {
     		System.out.println("Config folder was not found... creating default config folder at "+home);
         	try {
@@ -80,5 +80,20 @@ public class ConfigListener implements ServletContextListener {
     	contentController = config.getProperty("contentControllerURL");
     	cuponeraController = config.getProperty("cuponeraControllerURL");
     	logthreshold = config.getProperty("logthreshold");
+    	ServletContext ctx = sce.getServletContext();
+    	if(usuarioController==null)
+    		usuarioController = ctx.getInitParameter("usuarioControllerURL");
+    	if(actividadController==null)
+    		actividadController = ctx.getInitParameter("actividadControllerURL");
+    	if(claseController==null)
+    		claseController = ctx.getInitParameter("claseControllerURL");
+    	if(contentController==null)
+    		contentController = ctx.getInitParameter("contentControllerURL");
+    	if(cuponeraController==null)
+    		cuponeraController = ctx.getInitParameter("cuponeraControllerURL");
+    	if(logthreshold==null) {
+        	logthreshold = ctx.getInitParameter("logthreshold");
+    	}
+    	System.out.println("Configuration loaded successfully.");
     }
 }
