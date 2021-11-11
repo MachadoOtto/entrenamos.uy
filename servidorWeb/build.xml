@@ -1,4 +1,4 @@
-<project name="servidorWeb" default="war">
+<project name="ServidorWeb" default="war">
 	
     <property name="src.dir" value="src"/>
     <property name="build.dir" value="build"/>
