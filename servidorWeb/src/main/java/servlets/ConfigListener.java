@@ -21,6 +21,7 @@ public class ConfigListener implements ServletContextListener {
 	public static String claseController = null;
 	public static String contentController = null;
 	public static String cuponeraController = null;
+	public static String logthreshold = null;
     public ConfigListener() { }
 
     public void contextDestroyed(ServletContextEvent sce)  { }
@@ -32,6 +33,7 @@ public class ConfigListener implements ServletContextListener {
     	claseController = ctx.getInitParameter("claseControllerURL");
     	contentController = ctx.getInitParameter("contentControllerURL");
     	cuponeraController = ctx.getInitParameter("cuponeraControllerURL");
+    	logthreshold = ctx.getInitParameter("logthreshold");
     	cargarConfig();
     }
 
@@ -45,6 +47,7 @@ public class ConfigListener implements ServletContextListener {
     	config.setProperty("claseControllerURL", claseController);
     	config.setProperty("contentControllerURL", contentController);
     	config.setProperty("cuponeraControllerURL", cuponeraController);
+    	config.setProperty("logthreshold", logthreshold);
     	
     	if(cfgfolder.mkdir()) {
     		System.out.println("Config folder was not found... creating default config folder at "+home);
@@ -76,5 +79,6 @@ public class ConfigListener implements ServletContextListener {
     	claseController = config.getProperty("claseControllerURL");
     	contentController = config.getProperty("contentControllerURL");
     	cuponeraController = config.getProperty("cuponeraControllerURL");
+    	logthreshold = config.getProperty("logthreshold");
     }
 }

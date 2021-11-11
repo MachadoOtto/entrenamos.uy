@@ -61,6 +61,7 @@ public class WSContentController {
 		return byteArray;
     }
     
+    @WebMethod
     public void post(String type, String id, byte[] content) throws IOException {
 		try {
 		    File f = new File(contentRootPath + typeMap.get(type) + id);
@@ -70,5 +71,12 @@ public class WSContentController {
 		} catch (IOException e) {
 		    throw e;
 		}
+    }
+    
+    @WebMethod
+    public void sendReports(String[] entries) {
+    	//Aca habría que hacer algo dependiendo de como se tratan los registros...
+    	//Los vamos a persistir junto con las cosas de la logica o es mejor tener un archivo de logs aparte
+    	//Creo que lo primero es una buena opción :))
     }
 }

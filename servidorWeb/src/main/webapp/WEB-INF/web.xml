@@ -6,27 +6,26 @@
     <context-param>
       <param-name>usuarioControllerURL</param-name>
       <param-value>http://localhost:9129/entrenamosuy/usuarioController?wsdl</param-value>
-
     </context-param>
     <context-param>
       <param-name>actividadControllerURL</param-name>
       <param-value>http://localhost:9129/entrenamosuy/actividadController?wsdl</param-value>
-
     </context-param>
     <context-param>
       <param-name>claseControllerURL</param-name>
       <param-value>http://localhost:9129/entrenamosuy/claseController?wsdl</param-value>
-
     </context-param>
     <context-param>
       <param-name>cuponeraControllerURL</param-name>
       <param-value>http://localhost:9129/entrenamosuy/cuponeraController?wsdl</param-value>
-
     </context-param>
     <context-param>
       <param-name>contentControllerURL</param-name>
       <param-value>http://localhost:9129/entrenamosuy/contentController?wsdl</param-value>
-
+    </context-param>
+    <context-param>
+      <param-name>logthreshold</param-name>
+      <param-value>10</param-value>
     </context-param>
   <display-name>servidorWeb</display-name>
   <welcome-file-list>

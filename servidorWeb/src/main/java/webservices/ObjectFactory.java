@@ -55,7 +55,8 @@ public class ObjectFactory {
      * 
      */
 //    @XmlElementDecl(namespace = "http://webServices/", name = "IOException")
-    public JAXBElement<IOException> createIOException(IOException value) {
+    @XmlElementDecl(namespace = "http://webServices/", name = "IOException")
+	public JAXBElement<IOException> createIOException(IOException value) {
         return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
     }
 
@@ -219,10 +220,10 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link ActividadDeportivaException }{@code >}}
      * 
      */
+////////    @XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
 //////    @XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
-////    @XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
+////	@XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
 //	@XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
-	@XmlElementDecl(namespace = "http://webServices/", name = "ActividadDeportivaException")
 	public JAXBElement<ActividadDeportivaException> createActividadDeportivaException(ActividadDeportivaException value) {
         return new JAXBElement<ActividadDeportivaException>(_ActividadDeportivaException_QNAME, ActividadDeportivaException.class, null, value);
     }
@@ -240,9 +241,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link ClaseException }{@code >}}
      * 
      */
+//////    @XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
 ////    @XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
-//    @XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
-	@XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
+//	@XmlElementDecl(namespace = "http://webServices/", name = "ClaseException")
 	public JAXBElement<ClaseException> createClaseException(ClaseException value) {
         return new JAXBElement<ClaseException>(_ClaseException_QNAME, ClaseException.class, null, value);
     }
@@ -251,9 +252,9 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link InstitucionException }{@code >}}
      * 
      */
+//////    @XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
 ////    @XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
-//    @XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
-	@XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
+//	@XmlElementDecl(namespace = "http://webServices/", name = "InstitucionException")
 	public JAXBElement<InstitucionException> createInstitucionException(InstitucionException value) {
         return new JAXBElement<InstitucionException>(_InstitucionException_QNAME, InstitucionException.class, null, value);
     }

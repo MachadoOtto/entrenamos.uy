@@ -3,7 +3,7 @@ package models;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -562,6 +562,13 @@ public class LaFabricaWS {
 			} catch (IOException_Exception e) {
 				throw new IOException();
 			}
+		}
+
+		@Override
+		public void sendReports(String[] entries) {
+			StringArray x = new StringArray();
+			x.getItem().addAll(Arrays.asList(entries));
+			port.sendReports(x);
 		}
 		
 	}

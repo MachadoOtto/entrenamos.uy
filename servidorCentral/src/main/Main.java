@@ -42,7 +42,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO hacer que dependiendo de los args provistos, que cosas se deberian ejecutar.
     	Set<String> flags = new HashSet<>();
     	flags.addAll(Arrays.asList(args));
     	cargarConfig();

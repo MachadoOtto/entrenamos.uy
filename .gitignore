@@ -2,6 +2,8 @@
 .project
 .settings
 .classpath
+web.war
+servidor.jar
 /bin/
 /servidorCentral/bin/
 /servidorCentral/.project
@@ -16,4 +18,5 @@
 /servidorWeb/.pmd
 /servidorWeb/.tomcatplugin
 /servidorWeb/build
+/servidorWeb/dist
 .directory
