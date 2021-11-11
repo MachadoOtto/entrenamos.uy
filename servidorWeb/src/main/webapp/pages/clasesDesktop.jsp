@@ -193,6 +193,11 @@
 						    </div>
 						</div>
 		            <%} %>
+		            <%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {%>
+		            <div class="mt-3">
+		            	<iframe width="560" height="315" src="<%=datosClase.getUrlVideo()%>" frameborder="0" allowfullscreen></iframe>
+		            </div>
+		            <% } %>
 				</div>
 			</div>
 		    <div class="col-sm-3 ps-1 ps-sm-3">
