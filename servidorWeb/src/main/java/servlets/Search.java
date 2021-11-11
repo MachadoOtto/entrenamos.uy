@@ -229,11 +229,12 @@ public class Search extends HttpServlet {
 	private List<DtClase> obtenerClases(Set<String> fltrI, String fltrA) throws ClaseException {
 		List<DtClase> lista = new ArrayList<>();
 		IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
+		IActividadDeportivaController IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
 		for (String x : IDCC.obtenerInstituciones()) {
 			if (fltrI.isEmpty() || fltrI.contains(x)) {
 				try {
 					for (String y : IDCC.obtenerActividades(x)) {
-						if (fltrA.isEmpty() || fltrA.equals(y)) {
+						if (fltrA.isEmpty() || (fltrA.equals(y) && (IADC.getActDepExt(x, y).getEstado() == TEstado.aceptada))) {
 							for (String z : IDCC.obtenerClases(x,  y)) {
 								lista.add(IDCC.seleccionarClase(x,  y,  z));
 							}
