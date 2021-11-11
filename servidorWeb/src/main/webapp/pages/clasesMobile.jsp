@@ -106,6 +106,13 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {
 	<% } %>
   </div>
 <% } %>
+	<div class="row pt-4 pb-4" id="section-cuponeras">
+		<%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {%>
+	    <div class="row pt-1">
+	    	<iframe width="320" height="180" src="<%=datosClase.getUrlVideo()%>" frameborder="0" allowfullscreen></iframe>
+	    </div>
+	    <% } %>
+    </div>
 
   <div id="section-sponsors" class="row pt-5 pb-5">
     <div class="row text-center">
