@@ -30,6 +30,7 @@ import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 import logica.IUsuarioController;
 import logica.LaFabrica;
+import main.Main;
 
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
@@ -43,15 +44,7 @@ public class WSUsuarioController {
 	
     @WebMethod(exclude = true)
     public void publicar(){
-    	Properties prp = new Properties();
-    	try(InputStream s = getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
-        	//try(FileInputStream s = new FileInputStream("META-INF/entrenamosuy.properties")){
-        		//getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")
-    		
-    		prp.load(s);
-    	} catch (IOException e) {
-			e.printStackTrace();
-		} 
+    	Properties prp = Main.config;
     	endpoint = Endpoint.publish("http://"+prp.getProperty("hostIP")+":"+prp.getProperty("hostPort")+prp.getProperty("usuarioController_ServiceName"), this);
     }
     

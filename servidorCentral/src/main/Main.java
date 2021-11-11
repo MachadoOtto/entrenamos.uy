@@ -8,7 +8,14 @@ import webServices.WSUsuarioController;
 import workstation.Menu;
 
 import java.awt.EventQueue;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 import datatypes.DtActividadDeportiva;
@@ -30,42 +37,87 @@ public class Main {
 	private static IUsuarioController IUC;
 	private static ICuponeraController ICC;
 	private static IDictadoClaseController IDCC;
-	
+	public static Properties config;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO hacer que dependiendo de los args provistos, que cosas se deberian ejecutar.
+    	Set<String> flags = new HashSet<>();
+    	flags.addAll(Arrays.asList(args));
+    	cargarConfig();
     	
-    	cargaDeCasos();
+    	if(!flags.contains("--empty")) {
+    		try {
+    			cargaDeCasos();
+    		} catch(Exception e) {
+    			System.out.println("Oh noes! Ha habido un problema al cargar los casos de prueba. ");
+    			e.printStackTrace();
+    		}
+    	}
     	
-    	System.out.println("DEPLOYING WEB SERVICES...");
-        WSUsuarioController servicio1 = new WSUsuarioController();
-        WSActividadController servicio2 = new WSActividadController();
-        WSCuponeraController servicio3 = new WSCuponeraController();
-        WSClaseController servicio4 = new WSClaseController();
-        WSContentController servicio5 = new WSContentController();
-        servicio1.publicar();
-        servicio2.publicar();
-        servicio3.publicar();
-        servicio4.publicar();
-        servicio5.publicar();
-        System.out.println("ALL WEB SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!");
-        System.out.println("Initializing workstation...");
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Menu window = new Menu();
-					window.getMenuPrincipal().setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+    	if(!flags.contains("--workstation-only")) {
+	    	System.out.println("DEPLOYING WEB SERVICES...");
+	        WSUsuarioController servicio1 = new WSUsuarioController();
+	        WSActividadController servicio2 = new WSActividadController();
+	        WSCuponeraController servicio3 = new WSCuponeraController();
+	        WSClaseController servicio4 = new WSClaseController();
+	        WSContentController servicio5 = new WSContentController();
+	        servicio1.publicar();
+	        servicio2.publicar();
+	        servicio3.publicar();
+	        servicio4.publicar();
+	        servicio5.publicar();
+	        System.out.println("ALL WEB SERVICES HAVE BEEN DEPLOYED SUCCESSFULLY!");
+    	}
+    	
+    	if(!flags.contains("--ws-only")) {
+	        System.out.println("Initializing workstation...");
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						Menu window = new Menu();
+						window.getMenuPrincipal().setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			}
-		});
+			});
+    	}
     }
 
+    public static void cargarConfig() {
+    	String home = System.getProperty("user.home");
+    	File srvCentralprp = new File(home + "/.entrenamosUy");
+    	if(srvCentralprp.mkdir()) {
+    		System.out.println("Config folder was not found... creating default config folder at "+home);
+        	try(InputStream s = Main.class.getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
+        		Files.copy(s, (new File(home + "/.entrenamosUy/servidorCentral.properties").toPath()));
+        	} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	else {
+	    	File prp = new File(home+"/.entrenamosUy/servidorCentral.properties");
+	    	if(!(prp.exists())) {
+	    		System.out.println("Config file was not found... generating default config at "+prp);
+	        	try(InputStream s = Main.class.getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
+	        		Files.copy(s, prp.toPath());
+	        	} catch (IOException e) {
+	    			e.printStackTrace();
+	    		}
+	    	}
+    	}
+    	File prp = new File(home+"/.entrenamosUy/servidorCentral.properties");
+    	config = new Properties();
+    	try(InputStream s = Files.newInputStream(prp.toPath())){
+    		config.load(s);
+    	} catch (IOException e) {
+			e.printStackTrace();
+		} 
+    }
     
-	public static void cargaDeCasos() {
+	public static void cargaDeCasos() throws Exception{
 		try {
 			LaFabrica fabricaSistema = LaFabrica.getInstance();
 			IADC = fabricaSistema.obtenerIActDeportivaController();
@@ -493,7 +545,7 @@ public class Main {
 			IDCC.inscribirSocio("Telón",  "Basquetbol",  "Basquet II",  "caro",  TReg.general,  
 					new DtFecha(2021, 9, 2, 0, 0, 0),  null);
 		} catch (Exception e) {
-        	e.printStackTrace();
+        	throw e;
 		}
 	}    
 }

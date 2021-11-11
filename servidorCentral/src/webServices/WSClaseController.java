@@ -25,6 +25,7 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 import logica.IDictadoClaseController;
 import logica.LaFabrica;
+import main.Main;
 
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
@@ -38,12 +39,7 @@ public class WSClaseController {
 	
     @WebMethod(exclude = true)
     public void publicar(){
-    	Properties prp = new Properties();
-    	try(InputStream s = getClass().getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")){
-    		prp.load(s);
-    	} catch (IOException e) {
-			e.printStackTrace();
-		} 
+    	Properties prp = Main.config;
     	endpoint = Endpoint.publish("http://"+prp.getProperty("hostIP")+":"+prp.getProperty("hostPort")+prp.getProperty("claseController_ServiceName"), this);
     }
     
