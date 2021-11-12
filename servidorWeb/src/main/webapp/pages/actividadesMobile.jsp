@@ -7,7 +7,17 @@
 <%@ page import="datatypes.DtClaseExt"%>
 <%@ page import="datatypes.DtCuponera"%>
 <%@ page import="datatypes.DtFecha"%>
-
+<!DOCTYPE html>
+<html>
+<head>
+	<jsp:include page="/template/head.jsp"/>
+	<link rel="stylesheet" 
+		href="<%=request.getContextPath()%>/assets/styles/home.css">
+	<link rel="stylesheet" 
+		href="<%=request.getContextPath()%>/assets/styles/consultaActividadDeportiva.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/actividadesMobile.css">
+</head>
+<body>
 <jsp:include page="/template/headerMobile.jsp"/>
 <%  DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
 if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
@@ -127,3 +137,5 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
 </div>
 <jsp:include page="/template/footerMobile.jsp"/>
 <% } %>
+</body>
+</html>

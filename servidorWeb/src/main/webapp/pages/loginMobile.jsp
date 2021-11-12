@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="datatypes.DtUsuarioExt"%>
+<%@ page import="datatypes.DtSocioExt"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<jsp:include page="/template/head.jsp"/>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/homeMobile.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/loginMobile.css">
+</head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
 	  <a class="navbar-brand" href="<%=request.getContextPath()%>/home" id="brand">
@@ -33,12 +44,17 @@
 			String q = (String) request.getParameter("e");
 			if (q!=null) {
 				x=q;
+				String texto = "La combinación Usuario/Contraseña no es correcta.";
+				if (Integer.parseInt(q) == 9)
+					texto = "Solo los Socios/as pueden iniciar sesion.";
 			%>
 			<div class="form-floating mb-3 mx-4">
-			<h3 class="nav-link"><b>Error: </b> <i>La combinación Usuario/Contraseña no es correcta.</i></h3>
+			<h3 class="nav-link"><b>Error: </b> <i></i><%=texto%></h3>
 			</div>
 		<% } %>
     </form>
     </div>
 </div>
 <jsp:include page="/template/footerMobile.jsp"/>
+</body>
+</html>
