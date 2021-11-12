@@ -1,6 +1,8 @@
-package com;
+package logica.persistencia.Entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +22,12 @@ public class Clases implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private Date fechaInicio;
-    private Date horaInicio; //ups
+    private Calendar fechaInicio;
+    private Calendar horaInicio; //ups
     private Integer sociosMinimos;
     private Integer sociosMaximos;
     private String url;
-    private Date fechaAlta;
+    private Calendar fechaAlta;
     private Long idActividad;
 
     //private tipoUsuario tipo
@@ -38,19 +40,19 @@ public class Clases implements Serializable {
         this.id = id;
     }
     
-    public Date getFechaInicio() {
+    public Calendar getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(Calendar fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
     
-    public Date getHoraInicio() {
+    public Calendar getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(Calendar horaInicio) {
         this.horaInicio = horaInicio;
     }
     
@@ -71,18 +73,18 @@ public class Clases implements Serializable {
     }
     
     public String getUrl() {
-        return nickname;
+        return url;
     }
 
     public void getUrl(String url) {
         this.url = url;
     }
     
-    public Date getFechaAlta() {
+    public Calendar getFechaAlta() {
         return fechaInicio;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
+    public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
     
@@ -107,20 +109,12 @@ public class Clases implements Serializable {
         if (!(object instanceof Clases)) {
             return false;
         }
-        ActividadesDeportivas other = (Clases) object;
+        Clases other = (Clases) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
-    
-    private Date fechaInicio;
-    private Date horaInicio; //ups
-    private Integer sociosMinimos;
-    private Integer sociosMaximos;
-    private String url;
-    private Date fechaAlta;
-    private Long idActividad;
     
     @Override
     public String toString() {
