@@ -62,13 +62,14 @@ public class ConfigListener implements ServletContextListener {
     	try {
 			config.load(new FileInputStream(home+"/.entrenamosUy/servidorWeb.properties"));
 			for(Entry<Object, Object> x: config.entrySet()) {
-				if(x.getKey()==null)
+				if(x.getValue()==null)
 					config.setProperty((String) x.getKey(), ctx.getInitParameter((String) x.getKey()));
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}    	
 
+    	cfg = config;
     	System.out.println("Configuration loaded successfully.");
     }
 }

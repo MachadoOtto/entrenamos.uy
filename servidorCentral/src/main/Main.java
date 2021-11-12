@@ -9,14 +9,17 @@ import workstation.Menu;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import datatypes.DtActividadDeportiva;
 import datatypes.DtCategoria;
@@ -114,6 +117,18 @@ public class Main {
     	} catch (IOException e) {
 			e.printStackTrace();
 		} 
+    	//Lee propiedades que no estaban en el home.
+    	Properties def = new Properties();
+    	try(InputStream s = Main.class.getClassLoader().getResourceAsStream("META-INF/entrenamosuy.properties")) {
+			def.load(s); 
+			for(Entry<Object, Object> x: def.entrySet()) {
+				if(config.getProperty((String) x.getKey())==null)
+					config.setProperty((String) x.getKey(), def.getProperty((String) x.getKey()));
+			}
+			config.store(new FileOutputStream(home+"/.entrenamosUy/servidorCentral.properties"), "");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}   
     }
     
 	public static void cargaDeCasos() throws Exception{

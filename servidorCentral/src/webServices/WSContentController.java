@@ -28,7 +28,7 @@ import main.Main;
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class WSContentController {
-	private String contentRootPath = "assets/";
+	private String contentRootPath = Main.config.getProperty("assetfolderPath");
 	@SuppressWarnings("serial")
 	Map<String,String> typeMap = new HashMap<String,String>(){{
 	    this.put("cla", "images/classes/");

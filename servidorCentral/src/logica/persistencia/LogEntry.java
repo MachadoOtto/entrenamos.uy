@@ -27,6 +27,9 @@ public class LogEntry {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar date;
 	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar expires;
+	
 	public String getUrl() {
 		return url;
 	}
@@ -65,5 +68,13 @@ public class LogEntry {
 
 	public void setDate(Calendar date) {
 		this.date = date;
+	}
+
+	public Calendar getExpires() {
+		return expires;
+	}
+
+	public void setExpires(Calendar expires) {
+		this.expires = expires;
 	}
 }

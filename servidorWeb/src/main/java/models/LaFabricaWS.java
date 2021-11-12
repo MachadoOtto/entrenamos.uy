@@ -569,6 +569,8 @@ public class LaFabricaWS {
 
 		@Override
 		public void sendReport(LogEntryWS entry) {
+			if(logpool==null)
+				logpool = new LogEntryWSArray();
 			logpool.getItem().add(entry);
 			port.sendReports(logpool);
 			if(logpool.getItem().size()>=Integer.parseInt(ConfigListener.cfg.getProperty("logthreshold")))
