@@ -29,5 +29,9 @@ public class LaFabrica {
     	ICuponeraController idep = CuponeraController.getInstance();
     	return idep;
      }
+    
+    public ILogger getILogger() {
+    	return HandlerLogs.getInstance();
+    }
 
 }

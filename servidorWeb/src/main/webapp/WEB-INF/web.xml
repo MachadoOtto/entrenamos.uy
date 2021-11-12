@@ -27,6 +27,10 @@
       <param-name>logthreshold</param-name>
       <param-value>10</param-value>
     </context-param>
+    <context-param>
+      <param-name>contentCacheAge</param-name>
+      <param-value>60</param-value>
+    </context-param>
   <display-name>servidorWeb</display-name>
   <welcome-file-list>
     <welcome-file>/pages/index.jsp</welcome-file>

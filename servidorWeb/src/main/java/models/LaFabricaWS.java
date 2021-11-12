@@ -40,6 +40,8 @@ import webservices.CuponeraNoExisteException_Exception;
 import webservices.FechaInvalidaException_Exception;
 import webservices.IOException_Exception;
 import webservices.InstitucionException_Exception;
+import webservices.LogEntryWS;
+import webservices.LogEntryWSArray;
 import webservices.NoExisteCuponeraException_Exception;
 import webservices.TRegWS;
 import webservices.UsuarioNoExisteException_Exception;
@@ -54,7 +56,7 @@ public class LaFabricaWS {
 
 		public UsuarioController() {
 		    try {
-		    	service = new webservices.WSUsuarioControllerService(new URL(ConfigListener.usuarioController));
+		    	service = new webservices.WSUsuarioControllerService(new URL(ConfigListener.cfg.getProperty("usuarioControllerURL")));
 		    } catch (MalformedURLException ex) {
 		        throw new RuntimeException(ex);
 		    }
@@ -188,7 +190,7 @@ public class LaFabricaWS {
 		
 		public ActividadDeportivaController() {
 		    try {
-		    	service = new webservices.WSActividadControllerService(new URL(ConfigListener.actividadController));
+		    	service = new webservices.WSActividadControllerService(new URL(ConfigListener.cfg.getProperty("actividadControllerURL")));
 		    } catch (MalformedURLException ex) {
 		        throw new RuntimeException(ex);
 		    }
@@ -313,7 +315,7 @@ public class LaFabricaWS {
 		
 		public DictadoClaseController() {
 		    try {
-		    	service = new webservices.WSClaseControllerService(new URL(ConfigListener.claseController));
+		    	service = new webservices.WSClaseControllerService(new URL(ConfigListener.cfg.getProperty("claseControllerURL")));
 		    } catch (MalformedURLException ex) {
 		        throw new RuntimeException(ex);
 		    }
@@ -501,7 +503,7 @@ public class LaFabricaWS {
 
 		public CuponeraController() {
 		    try {
-		    	service = new webservices.WSCuponeraControllerService(new URL(ConfigListener.cuponeraController));
+		    	service = new webservices.WSCuponeraControllerService(new URL(ConfigListener.cfg.getProperty("cuponeraControllerURL")));
 		    } catch (MalformedURLException ex) {
 		        throw new RuntimeException(ex);
 		    }
@@ -532,13 +534,14 @@ public class LaFabricaWS {
 		}
 		
 	}
-	public class ContentController implements IContentController{
+	public static class ContentController implements IContentController{
+		static LogEntryWSArray logpool = new LogEntryWSArray();
 		webservices.WSContentControllerService service = new webservices.WSContentControllerService();
 		webservices.WSContentController port = service.getWSContentControllerPort();
 		
 		public ContentController() {
 		    try {
-		    	service = new webservices.WSContentControllerService(new URL(ConfigListener.contentController));
+		    	service = new webservices.WSContentControllerService(new URL(ConfigListener.cfg.getProperty("contentControllerURL")));
 		    } catch (MalformedURLException ex) {
 		        throw new RuntimeException(ex);
 		    }
@@ -565,10 +568,11 @@ public class LaFabricaWS {
 		}
 
 		@Override
-		public void sendReports(String[] entries) {
-			StringArray x = new StringArray();
-			x.getItem().addAll(Arrays.asList(entries));
-			port.sendReports(x);
+		public void sendReport(LogEntryWS entry) {
+			logpool.getItem().add(entry);
+			port.sendReports(logpool);
+			if(logpool.getItem().size()>=Integer.parseInt(ConfigListener.cfg.getProperty("logthreshold")))
+				logpool = new LogEntryWSArray();
 		}
 		
 	}

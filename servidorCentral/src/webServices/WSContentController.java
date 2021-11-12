@@ -14,8 +14,13 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Endpoint;
 
+import datatypes.DtFecha;
+import datatypesWS.DtFechaWS;
+import datatypesWS.LogEntryWS;
+import logica.HandlerLogs;
 import logica.IActividadDeportivaController;
 import logica.LaFabrica;
 import main.Main;
@@ -74,9 +79,7 @@ public class WSContentController {
     }
     
     @WebMethod
-    public void sendReports(String[] entries) {
-    	//Aca habría que hacer algo dependiendo de como se tratan los registros...
-    	//Los vamos a persistir junto con las cosas de la logica o es mejor tener un archivo de logs aparte
-    	//Creo que lo primero es una buena opción :))
+    public void sendReports(LogEntryWS[] entries) {
+    	LaFabrica.getInstance().getILogger().addLogs(entries);
     }
 }

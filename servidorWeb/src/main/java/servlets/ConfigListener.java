@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -16,39 +17,28 @@ import javax.servlet.annotation.WebListener;
 
 @WebListener
 public class ConfigListener implements ServletContextListener {
-	public static String usuarioController = null;
-	public static String actividadController = null;
-	public static String claseController = null;
-	public static String contentController = null;
-	public static String cuponeraController = null;
-	public static String logthreshold = null;
+	public static Properties cfg = new Properties();
     public ConfigListener() { }
 
     public void contextDestroyed(ServletContextEvent sce)  { }
 
     public void contextInitialized(ServletContextEvent sce)  { 
-    	ServletContext ctx = sce.getServletContext();
-    	usuarioController = ctx.getInitParameter("usuarioControllerURL");
-    	actividadController = ctx.getInitParameter("actividadControllerURL");
-    	claseController = ctx.getInitParameter("claseControllerURL");
-    	contentController = ctx.getInitParameter("contentControllerURL");
-    	cuponeraController = ctx.getInitParameter("cuponeraControllerURL");
-    	logthreshold = ctx.getInitParameter("logthreshold");
     	cargarConfig(sce);
     }
 
     
     public static void cargarConfig(ServletContextEvent sce) {
+    	ServletContext ctx = sce.getServletContext();
     	String home = System.getProperty("user.home");
     	File cfgfolder = new File(home + "/.entrenamosUy");
-    	Properties config = new Properties();
-    	config.setProperty("usuarioControllerURL", usuarioController);
-    	config.setProperty("actividadControllerURL", actividadController);
-    	config.setProperty("claseControllerURL", claseController);
-    	config.setProperty("contentControllerURL", contentController);
-    	config.setProperty("cuponeraControllerURL", cuponeraController);
-    	config.setProperty("logthreshold", logthreshold);
-    	System.out.println("th"+logthreshold);
+    	Properties config = cfg;
+    	config.setProperty("usuarioControllerURL", ctx.getInitParameter("usuarioControllerURL"));
+    	config.setProperty("actividadControllerURL", ctx.getInitParameter("actividadControllerURL"));
+    	config.setProperty("claseControllerURL", ctx.getInitParameter("claseControllerURL"));
+    	config.setProperty("contentControllerURL", ctx.getInitParameter("contentControllerURL"));
+    	config.setProperty("cuponeraControllerURL", ctx.getInitParameter("cuponeraControllerURL"));
+    	config.setProperty("logthreshold", ctx.getInitParameter("logthreshold"));
+    	config.setProperty("contentCacheAge", ctx.getInitParameter("contentCacheAge"));
     	if(cfgfolder.mkdir()) {
     		System.out.println("Config folder was not found... creating default config folder at "+home);
         	try {
@@ -71,29 +61,14 @@ public class ConfigListener implements ServletContextListener {
     	config = new Properties();
     	try {
 			config.load(new FileInputStream(home+"/.entrenamosUy/servidorWeb.properties"));
+			for(Entry<Object, Object> x: config.entrySet()) {
+				if(x.getKey()==null)
+					config.setProperty((String) x.getKey(), ctx.getInitParameter((String) x.getKey()));
+			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
-    	usuarioController = config.getProperty("usuarioControllerURL");
-    	actividadController = config.getProperty("actividadControllerURL");
-    	claseController = config.getProperty("claseControllerURL");
-    	contentController = config.getProperty("contentControllerURL");
-    	cuponeraController = config.getProperty("cuponeraControllerURL");
-    	logthreshold = config.getProperty("logthreshold");
-    	ServletContext ctx = sce.getServletContext();
-    	if(usuarioController==null)
-    		usuarioController = ctx.getInitParameter("usuarioControllerURL");
-    	if(actividadController==null)
-    		actividadController = ctx.getInitParameter("actividadControllerURL");
-    	if(claseController==null)
-    		claseController = ctx.getInitParameter("claseControllerURL");
-    	if(contentController==null)
-    		contentController = ctx.getInitParameter("contentControllerURL");
-    	if(cuponeraController==null)
-    		cuponeraController = ctx.getInitParameter("cuponeraControllerURL");
-    	if(logthreshold==null) {
-        	logthreshold = ctx.getInitParameter("logthreshold");
-    	}
+		}    	
+
     	System.out.println("Configuration loaded successfully.");
     }
 }
