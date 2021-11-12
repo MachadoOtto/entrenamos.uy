@@ -148,19 +148,19 @@
 				<nav class="nav nav-pills flex-column flex-sm-row">
 					<button id="nav-perfil" type="button" onclick="cambioNavegador('user-consultaPerfil', 'nav-perfil')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-radius-0 active" >Perfil</button>
 					<% if (usrProfile instanceof DtSocioExt) {%>
-						<button id="nav-inscripciones" type="button" onclick="cambioNavegador('user-consultaInscripciones', 'nav-inscripciones')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Inscripciones</button>
+					<button id="nav-inscripciones" type="button" onclick="cambioNavegador('user-consultaInscripciones', 'nav-inscripciones')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Inscripciones</button>
 					<% } else { %>
-						<button id="nav-clasesDictadas" type="button" onclick="cambioNavegador('user-consultaClases', 'nav-clasesDictadas')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Clases Dictadas</button>
+					<button id="nav-clasesDictadas" type="button" onclick="cambioNavegador('user-consultaClases', 'nav-clasesDictadas')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Clases Dictadas</button>
 					<% } %>
 					<button id="nav-seguidores" type="button" onclick="cambioNavegador('user-seguidores', 'nav-seguidores')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Seguidores</button>
 					<button id="nav-seguidos" type="button" onclick="cambioNavegador('user-seguidos', 'nav-seguidos')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Seguidos</button>
 					<% if ((usrProfile instanceof DtSocioExt) && (usrLogged != null) && usrLogged.getNickname().equals(usrProfile.getNickname())) {	/*Socio mirando su propio perfil*/ %>	
-						<button id="nav-cuponeras" type="button" onclick="cambioNavegador('user-cuponeras', 'nav-cuponeras')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
-						<button id="nav-premios" type="button" onclick="cambioNavegador('user-premios', 'nav-premios')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Premios</button>
+					<button id="nav-cuponeras" type="button" onclick="cambioNavegador('user-cuponeras', 'nav-cuponeras')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Cuponeras</button>
+					<button id="nav-premios" type="button" onclick="cambioNavegador('user-premios', 'nav-premios')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Premios</button>
 					<% } %>
 					<% if (usrProfile instanceof DtProfesorExt) { %>
-						<button id="nav-actAsoc" type="button" onclick="cambioNavegador('user-consultaAD', 'nav-actAsoc')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Asociadas</button>
-						<button id="nav-actIng"  type="button" onclick="cambioNavegador('user-consultaADI', 'nav-actIng')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Actividades Ingresadas</button>
+					<button id="nav-actAsoc" type="button" onclick="cambioNavegador('user-consultaAD', 'nav-actAsoc')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 ">Actividades Asociadas</button>
+					<button id="nav-actIng"  type="button" onclick="cambioNavegador('user-consultaADI', 'nav-actIng')" class="user-nav flex-sm-fill text-sm-center nav-link border border-bottom-radius-0 p-2 " >Actividades Ingresadas</button>
 					<% } %>
 				</nav>
 			</div>
@@ -395,21 +395,32 @@
 				<% Map<?,?> premios = (Map<?,?>) request.getAttribute("premios"); %>
 				<div id= "user-premios" class="row col-sm-9 border card-body">
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
-					<% int i = 0; %>
+						<% int i = 0; %>
 						<% for ( Object p: premios.keySet() ) { %>
 						<% i++; %>
 						<li class="list-group-item container border card-body elementoLista">
+						  <div class="row">
 							<div class="col-auto">
 							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/misc/trophy.png" class="vertical-align-middle imagenSeleccionable">
 								<b><%="Premio #" + i%></b>
 							 </div>
 							 <div class="col-auto">
-							    <div><strong><%= (String) p%></strong></div>
-							 	<div><%= (((DtPremio) premios.get(p)).getFechaSorteo()).toWebFecha() %></div>
+							    <div>
+							    	<strong><%= (String) p%></strong>
+							    	<% for ( Map.Entry<String, Set<String>> xy: (((DtSocioExt)usrProfile).getAguadeUwu()).entrySet() ) { %>
+											<% if (xy.getValue().contains((String) p)) { %>
+												<small class="text-muted">(<%=xy.getKey()%>)</small>
+											<% break; }%>
+									<% } %>
+								</div>
+							 	<div>
+							 		<%= (((DtPremio) premios.get(p)).getFechaSorteo()).toWebFecha() %>
+							 	</div>
 					    	</div>
 							 <div id="imagenSeleccionableSecundaria" class="col-sm">
 							 	<a><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
 					    	</div>
+					      </div>
 					    </li>
 						<% } %>
 						</ul>
