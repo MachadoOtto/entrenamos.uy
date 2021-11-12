@@ -5,16 +5,10 @@
   document.getElementById('estrellitas-interior' ).style.width = porcentajeEstrellal;
 */
 function cargarEstrellitas() {
-  estrellas = 4.5;
-  puntajes = [7,4,7,10,2];
-
+  estrellas = 0;
+  estrellas = (document.getElementById('usr-promedio').innerHTML);
   porcentajeEstrellal = (estrellas*2.125) + "rem";
   document.getElementById('estrellitas-interior').style.width = porcentajeEstrellal;
-  
-  for (let i = 0; i < 5; i++) {
-	porcentajeBarra = (puntajes[i]*16) + "%";
-    document.getElementById('estrellitas-puntaje' + (i+1)).style.width = porcentajeBarra;
-  }
 }
 /*
 function estrellato( idEstrellal ) {

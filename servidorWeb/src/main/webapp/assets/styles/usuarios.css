@@ -92,85 +92,103 @@ body {
  
  #user-consultaPerfil {
  	display: block;
- 	max-width: 2000x;
+ 	width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
 #user-consultaInscripciones {
   	list-style-type: none;
-  display: none;
- 	max-width: 2000x;
+    display: none;
+    width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
 }
   #user-consultaClases {
-  list-style-type: none;
+    list-style-type: none;
   	display: none;
- 	max-width: 2000x;
+  	width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
  #user-seguidores {
    list-style-type: none;
-  display: none;
- 	max-width: 2000x;
+    display: none;
+    width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
  #user-seguidos {
  	list-style-type: none;
-  display: none;
- 	max-width: 2000x;
+    display: none;
+    width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
  #user-cuponeras {
  	list-style-type: none;
-  display: none;
- 	max-width: 2000x;
+    display: none;
+    width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
   #user-clasesFinalizadas {
-  display: none;
+    display: none;
+    width: 1100px;
+    max-width: 1100px;
+    max-height: 375px;
+    overflow-y: auto;
  }
  
  #user-premios {
+  list-style-type: none;
   display: none;
+  width: 1100px;
+  max-width: 1100px;
+  max-height: 375px;
+  overflow: auto;
+  margin-left: 0;
  }
  
  #user-consultaAD{
  	list-style-type: none;
-  display: none;
- 	max-width: 2000x;
+    display: none;
+   width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
  #user-consultaADI{
  	list-style-type: none;
-  display: none;
- 	max-width: 2000x;
+    display: none;
+    width: 1100px;
+ 	max-width: 1100px;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
   #user-consultaActividadesDeportivas {
-  list-style-type: none;
-  display: none;
+    list-style-type: none;
+    display: none;
  	max-width: 2000x;
  	max-height: 375px;
  	overflow-y: auto;
  }
  
   #user-consultaCuponeras {
-  list-style-type: none;
-  display: none;
+    list-style-type: none;
+    display: none;
  	max-width: 2000x;
  	max-height: 375px;
  	overflow-y: auto;
@@ -270,11 +288,13 @@ body {
 }
 
 .porcentajes {
+  size: 15px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   position: absolute;
   text-align: center;
   line-height: 20px; /* line-height should be equal to bar height */
   overflow: hidden;
-  color: black;
+  color: white;
   right: 0;
   left: 0;
   top: 0;
@@ -305,6 +325,23 @@ body {
     border-color: #0275d8;
 }
 
+#imagenSeleccionableSecundaria {
+    justify-content: right;
+	display: flex;
+	position: relative;
+	text-align: right !important;
+	
+	/*right: 150px;
+	/*margin: 0px 15px 15px 0px;*/
+}
+
+.imagenSeleccionableSecundaria {
+	margin-top: 45%;
+	object-fit: cover;
+	width:50px;
+	height:50px;
+}
+
 .clase {
 	padding: 10px;
 	vertical-align: top; 
@@ -313,10 +350,17 @@ body {
 }
 
 .elementoLista {
+	max-width: 100%;
+	--bs-gutter-x: 0;
 	width: 96%;
 	background: white;
 	color: #525252;
 	transition: transform 0.25s;
+	min-width: 500px;
+}
+
+.elementoListaPequenio {
+	min-width: 250px !important;
 }
 
 .elementoLista:hover {

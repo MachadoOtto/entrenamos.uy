@@ -153,6 +153,12 @@ public class WSUsuarioController {
 		DtUsuarioExt d = IUC.seleccionarUsuario(nick);
 		return new DtSocioWS((DtSocioExt) d);
 	}
+    
+    /*@WebMethod
+    public Set<Integer> obtenerValoraciones(String nickProfesor) throws UsuarioNoExisteException {
+		return IUC.obtenerValoraciones(nickProfesor);
+    }*/
+    
 	/*
 	 * Esta función no solamente sirve para verificar que el ws está operativo pero tambien para verificar que estén utilizando la codificación correcta en el
 	 * eclipse 🤣;
