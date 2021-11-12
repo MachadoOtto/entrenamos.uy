@@ -9,6 +9,15 @@
 <%@ page import="datatypes.DtSocioExt"%>
 <%@ page import="datatypes.DtFecha"%>
 
+<!doctype html>
+<html lang="en">
+<head>
+    <jsp:include page="/template/head.jsp"/>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/search.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/searchMobile.css">
+</head>
+<body>
 	<jsp:include page="/template/headerMobile.jsp"/>
     <%DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
     if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
@@ -131,28 +140,30 @@
             <% } %>
         </div>
     </div>
-
-  <div id="section-sponsors" class="row pt-5 pb-5">
-    <div class="row text-center">
-        <h1>Sponsors</h1>
-    </div>
-    <div class="row mt-4">
-        <div class="col-6 text-center">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/logoPowerade.jpg" alt="">
-        </div>
-        <div class="col-6 text-center">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/logoGatorade.jpg" alt="">
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-6 text-center">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/logoUniversal.png" alt="">
-        </div>
-        <div class="col-6 text-center">
-            <img src="<%=request.getContextPath()%>/assets/images/misc/logoAdidas.jpg" alt="">
-        </div>
-    </div>
-</div>
-<jsp:include page="/template/footerMobile.jsp"/>
-<% } //End If ActividadesDeportivas == yes (necesario para saber que se usaran las listas)
-} //End If es DtSocioExt%>
+	
+	  <div id="section-sponsors" class="row pt-5 pb-5">
+	    <div class="row text-center">
+	        <h1>Sponsors</h1>
+	    </div>
+	    <div class="row mt-4">
+	        <div class="col-6 text-center">
+	            <img src="<%=request.getContextPath()%>/assets/images/misc/logoPowerade.jpg" alt="">
+	        </div>
+	        <div class="col-6 text-center">
+	            <img src="<%=request.getContextPath()%>/assets/images/misc/logoGatorade.jpg" alt="">
+	        </div>
+	    </div>
+	    <div class="row mt-4">
+	        <div class="col-6 text-center">
+	            <img src="<%=request.getContextPath()%>/assets/images/misc/logoUniversal.png" alt="">
+	        </div>
+	        <div class="col-6 text-center">
+	            <img src="<%=request.getContextPath()%>/assets/images/misc/logoAdidas.jpg" alt="">
+	        </div>
+	    </div>
+	</div>
+	<jsp:include page="/template/footerMobile.jsp"/>
+	<% } //End If ActividadesDeportivas == yes (necesario para saber que se usaran las listas)
+	} //End If es DtSocioExt%>
+</body>
+</html>
