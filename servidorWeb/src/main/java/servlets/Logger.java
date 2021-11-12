@@ -32,7 +32,7 @@ public class Logger implements Filter {
 	}
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		chain.doFilter(request, response);
-		if(index>(entries.length-7)) {
+		if(index>(entries.length-6)) {
 			LaFabricaWS.getInstance().obtenerIContentController().sendReports(entries);
 			index=0;
 			entries = new String[Integer.parseInt(ConfigListener.logthreshold)*6];

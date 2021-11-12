@@ -16,6 +16,7 @@ import main.Main;
 import logica.IUsuarioController;
 import logica.IActividadDeportivaController;
 import logica.IDictadoClaseController;
+import logica.ILogger;
 import logica.ICuponeraController;
 
 import java.awt.EventQueue;
@@ -76,7 +77,8 @@ public class Menu {
 	private AgregarActividadDeportivaCuponera aggCup;
 	private AceptarRechazarActividadDeportiva acceptActDep;
 	private AltaCategoria altaCat;
-	
+	private ILogger IL;
+	private LogViewer logviewer;
 	/* DEPRECTED MAIN.
 	//Run program!
 	public static void main(String[] args) {
@@ -102,7 +104,7 @@ public class Menu {
 		IADC = fabrica.obtenerIActDeportivaController();
 		IDC = fabrica.obtenerICuponeraController();
 		IDCC = fabrica.obtenerIDictadoClaseController();	
-		
+		IL = fabrica.getILogger();
 		//Preinicializacion de JInternalFrames con visibilidad=false
 		
 		//AltaUsuario:
@@ -180,6 +182,12 @@ public class Menu {
 		acceptActDep.setBounds(437,  290,  500,  400);
 		acceptActDep.setVisible(false);
 		escritorio.add(acceptActDep);
+		
+		//Logger
+		logviewer = new LogViewer(IL);
+		logviewer.setBounds(60,  290,  877,  400);
+		logviewer.setVisible(false);
+		escritorio.add(logviewer);
 		
 		//Alta Categoria
 		altaCat = new AltaCategoria(IADC);
@@ -417,6 +425,20 @@ public class Menu {
 		JMenu menuModificaciones = new JMenu("Modificaciones");
 		menuBar.add(menuModificaciones);
 		
+		JMenu registrosMenu = new JMenu("Registros");
+		menuBar.add(registrosMenu);
+		JMenuItem registrosSitioItem = new JMenuItem("Modificar Datos Usuario");
+		registrosMenu.add(registrosSitioItem);
+		registrosSitioItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (logviewer.isVisible()) 
+					logviewer.toFront();
+				else {
+					logviewer.setVisible(true);
+				}
+			}
+		});
+
 		JMenuItem itemModUsuario = new JMenuItem("Modificar Datos Usuario");
 		menuModificaciones.add(itemModUsuario);
 		itemModUsuario.addActionListener(new ActionListener() {
