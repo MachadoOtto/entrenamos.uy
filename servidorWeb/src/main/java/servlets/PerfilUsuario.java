@@ -125,7 +125,24 @@ public class PerfilUsuario extends HttpServlet {
         			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(),  x));
         		}
         	}
-        	        	
+        	
+        	float valoracion = 0;
+        	if (usr instanceof DtProfesorExt) {
+        		valoracion = ((DtProfesorExt) usr).getValoracion();
+        	}
+        	
+        	List<Integer> valoraciones = new ArrayList<>();
+        	if (usr instanceof DtProfesorExt) {
+	        	
+	        	for( String x: ((DtProfesorExt)usr).getClasesDictadas()) {
+	        		for( Integer y:IDCC.buscarClase(x).getCalificaciones().values()) {
+	        			valoraciones.add(y);
+	        		}
+	        	}
+        	}
+        	
+        	request.setAttribute("valoracion",  valoracion);
+        	request.setAttribute("valoraciones",  valoraciones);    
         	request.setAttribute("datoUsuario",  usr);
         	request.setAttribute("clasesDictadas",  clasesDictadasProfesor);
         	request.setAttribute("clasesInscripto",  clasesInscriptoSocio);
