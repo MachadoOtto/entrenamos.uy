@@ -1,6 +1,7 @@
-package com;
-
+package logica.persistencia.Entidades;
 import java.io.Serializable;
+import java.util.Calendar;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,12 +20,13 @@ public class ActividadesDeportivas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private String nombre;
     private String descripcion;
     private Float duracion;
     private Float costo;
-    private Date fechaAlta;
-    private Date fechaFinalizacion;
+    private Calendar fechaAlta;
+    private Calendar fechaFinalizacion;
     private Long idProfesor;
 
     //private tipoUsuario tipo
@@ -38,7 +40,7 @@ public class ActividadesDeportivas implements Serializable {
     }
     
     public String getNombre() {
-        return nickname;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
@@ -46,7 +48,7 @@ public class ActividadesDeportivas implements Serializable {
     }
     
     public String getDescripcion() {
-        return nickname;
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
@@ -69,19 +71,19 @@ public class ActividadesDeportivas implements Serializable {
         this.costo = costo;
     }
     
-    public Date getFechaAlta() {
+    public Calendar getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
+    public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
     
-    public Date getFechaFinalizacion() {
+    public Calendar getFechaFinalizacion() {
         return fechaFinalizacion;
     }
 
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
+    public void setFechaFinalizacion(Calendar fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
     

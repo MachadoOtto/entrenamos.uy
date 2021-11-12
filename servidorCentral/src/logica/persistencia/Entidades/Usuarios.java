@@ -1,10 +1,24 @@
-package com;
+package logica.persistencia.Entidades;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
+
+import logica.persistencia.Datatypes.TipoUsuario;
+
+import javax.persistence.DiscriminatorType;
 
 
 /**
@@ -12,22 +26,37 @@ import javax.persistence.Id;
  *
  */
 
-
-@Entity
-public class Usuarios implements Serializable {
+@MappedSuperclass
+@Table(name = "USUARIOS")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "TIPO_USUARIO",
+discriminatorType = DiscriminatorType.INTEGER)
+public abstract class Usuarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @Column(name = "NICKNAME")
     private String nickname;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "NOMBRE")
     private String nombre;
+    @Column(name = "APELLIDO")
     private String apellido;
-    private Date fechaNacimiento;
-    //private tipoUsuario tipo
+    @Column(name = "FECHA_NACIMIENTO")
+    private Calendar fechaNacimiento;
+    @Column(name = "TIPO_USUARIO")
+    private TipoUsuario tipoUsuario;
 
-    public Long getId() {
+    //UniDireccional???
+    @ManyToOne
+    private List<Socios> socios;
+    @ManyToOne
+    private List<Profesores> profesores;
+    
+	public Long getId() {
         return id;
     }
 
@@ -67,13 +96,21 @@ public class Usuarios implements Serializable {
         this.apellido = apellido;
     }
     
-    public String getFechaNacimiento() {
+    public Calendar getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(Calendar fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
+    public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
 
     @Override
     public int hashCode() {
