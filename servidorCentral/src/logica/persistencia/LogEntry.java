@@ -2,7 +2,7 @@ package logica.persistencia;
 
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,20 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 @Entity
 public class LogEntry {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;
 	
 	private String url;
 	private String ip;
 	private String browser;
 	private String os;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar  date;
+	private Calendar date;
 	
 	public String getUrl() {
 		return url;

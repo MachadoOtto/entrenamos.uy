@@ -10,15 +10,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import datatypes.DtFecha;
 import models.LaFabricaWS;
+import tools.Cnv;
 import ua_parser.Parser;
+import webservices.LogEntryWS;
 import ua_parser.Client;
 
 @WebFilter("/*")
 public class Logger implements Filter {
 	private Parser parser = new Parser();
-	public static int index=0;
-	public static String [] entries =null;
     public Logger() { }
 	public void destroy() { }
 	
@@ -32,22 +33,24 @@ public class Logger implements Filter {
 	}
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		chain.doFilter(request, response);
-		if(index>(entries.length-6)) {
-			LaFabricaWS.getInstance().obtenerIContentController().sendReports(entries);
-			index=0;
-			entries = new String[Integer.parseInt(ConfigListener.logthreshold)*6];
-		}
-		entries[index++] = request.getRemoteAddr();
-		entries[index++] = request.getLocalAddr();
-		entries[index++] = String.valueOf(request.getLocalPort());
-		entries[index++] = ((HttpServletRequest) request).getRequestURI().toString();
-		entries[index++] = parseBrowser((HttpServletRequest)request);
-		entries[index++] = parseOS((HttpServletRequest)request);
+		LogEntryWS e = new LogEntryWS();
+		e.setSo(parseOS((HttpServletRequest)request));
+		e.setBrowser(parseBrowser((HttpServletRequest)request));
+		e.setIp(request.getRemoteAddr());
+		e.setDate(Cnv.fecha(new DtFecha()));
+		String uri = request.getScheme() + "://" +   					// "http" + "://
+	             request.getServerName() +       						// "myhost"
+	             ":" +                           						// ":"
+	             request.getServerPort() +      						 // "8080"
+	             ((HttpServletRequest) request).getRequestURI() +       // "/people"
+	             ( (((HttpServletRequest) request).getQueryString()!=null) ? ("?" +                           						// "?"
+	             ((HttpServletRequest) request).getQueryString()) : "");       // "lastname=Fox&age=30"
+		e.setUrl(uri);
+		LaFabricaWS.getInstance().obtenerIContentController().sendReport(e);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
 		System.out.println("Starting logger...");
-		entries = new String[Integer.parseInt(ConfigListener.logthreshold)*6];
 	}
 
 }

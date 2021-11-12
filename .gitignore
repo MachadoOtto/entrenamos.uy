@@ -20,3 +20,7 @@ servidor.jar
 /servidorWeb/build
 /servidorWeb/dist
 .directory
+*.lck
+*.log
+*.properties
+*.script

@@ -51,6 +51,14 @@ public class ObjectFactory {
     }
 
 	/**
+     * Create an instance of {@link LogEntryWS }
+     * 
+     */
+    public LogEntryWS createLogEntryWS() {
+        return new LogEntryWS();
+    }
+
+	/**
      * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
      * 
      */
@@ -173,6 +181,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LogEntryWSArray }
+     * 
+     */
+    public LogEntryWSArray createLogEntryWSArray() {
+        return new LogEntryWSArray();
+    }
+
+	/**
      * Create an instance of {@link JAXBElement }{@code <}{@link NoExisteCuponeraException }{@code >}}
      * 
      */

@@ -36,7 +36,7 @@ public class LogViewer extends JInternalFrame {
 		this.IL = IL;
 		setTitle("Registro de acceso al servidorWeb");	
 		setClosable(true);
-		setBounds(200, 200, 900, 650);
+		//setBounds(200, 200, 900, 650);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{850, 0};
 		gridBagLayout.rowHeights = new int[]{45, 540, 0};
@@ -60,33 +60,34 @@ public class LogViewer extends JInternalFrame {
 	
 	public void iniciarTabla() {
 		DefaultTableModel tablemodel = new DefaultTableModel();
+		tablemodel.addColumn("#");
 		tablemodel.addColumn("Date");
 		tablemodel.addColumn("IP");
 		tablemodel.addColumn("URL");
 		tablemodel.addColumn("Browser");
 		tablemodel.addColumn("OS");	
 		table.setModel(tablemodel);
-		table.getColumn("Date").setPreferredWidth(4);		
-		table.getColumn("IP").setPreferredWidth(4);
-		table.getColumn("URL").setPreferredWidth(200);
-		table.getColumn("Browser").setPreferredWidth(20);
-		table.getColumn("OS").setPreferredWidth(20);
+		table.getColumn("#").setMaxWidth(50);
+		table.getColumn("#").setMinWidth(10);
+		table.getColumn("Date").setMaxWidth(125);
+		table.getColumn("Date").setMinWidth(125);
+		table.getColumn("IP").setPreferredWidth(125);
+		table.getColumn("URL").setPreferredWidth(500);
+		table.getColumn("Browser").setPreferredWidth(125);
+		table.getColumn("OS").setPreferredWidth(125);
 		
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-            	tablemodel.setRowCount(0);
-        		for(LogEntryWS e: IL.getLogs()) {
-        			tablemodel.addRow(new Object[]{e.getDate().adapt().toFechaHora(),e.getIp(),e.getUrl(),e.getBrowser(),e.getSo()});
-        		}
-    			table.setModel(tablemodel);
-    			table.getColumn("Date").setPreferredWidth(4);		
-    			table.getColumn("IP").setPreferredWidth(4);
-    			table.getColumn("URL").setPreferredWidth(200);
-    			table.getColumn("Browser").setPreferredWidth(20);
-    			table.getColumn("OS").setPreferredWidth(20);
+            	if (LogViewer.this.isVisible()){
+	            	tablemodel.setRowCount(0);
+	            	int i=0;
+	        		for(LogEntryWS e: IL.getLogs()) {
+	        			tablemodel.addRow(new Object[]{Integer.toString(i++),e.getDate().adapt().toFechaHora(),e.getIp(),e.getUrl(),e.getBrowser(),e.getSo()});
+	        		}
+            	}
             }
         };
-        Timer timer = new Timer(1000, actionListener);
+        Timer timer = new Timer(5000, actionListener);
         timer.start();
 	}
 }

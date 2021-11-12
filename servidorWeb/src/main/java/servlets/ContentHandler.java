@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -53,6 +54,11 @@ public class ContentHandler extends HttpServlet {
 		String cc=null;
 		String id=request.getParameter("id");
 		String idf=null;
+		int cacheAge = Integer.parseInt(ConfigListener.cfg.getProperty("contentCacheTime", "60"));
+		long expiry = new Date().getTime() + cacheAge*1000;
+		response.setDateHeader("Expires", expiry);
+	    response.setHeader("Cache-Control", "max-age="+ cacheAge);
+	    response.flushBuffer();
 		if (c==null || id ==null)
 			r404(request, response);
 		if (c.equals("usu")) {
@@ -92,7 +98,6 @@ public class ContentHandler extends HttpServlet {
 			ServletOutputStream stream = response.getOutputStream();
 			byte [] i = ICOC.get(c, idf);
 			stream.write(i);
-			response.setHeader("cache-control",  "max-age=5");
 			response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
 			response.setContentLength(i.length);
 		} else {
@@ -104,7 +109,6 @@ public class ContentHandler extends HttpServlet {
 					    stream.write(ch);
 					    s++;
 					}
-					response.setHeader("cache-control",  "max-age=5");
 					response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
 					response.setContentLength(s);
 				}

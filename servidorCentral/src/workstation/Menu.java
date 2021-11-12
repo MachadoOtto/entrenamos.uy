@@ -185,7 +185,7 @@ public class Menu {
 		
 		//Logger
 		logviewer = new LogViewer(IL);
-		logviewer.setBounds(60,  290,  877,  400);
+		logviewer.setBounds(20,  37,  1154,  653);
 		logviewer.setVisible(false);
 		escritorio.add(logviewer);
 		
@@ -427,7 +427,7 @@ public class Menu {
 		
 		JMenu registrosMenu = new JMenu("Registros");
 		menuBar.add(registrosMenu);
-		JMenuItem registrosSitioItem = new JMenuItem("Modificar Datos Usuario");
+		JMenuItem registrosSitioItem = new JMenuItem("Ver registros del ServidorWeb");
 		registrosMenu.add(registrosSitioItem);
 		registrosSitioItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
