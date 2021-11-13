@@ -1,7 +1,9 @@
 package logica.persistencia.Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +12,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import datatypes.DtActividadDeportivaExt;
+import datatypes.DtFecha;
+import datatypes.TEstado;
 
 
 /**
@@ -20,6 +31,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
+@Table(name = "ACTIVIDADES_DEPORTIVAS")
 public class ActividadesDeportivas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,16 +39,25 @@ public class ActividadesDeportivas implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "NOMBRE")
+    @Column(name = "NOMBRE",
+    		nullable = false,
+    		unique = true)
     private String nombre;
+    
     @Column(name = "DESCRIPCION")
     private String descripcion;
+    
     @Column(name = "DURACION")
-    private Float duracion;
+    private Integer duracion;
+    
     @Column(name = "COSTO")
     private Float costo;
+    
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
+    
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_FINALIZACION")
     private Calendar fechaFinalizacion;
     
@@ -44,7 +65,8 @@ public class ActividadesDeportivas implements Serializable {
     @JoinColumn(name = "ID")
     private Profesores profesor;
 
-    //private tipoUsuario tipo
+    @OneToMany(mappedBy = "actividad")
+    private List<Clases> clases;
 
     public Long getId() {
         return id;
@@ -70,11 +92,11 @@ public class ActividadesDeportivas implements Serializable {
         this.descripcion = descripcion;
     }
     
-    public Float getDuracion() {
+    public Integer getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Float duracion) {
+    public void setDuracion(Integer duracion) {
         this.duracion = duracion;
     }
     
@@ -133,6 +155,20 @@ public class ActividadesDeportivas implements Serializable {
                 ", " + fechaFinalizacion +
                 ", " + "nadadad" +
                 "]";
+    }
+    
+    public DtActividadDeportivaExt toDtActividadDeportivaExt() {
+    	Set<String> clases = new HashSet<>();
+    	for(Clases x: this.clases) {
+    		clases.add(x.getNombre());
+    	}
+    	
+    	DtActividadDeportivaExt res = new DtActividadDeportivaExt(
+    			nombre, descripcion, duracion, costo,
+    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH),fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
+    			new HashSet<>(), clases, new HashSet<>(), 
+    			TEstado.finalizada, profesor.getNickname());
+    	return res;
     }
 
 }

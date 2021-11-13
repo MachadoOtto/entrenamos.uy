@@ -20,9 +20,6 @@ import javax.persistence.Table;
 public class Socios extends Usuarios {
     private static final long serialVersionUID = 1L;
     
-    @OneToMany(mappedBy = "id.socio")
-    private List<Registros> registros;
-    
     public Long getIdUsuario() {
         return getId();
     }

@@ -2,19 +2,17 @@ package logica.persistencia.Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -24,40 +22,44 @@ import javax.persistence.OneToMany;
 
 
 @Entity
+@Table(name = "REGISTROS")
 public class Registros implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    private RegistrosId id;
+    private RegistrosId primaryKey;
     
     @Embeddable
     private class RegistrosId {
     	@ManyToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "ID_USUARIO")
+        @JoinColumn(name = "ID_SOCIO")
         private Socios socio;
         
     	@ManyToOne(fetch = FetchType.EAGER)
-        @JoinColumn(name = "ID")
+        @JoinColumn(name = "ID_CLASE")
         private Clases clase;
         
 		public Long getIdSocio() { //AAA
 			return socio.getId();
 		}
+		
 		public void setIdSocio(Long idSocio) {
 			socio.setId(idSocio);
 		}
     }
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_REGISTRO")
     private Calendar fechaRegistro;
+    
     @Column(name = "COSTO")
     private Float costo;
     
     public Long getIdSocio() {
-        return id.getIdSocio();
+        return primaryKey.getIdSocio();
     }
 
     public void setId(Long idSocio) {
-        id.setIdSocio(idSocio);;
+    	primaryKey.setIdSocio(idSocio);;
     }
     
     public Calendar getFechaRegistro() {
@@ -90,7 +92,7 @@ public class Registros implements Serializable {
             return false;
         }
         Registros other = (Registros) object; //ojo
-        if ((this.id.getIdSocio() == null && other.id.getIdSocio() != null) || (this.id.getIdSocio() != null && !this.id.getIdSocio().equals(other.id.getIdSocio()))) {
+        if ((this.primaryKey.getIdSocio() == null && other.primaryKey.getIdSocio() != null) || (this.primaryKey.getIdSocio() != null && !this.primaryKey.getIdSocio().equals(other.primaryKey.getIdSocio()))) {
             return false;
         }
         return true;
@@ -98,12 +100,13 @@ public class Registros implements Serializable {
 
     @Override
     public String toString() {
-        return "Registros[idSocio=" + id.getIdSocio() +
+        return "Registros[idSocio=" + primaryKey.getIdSocio() +
         		", " + "nadadada" +
         		", " + fechaRegistro +
         		", " + costo +
                 "]";
     }
+
     
 }
 

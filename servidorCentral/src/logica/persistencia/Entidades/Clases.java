@@ -13,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -20,8 +23,8 @@ import javax.persistence.OneToMany;
  *
  */
 
-
 @Entity
+@Table(name = "REGISTROS")
 public class Clases implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,33 +32,61 @@ public class Clases implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "FECHA_INICIO")
+    @Column(name = "NOMBRE",
+    		nullable = false,
+    		unique = true)
+    private String nombre;
+    
+	@Column(name = "FECHA_INICIO")
+	@Temporal(TemporalType.DATE)
     private Calendar fechaInicio;
+	
+	@Temporal(TemporalType.TIME)
     @Column(name = "HORA_INICIO")
     private Calendar horaInicio;
+	
     @Column(name = "SOCIOS_MINIMOS")
     private Integer sociosMinimos;
+    
     @Column(name = "SOCIOS_MAXIMOS")
     private Integer sociosMaximos;
+    
     @Column(name = "URL")
     private String url;
+    
     @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_ACTIVIDAD")
+    private ActividadesDeportivas actividad;
+    
+    @OneToMany(mappedBy = "id.clase")
+    private List<Registros> registros;
+    
+    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID")
     private ActividadesDeportivas actividadDeportiva;
-
+     */
     //private tipoUsuario tipo
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+    public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
     public Calendar getFechaInicio() {
         return fechaInicio;
     }
@@ -92,9 +123,9 @@ public class Clases implements Serializable {
         return url;
     }
 
-    public void getUrl(String url) {
-        this.url = url;
-    }
+    public void setUrl(String url) {
+		this.url = url;
+	}
     
     public Calendar getFechaAlta() {
         return fechaInicio;
@@ -103,7 +134,7 @@ public class Clases implements Serializable {
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
