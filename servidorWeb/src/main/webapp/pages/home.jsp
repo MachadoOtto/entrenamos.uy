@@ -27,7 +27,7 @@
        <div class="ins-cat col-2">
          <jsp:include page="/template/stdLeftSection.jsp"/>
        </div>
-       <div class="actdep-panel col-7 ms-2 ms-sm-1 ms-md-0">
+       <div class="actdep-panel col-8 ms-2 ms-sm-1 ms-md-0">
            <h1 class="h2">Noticias:</h1>
        	<br>
       		<div class="border border-dark row ms-1 mb-4 p-5 text-dark bg-light rounded-3 ">
@@ -35,8 +35,8 @@
 			  <div class="carousel-inner">
 			    <div class="row carousel-item active">
 			      	<div style="align-items: center;" class="col">
-		        		<img style="margin-left: 13em; height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
-		        		<img style="margin-right: 10em; height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
+		        		<img style="margin-left: 10%; height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones.gif">
+		        		<img style="margin-right: 10%; height: 16em;" src="<%=request.getContextPath()%>/assets/images/misc/bones2.gif">
 		        	</div>
 			        <div class="col">
 			        	<h2>A sacudir los huesos!</h2>
@@ -82,7 +82,7 @@
 			</div>
        	</div>
        </div>
-       <div class="col-3 ps-1 ps-sm-2">
+       <div class="col-2 ps-1 ps-sm-2">
           <jsp:include page="/template/stdRightSection.jsp"/>
        </div>
      </div>

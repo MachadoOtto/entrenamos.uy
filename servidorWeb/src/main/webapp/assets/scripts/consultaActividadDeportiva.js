@@ -16,7 +16,11 @@ function altaCL(){
 		errorMsgForm("La cantidad de premios debe ser mayor a 0 ⚠", "formulario-clase");
 		return false;
 	}
-	if ((new Date($("#fechaIni").val())) < (new Date())){
+	d = new Date($("#fechaIni").val())
+	d.setDate(d.getDate()+1) //I love javascript?
+	d.setMinutes(parseInt($("#minutosInicio").val()))
+	d.setHours(parseInt($("#horaInicio").val()))
+	if (d < (new Date())){
 		errorMsgForm("No es posible dictar clases en el pasado. ", "formulario-clase");
 		return false;
 	}

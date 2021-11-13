@@ -17,6 +17,7 @@ import datatypes.DtUsuarioExt;
 import datatypes.DtSocioExt;
 import datatypes.DtClaseExt;
 import datatypes.DtFecha;
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
 
@@ -78,6 +79,11 @@ public class Clases extends HttpServlet {
 			return;
 		}
 		// setea los datos
+		try {
+			request.setAttribute("actDT", IADC.getActDepExt(nombreInstitucion, nombreActividad));
+		} catch (InstitucionException | ActividadDeportivaException e) {
+			e.printStackTrace();
+		}
 		request.setAttribute("clase",  datosClase);
 		request.setAttribute("actividad",  nombreActividad);
 		request.setAttribute("institucion",  nombreInstitucion);

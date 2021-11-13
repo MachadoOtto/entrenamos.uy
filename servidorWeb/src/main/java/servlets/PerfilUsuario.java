@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.DtCuponera;
+import datatypes.DtPremio;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
@@ -140,7 +142,14 @@ public class PerfilUsuario extends HttpServlet {
 	        		}
 	        	}
         	}
-        	
+        	Map<String,DtPremio> premios = new HashMap<>();
+        	Set<String> favs = new HashSet<>();
+        	if(usr instanceof DtSocioExt) {
+        		premios = ((DtSocioExt) usr).getPremios();
+        		favs = ((DtSocioExt)usr).getActividadesFavoritas();
+        	}
+        	request.setAttribute("favs", favs);
+        	request.setAttribute("premios", premios);
         	request.setAttribute("valoracion",  valoracion);
         	request.setAttribute("valoraciones",  valoraciones);    
         	request.setAttribute("datoUsuario",  usr);

@@ -8,6 +8,7 @@
 <%@ page import="datatypes.DtProfesorExt"%>
 <%@ page import="datatypes.DtUsuarioExt"%>
 <%@ page import="datatypes.DtFecha"%>
+<%@ page import="datatypes.DtActividadDeportivaExt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,8 +170,11 @@
 	            	</div>
 	            	<%} %>
 	            	
-	                <%if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) &&
-	                		datosClase.getFechaClase().esMenor(new DtFecha()) && (datosClase.getPremio().getFechaSorteo()==null || datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0)))) { %>
+	                <%
+	    			DtFecha fechaf = new DtFecha();
+	    			fechaf.setMinutos(fechaf.getMinutos()-((DtActividadDeportivaExt)request.getAttribute("actDT")).getDuracionMinutos());
+	                if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) &&
+	                		datosClase.getFechaClase().esMenor(fechaf) && (datosClase.getPremio().getFechaSorteo()==null || datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0)))) { %>
 	                	<br>
 		                <button class="w-100 mb-2 btn btn-outline-primary btn-lg rounded-4  mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#sorteoModal" >
 		                   Realizar Sorteo

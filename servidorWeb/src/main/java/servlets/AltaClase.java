@@ -53,7 +53,7 @@ public class AltaClase extends HttpServlet{
             }
         	String fechaClase = rp(request, "fechaInicio");        	
 	        DtUsuarioExt datosP = ((DtUsuarioExt) request.getSession().getAttribute("loggedUser"));
-	        if(rp(request,"descPremio")!=null) {
+	        if(rp(request,"descPremio")!=null && rp(request,"descPremio").length()>0) {
 		        if (IDCC.ingresarDatosClase(rp(request, "institucionAsociada"),  rp(request, "nombreActDep"),  new DtClase(rp(request, "nombreClase"), datosP.getNickname(), datosP.getEmail(), 
 		        	Integer.parseInt(rp(request, "cantMin")),  Integer.parseInt(rp(request, "cantMax")),  rp(request, "url"), 
 		        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)),

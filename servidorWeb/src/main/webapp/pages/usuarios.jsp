@@ -401,7 +401,7 @@
 						<li class="list-group-item container border card-body elementoLista">
 						  <div class="row">
 							<div class="col-auto">
-							 <img alt="Qries" src="<%=request.getContextPath()%>/assets/images/misc/trophy.png" class="vertical-align-middle imagenSeleccionable">
+							 <img alt="trophy" src="<%=request.getContextPath()%>/assets/images/misc/trophy.png" class="vertical-align-middle imagenSeleccionable">
 								<b><%="Premio #" + i%></b>
 							 </div>
 							 <div class="col-auto">
@@ -418,7 +418,36 @@
 							 	</div>
 					    	</div>
 							 <div id="imagenSeleccionableSecundaria" class="col-sm">
-							 	<a><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
+							 	<a href="<%=request.getContextPath()%>/generarComprobante?id=<%=usrProfile.getNickname()%>&cla=<%=(String)p %>"><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
+					    	</div>
+					      </div>
+					    </li>
+						<% } %>
+						</ul>
+				</div>
+				<div id= "user-favoritos" class="row col-sm-9 border card-body">
+					<ul id="listaActividadesFavoritas" class="list-group list-group-horizontal">
+						<% for(Object x: ((Set<?>)request.getAttribute("favs"))){ %>
+						<li class="list-group-item container border card-body elementoLista">
+						  <div class="row">
+							<div class="col-auto">
+							 <img alt="act" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=(String) x%>" class="vertical-align-middle imagenSeleccionable">
+							 </div>
+							 <div class="col-auto"> ACA VAN LAS ACTIVIDADES FAVORITAS!!!!!QWERWQER
+							    <div>
+							    	<strong><%= ACA VAN LAS ACTIVIDADES FAVORITAS!!!!!QWERWQER(String) p%></strong>
+							    	<% for ( Map.Entry<String, Set<String>> xy: (((DtSocioExt)usrProfile).getAguadeUwu()).entrySet() ) { %>
+											<% if (xy.getValue().contains((String) p)) { %>
+												<small class="text-muted">(<%=xy.getKey()%>)</small>
+											<% break; }%>
+									<% } %>
+								</div>
+							 	<div>
+							 		<%= (((DtPremio) premios.get(p)).getFechaSorteo()).toWebFecha() %>
+							 	</div>
+					    	</div>
+							 <div id="imagenSeleccionableSecundaria" class="col-sm">
+							 	<a href="<%=request.getContextPath()%>/generarComprobante?id=<%=usrProfile.getNickname()%>&cla=<%=(String)p %>"><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
 					    	</div>
 					      </div>
 					    </li>

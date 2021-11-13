@@ -27,9 +27,6 @@ body {
     opacity: 0.9;
 }
 
-.container-principal {
-
-}
 
 .row-container {
     justify-content: center;
@@ -65,16 +62,6 @@ body {
     background-position: center;
     background-size: cover;
     color: #f0f0f0;
-}
-
-.bienvenida p {
-    
-}
-
-/*----------------*/
-
-.nav-info {
-    margin-left: 50%;
 }
 
 /*---FOOTER---*/
