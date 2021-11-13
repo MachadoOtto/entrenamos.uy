@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import datatypes.DtFecha;
@@ -36,24 +37,34 @@ public class GeneradorComprobante extends HttpServlet {
     	  response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
     	  return;
     	}
-    	String id = request.getParameter("id");
-    	String cla = request.getParameter("cla");  
+    	String id = "Emi71";	// request.getParameter("id");
+    	String cla = "Estudios viktorianos"; // request.getParameter("cla");
+    	String insti = "Fuerza Bruta";
+    	String prof = "viktor";
+    	String descPremio = "Una Coca-Cola";
+    	String texto = "Felicidades socio/a " + id + "! Gracias a su participacion en la clase " + cla +
+    			", dictada por " + prof + " (" + insti + "), usted ha sido 'dudosamente' premiado con:";
         try {
         	Font title = new Font(Font.FontFamily.HELVETICA,50f,Font.NORMAL,BaseColor.BLUE);
-        	
-        	Document pdf = new Document();
+        	Rectangle pagesize = new Rectangle(510, 269);
+        	Document pdf = new Document(pagesize);
         	PdfWriter.getInstance(pdf, response.getOutputStream());
         	pdf.open();
         	
         	Paragraph date = new Paragraph((new DtFecha()).toFechaHora());
         	date.setAlignment(Element.ALIGN_RIGHT);
         	pdf.add(date);
+
+            float width = pdf.getPageSize().getWidth();
+            float height = pdf.getPageSize().getHeight();
+        	Image plantilla = Image.getInstance("http://localhost:8080/"+request.getContextPath()+"/assets/images/misc/plantillaPremio.png");
+        	plantilla.scaleAbsolute(width, height);
+        	plantilla.setAbsolutePosition(0, 0);
+        	pdf.add(plantilla);
+            // This scales the image to the page,
+            // use the image's width & height if you don't want to scale.
         	
-        	Image logo = Image.getInstance("http://localhost:8080/"+request.getContextPath()+"/assets/images/misc/iconoEntrenamos-uy.png");
-        	logo.scaleAbsolute(80f, 80f);
-        	pdf.add(logo);
-        	
-        	pdf.add(new Paragraph("Entrenamos.uy",title));
+        	pdf.add(new Paragraph(texto));
         	pdf.add(Chunk.NEWLINE);
         	pdf.add(new Paragraph("Tremendo pdf!"));
 	        pdf.close();
