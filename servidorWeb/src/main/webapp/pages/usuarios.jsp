@@ -435,19 +435,9 @@
 							 </div>
 							 <div class="col-auto"> ACA VAN LAS ACTIVIDADES FAVORITAS!!!!!QWERWQER
 							    <div>
-							    	<strong><%= ACA VAN LAS ACTIVIDADES FAVORITAS!!!!!QWERWQER(String) p%></strong>
-							    	<% for ( Map.Entry<String, Set<String>> xy: (((DtSocioExt)usrProfile).getAguadeUwu()).entrySet() ) { %>
-											<% if (xy.getValue().contains((String) p)) { %>
-												<small class="text-muted">(<%=xy.getKey()%>)</small>
-											<% break; }%>
-									<% } %>
+							    	<strong><%=(String) x%></strong>
+
 								</div>
-							 	<div>
-							 		<%= (((DtPremio) premios.get(p)).getFechaSorteo()).toWebFecha() %>
-							 	</div>
-					    	</div>
-							 <div id="imagenSeleccionableSecundaria" class="col-sm">
-							 	<a href="<%=request.getContextPath()%>/generarComprobante?id=<%=usrProfile.getNickname()%>&cla=<%=(String)p %>"><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
 					    	</div>
 					      </div>
 					    </li>
