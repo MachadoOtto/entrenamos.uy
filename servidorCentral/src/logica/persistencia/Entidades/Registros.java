@@ -2,13 +2,19 @@ package logica.persistencia.Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -21,25 +27,37 @@ import javax.persistence.Id;
 public class Registros implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    private RegistrosId registrosId;
+    private RegistrosId id;
     
-    private Calendar fechaRegistro;
-    private Float costo;
+    @Embeddable
+    private class RegistrosId {
+    	@ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "ID_USUARIO")
+        private Socios socio;
+        
+    	@ManyToOne(fetch = FetchType.EAGER)
+        @JoinColumn(name = "ID")
+        private Clases clase;
+        
+		public Long getIdSocio() { //AAA
+			return socio.getId();
+		}
+		public void setIdSocio(Long idSocio) {
+			socio.setId(idSocio);
+		}
+    }
 
+    @Column(name = "FECHA_REGISTRO")
+    private Calendar fechaRegistro;
+    @Column(name = "COSTO")
+    private Float costo;
+    
     public Long getIdSocio() {
-        return registrosId.getIdSocio();
+        return id.getIdSocio();
     }
 
     public void setId(Long idSocio) {
-        registrosId.setIdSocio(idSocio);;
-    }
-    
-    public Long getIdClase() {
-        return registrosId.getIdClase();
-    }
-
-    public void setIdClase(Long idClase) {
-        registrosId.setIdClase(idClase);
+        id.setIdSocio(idSocio);;
     }
     
     public Calendar getFechaRegistro() {
@@ -61,7 +79,7 @@ public class Registros implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (registrosId.getIdSocio() != null ? registrosId.getIdSocio().hashCode() : 0); //ojo
+        hash += (this.getIdSocio() != null ? this.getIdSocio().hashCode() : 0); //ojo
         return hash;
     }
 
@@ -72,7 +90,7 @@ public class Registros implements Serializable {
             return false;
         }
         Registros other = (Registros) object; //ojo
-        if ((this.registrosId.getIdSocio() == null && other.registrosId.getIdSocio() != null) || (this.registrosId.getIdSocio() != null && !this.registrosId.getIdSocio().equals(other.registrosId.getIdSocio()))) {
+        if ((this.id.getIdSocio() == null && other.id.getIdSocio() != null) || (this.id.getIdSocio() != null && !this.id.getIdSocio().equals(other.id.getIdSocio()))) {
             return false;
         }
         return true;
@@ -80,31 +98,13 @@ public class Registros implements Serializable {
 
     @Override
     public String toString() {
-        return "Registros[idSocio=" + registrosId.getIdSocio() +
-        		", " + registrosId.getIdClase() +
+        return "Registros[idSocio=" + id.getIdSocio() +
+        		", " + "nadadada" +
         		", " + fechaRegistro +
         		", " + costo +
                 "]";
     }
     
-    @Embeddable
-    private class RegistrosId {
-    	private Long idSocio;
-        private Long idClase;
-        
-		public Long getIdSocio() {
-			return idSocio;
-		}
-		public void setIdSocio(Long idSocio) {
-			this.idSocio = idSocio;
-		}
-		public Long getIdClase() {
-			return idClase;
-		}
-		public void setIdClase(Long idClase) {
-			this.idClase = idClase;
-		}
-    }
 }
 
 

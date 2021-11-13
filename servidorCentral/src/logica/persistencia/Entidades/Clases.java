@@ -2,11 +2,17 @@ package logica.persistencia.Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 /**
@@ -20,15 +26,25 @@ public class Clases implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
     
+    @Column(name = "FECHA_INICIO")
     private Calendar fechaInicio;
-    private Calendar horaInicio; //ups
+    @Column(name = "HORA_INICIO")
+    private Calendar horaInicio;
+    @Column(name = "SOCIOS_MINIMOS")
     private Integer sociosMinimos;
+    @Column(name = "SOCIOS_MAXIMOS")
     private Integer sociosMaximos;
+    @Column(name = "URL")
     private String url;
+    @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
-    private Long idActividad;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID")
+    private ActividadesDeportivas actividadDeportiva;
 
     //private tipoUsuario tipo
 
@@ -87,15 +103,7 @@ public class Clases implements Serializable {
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
-    
-    public Long getIdActividad() {
-        return idActividad;
-    }
 
-    public void setIdActividad(Long idActividad) {
-        this.idActividad =idActividad;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -125,7 +133,7 @@ public class Clases implements Serializable {
         		", " + sociosMaximos +
                 ", " + url +
                 ", " + fechaAlta +
-                ", " + idActividad +
+                ", " + "mm" +
                 "]";
     }
 

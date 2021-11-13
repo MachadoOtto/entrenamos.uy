@@ -31,10 +31,11 @@ import javax.persistence.DiscriminatorType;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO_USUARIO",
 discriminatorType = DiscriminatorType.INTEGER)
-public abstract class Usuarios implements Serializable {
+public class Usuarios implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
     
     @Column(name = "NICKNAME")
@@ -50,11 +51,12 @@ public abstract class Usuarios implements Serializable {
     @Column(name = "TIPO_USUARIO")
     private TipoUsuario tipoUsuario;
 
-    //UniDireccional???
+    /*
     @ManyToOne
     private List<Socios> socios;
     @ManyToOne
     private List<Profesores> profesores;
+    */
     
 	public Long getId() {
         return id;

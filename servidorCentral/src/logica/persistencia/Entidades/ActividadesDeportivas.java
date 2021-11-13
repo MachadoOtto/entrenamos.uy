@@ -1,11 +1,16 @@
 package logica.persistencia.Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 /**
@@ -19,15 +24,25 @@ public class ActividadesDeportivas implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
     
+    @Column(name = "NOMBRE")
     private String nombre;
+    @Column(name = "DESCRIPCION")
     private String descripcion;
+    @Column(name = "DURACION")
     private Float duracion;
+    @Column(name = "COSTO")
     private Float costo;
+    @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
+    @Column(name = "FECHA_FINALIZACION")
     private Calendar fechaFinalizacion;
-    private Long idProfesor;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ID")
+    private Profesores profesor;
 
     //private tipoUsuario tipo
 
@@ -87,14 +102,6 @@ public class ActividadesDeportivas implements Serializable {
         this.fechaFinalizacion = fechaFinalizacion;
     }
     
-    public Long getIdProfesor() {
-        return idProfesor;
-    }
-
-    public void setIdProfesor(Long idProfesor) {
-        this.idProfesor = idProfesor;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -124,7 +131,7 @@ public class ActividadesDeportivas implements Serializable {
         		", " + costo +
                 ", " + fechaAlta +
                 ", " + fechaFinalizacion +
-                ", " + idProfesor +
+                ", " + "nadadad" +
                 "]";
     }
 
