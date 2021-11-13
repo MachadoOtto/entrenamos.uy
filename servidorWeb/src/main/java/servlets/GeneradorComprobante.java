@@ -1,7 +1,7 @@
 package servlets;
 
-
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,17 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import datatypes.DtClaseExt;
 import datatypes.DtFecha;
+import datatypes.DtPremio;
+import excepciones.ActividadDeportivaException;
+import excepciones.ClaseException;
+import excepciones.InstitucionException;
+import models.IDictadoClaseController;
+import models.LaFabricaWS;
 
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 
 
 @SuppressWarnings("serial")
@@ -37,41 +41,84 @@ public class GeneradorComprobante extends HttpServlet {
     	  response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
     	  return;
     	}
-    	String id = "Emi71";	// request.getParameter("id");
-    	String cla = "Estudios viktorianos"; // request.getParameter("cla");
-    	String insti = "Fuerza Bruta";
-    	String prof = "viktor";
-    	String descPremio = "Una Coca-Cola";
-    	String texto = "Felicidades socio/a " + id + "! Gracias a su participacion en la clase " + cla +
-    			", dictada por " + prof + " (" + insti + "), usted ha sido 'dudosamente' premiado con:";
-        try {
-        	Font title = new Font(Font.FontFamily.HELVETICA,50f,Font.NORMAL,BaseColor.BLUE);
-        	Rectangle pagesize = new Rectangle(510, 269);
-        	Document pdf = new Document(pagesize);
-        	PdfWriter.getInstance(pdf, response.getOutputStream());
-        	pdf.open();
-        	
-        	Paragraph date = new Paragraph((new DtFecha()).toFechaHora());
-        	date.setAlignment(Element.ALIGN_RIGHT);
-        	pdf.add(date);
-
-            float width = pdf.getPageSize().getWidth();
-            float height = pdf.getPageSize().getHeight();
-        	Image plantilla = Image.getInstance("http://localhost:8080/"+request.getContextPath()+"/assets/images/misc/plantillaPremio.png");
-        	plantilla.scaleAbsolute(width, height);
-        	plantilla.setAbsolutePosition(0, 0);
-        	pdf.add(plantilla);
-            // This scales the image to the page,
-            // use the image's width & height if you don't want to scale.
-        	
-        	pdf.add(new Paragraph(texto));
-        	pdf.add(Chunk.NEWLINE);
-        	pdf.add(new Paragraph("Tremendo pdf!"));
-	        pdf.close();
-        }catch (Exception e) {
-			e.printStackTrace();
+    	String id = request.getParameter("id");
+    	String cla = request.getParameter("cla");
+    	String insti = new String();
+    	String actividad = new String();
+    	String prof = new String();
+    	String descPremio = new String();
+		IDictadoClaseController IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
+		DtClaseExt clase = null;
+		DtPremio premio = null;
+		String fechaVencimiento = new DtFecha().toString();
+		boolean frenoDeMano = false;
+		for (String x : IDCC.obtenerInstituciones()) {
+			try {
+				for (String y : IDCC.obtenerActividades(x)) {
+					if (IDCC.obtenerClases(x,  y).contains(cla)) {
+						insti = x;
+						actividad = y;
+						clase = IDCC.seleccionarClase(x,  y,  cla);
+						prof = clase.getNicknameProfesor();
+						premio = clase.getPremio();
+						fechaVencimiento = calcularVencimiento(premio.getFechaSorteo());
+						descPremio = premio.getDescripcion();
+						frenoDeMano = true;
+						break;
+					}
+				}
+				if (frenoDeMano) {
+					break;
+				}
+			} catch (InstitucionException ignore) {
+			} catch (ActividadDeportivaException ignore) { 
+			} catch (ClaseException ignore) { }
+		}
+		if (premio.getGanadores().contains(id)) {
+	    	String texto = "Felicidades socio/a " + id + "! Gracias a su participacion en la clase " + cla +
+	    			", dictada por " + prof + " (" + actividad + " / " + insti + "), usted ha sido 'dudosamente' premiado con:\n" + 
+	    			"    * " + descPremio + "\n Vencimiento: " + fechaVencimiento;
+	        try {
+	        	Rectangle pagesize = new Rectangle(510, 269);
+	        	Document pdf = new Document(pagesize);
+	        	PdfWriter writer = PdfWriter.getInstance(pdf, response.getOutputStream());
+	        	pdf.open();
+	        	float width = pdf.getPageSize().getWidth();
+	            float height = pdf.getPageSize().getHeight();
+	        	Image plantilla = Image.getInstance("http://localhost:8080/"+request.getContextPath()+"/assets/images/misc/plantillaPrize.png");
+	        	plantilla.scaleAbsolute(width, height);
+	        	plantilla.setAbsolutePosition(0, 0);
+	        	pdf.add(plantilla);
+	            // Texto principal del cupon.
+	        	Phrase cuerpoTexto = new Phrase(texto);
+	        	ColumnText body_column = new ColumnText(writer.getDirectContent());
+	        	body_column.setSimpleColumn(42, 218, 370, 65);
+	        	body_column.addText(cuerpoTexto);
+	        	body_column.go();
+	        	// Premio en segunda division de plantilla
+	        	Phrase phPremio = new Phrase("Vale por: " + descPremio);
+	        	ColumnText second_column = new ColumnText(writer.getDirectContent());
+	        	second_column.setSimpleColumn(390, 120, 500, 50);
+	        	second_column.addText(phPremio);
+	        	second_column.go();
+	        	// Fecha
+	        	Phrase date = new Phrase(fechaVencimiento);
+	        	ColumnText fecha_column = new ColumnText(writer.getDirectContent());
+	        	fecha_column.setSimpleColumn(390, 30, 500, 10);
+	        	fecha_column.addText(date);
+	        	fecha_column.go();
+		        pdf.close();
+	        }catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
+    
+    private String calcularVencimiento(DtFecha fecha) {
+    	String fString = String.valueOf(fecha.getAnio()) + "-" + String.valueOf(fecha.getMes()) + "-" + String.valueOf(fecha.getDia());
+    	return LocalDate.parse(fString).plusDays(30).toString();
+    }
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
