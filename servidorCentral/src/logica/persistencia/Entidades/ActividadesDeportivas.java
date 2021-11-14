@@ -41,9 +41,7 @@ public class ActividadesDeportivas implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "NOMBRE",
-    		nullable = false,
-    		unique = true)
+    @Column(name = "NOMBRE")
     private String nombre;
     
     @Column(name = "DESCRIPCION")
@@ -65,7 +63,9 @@ public class ActividadesDeportivas implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER,
     		   cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "ID")
+    @JoinColumn(name = "ID_PROFESOR",
+		   		insertable=false,
+		   		updatable=false)
     private Profesores profesor;
 
     @OneToMany(mappedBy = "actividad",

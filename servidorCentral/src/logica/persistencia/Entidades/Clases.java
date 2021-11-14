@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name = "REGISTROS")
+@Table(name = "CLASES")
 public class Clases implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,9 +33,7 @@ public class Clases implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "NOMBRE",
-    		nullable = false,
-    		unique = true)
+    @Column(name = "NOMBRE")
     private String nombre;
     
 	@Column(name = "FECHA_INICIO")
@@ -60,11 +58,13 @@ public class Clases implements Serializable {
     private Calendar fechaAlta;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_ACTIVIDAD")
+    @JoinColumn(name = "ID_ACTIVIDAD",
+ 		   		insertable=false,
+ 		   		updatable=false)
     private ActividadesDeportivas actividad;
     
-    @OneToMany(mappedBy = "id.clase",
- 		   cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "clase",
+ 		   	   cascade=CascadeType.ALL)
     private Collection<Registros> registros;
     
     /*

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PROFESORES")
-@PrimaryKeyJoinColumn(referencedColumnName = "ID_USUARIO")
+@PrimaryKeyJoinColumn(name = "ID_USUARIO", referencedColumnName = "ID")
 public class Profesores extends Usuarios {
     private static final long serialVersionUID = 1L;
     
