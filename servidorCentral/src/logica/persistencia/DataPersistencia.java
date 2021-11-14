@@ -14,14 +14,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.DtReciboClase;
 import datatypes.DtSocioExt;
-import datatypes.TReg;
 import excepciones.ClaseException;
 import excepciones.UsuarioNoExisteException;
 import logica.LaFabrica;
