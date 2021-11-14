@@ -175,4 +175,19 @@ public class DataPersistencia {
 			em.close();
 		}
 	}
+	
+	public Set<String> obtenerActividades() {
+		EntityManager em = emFabrica.createEntityManager();
+		Set<String> nombreActividades = new HashSet<>();
+		try {
+			em.getTransaction().begin();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return nombreActividades;
+	}
 }
