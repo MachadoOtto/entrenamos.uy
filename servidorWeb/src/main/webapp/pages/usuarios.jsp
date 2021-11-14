@@ -418,7 +418,7 @@
 							 	</div>
 					    	</div>
 							 <div id="imagenSeleccionableSecundaria" class="col-sm">
-							 	<a href="<%=request.getContextPath()%>/generarComprobante?id=<%=usrProfile.getNickname()%>&cla=<%=(String)p %>"><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
+							 	<a href="<%=request.getContextPath()%>/generarComprobante?id=<%=usrProfile.getNickname()%>&cla=<%=(String)p%>"><img alt="PDF" src="<%=request.getContextPath()%>/assets/images/misc/certificate.png" class="vertical-align-middle imagenSeleccionableSecundaria"></a>
 					    	</div>
 					      </div>
 					    </li>

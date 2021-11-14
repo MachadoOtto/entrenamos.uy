@@ -25,6 +25,7 @@ import datatypes.DtActividadDeportiva;
 import datatypes.DtClase;
 import datatypes.DtClasesCuponera;
 import datatypes.DtCuponera;
+import datatypes.DtFecha;
 import datatypes.DtUsuario;
 import datatypes.DtFecha;
 import datatypes.TEstado;
@@ -242,7 +243,8 @@ public class Search extends HttpServlet {
 					for (String y : IDCC.obtenerActividades(x)) {
 						if (fltrA.isEmpty() || (fltrA.equals(y) && (IADC.getActDepExt(x, y).getEstado() == TEstado.aceptada))) {
 							for (String z : IDCC.obtenerClases(x,  y)) {
-								if (IDCC.seleccionarClase(x,  y,  z).getFechaClase().esMenor(new DtFecha())) {
+								DtFecha fechaActual = new DtFecha();
+								if (fechaActual.esMenor(IDCC.seleccionarClase(x,  y,  z).getFechaClase())) {
 									lista.add(IDCC.seleccionarClase(x,  y,  z));
 								}
 							}
