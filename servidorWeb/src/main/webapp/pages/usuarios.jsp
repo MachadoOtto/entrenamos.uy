@@ -425,6 +425,7 @@
 						<% } %>
 						</ul>
 				</div>
+				<!--
 				<div id= "user-favoritos" class="row col-sm-9 border card-body">
 					<ul id="listaActividadesFavoritas" class="list-group list-group-horizontal">
 						<% for(Object x: ((Set<?>)request.getAttribute("favs"))){ %>
@@ -444,6 +445,7 @@
 						<% } %>
 						</ul>
 				</div>
+				-->
 				<% } else if (usrProfile instanceof DtProfesorExt) {%>
 				
 				<% List<?> dtadas = (List<?>) request.getAttribute("actividadesAsociadas"); %>

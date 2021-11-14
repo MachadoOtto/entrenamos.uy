@@ -11,6 +11,7 @@ import excepciones.CategoriaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
+import logica.persistencia.DataPersistencia;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtCategoria;
@@ -190,6 +191,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			 try {
 				if (getHI().findInstitucion(i).getActsDeps().containsKey(actDep)) {
 					 getHI().findInstitucion(i).getActsDeps().get(actDep).setEstado(TEstado.finalizada);
+					 DataPersistencia.getInstance().persistir(getHI().findInstitucion(i).getActsDeps().get(actDep).getDtExt());
 					 break;
 				 }
 			} catch (InstitucionException e) {

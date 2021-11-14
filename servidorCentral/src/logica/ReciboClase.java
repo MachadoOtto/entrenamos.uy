@@ -1,6 +1,7 @@
 package logica;
 
 import datatypes.DtFecha;
+import datatypes.DtReciboClase;
 import datatypes.TReg;
 
 public class ReciboClase {
@@ -68,5 +69,10 @@ public class ReciboClase {
 	}
 	public Socio getSocio() {
 		return aSocio;
+	}
+	
+	public DtReciboClase getDt() {
+		return new DtReciboClase(aClase.getNombre(), aSocio.getNickname(), cup.getNombre(), fechaInscripcion,
+				tipo, costo);
 	}
 }

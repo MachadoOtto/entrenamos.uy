@@ -14,6 +14,7 @@ import java.util.Set;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
 import datatypes.DtFecha;
+import datatypes.DtReciboClase;
 import datatypes.TReg;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
@@ -60,4 +61,6 @@ public interface IDictadoClaseController {
 	public Set<String> sortearPremios(String  ins,  String actDep,  String clase) throws InstitucionException,  ClaseException, 
 	ActividadDeportivaException;
 	//public void modificarDatosClase(String ins, String actDep, DtClase datos);
+	
+	public Set<DtReciboClase> bringTheRegistersPls(String nombreClase) throws ClaseException;
 }
