@@ -21,6 +21,7 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 
 import datatypes.DtFecha;
+import datatypes.DtReciboClase;
 import datatypes.TEstado;
 import datatypes.DtClase;
 import datatypes.DtClaseExt;
@@ -240,6 +241,29 @@ public class DictadoClaseController implements IDictadoClaseController {
 			throw new ClaseException("La clase seleccionada no pertenece a esta ActividadDeportiva o Institucion.");
 		}
 	}
+	
+	public Set<DtReciboClase> bringTheRegistersPls(String nombreClase) throws ClaseException {
+		Set<DtReciboClase> recibos = new HashSet<>();
+		for (String x: getHI().obtenerInstituciones()) {
+			try {
+				for (String y: getHI().findInstitucion(x).obtenerNombresActDep()) {
+					try {
+						Clase laClase = getHI().findInstitucion(x).findActividad(y).findClase(nombreClase);
+						for (ReciboClase reciboQueRecibe: laClase.getRecibo()) {
+							recibos.add(reciboQueRecibe.getDt());
+						}
+						return recibos;
+					} catch(ClaseException ignore) {
+						;
+					}
+				}
+			} catch(InstitucionException ignore) {
+				;
+			}
+		}
+		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
+	}
+	
 }
 
 //Guille: Esta funcion creo que no va.
