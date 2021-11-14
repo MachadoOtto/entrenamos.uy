@@ -35,7 +35,7 @@ public class DataPersistencia {
 	
 	private DataPersistencia() { }
 
-	public static DataPersistencia getInstance(){
+	public static DataPersistencia getInstance() {
 		if (instancia == null)
 			instancia = new DataPersistencia();
 		return instancia;
@@ -181,7 +181,11 @@ public class DataPersistencia {
 		Set<String> nombreActividades = new HashSet<>();
 		try {
 			em.getTransaction().begin();
-			
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT a FROM ActividadesDeportivas a ORDER BY a.NOMBRE DESC",
+					ActividadesDeportivas.class);
+			for (ActividadesDeportivas actDep : select.getResultList()) {
+				nombreActividades.add(actDep.getNombre());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
@@ -190,4 +194,24 @@ public class DataPersistencia {
 		}
 		return nombreActividades;
 	}
+	
+	public Set<String> obtenerClases(String nombreActividad) {
+		EntityManager em = emFabrica.createEntityManager();
+		Set<String> nombreClases = new HashSet<>();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Clases> select = em.createQuery("SELECT a FROM Clases c INNER JOIN ActividadesDeportivas ad" +
+					" ON (c.ID = ad.ID_CLASE) WHERE (ad.NOMBRE = 'nombre') ORDER BY c.NOMBRE DESC",	Clases.class);
+    	    select.setParameter("nombre", nombreActividad);
+			for (Clases claseDB : select.getResultList()) {
+				nombreClases.add(claseDB.getNombre());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return nombreClases;
+	}	
 }
