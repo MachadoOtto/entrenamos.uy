@@ -55,6 +55,7 @@ public class Clases implements Serializable {
     @Column(name = "URL")
     private String url;
     
+    @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
     
