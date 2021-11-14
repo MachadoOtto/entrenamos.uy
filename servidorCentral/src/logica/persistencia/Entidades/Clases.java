@@ -2,8 +2,9 @@ package logica.persistencia.Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -61,8 +62,9 @@ public class Clases implements Serializable {
     @JoinColumn(name = "ID_ACTIVIDAD")
     private ActividadesDeportivas actividad;
     
-    @OneToMany(mappedBy = "id.clase")
-    private List<Registros> registros;
+    @OneToMany(mappedBy = "id.clase",
+ 		   cascade=CascadeType.ALL)
+    private Collection<Registros> registros;
     
     /*
     @ManyToOne(fetch = FetchType.EAGER)
@@ -70,7 +72,7 @@ public class Clases implements Serializable {
     private ActividadesDeportivas actividadDeportiva;
      */
     //private tipoUsuario tipo
-    
+
 	public Long getId() {
 		return id;
 	}
@@ -134,6 +136,22 @@ public class Clases implements Serializable {
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
+    
+    public ActividadesDeportivas getActividad() {
+		return actividad;
+	}
+
+	public void setActividad(ActividadesDeportivas actividad) {
+		this.actividad = actividad;
+	}
+
+	public Collection<Registros> getRegistros() {
+		return registros;
+	}
+
+	public void setRegistros(Collection<Registros> registros) {
+		this.registros = registros;
+	}
     
     @Override
     public int hashCode() {

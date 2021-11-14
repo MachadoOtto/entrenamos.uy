@@ -1,10 +1,12 @@
 package logica.persistencia.Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -61,12 +63,14 @@ public class ActividadesDeportivas implements Serializable {
     @Column(name = "FECHA_FINALIZACION")
     private Calendar fechaFinalizacion;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,
+    		   cascade=CascadeType.PERSIST)
     @JoinColumn(name = "ID")
     private Profesores profesor;
 
-    @OneToMany(mappedBy = "actividad")
-    private List<Clases> clases;
+    @OneToMany(mappedBy = "actividad",
+ 		   	   cascade=CascadeType.ALL)
+    private Collection<Clases> clases;
 
     public Long getId() {
         return id;
@@ -124,7 +128,23 @@ public class ActividadesDeportivas implements Serializable {
         this.fechaFinalizacion = fechaFinalizacion;
     }
     
-    @Override
+    public Profesores getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesores profesor) {
+		this.profesor = profesor;
+	}
+
+	public Collection<Clases> getClases() {
+		return clases;
+	}
+
+	public void setClases(Collection<Clases> clases) {
+		this.clases = clases;
+	}
+	
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

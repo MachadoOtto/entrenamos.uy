@@ -3,6 +3,7 @@ package logica.persistencia.Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -30,7 +31,8 @@ public class Registros implements Serializable {
     
     @Embeddable
     private class RegistrosId {
-    	@ManyToOne(fetch = FetchType.EAGER)
+    	@ManyToOne(fetch = FetchType.EAGER,
+     		   cascade=CascadeType.PERSIST)
         @JoinColumn(name = "ID_SOCIO")
         private Socios socio;
         
