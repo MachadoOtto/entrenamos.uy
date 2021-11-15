@@ -33,7 +33,7 @@ public class Registros implements Serializable {
     //@Embeddable
     //private class RegistrosId {
     	@Id
-		@ManyToOne(fetch = FetchType.LAZY,
+		@ManyToOne(fetch = FetchType.EAGER,
      		   	   cascade=CascadeType.PERSIST)
         @JoinColumn(name = "ID_SOCIO")
         private Socios socio;

@@ -33,7 +33,9 @@ public class Clases implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "NOMBRE")
+    @Column(name = "NOMBRE",
+    		nullable = false,
+    		unique = true)
     private String nombre;
     
 	@Column(name = "FECHA_INICIO")
@@ -57,7 +59,7 @@ public class Clases implements Serializable {
     @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ACTIVIDAD",
  		   		insertable=false,
  		   		updatable=false)
