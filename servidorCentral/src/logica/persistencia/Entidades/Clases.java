@@ -184,6 +184,7 @@ public class Clases implements Serializable {
     	String fechaNdeah = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + fechaAlta.get(Calendar.MONTH) + 
     			"/" + fechaAlta.get(Calendar.YEAR);
         return "Clases[id=" + id +
+        		", " + nombre +
         		", " + fecha +
         		", " + hora +
         		", " + sociosMinimos +

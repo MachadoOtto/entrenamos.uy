@@ -2587,26 +2587,26 @@ public class TestCasos {
     void testFinalizarAct() throws InstitucionException, ActividadDeportivaException {
     	try {
 			DtFecha fecha = new DtFecha(2020,   1,   1,   0,   0,   0);
-			DtActividadDeportiva nuevaActividad = new DtActividadDeportiva("NuevaActividadAFinalizar",   "Desc",   1,   10,   fecha,   null,   TEstado.aceptada,   "Administrador");
+			DtActividadDeportiva nuevaActividad = new DtActividadDeportiva("NuevaActividadAFinalizar1",   "Desc",   1,   10,   fecha,   null,   TEstado.aceptada,   "Administrador");
 			assertEquals(IADC.ingresarDatosActividadDep("Fuerza Bruta",   nuevaActividad),   true);
-	        IDCC.ingresarDatosClase("Fuerza Bruta",   "NuevaActividadAFinalizar",   new DtClase("PPsas67",   "viktor",   "viktor",   
+	        IDCC.ingresarDatosClase("Fuerza Bruta",   "NuevaActividadAFinalizar1",   new DtClase("PPsas671",   "viktor",   "viktor",   
 	                1,   5,   "https://www.musculos.com/Calistenia",   new DtFecha(2021,   4,   15,   15,   30,   0),
 	                new DtFecha(2021,   3,   31,   0,   0,   0), null, "https://www.youtube.com/watch?v=HC7CiSQR2vE",
 	                new DtPremio("semejante premiardo",1,null, new DtFecha(2021,4,31,0,0,0))));
-	        IDCC.inscribirSocio("Fuerza Bruta",   "NuevaActividadAFinalizar",   "PPsas67",   "caro",   TReg.general,   
+	        IDCC.inscribirSocio("Fuerza Bruta",   "NuevaActividadAFinalizar1",   "PPsas671",   "caro",   TReg.general,   
 	                new DtFecha(2021,   4,   9,   0,   0,   0),   null);
-			IADC.finalizarActividad("NuevaActividadAFinalizar");
-	    	TEstado est = IADC.getActDepExt("Fuerza Bruta", "NuevaActividadAFinalizar").getEstado();
+			IADC.finalizarActividad("NuevaActividadAFinalizar1");
+	    	TEstado est = IADC.getActDepExt("Fuerza Bruta", "NuevaActividadAFinalizar1").getEstado();
 	    	assertEquals(est, TEstado.finalizada);
 	    	
 	        DtSocioExt socio = (DtSocioExt) IUC.seleccionarUsuario("caro");
 	        Set<String> clase = new HashSet<>();
-	        clase.add("PPsas67");
+	        clase.add("PPsas671");
 	        Map<String, Set<String>> fins = new HashMap<>();
-	        fins.put("NuevaActividadAFinalizar", clase);
+	        fins.put("NuevaActividadAFinalizar1", clase);
 	        assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
 	        System.out.println(DataPersistencia.getInstance().obtenerActividades().toString());
-	        System.out.println(DataPersistencia.getInstance().obtenerClases("NuevaActividadAFinalizar").toString());
+	        System.out.println(DataPersistencia.getInstance().obtenerClases("NuevaActividadAFinalizar1").toString());
     	}catch(Exception e) {
     		e.printStackTrace();
     		fail(e.getMessage());

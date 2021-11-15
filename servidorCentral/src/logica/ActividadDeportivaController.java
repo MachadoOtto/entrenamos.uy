@@ -198,6 +198,5 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				e.printStackTrace();
 			}
 		}
-		//AQUI VA LA PARTE DE PERSISTENCIA!!!
 	}
 }
