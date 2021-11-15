@@ -50,6 +50,7 @@ import logica.ICuponeraController;
 import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
+import logica.persistencia.DataPersistencia;
 
 public class TestCasos {
 	
@@ -66,6 +67,7 @@ public class TestCasos {
 		ICC = fabrica.obtenerICuponeraController();
 		IDCC = fabrica.obtenerIDictadoClaseController();
 		cargaDeCasos();
+		DataPersistencia.getInstance().nuketownDetonator();
 	}
 	
 	public static void cargaDeCasos() {
@@ -2604,10 +2606,13 @@ public class TestCasos {
 	        Map<String, Set<String>> fins = new HashMap<>();
 	        fins.put("NuevaActividadAFinalizar", clase);
 	        assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
+	        System.out.println(DataPersistencia.getInstance().obtenerActividades().toString());
+	        System.out.println(DataPersistencia.getInstance().obtenerClases("NuevaActividadAFinalizar").toString());
     	}catch(Exception e) {
     		e.printStackTrace();
     		fail(e.getMessage());
     	}
-    }
+    	DataPersistencia.getInstance().nuketownDetonator();
+    }   
 
 }

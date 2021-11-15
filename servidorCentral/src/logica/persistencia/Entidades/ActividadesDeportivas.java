@@ -41,7 +41,9 @@ public class ActividadesDeportivas implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "NOMBRE")
+    @Column(name = "NOMBRE",
+    		nullable = false,
+    		unique = true)
     private String nombre;
     
     @Column(name = "DESCRIPCION")
@@ -166,13 +168,17 @@ public class ActividadesDeportivas implements Serializable {
     
     @Override
     public String toString() {
+    	String fecha = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + fechaAlta.get(Calendar.MONTH) + 
+    			"/" + fechaAlta.get(Calendar.YEAR);
+    	String fechaNdeah = fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + fechaFinalizacion.get(Calendar.MONTH) + 
+    			"/" + fechaFinalizacion.get(Calendar.YEAR);
         return "ActividadesDeportivas[id=" + id +
         		", " + nombre +
         		", " + descripcion +
         		", " + duracion +
         		", " + costo +
-                ", " + fechaAlta +
-                ", " + fechaFinalizacion +
+                ", " + fecha +
+                ", " + fechaNdeah +
                 ", " + "nadadad" +
                 "]";
     }

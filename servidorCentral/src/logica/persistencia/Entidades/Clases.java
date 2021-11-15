@@ -1,8 +1,12 @@
 package logica.persistencia.Entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +21,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import datatypes.DtActividadDeportivaExt;
+import datatypes.DtClaseExt;
+import datatypes.DtFecha;
+import datatypes.TEstado;
 
 
 /**
@@ -33,7 +42,9 @@ public class Clases implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "NOMBRE")
+    @Column(name = "NOMBRE",
+    		nullable = false,
+    		unique = true)
     private String nombre;
     
 	@Column(name = "FECHA_INICIO")
@@ -57,7 +68,7 @@ public class Clases implements Serializable {
     @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_ACTIVIDAD",
  		   		insertable=false,
  		   		updatable=false)
@@ -176,15 +187,37 @@ public class Clases implements Serializable {
     
     @Override
     public String toString() {
+    	String fecha = fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaInicio.get(Calendar.MONTH) + 1) + 
+    			"/" + fechaInicio.get(Calendar.YEAR);
+    	String hora = horaInicio.get(Calendar.HOUR_OF_DAY) + ":" + horaInicio.get(Calendar.MINUTE);
+    	String fechaNdeah = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaAlta.get(Calendar.MONTH) + 1) + 
+    			"/" + fechaAlta.get(Calendar.YEAR);
         return "Clases[id=" + id +
-        		", " + fechaInicio +
-        		", " + horaInicio +
+        		", " + nombre +
+        		", " + fecha +
+        		", " + hora +
         		", " + sociosMinimos +
         		", " + sociosMaximos +
                 ", " + url +
-                ", " + fechaAlta +
+                ", " + fechaNdeah +
                 ", " + "mm" +
                 "]";
     }
+    
+    public DtClaseExt toDtClaseExt() {
+    	List<String> nickAlumnos = new ArrayList<>();
+    	for(Registros x: registros) {
+    		nickAlumnos.add(x.getSocio().getNickname());
+    	}
+    	
+    	DtClaseExt res = new DtClaseExt(nombre, actividad.getProfesor().getNickname(),
+    			actividad.getProfesor().getEmail(), sociosMinimos, sociosMaximos, url, 
+    			new DtFecha(fechaInicio.get(Calendar.YEAR),fechaInicio.get(Calendar.MONTH),fechaInicio.get(Calendar.DAY_OF_MONTH),
+    					fechaInicio.get(Calendar.HOUR_OF_DAY),fechaInicio.get(Calendar.MINUTE),fechaInicio.get(Calendar.SECOND)),
+    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH),fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
+    			nickAlumnos, nickAlumnos);
+    	return res;
+    }
 
+    
 }
