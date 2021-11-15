@@ -63,7 +63,7 @@ public class ActividadesDeportivas implements Serializable {
     @Column(name = "FECHA_FINALIZACION")
     private Calendar fechaFinalizacion;
     
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
     		   cascade=CascadeType.PERSIST)
     @JoinColumn(name = "ID_PROFESOR",
 		   		insertable=false,
