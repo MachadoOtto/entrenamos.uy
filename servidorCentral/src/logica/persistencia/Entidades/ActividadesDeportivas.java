@@ -166,9 +166,9 @@ public class ActividadesDeportivas implements Serializable {
     
     @Override
     public String toString() {
-    	String fecha = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + fechaAlta.get(Calendar.MONTH) + 
+    	String fecha = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaAlta.get(Calendar.MONTH) + 1) + 
     			"/" + fechaAlta.get(Calendar.YEAR);
-    	String fechaNdeah = fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + fechaFinalizacion.get(Calendar.MONTH) + 
+    	String fechaNdeah = fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaFinalizacion.get(Calendar.MONTH) + 1) + 
     			"/" + fechaFinalizacion.get(Calendar.YEAR);
         return "ActividadesDeportivas[id=" + id +
         		", " + nombre +
@@ -177,7 +177,7 @@ public class ActividadesDeportivas implements Serializable {
         		", " + costo +
                 ", " + fecha +
                 ", " + fechaNdeah +
-                ", " + "nadadad" +
+                ", " + clases.toString() +
                 "]";
     }
     
@@ -189,7 +189,7 @@ public class ActividadesDeportivas implements Serializable {
     	
     	DtActividadDeportivaExt res = new DtActividadDeportivaExt(
     			nombre, descripcion, duracion, costo,
-    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH),fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
+    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH) + 1,fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
     			new HashSet<>(), clases, new HashSet<>(), 
     			TEstado.finalizada, profesor.getNickname());
     	return res;

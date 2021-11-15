@@ -58,11 +58,11 @@ public class DataPersistencia {
 				actPersist.setDuracion(dtAct.getDuracionMinutos());
 			    actPersist.setCosto(dtAct.getCosto());
 			    Calendar fechaAlta = new GregorianCalendar();
-			    fechaAlta.set(dtAct.getFechaRegistro().getAnio(), dtAct.getFechaRegistro().getMes(), dtAct.getFechaRegistro().getDia());
+			    fechaAlta.set(dtAct.getFechaRegistro().getAnio(), dtAct.getFechaRegistro().getMes() - 1, dtAct.getFechaRegistro().getDia());
 			    actPersist.setFechaAlta(fechaAlta);
 			    Calendar fechaFinalizacion = new GregorianCalendar();
 			    DtFecha fechaActual = new DtFecha();
-			    fechaFinalizacion.set(fechaActual.getAnio(), fechaActual.getMes(), fechaActual.getDia());
+			    fechaFinalizacion.set(fechaActual.getAnio(), fechaActual.getMes() - 1, fechaActual.getDia());
 			    actPersist.setFechaFinalizacion(fechaFinalizacion);
 			    // Creacion o busqueda de Entidad Profesor.
 			    Profesores profViktor;
@@ -86,7 +86,7 @@ public class DataPersistencia {
 			        profViktor.setNombre(dataProfe.getNombre());
 			        profViktor.setApellido(dataProfe.getApellido());
 			        Calendar felizCumple = new GregorianCalendar();
-			        felizCumple.set(dataProfe.getFechaNacimiento().getAnio(), dataProfe.getFechaNacimiento().getMes(), 
+			        felizCumple.set(dataProfe.getFechaNacimiento().getAnio(), dataProfe.getFechaNacimiento().getMes() - 1, 
 			        		dataProfe.getFechaNacimiento().getDia());
 			        profViktor.setFechaNacimiento(felizCumple);
 			        profViktor.setTipoUsuario(TipoUsuario.Profesor);
@@ -104,11 +104,11 @@ public class DataPersistencia {
 				    } catch (ClaseException ignore) { }
 				    salon307.setNombre(datosClase.getNombre());
 				    Calendar fechaClaseAlta = new GregorianCalendar();
-				    fechaClaseAlta.set(datosClase.getFechaRegistro().getAnio(), datosClase.getFechaRegistro().getMes(), 
+				    fechaClaseAlta.set(datosClase.getFechaRegistro().getAnio(), datosClase.getFechaRegistro().getMes() - 1, 
 				    		datosClase.getFechaRegistro().getDia());
 				    salon307.setFechaAlta(fechaClaseAlta);
 				    Calendar fechaClaseInicio = new GregorianCalendar();
-				    fechaClaseInicio.set(datosClase.getFechaClase().getAnio(), datosClase.getFechaClase().getMes(), 
+				    fechaClaseInicio.set(datosClase.getFechaClase().getAnio(), datosClase.getFechaClase().getMes() - 1, 
 				    		datosClase.getFechaClase().getDia(), datosClase.getFechaClase().getHoras(), datosClase.getFechaClase().getMinutos());
 				    salon307.setFechaInicio(fechaClaseInicio);
 				    salon307.setHoraInicio(fechaClaseInicio);
@@ -140,7 +140,7 @@ public class DataPersistencia {
 				    	    	clubPenguin.setNombre(dataPinguino.getNombre());
 				    	    	clubPenguin.setApellido(dataPinguino.getApellido());
 				    	    	Calendar felizCumpleSocio = new GregorianCalendar();
-				    	    	felizCumpleSocio.set(dataPinguino.getFechaNacimiento().getAnio(), dataPinguino.getFechaNacimiento().getMes(),
+				    	    	felizCumpleSocio.set(dataPinguino.getFechaNacimiento().getAnio(), dataPinguino.getFechaNacimiento().getMes() - 1,
 				    	    			dataPinguino.getFechaNacimiento().getDia());
 				    	    	clubPenguin.setFechaNacimiento(felizCumpleSocio);
 				    	    	clubPenguin.setTipoUsuario(TipoUsuario.Socio);
@@ -156,7 +156,7 @@ public class DataPersistencia {
 				    	}
 				    	for (DtReciboClase receipt : recibos) {
 				    		Calendar fechaRecibo = new GregorianCalendar();
-				    		fechaRecibo.set(receipt.getFechaInscripcion().getAnio(), receipt.getFechaInscripcion().getMes(),
+				    		fechaRecibo.set(receipt.getFechaInscripcion().getAnio(), receipt.getFechaInscripcion().getMes() - 1,
 				    				receipt.getFechaInscripcion().getDia());
 				    		regBedelias.setFechaRegistro(fechaRecibo);
 				    		regBedelias.setCosto(receipt.getCosto());
@@ -224,7 +224,7 @@ public class DataPersistencia {
 		return nombreClases;
 	}
 	
-	public void destruirBase() {
+	public void nuketownDetonator() {
 		
 	}
 }
