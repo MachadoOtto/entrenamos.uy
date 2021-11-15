@@ -187,23 +187,17 @@ public class Clases implements Serializable {
     
     @Override
     public String toString() {
-<<<<<<< HEAD
-=======
     	String fecha = fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaInicio.get(Calendar.MONTH) + 1) + 
     			"/" + fechaInicio.get(Calendar.YEAR);
     	String hora = horaInicio.get(Calendar.HOUR_OF_DAY) + ":" + horaInicio.get(Calendar.MINUTE);
     	String fechaNdeah = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaAlta.get(Calendar.MONTH) + 1) + 
     			"/" + fechaAlta.get(Calendar.YEAR);
->>>>>>> branch 'TheGangOfPersistence' of https://gitlab.fing.edu.uy/tprog/tpgr31.git
         return "Clases[id=" + id +
-<<<<<<< HEAD
         		", " + fechaInicio +
         		", " + horaInicio +
-=======
         		", " + nombre +
         		", " + fecha +
         		", " + hora +
->>>>>>> branch 'TheGangOfPersistence' of https://gitlab.fing.edu.uy/tprog/tpgr31.git
         		", " + sociosMinimos +
         		", " + sociosMaximos +
                 ", " + url +
