@@ -176,14 +176,18 @@ public class Clases implements Serializable {
     
     @Override
     public String toString() {
+    	String fecha = fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + fechaInicio.get(Calendar.MONTH) + 
+    			"/" + fechaInicio.get(Calendar.YEAR);
+    	String hora = horaInicio.get(Calendar.HOUR_OF_DAY) + ":" + horaInicio.get(Calendar.MINUTE);
+    	String fechaNdeah = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + fechaAlta.get(Calendar.MONTH) + 
+    			"/" + fechaAlta.get(Calendar.YEAR);
         return "Clases[id=" + id +
-        		", " + fechaInicio +
-        		", " + horaInicio +
+        		", " + fecha +
+        		", " + hora +
         		", " + sociosMinimos +
         		", " + sociosMaximos +
                 ", " + url +
-                ", " + fechaAlta +
-                ", " + "mm" +
+                ", " + fechaNdeah +
                 "]";
     }
 

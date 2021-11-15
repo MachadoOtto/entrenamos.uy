@@ -72,7 +72,8 @@ public class ReciboClase {
 	}
 	
 	public DtReciboClase getDt() {
-		return new DtReciboClase(aClase.getNombre(), aSocio.getNickname(), cup.getNombre(), fechaInscripcion,
+		String cuponera = (cup == null) ? new String() : cup.getNombre();
+		return new DtReciboClase(aClase.getNombre(), aSocio.getNickname(), cuponera, fechaInscripcion,
 				tipo, costo);
 	}
 }

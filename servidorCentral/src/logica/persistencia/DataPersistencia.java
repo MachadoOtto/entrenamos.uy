@@ -61,7 +61,7 @@ public class DataPersistencia {
 		    actPersist.setFechaFinalizacion(fechaFinalizacion);
 		    // Creacion o busqueda de Entidad Profesor.
 		    Profesores profViktor;
-		    TypedQuery<Profesores> selectProf = em.createQuery("SELECT a FROM Profesores a WHERE a.NICKNAME = :nickname",
+		    TypedQuery<Profesores> selectProf = em.createQuery("SELECT a FROM Profesores a WHERE a.nickname = :nickname",
 					Profesores.class);
 		    selectProf.setParameter("nickname", dtAct.getCreador());
 		    if (!selectProf.getResultList().isEmpty()) {
@@ -117,7 +117,7 @@ public class DataPersistencia {
 			    	if (sociosAniadidos.containsKey(nickSocio)) {
 			    		regBedelias.setSocio(sociosAniadidos.get(nickSocio));
 			    	} else {
-			    		TypedQuery<Socios> selectSocio = em.createQuery("SELECT a FROM Socios a WHERE a.NICKNAME = :nickname",
+			    		TypedQuery<Socios> selectSocio = em.createQuery("SELECT a FROM Socios a WHERE a.nickname = :nickname",
 			    				Socios.class);
 			    	    selectSocio.setParameter("nickname", nickSocio);
 			    	    if (!selectSocio.getResultList().isEmpty()) {
@@ -167,7 +167,6 @@ public class DataPersistencia {
 		    em.persist(actPersist);
 		    em.flush();
 		    em.getTransaction().commit();
-		    em.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
@@ -181,9 +180,11 @@ public class DataPersistencia {
 		Set<String> nombreActividades = new HashSet<>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT a FROM ActividadesDeportivas a ORDER BY a.NOMBRE DESC",
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT a FROM ActividadesDeportivas a ORDER BY a.nombre DESC",
 					ActividadesDeportivas.class);
+    	    System.out.print("\n\n" + select.getResultList().size() + "\n\n");
 			for (ActividadesDeportivas actDep : select.getResultList()) {
+				System.out.print(actDep.toString());
 				nombreActividades.add(actDep.getNombre());
 			}
 		} catch (Exception e) {
@@ -200,10 +201,12 @@ public class DataPersistencia {
 		Set<String> nombreClases = new HashSet<>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Clases> select = em.createQuery("SELECT a FROM Clases c INNER JOIN ActividadesDeportivas ad" +
-					" ON (c.ID = ad.ID_CLASE) WHERE (ad.NOMBRE = 'nombre') ORDER BY c.NOMBRE DESC",	Clases.class);
+			TypedQuery<Clases> select = em.createQuery("SELECT c FROM Clases c INNER JOIN ActividadesDeportivas ad" +
+					" WHERE (ad.nombre = :nombre) ORDER BY c.nombre DESC",	Clases.class);
     	    select.setParameter("nombre", nombreActividad);
+    	    System.out.print("\n\n" + select.getResultList().size() + "\n\n");
 			for (Clases claseDB : select.getResultList()) {
+				System.out.print(claseDB.toString());
 				nombreClases.add(claseDB.getNombre());
 			}
 		} catch (Exception e) {
