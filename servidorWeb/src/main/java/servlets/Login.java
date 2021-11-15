@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +46,14 @@ public class Login extends HttpServlet {
 						r=Parametrizer.addParam(r,  "e",  "9");
 						request.getSession().setAttribute("loggedUser",  null);
 					} else {
-						response.sendRedirect(request.getContextPath() + "/pages/homeMobile.jsp");
+						if(request.getParameter("rememberme")!=null && request.getParameter("rememberme").equals("true")){
+							Cookie galleta = new Cookie("nomeolvides",usr.getNickname());
+							galleta.setPath(request.getContextPath());
+							galleta.setComment("Esta galleta te permite ingresar de forma directa al sitio movil de entrenamos.uy");
+							galleta.setMaxAge(Integer.parseInt(ConfigListener.cfg.getProperty("cookieMaxAge"))); //Duracion de la galleta en segundos
+							response.addCookie(galleta);
+						}
+						response.sendRedirect(request.getContextPath()+"/home");
 						return;
 					}
 				}

@@ -21,6 +21,9 @@ import logica.ILogger;
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import javax.swing.JLabel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class LogViewer extends JInternalFrame {
@@ -51,6 +54,7 @@ public class LogViewer extends JInternalFrame {
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);	
 		table = new JTable();
+		table.setToolTipText("Presione una tecla para actualizar. La información se actualiza automaticamente cada 5 minutos. ");
 		table.setRowSelectionAllowed(false);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
@@ -87,7 +91,26 @@ public class LogViewer extends JInternalFrame {
             	}
             }
         };
-        Timer timer = new Timer(5000, actionListener);
-        timer.start();
+        Timer timer = new Timer(120000, actionListener);
+		table.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent kl) {
+            	if (LogViewer.this.isVisible()){
+	            	tablemodel.setRowCount(0);
+	            	int i=0;
+	        		for(LogEntryWS e: IL.getLogs()) {
+	        			tablemodel.addRow(new Object[]{Integer.toString(i++),e.getDate().adapt().toFechaHora(),e.getIp(),e.getUrl(),e.getBrowser(),e.getSo()});
+	        		}
+            	}
+			}
+		});
+    	tablemodel.setRowCount(0);
+    	int i=0;
+    	if (LogViewer.this.isVisible()){
+			for(LogEntryWS e: IL.getLogs()) {
+				tablemodel.addRow(new Object[]{Integer.toString(i++),e.getDate().adapt().toFechaHora(),e.getIp(),e.getUrl(),e.getBrowser(),e.getSo()});
+			}
+	        timer.start();
+    	}
 	}
 }
