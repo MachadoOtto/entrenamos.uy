@@ -14,6 +14,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
@@ -216,5 +218,36 @@ public class DataPersistencia {
 			em.close();
 		}
 		return nombreClases;
-	}	
+	}
+	
+	public void nuketownDetonator() {
+		EntityManager em = emFabrica.createEntityManager();
+		em.getTransaction().begin();
+		try {
+			CriteriaBuilder builder = em.getCriteriaBuilder();
+			CriteriaDelete<Socios> querySos = builder.createCriteriaDelete(Socios.class);
+			querySos.from(Socios.class);
+			em.createQuery(querySos).executeUpdate();
+			CriteriaDelete<Profesores> queryProf = builder.createCriteriaDelete(Profesores.class);
+			queryProf.from(Profesores.class);
+			em.createQuery(queryProf).executeUpdate();
+			//CriteriaDelete<Usuarios> queryUsu = builder.createCriteriaDelete(Usuarios.class);
+			//queryUsu.from(Usuarios.class);
+			//em.createQuery(queryUsu).executeUpdate();
+			CriteriaDelete<Registros> queryReg = builder.createCriteriaDelete(Registros.class);
+			queryReg.from(Registros.class);
+			em.createQuery(queryReg).executeUpdate();
+			CriteriaDelete<Clases> queryCla = builder.createCriteriaDelete(Clases.class);
+			queryCla.from(Clases.class);
+			em.createQuery(queryCla).executeUpdate();
+			CriteriaDelete<ActividadesDeportivas> queryAct = builder.createCriteriaDelete(ActividadesDeportivas.class);
+			queryAct.from(ActividadesDeportivas.class);
+			em.createQuery(queryAct).executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+	}
 }

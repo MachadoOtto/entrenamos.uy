@@ -67,6 +67,7 @@ public class TestCasos {
 		ICC = fabrica.obtenerICuponeraController();
 		IDCC = fabrica.obtenerIDictadoClaseController();
 		cargaDeCasos();
+		DataPersistencia.getInstance().nuketownDetonator();
 	}
 	
 	public static void cargaDeCasos() {
@@ -2611,6 +2612,7 @@ public class TestCasos {
     		e.printStackTrace();
     		fail(e.getMessage());
     	}
+    	DataPersistencia.getInstance().nuketownDetonator();
     }   
 
 }
