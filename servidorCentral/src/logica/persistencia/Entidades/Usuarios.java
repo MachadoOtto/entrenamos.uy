@@ -2,6 +2,9 @@ package logica.persistencia.Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -15,6 +18,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import datatypes.DtFecha;
+import datatypes.DtSocioExt;
+import datatypes.DtUsuarioExt;
+import datatypes.TEstado;
 import logica.persistencia.Datatypes.TipoUsuario;
 
 import javax.persistence.DiscriminatorType;
@@ -32,44 +39,37 @@ import javax.persistence.Enumerated;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO_USUARIO",
 discriminatorType = DiscriminatorType.INTEGER)
-public class Usuarios implements Serializable {
+public abstract class Usuarios implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private Long id;
+    protected Long id;
     
     @Column(name = "NICKNAME",
     		nullable = false,
     		unique = true)
-    private String nickname;
+    protected String nickname;
     
     @Column(name = "EMAIL",
     		nullable = false,
     		unique = true)
-    private String email;
+    protected String email;
     
     @Column(name = "NOMBRE")
-    private String nombre;
+    protected String nombre;
     
     @Column(name = "APELLIDO")
-    private String apellido;
+    protected String apellido;
     
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_NACIMIENTO")
-    private Calendar fechaNacimiento;
+    protected Calendar fechaNacimiento;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "TIPO_USUARIO")
-    private TipoUsuario tipoUsuario;
-
-    /*
-    @ManyToOne
-    private List<Socios> socios;
-    @ManyToOne
-    private List<Profesores> profesores;
-    */
+    protected TipoUsuario tipoUsuario;
     
 	public Long getId() {
         return id;
@@ -128,35 +128,24 @@ public class Usuarios implements Serializable {
 	}
 
     @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+    public abstract int hashCode();
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuarios)) {
-            return false;
-        }
-        Usuarios other = (Usuarios) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
+    public abstract boolean equals(Object object);
     
     @Override
     public String toString() {
-        return "Usuarios[id=" + id +
-        		", " + nickname +
-        		", " + email +
-        		", " + nombre +
-        		", " + apellido +
-                ", " + fechaNacimiento +
+    	return "Usuarios[id=" + id +
+        		", nickname =  " + nickname +
+        		", email = " + email +
+        		", nombre = " + nombre +
+        		", apellido = " + apellido +
+                ", fechaNacimiento = " + new DtFecha(fechaNacimiento) +
                 "]";
     }
+    
+    @Override
+    public abstract DtUsuarioExt toDtUsuarioExt();
 
 }
 

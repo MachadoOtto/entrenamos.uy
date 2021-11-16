@@ -3,18 +3,14 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -164,26 +160,26 @@ public class ActividadesDeportivas implements Serializable {
     
     @Override
     public String toString() {
-    	String fecha = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + fechaAlta.get(Calendar.MONTH) + 
+    	String fechaAlt = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + fechaAlta.get(Calendar.MONTH) + 
     			"/" + fechaAlta.get(Calendar.YEAR);
-    	String fechaNdeah = fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + fechaFinalizacion.get(Calendar.MONTH) + 
+    	String fechaFin = fechaFinalizacion.get(Calendar.DAY_OF_MONTH) + "/" + fechaFinalizacion.get(Calendar.MONTH) + 
     			"/" + fechaFinalizacion.get(Calendar.YEAR);
         return "ActividadesDeportivas[id=" + id +
-        		", " + nombre +
-        		", " + descripcion +
-        		", " + duracion +
-        		", " + costo +
-                ", " + fecha +
-                ", " + fechaNdeah +
-                ", " + "nadadad" +
+        		", nombre = " + nombre +
+        		", desripcion = " + descripcion +
+        		", duracion = " + duracion +
+        		", costo = " + costo +
+                ", fechaAlt = " + fechaAlt +
+                ", fechaFin = " + fechaFin +
+                ", Profesor = " + profesor.getNickname() +
+                ", Clases = " + clases.toString() +
                 "]";
     }
     
     public DtActividadDeportivaExt toDtActividadDeportivaExt() {
     	DtActividadDeportivaExt res = new DtActividadDeportivaExt(
     			nombre, descripcion, duracion, costo,
-    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH)+1,fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
-    			new HashSet<>(), new HashSet<>(), new HashSet<>(), 
+    			new DtFecha(fechaAlta), new HashSet<>(), new HashSet<>(), new HashSet<>(), 
     			TEstado.finalizada, profesor.getNickname());
     	return res;
     }

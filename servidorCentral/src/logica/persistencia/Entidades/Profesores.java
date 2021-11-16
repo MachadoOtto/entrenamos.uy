@@ -1,8 +1,18 @@
 package logica.persistencia.Entidades;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import datatypes.DtFecha;
+import datatypes.DtProfesorExt;
+import datatypes.DtSocioExt;
+import datatypes.DtUsuarioExt;
+import datatypes.TEstado;
 
 
 /**
@@ -46,9 +56,11 @@ public class Profesores extends Usuarios {
     }
     
     @Override
-    public String toString() {
-        return "Profesores[idUsuario=" + getId() +
-                "]";
+    public DtUsuarioExt toDtUsuarioExt() {
+		DtProfesorExt res = new DtProfesorExt(nickname,nombre,apellido,email,"",new DtFecha(fechaNacimiento), "", 
+				"", "", "", new HashMap<String, Set<String>>(), null, new HashSet<>(),
+				new HashSet<>(), new HashMap<String, TEstado>(), -1);
+		return res;
     }
 
 }

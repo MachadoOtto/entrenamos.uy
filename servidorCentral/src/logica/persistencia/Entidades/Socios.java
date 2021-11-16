@@ -1,12 +1,16 @@
 package logica.persistencia.Entidades;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import datatypes.DtFecha;
+import datatypes.DtPremio;
+import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
 
 
@@ -33,7 +37,7 @@ public class Socios extends Usuarios {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (getId() != null ? getId().hashCode() : 0);
+        hash += (getIdUsuario() != null ? getIdUsuario().hashCode() : 0);
         return hash;
     }
 
@@ -44,14 +48,20 @@ public class Socios extends Usuarios {
             return false;
         }
         Socios other = (Socios) object;
-        if ((this.getId() == null && other.getId() != null) || (this.getId() != null && !this.getId().equals(other.getId()))) {
+        if ((this.getIdUsuario() == null && other.getIdUsuario() != null) || (this.getIdUsuario() != null && !this.getIdUsuario().equals(other.getIdUsuario()))) {
             return false;
         }
         return true;
     }
 
-	public DtUsuarioExt toDtSocioExt() {
-		return null; //TODO HACER DT!
+    @Override
+	public DtUsuarioExt toDtUsuarioExt() {
+		DtSocioExt res = new DtSocioExt(nickname, nombre, apellido, email, "", new DtFecha(fechaNacimiento), 
+				new HashMap<String, Set<String>>(), null, new HashSet<>(), new HashSet<>(),
+				new HashSet<>(), new HashSet<>(), new HashMap<String, DtPremio>(),
+				new HashMap<String, Set<String>>());
+		return res;
 	}
+
 }
 
