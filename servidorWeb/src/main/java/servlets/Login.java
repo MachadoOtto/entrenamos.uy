@@ -45,7 +45,7 @@ public class Login extends HttpServlet {
 						r=Parametrizer.addParam(r,  "e",  "9");
 						request.getSession().setAttribute("loggedUser",  null);
 					} else {
-						response.sendRedirect(request.getContextPath() + "/pages/homeMobile.jsp");
+						request.getRequestDispatcher("/pages/homeMobile.jsp").forward(request,  response);
 						return;
 					}
 				}

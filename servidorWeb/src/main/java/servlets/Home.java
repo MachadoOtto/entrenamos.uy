@@ -44,7 +44,7 @@ public class Home extends HttpServlet {
 		} catch(ActividadDeportivaException ex) {
 			ex.printStackTrace();
 			req.setAttribute("contxError",  ex);
-			resp.sendRedirect(req.getContextPath() + "/pages/500.jsp");
+			req.getRequestDispatcher("pages/500.jsp").forward(req,  resp);
 			return;
 		}
 		Set<Integer> numerosRandom = new HashSet<>();
@@ -62,7 +62,8 @@ public class Home extends HttpServlet {
     		if (req.getSession().getAttribute("loggedUser") instanceof DtSocioExt) {
     			req.getRequestDispatcher("/pages/homeMobile.jsp").forward(req,  resp);
     		} else {
-    			resp.sendRedirect(req.getContextPath() + "/pages/loginMobile.jsp");
+    			//resp.sendRedirect(req.getContextPath() + "/pages/loginMobile.jsp"); Ojo ahi
+    			req.getRequestDispatcher("/pages/loginMobile.jsp").forward(req,  resp);
     			return;
     		}
     	} else {

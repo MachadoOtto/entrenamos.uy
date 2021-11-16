@@ -71,7 +71,7 @@ public class Seguir extends HttpServlet {
         	response.sendRedirect(request.getContextPath() +"/usuarios?nickname=" + URLEncoder.encode(usr.getNickname(),"utf-8"));
 		} catch (Exception e2) {
 			e2.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/pages/404.jsp");
+			request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
 			return;
 		}
     }
@@ -81,7 +81,7 @@ public class Seguir extends HttpServlet {
 			processRequest(request,  response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/pages/400.jsp");
+			request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
 			return;
 		}
 	}
@@ -91,7 +91,7 @@ public class Seguir extends HttpServlet {
 			processRequest(request,  response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect(request.getContextPath() + "/pages/400.jsp");
+			request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
 			return;
 		}
 	}

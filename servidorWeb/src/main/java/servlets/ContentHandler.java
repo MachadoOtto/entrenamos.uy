@@ -56,9 +56,7 @@ public class ContentHandler extends HttpServlet {
 		String idf=null;
 		int cacheAge = Integer.parseInt(ConfigListener.cfg.getProperty("contentCacheTime", "60"));
 		long expiry = new Date().getTime() + cacheAge*1000;
-		response.setDateHeader("Expires", expiry);
-	    response.setHeader("Cache-Control", "max-age="+ cacheAge);
-	    response.flushBuffer();
+
 		if (c==null || id ==null)
 			r404(request, response);
 		if (c.equals("usu")) {
@@ -100,6 +98,9 @@ public class ContentHandler extends HttpServlet {
 			stream.write(i);
 			response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
 			response.setContentLength(i.length);
+			response.setDateHeader("Expires", expiry);
+		    response.setHeader("Cache-Control", "max-age="+ cacheAge);
+		    response.flushBuffer();
 		} else {
 			try {
 				PrintWriter stream = response.getWriter();
@@ -111,6 +112,9 @@ public class ContentHandler extends HttpServlet {
 					}
 					response.setContentType("image/"+idf.split("[.]")[idf.split("[.]").length-1]);
 					response.setContentLength(s);
+					response.setDateHeader("Expires", expiry);
+				    response.setHeader("Cache-Control", "max-age="+ cacheAge);
+				    response.flushBuffer();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -132,9 +136,9 @@ public class ContentHandler extends HttpServlet {
 
 	private void r404(HttpServletRequest request,  HttpServletResponse response) {
 		try {
-			response.sendRedirect(request.getContextPath()+"/pages/404.jsp");
+			request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
 			return;
-		} catch (IOException e) {
+		} catch (IOException | ServletException e) {
 			e.printStackTrace();
 		}
 	}
