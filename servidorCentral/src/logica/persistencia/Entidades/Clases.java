@@ -48,10 +48,10 @@ public class Clases implements Serializable {
     private String nombre;
     
 	@Column(name = "FECHA_INICIO")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
     private Calendar fechaInicio;
 	
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "HORA_INICIO")
     private Calendar horaInicio;
 	
@@ -64,14 +64,12 @@ public class Clases implements Serializable {
     @Column(name = "URL")
     private String url;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_ALTA")
     private Calendar fechaAlta;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID_ACTIVIDAD",
- 		   		insertable=false,
- 		   		updatable=false)
+    @JoinColumn(name = "ID_ACTIVIDAD")
     private ActividadesDeportivas actividad;
     
     @OneToMany(mappedBy = "clase",

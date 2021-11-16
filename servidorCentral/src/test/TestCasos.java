@@ -2616,7 +2616,7 @@ public class TestCasos {
     		e.printStackTrace();
     		fail(e.getMessage());
     	}
-    	DataPersistencia.getInstance().nuketownDetonator();
+    	//DataPersistencia.getInstance().nuketownDetonator(); Por ahora no, pero funciona!
     }   
 
 }

@@ -1,5 +1,7 @@
 package datatypes;
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class DtFecha {
 
@@ -94,5 +96,9 @@ public class DtFecha {
 
 	public boolean equals(DtFecha f) {
 		return anio==f.getAnio() && mes==f.getMes() && dia==f.getDia() && horas==f.getHoras() && minutos==f.getMinutos() && segundos==f.getSegundos();
+	}
+	
+	public Calendar toCalendar() {
+		return new GregorianCalendar(getAnio(),getMes()-1,getDia(),getHoras(),getMinutos(),getSegundos());
 	}
 }

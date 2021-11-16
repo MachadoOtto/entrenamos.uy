@@ -79,7 +79,9 @@ public class ActividadDeportiva {
 	public Set<String> getNombreClases(){
 		return clases.keySet();		
 	}
-		
+	public Map<String, Clase> getClases(){
+		return clases;
+	}
 	public Clase findClase(String clase) throws ClaseException {
 		Clase res = clases.get(clase);
 		if (res == null) {
@@ -159,6 +161,9 @@ public class ActividadDeportiva {
 		for(Entry<String, ClasesCuponera> x : clCuponera.entrySet())
 			x.getValue().estafar();
 	}
+	public Profesor getCreador() {
+		return creador;
+	}
 }
 
 
@@ -180,9 +185,6 @@ public DtActividadDeportiva getDt(){
 
 public DtClaseExt getClaseDatos(String c) {
 	return clases.get(c).getDt();
-}
-public Profesor getCreador() {
-	return creador;
 }
 
 public Set<DtClase> getDatosClases() {

@@ -65,9 +65,7 @@ public class ActividadesDeportivas implements Serializable {
     
     @ManyToOne(fetch = FetchType.EAGER,
     		   cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "ID_PROFESOR",
-		   		insertable=false,
-		   		updatable=false)
+    @JoinColumn(name = "ID_PROFESOR")
     private Profesores profesor;
 
     @OneToMany(mappedBy = "actividad",

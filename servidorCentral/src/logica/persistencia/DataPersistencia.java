@@ -27,7 +27,11 @@ import datatypes.DtSocioExt;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.UsuarioNoExisteException;
+import logica.ActividadDeportiva;
+import logica.Clase;
 import logica.LaFabrica;
+import logica.ReciboClase;
+import logica.Socio;
 import logica.persistencia.Datatypes.TipoUsuario;
 import logica.persistencia.Entidades.*;
 
@@ -90,6 +94,7 @@ public class DataPersistencia {
 		        profViktor.setFechaNacimiento(felizCumple);
 		        profViktor.setTipoUsuario(TipoUsuario.Profesor);
 		    }
+		    System.out.println("AYOOO: "+profViktor);
 		    actPersist.setProfesor(profViktor);
 		    // Creacion de las clases
 		    Collection<Clases> collectionClase = new ArrayList<>();
@@ -169,8 +174,92 @@ public class DataPersistencia {
 		    }
 		    actPersist.setClases(collectionClase);
 		    em.persist(actPersist);
-		    em.flush();
+		    //em.flush(); Why?
 		    em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+	}
+	
+	public void persistir2(ActividadDeportiva act) {
+		EntityManager em = emFabrica.createEntityManager();
+		try {
+			
+			//GetActDepCreator
+			em.getTransaction().begin();
+		    TypedQuery<Profesores> creatorQuery = em.createQuery("SELECT a FROM Profesores a WHERE a.nickname = :nickname",Profesores.class);
+		    Profesores creador=null;
+		    creatorQuery.setParameter("nickname",act.getCreador().getNickname());
+		    if (creatorQuery.getResultList().isEmpty()) {
+		    	creador = new Profesores();
+		    	creador.setNickname(act.getCreador().getNickname());
+		    	creador.setEmail(act.getCreador().getCorreo());
+		    	creador.setNombre(act.getCreador().getNombre());
+		    	creador.setApellido(act.getCreador().getApellido());
+		    	creador.setFechaNacimiento(act.getCreador().getFecha().toCalendar());
+		    	creador.setTipoUsuario(TipoUsuario.Profesor);
+		    	em.persist(creador);
+		    } else
+		    	creador = creatorQuery.getSingleResult();
+		    
+		    //CreateActivity
+		    ActividadesDeportivas ap = new ActividadesDeportivas();
+		    ap.setNombre(act.getNombre());
+		    ap.setDescripcion(act.getDescripcion());
+		    ap.setDuracion(act.getDuracionMinutos());
+		    ap.setCosto(act.getCosto());
+		    ap.setFechaAlta(act.getFechaRegistro().toCalendar());
+		    ap.setFechaFinalizacion((new DtFecha()).toCalendar());
+		    ap.setProfesor(creador);
+			em.persist(ap);
+			
+			//Create clases
+			for(Entry<String, Clase> cl: act.getClases().entrySet()) {
+				Clase y = cl.getValue();
+				Clases x = new Clases();
+				x.setNombre(y.getNombre());
+				x.setFechaInicio(y.getFechaClase().toCalendar());
+				x.setFechaAlta(y.getFechaRegistro().toCalendar());
+				x.setHoraInicio(y.getFechaClase().toCalendar());
+				x.setSociosMaximos(y.getMaxSocios());
+				x.setSociosMinimos(y.getMinSocios());
+				x.setUrl(y.getURL());
+				x.setActividad(ap);
+				em.persist(x);
+				
+				//Create socios inscriptos
+				for(ReciboClase rc: y.getRecibo()) {
+					
+					//Create socios inscriptos
+					Socio s = rc.getSocio();
+					TypedQuery<Socios> leSocios = em.createQuery("SELECT s FROM Socios s WHERE s.nickname=:nick",Socios.class);
+					leSocios.setParameter("nick", s.getNickname());
+					Socios sp = null;
+					if(leSocios.getResultList().isEmpty()) {
+						sp = new Socios();
+						sp.setNickname(s.getNickname());
+						sp.setNombre(s.getNombre());
+						sp.setApellido(s.getApellido());
+						sp.setEmail(s.getCorreo());
+						sp.setFechaNacimiento(s.getFecha().toCalendar());
+						sp.setTipoUsuario(TipoUsuario.Socio);
+						em.persist(sp);
+					} else
+						sp = leSocios.getSingleResult();
+					//Create registros
+					Registros r = new Registros();
+					r.setFechaRegistro(rc.getFechaInscripcion().toCalendar());
+					r.setCosto(rc.getCosto());
+					r.setSocio(sp);
+					r.setClase(x);
+				}
+				
+			}
+			em.getTransaction().commit();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
@@ -186,7 +275,6 @@ public class DataPersistencia {
 			em.getTransaction().begin();
 			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT a FROM ActividadesDeportivas a ORDER BY a.nombre DESC",
 					ActividadesDeportivas.class);
-    	    System.out.print("\n\n" + select.getResultList().size() + "\n\n");
 			for (ActividadesDeportivas actDep : select.getResultList()) {
 				System.out.print(actDep.toString());
 				nombreActividades.add(actDep.getNombre());
@@ -208,7 +296,6 @@ public class DataPersistencia {
 			TypedQuery<Clases> select = em.createQuery("SELECT c FROM Clases c INNER JOIN ActividadesDeportivas ad" +
 					" WHERE (ad.nombre = :nombre) ORDER BY c.nombre DESC",	Clases.class);
     	    select.setParameter("nombre", nombreActividad);
-    	    System.out.print("\n\n" + select.getResultList().size() + "\n\n");
 			for (Clases claseDB : select.getResultList()) {
 				System.out.print(claseDB.toString());
 				nombreClases.add(claseDB.getNombre());
@@ -230,7 +317,6 @@ public class DataPersistencia {
 			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad INNER JOIN Profesores p "
 					+ "WHERE p.nickname=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nickProfesor);
-    	    System.out.print("\n\n" + select.getResultList().size() + "\n\n");
 			for (ActividadesDeportivas adDB : select.getResultList()) {
 				System.out.print(adDB.toString());
 				if(adDB.getProfesor().getNickname().equals(nickProfesor))

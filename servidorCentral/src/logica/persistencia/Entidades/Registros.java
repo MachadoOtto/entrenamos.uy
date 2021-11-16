@@ -61,7 +61,7 @@ public class Registros implements Serializable {
 		}
 
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "FECHA_REGISTRO")
     private Calendar fechaRegistro;
     
