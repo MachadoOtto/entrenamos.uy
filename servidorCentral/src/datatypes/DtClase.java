@@ -35,7 +35,9 @@ public class DtClase{
 	public String getNombre() {
 		return nombre; 
 	}
-	
+	public void setNombre(String newName) {
+		nombre = newName;
+	}
 	public String getNicknameProfesor() { 
 		return nicknameProfesor; 
 	}
