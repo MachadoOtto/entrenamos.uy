@@ -3,18 +3,18 @@ package logica.persistencia.Entidades;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import datatypes.DtFecha;
+import datatypes.DtReciboClase;
+import datatypes.TReg;
 
 
 /**
@@ -55,7 +55,15 @@ public class Registros implements Serializable {
     }
 
     public void setId(Long idSocio) {
-    	socio.setId(idSocio);;
+    	socio.setId(idSocio);
+    }
+    
+    public Long getIdClase() {
+        return socio.getId();
+    }
+
+    public void setIdClase(Long idClase) {
+    	socio.setId(idClase);
     }
     
     public Calendar getFechaRegistro() {
@@ -93,7 +101,8 @@ public class Registros implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (this.getIdSocio() != null ? this.getIdSocio().hashCode() : 0); //ojo
+        hash += (this.getIdSocio() != null ? this.getIdSocio().hashCode() : 0) +
+        		(this.getIdClase() != null ? this.getIdClase().hashCode() : 0); 
         return hash;
     }
 
@@ -112,11 +121,16 @@ public class Registros implements Serializable {
 
     @Override
     public String toString() {
-        return "Registros[idSocio=" + getIdSocio() +
-        		", " + "nadadada" +
-        		", " + fechaRegistro +
-        		", " + costo +
+        return "Registros[Socio = " + socio.getNickname() +
+        		", Clase = " + clase.getNombre() +
+        		", FechaRegistro = " + new DtFecha(fechaRegistro) +
+        		", Costo = " + costo + 
                 "]";
+    }
+
+    public DtReciboClase toDtReciboClase() {
+    	DtReciboClase res = new DtReciboClase(clase.getNombre(), socio.getNickname(), "", new DtFecha(fechaRegistro), TReg.general, costo);
+    	return res;
     }
 
     

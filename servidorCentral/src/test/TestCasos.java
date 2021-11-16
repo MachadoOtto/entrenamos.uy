@@ -2587,6 +2587,7 @@ public class TestCasos {
     @Test 
     void testFinalizarAct() throws InstitucionException, ActividadDeportivaException {
     	try {
+    		DataPersistencia.getInstance().nuketownDetonator(); 
 			DtFecha fecha = new DtFecha(2020,   1,   1,   0,   0,   0);
 			DtActividadDeportiva nuevaActividad = new DtActividadDeportiva("NuevaActividadAFinalizar",   "Desc",   1,   10,   fecha,   null,   TEstado.aceptada,   "Administrador");
 			assertEquals(IADC.ingresarDatosActividadDep("Fuerza Bruta",   nuevaActividad),   true);

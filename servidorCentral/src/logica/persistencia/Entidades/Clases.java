@@ -74,13 +74,6 @@ public class Clases implements Serializable {
     
     @OneToMany(mappedBy = "clase", cascade=CascadeType.PERSIST)
     private Collection<Registros> registros;
-    
-    /*
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ID")
-    private ActividadesDeportivas actividadDeportiva;
-     */
-    //private tipoUsuario tipo
 
 	public Long getId() {
 		return id;
@@ -184,20 +177,19 @@ public class Clases implements Serializable {
     
     @Override
     public String toString() {
-    	String fecha = fechaInicio.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaInicio.get(Calendar.MONTH) + 1) + 
-    			"/" + fechaInicio.get(Calendar.YEAR);
-    	String hora = horaInicio.get(Calendar.HOUR_OF_DAY) + ":" + horaInicio.get(Calendar.MINUTE);
-    	String fechaNdeah = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaAlta.get(Calendar.MONTH) + 1) + 
+    	DtFecha fechaIni = new DtFecha(fechaInicio);
+    	String horaIni = horaInicio.get(Calendar.HOUR_OF_DAY) + ":" + horaInicio.get(Calendar.MINUTE);
+    	String fechaAlt = fechaAlta.get(Calendar.DAY_OF_MONTH) + "/" + String.valueOf(fechaAlta.get(Calendar.MONTH) + 1) + 
     			"/" + fechaAlta.get(Calendar.YEAR);
         return "Clases[id=" + id +
-        		", " + nombre +
-        		", " + fecha +
-        		", " + hora +
-        		", " + sociosMinimos +
-        		", " + sociosMaximos +
-                ", " + url +
-                ", " + fechaNdeah +
-                ", " + "mm" +
+        		", nombre = " + nombre +
+        		", fechaInicio = " + fechaIni +
+        		", horaInicio = " + horaIni +
+        		", sociosMinimos = " + sociosMinimos +
+        		", sociosMaximos = " + sociosMaximos +
+                ", url = " + url +
+                ", fechaAlta = " + fechaAlt +
+                ", actividad = " + actividad.getNombre() +
                 "]";
     }
     
@@ -209,9 +201,8 @@ public class Clases implements Serializable {
     	
     	DtClaseExt res = new DtClaseExt(nombre, actividad.getProfesor().getNickname(),
     			actividad.getProfesor().getEmail(), sociosMinimos, sociosMaximos, url, 
-    			new DtFecha(fechaInicio.get(Calendar.YEAR),fechaInicio.get(Calendar.MONTH),fechaInicio.get(Calendar.DAY_OF_MONTH),
-    					fechaInicio.get(Calendar.HOUR_OF_DAY),fechaInicio.get(Calendar.MINUTE),fechaInicio.get(Calendar.SECOND)),
-    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH),fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
+    			new DtFecha(fechaInicio),
+    			new DtFecha(fechaAlta),
     			nickAlumnos, nickAlumnos);
     	return res;
     }

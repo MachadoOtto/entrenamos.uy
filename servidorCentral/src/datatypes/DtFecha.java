@@ -32,6 +32,15 @@ public class DtFecha {
 		this.segundos = fecha.getSegundos();
 	}
 	
+	public DtFecha(Calendar c) {
+		this.anio = c.get(Calendar.YEAR);
+		this.mes = c.get(Calendar.MONTH) + 1;
+		this.dia = c.get(Calendar.DAY_OF_MONTH);
+		this.horas = c.get(Calendar.HOUR_OF_DAY);
+		this.minutos = c.get(Calendar.MINUTE);
+		this.segundos = c.get(Calendar.SECOND);
+	}
+	
 	public int getAnio() {
 		return this.anio;
 	}

@@ -431,7 +431,7 @@ public class DataPersistencia {
 			if(select.getResultList().size()>0) {
 				Socios s = select.getSingleResult();
 				System.out.println(s.toString());
-				return s.toDtSocioExt();
+				return s.toDtUsuarioExt();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
