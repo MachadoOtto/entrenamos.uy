@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datatypes.DtClaseExt;
 import datatypes.DtProfesorExt;
 import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
@@ -49,7 +50,10 @@ public class RealizarSorteo extends HttpServlet {
 			for(Entry<String, Set<String>> x: prof.getClasesxActividades().entrySet()) {
 				if(x.getValue().contains(claname)) {
 					try {
-						IDCC.sortearPremios(prof.getNombreInstitucion(), x.getKey(), claname);
+						DtClaseExt clase = IDCC.buscarClase(claname);
+						if (!(clase.getMinSocios() > clase.getNickAlumnos().size())) {
+							IDCC.sortearPremios(prof.getNombreInstitucion(), x.getKey(), claname);
+						}
 					} catch (InstitucionException | ClaseException | ActividadDeportivaException e) {
 						request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
 						e.printStackTrace();

@@ -32,6 +32,7 @@
 			boolean estaLlena = (boolean) request.getAttribute("estaLlena");
 			boolean actfin = (boolean) request.getAttribute("actfin");
 			DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
+			boolean noCumpleMinimo = (datosClase.getMinSocios() > datosClase.getNickAlumnos().size());
 			%>
 		<div class="row mx-3 mx-md-5">
         	<div class="ins-cat col-2">
@@ -63,8 +64,13 @@
 	              				<div class="col-auto">
 	              					<% if (estaInscripto || estaCaducada || estaLlena) {%>
 	              					<button id="botonQueNoSirveXD" type="button" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" disabled>
-					                  <%if (estaInscripto) {%>Inscripto<%} else if (estaCaducada) {%>Clase finalizada
-					                  <%} else {%>Clase llena<% } %>
+					                  <%   if (estaInscripto) {%>Inscripto
+					                  <% } else if (estaCaducada) {%>
+					                  <%	 if (noCumpleMinimo) {%>Clase cancelada
+					                  <%	 } else {%>Clase finalizada
+					                  <% 	 }
+					                     } else {%>Clase llena
+					                  <% } %>
 					                </button>
 	              					<%} else {%>
 					                <button id="botonInsc" type="button" class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#inscModal">
@@ -177,7 +183,8 @@
 	    			DtFecha fechaf = new DtFecha();
 	    			fechaf.setMinutos(fechaf.getMinutos()-((DtActividadDeportivaExt)request.getAttribute("actDT")).getDuracionMinutos());
 	                if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) &&
-	                		datosClase.getFechaClase().esMenor(fechaf) && (datosClase.getPremio().getFechaSorteo()==null || datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0)))) { %>
+	                		datosClase.getFechaClase().esMenor(fechaf) && (datosClase.getPremio().getFechaSorteo()==null || datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0))) 
+	                		&& !noCumpleMinimo) { %>
 	                	<br>
 		                <button class="w-100 mb-2 btn btn-outline-primary btn-lg rounded-4  mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#sorteoModal" >
 		                   Realizar Sorteo
