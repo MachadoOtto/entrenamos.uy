@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,16 +18,18 @@ import models.GestorWeb;
 import tools.Parametrizer;
 import models.LaFabricaWS;
 import models.IActividadDeportivaController;
+import models.IUsuarioController;
 import datatypes.DtActividadDeportiva;
 import datatypes.DtSocioExt;
 import datatypes.TEstado;
 import excepciones.ActividadDeportivaException;
 import excepciones.InstitucionException;
+import excepciones.UsuarioNoExisteException;
 
 @WebServlet ("/home")
 public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private IUsuarioController IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
     public Home() {
         super();
         GestorWeb.getInstance();
@@ -62,7 +65,22 @@ public class Home extends HttpServlet {
     		if (req.getSession().getAttribute("loggedUser") instanceof DtSocioExt) {
     			req.getRequestDispatcher("/pages/homeMobile.jsp").forward(req,  resp);
     		} else {
-    			//resp.sendRedirect(req.getContextPath() + "/pages/loginMobile.jsp"); Ojo ahi
+            	if(req.getCookies()!=null) {
+            		Cookie[] cookies = req.getCookies();
+    			    for (int i = 0; i < cookies.length; i++) {
+    			        if(cookies[i].getName().equals("nomeolvides")) {
+    			        	try {
+								req.getSession().setAttribute("loggedUser",IUC.seleccionarUsuario(cookies[i].getValue()));
+								req.getRequestDispatcher("/pages/homeMobile.jsp").forward(req,  resp);
+								return;
+							} catch (UsuarioNoExisteException e) {
+								e.printStackTrace();
+								req.getRequestDispatcher("pages/500.jsp").forward(req,  resp);
+								return;
+							}
+    			        }
+    			     }
+            	}
     			req.getRequestDispatcher("/pages/loginMobile.jsp").forward(req,  resp);
     			return;
     		}
