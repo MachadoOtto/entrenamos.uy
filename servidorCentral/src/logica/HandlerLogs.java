@@ -109,10 +109,14 @@ public class HandlerLogs implements ILogger {
 		EntityManager manager = f.createEntityManager();
 		try {
 			manager.getTransaction().begin();
-			TypedQuery<LogEntry> q = manager.createQuery("SELECT x FROM LogEntry x ORDER BY x.date DESC",LogEntry.class);
+			TypedQuery<LogEntry> q = manager.createQuery("SELECT x FROM LogEntry x ORDER BY x.date ASC",LogEntry.class);
 			List<LogEntry> logs = q.getResultList();
-			for(int i=q.getResultList().size()-1; i>Integer.parseInt(Main.config.getProperty("logsize")); i--)
-				manager.remove(logs.get(i));
+			int todel = logs.size()-Integer.parseInt(Main.config.getProperty("logsize"));
+			if(todel>0) {
+				for(int i=0; i<todel;i++) {
+					manager.remove(logs.get(i));
+				}
+			}
 			manager.getTransaction().commit();
 			manager.getTransaction().begin();
 			TypedQuery<LogEntry> q2 = manager.createQuery("SELECT l FROM LogEntry l WHERE l.expires < CURRENT_DATE",LogEntry.class);
