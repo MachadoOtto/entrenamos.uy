@@ -2597,7 +2597,11 @@ public class TestCasos {
 	        IDCC.inscribirSocio("Fuerza Bruta",   "NuevaActividadAFinalizar",   "PPsas67",   "caro",   TReg.general,   
 	                new DtFecha(2021,   4,   9,   0,   0,   0),   null);
 			IADC.finalizarActividad("NuevaActividadAFinalizar");
-	    	TEstado est = IADC.getActDepExt("Fuerza Bruta", "NuevaActividadAFinalizar").getEstado();
+			try {
+				IADC.getActDepExt("Fuerza Bruta", "NuevaActividadAFinalizar").getEstado();
+				fail("La actividad no debería aparecer en la institución.");
+			} catch(ActividadDeportivaException r) { ; }
+	    	TEstado est = IADC.buscarActDep("NuevaActividadAFinalizar").getEstado();
 	    	assertEquals(est, TEstado.finalizada);
 	    	
 	        DtSocioExt socio = (DtSocioExt) IUC.seleccionarUsuario("caro");

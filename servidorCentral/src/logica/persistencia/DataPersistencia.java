@@ -24,6 +24,7 @@ import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.DtReciboClase;
 import datatypes.DtSocioExt;
+import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.UsuarioNoExisteException;
 import logica.LaFabrica;
@@ -265,22 +266,46 @@ public class DataPersistencia {
 
 	public Map<String, Set<String>> obtenerActividadxClasesSocio(String nombreSocio) {
 		EntityManager em = emFabrica.createEntityManager();
-		em.getTransaction().begin();
-		TypedQuery<Clases> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nombre=:nombre ",Clases.class);
-		select.setParameter("nombre", nombreSocio);
-		Map<String,String> clasexact = new HashMap<>();
-		for(Clases x: select.getResultList()) {
-			clasexact.put(x.getNombre(), x.getActividad().getNombre());
-		}
-		for(Entry<String, String> x : clasexact.entrySet()) {
-			System.out.println("Result: "+x.getKey()+" :"+x.getValue());
-		}
 		Map<String, Set<String>> res = new HashMap<>();
-		for(Entry<String, String> x: clasexact.entrySet()) {
-			if(!res.containsKey(x.getValue()))
-				res.put(x.getValue(), new HashSet<String>());
-			res.get(x.getValue()).add(x.getKey());
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Clases> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nombre=:nombre ",Clases.class);
+			select.setParameter("nombre", nombreSocio);
+			Map<String,String> clasexact = new HashMap<>();
+			for(Clases x: select.getResultList()) {
+				clasexact.put(x.getNombre(), x.getActividad().getNombre());
+			}
+			for(Entry<String, String> x : clasexact.entrySet()) {
+				System.out.println("Result: "+x.getKey()+" :"+x.getValue());
+			}
+			
+			for(Entry<String, String> x: clasexact.entrySet()) {
+				if(!res.containsKey(x.getValue()))
+					res.put(x.getValue(), new HashSet<String>());
+				res.get(x.getValue()).add(x.getKey());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
 		}
 		return res;
+	}
+
+	public DtActividadDeportivaExt getActividad(String nombreActDep) throws ActividadDeportivaException {
+		EntityManager em = emFabrica.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad WHERE ad.nombre=:nombre",ActividadesDeportivas.class);
+			select.setParameter("nombre", nombreActDep);
+			return select.getSingleResult().toDtActividadDeportivaExt();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		throw new ActividadDeportivaException("La actividad deportiva "+nombreActDep+" no se encuentra presente en el sistema.");
 	}
 }

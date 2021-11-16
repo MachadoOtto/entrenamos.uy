@@ -182,7 +182,9 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				;
 			}
 		}
-		throw new ActividadDeportivaException("La actividad deportiva " + nombreActDep + " no existe en el Sistema.");
+		//BuscarEnLaPersistencia!
+
+		return DataPersistencia.getInstance().getActividad(nombreActDep);
 	}
 
 	@Override
