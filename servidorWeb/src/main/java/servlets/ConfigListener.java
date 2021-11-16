@@ -39,6 +39,7 @@ public class ConfigListener implements ServletContextListener {
     	config.setProperty("cuponeraControllerURL", ctx.getInitParameter("cuponeraControllerURL"));
     	config.setProperty("logthreshold", ctx.getInitParameter("logthreshold"));
     	config.setProperty("contentCacheAge", ctx.getInitParameter("contentCacheAge"));
+    	config.setProperty("cookieMaxAge", ctx.getInitParameter("cookieMaxAge"));
     	if(cfgfolder.mkdir()) {
     		System.out.println("Config folder was not found... creating default config folder at "+home);
         	try {

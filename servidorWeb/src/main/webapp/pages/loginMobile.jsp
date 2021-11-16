@@ -31,7 +31,7 @@
             <label for="pass"><i class="fas fa-lock"></i> Contraseña</label>                  
         </div>
         <div id="btn-recordarme" class="mx-4 mb-2">
-          <input class="form-check-input" type="checkbox" value="" id="recordarme">
+          <input class="form-check-input" name="rememberme" type="checkbox" value="true" id="recordarme">
           <label class="form-check-label" for="recordarme">
           Recordarme
           </label>
