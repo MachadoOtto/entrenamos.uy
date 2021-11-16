@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import excepciones.NoExisteCuponeraException;
+import logica.persistencia.DataPersistencia;
 import excepciones.ClaseException;
 
 import datatypes.DtFecha;
@@ -78,7 +79,8 @@ public class Socio extends Usuario {
     	}
     	clasesDeActividadesAceptadas = clasesDeActividadesAceptadasLimpiarSetsVacios;
     	
-    	Map<String,  Set<String>> clasesDeActividadesFinalizadas = new HashMap<>();
+    	Map<String,  Set<String>> clasesDeActividadesFinalizadas = DataPersistencia.getInstance().obtenerActividadxClasesSocio(getNickname());
+    	/* Viejo codigo de cuando las actividades finalizadas estaban en memoria (F)
     	for (ReciboClase reciboClase: reciboClases) {  
     		String nombreAD = reciboClase.getClase().getAD().getNombre();
     		if (!clasesDeActividadesFinalizadas.containsKey(nombreAD)) {
@@ -90,6 +92,7 @@ public class Socio extends Usuario {
     			}
     		}
     	}
+    	*/
     	Map<String,  Set<String>> clasesDeActividadesFinalizadasLimpiarSetsVacios = new HashMap<>();
     	for(Entry<String, Set<String>> x : clasesDeActividadesFinalizadas.entrySet()) {
     		if(x.getValue().size()>0)
@@ -178,6 +181,13 @@ public class Socio extends Usuario {
 		Calificacion calif = new Calificacion(clasee, this, valor);
 		calificaciones.put(clasee.getProfesor().getNickname(), calif);
 		clasee.addCalifiacion(getNickname(), calif);
+	}
+
+	public void remClase(ReciboClase rec) {
+		reciboClases.remove(rec);
+		favoritos.remove(rec.getClase().getAD());
+		calificaciones.remove(rec.getClase().getNombre());
+		premios.remove(rec.getClase().getNombre());
 	}
 }
 

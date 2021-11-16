@@ -76,4 +76,8 @@ public class ReciboClase {
 		return new DtReciboClase(aClase.getNombre(), aSocio.getNickname(), cuponera, fechaInscripcion,
 				tipo, costo);
 	}
+
+	public void suicidar() {
+		aSocio.remClase(this);
+	}
 }

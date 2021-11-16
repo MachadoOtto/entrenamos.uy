@@ -4,6 +4,7 @@ import datatypes.DtProfesor;
 
 import datatypes.DtProfesorExt;
 import datatypes.TEstado;
+import logica.persistencia.DataPersistencia;
 
 import java.util.Set;
 import java.util.Map;
@@ -92,6 +93,9 @@ public class Profesor extends Usuario {
 	    	}
     	for (ActividadDeportiva ad : misActividadesIngresadas.values())
     		adm.put(ad.getNombre(),  ad.getEstado());
+    	for (String x : DataPersistencia.getInstance().obtenerActividades(getNickname())) {
+    		adm.put(x, TEstado.finalizada);
+    	}
     	DtProfesorExt datosExt = new DtProfesorExt(getNickname(), getNombre(), getApellido(), getCorreo(), getContrasenia(), getFecha(), getInstitucion().getNombre(), 
     			getDescripcion(), getBiografia(), getWebsite(), xargs, getImagen(), this.getSeguidos().keySet(), this.getSeguidores().keySet(), adm, getValoracion());
     	return datosExt;
@@ -116,6 +120,17 @@ public class Profesor extends Usuario {
     	else
     		return 0;
     }
+
+	public void remActDep(ActividadDeportiva ad) {
+		Set<String> todel = new HashSet<>();
+		for(Entry<String, Clase> d: misClases.entrySet()) {
+			if(d.getValue().getAD()==ad)
+				todel.add(d.getKey());
+		}
+		for(String x: todel)
+			misClases.remove(x);
+		misActividadesIngresadas.remove(ad.getNombre());
+	}
 }
 
 

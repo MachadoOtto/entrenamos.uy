@@ -192,12 +192,12 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				if (getHI().findInstitucion(i).getActsDeps().containsKey(actDep)) {
 					 getHI().findInstitucion(i).getActsDeps().get(actDep).setEstado(TEstado.finalizada);
 					 DataPersistencia.getInstance().persistir(getHI().findInstitucion(i).getActsDeps().get(actDep).getDtExt());
+					 getHI().findInstitucion(i).finalizarAct(actDep);
 					 break;
 				 }
 			} catch (InstitucionException e) {
 				e.printStackTrace();
 			}
 		}
-		//AQUI VA LA PARTE DE PERSISTENCIA!!!
 	}
 }

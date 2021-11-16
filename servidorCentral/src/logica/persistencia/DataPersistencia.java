@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -30,7 +31,7 @@ import logica.persistencia.Datatypes.TipoUsuario;
 import logica.persistencia.Entidades.*;
 
 public class DataPersistencia {
-	@PersistenceUnit(name="LoggerDB")
+	@PersistenceUnit(name="ActividadDB")
 	private EntityManagerFactory emFabrica = Persistence.createEntityManagerFactory("ActividadDB");
 
 	private static DataPersistencia instancia = null;
@@ -65,7 +66,7 @@ public class DataPersistencia {
 		    Profesores profViktor;
 		    TypedQuery<Profesores> selectProf = em.createQuery("SELECT a FROM Profesores a WHERE a.nickname = :nickname",
 					Profesores.class);
-		    selectProf.setParameter("nickname", dtAct.getCreador());
+		    selectProf.setParameter("nickname", dtAct.getCreador()); 
 		    if (!selectProf.getResultList().isEmpty()) {
 		    	// Solo hay uno en la lista.
 		    	profViktor = (Profesores) selectProf.getSingleResult();
@@ -220,6 +221,29 @@ public class DataPersistencia {
 		return nombreClases;
 	}
 	
+	public Set<String> obtenerActividades(String nickProfesor){
+		EntityManager em = emFabrica.createEntityManager();
+		Set<String> nombresAD = new HashSet<>();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad INNER JOIN Profesores p "
+					+ "WHERE p.nickname=:nombre",ActividadesDeportivas.class);
+			select.setParameter("nombre", nickProfesor);
+    	    System.out.print("\n\n" + select.getResultList().size() + "\n\n");
+			for (ActividadesDeportivas adDB : select.getResultList()) {
+				System.out.print(adDB.toString());
+				if(adDB.getProfesor().getNickname().equals(nickProfesor))
+					nombresAD.add(adDB.getNombre());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return nombresAD;
+	}
+	
 	public void nuketownDetonator() {
 		EntityManager em = emFabrica.createEntityManager();
 		em.getTransaction().begin();
@@ -249,5 +273,26 @@ public class DataPersistencia {
 		} finally {
 			em.close();
 		}
+	}
+
+	public Map<String, Set<String>> obtenerActividadxClasesSocio(String nombreSocio) {
+		EntityManager em = emFabrica.createEntityManager();
+		em.getTransaction().begin();
+		TypedQuery<Clases> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nombre=:nombre ",Clases.class);
+		select.setParameter("nombre", nombreSocio);
+		Map<String,String> clasexact = new HashMap<>();
+		for(Clases x: select.getResultList()) {
+			clasexact.put(x.getNombre(), x.getActividad().getNombre());
+		}
+		for(Entry<String, String> x : clasexact.entrySet()) {
+			System.out.println("Result: "+x.getKey()+" :"+x.getValue());
+		}
+		Map<String, Set<String>> res = new HashMap<>();
+		for(Entry<String, String> x: clasexact.entrySet()) {
+			if(!res.containsKey(x.getValue()))
+				res.put(x.getValue(), new HashSet<String>());
+			res.get(x.getValue()).add(x.getKey());
+		}
+		return res;
 	}
 }

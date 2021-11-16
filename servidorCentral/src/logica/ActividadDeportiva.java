@@ -8,6 +8,7 @@ import datatypes.TEstado;
 import excepciones.ClaseException;
 
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -149,6 +150,14 @@ public class ActividadDeportiva {
 			favoritos.remove(user);
 		else
 			favoritos.add(user);
+	}
+	public void suicidar() {
+		// TODO Auto-generated method stub
+		creador.remActDep(this);
+		for(Entry<String, Clase> x: clases.entrySet())
+			x.getValue().suicidar();
+		for(Entry<String, ClasesCuponera> x : clCuponera.entrySet())
+			x.getValue().estafar();
 	}
 }
 

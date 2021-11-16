@@ -133,5 +133,11 @@ public class Clase {
 	public Premio getPrize() {
 		return prize;
 	}
+
+	public void suicidar() {
+		for(ReciboClase rc: listaReciboClase)
+			rc.suicidar();
+		
+	}
 	
 }
