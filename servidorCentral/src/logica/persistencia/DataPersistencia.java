@@ -408,7 +408,7 @@ public class DataPersistencia {
 		EntityManager em = emFabrica.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nickname=:nombre",ActividadesDeportivas.class);
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT act FROM ActividadesDeportivas act WHERE act.nombre=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nombreActDep);
 			ActividadesDeportivas act = select.getSingleResult();
 			System.out.println(act.toString());
