@@ -146,4 +146,9 @@ public class Institucion {
 	public DtInstitucion obtenerDatos() {
 		return new DtInstitucion(nombre,   getDescripcion(),   getURL());
 	}
+
+	public void finalizarAct(String actDep) {
+		actsDeps.get(actDep).suicidar();
+		actsDeps.remove(actDep);
+	}
 }

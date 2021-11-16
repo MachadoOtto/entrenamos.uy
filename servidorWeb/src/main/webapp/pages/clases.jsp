@@ -30,6 +30,7 @@
 			boolean estaInscripto = (boolean) request.getAttribute("estaInscripto");
 			boolean estaCaducada = (boolean) request.getAttribute("estaCaducada");
 			boolean estaLlena = (boolean) request.getAttribute("estaLlena");
+			boolean actfin = (boolean) request.getAttribute("actfin");
 			DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
 			%>
 		<div class="row mx-3 mx-md-5">
@@ -47,6 +48,7 @@
 				      	<div id="user-info" class="row">
                 			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> <a id="user-type" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a></p>
 				      	</div>
+				      	<%if(!actfin) {%>
               			<div id="creatorDiv" class="row">
                 			<div class="col-auto">
                   				<h4><strong>Dictada por:</strong></h4>
@@ -72,6 +74,7 @@
 	              				</div>
 	              			<% } %>
              			</div>
+             			<%} %>
           			</div>
 		      	</div>
 		      	<div id="user-inferior" class= "row card-body mb-3">
@@ -115,7 +118,7 @@
 	                		<%=datosClase.getFechaRegistro().toFecha()%>
 	              		</div>
 	            	</div>
-	            	<%if (datosClase.getFechaClase().esMenor(new DtFecha())){ 
+	            	<%if (!actfin && datosClase.getFechaClase().esMenor(new DtFecha())){ 
 		            	int s=0,n=0;
 		            	for(Map.Entry<String,Integer> x: datosClase.getCalificaciones().entrySet()){
 		            		n++;
@@ -123,18 +126,18 @@
 		            	}
 		            	float promedio= (n>0)? s/n : 0;
 		            	%>
-	            	<div class="row">
-	              		<div class="col-sm-3">
-	                  		<h6 class="mb-0"><strong>Valoración promedio:</strong></h6>
-	              		</div>
-	              		<div class="col-sm-9 text-secondary">
-	              			<div class="Stars col" style="--rating: <%=String.valueOf(promedio)%> ;" aria-label=" <%=String.valueOf(promedio)%>">
-	              			</div>
-	              			<div class="col">
-	                		<%=String.valueOf(promedio)%>   (<%=datosClase.getCalificaciones().size() %> valoraci<%=(datosClase.getCalificaciones().size()>1) ? "ones":"ón"%>)
-	              		</div>
-	              		</div>
-	            	</div>
+		            	<div class="row">
+		              		<div class="col-sm-3">
+		                  		<h6 class="mb-0"><strong>Valoración promedio:</strong></h6>
+		              		</div>
+		              		<div class="col-sm-9 text-secondary">
+		              			<div class="Stars col" style="--rating: <%=String.valueOf(promedio)%> ;" aria-label=" <%=String.valueOf(promedio)%>">
+		              			</div>
+		              			<div class="col">
+		                		<%=String.valueOf(promedio)%>   (<%=datosClase.getCalificaciones().size() %> valoraci<%=(datosClase.getCalificaciones().size()>1) ? "ones":"ón"%>)
+		              		</div>
+		              		</div>
+		            	</div>
 	            	<%} %>
 	            	<%if (datosClase.getPremio()!=null){ %>
 	            	<div class="mt-4">
@@ -170,7 +173,7 @@
 	            	</div>
 	            	<%} %>
 	            	
-	                <%
+	                <% if (!actfin){
 	    			DtFecha fechaf = new DtFecha();
 	    			fechaf.setMinutos(fechaf.getMinutos()-((DtActividadDeportivaExt)request.getAttribute("actDT")).getDuracionMinutos());
 	                if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) &&
@@ -207,10 +210,21 @@
 						        <input onclick="location.href='<%=valLink%>&val=5';" class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
 						    </div>
 						</div>
-		            <%} %>
-		            <%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {%>
-		            <div class="mt-3">
-		            	<iframe width="560" height="315" src="<%=datosClase.getUrlVideo()%>" frameborder="0" allowfullscreen></iframe>
+		            <%} }
+		            if (actfin){
+		            %>
+					<div class="alert alert-danger mt-4" role="alert">
+					  Esta clase pertenece a una actividad <b>FINALIZADA</b>. Usted está visualizando los registros la actividad finalizada disponibles en la base de datos de Entrenamos.uy <i class="fas fa-database"></i>
+					</div>
+		            <%}if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
+		            	String u = datosClase.getUrlVideo();
+		            	u=u.replace("watch?v=", "embed/");
+
+		            %>
+		            <h4>Video</h4>
+		            <div class="mt-3 aspectRatioVideo">
+		            	
+		            	<iframe width="560" height="315" src="<%=u%>" frameborder="0" allowfullscreen></iframe>
 		            </div>
 		            <% } %>
 				</div>
@@ -220,10 +234,15 @@
 		    		<%  List<String> nickAlumnos = datosClase.getNickAlumnos();%>
 		      		<h5>Usuarios Inscriptos (<%=nickAlumnos.size()%>)</h5>
 		      		<ul id="listaInscriptos" class="py-3">
-		      			<%  for (String alumno : nickAlumnos) { %>
+		      			<%  
+		      			String actfinparam = "";
+		      			if(actfin){
+		      				actfinparam = "&db=1";
+		      			}
+		      			for (String alumno : nickAlumnos) { %>
 		      				<li class="container border card-body elementoLista">
 				           		<img alt="Default"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=alumno%>" class="vertical-align-middle imagenSeleccionable">
-				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno%>"><%=alumno%></a>
+				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno+actfinparam%>"><%=alumno%></a>
 				           		<% if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) && datosClase.getPremio().getGanadores()!=null && datosClase.getPremio().getGanadores().contains(alumno)) { %>
 				        		<img alt="ganador"  src="<%=request.getContextPath()%>/assets/images/misc/winner64.png" class="">
 				        		<%} %>
