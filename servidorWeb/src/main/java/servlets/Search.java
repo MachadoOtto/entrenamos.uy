@@ -104,7 +104,7 @@ public class Search extends HttpServlet {
     		} catch(ActividadDeportivaException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError",  ex);
-				response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
+				request.getRequestDispatcher("pages/500.jsp").forward(request,  response);
     			return;
     		}
     	}
@@ -132,7 +132,7 @@ public class Search extends HttpServlet {
     		} catch(ClaseException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError",  ex);
-				response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
+				request.getRequestDispatcher("pages/500.jsp").forward(request,  response);
     			return;
     		}
     	}
@@ -160,7 +160,7 @@ public class Search extends HttpServlet {
     		} catch(NoExisteCuponeraException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError",  ex);
-				response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
+				request.getRequestDispatcher("pages/500.jsp").forward(request,  response);
     			return;
     		}
     	}
@@ -181,7 +181,7 @@ public class Search extends HttpServlet {
     		} catch(UsuarioNoExisteException ex) {
     			ex.printStackTrace();
 				request.setAttribute("contxError",  ex);
-				response.sendRedirect(request.getContextPath() + "/pages/500.jsp");
+				request.getRequestDispatcher("pages/500.jsp").forward(request,  response);
     			return;
     		}
     	}

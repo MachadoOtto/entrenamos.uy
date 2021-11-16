@@ -425,27 +425,7 @@
 						<% } %>
 						</ul>
 				</div>
-				<!--
-				<div id= "user-favoritos" class="row col-sm-9 border card-body">
-					<ul id="listaActividadesFavoritas" class="list-group list-group-horizontal">
-						<% for(Object x: ((Set<?>)request.getAttribute("favs"))){ %>
-						<li class="list-group-item container border card-body elementoLista">
-						  <div class="row">
-							<div class="col-auto">
-							 <img alt="act" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=(String) x%>" class="vertical-align-middle imagenSeleccionable">
-							 </div>
-							 <div class="col-auto"> ACA VAN LAS ACTIVIDADES FAVORITAS!!!!!QWERWQER
-							    <div>
-							    	<strong><%=(String) x%></strong>
 
-								</div>
-					    	</div>
-					      </div>
-					    </li>
-						<% } %>
-						</ul>
-				</div>
-				-->
 				<% } else if (usrProfile instanceof DtProfesorExt) {%>
 				
 				<% List<?> dtadas = (List<?>) request.getAttribute("actividadesAsociadas"); %>
