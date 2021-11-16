@@ -8,7 +8,7 @@
 <link href="<%=request.getContextPath()%>/assets/images/misc/favicon.ico" rel="shortcut icon" />
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"> 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+<script src="https://kit.fontawesome.com/44ea187029.js" crossorigin="anonymous"></script> <%//Fontawesome pide estar en el head. %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/main.css">
 
 <title>Entrenamos.uy</title>
