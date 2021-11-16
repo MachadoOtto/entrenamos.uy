@@ -55,7 +55,8 @@ public class Profesores extends Usuarios {
         return true;
     }
     
-    DtUsuarioExt toDtUsuarioExt() {
+    @Override
+    public DtUsuarioExt toDtUsuarioExt() {
 		DtProfesorExt res = new DtProfesorExt(nickname,nombre,apellido,email,"",new DtFecha(fechaNacimiento), "", 
 				"", "", "", new HashMap<String, Set<String>>(), null, new HashSet<>(),
 				new HashSet<>(), new HashMap<String, TEstado>(), -1);
