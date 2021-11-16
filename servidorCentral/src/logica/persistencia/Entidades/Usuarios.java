@@ -144,8 +144,5 @@ public abstract class Usuarios implements Serializable {
                 "]";
     }
     
-    @Override
     public abstract DtUsuarioExt toDtUsuarioExt();
-
 }
-
