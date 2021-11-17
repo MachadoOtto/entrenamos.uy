@@ -9,7 +9,7 @@ public class DtPremio {
 	private String descripcion;
 	private int cantidad;
 	private List<String> ganadores = null;
-	private DtFecha fechaSorteo;
+	private DtFecha fechaSorteo = null;
 	public DtPremio(String descripcionm, int cantidadd, List<String> ganadoress, DtFecha fechaSorteoo){
 		descripcion = descripcionm;
 		cantidad = cantidadd;
