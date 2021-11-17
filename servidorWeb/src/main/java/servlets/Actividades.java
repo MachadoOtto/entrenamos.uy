@@ -48,7 +48,7 @@ public class Actividades extends HttpServlet {
     	
 		try {
 			datosActDep = buscarActDep(nombreActDep);
-	    	if(!request.getParameter("db").equals("1"))
+	    	if(request.getParameter("db")!=null && !request.getParameter("db").equals("1"))
 	    		institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
 			request.setAttribute("nombreActDep",  null);
@@ -60,7 +60,7 @@ public class Actividades extends HttpServlet {
 			if (datosActDep.getCreador().equals("Administrador")) {
 				datosCreador = new DtUsuarioExt("Administrador", null, null, null, null, null, "Administrador.png".getBytes(), null, null);
 				request.setAttribute("datosCreador",  datosCreador);
-			} else if (request.getParameter("db").equals("1")){
+			} else if (request.getParameter("db")!=null && request.getParameter("db").equals("1")){
 				try {
 					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador()+"\uFFFFA");
 				} catch (UsuarioNoExisteException e) {
@@ -75,7 +75,7 @@ public class Actividades extends HttpServlet {
 			
 			//Esto verifica que todas las clases de dicha actividad hayan finalizado para saber si es "finalizable".
 			
-			if (!request.getParameter("db").equals("1")) {
+			if (request.getParameter("db")!=null && !request.getParameter("db").equals("1")) {
 				boolean f1 = true;
 				for(String x: datosActDep.getClases()) {
 					try {
@@ -103,7 +103,7 @@ public class Actividades extends HttpServlet {
 		//Set de DtClaseExt
 		try {
 			Set<String> clases = datosActDep.getClases();
-			if (!request.getParameter("db").equals("1")) {
+			if (request.getParameter("db")!=null && !request.getParameter("db").equals("1")) {
 				for (String clase : clases) { 
 					datosClases.add(LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
 				}

@@ -79,11 +79,7 @@ public class HandlerUsuario {
 		if (userNick != null && userNick.equals("Administrador"))
 			//Devuelve al administrador(profesor)
 			return adminProf;
-		if(userNick.endsWith("\uFFFFA") {
-			
-		}
-		else
-			Usuario res = usuarios.get(userNick);
+		Usuario res = usuarios.get(userNick);
 		if (res == null) {
 			log.info("WARNING: Tried to get non existent user "+userNick);
 			throw new UsuarioNoExisteException("Usuario no registrado en el sistema.");

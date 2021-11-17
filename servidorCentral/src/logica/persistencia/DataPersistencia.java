@@ -26,6 +26,7 @@ import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.DtReciboClase;
 import datatypes.DtSocioExt;
+import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.UsuarioNoExisteException;
@@ -407,7 +408,7 @@ public class DataPersistencia {
 		EntityManager em = emFabrica.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad WHERE ad.nombre=:nombre",ActividadesDeportivas.class);
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nickname=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nombreActDep);
 			ActividadesDeportivas act = select.getSingleResult();
 			System.out.println(act.toString());
@@ -421,21 +422,23 @@ public class DataPersistencia {
 		throw new ActividadDeportivaException("La actividad deportiva "+nombreActDep+" no se encuentra presente en el sistema.");
 	}
 	
-	public DtActividadDeportivaExt getActividad(String nombreActDep) throws ActividadDeportivaException {
+	public DtUsuarioExt getUsuario(String nombreSocio) throws UsuarioNoExisteException {
 		EntityManager em = emFabrica.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad WHERE ad.nombre=:nombre",ActividadesDeportivas.class);
-			select.setParameter("nombre", nombreActDep);
-			ActividadesDeportivas act = select.getSingleResult();
-			System.out.println(act.toString());
-			return act.toDtActividadDeportivaExt();
+			TypedQuery<Socios> select = em.createQuery("SELECT s FROM Usuarios s WHERE s.nickname=:nombre",Socios.class);
+			select.setParameter("nombre", nombreSocio);
+			if(select.getResultList().size()>0) {
+				Socios s = select.getSingleResult();
+				System.out.println(s.toString());
+				return s.toDtSocioExt();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback(); 
 		} finally {
 			em.close();
 		}
-		throw new ActividadDeportivaException("La actividad deportiva "+nombreActDep+" no se encuentra presente en el sistema.");
+		throw new UsuarioNoExisteException("El usuario "+nombreSocio+" no se encuentra presente en el sistema.");
 	}
 }

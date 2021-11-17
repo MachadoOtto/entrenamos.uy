@@ -21,6 +21,7 @@ import excepciones.ClaseException;
 import excepciones.CuponeraNoExisteException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
+import logica.persistencia.DataPersistencia;
 
 public class UsuarioController implements IUsuarioController {
 	
@@ -77,13 +78,18 @@ public class UsuarioController implements IUsuarioController {
 	// Ver la nota ATENCION mas arriba.
 	public DtUsuarioExt seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
 		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
-		Usuario user = handlerUsuario.findUsuario(userNick);
+		Usuario user;
+		if(userNick.endsWith("\uFFFFA")){
+			return DataPersistencia.getInstance().getUsuario(userNick);
+		} else {
+			user = handlerUsuario.findUsuario(userNick);
+		}
 		if (user instanceof Socio) {
 			DtSocioExt dtExt = ((Socio) user).getDtExt();
 			return dtExt;
 		} else {
 			DtProfesorExt dtExt = ((Profesor) user).getDtExt();
-			return dtExt;
+			return dtExt; 
 		}
 	}
 	public DtUsuarioExt seleccionarUsuarioEmail(String userEmail) throws UsuarioNoExisteException{

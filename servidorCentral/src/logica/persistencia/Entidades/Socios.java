@@ -7,6 +7,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import datatypes.DtUsuarioExt;
+
 
 /**
  * Entity implementation class for Entity: Socios
@@ -47,5 +49,9 @@ public class Socios extends Usuarios {
         }
         return true;
     }
+
+	public DtUsuarioExt toDtSocioExt() {
+		return null; //TODO HACER DT!
+	}
 }
 
