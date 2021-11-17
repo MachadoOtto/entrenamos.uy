@@ -2,9 +2,6 @@ package logica.persistencia.Entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -17,16 +14,14 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import datatypes.DtFecha;
-import datatypes.DtSocioExt;
-import datatypes.DtUsuarioExt;
-import datatypes.TEstado;
-import logica.persistencia.Datatypes.TipoUsuario;
-
 import javax.persistence.DiscriminatorType;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+
+import datatypes.DtFecha;
+import datatypes.DtUsuarioExt;
+import logica.persistencia.Datatypes.TipoUsuario;
+
 
 
 /**

@@ -129,11 +129,8 @@ public class Registros implements Serializable {
     }
 
     public DtReciboClase toDtReciboClase() {
-    	DtReciboClase res = new DtReciboClase(clase.getNombre(), socio.getNickname(), "", new DtFecha(fechaRegistro), TReg.general, costo);
+    	DtReciboClase res = new DtReciboClase(clase.getNombre(), socio.getNickname(), "", 
+    			new DtFecha(fechaRegistro), TReg.general, costo);
     	return res;
     }
-
-    
 }
-
-

@@ -1,9 +1,5 @@
 package webServices;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import javax.jws.WebMethod;
@@ -13,7 +9,6 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.xml.ws.Endpoint;
 
-import datatypes.DtInstitucion;
 import datatypesWS.DtActividadWS;
 import datatypesWS.DtClaseWS;
 import datatypesWS.DtInstitucionWS;
