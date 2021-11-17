@@ -9,9 +9,13 @@
 
 package logica;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import datatypes.DtUsuario;
 import datatypes.DtUsuarioExt;
+import datatypes.TEstado;
 import datatypes.DtFecha;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
@@ -78,9 +82,22 @@ public class UsuarioController implements IUsuarioController {
 	// Ver la nota ATENCION mas arriba.
 	public DtUsuarioExt seleccionarUsuario(String userNick) throws UsuarioNoExisteException {
 		HandlerUsuario handlerUsuario = HandlerUsuario.getInstance();
-		Usuario user;
-		if(userNick.endsWith("\uFFFFA")){
-			return DataPersistencia.getInstance().getUsuario(userNick);
+		Usuario user=null;
+		if(userNick.endsWith("\uEAEA")){
+			DtUsuarioExt resu =  DataPersistencia.getInstance().getUsuario(userNick.replace("\uEAEA", ""));
+			if(resu instanceof DtSocioExt) {
+				((DtSocioExt) resu).setClasesDeActividadesFinalizadas(DataPersistencia.getInstance().obtenerActividadxClasesSocio(userNick.replace("\uEAEA", "")));
+				return resu;
+			}
+			else if(resu instanceof DtProfesorExt) {
+				Set<String> f = DataPersistencia.getInstance().obtenerActividades(userNick.replace("\uEAEA", ""));
+				Map<String,TEstado> ff = new HashMap<>();
+				for(String fq:f) {
+					ff.put(fq, TEstado.finalizada);
+				}
+				((DtProfesorExt) resu).setHistoralActDepIngresadas(ff);
+				return resu;
+			}
 		} else {
 			user = handlerUsuario.findUsuario(userNick);
 		}

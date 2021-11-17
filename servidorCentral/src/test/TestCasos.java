@@ -2611,6 +2611,18 @@ public class TestCasos {
 	        Map<String, Set<String>> fins = new HashMap<>();
 	        fins.put("NuevaActividadAFinalizar", clase);
 	        assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
+<<<<<<< Updated upstream
+=======
+	        DtSocioExt caroper = (DtSocioExt) IUC.seleccionarUsuario("caro\uEAEA");
+	        assertEquals(caroper.getNickname(),"caro");
+	        assertEquals(caroper.getApellido(),"Omega");
+	        assertEquals(caroper.getClasesDeActividadesFinalizadas(),fins);
+	        DtProfesorExt viktorper = (DtProfesorExt) IUC.seleccionarUsuario("Administrador\uEAEA");
+	        Map<String,TEstado> m = new HashMap<>();
+	        m.put("NuevaActividadAFinalizar", TEstado.finalizada);
+	        assertEquals(viktorper.getHistoralActDepIngresadas(),m);
+	        
+>>>>>>> Stashed changes
     	}catch(Exception e) {
     		e.printStackTrace();
     		fail(e.getMessage());

@@ -1,6 +1,11 @@
 package logica.persistencia;
 
 import java.util.ArrayList;
+<<<<<<< Updated upstream
+=======
+import java.util.Arrays;
+import java.util.Calendar;
+>>>>>>> Stashed changes
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -272,11 +277,26 @@ public class DataPersistencia {
 		EntityManager em = emFabrica.createEntityManager();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Socios> select = em.createQuery("SELECT s FROM Usuarios s WHERE s.nickname=:nombre",Socios.class);
+			TypedQuery<Socios> select = em.createQuery("SELECT s FROM Socios s WHERE s.nickname=:nombre",Socios.class);
 			select.setParameter("nombre", nombreSocio);
 			if(select.getResultList().size()>0) {
 				Socios s = select.getSingleResult();
+<<<<<<< Updated upstream
+=======
+				em.getTransaction().commit();
+				System.out.println(s.toString());
+>>>>>>> Stashed changes
 				return s.toDtUsuarioExt();
+			}
+			else{
+				TypedQuery<Profesores> select2 = em.createQuery("SELECT s FROM Profesores s WHERE s.nickname=:nombre",Profesores.class);
+				select2.setParameter("nombre", nombreSocio);
+				if(select2.getResultList().size()>0) {
+					Profesores s = select2.getSingleResult();
+					em.getTransaction().commit();
+					System.out.println(s.toString());
+					return s.toDtUsuarioExt();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

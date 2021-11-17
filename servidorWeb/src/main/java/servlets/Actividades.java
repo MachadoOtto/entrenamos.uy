@@ -41,6 +41,7 @@ public class Actividades extends HttpServlet {
     	String nickUser = (String) request.getSession().getAttribute("nickname");
     	boolean esSocio = false;
     	boolean finalizable = false;
+    	boolean finalizada = (request.getParameter("db")!=null && request.getParameter("db").equals("1"));
     	DtUsuarioExt datosCreador = null;
     	String institucion = null;
     	Set<DtClaseExt> datosClases = new HashSet<>();
@@ -48,7 +49,7 @@ public class Actividades extends HttpServlet {
     	
 		try {
 			datosActDep = buscarActDep(nombreActDep);
-	    	if(request.getParameter("db")!=null && !request.getParameter("db").equals("1"))
+	    	if(!finalizada)
 	    		institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
 			request.setAttribute("nombreActDep",  null);
@@ -60,9 +61,9 @@ public class Actividades extends HttpServlet {
 			if (datosActDep.getCreador().equals("Administrador")) {
 				datosCreador = new DtUsuarioExt("Administrador", null, null, null, null, null, "Administrador.png".getBytes(), null, null);
 				request.setAttribute("datosCreador",  datosCreador);
-			} else if (request.getParameter("db")!=null && request.getParameter("db").equals("1")){
+			} else if (finalizada){
 				try {
-					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador()+"\uFFFFA");
+					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador()+"\uEAEA");
 				} catch (UsuarioNoExisteException e) {
 					e.printStackTrace();
 				}
@@ -75,7 +76,7 @@ public class Actividades extends HttpServlet {
 			
 			//Esto verifica que todas las clases de dicha actividad hayan finalizado para saber si es "finalizable".
 			
-			if (request.getParameter("db")!=null && !request.getParameter("db").equals("1")) {
+			if (!finalizada) {
 				boolean f1 = true;
 				for(String x: datosActDep.getClases()) {
 					try {
@@ -103,7 +104,7 @@ public class Actividades extends HttpServlet {
 		//Set de DtClaseExt
 		try {
 			Set<String> clases = datosActDep.getClases();
-			if (request.getParameter("db")!=null && !request.getParameter("db").equals("1")) {
+			if (!finalizada) {
 				for (String clase : clases) { 
 					datosClases.add(LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
 				}
@@ -113,16 +114,17 @@ public class Actividades extends HttpServlet {
 		}
 		
 		//Set de DtCuponera
-		try {
-			Set<String> cuponeras = datosActDep.getCuponeras();
-			
-			for (String cup : cuponeras) {
-				datosCuponeras.add(LaFabricaWS.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
+		if(!finalizada) {
+			try {
+				Set<String> cuponeras = datosActDep.getCuponeras();
+				
+				for (String cup : cuponeras) {
+					datosCuponeras.add(LaFabricaWS.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
+				}
+			} catch(Exception e) {
+				request.setAttribute("datosCuponeras",  null);
 			}
-		} catch(Exception e) {
-			request.setAttribute("datosCuponeras",  null);
 		}
-
 		request.setAttribute("actDep",  datosActDep);
 		request.setAttribute("institucion",  institucion);
 		request.setAttribute("esSocio",  esSocio);
