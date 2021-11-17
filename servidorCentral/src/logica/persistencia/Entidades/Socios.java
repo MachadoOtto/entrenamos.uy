@@ -62,6 +62,4 @@ public class Socios extends Usuarios {
 				new HashMap<String, Set<String>>());
 		return res;
 	}
-
 }
-

@@ -2,8 +2,6 @@ package datatypesWS;
 
 import java.io.Serializable;
 
-import datatypes.DtFecha;
-
 public class LogEntryWS implements Serializable{
 	private static final long serialVersionUID = 8789214547838459909L;
 	

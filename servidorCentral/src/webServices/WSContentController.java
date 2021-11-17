@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -14,14 +13,9 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.Endpoint;
 
-import datatypes.DtFecha;
-import datatypesWS.DtFechaWS;
 import datatypesWS.LogEntryWS;
-import logica.HandlerLogs;
-import logica.IActividadDeportivaController;
 import logica.LaFabrica;
 import main.Main;
 

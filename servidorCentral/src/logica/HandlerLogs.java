@@ -8,26 +8,15 @@
  */
 package logica;
 
-import java.sql.Time;
 import java.util.Calendar;
-import java.sql.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
-
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 import datatypes.DtFecha;
 import datatypesWS.DtFechaWS;

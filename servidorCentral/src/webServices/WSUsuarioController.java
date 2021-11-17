@@ -4,9 +4,6 @@ package webServices;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.jws.soap.SOAPBinding.Style;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 
@@ -15,7 +12,6 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.ws.Endpoint;
 
-import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;

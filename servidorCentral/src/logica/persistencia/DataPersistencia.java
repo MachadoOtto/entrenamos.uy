@@ -17,8 +17,6 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
@@ -296,7 +294,6 @@ public class DataPersistencia {
 			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT a FROM ActividadesDeportivas a ORDER BY a.nombre DESC",
 					ActividadesDeportivas.class);
 			for (ActividadesDeportivas actDep : select.getResultList()) {
-				System.out.print(actDep.toString());
 				nombreActividades.add(actDep.getNombre());
 			}
 		} catch (Exception e) {
@@ -317,7 +314,6 @@ public class DataPersistencia {
 					" WHERE (ad.nombre = :nombre) ORDER BY c.nombre DESC",	Clases.class);
     	    select.setParameter("nombre", nombreActividad);
 			for (Clases claseDB : select.getResultList()) {
-				System.out.print(claseDB.toString());
 				nombreClases.add(claseDB.getNombre());
 			}
 		} catch (Exception e) {
@@ -338,7 +334,6 @@ public class DataPersistencia {
 					+ "WHERE p.nickname=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nickProfesor);
 			for (ActividadesDeportivas adDB : select.getResultList()) {
-				System.out.print(adDB.toString());
 				if(adDB.getProfesor().getNickname().equals(nickProfesor))
 					nombresAD.add(adDB.getNombre());
 			}
@@ -365,7 +360,6 @@ public class DataPersistencia {
 		    q3.executeUpdate();
 		    q4.executeUpdate();
 		    q5.executeUpdate();
-		    
 		    em.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -411,7 +405,6 @@ public class DataPersistencia {
 			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT act FROM ActividadesDeportivas act WHERE act.nombre=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nombreActDep);
 			ActividadesDeportivas act = select.getSingleResult();
-			System.out.println(act.toString());
 			return act.toDtActividadDeportivaExt();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -430,7 +423,6 @@ public class DataPersistencia {
 			select.setParameter("nombre", nombreSocio);
 			if(select.getResultList().size()>0) {
 				Socios s = select.getSingleResult();
-				System.out.println(s.toString());
 				return s.toDtUsuarioExt();
 			}
 		} catch (Exception e) {
