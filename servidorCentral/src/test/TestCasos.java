@@ -2587,7 +2587,6 @@ public class TestCasos {
     @Test 
     void testFinalizarAct() throws InstitucionException, ActividadDeportivaException {
     	try {
-    		//DataPersistencia.getInstance().nuketownDetonator(); 
 			DtFecha fecha = new DtFecha(2020,   1,   1,   0,   0,   0);
 			DtActividadDeportiva nuevaActividad = new DtActividadDeportiva("NuevaActividadAFinalizar",   "Desc",   1,   10,   fecha,   null,   TEstado.aceptada,   "Administrador");
 			assertEquals(IADC.ingresarDatosActividadDep("Fuerza Bruta",   nuevaActividad),   true);
@@ -2602,22 +2601,20 @@ public class TestCasos {
 				IADC.getActDepExt("Fuerza Bruta", "NuevaActividadAFinalizar").getEstado();
 				fail("La actividad no debería aparecer en la institución.");
 			} catch(ActividadDeportivaException r) { ; }
-	    	TEstado est = IADC.buscarActDep("NuevaActividadAFinalizar").getEstado();
-	    	assertEquals(est, TEstado.finalizada);
-	    	
+			DtActividadDeportivaExt actPersistida = IADC.buscarActDep("NuevaActividadAFinalizar");
+	    	assertEquals(actPersistida.getNombre(), "NuevaActividadAFinalizar");
+	    	assertEquals(actPersistida.getEstado(), TEstado.finalizada);
 	        DtSocioExt socio = (DtSocioExt) IUC.seleccionarUsuario("caro");
 	        Set<String> clase = new HashSet<>();
 	        clase.add("PPsas67");
+	        assertEquals(actPersistida.getClases(), clase);
 	        Map<String, Set<String>> fins = new HashMap<>();
 	        fins.put("NuevaActividadAFinalizar", clase);
 	        assertEquals(socio.getClasesDeActividadesFinalizadas(), fins);
-	        System.out.println(DataPersistencia.getInstance().obtenerActividades().toString());
-	        System.out.println(DataPersistencia.getInstance().obtenerClases("NuevaActividadAFinalizar").toString());
     	}catch(Exception e) {
     		e.printStackTrace();
     		fail(e.getMessage());
     	}
     	DataPersistencia.getInstance().nuketownDetonator(); 
     }   
-
 }
