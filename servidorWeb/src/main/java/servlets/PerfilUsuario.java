@@ -124,7 +124,7 @@ public class PerfilUsuario extends HttpServlet {
         	if (usr instanceof DtProfesorExt) {
         		Set<String> actividades = ((DtProfesorExt)usr).getActividadesIngresadas();
         		for (String x : actividades) {
-        			actIngresadasProfesor.add(IADC.getActDepExt(((DtProfesorExt)usr).getNombreInstitucion(),  x));
+        			actIngresadasProfesor.add(IADC.buscarActDep(x));
         		}
         	}
         	

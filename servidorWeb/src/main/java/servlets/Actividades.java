@@ -45,9 +45,11 @@ public class Actividades extends HttpServlet {
     	String institucion = null;
     	Set<DtClaseExt> datosClases = new HashSet<>();
     	Set<DtCuponera> datosCuponeras = new HashSet<>();
+    	
 		try {
 			datosActDep = buscarActDep(nombreActDep);
-			institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
+	    	if(!request.getParameter("db").equals("1"))
+	    		institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
 			request.setAttribute("nombreActDep",  null);
 			request.setAttribute("institucion",  null);
@@ -58,6 +60,12 @@ public class Actividades extends HttpServlet {
 			if (datosActDep.getCreador().equals("Administrador")) {
 				datosCreador = new DtUsuarioExt("Administrador", null, null, null, null, null, "Administrador.png".getBytes(), null, null);
 				request.setAttribute("datosCreador",  datosCreador);
+			} else if (request.getParameter("db").equals("1")){
+				try {
+					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador()+"\uFFFFA");
+				} catch (UsuarioNoExisteException e) {
+					e.printStackTrace();
+				}
 			} else {
 				try {
 					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador());
@@ -66,17 +74,23 @@ public class Actividades extends HttpServlet {
 			}
 			
 			//Esto verifica que todas las clases de dicha actividad hayan finalizado para saber si es "finalizable".
-			boolean f1 = true;
-			for(String x: datosActDep.getClases()) {
-				try {
-					DtClaseExt cl = LaFabricaWS.getInstance().obtenerIActDeportivaController().seleccionarClase(institucion, datosActDep.getNombre(), x);
-					f1 = cl.getFechaClase().esMenor(new DtFecha());
-				} catch (InstitucionException | ActividadDeportivaException | ClaseException e) {
-					e.printStackTrace();
-					request.getRequestDispatcher("/pages/500.jsp").forward(request,  response);
+			
+			if (!request.getParameter("db").equals("1")) {
+				boolean f1 = true;
+				for(String x: datosActDep.getClases()) {
+					try {
+						DtClaseExt cl = LaFabricaWS.getInstance().obtenerIActDeportivaController().seleccionarClase(institucion, datosActDep.getNombre(), x);
+						f1 = cl.getFechaClase().esMenor(new DtFecha());
+					} catch (InstitucionException | ActividadDeportivaException | ClaseException e) {
+						e.printStackTrace();
+						request.getRequestDispatcher("/pages/500.jsp").forward(request,  response);
+					}
 				}
+				finalizable = f1;
 			}
-			finalizable = f1;
+			else {
+				finalizable = false;
+			}
 			request.setAttribute("finalizable", finalizable);
 		}
 		
@@ -89,8 +103,10 @@ public class Actividades extends HttpServlet {
 		//Set de DtClaseExt
 		try {
 			Set<String> clases = datosActDep.getClases();
-			for (String clase : clases) { 
-				datosClases.add(LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
+			if (!request.getParameter("db").equals("1")) {
+				for (String clase : clases) { 
+					datosClases.add(LaFabricaWS.getInstance().obtenerIDictadoClaseController().buscarClase(clase));
+				}
 			}
 		} catch(ClaseException e) {
 			request.setAttribute("datosClases",  null);
@@ -99,12 +115,14 @@ public class Actividades extends HttpServlet {
 		//Set de DtCuponera
 		try {
 			Set<String> cuponeras = datosActDep.getCuponeras();
+			
 			for (String cup : cuponeras) {
 				datosCuponeras.add(LaFabricaWS.getInstance().obtenerICuponeraController().seleccionarCuponera(cup));
 			}
 		} catch(Exception e) {
 			request.setAttribute("datosCuponeras",  null);
 		}
+
 		request.setAttribute("actDep",  datosActDep);
 		request.setAttribute("institucion",  institucion);
 		request.setAttribute("esSocio",  esSocio);

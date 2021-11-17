@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -353,13 +354,18 @@ public class DataPersistencia {
 		EntityManager em = emFabrica.createEntityManager();
 		em.getTransaction().begin();
 		try {
-			//CriteriaBuilder builder = em.getCriteriaBuilder();
-			//CriteriaDelete<ActividadesDeportivas> queryAct = builder.createCriteriaDelete(ActividadesDeportivas.class);
-			//queryAct.from(ActividadesDeportivas.class);
-			//em.createQuery(queryAct).executeUpdate();
-			//CriteriaDelete<Usuarios> querySos = builder.createCriteriaDelete(Usuarios.class);
-			//querySos.from(Usuarios.class);
-			//em.createQuery(querySos).executeUpdate();
+		    Query q1 = em.createQuery("DELETE FROM Registros");
+		    Query q2 = em.createQuery("DELETE FROM Clases");
+		    Query q3 = em.createQuery("DELETE FROM ActividadesDeportivas");
+		    Query q4 = em.createQuery("DELETE FROM Profesores");
+		    Query q5 = em.createQuery("DELETE FROM Socios");
+		    q1.executeUpdate();
+		    q2.executeUpdate();
+		    q3.executeUpdate();
+		    q4.executeUpdate();
+		    q5.executeUpdate();
+		    
+		    em.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback();
@@ -373,7 +379,7 @@ public class DataPersistencia {
 		Map<String, Set<String>> res = new HashMap<>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Clases> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nombre=:nombre ",Clases.class);
+			TypedQuery<Clases> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nickname=:nombre ",Clases.class);
 			select.setParameter("nombre", nombreSocio);
 			Map<String,String> clasexact = new HashMap<>();
 			for(Clases x: select.getResultList()) {
@@ -397,6 +403,24 @@ public class DataPersistencia {
 		return res;
 	}
 
+	public DtActividadDeportivaExt getActividad(String nombreActDep) throws ActividadDeportivaException {
+		EntityManager em = emFabrica.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad WHERE ad.nombre=:nombre",ActividadesDeportivas.class);
+			select.setParameter("nombre", nombreActDep);
+			ActividadesDeportivas act = select.getSingleResult();
+			System.out.println(act.toString());
+			return act.toDtActividadDeportivaExt();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback(); 
+		} finally {
+			em.close();
+		}
+		throw new ActividadDeportivaException("La actividad deportiva "+nombreActDep+" no se encuentra presente en el sistema.");
+	}
+	
 	public DtActividadDeportivaExt getActividad(String nombreActDep) throws ActividadDeportivaException {
 		EntityManager em = emFabrica.createEntityManager();
 		try {

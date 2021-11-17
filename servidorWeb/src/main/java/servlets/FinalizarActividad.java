@@ -68,7 +68,7 @@ public class FinalizarActividad extends HttpServlet {
 			} catch (UsuarioNoExisteException e) {
 				e.printStackTrace();
 			}
-    		response.sendRedirect(request.getContextPath() +"/actividades?actividad=" +URLEncoder.encode( actname,"utf-8"));
+    		response.sendRedirect(request.getContextPath() +"/actividades?actividad=" +URLEncoder.encode( actname,"utf-8")+"&db=1");
     		return;
     }
     
