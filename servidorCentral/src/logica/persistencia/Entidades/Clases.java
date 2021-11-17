@@ -72,8 +72,7 @@ public class Clases implements Serializable {
     @JoinColumn(name = "ID_ACTIVIDAD")
     private ActividadesDeportivas actividad;
     
-    @OneToMany(mappedBy = "clase",
- 		   	   cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "clase", cascade=CascadeType.PERSIST)
     private Collection<Registros> registros;
     
     /*

@@ -63,13 +63,11 @@ public class ActividadesDeportivas implements Serializable {
     @Column(name = "FECHA_FINALIZACION")
     private Calendar fechaFinalizacion;
     
-    @ManyToOne(fetch = FetchType.EAGER,
-    		   cascade=CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "ID_PROFESOR")
     private Profesores profesor;
 
-    @OneToMany(mappedBy = "actividad",
- 		   	   cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "actividad", cascade=CascadeType.PERSIST)
     private Collection<Clases> clases;
 
     public Long getId() {
@@ -182,15 +180,10 @@ public class ActividadesDeportivas implements Serializable {
     }
     
     public DtActividadDeportivaExt toDtActividadDeportivaExt() {
-    	Set<String> clases = new HashSet<>();
-    	for(Clases x: this.clases) {
-    		clases.add(x.getNombre());
-    	}
-    	
     	DtActividadDeportivaExt res = new DtActividadDeportivaExt(
     			nombre, descripcion, duracion, costo,
-    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH),fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
-    			new HashSet<>(), clases, new HashSet<>(), 
+    			new DtFecha(fechaAlta.get(Calendar.YEAR),fechaAlta.get(Calendar.MONTH)+1,fechaAlta.get(Calendar.DAY_OF_MONTH),0,0,0),
+    			new HashSet<>(), new HashSet<>(), new HashSet<>(), 
     			TEstado.finalizada, profesor.getNickname());
     	return res;
     }

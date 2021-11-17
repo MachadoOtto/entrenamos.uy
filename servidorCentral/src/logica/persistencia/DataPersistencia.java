@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -193,7 +194,9 @@ public class DataPersistencia {
 		    TypedQuery<Profesores> creatorQuery = em.createQuery("SELECT a FROM Profesores a WHERE a.nickname = :nickname",Profesores.class);
 		    Profesores creador=null;
 		    creatorQuery.setParameter("nickname",act.getCreador().getNickname());
-		    if (creatorQuery.getResultList().isEmpty()) {
+		    List<Profesores> creatorQueryRes = creatorQuery.getResultList();
+		    em.getTransaction().commit();
+		    if (creatorQueryRes.isEmpty()) {
 		    	creador = new Profesores();
 		    	creador.setNickname(act.getCreador().getNickname());
 		    	creador.setEmail(act.getCreador().getCorreo());
@@ -201,9 +204,11 @@ public class DataPersistencia {
 		    	creador.setApellido(act.getCreador().getApellido());
 		    	creador.setFechaNacimiento(act.getCreador().getFecha().toCalendar());
 		    	creador.setTipoUsuario(TipoUsuario.Profesor);
+		    	em.getTransaction().begin();
 		    	em.persist(creador);
+		    	em.getTransaction().commit();
 		    } else
-		    	creador = creatorQuery.getSingleResult();
+		    	creador = creatorQueryRes.get(0);
 		    
 		    //CreateActivity
 		    ActividadesDeportivas ap = new ActividadesDeportivas();
@@ -214,9 +219,10 @@ public class DataPersistencia {
 		    ap.setFechaAlta(act.getFechaRegistro().toCalendar());
 		    ap.setFechaFinalizacion((new DtFecha()).toCalendar());
 		    ap.setProfesor(creador);
-			em.persist(ap);
+
 			
 			//Create clases
+			Collection<Clases> collectionClase = new ArrayList<>();
 			for(Entry<String, Clase> cl: act.getClases().entrySet()) {
 				Clase y = cl.getValue();
 				Clases x = new Clases();
@@ -228,17 +234,21 @@ public class DataPersistencia {
 				x.setSociosMinimos(y.getMinSocios());
 				x.setUrl(y.getURL());
 				x.setActividad(ap);
-				em.persist(x);
+				collectionClase.add(x);
 				
-				//Create socios inscriptos
+				//Ver cada recibo
+				Collection<Registros> registros = new ArrayList<>();
 				for(ReciboClase rc: y.getRecibo()) {
 					
 					//Create socios inscriptos
 					Socio s = rc.getSocio();
+					em.getTransaction().begin();
 					TypedQuery<Socios> leSocios = em.createQuery("SELECT s FROM Socios s WHERE s.nickname=:nick",Socios.class);
 					leSocios.setParameter("nick", s.getNickname());
+					List<Socios> leSociosRes = leSocios.getResultList();
+					em.getTransaction().commit();
 					Socios sp = null;
-					if(leSocios.getResultList().isEmpty()) {
+					if(leSociosRes.isEmpty()) {
 						sp = new Socios();
 						sp.setNickname(s.getNickname());
 						sp.setNombre(s.getNombre());
@@ -246,18 +256,26 @@ public class DataPersistencia {
 						sp.setEmail(s.getCorreo());
 						sp.setFechaNacimiento(s.getFecha().toCalendar());
 						sp.setTipoUsuario(TipoUsuario.Socio);
+						em.getTransaction().begin();
 						em.persist(sp);
+						em.getTransaction().commit();
 					} else
-						sp = leSocios.getSingleResult();
+						sp = leSociosRes.get(0);
 					//Create registros
 					Registros r = new Registros();
 					r.setFechaRegistro(rc.getFechaInscripcion().toCalendar());
 					r.setCosto(rc.getCosto());
 					r.setSocio(sp);
 					r.setClase(x);
+					registros.add(r);
+					
 				}
-				
+				x.setRegistros(registros);
 			}
+			
+			ap.setClases(collectionClase);
+			em.getTransaction().begin();
+			em.persist(ap);
 			em.getTransaction().commit();
 			
 		} catch (Exception e) {
@@ -385,10 +403,12 @@ public class DataPersistencia {
 			em.getTransaction().begin();
 			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT ad FROM ActividadesDeportivas ad WHERE ad.nombre=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nombreActDep);
-			return select.getSingleResult().toDtActividadDeportivaExt();
+			ActividadesDeportivas act = select.getSingleResult();
+			System.out.println(act.toString());
+			return act.toDtActividadDeportivaExt();
 		} catch (Exception e) {
 			e.printStackTrace();
-			em.getTransaction().rollback();
+			em.getTransaction().rollback(); 
 		} finally {
 			em.close();
 		}

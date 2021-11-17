@@ -32,33 +32,15 @@ public class Registros implements Serializable {
     
     //@Embeddable
     //private class RegistrosId {
-    	@Id
-		@ManyToOne(fetch = FetchType.EAGER,
-     		   	   cascade=CascadeType.PERSIST)
-        @JoinColumn(name = "ID_SOCIO")
-        private Socios socio;
-        
-    	@Id
-    	@ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "ID_CLASE")
-        private Clases clase;
-        
-		
-		public Socios getSocio() {
-			return socio;
-		}
-
-		public void setSocio(Socios socio) {
-			this.socio = socio;
-		}
-
-		public Clases getClase() {
-			return clase;
-		}
-
-		public void setClase(Clases clase) {
-			this.clase = clase;
-		}
+	@Id
+	@ManyToOne
+    @JoinColumn(name = "ID_SOCIO")
+    private Socios socio;
+    
+	@Id
+	@ManyToOne
+    @JoinColumn(name = "ID_CLASE")
+    private Clases clase;
 
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -92,21 +74,21 @@ public class Registros implements Serializable {
         this.costo = costo;
     }
 
-    /*public Socios getSocio() {
-		return primaryKey.getSocio();
+	public Socios getSocio() {
+		return socio;
 	}
 
 	public void setSocio(Socios socio) {
-		primaryKey.setSocio(socio);
+		this.socio = socio;
 	}
 
 	public Clases getClase() {
-		return primaryKey.getClase();
+		return clase;
 	}
 
 	public void setClase(Clases clase) {
-		primaryKey.setClase(clase);
-	}*/
+		this.clase = clase;
+	}
     
     @Override
     public int hashCode() {
