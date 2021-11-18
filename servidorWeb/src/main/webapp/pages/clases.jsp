@@ -42,17 +42,26 @@
 		      	<div id="user-superior" class="row ">
             		<div class="col-3 py-3">
 			    		<div id="mainImgDiv" class="">
+			    			<% if (actfin) { %>
+			    			<img alt="imagenClase" id="mainImgDiv" src="<%=request.getContextPath()%>/assets/images/default/cla_default.png">
+			    			<% } else { %>
 				    		<img alt="imagenClase" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=datosClase.getNombre()%>">
+				    		<% } %>
 			    		</div>
            			</div>
             		<div class="col-9 py-3">
 				      	<div id="user-info" class="row">
-                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> <a id="user-type" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a></p>
+                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> 
+                			<%if (actfin && (!(loggedUser instanceof DtProfesorExt))) {  %>
+                			(<%=nombreActividad%>)
+                			<%} else { %>
+				      		<a id="user-type" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a>
+				      		<% } %></p>
 				      	</div>
 				      	<%if(!actfin) {%>
               			<div id="creatorDiv" class="row">
                 			<div class="col-auto">
-                  				<h4><strong>Dictada por:</strong></h4>
+                 			<h4><strong>Dictada por:</strong></h4>
                 			</div>
               				<div class="col-auto">
                  				<img alt="Qries"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=datosClase.getNicknameProfesor()%>" class="vertical-align-middle imagenSeleccionable">
@@ -145,7 +154,7 @@
 		              		</div>
 		            	</div>
 	            	<%} %>
-	            	<%if (datosClase.getPremio()!=null){ %>
+	            	<%if (datosClase.getPremio()!=null && !actfin) { %>
 	            	<div class="mt-4">
 	            	<h5>Premio</h5>
 	            	<div class="row">
@@ -223,9 +232,20 @@
 					<div class="alert alert-danger mt-4" role="alert">
 					  Esta clase pertenece a una actividad <b>FINALIZADA</b>. Usted está visualizando los registros la actividad finalizada disponibles en la base de datos de Entrenamos.uy <i class="fas fa-database"></i>
 					</div>
-		            <%}if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
-		            	String u = datosClase.getUrlVideo();
-		            	u=u.replace("watch?v=", "embed/");
+		            <%} else if (estaCaducada) {
+		            		if (noCumpleMinimo) { %>
+		            			<div class="alert alert-warning mt-4" role="alert">
+		  					  	Esta clase fue <b>CANCELADA</b>. Ya que no se llego al minimo de socios antes de su dictado. <i class="fas fa-exclamation-circle"></i>
+		  						</div>
+		            		<%} else { %>
+		            			<div class="alert alert-primary mt-4" role="alert">
+		  					  	Esta clase ya fue <b>DICTADA</b> con exito. <i class="fas fa-check-circle"></i>
+		  						</div>
+		            		<%}
+		            }
+			            if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
+			            	String u = datosClase.getUrlVideo();
+			            	u=u.replace("watch?v=", "embed/");
 
 		            %>
 		            <h4>Video</h4>

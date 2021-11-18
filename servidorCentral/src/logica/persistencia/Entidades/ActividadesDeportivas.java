@@ -182,10 +182,9 @@ public class ActividadesDeportivas implements Serializable {
     	for (Clases cl : clases) {
     		nombreClases.add(cl.getNombre());
     	}
-    	DtActividadDeportivaExt res = new DtActividadDeportivaExt(
-    			nombre, descripcion, duracion, costo,
+    	DtActividadDeportivaExt res = new DtActividadDeportivaExt(nombre, descripcion, duracion, costo,
     			new DtFecha(fechaAlta), new HashSet<>(), nombreClases, new HashSet<>(), 
-    			TEstado.finalizada, profesor.getNickname());
+    			TEstado.finalizada, profesor.getNickname(), "", 0);
     	return res;
     }
 }

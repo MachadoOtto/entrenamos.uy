@@ -309,14 +309,11 @@
 							<% for(Object y : (Set<?>) x.getValue()) {%>
 							<li class="list-group-item container border card-body elementoLista">
 								<div class="row">
-									<div class="col-auto">
-								 		<a href="<%=request.getContextPath()%>/clases?clase=<%=((String) y)%>" class="link-dark">
-								 			<img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=(String) y%>" class="vertical-align-middle imagenSeleccionable">
-								 		</a>
-								 	</div>
 								 	<div class="col-auto">
+								 		<a href="<%=request.getContextPath()%>/clases?clase=<%=((String) y)%>" class="link-dark">
 											<b><%=(String) y%></b>
 										<small class="text-muted">(<%=(String) x.getKey()%>)</small>
+										</a>
 									</div>
 								</div>
 							</li>

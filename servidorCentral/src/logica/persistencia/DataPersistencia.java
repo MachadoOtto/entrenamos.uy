@@ -17,9 +17,11 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import datatypes.DtActividadDeportivaExt;
+import datatypes.DtClaseExt;
 import datatypes.DtFecha;
 import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
+import excepciones.ClaseException;
 import excepciones.UsuarioNoExisteException;
 import logica.ActividadDeportiva;
 import logica.Clase;
@@ -266,6 +268,23 @@ public class DataPersistencia {
 			em.close();
 		}
 		throw new ActividadDeportivaException("La actividad deportiva "+nombreActDep+" no se encuentra presente en el sistema.");
+	}
+	
+	public DtClaseExt getClase(String nombreClase) throws ClaseException {
+		EntityManager em = emFabrica.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Clases> select = em.createQuery("SELECT cl FROM Clases cl WHERE cl.nombre=:nombre",Clases.class);
+			select.setParameter("nombre", nombreClase);
+			Clases clase = select.getSingleResult();
+			return clase.toDtClaseExt();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback(); 
+		} finally {
+			em.close();
+		}
+		throw new ClaseException("La clase "+nombreClase+" no se encuentra presente en el sistema.");
 	}
 	
 	public DtUsuarioExt getUsuario(String nombreSocio) throws UsuarioNoExisteException {
