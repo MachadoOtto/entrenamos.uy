@@ -131,6 +131,8 @@ public class PerfilUsuario extends HttpServlet {
         	float valoracion = 0;
         	if (usr instanceof DtProfesorExt) {
         		valoracion = ((DtProfesorExt) usr).getValoracion();
+        		int numRedoneados = 2;
+        		valoracion = (float) (Math.round(valoracion * Math.pow(10, numRedoneados)) / Math.pow(10, numRedoneados));
         	}
         	
         	List<Integer> valoraciones = new ArrayList<>();

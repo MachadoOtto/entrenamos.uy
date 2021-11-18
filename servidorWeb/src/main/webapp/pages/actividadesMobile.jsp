@@ -45,7 +45,7 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
        </div>
        <hr style="width: 73%; height: 2px;">
       <div class="row">
-          <p><i class="fas fa-school"></i> Ingresada por: <%=datosCreador.getNickname()%></p>
+          <p><i class="fas fa-user-tie"></i> Ingresada por: <%=datosCreador.getNickname()%></p>
       </div>
       <div class="row">
           <p><i class="fas fa-school"></i> Institucion: <%=institucion%></p>
