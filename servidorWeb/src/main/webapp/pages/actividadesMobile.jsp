@@ -84,7 +84,7 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
 	  <%contador = 0;
       	for (Object dtClase : datosClases) { %>
       <a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>">
-          <img alt="imagenClases"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imgSelectMobile">
+          <img alt="imgClase"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imgSelectMobile">
           <div class="row">
               <h5><%=((DtClaseExt)dtClase).getNombre()%></h5>
           </div>
@@ -103,7 +103,7 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
       <hr style="width:88%; height: 2px;">
       <%contador = 0;
       	for (Object datosCup : datosCuponeras) { %>
-          <img alt="imagenCuponera"  src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)datosCup).getNombre()%>" class="vertical-align-middle imgSelectMobile">
+          <img alt="imgCup"  src="<%=request.getContextPath()%>/api/content?c=cup&id=<%=((DtCuponera)datosCup).getNombre()%>" class="vertical-align-middle imgSelectMobile">
           <div class="row">
               <h5><%=((DtCuponera)datosCup).getNombre()%></h5>
           </div>
