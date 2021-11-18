@@ -57,6 +57,14 @@
     text-align: center;
 }
 
+.fa-book {
+	color: #1969d9;
+}
+
+.fa-ticket-alt {
+	color: #1969d9;
+}
+
 #infoClases {
     text-align: center;
     margin-bottom: -1%;

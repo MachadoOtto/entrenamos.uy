@@ -33,6 +33,15 @@
     text-align: center;
 }
 
+#actDep-asociada a {
+	text-decoration: none;
+	color: #f1f1f1;
+}
+
+#info-actDep-asociada {
+	font-size: 75%;
+}
+
 #section-infoActDep img {
     width: 85%;
     max-width: 600px;
@@ -76,6 +85,19 @@
     justify-content: center;
     text-align: center;
 }
+
+.fa-users {
+	color: #1969D9;
+}
+
+.fa-chart-bar {
+	color: #15D837;
+}
+
+.fa-youtube {
+	color: #D91919;
+}
+
 
 #section-sponsors {
     background-color: #f0f0f0;

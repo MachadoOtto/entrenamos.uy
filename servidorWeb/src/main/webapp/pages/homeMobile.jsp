@@ -19,7 +19,7 @@
 	  	%>
 	<div id="section-socio" class="row mt-4 mb-3">
 		  <img id="img-perfil" onerror="this.onerror=null; this.src='<%=request.getContextPath()%>/assets/images/misc/loading.gif'" alt="<%=loggedUser.getNickname()%>" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=loggedUser.getNickname()%>">
-	    <p class="bienvenida-socio mt-3">Bienvenido <%=loggedUser.getNickname()%> a la plataforma movil de Entrenamos.uy</p>
+	    <p class="bienvenida-socio mt-3">Bienvenido <b><%=loggedUser.getNickname()%></b> a la plataforma movil de Entrenamos.uy</p>
 	</div>
 	
 	<div id="section-titular" class="row">

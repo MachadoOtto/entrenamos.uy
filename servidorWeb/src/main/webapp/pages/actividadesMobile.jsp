@@ -75,7 +75,7 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
   
   <div class="row pt-4 pb-4" id="section-clases">
       <div class="row mb-2">
-          <h3>Clases</h3>
+          <h3><i class="fas fa-book"></i> Clases</h3>
       </div>
       <div id="infoClases" class="row">
           <p><i class="fas fa-info-circle"></i> Presione una clase para ver mas informacion</p>
@@ -98,7 +98,7 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
   
   <div class="row pt-4 pb-4" id="section-cuponeras">
       <div class="row mb-2">
-          <h3>Cuponeras</h3>
+          <h3><i class="fas fa-ticket-alt"></i> Cuponeras</h3>
       </div>
       <hr style="width:88%; height: 2px;">
       <%contador = 0;
