@@ -35,7 +35,7 @@
 	    <div class="row">
 	        <h1 id="title"><%=datosClase.getNombre()%></h1>
 	    </div>
-	    <div class="row">
+	    <div class="row" id="actDep-asociada">
 	        <p class="fs-4">(<a class="textoHyperMob" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"><%=nombreActividad%></a>)</p>
 	    </div>
 		<div id="info-actDep-asociada" class="row pt-2">
