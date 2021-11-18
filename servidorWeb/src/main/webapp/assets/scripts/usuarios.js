@@ -7,7 +7,7 @@
 function cargarEstrellitas() {
   estrellas = 0;
   estrellas = (document.getElementById('usr-promedio').innerHTML);
-  porcentajeEstrellal = (estrellas*2.125) + "rem";
+  porcentajeEstrellal = (estrellas*2.33) + "rem";
   document.getElementById('estrellitas-interior').style.width = porcentajeEstrellal;
 }
 /*

@@ -97,7 +97,7 @@
 				  			 <% List<?> val = (List<?>) request.getAttribute("valoraciones"); %>
 		                     <% int total = val.size(); %>
 		                     <% float promedio = (float) request.getAttribute("valoracion"); %>
-	                        <div class="col-sm-5">
+	                        <div class="col-sm-5 user-estrelltasYPuntaje">
 	                          <div class="row">
 	                            <a id="user-rating"><strong id="usr-promedio"><%=promedio%></strong></a>
 	                          </div>
