@@ -11,14 +11,6 @@
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/loginMobile.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid">
-	  <a class="navbar-brand" href="<%=request.getContextPath()%>/home" id="brand">
-	    <img id="img-EUY" src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="" class="">
-	    Entrenamos.uy
-	  </a>
-	</div>
-</nav>
 <div class="main col-11">
     <div class="row">
       <div class="row">
@@ -59,6 +51,8 @@
     </form>
     </div>
 </div>
-<jsp:include page="/template/footerMobile.jsp"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/assets/scripts/main.js"></script>
 </body>
 </html>
