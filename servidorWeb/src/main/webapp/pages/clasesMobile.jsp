@@ -118,7 +118,7 @@
 		<% } %>
 	  </div>
 	<% } %>
-		<div class="row pt-4 pb-4" id="section-cuponeras">
+		<div class="row pt-4 pb-4" id="section-video">
 			<%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
 				String u = datosClase.getUrlVideo();
 		        u=u.replace("watch?v=", "embed/");%>
