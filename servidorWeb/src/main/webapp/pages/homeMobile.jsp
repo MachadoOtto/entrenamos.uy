@@ -8,7 +8,6 @@
 	<jsp:include page="/template/head.jsp"/>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/home.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/homeMobile.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/styles/loginMobile.css">
 </head>
 <body>
 	<jsp:include page="/template/headerMobile.jsp"/>
