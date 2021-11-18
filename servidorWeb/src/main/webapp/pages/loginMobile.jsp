@@ -21,6 +21,10 @@
 </nav>
 <div class="main col-11">
     <div class="row">
+      <div class="row">
+            <img id="iconoEUY" src="<%=request.getContextPath()%>/assets/images/misc/iconoEntrenamos-uy.png" alt="" class="">
+            <h1 id="titulo">Entrenamos.uy</h1>
+      </div>
       <form id="formulario-sesion" action="<%=request.getContextPath()%>/login" method="POST" data-root="<%=request.getContextPath()%>"> 
         <div class="form-floating mb-3 mt-3 mx-4">
             <input type="text" class="form-control rounded-4" id="user" name="nick-login" placeholder="name@example.com">
