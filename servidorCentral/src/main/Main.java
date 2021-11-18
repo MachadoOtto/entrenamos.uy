@@ -9,11 +9,9 @@ import workstation.Menu;
 
 import java.awt.EventQueue;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +35,7 @@ import logica.ICuponeraController;
 import logica.IDictadoClaseController;
 import logica.IUsuarioController;
 import logica.LaFabrica;
+import logica.persistencia.DataPersistencia;
 
 public class Main {
 	private static IActividadDeportivaController IADC;
@@ -54,6 +53,8 @@ public class Main {
     	
     	if(!flags.contains("--empty")) {
     		try {
+    			// Nukeamos la persistencia.
+    			DataPersistencia.getInstance().nuketownDetonator();
     			cargaDeCasos();
     		} catch(Exception e) {
     			System.out.println("Oh noes! Ha habido un problema al cargar los casos de prueba. ");
@@ -427,7 +428,7 @@ public class Main {
 	        IDCC.ingresarDatosClase("Telón",  "Basquetbol",  new DtClase("Basquet II",  "aldo",  "aldo", 
 	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 11, 21, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),null, 
 	        		"https://www.youtube.com/watch?v=VMeQ4yRvGrc",new DtPremio("Juego de muñequitas",5,null, null)));
-	     // Aparatos #C18
+	        // Aparatos #C18
 	        IDCC.ingresarDatosClase("Fuerza Bruta",   "Aparatos y pesas",   new DtClase("Aparatos II",   "viktor",   "viktor",   
 	        		1,   5,   "https://www.musculos.com/aparatos",   new DtFecha(2021,   11,   30,   20,   0,   0),   new DtFecha(2021,   11,   15,   0,   0,   0),null,
 	        		"https://www.youtube.com/watch?v=6YTVPjjm3e8", new DtPremio("Pesa Rusa 5k",2,null, null)));
@@ -453,10 +454,9 @@ public class Main {
 	        		10,  new DtFecha(2021, 8, 1, 0, 0, 0), "Músculos.jpeg");
 	        ICC.agregarActividadCuponera("Músculos",  "Fuerza Bruta",  "Kickboxing",  11);
 	        ICC.agregarActividadCuponera("Músculos",  "Fuerza Bruta",  "Aparatos y pesas",  12);
-	        
 	        // Pista #P4
 	        ICC.ingresarCuponera("Pista",  "Entrenamiento de atletismo",  new DtFecha(2021, 10, 1, 0, 0, 0),  new DtFecha(2021, 12, 31, 23, 59, 59),  
-	        		15,  new DtFecha(2021, 9, 1, 0, 0, 0), "Pista.jpeg");
+	        		15,  new DtFecha(2021, 9, 1, 0, 0, 0), "Pista.jpg");
 	        ICC.agregarActividadCuponera("Pista",  "Telón",  "Atletismo",  20);
 	        
 	        // COMPRA CUPONERAS

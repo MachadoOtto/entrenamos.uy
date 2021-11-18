@@ -183,7 +183,6 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			}
 		}
 		//BuscarEnLaPersistencia!
-
 		return DataPersistencia.getInstance().getActividad(nombreActDep);
 	}
 
@@ -193,7 +192,7 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 			 try {
 				if (getHI().findInstitucion(i).getActsDeps().containsKey(actDep)) {
 					 getHI().findInstitucion(i).getActsDeps().get(actDep).setEstado(TEstado.finalizada);
-					 DataPersistencia.getInstance().persistir2(getHI().findInstitucion(i).getActsDeps().get(actDep));
+					 DataPersistencia.getInstance().persistir(getHI().findInstitucion(i).getActsDeps().get(actDep));
 					 getHI().findInstitucion(i).finalizarAct(actDep);
 					 break;
 				 }

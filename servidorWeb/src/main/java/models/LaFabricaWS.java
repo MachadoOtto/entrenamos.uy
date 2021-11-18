@@ -572,7 +572,12 @@ public class LaFabricaWS {
 			if(logpool==null)
 				logpool = new LogEntryWSArray();
 			logpool.getItem().add(entry);
-			port.sendReports(logpool);
+			try {
+				port.sendReports(logpool);
+			} catch(Exception e) {
+				sendReport(entry);
+				return;
+			}
 			if(logpool.getItem().size()>=Integer.parseInt(ConfigListener.cfg.getProperty("logthreshold")))
 				logpool = new LogEntryWSArray();
 		}

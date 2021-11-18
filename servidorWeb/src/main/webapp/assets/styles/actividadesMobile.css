@@ -87,6 +87,10 @@
     margin: auto;
 }
 
+#textoHyperMob {
+	color: white;
+}
+
 .imgSelectMobile {
 	object-fit: cover;
 	width: 80px;

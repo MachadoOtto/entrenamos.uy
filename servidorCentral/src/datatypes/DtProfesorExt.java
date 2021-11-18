@@ -63,6 +63,9 @@ public class DtProfesorExt extends DtUsuarioExt{
 	public Map<String,  TEstado> getHistoralActDepIngresadas(){
 		return historalActDepIngresadas;
 	}
+	public void setHistoralActDepIngresadas(Map<String,  TEstado> e){
+		historalActDepIngresadas = e;
+	}
 	public float getValoracion() {
 		return valoracion;
 	}

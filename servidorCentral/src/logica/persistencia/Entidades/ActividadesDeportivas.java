@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -177,12 +178,14 @@ public class ActividadesDeportivas implements Serializable {
     }
     
     public DtActividadDeportivaExt toDtActividadDeportivaExt() {
+    	Set<String> nombreClases = new HashSet<>();
+    	for (Clases cl : clases) {
+    		nombreClases.add(cl.getNombre());
+    	}
     	DtActividadDeportivaExt res = new DtActividadDeportivaExt(
     			nombre, descripcion, duracion, costo,
-    			new DtFecha(fechaAlta), new HashSet<>(), new HashSet<>(), new HashSet<>(), 
+    			new DtFecha(fechaAlta), new HashSet<>(), nombreClases, new HashSet<>(), 
     			TEstado.finalizada, profesor.getNickname());
     	return res;
     }
-
 }
-

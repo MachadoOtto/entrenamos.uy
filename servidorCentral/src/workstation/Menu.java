@@ -19,10 +19,7 @@ import logica.IDictadoClaseController;
 import logica.ILogger;
 import logica.ICuponeraController;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Set;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -33,15 +30,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
-
-import datatypes.DtActividadDeportiva;
-import datatypes.DtCategoria;
-import datatypes.DtClase;
-import datatypes.DtFecha;
-import datatypes.DtProfesor;
-import datatypes.DtSocio;
-import datatypes.TEstado;
-import datatypes.TReg;
 
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;

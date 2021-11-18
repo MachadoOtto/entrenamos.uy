@@ -51,7 +51,9 @@ public class DtSocioExt extends DtUsuarioExt{
 	public Map<String, Set<String>> getClasesDeActividadesFinalizadas() {
 		return clasesDeActividadesFinalizadas;
 	}
-	
+	public void setClasesDeActividadesFinalizadas(Map<String, Set<String>> r) {
+		this.clasesDeActividadesFinalizadas = r;
+	}
 	public DtSocio downgrade() {
 		return new DtSocio(this.getNickname(), this.getNombre(), this.getApellido(), this.getEmail(), this.getContrasenia(), this.getFechaNacimiento(), this.getImagen());
 	}

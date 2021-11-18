@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import datatypes.DtFecha;
 import datatypes.DtProfesorExt;
-import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
 import datatypes.TEstado;
 
@@ -62,6 +61,4 @@ public class Profesores extends Usuarios {
 				new HashSet<>(), new HashMap<String, TEstado>(), -1);
 		return res;
     }
-
 }
-
