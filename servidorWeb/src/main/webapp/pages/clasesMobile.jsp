@@ -36,7 +36,7 @@
 	        <h1 id="title"><%=datosClase.getNombre()%></h1>
 	    </div>
 	    <div class="row">
-	        <p class="fs-4">(<%=nombreActividad%>)</p>
+	        <p class="fs-4">(<a class="textoHyperMob" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"><%=nombreActividad%></a>)</p>
 	    </div>
 	    <div class="row pt-4">
 	        <img src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=datosClase.getNombre()%>" alt="" class="imagProfMobile">
@@ -119,9 +119,11 @@
 	  </div>
 	<% } %>
 		<div class="row pt-4 pb-4" id="section-cuponeras">
-			<%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {%>
+			<%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
+				String u = datosClase.getUrlVideo();
+		        u=u.replace("watch?v=", "embed/");%>
 		    <div class="row pt-1">
-		    	<iframe width="320" height="180" src="<%=datosClase.getUrlVideo()%>" frameborder="0" allowfullscreen></iframe>
+		    	<iframe width="320" height="180" src="<%=u%>" frameborder="0" allowfullscreen></iframe>
 		    </div>
 		    <% } %>
 	    </div>
