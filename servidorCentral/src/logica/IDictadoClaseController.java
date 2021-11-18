@@ -63,4 +63,6 @@ public interface IDictadoClaseController {
 	//public void modificarDatosClase(String ins, String actDep, DtClase datos);
 	
 	public Set<DtReciboClase> bringTheRegistersPls(String nombreClase) throws ClaseException;
+	
+	//public String nombreActDeClase(String nombreClase);
 }

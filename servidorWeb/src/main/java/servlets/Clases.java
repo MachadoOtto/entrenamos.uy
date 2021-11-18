@@ -53,10 +53,14 @@ public class Clases extends HttpServlet {
 			if (datosClase.getMaxSocios() > datosClase.getAlumnos().size())
 				estaLlena = false;
 			nombreActividad = nombreActDeClase(nombreClase);
+			if (nombreActividad == null && datosClase.getNicknameProfesor().isEmpty()) {
+				nombreActividad = datosClase.getCorreoProfesor();
+				actfin = true;
+			}
 			nombreInstitucion = nombreInstiDeAct(nombreActividad);
 			DtFecha horaActual = new DtFecha();
 			inscCaducada = datosClase.getFechaClase().esMenor(horaActual);
-			if (user instanceof DtSocioExt) {
+			if ((!inscCaducada) && user instanceof DtSocioExt) {
 				esSocio = true;
 				if (!((DtSocioExt)user).getClases().contains(nombreClase)) {
 					estaInscripto = false;
@@ -81,13 +85,9 @@ public class Clases extends HttpServlet {
 		}
 		// setea los datos
 		try {
-			request.setAttribute("actDT", IADC.getActDepExt(nombreInstitucion, nombreActividad));
-		} catch (InstitucionException | ActividadDeportivaException e) {
+			request.setAttribute("actDT", IADC.buscarActDep(nombreActividad));
+		} catch (ActividadDeportivaException e) {
 			e.printStackTrace();
-		}
-		if(datosClase.getNombre().contains("\uF00AA")) {
-			actfin = true;
-			datosClase.setNombre(datosClase.getNombre().replace("\uF00AA", ""));
 		}
 		request.setAttribute("actfin", actfin);
 		request.setAttribute("clase",  datosClase);

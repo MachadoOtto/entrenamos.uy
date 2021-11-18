@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,7 @@ import javax.persistence.TemporalType;
 
 import datatypes.DtClaseExt;
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 
 
 /**
@@ -194,11 +196,9 @@ public class Clases implements Serializable {
     	for(Registros x: registros) {
     		nickAlumnos.add(x.getSocio().getNickname());
     	}
-    	DtClaseExt res = new DtClaseExt(nombre, actividad.getProfesor().getNickname(),
-    			actividad.getProfesor().getEmail(), sociosMinimos, sociosMaximos, url, 
-    			new DtFecha(fechaInicio),
-    			new DtFecha(fechaAlta),
-    			nickAlumnos, nickAlumnos);
+    	DtClaseExt res = new DtClaseExt(nombre, "", actividad.getNombre(), sociosMinimos, sociosMaximos, url, new DtFecha(fechaInicio),
+    			new DtFecha(fechaAlta), nickAlumnos, nickAlumnos, "", "", new DtPremio("", 0, new ArrayList<String>(), 
+    			new DtFecha()), new HashMap<String, Integer>());
     	return res;
     }   
 }

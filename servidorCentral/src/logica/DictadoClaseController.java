@@ -19,7 +19,7 @@ import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
-
+import logica.persistencia.DataPersistencia;
 import datatypes.DtFecha;
 import datatypes.DtReciboClase;
 import datatypes.TEstado;
@@ -122,7 +122,8 @@ public class DictadoClaseController implements IDictadoClaseController {
 				;
 			}
 		}
-		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
+		// Si llega hasta aqui la clase esta en la persistencia o no existe
+		return DataPersistencia.getInstance().getClase(nombreClase);
 	}
 	
 	public int ingresarDatosClase(String ins,  String actDep,  DtClase datos) throws InstitucionException,  FechaInvalidaException, 
@@ -263,6 +264,28 @@ public class DictadoClaseController implements IDictadoClaseController {
 		}
 		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
 	}
+	
+	/*public String nombreActDeClase(String nombreClase) {
+    	String nombreActividad = null;
+    	IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
+		for (String x: IDCC.obtenerInstituciones()) {
+			try {
+				for (String y: IDCC.obtenerActividades(x)) {
+					if (IDCC.obtenerClases(x,  y).contains(nombreClase)) {
+						nombreActividad = y;
+						return nombreActividad;
+					}
+				}
+			} catch(InstitucionException ignore) { }
+		}
+		for (String x: DataPersistencia.getInstance().obtenerActividades()) {
+			if (DataPersistencia.getInstance().obtenerClases(x).contains(nombreClase)) {
+				nombreActividad = x;
+				return nombreActividad;
+			}
+		}
+		return nombreActividad;
+    }*/
 	
 }
 
