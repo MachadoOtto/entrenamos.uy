@@ -213,8 +213,9 @@ body {
 /*	Estrellas	*/
   
 #estrellitas-exterior::before {
-  content: "\f005 \f005 \f005 \f005 \f005";
-  font-family: 'Font Awesome 5 Free';
+  /*content: "\f005 \f005 \f005 \f005 \f005";*/
+  content: "★★★★★";
+  /*font-family: 'Font Awesome 5 Free';*/
   font-weight: 900;
   color: grey;
 }
@@ -224,15 +225,15 @@ body {
   display: inline-block;
   /*padding: 0 0 0 0 !important;
   text-align: center;*/
-  font-size: 30px;
+  font-size: 42px;
   top: 0;
   left: 0;
   white-space: nowrap;
 }
 
 #estrellitas-interior::before {  
-  content: "\f005 \f005 \f005 \f005 \f005";
-  font-family: 'Font Awesome 5 Free';
+  content: "★★★★★";
+  /*font-family: 'Font Awesome 5 Free';*/
   font-weight: 900;
   color: #f8ce0b;	/* amarillo estrella */
   /*font-size: 60px;
@@ -245,9 +246,18 @@ body {
   line-height: 1;*/
 }
 
+.user-estrelltasYPuntaje {
+	line-height: 60px;
+	padding: 10px;
+}
+
+/*.estrellitas-5 {
+	line-height: 40px !important;
+}*/
+
 #estrellitas-interior {
   /*text-align: center;*/
-  font-size: 30px;
+  font-size: 42px;
   position: absolute;
   top: 0;
   left: 0.75 rem;
@@ -277,6 +287,7 @@ body {
 }
 
 #estrellitas-votos {
+  line-height: 20px !important;
   text-align: center;
 }
 
