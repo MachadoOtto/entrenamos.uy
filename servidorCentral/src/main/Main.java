@@ -313,7 +313,7 @@ public class Main {
 					"Clases de aparatos,  pesas y calistenia.",  90,  550,  new DtFecha(2021, 3, 31, 0, 0, 0),  A1cat,  TEstado.aceptada,  "viktor", "Aparatos y pesas.jpeg"));
 			// Voleibol #A2
 			IADC.ingresarDatosActividadDep("Telón",  new DtActividadDeportiva("Voleibol", 
-					"Voleibol en todas sus formas.",  120,  750,  new DtFecha(2021, 4, 20, 0, 0, 0),  A2cat,  TEstado.finalizada,  "denis", "Voleibol.jpeg"));
+					"Voleibol en todas sus formas.",  120,  750,  new DtFecha(2021, 4, 20, 0, 0, 0),  A2cat,  TEstado.aceptada,  "denis", "Voleibol.jpeg"));
 			// Aeróbica #A3
 			IADC.ingresarDatosActividadDep("Instituto Natural",  new DtActividadDeportiva("Aeróbica", 
 					"Para cuidar el aparato cardiovascular.",  110,  800,  new DtFecha(2021, 5, 30, 0, 0, 0),  A3cat,  TEstado.aceptada,  "Administrador", "Aeróbica.jpg"));
@@ -588,6 +588,9 @@ public class Main {
 			// #R46
 			IDCC.inscribirSocio("Telón",  "Basquetbol",  "Basquet II",  "caro",  TReg.general,  
 					new DtFecha(2021, 9, 2, 0, 0, 0),  null);
+			
+			// Finalizar Actividades:
+			IADC.finalizarActividad("Voleibol");
 		} catch (Exception e) {
         	throw e;
 		}

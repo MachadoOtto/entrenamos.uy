@@ -1,11 +1,6 @@
 package logica.persistencia;
 
 import java.util.ArrayList;
-<<<<<<< Updated upstream
-=======
-import java.util.Arrays;
-import java.util.Calendar;
->>>>>>> Stashed changes
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -281,11 +276,8 @@ public class DataPersistencia {
 			select.setParameter("nombre", nombreSocio);
 			if(select.getResultList().size()>0) {
 				Socios s = select.getSingleResult();
-<<<<<<< Updated upstream
-=======
 				em.getTransaction().commit();
 				System.out.println(s.toString());
->>>>>>> Stashed changes
 				return s.toDtUsuarioExt();
 			}
 			else{
