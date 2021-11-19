@@ -451,6 +451,25 @@ public class Menu {
 				}
 			}
 		});
+		
+		JMenu menuBaseDeDatos = new JMenu("Base de Datos\r\n");
+		menuBar.add(menuBaseDeDatos);
+		
+		JMenuItem itemBaseActividad = new JMenuItem("Abrir Persistencia de Actividades");
+		menuBaseDeDatos.add(itemBaseActividad);
+		itemBaseActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url","jdbc:hsqldb:ActividadDB", "--user", "SA", "--password", "123", "--noexit"});
+			}
+		});
+		
+		JMenuItem itemBaseLogs = new JMenuItem("Abrir Persistencia de Logs");
+		menuBaseDeDatos.add(itemBaseLogs);
+		itemBaseLogs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url","jdbc:hsqldb:LoggerDB", "--user", "SA", "--password", "123", "--noexit"});
+			}
+		});
 	}
 	
 	private void capaDeInvisibilidad() {
