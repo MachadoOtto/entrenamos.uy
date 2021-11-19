@@ -51,12 +51,9 @@
            			</div>
             		<div class="col-9 py-3">
 				      	<div id="user-info" class="row">
-                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong> 
-                			<%if (actfin && (!(loggedUser instanceof DtProfesorExt))) {  %>
-                			(<%=nombreActividad%>)
-                			<%} else { %>
+                			<p><strong id="user-nickname"> <%=datosClase.getNombre()%> </strong>
 				      		<a id="user-type" href="<%=request.getContextPath()%>/actividades?actividad=<%=nombreActividad%>"> (<%=nombreActividad%>) </a>
-				      		<% } %></p>
+				      		</p>
 				      	</div>
 				      	<%if(!actfin) {%>
               			<div id="creatorDiv" class="row">
@@ -199,7 +196,7 @@
 		                   Realizar Sorteo
 		                </button>
 		            <%} %>
-		            <%if (loggedUser instanceof DtSocioExt && estaInscripto && datosClase.getFechaClase().esMenor(new DtFecha())) {
+		            <%if (loggedUser instanceof DtSocioExt && estaInscripto && datosClase.getFechaClase().esMenor(new DtFecha()) && datosClase.getNickAlumnos().contains(loggedUser.getNickname())) {
 		            	String valLink = request.getContextPath()+"/valorar?usu="+loggedUser.getNickname()+"&ins="+nombreInstitucion+"&act="+nombreActividad+"&cla="+datosClase.getNombre();%>
 						<div class="mt-3" data-valoracion="<%=(datosClase.getCalificaciones().containsKey(loggedUser.getNickname())) ? datosClase.getCalificaciones().get(loggedUser.getNickname()): "-1" %>" id="Valoraciones">
 							<h6><strong>Su valoración de <%=datosClase.getNicknameProfesor()%> en esta clase: </strong></h6>

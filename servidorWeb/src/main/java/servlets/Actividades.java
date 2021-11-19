@@ -14,6 +14,7 @@ import tools.Parametrizer;
 import models.LaFabricaWS;
 import datatypes.DtSocioExt;
 import datatypes.DtUsuarioExt;
+import datatypes.TEstado;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtClaseExt;
 import datatypes.DtCuponera;
@@ -41,7 +42,7 @@ public class Actividades extends HttpServlet {
     	DtUsuarioExt nickUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
     	boolean esSocio = false;
     	boolean finalizable = false;
-    	boolean finalizada = (request.getParameter("db")!=null && request.getParameter("db").equals("1"));
+    	boolean finalizada = false;
     	DtUsuarioExt datosCreador = null;
     	String institucion = null;
     	Set<DtClaseExt> datosClases = new HashSet<>();
@@ -49,6 +50,7 @@ public class Actividades extends HttpServlet {
     	
 		try {
 			datosActDep = buscarActDep(nombreActDep);
+			finalizada = (datosActDep.getEstado() == TEstado.finalizada) ? true : false;
 	    	if(!finalizada)
 	    		institucion = LaFabricaWS.getInstance().obtenerIDictadoClaseController().obtenerInstitucionActDep(datosActDep.getNombre());
 		} catch(ActividadDeportivaException e) {
@@ -64,6 +66,7 @@ public class Actividades extends HttpServlet {
 			} else if (finalizada){
 				try {
 					datosCreador = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosActDep.getCreador()+"\uEAEA");
+					request.setAttribute("datosCreador",  datosCreador);
 				} catch (UsuarioNoExisteException e) {
 					e.printStackTrace();
 				}

@@ -303,7 +303,7 @@
 					</ul>
 					<% if (usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname().equals(usrLogged.getNickname())) {	/* Socio viendo su propio perfil */ %>
 					<br>
-					<h6 class="row"><strong>Clases Finalizadas</strong></h6>
+					<h6 class="row"><strong>Clases de Actividades Finalizadas</strong></h6>
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
 						<% for(Map.Entry<?,?> x: ( (Map<?,?>) request.getAttribute("clasesFinalizadas")).entrySet()) { %>
 							<% for(Object y : (Set<?>) x.getValue()) {%>
@@ -479,13 +479,10 @@
 					  		<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.finalizada) { %>
 							<li class="list-group-item container border card-body elementoLista elementoListaPequenio">
 								<div class="row">
-									<div class="col-auto">
-							 			<a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 				<img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
-							 			</a>
-							 		</div>
 							 		<div class="col-auto">
-							 			<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b>
+							 			<a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
+							 				<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b>
+							 			</a>
 							 		</div>
 								  </div>
 							 </li>
