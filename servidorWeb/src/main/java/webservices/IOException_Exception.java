@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "IOException", targetNamespace = "http://webServices/")
 public class IOException_Exception extends Exception {
     
-    private webservices.IOException ioException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6226461179244334642L;
+	private webservices.IOException ioException;
 
     public IOException_Exception() {
         super();

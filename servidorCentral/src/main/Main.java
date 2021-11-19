@@ -28,7 +28,6 @@ import datatypes.DtFecha;
 import datatypes.DtPremio;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
-import datatypes.DtSocioExt;
 import datatypes.TEstado;
 import datatypes.TReg;
 import logica.IActividadDeportivaController;

@@ -3,12 +3,6 @@ package models;
 import java.util.Set;
 
 import datatypes.DtCuponera;
-import datatypes.DtFecha;
-import excepciones.ActividadDeportivaException;
-import excepciones.CuponeraInmutableException;
-import excepciones.CuponeraRepetidaException;
-import excepciones.FechaInvalidaException;
-import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 
 public interface ICuponeraController {

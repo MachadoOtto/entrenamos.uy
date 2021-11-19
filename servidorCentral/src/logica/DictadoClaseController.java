@@ -21,7 +21,6 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 import logica.persistencia.DataPersistencia;
 import datatypes.DtFecha;
-import datatypes.DtPremio;
 import datatypes.DtReciboClase;
 import datatypes.TEstado;
 import datatypes.DtClase;

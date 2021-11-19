@@ -15,7 +15,6 @@ import logica.LaFabrica;
 import logica.persistencia.DataPersistencia;
 import main.Main;
 import logica.IUsuarioController;
-import logica.HandlerLogs;
 import logica.IActividadDeportivaController;
 import logica.IDictadoClaseController;
 import logica.ILogger;

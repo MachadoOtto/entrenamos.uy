@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "InstitucionException", targetNamespace = "http://webServices/")
 public class InstitucionException_Exception extends Exception {
     
-    private webservices.InstitucionException institucionException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5981272061086712438L;
+	private webservices.InstitucionException institucionException;
 
     public InstitucionException_Exception() {
         super();

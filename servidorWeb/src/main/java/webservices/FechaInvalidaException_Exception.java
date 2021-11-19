@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "FechaInvalidaException", targetNamespace = "http://webServices/")
 public class FechaInvalidaException_Exception extends Exception {
     
-    private webservices.FechaInvalidaException fechaInvalidaException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2377348394593558019L;
+	private webservices.FechaInvalidaException fechaInvalidaException;
 
     public FechaInvalidaException_Exception() {
         super();

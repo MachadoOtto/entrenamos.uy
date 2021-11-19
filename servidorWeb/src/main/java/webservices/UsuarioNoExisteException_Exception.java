@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "UsuarioNoExisteException", targetNamespace = "http://webServices/")
 public class UsuarioNoExisteException_Exception extends Exception {
     
-    private webservices.UsuarioNoExisteException usuarioNoExisteException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6440852894322707148L;
+	private webservices.UsuarioNoExisteException usuarioNoExisteException;
 
     public UsuarioNoExisteException_Exception() {
         super();

@@ -2,10 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datatypes.DtActividadDeportivaExt;
-import datatypes.DtProfesorExt;
 import datatypes.DtUsuarioExt;
 import excepciones.ActividadDeportivaException;
-import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
 import models.IActividadDeportivaController;
 import models.IUsuarioController;
@@ -45,31 +39,30 @@ public class FinalizarActividad extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
-    	DtUsuarioExt usr = null;
-    		String actname = (String) request.getParameter("act");
-    		DtActividadDeportivaExt actdt;
-			try {
-				actdt = IADC.buscarActDep(actname);
-			} catch (ActividadDeportivaException e) {
-				request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
-				e.printStackTrace();
-				return;
-			}
-        	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
-    		if(usrLogged.getNickname().equals(actdt.getCreador())) {
-    			IADC.finalizarActividad(actname);
-    		}
-    		else {
-    			request.getRequestDispatcher("pages/403.jsp").forward(request,  response);
-    			return;
-    		}
-    		try {
-				request.getSession().setAttribute("loggedUser", IUC.seleccionarUsuario(usrLogged.getNickname()));
-			} catch (UsuarioNoExisteException e) {
-				e.printStackTrace();
-			}
-    		response.sendRedirect(request.getContextPath() +"/actividades?actividad=" +URLEncoder.encode( actname,"utf-8")+"&db=1");
-    		return;
+		String actname = (String) request.getParameter("act");
+		DtActividadDeportivaExt actdt;
+		try {
+			actdt = IADC.buscarActDep(actname);
+		} catch (ActividadDeportivaException e) {
+			request.getRequestDispatcher("pages/404.jsp").forward(request,  response);
+			e.printStackTrace();
+			return;
+		}
+    	DtUsuarioExt usrLogged = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
+		if(usrLogged.getNickname().equals(actdt.getCreador())) {
+			IADC.finalizarActividad(actname);
+		}
+		else {
+			request.getRequestDispatcher("pages/403.jsp").forward(request,  response);
+			return;
+		}
+		try {
+			request.getSession().setAttribute("loggedUser", IUC.seleccionarUsuario(usrLogged.getNickname()));
+		} catch (UsuarioNoExisteException e) {
+			e.printStackTrace();
+		}
+		response.sendRedirect(request.getContextPath() +"/actividades?actividad=" +URLEncoder.encode( actname,"utf-8")+"&db=1");
+		return;
     }
     
 	protected void doGet(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {

@@ -5,14 +5,10 @@ import java.util.Set;
 import excepciones.ActividadDeportivaException;
 import excepciones.ClaseException;
 import excepciones.InstitucionException;
-import excepciones.CategoriaException;
-
 import datatypes.DtActividadDeportiva;
 import datatypes.DtClaseExt;
 import datatypes.DtActividadDeportivaExt;
 import datatypes.DtInstitucion;
-import datatypes.TEstado;
-import datatypes.DtCategoria;
 
 public interface IActividadDeportivaController {
 	

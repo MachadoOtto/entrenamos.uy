@@ -1,12 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLEncoder;
-import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;

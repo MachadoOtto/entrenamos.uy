@@ -2,10 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datatypes.DtUsuarioExt;
-import models.IActividadDeportivaController;
-import models.IDictadoClaseController;
 import models.IUsuarioController;
 import models.LaFabricaWS;
 import tools.Parametrizer;
@@ -25,13 +19,13 @@ import tools.Parametrizer;
 public class Valorar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IUsuarioController IUC;
-	private IActividadDeportivaController IADC;
-	private IDictadoClaseController IDCC;
+	//private IActividadDeportivaController IADC;
+	//private IDictadoClaseController IDCC;
     public Valorar() {
         super();
         IUC = LaFabricaWS.getInstance().obtenerIUsuarioController();
-        IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
-        IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
+        //IADC = LaFabricaWS.getInstance().obtenerIActDeportivaController();
+        //IDCC = LaFabricaWS.getInstance().obtenerIDictadoClaseController();
     } 
     
     protected void processRequest(HttpServletRequest request,  HttpServletResponse response) throws ServletException,  IOException {

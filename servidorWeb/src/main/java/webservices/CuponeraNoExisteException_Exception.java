@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "CuponeraNoExisteException", targetNamespace = "http://webServices/")
 public class CuponeraNoExisteException_Exception extends Exception {
     
-    private webservices.CuponeraNoExisteException cuponeraNoExisteException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4715682031793282589L;
+	private webservices.CuponeraNoExisteException cuponeraNoExisteException;
 
     public CuponeraNoExisteException_Exception() {
         super();

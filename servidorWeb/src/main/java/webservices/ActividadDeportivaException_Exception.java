@@ -13,7 +13,11 @@ import javax.xml.ws.WebFault;
 @WebFault(name = "ActividadDeportivaException", targetNamespace = "http://webServices/")
 public class ActividadDeportivaException_Exception extends Exception {
     
-    private webservices.ActividadDeportivaException actividadDeportivaException;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1092062134822033469L;
+	private webservices.ActividadDeportivaException actividadDeportivaException;
 
     public ActividadDeportivaException_Exception() {
         super();
