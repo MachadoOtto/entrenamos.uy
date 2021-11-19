@@ -21,6 +21,7 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 import logica.persistencia.DataPersistencia;
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 import datatypes.DtReciboClase;
 import datatypes.TEstado;
 import datatypes.DtClase;
@@ -265,28 +266,18 @@ public class DictadoClaseController implements IDictadoClaseController {
 		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
 	}
 	
-	/*public String nombreActDeClase(String nombreClase) {
-    	String nombreActividad = null;
-    	IDictadoClaseController IDCC = LaFabrica.getInstance().obtenerIDictadoClaseController();
-		for (String x: IDCC.obtenerInstituciones()) {
-			try {
-				for (String y: IDCC.obtenerActividades(x)) {
-					if (IDCC.obtenerClases(x,  y).contains(nombreClase)) {
-						nombreActividad = y;
-						return nombreActividad;
-					}
-				}
-			} catch(InstitucionException ignore) { }
+	public void sorteoLegal(Set<String> socios, String inst, String act, String clas, String descPremio,int cantPremio, DtFecha fec) throws UsuarioNoExisteException, ClaseException, InstitucionException{
+		
+		Clase cla = getHI().findInstitucion(inst).findActividad(act).findClase(clas);
+		Premio prem = new Premio(cla,descPremio, cantPremio, true, fec);
+		cla.setPremio(prem);
+		
+		for (String soc: socios) {
+			Socio sociooo = (Socio) getHU().findUsuario(soc);
+			sociooo.addPremio(prem);
+			prem.addWiner(sociooo);
 		}
-		for (String x: DataPersistencia.getInstance().obtenerActividades()) {
-			if (DataPersistencia.getInstance().obtenerClases(x).contains(nombreClase)) {
-				nombreActividad = x;
-				return nombreActividad;
-			}
-		}
-		return nombreActividad;
-    }*/
-	
+	}
 }
 
 //Guille: Esta funcion creo que no va.

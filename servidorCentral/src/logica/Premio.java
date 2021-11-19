@@ -22,6 +22,15 @@ public class Premio {
 		cantidad = cant;
 		classroom = classss;
 	}
+	
+	Premio(Clase  classss ,  String  desc,  int  cant, boolean real, DtFecha fechaSorteo2){
+		description = desc;
+		cantidad = cant;
+		classroom = classss;
+		realizado = real;
+		fechaSorteo = fechaSorteo2;
+		
+	}
 
 	public int getCantidad() {
 		return cantidad;
@@ -72,5 +81,9 @@ public class Premio {
 
 	public void setFechaSorteo(DtFecha fechaSorteo) {
 		this.fechaSorteo = fechaSorteo;
+	}
+	
+	public void addWiner(Socio nombre) {
+		winners.add(nombre);
 	}
 }
