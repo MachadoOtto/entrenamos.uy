@@ -30,6 +30,7 @@ import excepciones.FechaInvalidaException;
 import excepciones.InstitucionException;
 import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
+import logica.persistencia.DataPersistencia;
 import net.java.dev.jaxb.array.StringArray;
 import servlets.ConfigListener;
 import servlets.Login;
@@ -45,6 +46,7 @@ import webservices.LogEntryWSArray;
 import webservices.NoExisteCuponeraException_Exception;
 import webservices.TRegWS;
 import webservices.UsuarioNoExisteException_Exception;
+import webservices.WSContentController;
 import tools.Cnv;
 
 public class LaFabricaWS {
@@ -535,7 +537,24 @@ public class LaFabricaWS {
 		
 	}
 	public static class ContentController implements IContentController{
-		static LogEntryWSArray logpool = new LogEntryWSArray();
+		public static class Logpool {
+			private static Logpool instancia = null;
+			public LogEntryWSArray pool = new LogEntryWSArray();
+			private Logpool() { }
+
+			public static synchronized Logpool getInstance() {
+				if (instancia == null)
+					instancia = new Logpool();
+				return instancia;
+			}
+			private synchronized void pushReports(LogEntryWS entry, WSContentController port) {
+				pool.getItem().add(entry);
+				if(pool.getItem().size()>=Integer.parseInt(ConfigListener.cfg.getProperty("logthreshold"))) {
+					port.sendReports(pool);
+					pool.getItem().clear();
+				}
+			}
+		}
 		webservices.WSContentControllerService service = new webservices.WSContentControllerService();
 		webservices.WSContentController port = service.getWSContentControllerPort();
 		
@@ -569,17 +588,7 @@ public class LaFabricaWS {
 
 		@Override
 		public void sendReport(LogEntryWS entry) {
-			if(logpool==null)
-				logpool = new LogEntryWSArray();
-			logpool.getItem().add(entry);
-			try {
-				port.sendReports(logpool);
-			} catch(Exception e) {
-				sendReport(entry);
-				return;
-			}
-			if(logpool.getItem().size()>=Integer.parseInt(ConfigListener.cfg.getProperty("logthreshold")))
-				logpool = new LogEntryWSArray();
+			ContentController.Logpool.getInstance().pushReports(entry, port);
 		}
 		
 	}
