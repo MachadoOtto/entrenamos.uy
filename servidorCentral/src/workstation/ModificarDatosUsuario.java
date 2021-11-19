@@ -153,6 +153,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					String nickUsuario = comboBoxUsuario.getItemAt(comboBoxUsuario.getSelectedIndex());
 					try {
 						datosUsuarioActual = controlUsr.seleccionarUsuario(nickUsuario);
+						boxIMes.setSelectedIndex(datosUsuarioActual.getFechaNacimiento().getMes());
 					} catch  (UsuarioNoExisteException ignore) { }
 
 					if ((boxIMes.getSelectedIndex() % 2 == 0) && (boxIMes.getSelectedIndex() < 7) || 
