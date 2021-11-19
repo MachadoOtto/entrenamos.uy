@@ -479,13 +479,10 @@
 					  		<% if (((DtActividadDeportivaExt)ad).getEstado() == TEstado.finalizada) { %>
 							<li class="list-group-item container border card-body elementoLista elementoListaPequenio">
 								<div class="row">
-									<div class="col-auto">
-							 			<a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
-							 				<img alt="Qries" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
-							 			</a>
-							 		</div>
 							 		<div class="col-auto">
-							 			<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b>
+							 			<a href="<%=request.getContextPath()%>/actividades?actividad=<%=((DtActividadDeportivaExt)ad).getNombre()%>" class="link-dark">
+							 				<b><%=((DtActividadDeportivaExt)ad).getNombre()%></b>
+							 			</a>
 							 		</div>
 								  </div>
 							 </li>
