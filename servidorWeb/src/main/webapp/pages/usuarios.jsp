@@ -566,9 +566,11 @@
 					</div>
 				<%} }  %>
 		</div>
+		<% if(db){%>
 		<div class="alert alert-info mt-4" role="alert">
 		  Usted está visualizando los registros de los usuarios inscriptos en clases de actividades finalizadas que se encuentra disponible en la base de datos de Entrenamos.uy  <i class="fas fa-database"></i>
 		</div>
+		<%} %>
 	</div>
 	
 	<!--MODALS-->

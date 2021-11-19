@@ -15,6 +15,7 @@ import logica.LaFabrica;
 import logica.persistencia.DataPersistencia;
 import main.Main;
 import logica.IUsuarioController;
+import logica.HandlerLogs;
 import logica.IActividadDeportivaController;
 import logica.IDictadoClaseController;
 import logica.ILogger;
@@ -460,18 +461,24 @@ public class Menu {
 			}
 		});
 		
-		JMenu menuBaseDeDatos = new JMenu("Base de Datos\r\n");
+		JMenu menuBaseDeDatos = new JMenu("Avanzado\r\n");
 		menuBar.add(menuBaseDeDatos);
 		
-		JMenuItem itemBaseActividad = new JMenuItem("Abrir Persistencia de Actividades");
+		JMenuItem itemBaseActividad = new JMenuItem("Abrir HSQLDBM para Persistencia de Actividades");
 		menuBaseDeDatos.add(itemBaseActividad);
 		itemBaseActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				org.hsqldb.util.DatabaseManager.main(new String[] { "--url","jdbc:hsqldb:ActividadDB", "--user", "SA", "--password", "123", "--noexit"});
 			}
 		});
-		
-		JMenuItem itemLimpiarBaseActividad = new JMenuItem("Limpiar Persistencia de Actividades");
+		JMenuItem itemBaseLogs = new JMenuItem("Abrir HSQLDBM para Registros de Acceso");
+		menuBaseDeDatos.add(itemBaseLogs);
+		itemBaseLogs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				org.hsqldb.util.DatabaseManager.main(new String[] { "--url","jdbc:hsqldb:LoggerDB", "--user", "SA", "--password", "123", "--noexit"});
+			}
+		});
+		JMenuItem itemLimpiarBaseActividad = new JMenuItem("Borrar Datos de Actividades");
 		menuBaseDeDatos.add(itemLimpiarBaseActividad);
 		itemLimpiarBaseActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -486,12 +493,19 @@ public class Menu {
 				DataPersistencia.getInstance().nuketownDetonator();
 			}
 		});
-		
-		JMenuItem itemBaseLogs = new JMenuItem("Abrir Persistencia de Logs");
-		menuBaseDeDatos.add(itemBaseLogs);
-		itemBaseLogs.addActionListener(new ActionListener() {
+		JMenuItem itemLimpiarBaseLogs = new JMenuItem("Borrar Datos de Registros de Acceso");
+		menuBaseDeDatos.add(itemLimpiarBaseLogs);
+		itemLimpiarBaseLogs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				org.hsqldb.util.DatabaseManager.main(new String[] { "--url","jdbc:hsqldb:LoggerDB", "--user", "SA", "--password", "123", "--noexit"});
+				try {
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(Menu.class.getResource("/workstation/nuke.wav"));
+					Clip clip = AudioSystem.getClip();
+					clip.open(audioIn);
+					clip.start();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
+				IL.nuketownDetonator();
 			}
 		});
 	}

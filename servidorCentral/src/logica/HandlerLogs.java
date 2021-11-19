@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import datatypes.DtFecha;
@@ -121,4 +122,20 @@ public class HandlerLogs implements ILogger {
 			manager.close();
 		}
 	}
+	
+	public void nuketownDetonator() {
+		EntityManager em = f.createEntityManager();
+		em.getTransaction().begin();
+		try {
+		    Query q1 = em.createQuery("DELETE FROM LogEntry");
+		    q1.executeUpdate();
+		    em.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+	}
+	
 }	
