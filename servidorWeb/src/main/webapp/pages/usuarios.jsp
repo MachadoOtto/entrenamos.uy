@@ -242,7 +242,7 @@
 	                      <h6 class="mb-0"><strong>Website:</strong></h6>
 	                    </div>
 	                    <div class="col-sm-9 text-secondary">
-	                    	<a href="<%= ((DtProfesorExt)usrProfile).getLink() %>">
+	                    	<a href="<%=( ( ((DtProfesorExt)usrProfile).getLink().startsWith("http")) ? "" : "http://")+((DtProfesorExt)usrProfile).getLink() %>">
 							  <%= ((DtProfesorExt)usrProfile).getLink() %>
 	                    	</a>
 	                    </div>
