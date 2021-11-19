@@ -5,8 +5,8 @@ body {
 
 .main {
     background-color: rgb(245, 245, 245);
-    margin-top: 125px !important;
-    margin-bottom: 125px !important;
+    margin-top: 8rem !important;
+    margin-bottom: 8rem !important;
     margin: 0 auto;
     border-radius: 5px;
     opacity: .99;
@@ -17,8 +17,8 @@ body {
 
 .sub-main {
 	background-color: rgb(245, 245, 245);
-    margin-top: 125px !important;
-    margin-bottom: 125px !important;
+    margin-top: 8rem !important;
+    margin-bottom: 8rem !important;
     margin: 0 auto;
     border-radius: 5px;
     opacity: .99;
