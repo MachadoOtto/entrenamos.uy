@@ -115,8 +115,7 @@ public class GeneradorComprobante extends HttpServlet {
 	}
     
     private String calcularVencimiento(DtFecha fecha) {
-    	String fString = String.valueOf(fecha.getAnio()) + "-" + String.valueOf(fecha.getMes()) + "-" + String.valueOf(fecha.getDia());
-    	return LocalDate.parse(fString).plusDays(30).toString();
+    	return LocalDate.parse(fecha.toWebFecha()).plusDays(30).toString();
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
