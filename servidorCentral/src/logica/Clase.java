@@ -139,5 +139,8 @@ public class Clase {
 			rc.suicidar();
 		
 	}
+	public void setPremio(Premio premio) {
+		prize = premio;
+	}
 	
 }

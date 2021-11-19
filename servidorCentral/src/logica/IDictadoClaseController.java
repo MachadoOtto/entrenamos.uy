@@ -64,5 +64,5 @@ public interface IDictadoClaseController {
 	
 	public Set<DtReciboClase> bringTheRegistersPls(String nombreClase) throws ClaseException;
 	
-	//public String nombreActDeClase(String nombreClase);
+	public void sorteoLegal(Set<String> socios, String inst, String act, String clas, String descPremio,int cantPremio, DtFecha fec) throws UsuarioNoExisteException, ClaseException, InstitucionException;
 }
