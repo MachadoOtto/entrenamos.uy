@@ -97,7 +97,7 @@
 					<%} %>
 				</div>
 				<%if (!db && usrProfile instanceof DtProfesorExt) { %>
-				<div  id="user-infoRating" class="col-sm-5 py-3">
+				<div  id="user-infoRating" class="col-sm-6 py-3">
 				  <div class="row">
 				  			 <% List<?> val = (List<?>) request.getAttribute("valoraciones"); %>
 		                     <% int total = val.size(); %>
