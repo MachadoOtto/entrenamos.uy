@@ -21,6 +21,7 @@ import excepciones.NoExisteCuponeraException;
 import excepciones.UsuarioNoExisteException;
 
 import datatypes.DtFecha;
+import datatypes.DtPremio;
 import datatypes.DtReciboClase;
 import datatypes.TEstado;
 import datatypes.DtClase;
@@ -264,6 +265,18 @@ public class DictadoClaseController implements IDictadoClaseController {
 		throw new ClaseException("La clase " + nombreClase + " no existe en el Sistema.");
 	}
 	
+	public void sorteoLegal(Set<String> socios, String inst, String act, String clas, String descPremio,int cantPremio, DtFecha fec) throws UsuarioNoExisteException, ClaseException, InstitucionException{
+		
+		Clase cla = getHI().findInstitucion(inst).findActividad(act).findClase(clas);
+		Premio prem = new Premio(cla,descPremio, cantPremio, true, fec);
+		cla.setPremio(prem);
+		
+		for (String soc: socios) {
+			Socio sociooo = (Socio) getHU().findUsuario(soc);
+			sociooo.addPremio(prem);
+			prem.addWiner(sociooo);
+		}
+	}
 }
 
 //Guille: Esta funcion creo que no va.
