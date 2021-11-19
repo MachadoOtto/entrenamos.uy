@@ -29,6 +29,7 @@
 		Set<?> datosClases = (Set<?>) request.getAttribute("datosClases");
 		Set<?> datosCuponeras = (Set<?>) request.getAttribute("datosCuponeras");
 		DtUsuarioExt loggedUser = (DtUsuarioExt) request.getSession().getAttribute("loggedUser");
+		boolean finalizada = (datosActDep.getEstado() == TEstado.finalizada) ? true : false;
 		%>
 	<div class="row mx-3 mx-md-5">
        	<div class="ins-cat col-2">
@@ -39,7 +40,11 @@
 	        <div id="actd-superior" class="row ">
 		        <div class="col-3 py-3">
 				    <div id="mainImgDiv" class="">
+				    	<% if (!finalizada) { %>
 					    <img alt="imagenActividad" id="mainImgDiv" src="<%=request.getContextPath()%>/api/content?c=act&id=<%=datosActDep.getNombre()%>">
+				    	<% } else { %>
+				    	<img alt="imagenActividad" id="mainImgDiv" src="<%=request.getContextPath()%>/assets/images/default/act_default.png">
+				    	<% } %>
 				    </div>
                    </div>
                	<div class="col-9 py-3">
@@ -48,7 +53,7 @@
 			        		<p><strong id="user-nickname"><%=datosActDep.getNombre()%></strong></p>
 			        	</div>
 			        	<div class="col mt-4 sm-8">
-			        		<% if(loggedUser instanceof DtSocioExt) {%>
+			        		<% if(loggedUser instanceof DtSocioExt && !finalizada) {%>
 			        		<a href="<%=request.getContextPath()%>/favoritear?usu=<%=loggedUser.getNickname()%>&act=<%=datosActDep.getNombre()%>">
 			        		<% if(((DtSocioExt) loggedUser).getActividadesFavoritas().contains(datosActDep.getNombre())) {%>
 			        		<button id="favorite" style="background-color: #ed2553; border-color: #ed2553;" class="btn btn-primary"><i class="fa-heart fas"></i><span class="text"> Desmarcar como Favorita</span>&nbsp;<span class="nobold">(<span class="count"><%=datosActDep.getFavoritos()%></span>)</span></button>
@@ -77,12 +82,14 @@
                    </div>
 	        <div id="actd-inferior" class= "row card-body mb-3">
                    <div class="row">
+                   	   <% if (!finalizada) { %>
                        <div class="col-sm-3">
                            <h6 class="mb-0"><strong>Institución asociada:</strong></h6>
                        </div>
                        <div class="col-sm-9 text-secondary">
                            <%=institucion%>
                        </div>
+                       <% } %>
                        <div class="col-sm-3">
                            <h6 class="mb-0"><strong>Descripción:</strong></h6>
                        </div>
@@ -124,7 +131,7 @@
 				</div>
 				<%} else if(datosActDep.getEstado()==TEstado.finalizada) {%>
 				<div class="alert alert-info mt-4" role="alert">
-				  Esta actividad ha sido <b>FINALIZADA</b>.
+				  Esta actividad fue <b>FINALIZADA</b>. Usted está visualizando los registros la actividad finalizada disponibles en la base de datos de Entrenamos.uy <i class="fas fa-database"></i>
 				</div>
 				<%} %>
 	        </div>
@@ -147,14 +154,23 @@
                <div class="extraInfoDiv row">
                    <h5>Clases</h5>
 				<ul id="listaActividades" class=" py-3">
-					<%for (Object dtClase : datosClases) { %>
+					<%if (!finalizada) {
+					  for (Object dtClase : datosClases) { %>
 						<li class="container border card-body elementoLista" > 
                            	<img alt="imagenClases"  src="<%=request.getContextPath()%>/api/content?c=cla&id=<%=((DtClaseExt)dtClase).getNombre()%>" class="vertical-align-middle imagenSeleccionable">
                            	<a href="<%=request.getContextPath()%>/clases?clase=<%=((DtClaseExt)dtClase).getNombre()%>" class="clase color-blue"><%=((DtClaseExt)dtClase).getNombre()%></a>
                        	</li> 
-					<% } %>              
+					<% } 
+					} else { 
+					  for (String nombreCl : datosActDep.getClases()) { %>
+					  <li class="container border card-body elementoLista" > 
+                           <a href="<%=request.getContextPath()%>/clases?clase=<%=nombreCl%>" class="clase color-blue"><%=nombreCl%></a>
+                      </li>
+					<% }
+					} %>              
 				</ul>
                </div>
+               <% if (!finalizada) { %>
                <div class="extraInfoDiv row">
                    <h5>Cuponeras</h5>
 				<ul id="listaActividades" class=" py-3">
@@ -177,6 +193,7 @@
                        <% } %>               
 				</ul>
                </div>
+               <% } %>
            </div>
        </div>
 </div>

@@ -12,6 +12,7 @@
 package workstation;
 
 import logica.LaFabrica;
+import logica.persistencia.DataPersistencia;
 import main.Main;
 import logica.IUsuarioController;
 import logica.IActividadDeportivaController;
@@ -459,7 +460,15 @@ public class Menu {
 		menuBaseDeDatos.add(itemBaseActividad);
 		itemBaseActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url","jdbc:hsqldb:ActividadDB", "--user", "SA", "--password", "123", "--noexit"});
+				org.hsqldb.util.DatabaseManager.main(new String[] { "--url","jdbc:hsqldb:ActividadDB", "--user", "SA", "--password", "123", "--noexit"});
+			}
+		});
+		
+		JMenuItem itemLimpiarBaseActividad = new JMenuItem("Limpiar Base de Persistencia de Actividades");
+		menuBaseDeDatos.add(itemLimpiarBaseActividad);
+		itemLimpiarBaseActividad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DataPersistencia.getInstance().nuketownDetonator();
 			}
 		});
 		
@@ -467,7 +476,7 @@ public class Menu {
 		menuBaseDeDatos.add(itemBaseLogs);
 		itemBaseLogs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				org.hsqldb.util.DatabaseManagerSwing.main(new String[] { "--url","jdbc:hsqldb:LoggerDB", "--user", "SA", "--password", "123", "--noexit"});
+				org.hsqldb.util.DatabaseManager.main(new String[] { "--url","jdbc:hsqldb:LoggerDB", "--user", "SA", "--password", "123", "--noexit"});
 			}
 		});
 	}

@@ -303,7 +303,7 @@
 					</ul>
 					<% if (usrProfile instanceof DtSocioExt && (usrLogged != null) && usrProfile.getNickname().equals(usrLogged.getNickname())) {	/* Socio viendo su propio perfil */ %>
 					<br>
-					<h6 class="row"><strong>Clases Finalizadas</strong></h6>
+					<h6 class="row"><strong>Clases de Actividades Finalizadas</strong></h6>
 					<ul id="listaActividadesClases" class="list-group list-group-horizontal">
 						<% for(Map.Entry<?,?> x: ( (Map<?,?>) request.getAttribute("clasesFinalizadas")).entrySet()) { %>
 							<% for(Object y : (Set<?>) x.getValue()) {%>
