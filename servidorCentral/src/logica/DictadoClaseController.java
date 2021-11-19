@@ -136,6 +136,12 @@ public class DictadoClaseController implements IDictadoClaseController {
 				}
 			}
 		}
+		try {
+			DataPersistencia.getInstance().getClase(datos.getNombre());
+			throw new ClaseException("Ya existe una clase con ese nombre en la base de datos.");
+		} catch (ClaseException ignore) { }
+
+		
 		Profesor profe = getHI().findInstitucion(ins).getProfesor(datos.getNicknameProfesor());
 		ActividadDeportiva actDept = getHI().findInstitucion(ins).getActDep(actDep);
 		if (!datos.getFechaRegistro().esMenor(datos.getFechaClase())) {

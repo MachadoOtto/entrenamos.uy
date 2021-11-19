@@ -44,6 +44,11 @@ public class ActividadDeportivaController implements IActividadDeportivaControll
 				throw new ActividadDeportivaException("La Actividad Deportiva ya existe en el Sistema.");
 			}
 		}
+		try {
+			DataPersistencia.getInstance().getActividad(datosAD.getNombre());
+			throw new ActividadDeportivaException("La Actividad Deportiva ya existe en la base de datos del Sistema.");
+		} catch(ActividadDeportivaException ignore) { }
+		
 		if (!inst.existeActDep(datosAD.getNombre())) {
 			Map<String,  Categoria> cat = new HashMap<>();
 			for (String x: datosAD.getCategorias())
