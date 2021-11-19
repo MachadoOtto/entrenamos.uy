@@ -55,13 +55,18 @@ public class PerfilUsuario extends HttpServlet {
     	response.setCharacterEncoding("utf-8");
     	Parametrizer.loadStdRequests(request);
         try {
+        	
+        	//Determina si el usuario está persistido.
+        	boolean db = (request.getParameter("db")!=null);
+        	
+        	
         	//Obtención de datos de usuario
         	String nickname = (String) request.getParameter("nickname");
         	if (nickname.equals("Administrador")) {
         		request.getRequestDispatcher("pages/403.jsp").forward(request,  response);
             	return;
         	}
-        	DtUsuarioExt usr = IUC.seleccionarUsuario(nickname);
+        	DtUsuarioExt usr = IUC.seleccionarUsuario((!db) ? nickname: nickname+"\uEAEA");
         	
         	//Obtención de clases dictadas (Profesor)
         	List<DtClaseExt> clasesDictadasProfesor = new ArrayList<>();
@@ -150,6 +155,8 @@ public class PerfilUsuario extends HttpServlet {
         		premios = ((DtSocioExt) usr).getPremios();
         		favs = ((DtSocioExt)usr).getActividadesFavoritas();
         	}
+        	
+        	request.setAttribute("db", db);
         	request.setAttribute("favs", favs);
         	request.setAttribute("premios", premios);
         	request.setAttribute("valoracion",  valoracion);

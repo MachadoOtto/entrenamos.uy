@@ -68,11 +68,15 @@
                                <h4><strong>Ingresada por:</strong></h4>
                            </div>
                            	<div class="col-auto">
+                           		<%if(!datosActDep.getEstado().equals(TEstado.finalizada)){ %>
                                	<img id="actDepCreator" alt="imagenUsuario" id="img-perfil" src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=(new String(((DtUsuarioExt)datosCreador).getNickname()))%>">
+                           		<%} else{ %>
+                           		<img id="actDepCreator" alt="imagenUsuario" id="img-perfil" src="<%=request.getContextPath()%>/assets/images/default/usu_default.png">
+                           		<%} %>
                            	</div>
                            	<div class="col-auto">
                            		<%if (!datosCreador.getNickname().equals("Administrador")) { %>
-                               		<a id="user-type" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname()%>"><%=datosActDep.getCreador()%></a>
+                               		<a id="user-type" href="<%=request.getContextPath()%>/usuarios?nickname=<%=datosCreador.getNickname() + ( (finalizada) ? "&db=1":"")%>"><%=datosActDep.getCreador()%></a>
                                	<%} else { %>
                                		<%=datosActDep.getCreador()%>
                                	<%} %>

@@ -296,7 +296,7 @@ public class DataPersistencia {
 			if(select.getResultList().size()>0) {
 				Socios s = select.getSingleResult();
 				em.getTransaction().commit();
-				System.out.println(s.toString());
+				//System.out.println("SOCIO: "+s.toString());
 				return s.toDtUsuarioExt();
 			}
 			else{
@@ -305,7 +305,7 @@ public class DataPersistencia {
 				if(select2.getResultList().size()>0) {
 					Profesores s = select2.getSingleResult();
 					em.getTransaction().commit();
-					System.out.println(s.toString());
+					//System.out.println("PROF: "+s.toString());
 					return s.toDtUsuarioExt();
 				}
 			}

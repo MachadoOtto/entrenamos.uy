@@ -226,7 +226,7 @@
 		            <%} }
 		            if (actfin){
 		            %>
-					<div class="alert alert-danger mt-4" role="alert">
+					<div class="alert alert-info mt-4" role="alert">
 					  Esta clase pertenece a una actividad <b>FINALIZADA</b>. Usted está visualizando los registros la actividad finalizada disponibles en la base de datos de Entrenamos.uy <i class="fas fa-database"></i>
 					</div>
 		            <%} else if (estaCaducada) {
@@ -265,7 +265,11 @@
 		      			}
 		      			for (String alumno : nickAlumnos) { %>
 		      				<li class="container border card-body elementoLista">
+		      					<%if(!actfin){ %>
 				           		<img alt="Default"  src="<%=request.getContextPath()%>/api/content?c=usu&id=<%=alumno%>" class="vertical-align-middle imagenSeleccionable">
+				           		<%}else{ %>
+				           		<img alt="Default" src="<%=request.getContextPath()%>/assets/images/default/usu_default.png" class="vertical-align-middle imagenSeleccionable">
+				           		<%} %>
 				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno+actfinparam%>"><%=alumno%></a>
 				           		<% if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) && datosClase.getPremio().getGanadores()!=null && datosClase.getPremio().getGanadores().contains(alumno)) { %>
 				        		<img alt="ganador"  src="<%=request.getContextPath()%>/assets/images/misc/winner64.png" class="">
