@@ -56,6 +56,7 @@ public class Signup extends HttpServlet{
 	        	if (IUC.ingresarDatosUsuario(new DtSocio(rp(request, "nickk"), rp(request, "nomm"), rp(request, "ape"), 
 	        			rp(request, "emaill"),  rp(request, "pas1"),  new DtFecha(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]), 0, 0, 0),  bimgn))!=0) {
 	        		r=Parametrizer.addParam(r,  "e",  "2");
+	        		savectx(request);
 	        		response.sendRedirect(r);
 	        		return;
 	        	}
@@ -66,6 +67,7 @@ public class Signup extends HttpServlet{
 	        			rp(request, "instit"),  rp(request, "descRU"),  rp(request, "bioRU") , rp(request, "websRU"), 
 	        			bimgn))!=0) {
 	        		r=Parametrizer.addParam(r,  "e",  "2");
+	        		savectx(request);
 	        		response.sendRedirect(r);
 	        		return;
 	        	}
@@ -82,9 +84,11 @@ public class Signup extends HttpServlet{
 	        r=Parametrizer.remParam(r,  "e", "1");
 	        r=Parametrizer.remParam(r,  "e", "2");
 	        r=Parametrizer.addParam(r,  "e",  "3");
+	        clearctx(request);
 	        request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
         } catch(Exception e) {
-        	e.printStackTrace();
+        	System.out.println("INFO SIGNUP: "+e.getMessage());
+        	savectx(request);
         	r=Parametrizer.addParam(r,  "e",  "2");
         }
         response.sendRedirect(r);
@@ -128,5 +132,29 @@ public class Signup extends HttpServlet{
 	}
 	private String rp(HttpServletRequest request, String param) {
 		return request.getParameter(param);
+	}
+	private void savectx(HttpServletRequest r) {
+		r.getSession().setAttribute("ctxtipoU",rp(r, "tipoU"));
+		r.getSession().setAttribute("ctxnickk",rp(r,"nickk"));
+		r.getSession().setAttribute("ctxemaill",rp(r,"emaill"));
+		r.getSession().setAttribute("ctxnomm",rp(r,"nomm"));
+		r.getSession().setAttribute("ctxape",rp(r,"ape"));
+		r.getSession().setAttribute("ctxnac",rp(r,"nac"));
+		r.getSession().setAttribute("ctxinstit",rp(r,"instit"));
+		r.getSession().setAttribute("ctxdescRU",rp(r,"descRU"));
+		r.getSession().setAttribute("ctxbioRU",rp(r,"bioRU"));
+		r.getSession().setAttribute("ctxebsRU",rp(r,"websRU"));
+	}
+	private void clearctx(HttpServletRequest r) {
+		r.getSession().setAttribute("ctxtipoU",null);
+		r.getSession().setAttribute("ctxnickk",null);
+		r.getSession().setAttribute("ctxemaill",null);
+		r.getSession().setAttribute("ctxnomm",null);
+		r.getSession().setAttribute("ctxape",null);
+		r.getSession().setAttribute("ctxnac",null);
+		r.getSession().setAttribute("ctxinstit",null);
+		r.getSession().setAttribute("ctxdescRU",null);
+		r.getSession().setAttribute("ctxbioRU",null);
+		r.getSession().setAttribute("ctxebsRU",null);
 	}
 }

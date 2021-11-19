@@ -73,18 +73,23 @@ public class AltaAD extends HttpServlet {
 		        	r.setAttribute("attribute_asset_transfer", filePart);
 		        	ContentHandler.postContent(r,response);
 		        }
+	    		clearctx(r);
+	    		
 			} else {
 				ru=Parametrizer.remParam(ru,  "e",  "5");
 				ru=Parametrizer.addParam(ru,  "e",  "4");
+				savectx(r);
 	        }
         }catch(ActividadDeportivaException e) {
-        	e.getMessage();
+        	System.out.println("INFO: "+e.getMessage());
         	ru=Parametrizer.remParam(ru,  "e",  "5");
         	ru=Parametrizer.addParam(ru,  "e",  "4");
+        	savectx(r);
         }catch(Exception e) {
 		   e.printStackTrace();
 		   ru=Parametrizer.remParam(ru,  "e",  "5");
 		   ru=Parametrizer.addParam(ru,  "e",  "4");
+		   savectx(r);
 	   }
        response.sendRedirect(ru);
     }
@@ -94,5 +99,17 @@ public class AltaAD extends HttpServlet {
 	
 	private String rp(HttpServletRequest request, String param) {
 		return request.getParameter(param);
+	}
+	private void savectx(HttpServletRequest r) {
+		r.getSession().setAttribute("ctxnombreAD",rp(r,"nombreAD"));
+		r.getSession().setAttribute("ctxdescAD",rp(r,"descAD"));
+		r.getSession().setAttribute("ctxdurAD",rp(r,"durAD"));
+		r.getSession().setAttribute("ctxcostoAD",rp(r,"costoAD"));
+	}
+	private void clearctx(HttpServletRequest r) {
+		r.getSession().setAttribute("ctxnombreAD",null);
+		r.getSession().setAttribute("ctxdescAD",null);
+		r.getSession().setAttribute("ctxdurAD",null);
+		r.getSession().setAttribute("ctxcostoAD",null);
 	}
 }

@@ -59,7 +59,9 @@ public class AltaClase extends HttpServlet{
 		        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)),
 		        		Integer.parseInt(rp(request, "hora")), Integer.parseInt(rp(request, "minutos")), 0),  new DtFecha(),  imgClase,
 		        	rp(request,"urlVideo"), new DtPremio(rp(request,"descPremio"),Integer.parseInt(rp(request,"cantPremios")), null, null)))!=0) {
+		        	r=Parametrizer.remParam(r,  "e", "9");
 		        	r=Parametrizer.addParam(r,  "e",  "8");
+		        	savectx(request);
 		        	response.sendRedirect(r);
 		        	return;
 		        }
@@ -69,7 +71,9 @@ public class AltaClase extends HttpServlet{
 		        	new DtFecha(Integer.parseInt(fechaClase.substring(0, 4)), Integer.parseInt(fechaClase.substring(5, 7)), Integer.parseInt(fechaClase.substring(8, 10)),
 		        		Integer.parseInt(rp(request, "hora")), Integer.parseInt(rp(request, "minutos")), 0),  new DtFecha(),  imgClase,
 		        	rp(request,"urlVideo"), null))!=0) {
+		        	r=Parametrizer.remParam(r,  "e", "9");
 		        	r=Parametrizer.addParam(r,  "e",  "8");
+		        	savectx(request);
 		        	response.sendRedirect(r);
 		        	return;
 		        }
@@ -85,11 +89,14 @@ public class AltaClase extends HttpServlet{
 	        }
 	        r=Parametrizer.remParam(r,  "e", "8");
 	        r=Parametrizer.addParam(r,  "e",  "9");
+	        clearctx(request);
         	DtUsuarioExt userReload = LaFabricaWS.getInstance().obtenerIUsuarioController().seleccionarUsuario(datosP.getNickname());
 			request.getSession().setAttribute("loggedUser",  userReload);
         } catch(Exception e) {
-        	e.printStackTrace();
+        	System.out.println("INFO ALTACL: "+e.getMessage());
+        	r=Parametrizer.remParam(r,  "e", "9");
         	r=Parametrizer.addParam(r,  "e",  "8");
+        	savectx(request);
         }
         response.sendRedirect(r);
     }
@@ -99,5 +106,29 @@ public class AltaClase extends HttpServlet{
 	}
 	private String rp(HttpServletRequest request, String param) {
 		return request.getParameter(param);
+	}
+	private void savectx(HttpServletRequest r) {
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLnombreClase",rp(r,"nombreClase"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLfechaInicio",rp(r,"fechaInicio"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLhora",rp(r,"hora"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLminutos",rp(r,"minutos"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLcantMin",rp(r,"cantMin"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLcantMax",rp(r,"cantMax"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLurl",rp(r,"url"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLurlVideo",rp(r,"urlVideo"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLdescPremio",rp(r,"descPremio"));
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLcantPremios",rp(r,"cantPremios"));
+	}
+	private void clearctx(HttpServletRequest r) {
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLnombreClase",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLfechaInicio",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLhora",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLminutos",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLcantMin",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLcantMax",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLurl",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLurlVideo",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLdescPremio",null);
+		r.getSession().setAttribute("ctx"+rp(r,"nombreActDep")+"CLcantPremios",null);
 	}
 }

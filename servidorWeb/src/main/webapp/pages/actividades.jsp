@@ -219,20 +219,20 @@
                    	<input name="nombreActDep" value="<%=datosActDep.getNombre()%>" type="hidden">
                    	<input name="institucionAsociada" value="<%=institucion%>" type="hidden">                  	
                        <div class="form-floating mb-3">
-                           <input type="text" class="form-control rounded-4" name="nombreClase" id="nomclase" placeholder="">
+                           <input type="text" class="form-control rounded-4" name="nombreClase" id="nomclase" placeholder="" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLnombreClase")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLnombreClase") : "")%>">
                            <label for="nomclase">Nombre</label>
                        </div>
                        <div class="form-floating mb-3">
-                           <input type="date" class="form-control rounded-4" name="fechaInicio" id="fechaIni" placeholder="">
+                           <input type="date" class="form-control rounded-4" name="fechaInicio" id="fechaIni" placeholder="" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLfechaInicio")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLfechaInicio") : "")%>">
                            <label for="fechaIni">Fecha de inicio</label>                  
                        </div>
                        <div id="nombreCompletoDiv" class="row form-floating mb-3">
                            <div id="divNombre" class="col-6 form-check float-left">
                            	<div id="institDiv" class="form-floating mb-2 pe-2">
 		                        <select name="hora" id="horaInicio" class="form-select" data-live-search="true">
-									     <option selected>-</option>
+									     <option <%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLhora")!=null) ? "" : "selected")%>>-</option>
 										 <%for(int i = 0; i<24; i++) { %>
-									         <option value="<%=i%>"><%=i%></option>
+									         <option <%=( (request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLhora")!=null && request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLhora").equals(String.valueOf(i)) ) ? "selected" : "")%> value="<%=i%>"><%=i%></option>
 									    <%} %>
 		                        </select>
 		                        <label for="horaInicio">Hora Inicio</label>                            
@@ -241,9 +241,9 @@
                            <div id="divNombre" class="col-6 form-check float-left">
                            	<div id="institDiv" class="form-floating mb-2 me-2 pe-1 ms-2">
 		                        <select name="minutos" id="minutosInicio" class="form-select" data-live-search="true">
-									     <option selected>-</option>
+									     <option <%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLminutos")!=null) ? "" : "selected")%>>-</option>
 										 <%for(int i = 0; i<60; i++) { %>
-									         <option value="<%=i%>"><%=i%></option>
+									         <option <%=( (request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLminutos")!=null && request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLminutos").equals(String.valueOf(i)) ) ? "selected" : "")%> value="<%=i%>"><%=i%></option>
 									    <%} %>
 		                        </select>
 		                        <label for="minutosInicio">Minutos Inicio</label>                               
@@ -254,23 +254,23 @@
                        <div id="nombreCompletoDiv" class="row form-floating mb-3">
                            <div id="divNombre" class="col-6 form-check float-left">
                                <div class="form-floating mb-2">
-                                   <input type="number" class="form-control rounded-4" name="cantMin" id="minax" >
+                                   <input type="number" class="form-control rounded-4" name="cantMin" id="minax" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLcantMin")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLcantMin") : "")%>">
                                    <label for="minax">Mín</label>           
                                </div>      
                            </div>
                            <div id="divApellido" class="col-6 form-check float-left">
                                <div class="form-floating mb-2">
-                                   <input type="number" class="form-control rounded-4" name="cantMax" id="asd" >
+                                   <input type="number" class="form-control rounded-4" name="cantMax" id="asd" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLcantMax")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLcantMax") : "")%>">
                                    <label for="asd">Máx</label>           
                                </div>                           
                            </div>             
                        </div>
                        <div class="form-floating mb-3">
-                           <input type="text" class="form-control rounded-4" name="url" id="urlin" placeholder="">
+                           <input type="text" class="form-control rounded-4" name="url" id="urlin" placeholder="" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLurl")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLurl") : "")%>">
                            <label for="urlin">URL</label>                  
                        </div>
                        <div class="form-floating mb-3">
-                           <input type="text" class="form-control rounded-4" name="urlVideo" id="urlVideo" placeholder="">
+                           <input type="text" class="form-control rounded-4" name="urlVideo" id="urlVideo" placeholder="" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLurlVideo")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLurlVideo") : "")%>">
                            <label for="urlVideo">URL Video <i style="font-size:0.7rem;"> (opcional)</i></label>                  
                        </div>
                        <h6>Imagen asociada <i style="font-size:0.7rem;"> (opcional)</i></h6>
@@ -280,11 +280,11 @@
                        </div>
                        <h6>Premio <i style="font-size:0.7rem;"> (opcional)</i></h6>
                     <div id="descPremioDiv" class="form-group form-floating mb-3">
-                        <textarea class="form-control" id="descPremio" name="descPremio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ></textarea>
+                        <textarea class="form-control" id="descPremio" name="descPremio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ><%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLdescPremio")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLdescPremio") : "")%></textarea>
                         <label for="desc">Descripción</label>     
                     </div>
                        <div class="form-floating mb-3">
-                           <input type="number" class="form-control rounded-4" name="cantPremios" id="cantPremios" placeholder="">
+                           <input type="number" class="form-control rounded-4" name="cantPremios" id="cantPremios" placeholder="" value="<%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLcantPremios")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLcantPremios") : "")%>">
                            <label for="cantPremios">Cantidad de premios a sortear</label>                  
                        </div>
                        <button class="w-100 mb-2 btn btn-lg rounded-4 btn-primary" type="submit">Confirmar Registro</button>
