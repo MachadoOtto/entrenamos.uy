@@ -358,7 +358,7 @@ public class Main {
 	        		
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Aparatos y pesas",  new DtClase("Aparatos",  "viktor",  "viktor",  
 	        		1,  7,  "https://www.musculos.com/aparatos",  new DtFecha(2021, 6, 1, 18, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),"Aparatos.jpg",
-	        		"https://www.youtube.com/watch?v=6YTVPjjm3e8",new DtPremio("Rueda de abdominales ",3, winers3, new DtFecha(2021, 6, 2, 0, 0, 0))));
+	        		"https://www.youtube.com/watch?v=6YTVPjjm3e8",new DtPremio("Rueda de abdominales ",3, null, new DtFecha(2021, 6, 2, 0, 0, 0))));
 	        // Voleibol #C4
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Voleibol",  "denis",  "denis", 
 	        		10,  21,  "https://telon.com.uy/voley",  new DtFecha(2021, 6, 10, 19, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0), "Voleibol.jpeg",

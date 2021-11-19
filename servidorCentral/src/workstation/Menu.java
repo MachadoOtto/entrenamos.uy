@@ -21,6 +21,7 @@ import logica.ILogger;
 import logica.ICuponeraController;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -31,6 +32,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import excepciones.FechaInvalidaException;
 import excepciones.NoExisteCuponeraException;
@@ -42,6 +48,7 @@ import excepciones.CuponeraNoExisteException;
 import excepciones.CuponeraRepetidaException;
 import excepciones.InstitucionException;
 import excepciones.UsuarioNoExisteException;
+
 
 public class Menu {
 	private JFrame menuPrincipal;
@@ -464,10 +471,18 @@ public class Menu {
 			}
 		});
 		
-		JMenuItem itemLimpiarBaseActividad = new JMenuItem("Limpiar Base de Persistencia de Actividades");
+		JMenuItem itemLimpiarBaseActividad = new JMenuItem("Limpiar Persistencia de Actividades");
 		menuBaseDeDatos.add(itemLimpiarBaseActividad);
 		itemLimpiarBaseActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(Menu.class.getResource("/workstation/nuke.wav"));
+					Clip clip = AudioSystem.getClip();
+					clip.open(audioIn);
+					clip.start();
+				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
+					e1.printStackTrace();
+				}
 				DataPersistencia.getInstance().nuketownDetonator();
 			}
 		});
