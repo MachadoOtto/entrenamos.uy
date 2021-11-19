@@ -233,12 +233,12 @@ public class DataPersistencia {
 		Map<String, Set<String>> res = new HashMap<>();
 		try {
 			em.getTransaction().begin();
-			TypedQuery<Clases> select = em.createQuery("SELECT cla FROM Clases cla INNER JOIN Registros reg INNER JOIN Socios s WHERE s.nickname=:nombre ",Clases.class);
-			select.setParameter("nombre", nombreSocio);
+			TypedQuery<Registros> select = em.createQuery("SELECT reg FROM Registros reg", Registros.class);
 			Map<String,String> clasexact = new HashMap<>();
-			for(Clases x: select.getResultList()) {
-				clasexact.put(x.getNombre(), x.getActividad().getNombre());
-			}			
+			for(Registros x: select.getResultList()) {
+				if (x.getSocio().getNickname().equals(nombreSocio))
+					clasexact.put(x.getClase().getNombre(), x.getClase().getActividad().getNombre());
+			}
 			for(Entry<String, String> x: clasexact.entrySet()) {
 				if(!res.containsKey(x.getValue()))
 					res.put(x.getValue(), new HashSet<String>());
