@@ -271,7 +271,8 @@
 				           		<img alt="Default" src="<%=request.getContextPath()%>/assets/images/default/usu_default.png" class="vertical-align-middle imagenSeleccionable">
 				           		<%} %>
 				           		<a class="clase color-blue" href="<%=request.getContextPath()%>/usuarios?nickname=<%=alumno+actfinparam%>"><%=alumno%></a>
-				           		<% if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor()) && datosClase.getPremio().getGanadores()!=null && datosClase.getPremio().getGanadores().contains(alumno)) { %>
+				           		<% // saque lo siguiente del if, ya que solo el profesor veia los ganadores en la clase: loggedUser instanceof DtProfesorExt && ((DtProfesorExt)loggedUser).getNickname().equals(datosClase.getNicknameProfesor())
+				           		if (datosClase.getPremio() != null && datosClase.getNickAlumnos().size() > 0 && datosClase.getPremio().getGanadores()!=null && datosClase.getPremio().getGanadores().contains(alumno)) { %>
 				        		<img alt="ganador"  src="<%=request.getContextPath()%>/assets/images/misc/winner64.png" class="">
 				        		<%} %>
 				        	</li>
