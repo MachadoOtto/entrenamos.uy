@@ -321,7 +321,7 @@ public class Main {
 					"Voleibol en todas sus formas.",  120,  750,  new DtFecha(2021, 4, 20, 0, 0, 0),  A2cat,  TEstado.aceptada,  "denis", "Voleibol.jpeg"));
 			// Aeróbica #A3
 			IADC.ingresarDatosActividadDep("Instituto Natural",  new DtActividadDeportiva("Aeróbica", 
-					"Para cuidar el aparato cardiovascular.",  110,  800,  new DtFecha(2021, 5, 30, 0, 0, 0),  A3cat,  TEstado.aceptada,  "Administrador", "Aeróbica.jpg"));
+					"Para cuidar el aparato cardiovascular.",  110,  800,  new DtFecha(2021, 5, 30, 0, 0, 0),  A3cat,  TEstado.aceptada,  "clazar", "Aeróbica.jpg"));
 			// Kickboxing #A4
 			IADC.ingresarDatosActividadDep("Fuerza Bruta",  new DtActividadDeportiva("Kickboxing", 
 					"En busca del nuevo campeón de boxeo.",  100,  980,  new DtFecha(2021, 6, 7, 0, 0, 0),  A4cat,  TEstado.aceptada,  "TheBoss", "Kickboxing.jpg"));
@@ -354,10 +354,13 @@ public class Main {
 	        		1,  5,  "https://www.musculos.com/pesolibre",  new DtFecha(2021, 5, 1, 17, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),null,
 	        		"https://www.youtube.com/watch?v=KHFHi6ci9Fg",new DtPremio("No hay ",0,null, null)));
 	        // Aparatos #C3
-	        		
+	        List<String> winers3 = new ArrayList<String>();
+	        winers3.add("caro");
+	        winers3.add("charly");
+	        winers3.add("m1k4");
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Aparatos y pesas",  new DtClase("Aparatos",  "viktor",  "viktor",  
 	        		1,  7,  "https://www.musculos.com/aparatos",  new DtFecha(2021, 6, 1, 18, 0, 0),  new DtFecha(2021, 3, 31, 0, 0, 0),"Aparatos.jpg",
-	        		"https://www.youtube.com/watch?v=6YTVPjjm3e8",new DtPremio("Rueda de abdominales ",3, null, new DtFecha(2021, 6, 2, 0, 0, 0))));
+	        		"https://www.youtube.com/watch?v=6YTVPjjm3e8",new DtPremio("Rueda de abdominales ",3, winers3, new DtFecha(2021, 6, 2, 0, 0, 0))));
 	        // Voleibol #C4
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Voleibol",  "denis",  "denis", 
 	        		10,  21,  "https://telon.com.uy/voley",  new DtFecha(2021, 6, 10, 19, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0), "Voleibol.jpeg",
@@ -367,9 +370,12 @@ public class Main {
 	        		2,  6,  "https://telon.com.uy/natacionB",  new DtFecha(2021, 7, 10, 20, 0, 0),  new DtFecha(2021, 4, 20, 0, 0, 0),  "Braza.jpg", 
 	        		null, new DtPremio("No hay ",0,null, null)));
 	        // Mariposa #C6
+	        List<String> winers6 = new ArrayList<String>();
+	        winers6.add("charly");
+	        winers6.add("sergiop");
 	        IDCC.ingresarDatosClase("Telón",  "Voleibol",  new DtClase("Mariposa",  "Nelson",  "Nelson", 
 	        		2,  6,  "https://telon.com.uy/natacionM",  new DtFecha(2021, 8, 10, 17, 45, 0),  new DtFecha(2021, 4, 20, 0, 0, 0),  "Mariposa.jpeg", 
-	        		null));
+	        		null, new DtPremio("Lentes natación", 2, winers6, new DtFecha(2021, 8, 11, 0, 0, 0))));
 	        // Aeróbica niños #C7
 	        List<String> winers7 = new ArrayList<String>();
 	        winers7.add("m1k4");
@@ -381,17 +387,23 @@ public class Main {
 	        		5,  12,  "https://www.inatural.com/aeroam",  new DtFecha(2021, 8, 31, 19, 30, 0),  new DtFecha(2021, 5, 30, 0, 0, 0), null, 
 	        		null, new DtPremio("No hay", 0, null, null)));
 	        // Aeróbico #C9
+	        List<String> winers9 = new ArrayList<String>();
+	        winers9.add("caro");
+	        winers9.add("euge");
 	        IDCC.ingresarDatosClase("Instituto Natural",  "Aeróbica",  new DtClase("Aeróbica",  "clazar",  "clazar", 
 	        		5,  20,  "https://www.inatural.com/aerogral",  new DtFecha(2021, 9, 30, 20, 0, 0),  new DtFecha(2021, 5, 30, 0, 0, 0), null, 
-	        		null));
+	        		null, new DtPremio("Caramañola", 2, winers9, new DtFecha(2021, 10, 1, 0, 0, 0))));
 	        // Boxeo I #C10
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Kickboxing",  new DtClase("Boxeo I",  "TheBoss",  "TheBoss", 
 	        		1,  4,  "https://www.musculos.com/boxeo1",  new DtFecha(2021, 9, 1, 19, 30, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Boxeo I.jpg",
 	        		"https://www.youtube.com/watch?v=-gGx_WqKAh8", new DtPremio("No hay ",0,null, null)));
 	        // Boxeo II #C11
+	        List<String> winers11 = new ArrayList<String>();
+	        winers11.add("sergiop");
+	        winers11.add("guille");
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Kickboxing",  new DtClase("Boxeo II",  "TheBoss",  "TheBoss", 
 	        		2,  2,  "https://www.musculos.com/boxeo2",  new DtFecha(2021, 9, 30, 17, 0, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Boxeo II.jpg", 
-	        		"https://www.youtube.com/watch?v=-gGx_WqKAh8"));
+	        		"https://www.youtube.com/watch?v=-gGx_WqKAh8", new DtPremio("Guantillas", 2, winers11, new DtFecha(2021, 10, 1, 0, 0, 0))));
 	        // Músculos para boxeo #C12
 	        IDCC.ingresarDatosClase("Fuerza Bruta",  "Kickboxing",  new DtClase("Músculos para boxeo",  "viktor",  "viktor", 
 	        		1,  5,  "https://www.musculos.com/muscbox",  new DtFecha(2021, 10, 15, 20, 0, 0),  new DtFecha(2021, 6, 7, 0, 0, 0),  "Músculos para boxeo.jpg", 
@@ -414,7 +426,7 @@ public class Main {
 	        		"https://www.youtube.com/watch?v=VMeQ4yRvGrc",new DtPremio("No hay ",0,null, null)));
 	        // Basquet II #C17
 	        IDCC.ingresarDatosClase("Telón",  "Basquetbol",  new DtClase("Basquet II",  "aldo",  "aldo", 
-	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 11, 21, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),null, 
+	        		10,  10,  "https://telon.com.uy/bball2",  new DtFecha(2021, 11, 20, 21, 0, 0),  new DtFecha(2021, 7, 31, 0, 0, 0),null, 
 	        		"https://www.youtube.com/watch?v=VMeQ4yRvGrc",new DtPremio("Juego de muñequitas",5,null, null)));
 	        // Aparatos #C18
 	        IDCC.ingresarDatosClase("Fuerza Bruta",   "Aparatos y pesas",   new DtClase("Aparatos II",   "viktor",   "viktor",   
@@ -520,7 +532,7 @@ public class Main {
 					new DtFecha(2021, 7, 18, 0, 0, 0),  null);
 			// #R21
 			IDCC.inscribirSocio("Instituto Natural",  "Aeróbica",  "Aeróbica niños",  "m1k4",  TReg.cuponera,  
-					new DtFecha(2021, 7, 19, 0, 0, 0),  "Gimnasia");
+					new DtFecha(2021, 8, 1, 0, 0, 0),  "Gimnasia");
 			// #R22
 			IDCC.inscribirSocio("Instituto Natural",  "Aeróbica",  "Aeróbico adulto mayor",  "Emi71",  TReg.general,  
 					new DtFecha(2021, 8, 17, 0, 0, 0),  null);
@@ -645,7 +657,7 @@ public class Main {
 
 			//BEnditos premios 
 			//premios C3
-			Set<String> winsC3 = new HashSet<>();
+			/*Set<String> winsC3 = new HashSet<>();
 			winsC3.add("charly");
 			winsC3.add("caro");
 			IDCC.sorteoLegal(winsC3, "Fuerza Bruta",  "Aparatos y pesas", "Aparatos", "Rueda de abdominales ", 3, new DtFecha(2021, 6, 2, 0, 0, 0));
@@ -667,7 +679,7 @@ public class Main {
 	    	winsC11.add("guille");
 	    	winsC11.add("sergiop");
 	    	IDCC.sorteoLegal(winsC6, "Fuerza Bruta",  "Kickboxing",  "Boxeo II", "Guantillas",2, new DtFecha(2021, 10, 1, 0, 0, 0));
-	  
+	  		*/
 			
 			//Finalizacionando Actividades
 			IADC.finalizarActividad("Voleibol");
