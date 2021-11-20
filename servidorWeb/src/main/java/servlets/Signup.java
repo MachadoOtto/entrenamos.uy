@@ -83,6 +83,7 @@ public class Signup extends HttpServlet{
 	        clearctx(request);
 	        request.getSession().setAttribute("loggedUser", GestorWeb.buscarUsuario(rp(request, "nickk")));
         } catch(Exception e) {
+        	e.printStackTrace();
         	System.out.println("INFO SIGNUP: "+e.getMessage());
         	savectx(request);
         	r=Parametrizer.addParam(r,  "e",  "2");
