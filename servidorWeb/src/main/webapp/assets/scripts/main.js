@@ -137,6 +137,9 @@ $(window).on('load',  function() {
 	}
 	try{
 		$("#formulario-registro").submit(function(e) {
+			if(!registrarse()){
+				return
+			}
 		    // Stop the form submitting
 		    e.preventDefault();
 			/*Validación nick e email*/
