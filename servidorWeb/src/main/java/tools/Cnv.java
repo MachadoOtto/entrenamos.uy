@@ -102,6 +102,7 @@ public class Cnv {
 			x.setFechaNacimiento(Cnv.fecha(d.getFechaNacimiento()));
 			x.setContrasenia(d.getContrasenia());
 			x.setImagen(d.getImagen());
+			x.setNombreInstitucion(((DtProfesor)d).getNombreInstitucion());
 			x.setBiografia(((DtProfesor) d).getBiografia());
 			x.setDescripcion(((DtProfesor) d).getDescripcion());
 			x.setLink(((DtProfesor) d).getLink());

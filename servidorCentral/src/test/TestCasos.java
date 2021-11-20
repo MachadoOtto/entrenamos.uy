@@ -2618,6 +2618,7 @@ public class TestCasos {
 	        DtProfesorExt viktorper = (DtProfesorExt) IUC.seleccionarUsuario("Administrador\uEAEA");
 	        Map<String,TEstado> m = new HashMap<>();
 	        m.put("NuevaActividadAFinalizar", TEstado.finalizada);
+	        assertEquals(DataPersistencia.getInstance().obtenerClases("NuevaActividadAFinalizar").contains("PPsas67"), true);
 	        assertEquals(DataPersistencia.getInstance().obtenerClases().contains("PPsas67"), true);
 	        assertEquals(viktorper.getHistoralActDepIngresadas(),m);
     	}catch(Exception e) {
