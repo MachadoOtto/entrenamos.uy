@@ -109,7 +109,9 @@ if ((loggedUser != null) && (loggedUser instanceof DtSocioExt)) {%>
           </div>
       <%contador++;
 		if (contador < datosCuponeras.size()) {%>
-      		<hr style="width:70%">
+			<div class="row justify-content-center">
+				<hr style="width:70%">
+			</div>
      	<% } %>   
      <% } %>
   </div>
