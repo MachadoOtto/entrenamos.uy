@@ -164,6 +164,24 @@ public class DataPersistencia {
 		return nombreActividades;
 	}
 	
+	public Set<String> obtenerClases() {
+		EntityManager em = emFabrica.createEntityManager();
+		Set<String> nombreClases = new HashSet<>();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Clases> select = em.createQuery("SELECT c FROM Clases c ORDER BY c.nombre DESC",	Clases.class);
+			for (Clases claseDB : select.getResultList()) {
+				nombreClases.add(claseDB.getNombre());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		} finally {
+			em.close();
+		}
+		return nombreClases;
+	}
+	
 	public Set<String> obtenerClases(String nombreActividad) {
 		EntityManager em = emFabrica.createEntityManager();
 		Set<String> nombreClases = new HashSet<>();
@@ -253,6 +271,7 @@ public class DataPersistencia {
 		return res;
 	}
 
+	// PRECONDICION!!! Existe al menos una actividad con 'nombreActDep' en la persistencia.
 	public DtActividadDeportivaExt getActividad(String nombreActDep) throws ActividadDeportivaException {
 		EntityManager em = emFabrica.createEntityManager();
 		try {
@@ -270,6 +289,7 @@ public class DataPersistencia {
 		throw new ActividadDeportivaException("La actividad deportiva "+nombreActDep+" no se encuentra presente en el sistema.");
 	}
 	
+	// PRECONDICION!!! Existe al menos una clase con 'nombreClase' en la persistencia.
 	public DtClaseExt getClase(String nombreClase) throws ClaseException {
 		EntityManager em = emFabrica.createEntityManager();
 		try {
