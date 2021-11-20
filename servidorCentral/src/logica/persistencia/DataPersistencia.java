@@ -278,8 +278,10 @@ public class DataPersistencia {
 			em.getTransaction().begin();
 			TypedQuery<ActividadesDeportivas> select = em.createQuery("SELECT act FROM ActividadesDeportivas act WHERE act.nombre=:nombre",ActividadesDeportivas.class);
 			select.setParameter("nombre", nombreActDep);
-			ActividadesDeportivas act = select.getSingleResult();
-			return act.toDtActividadDeportivaExt();
+			if (select.getResultList().size() > 0) {
+				ActividadesDeportivas act = select.getSingleResult();
+				return act.toDtActividadDeportivaExt();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback(); 
@@ -296,8 +298,10 @@ public class DataPersistencia {
 			em.getTransaction().begin();
 			TypedQuery<Clases> select = em.createQuery("SELECT cl FROM Clases cl WHERE cl.nombre=:nombre",Clases.class);
 			select.setParameter("nombre", nombreClase);
-			Clases clase = select.getSingleResult();
-			return clase.toDtClaseExt();
+			if (select.getResultList().size() > 0) {
+				Clases clase = select.getSingleResult();
+				return clase.toDtClaseExt();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			em.getTransaction().rollback(); 
