@@ -663,13 +663,13 @@ public class Main {
 	        Set<String> winsC9 = new HashSet<>();
 	    	winsC9.add("caro");
 	    	winsC9.add("euge");
-	    	IDCC.sorteoLegal(winsC6, "Instituto Natural",  "Aeróbica", "Aeróbica", "Caramañola", 2, new DtFecha(2021, 10, 1, 0, 0, 0));
+	    	IDCC.sorteoLegal(winsC9, "Instituto Natural",  "Aeróbica", "Aeróbica", "Caramañola", 2, new DtFecha(2021, 10, 1, 0, 0, 0));
 	    	
 	    	// Premios C11
 	        Set<String> winsC11 = new HashSet<>();
 	    	winsC11.add("guille");
 	    	winsC11.add("sergiop");
-	    	IDCC.sorteoLegal(winsC6, "Fuerza Bruta",  "Kickboxing",  "Boxeo II", "Guantillas",2, new DtFecha(2021, 10, 1, 0, 0, 0));
+	    	IDCC.sorteoLegal(winsC11, "Fuerza Bruta",  "Kickboxing",  "Boxeo II", "Guantillas",2, new DtFecha(2021, 10, 1, 0, 0, 0));
 	  		
 			
 			//Finalizacionando Actividades
