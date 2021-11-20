@@ -33,6 +33,11 @@ body {
 	border-collapse: separate;
     overflow: hidden;
     perspective: 1px;
+    width: 80px;
+}
+
+#nav-clasesDictadas {
+	width: 80px;
 }
 .ins-cat-section{
 	border-radius: 1em;

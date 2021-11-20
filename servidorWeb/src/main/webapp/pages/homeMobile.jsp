@@ -31,13 +31,13 @@
 	        <img src="<%=request.getContextPath()%>/assets/images/misc/actDepInfo.png" alt="">
 	    </div>
 	    <div id="texto-actDeps" class="col-6">
-	        <p>Podras ver informacion sobre las actividades deportivas</p>
+	        <p>Información sobre las actividades deportivas</p>
 	    </div>
 	</div>
 	
 	  <div id="section-clases" class="row pb-4">
 	      <div id="texto-clases" class="col-6 ms-3 ps-4">
-	          <p>Podras ver informacion sobre las clases que brinda la plataforma</p>
+	          <p>Informacion sobre las clases que brinda la plataforma</p>
 	      </div>
 	      <div class="col-5 ms-3 pe-5">
 	          <img src="<%=request.getContextPath()%>/assets/images/misc/claseInfo.png" alt="">
@@ -49,7 +49,7 @@
 	        <img src="<%=request.getContextPath()%>/assets/images/misc/institucionInfo.png" alt="">
 	    </div>
 	    <div id="texto-institucion" class="col-6 ms-3 ps-4">
-	      <p>Podras filtrar por institucion</p>
+	      <p>Las actividades deportivas de tu institución favorita</p>
 	  </div>
 	</div>
 	
