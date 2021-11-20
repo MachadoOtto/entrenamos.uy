@@ -136,8 +136,9 @@ public class DictadoClaseController implements IDictadoClaseController {
 			}
 		}
 		try {
-			DataPersistencia.getInstance().getClase(datos.getNombre());
-			throw new ClaseException("Ya existe una clase con ese nombre en la base de datos.");
+			if (DataPersistencia.getInstance().obtenerClases().contains(datos.getNombre())) {
+				throw new ClaseException("Ya existe una clase con ese nombre en la base de datos.");	
+			}
 		} catch (ClaseException ignore) { }
 
 		
