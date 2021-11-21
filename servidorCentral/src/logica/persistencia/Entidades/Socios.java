@@ -22,7 +22,6 @@ import datatypes.DtUsuarioExt;
 
 @Entity
 @Table(name = "SOCIOS")
-@PrimaryKeyJoinColumn(name = "ID_USUARIO", referencedColumnName = "ID")
 public class Socios extends Usuarios {
     private static final long serialVersionUID = 1L;
     
