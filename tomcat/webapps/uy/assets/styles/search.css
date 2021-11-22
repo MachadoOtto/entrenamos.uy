@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.img-de-lista {
+  	margin-bottom: 25px !important;
+  	width: 100% !important;
+  	box-shadow: 0 4px 8px 0 rgba(0,  0,  0,  0.2);
+  	transition: 0.3s;
+  	border: none;
+}
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
+.img-de-lista:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,  0,  0,  0.4);
+}
+
+.hyperlink-img {
+	text-decoration: none;
+	color: initial;
+}
+
+.hyperlink-img:hover {
+	color: initial;
+	text-decoration: underline;
+}
+
+.card-text {
+	color: #525252;
+	height: 75px;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.card-title { 
+ 	font-size: 18px;
+  	text-overflow: ellipsis;
+  	overflow: hidden; 
+  	width: 97%; 
+ 	height: 1.2em; 
+  	white-space: nowrap;
+}
+
+.card-img-top {
+	object-fit: cover;
+	height: 12vw;
+}
+
+.nav-info {
+	margin-left: 0 !important;
+}
+
+#btn-filtro {
+	white-space: nowrap;
+}

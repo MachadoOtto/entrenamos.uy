@@ -1,0 +1,35 @@
+.logMobile {
+    background: url(../../assets/images/misc/wallpaperMovil3.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.main {
+    background-color: rgb(233, 233, 233);
+    margin-top: 125px !important;
+    margin-bottom: 125px !important;
+    margin: 0 auto;
+    border-radius: 5px;
+    opacity: .99;
+    padding: 0 20;
+    box-shadow: 0px 0px 3px #848484;
+    max-width: 500px;
+}
+
+#iconoEUY {
+    width: 80px;
+    display: block;
+    margin: auto;
+    margin-top: 5%;
+}
+
+#titulo {
+    font-family: sans-serif;
+    font-size: 30px;
+    color: #1d1d1d;
+    text-align: center;
+    margin-top: 4%;
+}
+
+#btn-is {
+    
+}
