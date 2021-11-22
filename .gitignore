@@ -24,3 +24,4 @@ servidor.jar
 *.log
 *.properties
 *.script
+/tomcat
