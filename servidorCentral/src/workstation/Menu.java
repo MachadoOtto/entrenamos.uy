@@ -481,14 +481,6 @@ public class Menu {
 		menuBaseDeDatos.add(itemLimpiarBaseActividad);
 		itemLimpiarBaseActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					AudioInputStream audioIn = AudioSystem.getAudioInputStream(Menu.class.getResource("/workstation/nuke.wav"));
-					Clip clip = AudioSystem.getClip();
-					clip.open(audioIn);
-					clip.start();
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
-				}
 				DataPersistencia.getInstance().nuketownDetonator();
 			}
 		});
@@ -496,14 +488,6 @@ public class Menu {
 		menuBaseDeDatos.add(itemLimpiarBaseLogs);
 		itemLimpiarBaseLogs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					AudioInputStream audioIn = AudioSystem.getAudioInputStream(Menu.class.getResource("/workstation/nuke.wav"));
-					Clip clip = AudioSystem.getClip();
-					clip.open(audioIn);
-					clip.start();
-				} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e1) {
-					e1.printStackTrace();
-				}
 				IL.nuketownDetonator();
 			}
 		});
