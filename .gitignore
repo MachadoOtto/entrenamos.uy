@@ -25,3 +25,4 @@ servidor.jar
 *.properties
 *.script
 /tomcat
+/assets
