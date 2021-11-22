@@ -6,6 +6,9 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceFeature;
+
+import servlets.ConfigListener;
+
 import javax.xml.ws.Service;
 
 /**
@@ -15,7 +18,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "WSUsuarioControllerService", 
-                  wsdlLocation = "http://localhost:9129/entrenamosuy/usuarioController?wsdl",
+                
                   targetNamespace = "http://webServices/") 
 public class WSUsuarioControllerService extends Service {
 
@@ -26,11 +29,11 @@ public class WSUsuarioControllerService extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("http://localhost:9129/entrenamosuy/usuarioController?wsdl");
+            url = new URL(ConfigListener.cfg.getProperty("usuarioControllerURL"));
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(WSUsuarioControllerService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "http://localhost:9129/entrenamosuy/usuarioController?wsdl");
+                     "Can not initialize the default wsdl from {0}", ConfigListener.cfg.getProperty("usuarioControllerURL"));
         }
         WSDL_LOCATION = url;
     }

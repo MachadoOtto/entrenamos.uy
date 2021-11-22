@@ -19,7 +19,6 @@ import java.util.logging.Logger;
                       serviceName = "WSActividadControllerService",
                       portName = "WSActividadControllerPort",
                       targetNamespace = "http://webServices/",
-                      wsdlLocation = "http://localhost:9129/entrenamosuy/actividadController?wsdl",
                       endpointInterface = "webservices.WSActividadController")
                       
 public class WSActividadControllerImpl implements WSActividadController {

@@ -19,7 +19,6 @@ import java.util.logging.Logger;
                       serviceName = "WSContentControllerService",
                       portName = "WSContentControllerPort",
                       targetNamespace = "http://webServices/",
-                      wsdlLocation = "http://localhost:9129/entrenamosuy/contentController?wsdl",
                       endpointInterface = "webservices.WSContentController")
                       
 public class WSContentControllerImpl implements WSContentController {

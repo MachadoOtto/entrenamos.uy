@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-mainmenu () {
+mainmenu () {   
     echo "----------------------------------------------" 
     echo "-      Entrenamos.uy compiling utility       -" 
     echo "----------------------------------------------" 
@@ -26,7 +26,7 @@ mainmenu () {
 }
 
 installWeb () {
-    echo "Compiling ServidorWeb...\n"
+    echo "Compiling ServidorWeb..."
     cd servidorWeb
     ant clean compile war
     cd ..
@@ -34,7 +34,7 @@ installWeb () {
 }
 
 installCentral (){
-    echo "Compiling ServidorCentral...\n"
+    echo "Compiling ServidorCentral..."
     cd servidorCentral
     mvn clean install
     cd ..
@@ -49,4 +49,4 @@ installAll () {
 }
 
 mainmenu
-echo "Compilation successfull.\n"
+echo "Compilation successfull."

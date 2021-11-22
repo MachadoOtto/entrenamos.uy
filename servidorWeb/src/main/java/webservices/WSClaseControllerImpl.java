@@ -19,7 +19,6 @@ import java.util.logging.Logger;
                       serviceName = "WSClaseControllerService",
                       portName = "WSClaseControllerPort",
                       targetNamespace = "http://webServices/",
-                      wsdlLocation = "http://localhost:9129/entrenamosuy/claseController?wsdl",
                       endpointInterface = "webservices.WSClaseController")
                       
 public class WSClaseControllerImpl implements WSClaseController {

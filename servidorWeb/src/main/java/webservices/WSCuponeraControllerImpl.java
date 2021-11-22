@@ -19,7 +19,6 @@ import java.util.logging.Logger;
                       serviceName = "WSCuponeraControllerService",
                       portName = "WSCuponeraControllerPort",
                       targetNamespace = "http://webServices/",
-                      wsdlLocation = "http://localhost:9129/entrenamosuy/cuponeraController?wsdl",
                       endpointInterface = "webservices.WSCuponeraController")
                       
 public class WSCuponeraControllerImpl implements WSCuponeraController {

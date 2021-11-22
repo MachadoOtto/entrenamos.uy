@@ -19,7 +19,6 @@ import java.util.logging.Logger;
                       serviceName = "WSUsuarioControllerService",
                       portName = "WSUsuarioControllerPort",
                       targetNamespace = "http://webServices/",
-                      wsdlLocation = "http://localhost:9129/entrenamosuy/usuarioController?wsdl",
                       endpointInterface = "webservices.WSUsuarioController")
                       
 public class WSUsuarioControllerImpl implements WSUsuarioController {
