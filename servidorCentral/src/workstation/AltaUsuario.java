@@ -552,7 +552,7 @@ public class AltaUsuario extends JInternalFrame {
 	        descripcionU = this.textAreaDescripcion.getText().trim();
 	        biografiaU = this.textAreaBiografia.getText().trim();
 	        websiteU = this.textFieldWebsite.getText().trim();
-	        String contrasenia = passwordField1.getPassword().toString().trim();
+	        String contrasenia = new String(passwordField1.getPassword());
 	        
 			/*
 			 * Crea el tipo de dato segun el tipo de usuario seleccionado
@@ -589,8 +589,8 @@ public class AltaUsuario extends JInternalFrame {
         String anioU = inicioAnio.getText().trim();
         String institutoU = this.comboBoxInstitucion.getSelectedItem().toString().trim();
         String descripcionU = this.textAreaDescripcion.getText().trim();
-        String contrasenia1 = String.valueOf(passwordField1.getPassword());
-        String contrasenia2 = String.valueOf(passwordField2.getPassword());
+        String contrasenia1 = new String(passwordField1.getPassword());
+        String contrasenia2 = new String(passwordField1.getPassword());
 
         //Celdas vacias
         if (tipoU == "-" || nicknameU.isEmpty() || nombreU.isEmpty() || apellidoU.isEmpty() || emailU.isEmpty() || diaU < 1 || mesU < 1 || anioU.isEmpty() || ((tipoU == "Profesor") && (institutoU == "-" || descripcionU.isEmpty()))) {
