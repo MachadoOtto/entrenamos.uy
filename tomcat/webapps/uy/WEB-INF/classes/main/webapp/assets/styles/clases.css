@@ -1,0 +1,190 @@
+@charset "UTF-8";
+
+body {
+	overflow-x: hidden;
+}
+
+#img-perfil
+{
+	margin-bottom: 10px;
+}
+.ins-cat-section{
+	border-radius: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
+#mainImgDiv{
+    object-fit: cover;
+    justify-content: center;
+    width: 100%;
+    height: 10em;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #0275d8;
+}
+#actDepCreator{
+    object-fit: cover;
+    width: 100%;
+    height: 4em;
+    margin-bottom: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: silver;
+}
+#creatorDiv{
+    margin-top: 1em;
+    display: flex;
+    align-items: center;
+}
+/*Botones de navegador*/
+
+#user-navegador {
+	border-radius: 2px 0 0 0 !important;
+	height: 42px;
+	width: auto;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+#user-nav1 {
+	border-radius: 6px 7px 0 0 !important;
+	width: 85px;
+	height: auto;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+#user-nav2 {
+	border-radius: 6px 7px 0 0 !important;
+	width:  85px;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+#user-nav3 {
+	border-radius: 6px 7px 0 0 !important;
+	width: 200px;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+#user-nav4 {
+	border-radius: 6px 7px 0 0 !important;
+	width: 115px;
+	border-collapse: separate;
+    overflow: hidden;
+    perspective: 1px;
+}
+
+ #user-imagen {
+ 	display: block;
+ 	margin: auto;
+	max-width: 100%;
+	display: flex;
+ 	justify-content: center;
+ 	width: 100%;
+ 	height: 75%;
+ }
+ 
+ #user-superior {
+ 	display: flex;
+    justify-content: flex-start;
+ }
+ 
+ #img-perfil {
+  	border-style: solid;
+  	border-width: 2px;
+  	border-color: silver;
+ }
+ 
+#user-seguir {
+ 	max-width: 100%;
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ }
+ 
+ #user-editar-btn {
+    display: flex;
+    justify-content: flex-end;
+ }
+ 
+ /* Consultas de navegador */
+ 
+ #user-consultaInformacion {
+ 	display: block;
+ 	max-width: 2000x;
+ 	max-height: 375px;
+ 	overflow-y: scroll;
+ }
+ 
+ /*							*/
+ .imagenSeleccionable {
+	object-fit: cover;
+	width:80px;
+	height:80px;
+	display: block;
+    justify-content: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0275d8;
+}
+
+.clase {
+	padding: 10px;
+	vertical-align: top; 
+	text-align: top;
+	font-size: 21px;
+}
+
+#botonInsc{
+	margin-left: 3em;
+}
+#genRadio{
+    padding-left: 2em;
+}
+#cupRadio{
+    padding-left: 2em;
+}
+#cupdiv{
+	margin-top: 3em;
+}
+#confInscbtn{
+	margin-top: 1em;
+}
+.extraInfoDiv{
+	border-radius: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    background-color: rgba(204 204 204 / 28%);
+    padding: 1em 1em 1em 1em;
+}
+
+.elementoLista{
+	width: 100%;
+    display: flex;
+    align-items: center;
+	background: white;
+	color: #525252;
+	transition: transform 0.25s;
+}
+.elementoLista:hover {
+	transform: scale(1.111);
+}
+
+.consultaAceptadaRechazada {
+	margin-left: 10px;
+}
+
+#user-nickname {
+	font-size: 50px;
+}
+
+#user-type {
+	font-size: 20px;
+}

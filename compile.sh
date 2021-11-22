@@ -27,18 +27,19 @@ mainmenu () {
 
 installWeb () {
     echo "Compiling ServidorWeb...\n"
-    cd ServidorWeb
-    ant compile war
+    cd servidorWeb
+    ant clean compile war
     cd ..
-    cp ServidorWeb/dist/ServidorWeb.war ./web.war
+    cp servidorWeb/dist/ServidorWeb.war ./web.war
 }
 
 installCentral (){
     echo "Compiling ServidorCentral...\n"
-    cd ServidorCentral
-    ant compile jar
+    cd servidorCentral
+    mvn clean install
     cd ..
-    cp ServidorCentral/build/jar/ServidorCentral.jar ./servidor.jar
+    cp servidorCentral/target/servidorCentral-1.0-jar-with-dependencies.jar ./servidor.jar
+    cp -r servidorCentral/assets ./assets
 }
 
 
