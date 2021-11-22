@@ -85,7 +85,7 @@ public class GeneradorComprobante extends HttpServlet {
 	        	pdf.open();
 	        	float width = pdf.getPageSize().getWidth();
 	            float height = pdf.getPageSize().getHeight();
-	        	Image plantilla = Image.getInstance(request.getContextPath()+"/assets/images/misc/plantillaPrize.png");
+	        	Image plantilla = Image.getInstance(request.getServletContext().getRealPath("/assets/images/misc/plantillaPrize.png"));
 	        	plantilla.scaleAbsolute(width, height);
 	        	plantilla.setAbsolutePosition(0, 0);
 	        	pdf.add(plantilla);
