@@ -75,7 +75,7 @@ public class GeneradorComprobante extends HttpServlet {
 			} catch (ClaseException ignore) { }
 		}
 		if (premio.getGanadores().contains(id)) {
-	    	String texto = "Felicidades socio/a " + id + "! Gracias a su participacion en la clase " + cla +
+	    	String texto = "¡Felicidades socio/a " + id + "! Gracias a su participación en la clase " + cla +
 	    			", dictada por " + prof + " (" + actividad + " / " + insti + "), usted ha sido 'dudosamente' premiado con:\n" + 
 	    			"    * " + descPremio + "\n Vencimiento: " + fechaVencimiento;
 	        try {
