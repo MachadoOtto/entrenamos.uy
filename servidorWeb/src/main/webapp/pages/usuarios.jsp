@@ -200,7 +200,7 @@
                       <h6 class="mb-0"><strong>Fecha de nacimiento:<strong></strong></strong></h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <%=usrProfile.getFechaNacimiento().toFechaHora()%>
+                      <%=usrProfile.getFechaNacimiento().toFecha()%>
                     </div>
                   </div>
                   

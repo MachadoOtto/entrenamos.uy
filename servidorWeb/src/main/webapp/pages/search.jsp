@@ -47,6 +47,7 @@
 			
 			// Auxiliares para el orden y filtro:
 			String orden = (String) request.getAttribute("orden");
+			String mostrarTodas = (String) request.getAttribute("mostrarTodas");
 			Set<?> listaInstituciones = (Set<?>) request.getAttribute("instituciones");
 			Set<?> listaCategorias = (Set<?>) request.getAttribute("categorias");
 			Set<?> filtro = null;
@@ -66,25 +67,42 @@
 							} %>
 				        	<h4><strong><%=cantidadResultados%> resultados.</strong></h4>
 				        </div>
+				        <%String linkAndFiltro = link;
+		        		  filtro = (Set<?>) request.getAttribute("filtroInsti");
+		        		  int count = 1;
+		        		  for (Object x : filtro) {
+		        			  linkAndFiltro += "&fltrI" + count + "=" + (String)x;
+		        			  count++;
+		        		  }
+		        		  filtro = (Set<?>) request.getAttribute("filtroCat");
+		        		  count = 1;
+		        		  for (Object x : filtro) {
+		        			  linkAndFiltro += "&fltrC" + count + "=" + (String)x;
+		        			  count++;
+		        		  } %>
+		        		<% if (request.getAttribute("clases") != null) {%>
+				        <div class="col-md-auto">
+				        		Mostrar clases:
+				        </div>
+				        <div class="col-md-auto">
+				        	<div id="divMostrar" class="mb-auto">
+				        		<form name="estadoMostrar" action="<%=request.getContextPath() + linkAndFiltro%>&sort=<%=orden%>" method="POST">
+			                    	<select id="mostrar" name="mostrar" class="form-select" data-live-search="true" onchange="this.form.submit()">
+			                            <option value="yes" 
+			                            	<%if (mostrarTodas.equals("yes")) {%> selected="selected" <% } %>>Todas</option>
+			                            <option value="no"
+			                            	<%if (mostrarTodas.equals("no")) {%> selected="selected" <% } %>>Disponibles</option>
+			                        </select>
+			                	</form>
+		                    </div>
+				        </div>
+				        <% } %>
 				        <div class="col-md-auto">
 				        		Ordenar por:
 				        </div>
 				        <div class="col-md-auto">
 				        	<div id="divOrder" class="mb-auto">
-				        		<%String linkAndFiltro = link;
-				        		  filtro = (Set<?>) request.getAttribute("filtroInsti");
-				        		  int count = 1;
-				        		  for (Object x : filtro) {
-				        			  linkAndFiltro += "&fltrI" + count + "=" + (String)x;
-				        			  count++;
-				        		  }
-				        		  filtro = (Set<?>) request.getAttribute("filtroCat");
-				        		  count = 1;
-				        		  for (Object x : filtro) {
-				        			  linkAndFiltro += "&fltrC" + count + "=" + (String)x;
-				        			  count++;
-				        		  } %>
-				        		<form name="orden" action="<%=request.getContextPath() + linkAndFiltro%>" method="POST">
+				        		<form name="orden" action="<%=request.getContextPath() + linkAndFiltro%>&mostrar=<%=mostrarTodas%>" method="POST">
 			                    	<select id="sort" name="sort" class="form-select" data-live-search="true" onchange="this.form.submit()">
 			                            <option value="alfaDesc" 
 			                            	<%if (orden.equals("alfaDesc")) {%> selected="selected" <% } %>>Alfabeticamente (A-Z a-z)</option>
@@ -197,7 +215,7 @@
 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	            </div>
 	            <div class="modal-body">
-	                <form id="form-filtro" action="<%=request.getContextPath() + link%>&sort=<%=orden%>" method="POST" accept-charset="utf-8"> 
+	                <form id="form-filtro" action="<%=request.getContextPath() + link%>&sort=<%=orden%>&mostrar=<%=mostrarTodas%>" method="POST" accept-charset="utf-8"> 
 	                	<h5 class="fw-bold mb-0">Instituciones:</h5>
 	                	<%int counter = 0;
 	                	filtro = (Set<?>) request.getAttribute("filtroInsti");
