@@ -121,6 +121,43 @@
 		<% } %>
 	  </div>
 	<% } %>
+	
+		<div class="row pt-4 pb-4" id="section-cuponeras">
+		    <div class="row mb-2">
+		        <h3><i class="fas fa-trophy"></i> Premio</h3>
+		    </div>
+		    <div class="row pt-1 ">
+		        <p><i class="fas fa-clipboard-list"></i> Descripción: <%=datosClase.getPremio().getDescripcion()%></p>
+		    </div>
+		    <div class="row pt-1">
+		        <p><i class="fas fa-plus-circle"></i> Cantidad: <%=datosClase.getPremio().getCantidad()%></p>
+		    </div>
+		    <div class="row pt-1">
+		    <%if (datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0))) { %>
+		        <p><i class="fas fa-clock"></i> El sorteo aún no se ha realizado!</p>
+		    <% } else { %>
+		        <p><i class="fas fa-clock"></i> Fecha sorteo: <%=datosClase.getPremio().getFechaSorteo().toFechaHora()%></p>
+		    <% } %>
+		    </div>
+		    <%if (!(datosClase.getPremio().getFechaSorteo().equals(new DtFecha(0,0,0,0,0,0))) && datosClase.getPremio().getGanadores() != null) { %>
+		    <div class="row mb-2">
+		        <h3><i class="fas fa-ticket-alt"></i> Ganadores</h3>
+		    </div>
+		    <%  List<String> nickGanadores = datosClase.getPremio().getGanadores();
+		    	int contadorG = 0;%>
+		    <hr style="width:88%; height: 2px;">
+		    <%  for (String ganador : nickGanadores) { %>
+			    <div class="row">
+			        <h5><%=ganador%></h5>
+			    </div>
+		    	<%contadorG++;
+		    	if (nickGanadores.size() > contadorG) {%>
+		    		<hr style="width:70%">
+		    	<%  } %>
+		    <%  } %>
+		    <%} %>
+	    </div>
+	    
 		<div class="row pt-3 pb-4" id="section-video">
 			<%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
 				String u = datosClase.getUrlVideo();

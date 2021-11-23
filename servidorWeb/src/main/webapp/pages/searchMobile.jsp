@@ -42,6 +42,11 @@
 	
 	// Auxiliares para el orden y filtro:
 	String orden = (String) request.getAttribute("orden");
+	String mostrarTodas = (String) request.getAttribute("mostrarTodas");
+	String linkAct = new String();
+	if (request.getAttribute("actividadSelect") != null) {
+		linkAct = "&fltrA=" + request.getAttribute("actividadSelect");
+	}
 	Set<?> listaInstituciones = (Set<?>) request.getAttribute("instituciones");
 	Set<?> listaCategorias = (Set<?>) request.getAttribute("categorias");
 	Set<?> filtro = null;
@@ -95,19 +100,33 @@
             </button>
             <ul class="dropdown-menu">
             <%for (Object obj : listaActividades) {%>
-              <li><a class="dropdown-item" href="<%=linkAndFiltro%>&fltrA=<%=((DtActividadDeportivaExt)obj).getNombre()%>"><%=((DtActividadDeportivaExt)obj).getNombre()%></a></li>
+              <li><a class="dropdown-item" href="<%=linkAndFiltro%>&mostrar=<%=mostrarTodas%>&fltrA=<%=((DtActividadDeportivaExt)obj).getNombre()%>"><%=((DtActividadDeportivaExt)obj).getNombre()%></a></li>
             <% } %>
             </ul>
           </div>
         <% } %>
         </div>
+        <% String linkAndFiltro2 = linkAndFiltro + linkAct;%>
+        <div id="filtrarMuestra" class="row filtrar pt-2 pb-4">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-align-justify"></i> Mostrar Clases
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="<%=linkAndFiltro2%>&mostrar=yes">Todas</a></li>
+              <li><a class="dropdown-item" href="<%=linkAndFiltro2%>&mostrar=no">Disponibles</a></li>
+            </ul>
+          </div>
+        </div>
         <% } %>
-       	
         <div id="infoActDep" class="row">
         	<% String textoInfo = nombreFltr;
         	String fltrAct = (String) request.getAttribute("filtroAct");
         	if (encabezado.equals("Clases") && (!fltrAct.isEmpty())) {
         		 textoInfo += " y Actividad " + fltrAct;
+        	}
+        	if (encabezado.equals("Clases") && mostrarTodas.equals("no")) {
+        		textoInfo = "Disponibles " + textoInfo;
         	}%>
             <p><i class="fas fa-info-circle"></i> Listado de <%=encabezado%> <%=textoInfo%></p>
             <p><i class="fas fa-info-circle"></i> Presione una para ver mas informacion</p>
