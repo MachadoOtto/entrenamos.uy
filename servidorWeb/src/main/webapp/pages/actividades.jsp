@@ -278,7 +278,7 @@
                            <input type="file" class="form-control" name="img" id="customFil2e" accept=".jpg, .jpeg, .png, .webp, .gif, .tiff">
                  
                        </div>
-                       <h6>Premio <i style="font-size:0.7rem;"></i></h6>
+                       <h6>Premio <i style="font-size:0.7rem;"> (opcional)</i></h6>
                     <div id="descPremioDiv" class="form-group form-floating mb-3">
                         <textarea class="form-control" id="descPremio" name="descPremio" rows="15" oninput='this.style.height = "";this.style.height = this.scrollHeight +3+ "px"' ><%=((request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLdescPremio")!=null) ? request.getSession().getAttribute("ctx"+datosActDep.getNombre()+"CLdescPremio") : "")%></textarea>
                         <label for="desc">Descripción</label>     
