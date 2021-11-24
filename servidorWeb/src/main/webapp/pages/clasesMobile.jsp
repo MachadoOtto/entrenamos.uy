@@ -121,7 +121,7 @@
 		<% } %>
 	  </div>
 	<% } %>
-	
+	<%if (datosClase.getPremio()!=null) { %>
 		<div class="row pt-4 pb-4" id="section-cuponeras">
 		    <div class="row mb-2">
 		        <h3><i class="fas fa-trophy"></i> Premio</h3>
@@ -157,7 +157,7 @@
 		    <%  } %>
 		    <%} %>
 	    </div>
-	    
+	    <% } %>
 		<div class="row pt-3 pb-4" id="section-video">
 			<%if ((datosClase.getUrlVideo() != null) && !datosClase.getUrlVideo().isEmpty()) {
 				String u = datosClase.getUrlVideo();
