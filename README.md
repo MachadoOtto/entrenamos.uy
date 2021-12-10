@@ -23,4 +23,4 @@ Este proyecto tuvo como finalidad integrar e incorporar conocimientos avanzados 
  *      HTML (en conjunto con JSP y CSS).
  *      javascript y AJAX.
  *      HSQLDB (en conjunto a JPA).
- *      Apache Ant y Apache Maven.
+ *      Apache Tomcat, Ant y Maven.
